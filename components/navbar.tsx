@@ -72,7 +72,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               <Link href="/about" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 About
               </Link>
-              <Link href="#tools" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link href="/tools" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Tools
               </Link>
               <Link href="/support" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
@@ -175,7 +175,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   About
                 </Link>
                 <Link
-                  href="#tools"
+                  href="/tools"
                   className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
                 >
                   Tools
