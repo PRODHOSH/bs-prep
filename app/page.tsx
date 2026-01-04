@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { StaggerTestimonials } from "@/components/stagger-testimonials"
+import { AnimatedCounter } from "@/components/animated-counter"
 import { BookOpen, Users, TrendingUp, CheckCircle, Zap, Award, ArrowRight } from "lucide-react"
 
 export default function HomePage() {
@@ -42,16 +44,16 @@ export default function HomePage() {
 
           <div className="grid grid-cols-3 gap-4 md:gap-8 mt-20">
             {[
-              { label: "Active Students", value: "2,500+" },
-              { label: "Expert Mentors", value: "150+" },
-              { label: "Study Materials", value: "500+" },
+              { label: "Active Students", value: 2500, suffix: "+" },
+              { label: "Expert Mentors", value: 150, suffix: "+" },
+              { label: "Study Materials", value: 500, suffix: "+" },
             ].map((stat, i) => (
               <div
                 key={i}
                 className="bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center hover:shadow-lg transition-all duration-300 cursor-default border border-slate-200/20 dark:border-slate-700/30"
               >
                 <p className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-                  {stat.value}
+                  <AnimatedCounter end={stat.value} suffix={stat.suffix} duration={2500} />
                 </p>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{stat.label}</p>
               </div>
@@ -134,6 +136,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <StaggerTestimonials />
 
       <section className="relative py-20 md:py-28">
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-3xl p-12 md:p-16 border border-slate-200/20 dark:border-slate-700/30 shadow-lg">

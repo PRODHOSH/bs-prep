@@ -69,11 +69,20 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               <Link href="/" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Home
               </Link>
-              <Link href="/about" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
-                About
+              <Link href="/courses" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Courses
+              </Link>
+              <Link href="/quiz-prep" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Quiz Prep
+              </Link>
+              <Link href="/resources" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Resources
               </Link>
               <Link href="/tools" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Tools
+              </Link>
+              <Link href="/about" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Contributors
               </Link>
               <Link href="/support" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Support
@@ -169,16 +178,34 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   Home
                 </Link>
                 <Link
-                  href="/about"
+                  href="/courses"
                   className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
                 >
-                  About
+                  Courses
+                </Link>
+                <Link
+                  href="/quiz-prep"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                >
+                  Quiz Prep
+                </Link>
+                <Link
+                  href="/resources"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                >
+                  Resources
                 </Link>
                 <Link
                   href="/tools"
                   className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
                 >
                   Tools
+                </Link>
+                <Link
+                  href="/about"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                >
+                  Contributors
                 </Link>
                 <Link
                   href="/support"
