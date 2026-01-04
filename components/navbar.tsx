@@ -53,9 +53,11 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <div className="w-9 h-9 bg-slate-900 dark:bg-white rounded-lg flex items-center justify-center group-hover:opacity-80 transition-opacity">
-              <span className="text-white dark:text-slate-900 font-bold text-lg">I</span>
-            </div>
+            <img 
+              src="/logo.jpeg" 
+              alt="IITM BS Logo" 
+              className="w-9 h-9 rounded-full object-cover group-hover:opacity-80 transition-opacity"
+            />
             <span className="font-bold text-xl hidden sm:inline text-slate-900 dark:text-white">
               IITM BS
             </span>
@@ -69,6 +71,12 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               </Link>
               <Link href="/about" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 About
+              </Link>
+              <Link href="#tools" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Tools
+              </Link>
+              <Link href="/support" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Support
               </Link>
             </div>
           )}
@@ -165,6 +173,18 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
                 >
                   About
+                </Link>
+                <Link
+                  href="#tools"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                >
+                  Tools
+                </Link>
+                <Link
+                  href="/support"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+                >
+                  Support
                 </Link>
               </>
             )}

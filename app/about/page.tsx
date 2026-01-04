@@ -4,15 +4,135 @@
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
-import { BookOpen, Users, Target, Heart, Award, Sparkles } from "lucide-react"
+import { BookOpen, Users, Target, Heart, Award, Sparkles, Github, Linkedin, Mail } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { useState } from "react"
+
+// Developer Team Component
+function DeveloperTeamSection() {
+  const { ref: teamRef, isVisible: teamVisible } = useScrollAnimation()
+  const [expandedCard, setExpandedCard] = useState<number | null>(null)
+
+  const developers = [
+    {
+      name: "Prodhosh",
+      role: "Frontend Developer",
+      tech: "React + Next.js",
+      photo: "PD",
+      about: "Passionate about creating beautiful and functional user interfaces. Specializes in React and Next.js, bringing designs to life with clean, efficient code.",
+      socials: {
+        github: "#",
+        linkedin: "#",
+        email: "prodhosh@example.com"
+      }
+    },
+    {
+      name: "Rishwanth",
+      role: "Database Architect",
+      tech: "Supabase",
+      photo: "RW",
+      about: "Expert in database design and backend infrastructure. Manages Supabase integration and ensures data integrity across the platform.",
+      socials: {
+        github: "#",
+        linkedin: "#",
+        email: "rishwanth@example.com"
+      }
+    },
+    {
+      name: "Saran",
+      role: "Backend Developer",
+      tech: "Node.js + API",
+      photo: "SR",
+      about: "Builds robust backend systems and APIs. Focuses on server-side logic, authentication, and seamless integration between frontend and database.",
+      socials: {
+        github: "#",
+        linkedin: "#",
+        email: "saran@example.com"
+      }
+    }
+  ]
+
+  return (
+    <section ref={teamRef} className={`py-20 transition-all duration-1000 ${teamVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Team</h2>
+          <p className="text-slate-300 max-w-2xl mx-auto">
+            The passionate developers building this platform for the IITM BS community
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {developers.map((dev, index) => (
+            <Card 
+              key={index} 
+              className="bg-white/5 backdrop-blur-sm border-slate-200/20 cursor-pointer transition-all duration-300 hover:bg-white/10 hover:scale-105"
+              onClick={() => setExpandedCard(expandedCard === index ? null : index)}
+            >
+              <CardContent className="p-6">
+                {/* Photo Placeholder */}
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#3e3098] to-[#51b206] flex items-center justify-center text-white text-2xl font-bold">
+                  {dev.photo}
+                </div>
+
+                {/* Name and Role */}
+                <h3 className="text-xl font-bold text-center mb-2">{dev.name}</h3>
+                <p className="text-[#51b206] text-center font-medium mb-1">{dev.role}</p>
+                <p className="text-slate-400 text-center text-sm mb-4">{dev.tech}</p>
+
+                {/* Expandable Content */}
+                <div className={`transition-all duration-300 overflow-hidden ${expandedCard === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className="pt-4 border-t border-slate-200/20">
+                    <p className="text-slate-300 text-sm mb-4 leading-relaxed">
+                      {dev.about}
+                    </p>
+
+                    {/* Social Links */}
+                    <div className="flex justify-center gap-4">
+                      <a 
+                        href={dev.socials.github} 
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Github className="w-5 h-5 text-slate-300" />
+                      </a>
+                      <a 
+                        href={dev.socials.linkedin} 
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Linkedin className="w-5 h-5 text-slate-300" />
+                      </a>
+                      <a 
+                        href={`mailto:${dev.socials.email}`} 
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Mail className="w-5 h-5 text-slate-300" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Click indicator */}
+                <div className="text-center mt-4 text-xs text-slate-500">
+                  {expandedCard === index ? "Click to collapse" : "Click to learn more"}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function AboutPage() {
   const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation()
   const { ref: missionRef, isVisible: missionVisible } = useScrollAnimation()
   const { ref: visionRef, isVisible: visionVisible } = useScrollAnimation()
   const { ref: valuesRef, isVisible: valuesVisible } = useScrollAnimation()
-  const { ref: teamRef, isVisible: teamVisible } = useScrollAnimation()
+  const { ref: impactRef, isVisible: impactVisible } = useScrollAnimation()
 
   return (
     <div className="min-h-screen">
@@ -159,9 +279,9 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div
-            ref={teamRef}
+            ref={impactRef}
             className={`transition-all duration-1000 ${
-              teamVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              impactVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           >
             <div className="text-center mb-16">
@@ -187,6 +307,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Meet Our Team Section */}
+      <DeveloperTeamSection />
 
       {/* Disclaimer */}
       <section className="py-16">

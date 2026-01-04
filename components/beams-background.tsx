@@ -9,7 +9,7 @@ const Beams = dynamic(() => import('@/src/components/Beams'), {
 
 export function BeamsBackground() {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
       <Beams
         beamWidth={2}
         beamHeight={15}

@@ -32,9 +32,11 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#3e3098] to-[#51b206] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">I</span>
-              </div>
+              <img 
+                src="/logo.jpeg" 
+                alt="IITM BS Logo" 
+                className="w-10 h-10 rounded-full object-cover"
+              />
               <span className="text-xl font-bold text-slate-900 dark:text-white">IITM BS</span>
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
