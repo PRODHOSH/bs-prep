@@ -10,50 +10,57 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Clock } from "lucide-react"
 
 // Same course data as parent page
 const courseData: Record<string, any> = {
-  "qualifier-python": {
-    title: "Python Programming Basics",
+  "qualifier-math-1": {
+    title: "Mathematics for Data Science I",
     videos: [
-      { week: 1, title: "Introduction to Python", description: "Getting started with Python programming", duration: "45:30", youtubeId: "kqtD5dpn9C8" },
-      { week: 2, title: "Data Types and Variables", description: "Understanding Python data structures", duration: "52:15", youtubeId: "rfscVS0vtbw" },
-      { week: 3, title: "Control Flow and Functions", description: "Mastering loops, conditions, and functions", duration: "48:20", youtubeId: "8ext9G7xspg" },
-      { week: 4, title: "Object-Oriented Programming", description: "Classes, objects, and OOP concepts", duration: "55:45", youtubeId: "ZDa-Z5JzLYM" }
+      { week: 1, title: "Week 1 - Part 1", description: "Introduction to mathematical foundations", duration: "45:30", youtubeId: "21e6j8G-njE" },
+      { week: 1, title: "Week 1 - Part 2", description: "Vectors and matrices basics", duration: "52:15", youtubeId: "vJvx_NtHrmA" },
+      { week: 1, title: "Week 1 - Part 3", description: "Matrix operations", duration: "48:20", youtubeId: "0IUbec8P_ok" },
+      { week: 2, title: "Week 2 - Part 1", description: "Linear transformations", duration: "50:10", youtubeId: "Yfn_BOY_0YI" },
+      { week: 2, title: "Week 2 - Part 2", description: "Advanced matrix concepts", duration: "55:45", youtubeId: "ACoKBjv4E_8" }
     ]
   },
-  "qualifier-math": {
-    title: "Mathematics Foundation",
+  "qualifier-stats-1": {
+    title: "Statistics for Data Science I",
     videos: [
-      { week: 1, title: "Linear Algebra Basics", description: "Vectors, matrices, and operations", duration: "42:10", youtubeId: "fNk_zzaMoSs" },
-      { week: 2, title: "Calculus Fundamentals", description: "Derivatives and integrals", duration: "50:25", youtubeId: "WUvTyaaNkzM" },
-      { week: 3, title: "Probability Theory", description: "Introduction to probability", duration: "46:30", youtubeId: "uzkc-qNVoOk" },
-      { week: 4, title: "Statistics Basics", description: "Descriptive and inferential statistics", duration: "53:15", youtubeId: "xxpc-HPKN28" }
+      { week: 1, title: "Week 1 - Introduction", description: "Fundamentals of statistics", duration: "46:35", youtubeId: "KnQ3EiRiePA" },
+      { week: 2, title: "Week 2 - Descriptive Statistics", description: "Measures of central tendency", duration: "52:13", youtubeId: "0yqZiTCwGlc" },
+      { week: 3, title: "Week 3 - Probability Basics", description: "Introduction to probability theory", duration: "61:32", youtubeId: "7tC9xgjFzoc" },
+      { week: 4, title: "Week 4 - Statistical Inference", description: "Hypothesis testing fundamentals", duration: "48:43", youtubeId: "zk_LyywNlFQ" }
     ]
   },
-  "qualifier-stats": {
-    title: "Statistics Primer",
+  "qualifier-computational-thinking": {
+    title: "Computational Thinking",
     videos: [
-      { week: 1, title: "Introduction to Statistics", description: "What is statistics and why it matters", duration: "40:15", youtubeId: "hjZJIVWHnPE" },
-      { week: 2, title: "Data Visualization", description: "Charts, graphs, and visual analysis", duration: "47:20", youtubeId: "0P7QnIQDBJY" },
-      { week: 3, title: "Hypothesis Testing", description: "Testing statistical hypotheses", duration: "51:30", youtubeId: "0oc49DyA3hU" },
-      { week: 4, title: "Regression Analysis", description: "Linear and logistic regression", duration: "49:45", youtubeId: "nk2CQITm_eo" }
+      { week: 1, title: "Week 1 - Introduction", description: "What is computational thinking?", duration: "42:15", youtubeId: "hH7xlmnNvR8" },
+      { week: 2, title: "Week 2 - Algorithms", description: "Basic algorithmic concepts", duration: "50:20", youtubeId: "IGRGpZD_mrc" },
+      { week: 2, title: "Week 2-4 - Pseudocode", description: "Writing pseudocode effectively", duration: "45:30", youtubeId: "LHM0ymdQ9jw" },
+      { week: 3, title: "Week 3 - Practice Problems", description: "Solving computational problems", duration: "52:40", youtubeId: "W8JeI7fyW0A" },
+      { week: 4, title: "Week 4 - Advanced Topics", description: "Complex problem solving", duration: "48:05", youtubeId: "IvcVmO9BY78" }
     ]
   },
-  "foundation-python-advanced": {
-    title: "Python for Data Science",
+  "qualifier-english-1": {
+    title: "English I",
     videos: [
-      { week: 1, title: "NumPy and Pandas", description: "Data manipulation with Python libraries", duration: "58:30", youtubeId: "ZyhVh-qRZPA" },
-      { week: 2, title: "Data Visualization with Matplotlib", description: "Creating stunning visualizations", duration: "52:15", youtubeId: "UO98lJQ3QGI" },
-      { week: 3, title: "Data Cleaning and Preprocessing", description: "Handling missing data and outliers", duration: "55:20", youtubeId: "xi0vhXFPegw" },
-      { week: 4, title: "Introduction to Machine Learning", description: "Basic ML concepts with scikit-learn", duration: "60:10", youtubeId: "Gv9_4yMHFhI" }
+      { week: 1, title: "Week 1 - Communication Basics", description: "Fundamentals of effective communication", duration: "62:52", youtubeId: "YLRCCeQR95o" },
+      { week: 4, title: "Week 4 - Advanced Skills", description: "Professional communication techniques", duration: "55:30", youtubeId: "9SLWfl6icMU" }
     ]
   },
-  "diploma-database": {
-    title: "Database Management Systems",
-    videos: [
-      { week: 1, title: "Introduction to Databases", description: "Database fundamentals and SQL basics", duration: "45:40", youtubeId: "HXV3zeQKqGY" },
-      { week: 2, title: "Advanced SQL Queries", description: "Joins, subqueries, and optimization", duration: "52:25", youtubeId: "7S_tz1z_5bA" },
-      { week: 3, title: "Database Design", description: "Normalization and ER diagrams", duration: "48:15", youtubeId: "ztHopE5Wnpc" },
-      { week: 4, title: "NoSQL Databases", description: "MongoDB, Redis, and document stores", duration: "50:30", youtubeId: "xh4gy1lbL2k" }
-    ]
+  "foundation-math-2": {
+    title: "Mathematics for Data Science II",
+    videos: []
+  },
+  "foundation-stats-2": {
+    title: "Statistics for Data Science II",
+    videos: []
+  },
+  "foundation-programming-python": {
+    title: "Programming in Python",
+    videos: []
+  },
+  "foundation-english-2": {
+    title: "English II",
+    videos: []
   }
 }
 

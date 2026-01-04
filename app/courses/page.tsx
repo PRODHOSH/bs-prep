@@ -7,7 +7,8 @@ import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Lock, Play, Clock, Star } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Lock, Play, Clock, Star, Search } from "lucide-react"
 
 interface Course {
   id: string
@@ -20,99 +21,87 @@ interface Course {
 }
 
 const courses: Course[] = [
-  // Qualifier Courses (Always Free, 4 weeks)
+  // Qualifier Courses (Always Free)
   {
-    id: "qualifier-python",
-    title: "Python Programming Basics",
+    id: "qualifier-math-1",
+    title: "Mathematics for Data Science I",
     level: "qualifier",
     type: "free",
     weeks: 4,
-    description: "Learn Python fundamentals with hands-on examples",
-    thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400"
+    description: "Fundamental mathematics concepts for data science",
+    thumbnail: "/courses/math.jpg"
   },
   {
-    id: "qualifier-math",
-    title: "Mathematics Foundation",
-    level: "qualifier",
-    type: "free",
-    weeks: 4,
-    description: "Essential mathematical concepts for data science",
-    thumbnail: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=400"
-  },
-  {
-    id: "qualifier-stats",
-    title: "Statistics Primer",
+    id: "qualifier-stats-1",
+    title: "Statistics for Data Science I",
     level: "qualifier",
     type: "free",
     weeks: 4,
     description: "Introduction to statistical thinking and analysis",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400"
+    thumbnail: "/courses/stats.jpg"
+  },
+  {
+    id: "qualifier-computational-thinking",
+    title: "Computational Thinking",
+    level: "qualifier",
+    type: "free",
+    weeks: 4,
+    description: "Problem-solving and algorithmic thinking fundamentals",
+    thumbnail: "/courses/ct.jpg"
+  },
+  {
+    id: "qualifier-english-1",
+    title: "English I",
+    level: "qualifier",
+    type: "free",
+    weeks: 4,
+    description: "Essential English communication skills",
+    thumbnail: "/courses/english.jpg"
   },
   
-  // Foundation Courses
+  // Foundation Courses (Paid)
   {
-    id: "foundation-python-advanced",
-    title: "Python for Data Science",
+    id: "foundation-math-2",
+    title: "Mathematics for Data Science II",
     level: "foundation",
-    type: "free",
+    type: "paid",
     weeks: 12,
-    description: "Advanced Python programming for data analysis",
-    thumbnail: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400"
+    description: "Advanced mathematical concepts for data science",
+    thumbnail: "/courses/math.jpg"
   },
   {
-    id: "foundation-statistics",
-    title: "Statistics for Data Science",
+    id: "foundation-stats-2",
+    title: "Statistics for Data Science II",
     level: "foundation",
     type: "paid",
     weeks: 12,
     description: "Comprehensive statistical methods and applications",
-    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400"
+    thumbnail: "/courses/stats.jpg"
   },
-  
-  // Diploma Courses
   {
-    id: "diploma-ml",
-    title: "Machine Learning Fundamentals",
-    level: "diploma",
+    id: "foundation-programming-python",
+    title: "Programming in Python",
+    level: "foundation",
     type: "paid",
     weeks: 12,
-    description: "Core ML algorithms and practical implementations",
-    thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400"
+    description: "Python programming for data analysis and applications",
+    thumbnail: "/courses/ct.jpg"
   },
   {
-    id: "diploma-database",
-    title: "Database Management Systems",
-    level: "diploma",
-    type: "free",
-    weeks: 12,
-    description: "SQL, NoSQL, and database design principles",
-    thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400"
-  },
-  
-  // Degree Courses
-  {
-    id: "degree-deep-learning",
-    title: "Deep Learning",
-    level: "degree",
+    id: "foundation-english-2",
+    title: "English II",
+    level: "foundation",
     type: "paid",
     weeks: 12,
-    description: "Neural networks, CNNs, RNNs, and transformers",
-    thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400"
-  },
-  {
-    id: "degree-nlp",
-    title: "Natural Language Processing",
-    level: "degree",
-    type: "paid",
-    weeks: 12,
-    description: "Text processing, sentiment analysis, and language models",
-    thumbnail: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400"
+    description: "Advanced English communication and writing skills",
+    thumbnail: "/courses/english.jpg"
   }
 ]
 
 export default function CoursesPage() {
   const [selectedLevels, setSelectedLevels] = useState<string[]>([])
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
+  const [searchQuery, setSearchQuery] = useState("")
 
   const toggleFilter = (filterType: "level" | "type", value: string) => {
     if (filterType === "level") {
@@ -129,15 +118,16 @@ export default function CoursesPage() {
   const filteredCourses = courses.filter(course => {
     const levelMatch = selectedLevels.length === 0 || selectedLevels.includes(course.level)
     const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(course.type)
-    return levelMatch && typeMatch
+    const searchMatch = searchQuery === "" || 
+      course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchQuery.toLowerCase())
+    return levelMatch && typeMatch && searchMatch
   })
 
   const getLevelBadgeColor = (level: string) => {
     switch (level) {
       case "qualifier": return "bg-[#51b206]/20 text-[#51b206] border-[#51b206]/50"
       case "foundation": return "bg-blue-500/20 text-blue-400 border-blue-500/50"
-      case "diploma": return "bg-purple-500/20 text-purple-400 border-purple-500/50"
-      case "degree": return "bg-orange-500/20 text-orange-400 border-orange-500/50"
       default: return "bg-slate-500/20 text-slate-400 border-slate-500/50"
     }
   }
@@ -159,9 +149,23 @@ export default function CoursesPage() {
                 Courses
               </span>
             </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-8">
               Master IITM BS curriculum with structured video courses
             </p>
+
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  type="text"
+                  placeholder="Search courses by name or description..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-4 py-6 text-lg bg-black/80 backdrop-blur-sm border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] rounded-xl text-white placeholder:text-slate-500"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -179,7 +183,7 @@ export default function CoursesPage() {
                 <div className="mb-8">
                   <h3 className="text-sm font-semibold text-slate-300 mb-4">Program Level</h3>
                   <div className="space-y-3">
-                    {["qualifier", "foundation", "diploma", "degree"].map(level => (
+                    {["qualifier", "foundation"].map(level => (
                       <label key={level} className="flex items-center gap-3 cursor-pointer group">
                         <Checkbox
                           checked={selectedLevels.includes(level)}
@@ -187,10 +191,7 @@ export default function CoursesPage() {
                           className="border-slate-600 data-[state=checked]:bg-[#51b206] data-[state=checked]:border-[#51b206]"
                         />
                         <span className="text-slate-400 group-hover:text-white transition-colors capitalize">
-                          {level === "qualifier" && "Qualifier (Special)"}
-                          {level === "foundation" && "Foundation"}
-                          {level === "diploma" && "Diploma"}
-                          {level === "degree" && "Degree"}
+                          {level}
                         </span>
                       </label>
                     ))}
@@ -228,19 +229,53 @@ export default function CoursesPage() {
                     Reset Filters
                   </button>
                 )}
+
+                {/* Clear Search */}
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="w-full mt-3 px-4 py-2 text-sm bg-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg transition-colors"
+                  >
+                    Clear Search
+                  </button>
+                )}
               </div>
             </div>
 
             {/* RIGHT SIDE - COURSE CARDS */}
             <div className="lg:col-span-3">
-              <div className="mb-6">
+              <div className="mb-6 flex items-center justify-between">
                 <p className="text-slate-400">
                   Showing <span className="text-white font-semibold">{filteredCourses.length}</span> courses
+                  {searchQuery && (
+                    <span className="ml-2">
+                      for "<span className="text-[#51b206]">{searchQuery}</span>"
+                    </span>
+                  )}
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredCourses.map(course => {
+              {filteredCourses.length === 0 ? (
+                <div className="text-center py-20">
+                  <Search className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-white mb-2">No courses found</h3>
+                  <p className="text-slate-400 mb-6">
+                    Try adjusting your filters or search query
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSelectedLevels([])
+                      setSelectedTypes([])
+                      setSearchQuery("")
+                    }}
+                    className="px-6 py-3 bg-[#51b206] hover:bg-[#51b206]/90 text-white rounded-lg transition-colors"
+                  >
+                    Clear All Filters
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filteredCourses.map(course => {
                   const isPaid = course.type === "paid"
                   const isLocked = isPaid
 
@@ -259,7 +294,7 @@ export default function CoursesPage() {
                             <img
                               src={course.thumbnail}
                               alt={course.title}
-                              className={`w-full h-full object-cover ${isLocked ? "blur-sm" : "group-hover:scale-110 transition-transform duration-300"}`}
+                              className={`w-full h-full object-cover object-left ${isLocked ? "blur-sm" : "group-hover:scale-110 transition-transform duration-300"}`}
                             />
                             
                             {/* Overlay for locked courses */}
@@ -315,12 +350,6 @@ export default function CoursesPage() {
                                 <Clock className="w-4 h-4" />
                                 <span>{course.weeks} weeks</span>
                               </div>
-                              {course.level === "qualifier" && (
-                                <div className="flex items-center gap-1">
-                                  <Star className="w-4 h-4 text-[#51b206]" fill="#51b206" />
-                                  <span className="text-[#51b206]">Special</span>
-                                </div>
-                              )}
                             </div>
                           </div>
                         </CardContent>
@@ -329,20 +358,6 @@ export default function CoursesPage() {
                   )
                 })}
               </div>
-
-              {filteredCourses.length === 0 && (
-                <div className="text-center py-20">
-                  <p className="text-slate-400 text-lg">No courses found matching your filters</p>
-                  <button
-                    onClick={() => {
-                      setSelectedLevels([])
-                      setSelectedTypes([])
-                    }}
-                    className="mt-4 px-6 py-2 bg-[#51b206] hover:bg-[#51b206]/90 text-white rounded-lg transition-colors"
-                  >
-                    Clear Filters
-                  </button>
-                </div>
               )}
             </div>
           </div>
