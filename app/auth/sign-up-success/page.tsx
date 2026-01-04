@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function SignUpSuccessPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4 md:p-6">
+    <div className="flex min-h-screen items-center justify-center p-4 md:p-6">
       <Card className="w-full max-w-md text-center">
         <CardHeader>
           <CardTitle className="text-2xl text-primary">Check Your Email</CardTitle>

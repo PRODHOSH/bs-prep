@@ -50,7 +50,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       {/* Navigation Bar */}
       <nav className="border-b bg-card">
         <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
