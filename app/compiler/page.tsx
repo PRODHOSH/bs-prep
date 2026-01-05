@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import { Play, Trash2, Copy, Download } from 'lucide-react'
+import { Navbar } from '@/components/navbar'
 
 // Dynamically import Monaco Editor to avoid SSR issues
 const Editor = dynamic(() => import('@monaco-editor/react'), { ssr: false })
@@ -172,17 +173,19 @@ input = MockInput(${JSON.stringify(inputLines)})
   }
 
   return (
-    <div className="h-screen flex flex-col bg-black">
-      {/* Header */}
-      <div className="border-b border-slate-800/50 bg-slate-950 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-white">
-                Python Compiler
-              </h1>
-              <p className="text-sm text-slate-400 mt-1">
-                ⚡ Write and execute Python code instantly in your browser
-              </p>
+    <>
+      <Navbar isAuthenticated={true} />
+      <div className="h-[calc(100vh-4rem)] flex flex-col bg-black">
+        {/* Header */}
+        <div className="border-b border-slate-800/50 bg-slate-950 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-white">
+                  Python Compiler
+                </h1>
+                <p className="text-sm text-slate-400 mt-1">
+                  ⚡ Write and execute Python code instantly in your browser
+                </p>
             </div>
             <div className="flex items-center gap-3">
               <Button
@@ -307,6 +310,8 @@ input = MockInput(${JSON.stringify(inputLines)})
           </div>
         </div>
       </div>
+    </>
   )
 }
+
 
