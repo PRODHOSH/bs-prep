@@ -27,11 +27,17 @@ print(greet("World"))`)
     const originalConsoleError = console.error
     console.error = (...args: any[]) => {
       const message = args[0]?.toString() || ''
-      // Filter out known harmless errors from Next.js dev tools
+      const allMessages = args.join(' ')
+      
+      // Filter out known harmless errors from Next.js dev tools and external CDN scripts
       if (
         message.includes('stackframe') ||
         message.includes('error-stack-parser') ||
-        message.includes('[object Event]')
+        message.includes('[object Event]') ||
+        message.includes('modules that depend on it') ||
+        allMessages.includes('cdn.jsdelivr') ||
+        allMessages.includes('pyodide.js') ||
+        allMessages.includes('monaco-editor')
       ) {
         return // Suppress these errors
       }
