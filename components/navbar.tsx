@@ -22,6 +22,7 @@ interface NavbarProps {
 export function Navbar({ isAuthenticated = false, userRole = "student" }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [profilePhoto, setProfilePhoto] = useState<string>('')
   const [scrolled, setScrolled] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -35,6 +36,34 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   useEffect(() => {
     if (isAuthenticated) {
       supabase.auth.getUser().then(({ data }) => setUser(data.user))
+      fetchProfilePhoto()
+    }
+  }, [isAuthenticated])
+
+  const fetchProfilePhoto = async () => {
+    try {
+      const response = await fetch('/api/profile')
+      if (response.ok) {
+        const { profile } = await response.json()
+        if (profile?.photo_url) {
+          setProfilePhoto(profile.photo_url)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching profile photo:', error)
+    }
+  }
+
+  // Poll for profile photo updates every 5 seconds when on profile page
+  useEffect(() => {
+    if (isAuthenticated && typeof window !== 'undefined') {
+      const interval = setInterval(() => {
+        if (window.location.pathname === '/dashboard/profile') {
+          fetchProfilePhoto()
+        }
+      }, 2000)
+      
+      return () => clearInterval(interval)
     }
   }, [isAuthenticated])
 
@@ -101,6 +130,9 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               <Link href="/quiz-prep" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Quiz Prep
               </Link>
+              <Link href="/compiler" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+                Compiler
+              </Link>
               <Link href="/resources" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Resources
               </Link>
@@ -124,8 +156,14 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center justify-center w-9 h-9 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-80 transition-opacity">
-                      <User className="w-5 h-5" />
+                    <button className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-[#3e3098] via-purple-600 to-green-500 p-[2px] hover:opacity-80 transition-opacity">
+                      <div className="w-full h-full rounded-full bg-slate-50 dark:bg-slate-950 flex items-center justify-center overflow-hidden">
+                        {profilePhoto ? (
+                          <img src={profilePhoto} alt="Profile" className="w-full h-full object-cover" />
+                        ) : (
+                          <User className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                        )}
+                      </div>
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
@@ -222,6 +260,9 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 </Link>
                 <Link href="/quiz-prep" className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">
                   Quiz Prep
+                </Link>
+                <Link href="/compiler" className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">
+                  Compiler
                 </Link>
                 <Link href="/resources" className="block px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">
                   Resources

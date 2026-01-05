@@ -90,7 +90,8 @@ export default function LoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 text-base"
+                    className="h-12 text-base password-dots-lg"
+                    style={{ fontSize: '24px', letterSpacing: '0.5em' }}
                   />
                 </div>
 
