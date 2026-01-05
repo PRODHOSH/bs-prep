@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { 
   MapPin, 
   Calendar, 
@@ -20,8 +21,12 @@ import {
   Trash2,
   FolderGit2,
   Briefcase,
-  GraduationCap
+  GraduationCap,
+  Camera,
+  Upload
 } from 'lucide-react'
+import ReactCrop, { type Crop, PixelCrop } from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
 
 interface Project {
   id: string
@@ -51,7 +56,22 @@ export default function ProfilePage() {
   const [isEditMode, setIsEditMode] = useState(false)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const supabase = createClient()
+  
+  // Image cropping states
+  const [showCropDialog, setShowCropDialog] = useState(false)
+  const [cropImageType, setCropImageType] = useState<'avatar' | 'banner'>('avatar')
+  const [imageToCrop, setImageToCrop] = useState<string>('')
+  const [crop, setCrop] = useState<Crop>({
+    unit: '%',
+    width: 50,
+    height: 50,
+    x: 25,
+    y: 25
+  })
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
+  const imgRef = useRef<HTMLImageElement>(null)
   
   const [profileData, setProfileData] = useState({
     full_name: '',
@@ -214,6 +234,145 @@ export default function ProfilePage() {
     setEducations(educations.map(e => e.id === id ? { ...e, [field]: value } : e))
   }
 
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>, type: 'avatar' | 'banner') => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      setImageToCrop(reader.result as string)
+      setCropImageType(type)
+      
+      // Set different crop aspect ratios
+      if (type === 'avatar') {
+        setCrop({
+          unit: '%',
+          width: 50,
+          height: 50,
+          x: 25,
+          y: 25
+        })
+      } else {
+        setCrop({
+          unit: '%',
+          width: 80,
+          height: 40,
+          x: 10,
+          y: 30
+        })
+      }
+      
+      setShowCropDialog(true)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const getCroppedImg = async (): Promise<Blob | null> => {
+    const image = imgRef.current
+    const crop = completedCrop
+
+    if (!image || !crop) return null
+
+    const canvas = document.createElement('canvas')
+    const scaleX = image.naturalWidth / image.width
+    const scaleY = image.naturalHeight / image.height
+    const ctx = canvas.getContext('2d')
+
+    if (!ctx) return null
+
+    const pixelRatio = window.devicePixelRatio || 1
+    canvas.width = crop.width * pixelRatio * scaleX
+    canvas.height = crop.height * pixelRatio * scaleY
+
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+    ctx.imageSmoothingQuality = 'high'
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width * scaleX,
+      crop.height * scaleY
+    )
+
+    return new Promise((resolve) => {
+      canvas.toBlob(
+        (blob) => {
+          resolve(blob)
+        },
+        'image/jpeg',
+        0.95
+      )
+    })
+  }
+
+  const handleCropSave = async () => {
+    setUploading(true)
+    try {
+      const croppedBlob = await getCroppedImg()
+      if (!croppedBlob) {
+        alert('Failed to crop image')
+        return
+      }
+
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+
+      const fileExt = 'jpg'
+      const fileName = `${user.id}_${cropImageType}_${Date.now()}.${fileExt}`
+      const filePath = `${cropImageType}s/${fileName}`
+
+      // Upload to Supabase Storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('profiles')
+        .upload(filePath, croppedBlob, {
+          contentType: 'image/jpeg',
+          upsert: true
+        })
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError)
+        alert('Failed to upload image')
+        return
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('profiles')
+        .getPublicUrl(filePath)
+
+      // Update profile data
+      if (cropImageType === 'avatar') {
+        setProfileData({ ...profileData, avatar_url: publicUrl })
+      } else {
+        setProfileData({ ...profileData, banner_url: publicUrl })
+      }
+
+      // Save to database immediately
+      const updateField = cropImageType === 'avatar' ? 'avatar_url' : 'banner_url'
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ [updateField]: publicUrl })
+        .eq('id', user.id)
+
+      if (updateError) {
+        console.error('Database update error:', updateError)
+      }
+
+      setShowCropDialog(false)
+      setImageToCrop('')
+    } catch (error) {
+      console.error('Error saving cropped image:', error)
+      alert('An error occurred while saving the image')
+    } finally {
+      setUploading(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -264,15 +423,29 @@ export default function ProfilePage() {
         </div>
 
         {/* Banner */}
-        <div className="relative h-48 bg-gradient-to-r from-purple-600 via-blue-600 to-green-600">
-          {profileData.banner_url && (
+        <div className="relative h-48 bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 group">
+          {profileData.banner_url ? (
             <img src={profileData.banner_url} alt="Banner" className="w-full h-full object-cover" />
+          ) : (
+            <div className="w-full h-full" />
           )}
+          <label className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+            <div className="text-white text-center">
+              <Upload className="w-8 h-8 mx-auto mb-2" />
+              <span className="text-sm font-medium">Upload Banner</span>
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleImageSelect(e, 'banner')}
+              className="hidden"
+            />
+          </label>
         </div>
 
         {/* Profile Photo */}
         <div className="px-6 -mt-16 mb-4">
-          <div className="relative inline-block">
+          <div className="relative inline-block group">
             <div className="w-32 h-32 rounded-full border-4 border-black overflow-hidden bg-slate-800">
               {profileData.avatar_url ? (
                 <img src={profileData.avatar_url} alt="Profile" className="w-full h-full object-cover" />
@@ -282,6 +455,15 @@ export default function ProfilePage() {
                 </div>
               )}
             </div>
+            <label className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+              <Camera className="w-8 h-8 text-white" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageSelect(e, 'avatar')}
+                className="hidden"
+              />
+            </label>
           </div>
         </div>
 
@@ -705,6 +887,57 @@ export default function ProfilePage() {
           </Card>
         </div>
       </div>
+
+      {/* Image Crop Dialog */}
+      <Dialog open={showCropDialog} onOpenChange={setShowCropDialog}>
+        <DialogContent className="max-w-2xl bg-slate-900 border-slate-800">
+          <DialogHeader>
+            <DialogTitle className="text-white">
+              Crop {cropImageType === 'avatar' ? 'Profile Photo' : 'Banner Image'}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            {imageToCrop && (
+              <div className="flex justify-center">
+                <ReactCrop
+                  crop={crop}
+                  onChange={(c) => setCrop(c)}
+                  onComplete={(c) => setCompletedCrop(c)}
+                  aspect={cropImageType === 'avatar' ? 1 : 16 / 9}
+                  circularCrop={cropImageType === 'avatar'}
+                >
+                  <img
+                    ref={imgRef}
+                    src={imageToCrop}
+                    alt="Crop preview"
+                    style={{ maxHeight: '400px' }}
+                  />
+                </ReactCrop>
+              </div>
+            )}
+            <div className="flex gap-3 justify-end">
+              <Button
+                onClick={() => {
+                  setShowCropDialog(false)
+                  setImageToCrop('')
+                }}
+                variant="outline"
+                className="border-slate-700"
+                disabled={uploading}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleCropSave}
+                disabled={uploading || !completedCrop}
+                className="bg-gradient-to-r from-purple-600 to-green-600"
+              >
+                {uploading ? 'Uploading...' : 'Save'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
