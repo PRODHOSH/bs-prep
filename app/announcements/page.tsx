@@ -1,19 +1,58 @@
-import { NextResponse } from "next/server"
-import { supabase } from "@/lib/supabase"
+"use client"
 
-// GET: fetch announcements
-export async function GET() {
-  const { data, error } = await supabase
-    .from("announcements")
-    .select("*")
-    .order("created_at", { ascending: false })
+import { useEffect, useState } from "react"
 
-  if (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    )
+type Announcement = {
+  id: number
+  title: string
+  content: string
+  created_at: string
+}
+
+export default function AnnouncementsPage() {
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const res = await fetch("/api/announcements")
+        const data = await res.json()
+        setAnnouncements(data)
+      } catch (err) {
+        console.error("Failed to fetch announcements", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchAnnouncements()
+  }, [])
+
+  if (loading) {
+    return <p className="p-6">Loading announcements...</p>
   }
 
-  return NextResponse.json(data)
+  return (
+    <div className="p-6 space-y-4">
+      <h1 className="text-2xl font-bold">📢 Announcements</h1>
+
+      {announcements.length === 0 && (
+        <p>No announcements yet.</p>
+      )}
+
+      {announcements.map((a) => (
+        <div
+          key={a.id}
+          className="border rounded-lg p-4"
+        >
+          <h2 className="font-semibold text-lg">{a.title}</h2>
+          <p className="mt-1">{a.content}</p>
+          <p className="text-sm text-gray-500 mt-2">
+            {new Date(a.created_at).toLocaleString()}
+          </p>
+        </div>
+      ))}
+    </div>
+  )
 }
