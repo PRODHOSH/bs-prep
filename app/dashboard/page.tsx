@@ -22,51 +22,34 @@ interface Course {
 }
 
 interface LiveClass {
-  id: string
-  title: string
-  instructor: string
-  date: string
+  subject: string
+  topic: string
+  meetingLink: string
   time: string
-  duration: string
-  course: string
+  date: string
 }
 
 export default function StudentDashboard() {
   const [userName, setUserName] = useState("")
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([])
+  const [liveClasses, setLiveClasses] = useState<LiveClass[]>([])
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
 
-  // Sample upcoming live classes
-  const upcomingClasses: LiveClass[] = [
-    {
-      id: "1",
-      title: "Introduction to Linear Algebra",
-      instructor: "Dr. Sharma",
-      date: "Feb 18, 2026",
-      time: "10:00 AM",
-      duration: "90 min",
-      course: "Mathematics for Data Science I"
-    },
-    {
-      id: "2",
-      title: "Statistical Distributions Workshop",
-      instructor: "Prof. Kumar",
-      date: "Feb 19, 2026",
-      time: "2:00 PM",
-      duration: "120 min",
-      course: "Statistics for Data Science I"
-    },
-    {
-      id: "3",
-      title: "Python Fundamentals Live Session",
-      instructor: "Dr. Patel",
-      date: "Feb 20, 2026",
-      time: "11:00 AM",
-      duration: "90 min",
-      course: "Computational Thinking"
+  useEffect(() => {
+    const fetchLiveClasses = async () => {
+      try {
+        const response = await fetch("/api/live-classes")
+        if (response.ok) {
+          const data = await response.json()
+          setLiveClasses(data.classes || [])
+        }
+      } catch (error) {
+        console.error("Error fetching live classes:", error)
+      }
     }
-  ]
+    fetchLiveClasses()
+  }, [])
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -148,8 +131,13 @@ export default function StudentDashboard() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {upcomingClasses.map((liveClass) => (
-            <Card key={liveClass.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all">
+          {liveClasses.length === 0 ? (
+            <div className="col-span-full bg-white/5 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-8 text-center">
+              <p className="text-slate-600 dark:text-slate-400">No live classes scheduled at the moment.</p>
+            </div>
+          ) : (
+            liveClasses.slice(0, 3).map((liveClass, index) => (
+            <Card key={index} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all">
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/10 border-red-500/20">
@@ -160,34 +148,34 @@ export default function StudentDashboard() {
                 </div>
                 
                 <h3 className="font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2">
-                  {liveClass.title}
+                  {liveClass.subject}
                 </h3>
                 
                 <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
-                  {liveClass.course}
+                  {liveClass.topic}
                 </p>
                 
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                    <Users className="w-4 h-4" />
-                    <span>{liveClass.instructor}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                     <Calendar className="w-4 h-4" />
-                    <span>{liveClass.date} at {liveClass.time}</span>
+                    <span>{new Date(liveClass.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}</span>
                   </div>
                   <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                     <Clock className="w-4 h-4" />
-                    <span>{liveClass.duration}</span>
+                    <span>{liveClass.time}</span>
                   </div>
                 </div>
                 
-                <Button className="w-full mt-4 bg-[#51b206] hover:bg-[#51b206]/90 text-white">
-                  Set Reminder
+                <Button 
+                  className="w-full mt-4 bg-[#E8E889] hover:bg-[#d4d477] text-black font-semibold"
+                  onClick={() => window.open(liveClass.meetingLink, "_blank")}
+                >
+                  <Video className="w-4 h-4 mr-2" />
+                  Join Meeting
                 </Button>
               </CardContent>
             </Card>
-          ))}
+          )))}
         </div>
       </div>
 
