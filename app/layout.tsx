@@ -1,18 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import dynamic from "next/dynamic"
 import { Urbanist } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { BeamsBackground } from "@/components/beams-background"
 import { LoadingProvider } from "@/components/loading-provider"
 import { Loading } from "@/components/loading"
 import "./globals.css"
-
-// Lazy load background component
-const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
-  ssr: false
-})
 
 const urbanist = Urbanist({ 
   subsets: ["latin"],

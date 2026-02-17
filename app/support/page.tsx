@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -156,8 +155,7 @@ export default function SupportPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-slate-950 to-black relative">
-      <AnimatedBackground />
+    <div className="min-h-screen">
       <Navbar isAuthenticated={isAuthenticated} />
 
       {/* Hero Section */}
