@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { TrendingUp } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { courseData } from "@/lib/gpa/course-data"
 import { Course } from "@/lib/gpa/types"
 import { calculateScore } from "@/lib/gpa/calculate-score"
+import { createClient } from "@/lib/supabase/client"
 
 interface GradePrediction {
   grade: string
@@ -21,6 +22,17 @@ interface GradePrediction {
 }
 
 export default function GPAPredictor() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setIsAuthenticated(!!data.user)
+      setLoading(false)
+    })
+  }, [])
+
   const [selectedDegree, setSelectedDegree] = useState<"data-science" | "electronic-systems" | "">("")
   const [selectedLevel, setSelectedLevel] = useState<"foundation" | "diploma" | "degree" | "">("")
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
@@ -77,9 +89,13 @@ export default function GPAPredictor() {
     setPredictions(newPredictions)
   }
 
+  if (loading) {
+    return null
+  }
+
   return (
     <div className="min-h-screen">
-      <Navbar isAuthenticated={false} />
+      <Navbar isAuthenticated={isAuthenticated} />
       
       <div className="container mx-auto px-4 py-20">
         <div className="text-center mb-12">

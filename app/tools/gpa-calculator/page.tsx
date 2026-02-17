@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { courseData } from "@/lib/gpa/course-data"
 import { calculateScore } from "@/lib/gpa/calculate-score"
 import { assignGrade } from "@/lib/gpa/grade-utils"
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { createClient } from "@/lib/supabase/client"
 
 interface SemesterCourse {
   id: string
@@ -32,6 +33,17 @@ const gradePointsOptions = [
 ]
 
 export default function GPACalculator() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setIsAuthenticated(!!data.user)
+      setLoading(false)
+    })
+  }, [])
+
   const [activeTab, setActiveTab] = useState<"course" | "semester">("course")
   
   // Course Grade Calculator State
@@ -89,9 +101,13 @@ export default function GPACalculator() {
     }
   }
 
+  if (loading) {
+    return null
+  }
+
   return (
     <div className="min-h-screen">
-      <Navbar isAuthenticated={false} />
+      <Navbar isAuthenticated={isAuthenticated} />
       
       <div className="container mx-auto px-4 py-20">
         <div className="text-center mb-12">
