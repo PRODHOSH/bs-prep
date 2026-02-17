@@ -52,12 +52,12 @@ export function LiveClassCard({
   };
 
   return (
-    <Card className="bg-gradient-to-br from-[#3e3098] to-[#5842c3] border-purple-500/20 text-white">
+    <Card className="bg-gradient-to-br from-gray-900 to-black border-gray-700 text-white">
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-xl font-bold">{subject}</CardTitle>
-            <p className="text-purple-200 mt-1">{topic}</p>
+            <CardTitle className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">{subject}</CardTitle>
+            <p className="text-gray-400 mt-1">{topic}</p>
           </div>
           <Badge className={statusColors[status]}>
             {status === "live" ? "● LIVE" : status.toUpperCase()}
@@ -66,11 +66,11 @@ export function LiveClassCard({
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-purple-100">
+          <div className="flex items-center gap-2 text-gray-300">
             <Calendar className="h-4 w-4" />
             <span>{formatDate(date)}</span>
           </div>
-          <div className="flex items-center gap-2 text-purple-100">
+          <div className="flex items-center gap-2 text-gray-300">
             <Clock className="h-4 w-4" />
             <span>{time}</span>
           </div>
