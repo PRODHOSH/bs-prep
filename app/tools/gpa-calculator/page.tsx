@@ -101,8 +101,16 @@ export default function GPACalculator() {
     }
   }
 
+  // Show navbar even during loading to prevent blank page flash
   if (loading) {
-    return null
+    return (
+      <div className="min-h-screen">
+        <Navbar isAuthenticated={isAuthenticated} />
+        <div className="container mx-auto px-4 py-20 flex items-center justify-center">
+          <div className="animate-spin w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+        </div>
+      </div>
+    )
   }
 
   return (
