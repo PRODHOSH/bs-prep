@@ -140,7 +140,7 @@ export default function StudentDashboard() {
       <div>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Upcoming Live Classes</h2>
-          <Link href="/dashboard/schedule">
+          <Link href="/dashboard/live-classes">
             <Button variant="outline" size="sm" className="text-sm">
               View All
             </Button>
