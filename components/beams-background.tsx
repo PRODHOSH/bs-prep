@@ -2,9 +2,8 @@
 
 import dynamic from 'next/dynamic'
 
-const LightRays = dynamic(() => import('@/src/components/LightRays'), {
+const LightRays = dynamic(() => import('../src/components/LightRays'), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-black" />
 })
 
 export function BeamsBackground() {

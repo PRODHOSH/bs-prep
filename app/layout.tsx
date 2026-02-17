@@ -46,6 +46,7 @@ export default function RootLayout({
               <Suspense fallback={<Loading />}>
                 {children}
               </Suspense>
+
             </LoadingProvider>
           </div>
         </ThemeProvider>
