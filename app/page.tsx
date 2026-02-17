@@ -1,14 +1,20 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, Suspense } from "react"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { StaggerTestimonials } from "@/components/stagger-testimonials"
 import { AnimatedCounter } from "@/components/animated-counter"
 import { BookOpen, Users, TrendingUp, CheckCircle, Zap, Award, ArrowRight, ChevronDown } from "lucide-react"
+
+// Lazy load testimonials component
+const StaggerTestimonials = dynamic(() => import("@/components/stagger-testimonials").then(mod => ({ default: mod.StaggerTestimonials })), {
+  ssr: false,
+  loading: () => <div className="h-96 flex items-center justify-center"><div className="animate-spin w-8 h-8 border-2 border-slate-200 dark:border-slate-800 border-t-slate-900 dark:border-t-white rounded-full"></div></div>
+})
 
 export default function HomePage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
@@ -36,14 +42,14 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8 mb-16">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              <span className="block text-slate-900 dark:text-white mb-3">Learn IITM BS</span>
-              <span className="block text-slate-900 dark:text-white">
+              <span className="block mb-3 bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">Learn IITM BS</span>
+              <span className="block bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
                 With Mentors by Your Side
               </span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Expert-led learning, community support, and peer mentorship for IITM BS students. Master concepts, solve
+              Expert-led learning in Tamil, community support, and peer mentorship for IITM BS students. Master concepts, solve
               doubts, and ace your exams with our comprehensive platform.
             </p>
 

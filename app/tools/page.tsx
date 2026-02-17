@@ -47,8 +47,12 @@ export default function Tools() {
       <section className="relative pt-32 pb-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Academic Tools</h1>
-            <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+                Academic Tools
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
               Essential tools to help you manage and predict your academic performance
             </p>
           </div>

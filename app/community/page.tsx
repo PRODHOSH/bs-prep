@@ -26,8 +26,10 @@ export default function CommunityGuidelinesPage() {
             <div className="inline-flex items-center gap-2 mb-6">
               <Users className="w-8 h-8 text-[#3e3098]" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Community Guidelines
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+                Community Guidelines
+              </span>
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400">
               Building a supportive and respectful learning environment together

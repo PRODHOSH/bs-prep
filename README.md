@@ -84,7 +84,6 @@ npm run dev
 ## Key Pages
 
 - `/` - Homepage with hero section and features
-- `/about` - About the platform with team information
 - `/tools` - Academic tools landing page
 - `/tools/gpa-calculator` - Course grade and semester GPA calculator
 - `/tools/gpa-predictor` - Predict required exam scores

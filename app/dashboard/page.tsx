@@ -2,16 +2,71 @@
 
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
-import { Card } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { BookOpen, Trophy, Users, TrendingUp } from "lucide-react"
+import { BookOpen, Trophy, Users, TrendingUp, Calendar, Clock, Video, Award } from "lucide-react"
+
+interface Course {
+  id: string
+  title: string
+  description: string
+  level: string
+  type: string
+  courseType?: string
+  weeks: number
+  thumbnail: string
+  includesCourses?: number
+  withCertificate?: boolean
+}
+
+interface LiveClass {
+  id: string
+  title: string
+  instructor: string
+  date: string
+  time: string
+  duration: string
+  course: string
+}
 
 export default function StudentDashboard() {
   const [userName, setUserName] = useState("")
-  const [enrolledCoursesCount, setEnrolledCoursesCount] = useState(0)
+  const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
+
+  // Sample upcoming live classes
+  const upcomingClasses: LiveClass[] = [
+    {
+      id: "1",
+      title: "Introduction to Linear Algebra",
+      instructor: "Dr. Sharma",
+      date: "Feb 18, 2026",
+      time: "10:00 AM",
+      duration: "90 min",
+      course: "Mathematics for Data Science I"
+    },
+    {
+      id: "2",
+      title: "Statistical Distributions Workshop",
+      instructor: "Prof. Kumar",
+      date: "Feb 19, 2026",
+      time: "2:00 PM",
+      duration: "120 min",
+      course: "Statistics for Data Science I"
+    },
+    {
+      id: "3",
+      title: "Python Fundamentals Live Session",
+      instructor: "Dr. Patel",
+      date: "Feb 20, 2026",
+      time: "11:00 AM",
+      duration: "90 min",
+      course: "Computational Thinking"
+    }
+  ]
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -20,13 +75,21 @@ export default function StudentDashboard() {
         if (user) {
           setUserName(user.email?.split("@")[0] || "Student")
           
-          // Get enrolled courses count
+          // Get enrolled courses with details
           const { data: enrollments } = await supabase
             .from('enrollments')
-            .select('id')
+            .select('course_id')
             .eq('user_id', user.id)
           
-          setEnrolledCoursesCount(enrollments?.length || 0)
+          if (enrollments && enrollments.length > 0) {
+            const courseIds = enrollments.map(e => e.course_id)
+            const { data: courses } = await supabase
+              .from('courses')
+              .select('*')
+              .in('id', courseIds)
+            
+            setEnrolledCourses(courses || [])
+          }
         }
       } catch (error) {
         console.error("Error fetching user:", error)
@@ -38,10 +101,25 @@ export default function StudentDashboard() {
     fetchUserData()
   }, [])
 
+  const getCourseTypeStyles = (courseType: string) => {
+    switch (courseType) {
+      case "skill-path":
+        return { bg: "bg-cyan-100", text: "text-cyan-900", label: "Skill path" }
+      case "course":
+        return { bg: "bg-emerald-100", text: "text-emerald-900", label: "Course" }
+      case "career-path":
+        return { bg: "bg-slate-900", text: "text-white", label: "Career path" }
+      case "free-course":
+        return { bg: "bg-lime-200", text: "text-lime-950", label: "Free course" }
+      default:
+        return { bg: "bg-slate-100", text: "text-slate-900", label: "Course" }
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3e3098]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#51b206]"></div>
       </div>
     )
   }
@@ -49,102 +127,170 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent mb-2">
+      <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 border border-slate-700">
+        <h1 className="text-3xl font-bold text-white mb-2">
           Welcome back, {userName}!
         </h1>
-        <p className="text-slate-400 text-lg">
+        <p className="text-slate-300">
           Continue your learning journey with IITM BS courses
         </p>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-6 bg-gradient-to-br from-purple-900/20 to-purple-800/10 border border-purple-800/30 rounded-lg hover:border-purple-700/50 transition-all backdrop-blur-sm">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg">
-              <BookOpen className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-sm text-slate-400">Enrolled Courses</p>
-              <p className="text-3xl font-bold text-white">{enrolledCoursesCount}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6 bg-gradient-to-br from-green-900/20 to-green-800/10 border border-green-800/30 rounded-lg hover:border-green-700/50 transition-all backdrop-blur-sm">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-green-600 to-green-700 rounded-lg">
-              <Trophy className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-sm text-slate-400">Completed</p>
-              <p className="text-3xl font-bold text-white">0</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6 bg-gradient-to-br from-blue-900/20 to-blue-800/10 border border-blue-800/30 rounded-lg hover:border-blue-700/50 transition-all backdrop-blur-sm">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-sm text-slate-400">Progress</p>
-              <p className="text-3xl font-bold text-white">
-                {enrolledCoursesCount > 0 ? '25%' : '0%'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
+      {/* Upcoming Live Classes */}
       <div>
-        <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link href="/dashboard/courses">
-            <div className="p-6 bg-gradient-to-br from-purple-900/30 to-purple-800/20 border border-purple-800/40 rounded-lg hover:border-purple-600 hover:shadow-lg hover:shadow-purple-900/30 transition-all cursor-pointer group">
-              <BookOpen className="w-10 h-10 text-purple-400 mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold text-white text-lg mb-2">My Courses</h3>
-              <p className="text-sm text-slate-400">View and continue your enrolled courses</p>
-            </div>
-          </Link>
-
-          <Link href="/dashboard/courses">
-            <div className="p-6 bg-gradient-to-br from-green-900/30 to-green-800/20 border border-green-800/40 rounded-lg hover:border-green-600 hover:shadow-lg hover:shadow-green-900/30 transition-all cursor-pointer group">
-              <Users className="w-10 h-10 text-green-400 mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold text-white text-lg mb-2">Explore Courses</h3>
-              <p className="text-sm text-slate-400">Discover new courses to enroll in</p>
-            </div>
-          </Link>
-
-          <Link href="/dashboard/profile">
-            <div className="p-6 bg-gradient-to-br from-blue-900/30 to-blue-800/20 border border-blue-800/40 rounded-lg hover:border-blue-600 hover:shadow-lg hover:shadow-blue-900/30 transition-all cursor-pointer group">
-              <Users className="w-10 h-10 text-blue-400 mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold text-white text-lg mb-2">My Profile</h3>
-              <p className="text-sm text-slate-400">Update your profile and settings</p>
-            </div>
-          </Link>
-        </div>
-      </div>
-
-      {/* Welcome Message for New Users */}
-      {enrolledCoursesCount === 0 && (
-        <div className="p-8 bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-green-900/40 border border-purple-700/50 rounded-lg backdrop-blur-sm">
-          <h2 className="text-3xl font-bold text-white mb-3">
-            🎉 Welcome to BSPrep!
-          </h2>
-          <p className="text-slate-300 mb-6 text-lg">
-            Start your IITM BS journey by exploring our courses. Enroll in free qualifier courses or upgrade to foundation level courses.
-          </p>
-          <Link href="/dashboard/courses">
-            <Button className="bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-500 hover:to-green-500 text-white px-6 py-3 text-base shadow-lg shadow-purple-900/50">
-              Browse Courses
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Upcoming Live Classes</h2>
+          <Link href="/dashboard/schedule">
+            <Button variant="outline" size="sm" className="text-sm">
+              View All
             </Button>
           </Link>
         </div>
-      )}
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {upcomingClasses.map((liveClass) => (
+            <Card key={liveClass.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all">
+              <CardContent className="p-5">
+                <div className="flex items-start justify-between mb-3">
+                  <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/10 border-red-500/20">
+                    <Video className="w-3 h-3 mr-1" />
+                    Live
+                  </Badge>
+                  <Calendar className="w-4 h-4 text-slate-400" />
+                </div>
+                
+                <h3 className="font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2">
+                  {liveClass.title}
+                </h3>
+                
+                <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
+                  {liveClass.course}
+                </p>
+                
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <Users className="w-4 h-4" />
+                    <span>{liveClass.instructor}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <Calendar className="w-4 h-4" />
+                    <span>{liveClass.date} at {liveClass.time}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <Clock className="w-4 h-4" />
+                    <span>{liveClass.duration}</span>
+                  </div>
+                </div>
+                
+                <Button className="w-full mt-4 bg-[#51b206] hover:bg-[#51b206]/90 text-white">
+                  Set Reminder
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* My Courses */}
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">My Courses</h2>
+          <Link href="/dashboard/courses">
+            <Button variant="outline" size="sm" className="text-sm">
+              Explore More
+            </Button>
+          </Link>
+        </div>
+
+        {enrolledCourses.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {enrolledCourses.slice(0, 6).map((course) => {
+              const typeStyles = getCourseTypeStyles(course.courseType || "course")
+              
+              return (
+                <Link key={course.id} href={`/courses/${course.id}`} className="group">
+                  <Card className="relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all duration-300 overflow-hidden h-full hover:shadow-lg hover:shadow-[#51b206]/10">
+                    <CardContent className="p-0 flex flex-col h-full">
+                      {/* Colored Header with Type */}
+                      <div className={`${typeStyles.bg} ${typeStyles.text} px-4 py-2.5 font-medium text-sm`}>
+                        {typeStyles.label}
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-5 flex-grow flex flex-col">
+                        {/* Title */}
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 min-h-[56px]">
+                          {course.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 flex-grow">
+                          {course.description}
+                        </p>
+
+                        {/* Divider */}
+                        <div className="border-t border-slate-200 dark:border-slate-700/50 mb-4"></div>
+
+                        {/* Footer Meta Info */}
+                        <div className="space-y-3">
+                          {/* Includes Courses (if applicable) */}
+                          {course.includesCourses && (
+                            <div className="text-sm text-slate-600 dark:text-slate-400">
+                              Includes <span className="font-semibold text-slate-900 dark:text-white">{course.includesCourses} Courses</span>
+                            </div>
+                          )}
+
+                          {/* Bottom row: Certificate, Level, Duration */}
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-4">
+                              {/* Certificate Badge */}
+                              {(course.withCertificate !== false) && (
+                                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                                  <Award className="w-4 h-4" />
+                                  <span className="text-xs">With Certificate</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Level and Duration */}
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                              <BookOpen className="w-4 h-4" />
+                              <span className="text-xs capitalize">{course.level} Friendly</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                              <Clock className="w-4 h-4" />
+                              <span className="text-xs">{course.weeks * 6} hours</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="p-8 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 border border-slate-700 rounded-xl text-center">
+            <div className="w-20 h-20 mx-auto bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4">
+              <BookOpen className="w-10 h-10 text-slate-400" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-3">
+              Welcome to BSPrep!
+            </h2>
+            <p className="text-slate-300 mb-6">
+              Start your IITM BS journey by exploring our courses. Enroll in free qualifier courses or upgrade to foundation level courses.
+            </p>
+            <Link href="/dashboard/courses">
+              <Button className="bg-[#51b206] hover:bg-[#51b206]/90 text-white px-6 py-2.5 shadow-lg">
+                Browse Courses
+              </Button>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

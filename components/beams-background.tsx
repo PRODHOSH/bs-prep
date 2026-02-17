@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic'
 
-const Beams = dynamic(() => import('@/src/components/Beams'), {
+const LightRays = dynamic(() => import('@/src/components/LightRays'), {
   ssr: false,
   loading: () => <div className="absolute inset-0 bg-black" />
 })
@@ -10,15 +10,19 @@ const Beams = dynamic(() => import('@/src/components/Beams'), {
 export function BeamsBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
-      <Beams
-        beamWidth={2}
-        beamHeight={15}
-        beamNumber={12}
-        lightColor="#ffffff"
-        speed={2}
-        noiseIntensity={1.75}
-        scale={0.2}
-        rotation={45}
+      <LightRays
+        raysOrigin="top-center"
+        raysColor="#ffffff"
+        raysSpeed={1}
+        lightSpread={0.5}
+        rayLength={3}
+        followMouse={true}
+        mouseInfluence={0.1}
+        noiseAmount={0}
+        distortion={0}
+        pulsating={false}
+        fadeDistance={1}
+        saturation={1}
       />
     </div>
   )

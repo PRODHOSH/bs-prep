@@ -2,28 +2,18 @@
 
 export function Loading() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <div className="text-center">
-        {/* Animated Logo */}
-        <div className="mb-8 relative">
-          <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#3e3098] to-[#51b206] animate-pulse"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <img 
-              src="/logo.jpeg" 
-              alt="IITM BS Logo" 
-              className="w-20 h-20 rounded-full object-cover animate-spin-slow"
-            />
-          </div>
-        </div>
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-slate-950">
+      <div className="text-center space-y-4">
         {/* Loading Text */}
-        <div className="space-y-2">
-          <h3 className="text-xl font-semibold text-white">Loading...</h3>
-          <div className="flex justify-center gap-1">
-            <span className="w-2 h-2 bg-[#3e3098] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-            <span className="w-2 h-2 bg-[#51b206] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-            <span className="w-2 h-2 bg-[#3e3098] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-          </div>
+        <h3 className="text-2xl font-bold">
+          <span className="bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+            Loading...
+          </span>
+        </h3>
+        
+        {/* Simple Spinner */}
+        <div className="flex justify-center">
+          <div className="w-8 h-8 border-2 border-slate-200 dark:border-slate-800 border-t-slate-900 dark:border-t-white rounded-full animate-spin"></div>
         </div>
       </div>
     </div>
