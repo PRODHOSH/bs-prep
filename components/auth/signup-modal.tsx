@@ -87,8 +87,8 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   const handleGoogleSignUp = async () => {
     const supabase = createClient()
     const redirectUrl = typeof window !== 'undefined' 
-      ? `${window.location.origin}/dashboard`
-      : 'https://bs-prep.vercel.app/dashboard'
+      ? `${window.location.origin}/auth/callback`
+      : 'https://bs-prep.vercel.app/auth/callback'
     
     await supabase.auth.signInWithOAuth({
       provider: 'google',
