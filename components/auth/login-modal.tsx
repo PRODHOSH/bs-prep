@@ -38,20 +38,31 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
         password,
       })
       if (error) throw error
-      window.location.href = "/dashboard"
+      
+      // Close modal first
+      onOpenChange(false)
+      
+      // Small delay then redirect to dashboard with full page reload
+      // This ensures auth state is properly refreshed
+      setTimeout(() => {
+        window.location.href = "/dashboard"
+      }, 100)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
-    } finally {
       setIsLoading(false)
     }
   }
 
   const handleGoogleSignIn = async () => {
     const supabase = createClient()
+    const redirectUrl = typeof window !== 'undefined' 
+      ? `${window.location.origin}/dashboard`
+      : 'https://bs-prep.vercel.app/dashboard'
+    
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'https://bs-prep.vercel.app/dashboard',
+        redirectTo: redirectUrl,
       },
     })
   }

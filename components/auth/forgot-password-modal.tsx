@@ -34,8 +34,12 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
     setSuccess(false)
 
     try {
+      const redirectUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/auth/update-password`
+        : 'https://bs-prep.vercel.app/auth/update-password'
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://bs-prep.vercel.app/auth/update-password',
+        redirectTo: redirectUrl,
       })
       if (error) throw error
       setSuccess(true)

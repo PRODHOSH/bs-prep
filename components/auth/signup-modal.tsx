@@ -59,11 +59,15 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
     }
 
     try {
+      const redirectUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/dashboard`
+        : 'https://bs-prep.vercel.app/dashboard'
+      
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: 'https://bs-prep.vercel.app/dashboard',
+          emailRedirectTo: redirectUrl,
           data: {
             first_name: firstName,
             last_name: lastName,
@@ -82,10 +86,14 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
   const handleGoogleSignUp = async () => {
     const supabase = createClient()
+    const redirectUrl = typeof window !== 'undefined' 
+      ? `${window.location.origin}/dashboard`
+      : 'https://bs-prep.vercel.app/dashboard'
+    
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'https://bs-prep.vercel.app/dashboard',
+        redirectTo: redirectUrl,
       },
     })
   }
