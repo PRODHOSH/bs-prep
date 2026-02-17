@@ -1,10 +1,138 @@
 import { updateSession } from "@/lib/supabase/proxy"
 import type { NextRequest } from "next/server"
+import { NextResponse } from 'next/server'
+import { addSecurityHeaders, getRateLimitHeaders } from './lib/security/headers'
+
+// Simple in-memory rate limiter for proxy
+const rateLimit = new Map<string, { count: number; resetTime: number }>()
+
+function getRateLimitKey(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for')
+  const realIp = request.headers.get('x-real-ip')
+  const ip = forwarded ? forwarded.split(',')[0].trim() : (realIp || 'unknown')
+  return ip
+}
+
+function checkRateLimit(key: string, maxRequests: number, windowMs: number): {
+  allowed: boolean
+  limit: number
+  remaining: number
+  reset: number
+} {
+  const now = Date.now()
+  const record = rateLimit.get(key)
+
+  // Clean up old entries
+  for (const [k, v] of rateLimit.entries()) {
+    if (v.resetTime < now) {
+      rateLimit.delete(k)
+    }
+  }
+
+  if (!record || record.resetTime < now) {
+    const resetTime = now + windowMs
+    rateLimit.set(key, { count: 1, resetTime })
+    return {
+      allowed: true,
+      limit: maxRequests,
+      remaining: maxRequests - 1,
+      reset: resetTime
+    }
+  }
+
+  if (record.count >= maxRequests) {
+    return {
+      allowed: false,
+      limit: maxRequests,
+      remaining: 0,
+      reset: record.resetTime
+    }
+  }
+
+  record.count++
+  return {
+    allowed: true,
+    limit: maxRequests,
+    remaining: maxRequests - record.count,
+    reset: record.resetTime
+  }
+}
 
 export async function proxy(request: NextRequest) {
-  return await updateSession(request)
+  const { pathname } = request.nextUrl
+
+  // Apply rate limiting to API routes
+  if (pathname.startsWith('/api/')) {
+    const key = getRateLimitKey(request)
+    
+    // Different rate limits for different endpoints
+    let maxRequests = 60
+    let windowMs = 60 * 1000 // 1 minute
+    
+    if (pathname.includes('/auth/')) {
+      maxRequests = 5
+      windowMs = 15 * 60 * 1000 // 15 minutes for auth
+    } else if (pathname.includes('/enroll')) {
+      maxRequests = 3
+      windowMs = 60 * 1000 // 1 minute for enrollment
+    } else if (request.method === 'POST' || request.method === 'PUT' || request.method === 'DELETE') {
+      maxRequests = 10
+      windowMs = 60 * 1000 // 1 minute for write operations
+    }
+
+    const rateCheck = checkRateLimit(key, maxRequests, windowMs)
+    
+    if (!rateCheck.allowed) {
+      const response = NextResponse.json(
+        { 
+          error: 'Too many requests',
+          message: 'Please try again later'
+        },
+        { status: 429 }
+      )
+      
+      const headers = getRateLimitHeaders(
+        rateCheck.limit,
+        rateCheck.remaining,
+        rateCheck.reset
+      )
+      
+      Object.entries(headers).forEach(([key, value]) => {
+        response.headers.set(key, value)
+      })
+      
+      return addSecurityHeaders(response)
+    }
+  }
+
+  // Handle Supabase session and authentication
+  const response = await updateSession(request)
+  
+  // Add security headers to the response
+  const securedResponse = addSecurityHeaders(response)
+  
+  // Add rate limit headers for API routes
+  if (pathname.startsWith('/api/')) {
+    const key = getRateLimitKey(request)
+    const maxRequests = 60
+    const windowMs = 60 * 1000
+    const rateCheck = checkRateLimit(key, maxRequests, windowMs)
+    
+    const headers = getRateLimitHeaders(
+      rateCheck.limit,
+      rateCheck.remaining,
+      rateCheck.reset
+    )
+    
+    Object.entries(headers).forEach(([key, value]) => {
+      securedResponse.headers.set(key, value)
+    })
+  }
+  
+  return securedResponse
 }
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
 }
+
