@@ -1,6 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
@@ -8,8 +7,7 @@ export async function GET(request: Request) {
   const origin = requestUrl.origin
 
   if (code) {
-    const cookieStore = cookies()
-    const supabase = createClient()
+    const supabase = await createClient()
     
     try {
       const { error } = await supabase.auth.exchangeCodeForSession(code)
@@ -18,12 +16,15 @@ export async function GET(request: Request) {
         console.error('Auth callback error:', error)
         return NextResponse.redirect(`${origin}/?error=${encodeURIComponent(error.message)}`)
       }
+      
+      // Successful authentication - redirect to dashboard
+      return NextResponse.redirect(`${origin}/dashboard`)
     } catch (err) {
       console.error('Unexpected error during auth callback:', err)
       return NextResponse.redirect(`${origin}/?error=authentication_failed`)
     }
   }
 
-  // Successful authentication - redirect to dashboard
-  return NextResponse.redirect(`${origin}/dashboard`)
+  // No code provided - redirect to home
+  return NextResponse.redirect(`${origin}/`)
 }
