@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { AnimatedCounter } from "@/components/animated-counter"
+import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { BookOpen, Users, TrendingUp, CheckCircle, Zap, Award, ArrowRight, ChevronDown } from "lucide-react"
 
 // Lazy load testimonials component
@@ -18,6 +19,14 @@ const StaggerTestimonials = dynamic(() => import("@/components/stagger-testimoni
 
 export default function HomePage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+  
+  const heroRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
+  const statsRef = useScrollReveal<HTMLDivElement>({ threshold: 0.2 })
+  const howItWorksRef = useScrollReveal<HTMLElement>({ threshold: 0.15 })
+  const coursesRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
+  const whyChooseRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
+  const ctaRef = useScrollReveal<HTMLElement>({ threshold: 0.2 })
+  const faqRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
 
   const faqs = [
     {
@@ -38,7 +47,7 @@ export default function HomePage() {
     <div className="min-h-screen text-foreground">
       <Navbar isAuthenticated={false} />
 
-      <section className="relative overflow-hidden pt-20 md:pt-32 pb-20 md:pb-40">
+      <section ref={heroRef.ref} className={`relative overflow-hidden pt-20 md:pt-32 pb-20 md:pb-40 transition-all duration-1000 ${heroRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8 mb-16">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
@@ -68,10 +77,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 md:gap-8 mt-20">
+          <div ref={statsRef.ref} className={`grid grid-cols-3 gap-4 md:gap-8 mt-20 transition-all duration-1000 delay-300 ${statsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {[
-              { label: "Active Students", value: 2500, suffix: "+" },
-              { label: "Expert Mentors", value: 150, suffix: "+" },
+              { label: "Active Students", value: 100, suffix: "+" },
+              { label: "Expert Mentors", value: 15, suffix: "+" },
               { label: "Study Materials", value: 500, suffix: "+" },
             ].map((stat, i) => (
               <div
@@ -88,7 +97,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-20 md:py-28">
+      <section ref={howItWorksRef.ref} className={`relative py-20 md:py-28 transition-all duration-1000 ${howItWorksRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">How It Works</h2>
@@ -132,7 +141,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+      <section ref={coursesRef.ref} className={`relative py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white transition-all duration-1000 ${coursesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Crack Qualifier with Tamil Courses</h2>
@@ -209,10 +218,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-20 md:py-28">
+      <section ref={whyChooseRef.ref} className={`relative py-20 md:py-28 transition-all duration-1000 ${whyChooseRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Why Choose IITM Learning?</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Why Choose BSPrep?</h2>
             <p className="text-black/70 text-lg">Everything you need to succeed</p>
           </div>
 
@@ -242,7 +251,7 @@ export default function HomePage() {
 
       <StaggerTestimonials />
 
-      <section className="relative py-20 md:py-28">
+      <section ref={ctaRef.ref} className={`relative py-20 md:py-28 transition-all duration-1000 ${ctaRef.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center bg-white backdrop-blur-sm rounded-3xl p-12 md:p-16 border border-gray-200 shadow-lg">
           <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">Ready to Transform Your Learning?</h2>
           <p className="text-black/70 text-lg mb-8 max-w-2xl mx-auto">
@@ -257,8 +266,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-transparent to-gray-50">
+      <section ref={faqRef.ref} className={`relative py-20 md:py-28 bg-gradient-to-b from-transparent to-gray-50 transition-all duration-1000 ${faqRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">

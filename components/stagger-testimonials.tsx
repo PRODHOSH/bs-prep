@@ -76,7 +76,7 @@ export function StaggerTestimonials() {
     <div className="relative w-full py-20 md:py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
         <div className="text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
             What Students Say
           </h2>
           <p className="text-slate-400 text-lg">
