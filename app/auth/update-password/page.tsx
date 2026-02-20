@@ -77,7 +77,7 @@ export default function UpdatePasswordPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 text-xl bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                    className="h-12 text-[25px] bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                   />
                 </div>
 
@@ -92,7 +92,7 @@ export default function UpdatePasswordPage() {
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="h-12 text-xl bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                    className="h-12 text-[25px] bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                   />
                 </div>
 
