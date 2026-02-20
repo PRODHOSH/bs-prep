@@ -270,7 +270,7 @@ export default function CoursesPage() {
                       href={isAvailable ? `/courses/${course.id}` : "#"}
                       className={`group block h-full ${!isAvailable ? 'pointer-events-none' : ''}`}
                     >
-                      <Card className={`relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full ${!isAvailable ? 'blur-sm' : ''}`}>
+                      <Card className="relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full">
                         <CardContent className="p-4 flex flex-col h-full">
                           {/* Top Badge - Course Type */}
                           <div className="mb-2">
@@ -318,9 +318,9 @@ export default function CoursesPage() {
                         
                         {/* Coming Soon Overlay */}
                         {!isAvailable && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg">
-                            <div className="bg-white px-4 py-2 rounded-md shadow-md border border-gray-300">
-                              <p className="text-sm font-bold text-black">Coming Soon</p>
+                          <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-[1px] rounded-lg">
+                            <div className="bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-black">
+                              <p className="text-lg font-bold text-black">Coming Soon</p>
                             </div>
                           </div>
                         )}
