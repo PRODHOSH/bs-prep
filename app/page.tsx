@@ -90,7 +90,7 @@ export default function HomePage() {
             {/* Right Column: Animated Card Stack */}
             <div className="hidden md:block relative h-[330px]">
               <CardSwap
-                width={500}
+                width={630}
                 height={400}
                 cardDistance={60}
                 verticalDistance={70}
