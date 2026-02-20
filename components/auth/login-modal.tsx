@@ -88,6 +88,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                suppressHydrationWarning
               />
             </div>
 
@@ -102,8 +103,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-12 text-[50px] bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
-              />
+                className="h-12 text-[50px] bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"                suppressHydrationWarning              />
             </div>
 
             {error && (
@@ -116,6 +116,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
               type="submit"
               className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
               disabled={isLoading}
+              suppressHydrationWarning
             >
               {isLoading ? "Logging in..." : "Login"}
             </Button>

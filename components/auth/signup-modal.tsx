@@ -150,6 +150,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                  suppressHydrationWarning
                 />
               </div>
               <div className="space-y-2">
@@ -163,6 +164,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -179,6 +181,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                suppressHydrationWarning
               />
             </div>
 
@@ -209,6 +212,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="h-12 text-[25px] bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                suppressHydrationWarning
               />
             </div>
 
@@ -224,6 +228,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
                 className="h-12 text-[25px] bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                suppressHydrationWarning
               />
             </div>
 
@@ -256,6 +261,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
               type="submit"
               className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
               disabled={isLoading || !agreedToTerms}
+              suppressHydrationWarning
             >
               {isLoading ? "Creating account..." : "Create Account"}
             </Button>

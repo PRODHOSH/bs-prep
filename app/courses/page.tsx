@@ -233,12 +233,14 @@ export default function CoursesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 h-10 bg-white border-[#E5E5E5] focus:border-[#3e3098] focus:ring-[#3e3098] rounded-lg text-black placeholder:text-black/50 text-sm"
+                suppressHydrationWarning
               />
             </div>
             <select 
               value={selectedLevel}
               onChange={(e) => setSelectedLevel(e.target.value)}
               className="px-4 h-10 bg-white border border-[#E5E5E5] rounded-lg text-black text-sm focus:border-[#3e3098] focus:ring-[#3e3098] focus:outline-none min-w-[140px]"
+              suppressHydrationWarning
             >
               <option value="all">All Levels</option>
               <option value="qualifier">Qualifier</option>
@@ -268,7 +270,7 @@ export default function CoursesPage() {
                       href={isAvailable ? `/courses/${course.id}` : "#"}
                       className={`group block h-full ${!isAvailable ? 'pointer-events-none' : ''}`}
                     >
-                      <Card className={`relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full ${!isAvailable ? 'opacity-60 blur-[2px]' : ''}`}>
+                      <Card className={`relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full ${!isAvailable ? 'blur-sm' : ''}`}>
                         <CardContent className="p-4 flex flex-col h-full">
                           {/* Top Badge - Course Type */}
                           <div className="mb-2">

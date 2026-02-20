@@ -119,6 +119,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   className="text-base font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-300 flex items-center gap-1"
                   onMouseEnter={() => setToolsOpen(true)}
                   onMouseLeave={() => setToolsOpen(false)}
+                  suppressHydrationWarning
                 >
                   Tools
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
@@ -167,6 +168,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   className="text-base font-medium text-slate-700 hover:text-black transition-all duration-300 flex items-center gap-1"
                   onMouseEnter={() => setToolsOpen(true)}
                   onMouseLeave={() => setToolsOpen(false)}
+                  suppressHydrationWarning
                 >
                   Tools
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
@@ -235,12 +237,14 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   variant="outline" 
                   className="hidden sm:block border-slate-300 text-black hover:bg-slate-100 transition-all rounded-full"
                   onClick={() => setLoginOpen(true)}
+                  suppressHydrationWarning
                 >
                   Login
                 </Button>
                 <Button 
                   className="bg-black hover:bg-slate-800 text-white transition-all rounded-full"
                   onClick={() => setSignUpOpen(true)}
+                  suppressHydrationWarning
                 >
                   Sign Up
                 </Button>
