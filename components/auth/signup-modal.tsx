@@ -102,7 +102,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
         <DialogContent className="bg-white border-gray-200 max-w-md">
           <div className="text-center py-8 space-y-4">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
@@ -208,7 +208,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                className="h-12 text-lg bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 
@@ -223,7 +223,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 required
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
-                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                className="h-12 text-lg bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 

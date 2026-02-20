@@ -44,7 +44,7 @@ export default function UpdatePasswordPage() {
       if (error) throw error
       setSuccess(true)
       setTimeout(() => {
-        router.push("/auth/login")
+        router.push("/")
       }, 3000)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
@@ -77,7 +77,7 @@ export default function UpdatePasswordPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                    className="h-12 text-lg bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                   />
                 </div>
 
@@ -92,7 +92,7 @@ export default function UpdatePasswordPage() {
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                    className="h-12 text-lg bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                   />
                 </div>
 

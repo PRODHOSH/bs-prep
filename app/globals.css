@@ -11,7 +11,7 @@
   --card-foreground: 0 0 0;  /* Black text on cards */
   --popover: 255 255 255;  /* White popovers */
   --popover-foreground: 0 0 0;  /* Black text */
-  --primary: 62 48 152;  /* #3e3098 purple accent */
+  --primary: 0 0 0;  /* Pure black */
   --primary-foreground: 255 255 255;  /* White text on primary */
   --secondary: 81 178 6;  /* #51b206 green accent */
   --secondary-foreground: 255 255 255;  /* White text on secondary */
@@ -23,7 +23,7 @@
   --destructive-foreground: 255 255 255;  /* White text */
   --border: 229 229 229;  /* Light gray borders */
   --input: 255 255 255;  /* White input backgrounds */
-  --ring: 62 48 152;  /* Purple focus ring */
+  --ring: 0 0 0;  /* Black focus ring */
   --chart-1: 62 48 152;  /* Purple */
   --chart-2: 81 178 6;  /* Green */
   --chart-3: 251 146 60;  /* Orange */
@@ -32,12 +32,12 @@
   --radius: 0.5rem;
   --sidebar: 255 255 255;  /* White sidebar */
   --sidebar-foreground: 0 0 0;  /* Black text */
-  --sidebar-primary: 62 48 152;
+  --sidebar-primary: 0 0 0;
   --sidebar-primary-foreground: 255 255 255;
   --sidebar-accent: 254 249 231;
   --sidebar-accent-foreground: 0 0 0;
   --sidebar-border: 229 219 200;
-  --sidebar-ring: 62 48 152;
+  --sidebar-ring: 0 0 0;
 }
 
 .dark {
@@ -48,7 +48,7 @@
   --card-foreground: 0 0 0;
   --popover: 255 255 255;
   --popover-foreground: 0 0 0;
-  --primary: 62 48 152;
+  --primary: 0 0 0;
   --primary-foreground: 255 255 255;
   --secondary: 81 178 6;
   --secondary-foreground: 255 255 255;
@@ -60,7 +60,7 @@
   --destructive-foreground: 255 255 255;
   --border: 229 219 200;
   --input: 255 255 255;
-  --ring: 62 48 152;
+  --ring: 0 0 0;
   --chart-1: 62 48 152;
   --chart-2: 81 178 6;
   --chart-3: 251 146 60;
@@ -68,12 +68,12 @@
   --chart-5: 236 72 153;
   --sidebar: 255 255 255;
   --sidebar-foreground: 0 0 0;
-  --sidebar-primary: 62 48 152;
+  --sidebar-primary: 0 0 0;
   --sidebar-primary-foreground: 255 255 255;
   --sidebar-accent: 254 249 231;
   --sidebar-accent-foreground: 0 0 0;
   --sidebar-border: 229 219 200;
-  --sidebar-ring: 62 48 152;
+  --sidebar-ring: 0 0 0;
 }
 
 @theme inline {
