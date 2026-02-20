@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={urbanist.variable} suppressHydrationWarning>
       <body className={`font-sans antialiased ${urbanist.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <BeamsBackground />
           <div className="relative z-10">
             <LoadingProvider>

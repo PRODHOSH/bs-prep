@@ -328,10 +328,10 @@ input = MockInput(${JSON.stringify(inputLines)})
         <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-black">
                   Python Compiler
                 </h1>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                <p className="text-sm text-black/70 mt-1">
                   Write and execute Python code with NumPy & Pandas support
                 </p>
             </div>
@@ -340,7 +340,7 @@ input = MockInput(${JSON.stringify(inputLines)})
                 onClick={clearCode}
                 variant="outline"
                 size="sm"
-                className="border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                className="border-slate-300 dark:border-slate-700 text-black/90 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
               >
                 <Trash2 className="w-4 h-4 mr-2" />
                 Clear
@@ -349,7 +349,7 @@ input = MockInput(${JSON.stringify(inputLines)})
                 onClick={downloadCode}
                 variant="outline"
                 size="sm"
-                className="border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                className="border-slate-300 dark:border-slate-700 text-black/90 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Download
@@ -373,7 +373,7 @@ input = MockInput(${JSON.stringify(inputLines)})
           {/* Left Panel - Code Editor */}
           <div className="flex-1 flex flex-col border-r border-slate-200 dark:border-slate-800">
             <div className="px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Code Editor</span>
+              <span className="text-sm font-semibold text-black/90">Code Editor</span>
             </div>
             <div className="flex-1">
               <Editor
@@ -384,7 +384,7 @@ input = MockInput(${JSON.stringify(inputLines)})
                 theme="vs-dark"
                 loading={
                   <div className="flex items-center justify-center h-full bg-[#1e1e1e]">
-                    <div className="text-slate-400">Loading editor...</div>
+                    <div className="text-black/50">Loading editor...</div>
                   </div>
                 }
                 onMount={() => {
@@ -408,15 +408,15 @@ input = MockInput(${JSON.stringify(inputLines)})
             {/* Input Section */}
             <div className="flex-1 border-b border-slate-200 dark:border-slate-800 flex flex-col">
               <div className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Input</span>
-                <span className="text-xs text-slate-500 dark:text-slate-500">One per line</span>
+                <span className="text-sm font-semibold text-black/90">Input</span>
+                <span className="text-xs text-black/60 dark:text-black/60">One per line</span>
               </div>
               <div className="flex-1 p-4">
                 <Textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Enter input here (one value per line)"
-                  className="h-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 font-mono text-sm resize-none focus:border-[#51b206] focus:ring-[#51b206]/50 transition-all"
+                  className="h-full bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-black dark:text-slate-200 font-mono text-sm resize-none focus:border-[#51b206] focus:ring-[#51b206]/50 transition-all"
                 />
               </div>
             </div>
@@ -424,12 +424,12 @@ input = MockInput(${JSON.stringify(inputLines)})
             {/* Output Section */}
             <div className="flex-1 flex flex-col">
               <div className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Output</span>
+                <span className="text-sm font-semibold text-black/90">Output</span>
                 <Button
                   onClick={copyOutput}
                   variant="ghost"
                   size="sm"
-                  className="h-7 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700"
+                  className="h-7 text-black/70 hover:text-black dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700"
                   disabled={!output}
                 >
                   <Copy className="w-3 h-3 mr-1" />
@@ -437,7 +437,7 @@ input = MockInput(${JSON.stringify(inputLines)})
                 </Button>
               </div>
               <div className="flex-1 overflow-auto p-4 bg-slate-50 dark:bg-slate-950">
-                <pre className="text-sm text-slate-900 dark:text-slate-300 font-mono whitespace-pre-wrap">
+                <pre className="text-sm text-black dark:text-slate-300 font-mono whitespace-pre-wrap">
                   {output || `⏳ ${loadingStatus}\n\nInitializing Python compiler with NumPy & Pandas support...\nThis usually takes 10-30 seconds on first load.\n\nPlease keep this tab open while loading.`}
                 </pre>
                 {!pyodideReady && loadingStatus.includes('Failed') && (
@@ -457,7 +457,7 @@ input = MockInput(${JSON.stringify(inputLines)})
 
         {/* Footer */}
         <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3">
-          <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex items-center justify-center gap-2 text-xs text-black/70">
             <span>Developed by</span>
             <a
               href="https://prodhosh.netlify.app/"
@@ -467,13 +467,13 @@ input = MockInput(${JSON.stringify(inputLines)})
             >
               Prodhosh V.S
             </a>
-            <span className="text-slate-400 dark:text-slate-600">•</span>
+            <span className="text-black/50 dark:text-black/70">•</span>
             <span>Powered by</span>
             <a
               href="https://pyodide.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-slate-700 dark:text-slate-300 hover:text-[#51b206] transition-colors"
+              className="font-semibold text-black/90 hover:text-[#51b206] transition-colors"
             >
               Pyodide
             </a>

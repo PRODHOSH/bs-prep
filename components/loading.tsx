@@ -2,7 +2,7 @@
 
 export function Loading() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-slate-950">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
       <div className="text-center space-y-4">
         {/* Loading Text */}
         <h3 className="text-2xl font-bold">

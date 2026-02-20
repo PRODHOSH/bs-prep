@@ -26,10 +26,10 @@ export default function TermsPage() {
             <div className="inline-flex items-center gap-2 mb-6">
               <FileText className="w-8 h-8 text-[#51b206]" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
               Terms & Conditions
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-black/70">
               Last updated: January 4, 2026
             </p>
           </div>
@@ -42,8 +42,8 @@ export default function TermsPage() {
             }`}
           >
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Acceptance of Terms</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              <h2 className="text-2xl font-bold text-black mb-4">Acceptance of Terms</h2>
+              <p className="text-black/70 leading-relaxed">
                 By accessing and using the IITM BS Learning Platform, you accept and agree to be bound by the terms and 
                 provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.
               </p>
@@ -60,9 +60,9 @@ export default function TermsPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">User Accounts</h2>
+                <h2 className="text-2xl font-bold text-black">User Accounts</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">
                   When you create an account with us, you must provide accurate and complete information. You are responsible for:
                 </p>
@@ -98,9 +98,9 @@ export default function TermsPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Acceptable Use Policy</h2>
+                <h2 className="text-2xl font-bold text-black">Acceptable Use Policy</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <p className="text-black/70 leading-relaxed mb-4">
                 You agree not to use the platform for any purpose that is:
               </p>
               <div className="grid md:grid-cols-2 gap-3">
@@ -130,15 +130,15 @@ export default function TermsPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Scale className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Intellectual Property Rights</h2>
+                <h2 className="text-2xl font-bold text-black">Intellectual Property Rights</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">
                   The platform and its original content, features, and functionality are owned by IITM BS Learning and are 
                   protected by international copyright, trademark, and other intellectual property laws.
                 </p>
                 <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-6">
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-3">Content Usage Rights:</h3>
+                  <h3 className="font-semibold text-black mb-3">Content Usage Rights:</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-3">
                       <span className="text-[#51b206]">✓</span>
@@ -168,9 +168,9 @@ export default function TermsPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <AlertTriangle className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Limitation of Liability</h2>
+                <h2 className="text-2xl font-bold text-black">Limitation of Liability</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <p className="text-black/70 leading-relaxed mb-4">
                 To the maximum extent permitted by law, IITM BS Learning shall not be liable for any indirect, incidental, 
                 special, consequential, or punitive damages, or any loss of profits or revenues.
               </p>
@@ -193,9 +193,9 @@ export default function TermsPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Globe className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Governing Law</h2>
+                <h2 className="text-2xl font-bold text-black">Governing Law</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-black/70 leading-relaxed">
                 These terms shall be governed by and construed in accordance with the laws of India, without regard to 
                 its conflict of law provisions. Any disputes arising from these terms will be subject to the exclusive 
                 jurisdiction of the courts in Chennai, Tamil Nadu.

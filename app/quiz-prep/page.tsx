@@ -27,18 +27,18 @@ export default function QuizPrepPage() {
       <main className="flex-1 flex items-center justify-center py-20 px-4">
         <div className="max-w-xl w-full text-center space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold">
-            <span className="bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">
               Coming Soon
             </span>
           </h1>
           
-          <p className="text-base text-slate-600 dark:text-slate-400 max-w-md mx-auto">
+          <p className="text-base text-black/70 max-w-md mx-auto">
             We're working on bringing you a comprehensive quiz preparation platform. Stay tuned for updates!
           </p>
 
           <div className="pt-4">
             <Link href={isAuthenticated ? "/dashboard" : "/courses"}>
-              <Button variant="outline" className="group border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-white text-slate-900 dark:text-white">
+              <Button variant="outline" className="group border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-white text-black">
                 Explore Courses
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>

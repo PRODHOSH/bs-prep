@@ -168,7 +168,7 @@ export default function SupportPage() {
                 Support Center
               </span>
             </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-black/50 max-w-2xl mx-auto">
               We're here to help. Get in touch or share your feedback.
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function SupportPage() {
                   </div>
                   <div>
                     <CardTitle className="text-2xl font-bold text-white">Contact BSPrep Support</CardTitle>
-                    <CardDescription className="text-slate-400 text-base mt-1">Get help with questions or issues</CardDescription>
+                    <CardDescription className="text-black/50 text-base mt-1">Get help with questions or issues</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -206,7 +206,7 @@ export default function SupportPage() {
                       required
                       value={contactForm.fullName}
                       onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
-                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#3e3098] focus:ring-[#3e3098] text-white placeholder:text-slate-500"
+                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#3e3098] focus:ring-[#3e3098] text-white placeholder:text-black/60"
                     />
                   </div>
 
@@ -222,7 +222,7 @@ export default function SupportPage() {
                       required
                       value={contactForm.email}
                       onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#3e3098] focus:ring-[#3e3098] text-white placeholder:text-slate-500"
+                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#3e3098] focus:ring-[#3e3098] text-white placeholder:text-black/60"
                     />
                   </div>
 
@@ -260,7 +260,7 @@ export default function SupportPage() {
                       required
                       value={contactForm.message}
                       onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                      className="min-h-[140px] resize-none bg-slate-900/50 border-slate-700 focus:border-[#3e3098] focus:ring-[#3e3098] text-white placeholder:text-slate-500"
+                      className="min-h-[140px] resize-none bg-slate-900/50 border-slate-700 focus:border-[#3e3098] focus:ring-[#3e3098] text-white placeholder:text-black/60"
                     />
                   </div>
 
@@ -299,7 +299,7 @@ export default function SupportPage() {
                   </div>
                   <div>
                     <CardTitle className="text-2xl font-bold text-white">Help Us Improve BSPrep</CardTitle>
-                    <CardDescription className="text-slate-400 text-base mt-1">Share your feedback and suggestions</CardDescription>
+                    <CardDescription className="text-black/50 text-base mt-1">Share your feedback and suggestions</CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -308,21 +308,21 @@ export default function SupportPage() {
                   {/* Name (Optional) */}
                   <div className="space-y-2">
                     <Label htmlFor="feedbackName" className="text-sm font-medium text-slate-300">
-                      Name <span className="text-slate-500 text-xs">(optional)</span>
+                      Name <span className="text-black/60 text-xs">(optional)</span>
                     </Label>
                     <Input
                       id="feedbackName"
                       placeholder="Your name"
                       value={feedbackForm.name}
                       onChange={(e) => setFeedbackForm({ ...feedbackForm, name: e.target.value })}
-                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] text-white placeholder:text-slate-500"
+                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] text-white placeholder:text-black/60"
                     />
                   </div>
 
                   {/* Email (Optional) */}
                   <div className="space-y-2">
                     <Label htmlFor="feedbackEmail" className="text-sm font-medium text-slate-300">
-                      Email <span className="text-slate-500 text-xs">(optional)</span>
+                      Email <span className="text-black/60 text-xs">(optional)</span>
                     </Label>
                     <Input
                       id="feedbackEmail"
@@ -330,9 +330,9 @@ export default function SupportPage() {
                       placeholder="you@example.com"
                       value={feedbackForm.email}
                       onChange={(e) => setFeedbackForm({ ...feedbackForm, email: e.target.value })}
-                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] text-white placeholder:text-slate-500"
+                      className="h-12 bg-slate-900/50 border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] text-white placeholder:text-black/60"
                     />
-                    <p className="text-xs text-slate-500">Only if you'd like us to follow up</p>
+                    <p className="text-xs text-black/60">Only if you'd like us to follow up</p>
                   </div>
 
                   {/* Overall Experience Rating */}
@@ -352,7 +352,7 @@ export default function SupportPage() {
                             className={`w-9 h-9 transition-all ${
                               star <= feedbackForm.rating
                                 ? "fill-yellow-400 text-yellow-400"
-                                : "text-slate-700 hover:text-slate-600"
+                                : "text-black/90 hover:text-black/70"
                             }`}
                           />
                         </button>
@@ -404,7 +404,7 @@ export default function SupportPage() {
                       required
                       value={feedbackForm.message}
                       onChange={(e) => setFeedbackForm({ ...feedbackForm, message: e.target.value })}
-                      className="min-h-[120px] resize-none bg-slate-900/50 border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] text-white placeholder:text-slate-500"
+                      className="min-h-[120px] resize-none bg-slate-900/50 border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] text-white placeholder:text-black/60"
                     />
                   </div>
 
@@ -424,7 +424,7 @@ export default function SupportPage() {
                           className={`h-12 rounded-xl font-medium transition-all ${
                             feedbackForm.recommend === option.value
                               ? "bg-[#51b206] text-white shadow-lg shadow-[#51b206]/20"
-                              : "bg-slate-900/50 text-slate-400 border border-slate-700 hover:border-slate-600"
+                              : "bg-slate-900/50 text-black/50 border border-slate-700 hover:border-slate-600"
                           }`}
                         >
                           <span className="mr-2">{option.emoji}</span>

@@ -13,7 +13,7 @@ import { BookOpen, Users, TrendingUp, CheckCircle, Zap, Award, ArrowRight, Chevr
 // Lazy load testimonials component
 const StaggerTestimonials = dynamic(() => import("@/components/stagger-testimonials").then(mod => ({ default: mod.StaggerTestimonials })), {
   ssr: false,
-  loading: () => <div className="h-96 flex items-center justify-center"><div className="animate-spin w-8 h-8 border-2 border-slate-200 dark:border-slate-800 border-t-slate-900 dark:border-t-white rounded-full"></div></div>
+  loading: () => <div className="h-96 flex items-center justify-center"><div className="animate-spin w-8 h-8 border-2 border-gray-200 border-t-black rounded-full"></div></div>
 })
 
 export default function HomePage() {
@@ -42,26 +42,26 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8 mb-16">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              <span className="block mb-3 bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">Learn IITM BS</span>
-              <span className="block bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+              <span className="block mb-3 bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">Learn IITM BS</span>
+              <span className="block bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">
                 With Mentors by Your Side
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-black/70 max-w-2xl mx-auto leading-relaxed">
               Expert-led learning in Tamil, community support, and peer mentorship for IITM BS students. Master concepts, solve
               doubts, and ace your exams with our comprehensive platform.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link href="/auth/sign-up">
-                <Button className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-8 py-6 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
+                <Button className="group bg-black text-white hover:bg-black/90 px-8 py-6 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
                   Get Started Free
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/auth/login">
-                <Button className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-6 text-lg rounded-full border-2 border-slate-200 dark:border-slate-700 hover:border-slate-900 dark:hover:border-white transition-all duration-300 font-medium">
+                <Button className="bg-white text-black px-8 py-6 text-lg rounded-full border-2 border-gray-300 hover:border-black transition-all duration-300 font-medium">
                   Sign In
                 </Button>
               </Link>
@@ -76,12 +76,12 @@ export default function HomePage() {
             ].map((stat, i) => (
               <div
                 key={i}
-                className="bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center hover:shadow-lg transition-all duration-300 cursor-default border border-slate-200/20 dark:border-slate-700/30"
+                className="bg-white backdrop-blur-sm rounded-2xl p-6 md:p-8 text-center hover:shadow-lg transition-all duration-300 cursor-default border border-gray-200"
               >
-                <p className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+                <p className="text-2xl md:text-3xl font-bold text-black">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} duration={2500} />
                 </p>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{stat.label}</p>
+                <p className="text-sm text-black/70 mt-2">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -91,8 +91,8 @@ export default function HomePage() {
       <section className="relative py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">How It Works</h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg">Three simple steps to transform your learning</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">How It Works</h2>
+            <p className="text-black/70 text-lg">Three simple steps to transform your learning</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -118,14 +118,14 @@ export default function HomePage() {
             ].map((step, i) => (
               <div
                 key={i}
-                className="relative bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-slate-200/20 dark:border-slate-700/30 hover:border-slate-300/30 dark:hover:border-slate-600/40 transition-all duration-300 hover:shadow-lg"
+                className="relative bg-white backdrop-blur-sm rounded-2xl p-8 border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg"
               >
-                <div className="text-5xl font-bold text-slate-200 dark:text-slate-700 mb-4">
+                <div className="text-5xl font-bold text-gray-200 mb-4">
                   {step.number}
                 </div>
-                <step.icon className="w-10 h-10 text-slate-900 dark:text-white mb-4" />
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{step.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400">{step.description}</p>
+                <step.icon className="w-10 h-10 text-black mb-4" />
+                <h3 className="text-xl font-bold text-black mb-3">{step.title}</h3>
+                <p className="text-black/70">{step.description}</p>
               </div>
             ))}
           </div>
@@ -135,8 +135,8 @@ export default function HomePage() {
       <section className="relative py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Why Choose IITM Learning?</h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg">Everything you need to succeed</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Why Choose IITM Learning?</h2>
+            <p className="text-black/70 text-lg">Everything you need to succeed</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -150,12 +150,12 @@ export default function HomePage() {
             ].map((feature, i) => (
               <Card
                 key={i}
-                className="bg-white/5 dark:bg-white/5 backdrop-blur-sm border-slate-200/20 dark:border-slate-700/30 hover:border-slate-300/30 dark:hover:border-slate-600/40 hover:shadow-lg transition-all duration-300"
+                className="bg-white backdrop-blur-sm border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300"
               >
                 <CardContent className="pt-8 pb-6 px-6">
-                  <feature.icon className="w-8 h-8 text-slate-900 dark:text-white mb-4" />
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-2">{feature.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm">{feature.desc}</p>
+                  <feature.icon className="w-8 h-8 text-black mb-4" />
+                  <h3 className="font-bold text-lg text-black mb-2">{feature.title}</h3>
+                  <p className="text-black/70 text-sm">{feature.desc}</p>
                 </CardContent>
               </Card>
             ))}
@@ -166,13 +166,13 @@ export default function HomePage() {
       <StaggerTestimonials />
 
       <section className="relative py-20 md:py-28">
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-3xl p-12 md:p-16 border border-slate-200/20 dark:border-slate-700/30 shadow-lg">
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Ready to Transform Your Learning?</h2>
-          <p className="text-slate-600 dark:text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center bg-white backdrop-blur-sm rounded-3xl p-12 md:p-16 border border-gray-200 shadow-lg">
+          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">Ready to Transform Your Learning?</h2>
+          <p className="text-black/70 text-lg mb-8 max-w-2xl mx-auto">
             Join thousands of IITM BS students accelerating their journey with expert mentorship and community support.
           </p>
           <Link href="/auth/sign-up">
-            <Button className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-12 py-7 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
+            <Button className="group bg-black text-white hover:bg-black/90 px-12 py-7 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
               Get Started Now – It's Free
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -181,13 +181,13 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-transparent to-slate-50/50 dark:to-slate-900/50">
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-transparent to-gray-50">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg">
+            <p className="text-black/70 text-lg">
               Everything you need to know about BSPrep
             </p>
           </div>
@@ -196,17 +196,17 @@ export default function HomePage() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white/5 dark:bg-white/5 backdrop-blur-sm rounded-2xl border border-slate-200/20 dark:border-slate-700/30 overflow-hidden transition-all duration-300 hover:border-slate-300/30 dark:hover:border-slate-600/40"
+                className="bg-white backdrop-blur-sm rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300 hover:border-gray-300"
               >
                 <button
                   onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-                  className="w-full flex items-center justify-between p-6 text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/50"
+                  className="w-full flex items-center justify-between p-6 text-left transition-colors hover:bg-gray-50"
                 >
-                  <h3 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white pr-8">
+                  <h3 className="text-lg md:text-xl font-semibold text-black pr-8">
                     {faq.question}
                   </h3>
                   <ChevronDown
-                    className={`w-6 h-6 text-slate-600 dark:text-slate-400 flex-shrink-0 transition-transform duration-300 ${
+                    className={`w-6 h-6 text-black/70 flex-shrink-0 transition-transform duration-300 ${
                       openFAQ === index ? "rotate-180" : ""
                     }`}
                   />
@@ -216,7 +216,7 @@ export default function HomePage() {
                     openFAQ === index ? "max-h-96" : "max-h-0"
                   }`}
                 >
-                  <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed">
+                  <div className="px-6 pb-6 text-black/70 text-base md:text-lg leading-relaxed">
                     {faq.answer}
                   </div>
                 </div>
@@ -225,9 +225,9 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-slate-600 dark:text-slate-400 mb-4">Still have questions?</p>
+            <p className="text-black/70 mb-4">Still have questions?</p>
             <Link href="/support">
-              <Button className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-8 py-4 rounded-full transition-all duration-300 font-medium">
+              <Button className="bg-black text-white hover:bg-black/90 px-8 py-4 rounded-full transition-all duration-300 font-medium">
                 Contact Support
               </Button>
             </Link>

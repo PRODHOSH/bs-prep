@@ -72,7 +72,7 @@ export default function Tools() {
                 Academic Success
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-black/50 max-w-3xl mx-auto leading-relaxed">
               Calculate grades, predict scores, and plan your academic journey with our powerful tools designed specifically for IITM BS students.
             </p>
           </div>
@@ -102,17 +102,17 @@ export default function Tools() {
                       </div>
 
                       {/* Content */}
-                      <h2 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white group-hover:bg-gradient-to-r group-hover:from-[#3e3098] group-hover:to-[#51b206] group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                      <h2 className="text-2xl font-bold mb-3 text-black group-hover:bg-gradient-to-r group-hover:from-[#3e3098] group-hover:to-[#51b206] group-hover:bg-clip-text group-hover:text-transparent transition-all">
                         {tool.title}
                       </h2>
-                      <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed mb-6">
+                      <p className="text-black/70 text-base leading-relaxed mb-6">
                         {tool.description}
                       </p>
 
                       {/* Features */}
                       <div className="space-y-2 mb-6">
                         {tool.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                          <div key={idx} className="flex items-center gap-2 text-sm text-black/70">
                             <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${tool.color}`}></div>
                             <span>{feature}</span>
                           </div>

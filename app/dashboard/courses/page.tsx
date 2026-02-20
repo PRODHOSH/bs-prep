@@ -69,44 +69,49 @@ export default function ExploreCourses() {
     switch (courseType) {
       case "skill-path":
         return {
-          bg: "bg-cyan-100",
+          bg: "bg-gradient-to-r from-cyan-50 to-cyan-100",
           text: "text-cyan-900",
-          label: "Skill path"
+          label: "Skill path",
+          border: "border-l-4 border-cyan-500"
         }
       case "course":
         return {
-          bg: "bg-emerald-100",
+          bg: "bg-gradient-to-r from-emerald-50 to-emerald-100",
           text: "text-emerald-900",
-          label: "Course"
+          label: "Course",
+          border: "border-l-4 border-emerald-500"
         }
       case "career-path":
         return {
-          bg: "bg-slate-900",
+          bg: "bg-gradient-to-r from-slate-800 to-slate-900",
           text: "text-white",
-          label: "Career path"
+          label: "Career path",
+          border: "border-l-4 border-amber-500"
         }
       case "free-course":
         return {
-          bg: "bg-lime-200",
+          bg: "bg-gradient-to-r from-lime-100 to-lime-200",
           text: "text-lime-950",
-          label: "Free course"
+          label: "Free course",
+          border: "border-l-4 border-lime-600"
         }
       default:
         return {
-          bg: "bg-slate-100",
-          text: "text-slate-900",
-          label: "Course"
+          bg: "bg-gradient-to-r from-slate-50 to-slate-100",
+          text: "text-black",
+          label: "Course",
+          border: "border-l-4 border-slate-400"
         }
     }
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-[#FEF9E7]">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Explore Courses</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <h1 className="text-3xl font-bold text-black mb-2">Explore Courses</h1>
+          <p className="text-sm text-black/70">
             Discover and enroll in new IITM BS courses taught in Tamil
           </p>
         </div>
@@ -115,87 +120,75 @@ export default function ExploreCourses() {
         {loading ? (
           <div className="text-center py-16">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#51b206] mx-auto"></div>
-            <p className="text-slate-600 dark:text-slate-400 mt-4 text-sm">Loading courses...</p>
+            <p className="text-black/70 mt-4 text-sm">Loading courses...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {courses.map((course) => {
               const typeStyles = getCourseTypeStyles(course.courseType || "course")
               const isPaid = course.type === "paid"
               const isEnrolled = enrolledCourseIds.includes(course.id)
               
               return (
-                <Link key={course.id} href={`/courses/${course.id}`} className="group">
-                  <Card className="relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all duration-300 overflow-hidden h-full hover:shadow-lg hover:shadow-[#51b206]/10">
+                <Link key={course.id} href={`/courses/${course.id}`} className="group block h-full">
+                  <Card className="relative bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-200 overflow-hidden hover:shadow-md rounded-xl h-full">
                     <CardContent className="p-0 flex flex-col h-full">
-                      {/* Colored Header with Type */}
-                      <div className={`${typeStyles.bg} ${typeStyles.text} px-4 py-2.5 font-medium text-sm flex items-center justify-between`}>
-                        <span>{typeStyles.label}</span>
+                      {/* Top Badge - Certification Path / Course Type */}
+                      <div className="px-4 pt-3 pb-2">
+                        <span className="inline-block px-2.5 py-1 bg-[#F5EFE7] text-black/70 text-xs font-medium rounded">
+                          {typeStyles.label}
+                        </span>
                         {isEnrolled && (
-                          <Badge className="bg-[#51b206] hover:bg-[#51b206] text-white text-xs px-2 py-0.5">Enrolled</Badge>
+                          <Badge className="ml-2 bg-[#51b206] hover:bg-[#51b206] text-white text-xs px-2 py-0.5">Enrolled</Badge>
                         )}
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-5 flex-grow flex flex-col">
-                        {/* Title */}
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 min-h-[56px]">
-                          {course.title}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 flex-grow">
-                          {course.description}
-                        </p>
-
-                        {/* Divider */}
-                        <div className="border-t border-slate-200 dark:border-slate-700/50 mb-4"></div>
-
-                        {/* Footer Meta Info */}
-                        <div className="space-y-3">
-                          {/* Includes Courses (if applicable) */}
-                          {course.includesCourses && (
-                            <div className="text-sm text-slate-600 dark:text-slate-400">
-                              Includes <span className="font-semibold text-slate-900 dark:text-white">{course.includesCourses} Courses</span>
-                            </div>
-                          )}
-
-                          {/* Bottom row: Certificate */}
-                          <div className="flex items-center justify-between text-sm">
-                            <div className="flex items-center gap-4">
-                              {/* Certificate Badge */}
-                              {(course.withCertificate !== false) && (
-                                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                                  <Award className="w-4 h-4" />
-                                  <span className="text-xs">With Certificate</span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Level and Duration */}
-                          <div className="flex items-center justify-between text-sm">
-                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                              <BookOpen className="w-4 h-4" />
-                              <span className="text-xs capitalize">{course.level} Friendly</span>
-                            </div>
-                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                              <Clock className="w-4 h-4" />
-                              <span className="text-xs">{course.weeks * 6} hours</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Locked Overlay for Paid Courses */}
-                      {isPaid && !isEnrolled && (
-                        <div className="absolute top-12 right-3">
-                          <Badge className="bg-amber-500 hover:bg-amber-500 text-white font-semibold shadow-lg">
+                        {isPaid && !isEnrolled && (
+                          <Badge className="ml-2 bg-amber-500 hover:bg-amber-500 text-white text-xs px-2 py-0.5">
                             <Lock className="w-3 h-3 mr-1" />
                             Premium
                           </Badge>
+                        )}
+                      </div>
+
+                      <div className="px-4 pb-4 flex-grow flex flex-col">
+                        {/* Course Branding/Provider */}
+                        <div className="mb-2">
+                          <span className="text-sm font-bold text-[#3e3098]">IITM BS</span>
                         </div>
-                      )}
+
+                        {/* Title */}
+                        <h3 className="text-lg font-bold text-black mb-2 line-clamp-2 leading-tight min-h-[44px]">
+                          {course.title}
+                        </h3>
+
+                        {/* Description */>
+                        <p className="text-sm text-black/70 mb-3 line-clamp-2 leading-relaxed flex-grow">
+                          {course.description}
+                        </p>
+
+                        {/* Dotted Divider */}
+                        <div className="border-t border-dotted border-gray-300 my-3"></div>
+
+                        {/* Includes Courses */}
+                        {course.includesCourses && (
+                          <>
+                            <div className="text-sm text-black/80 mb-2">
+                              Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
+                            </div>
+                            <div className="border-t border-dotted border-gray-300 my-3"></div>
+                          </>
+                        )}
+
+                        {/* Bottom Row: Level and Duration */}
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-1.5 text-black/80">
+                            <BookOpen className="w-4 h-4" />
+                            <span className="text-sm font-medium capitalize">{course.level}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5 text-black/80">
+                            <span className="text-sm font-medium">{course.weeks * 6} hours</span>
+                          </div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 </Link>

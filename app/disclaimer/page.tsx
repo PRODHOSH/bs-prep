@@ -25,10 +25,10 @@ export default function DisclaimerPage() {
             <div className="inline-flex items-center gap-2 mb-6">
               <AlertTriangle className="w-8 h-8 text-amber-500" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
               Disclaimer
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-black/70">
               Important information about our platform and services
             </p>
           </div>
@@ -43,9 +43,9 @@ export default function DisclaimerPage() {
             <div className="bg-amber-50 dark:bg-amber-950/20 rounded-2xl p-8 shadow-sm border-2 border-amber-200 dark:border-amber-900">
               <div className="flex items-center gap-3 mb-4">
                 <Info className="w-6 h-6 text-amber-600 dark:text-amber-400" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">General Disclaimer</h2>
+                <h2 className="text-2xl font-bold text-black">General Disclaimer</h2>
               </div>
-              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-black/90 leading-relaxed">
                 The information provided by IITM BS Learning Platform on this website is for general informational 
                 and educational purposes only. All information on the platform is provided in good faith, however, 
                 we make no representation or warranty of any kind, express or implied, regarding the accuracy, 
@@ -64,7 +64,7 @@ export default function DisclaimerPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Building2 className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Not Affiliated with IIT Madras</h2>
+                <h2 className="text-2xl font-bold text-black">Not Affiliated with IIT Madras</h2>
               </div>
               <div className="space-y-4">
                 <div className="bg-red-50 dark:bg-red-950/20 border-l-4 border-red-500 p-4 rounded-r-lg">
@@ -75,7 +75,7 @@ export default function DisclaimerPage() {
                     by students for students.
                   </p>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-black/70 leading-relaxed">
                   All course content, materials, and resources provided on this platform are created and curated by our 
                   community members and mentors. They do not represent the official curriculum or materials of IIT Madras.
                 </p>
@@ -93,9 +93,9 @@ export default function DisclaimerPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <BookOpen className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Educational Content Disclaimer</h2>
+                <h2 className="text-2xl font-bold text-black">Educational Content Disclaimer</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">
                   While we strive to provide accurate and helpful educational content:
                 </p>
@@ -103,7 +103,7 @@ export default function DisclaimerPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-amber-500 mt-1">⚠</span>
                     <div>
-                      <strong className="text-slate-900 dark:text-white">No Guarantee of Accuracy:</strong>
+                      <strong className="text-black">No Guarantee of Accuracy:</strong>
                       <p className="text-sm mt-1">
                         We cannot guarantee that all information is completely accurate, current, or applicable to your specific situation.
                       </p>
@@ -112,7 +112,7 @@ export default function DisclaimerPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-amber-500 mt-1">⚠</span>
                     <div>
-                      <strong className="text-slate-900 dark:text-white">Supplementary Resource:</strong>
+                      <strong className="text-black">Supplementary Resource:</strong>
                       <p className="text-sm mt-1">
                         This platform should be used as a supplementary learning resource, not as a replacement for official course materials.
                       </p>
@@ -121,7 +121,7 @@ export default function DisclaimerPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-amber-500 mt-1">⚠</span>
                     <div>
-                      <strong className="text-slate-900 dark:text-white">Personal Responsibility:</strong>
+                      <strong className="text-black">Personal Responsibility:</strong>
                       <p className="text-sm mt-1">
                         You are solely responsible for verifying information and ensuring its applicability to your academic work.
                       </p>
@@ -140,27 +140,27 @@ export default function DisclaimerPage() {
             }`}
           >
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">No Professional Advice</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <h2 className="text-2xl font-bold text-black mb-4">No Professional Advice</h2>
+              <p className="text-black/70 leading-relaxed mb-4">
                 The information on this platform does not constitute professional academic advice. Always consult with your 
                 official course instructors, academic advisors, or IIT Madras faculty for:
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                  <p className="font-semibold text-slate-900 dark:text-white mb-2">✓ Exam preparation guidance</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Official syllabus and exam patterns</p>
+                  <p className="font-semibold text-black mb-2">✓ Exam preparation guidance</p>
+                  <p className="text-sm text-black/70">Official syllabus and exam patterns</p>
                 </div>
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                  <p className="font-semibold text-slate-900 dark:text-white mb-2">✓ Academic decisions</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Course selection and career advice</p>
+                  <p className="font-semibold text-black mb-2">✓ Academic decisions</p>
+                  <p className="text-sm text-black/70">Course selection and career advice</p>
                 </div>
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                  <p className="font-semibold text-slate-900 dark:text-white mb-2">✓ Grade concerns</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Official grade disputes and appeals</p>
+                  <p className="font-semibold text-black mb-2">✓ Grade concerns</p>
+                  <p className="text-sm text-black/70">Official grade disputes and appeals</p>
                 </div>
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                  <p className="font-semibold text-slate-900 dark:text-white mb-2">✓ Policy clarifications</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Official institutional policies</p>
+                  <p className="font-semibold text-black mb-2">✓ Policy clarifications</p>
+                  <p className="text-sm text-black/70">Official institutional policies</p>
                 </div>
               </div>
             </div>
@@ -174,8 +174,8 @@ export default function DisclaimerPage() {
             }`}
           >
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Changes to This Disclaimer</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              <h2 className="text-2xl font-bold text-black mb-4">Changes to This Disclaimer</h2>
+              <p className="text-black/70 leading-relaxed">
                 We may update our disclaimer from time to time. We will notify you of any changes by posting the new 
                 disclaimer on this page and updating the "last updated" date. You are advised to review this disclaimer 
                 periodically for any changes.

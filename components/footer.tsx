@@ -26,7 +26,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-black/20 dark:bg-black/20 backdrop-blur-sm border-t border-slate-200/20 dark:border-slate-800/30 mt-20">
+    <footer className="bg-white/95 backdrop-blur-sm border-t border-slate-200 mt-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
@@ -37,31 +37,31 @@ export function Footer() {
                 alt="IITM BS Logo" 
                 className="w-10 h-10 rounded-full object-cover"
               />
-              <span className="text-xl font-bold text-slate-900 dark:text-white">IITM BS</span>
+              <span className="text-xl font-bold text-black">IITM BS</span>
             </div>
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-relaxed">
               Learn. Grow. Excel. Together.
             </p>
-            <p className="text-slate-500 dark:text-slate-500 text-xs">
+            <p className="text-slate-500 text-xs">
               Community-driven academic support for IIT Madras students.
             </p>
             {/* Social Links */}
             <div className="flex gap-3 pt-2">
               <Link
                 href="#"
-                className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#3e3098] hover:text-white transition-all duration-300 hover:scale-110"
+                className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#3e3098] hover:text-white transition-all duration-300 hover:scale-110"
               >
                 <Twitter className="w-4 h-4" />
               </Link>
               <Link
                 href="#"
-                className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#3e3098] hover:text-white transition-all duration-300 hover:scale-110"
+                className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#3e3098] hover:text-white transition-all duration-300 hover:scale-110"
               >
                 <Github className="w-4 h-4" />
               </Link>
               <Link
                 href="#"
-                className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#3e3098] hover:text-white transition-all duration-300 hover:scale-110"
+                className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#3e3098] hover:text-white transition-all duration-300 hover:scale-110"
               >
                 <Linkedin className="w-4 h-4" />
               </Link>
@@ -70,13 +70,13 @@ export function Footer() {
 
           {/* Platform Links */}
           <div className="animate-on-scroll">
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Platform</h3>
+            <h3 className="font-semibold text-black mb-4">Platform</h3>
             <ul className="space-y-3">
               {footerLinks.platform.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#3e3098] dark:hover:text-[#51b206] transition-colors text-sm inline-flex items-center group"
+                    className="text-slate-600 hover:text-[#3e3098] transition-colors text-sm inline-flex items-center group"
                   >
                     <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
                   </Link>
@@ -87,13 +87,13 @@ export function Footer() {
 
           {/* Legal Links */}
           <div className="animate-on-scroll" style={{ animationDelay: "0.1s" }}>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Legal</h3>
+            <h3 className="font-semibold text-black mb-4">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#3e3098] dark:hover:text-[#51b206] transition-colors text-sm inline-flex items-center group"
+                    className="text-slate-600 hover:text-[#3e3098] transition-colors text-sm inline-flex items-center group"
                   >
                     <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
                   </Link>
@@ -104,13 +104,13 @@ export function Footer() {
 
           {/* Support Links */}
           <div className="animate-on-scroll" style={{ animationDelay: "0.2s" }}>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Support</h3>
+            <h3 className="font-semibold text-black mb-4">Support</h3>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#3e3098] dark:hover:text-[#51b206] transition-colors text-sm inline-flex items-center group"
+                    className="text-slate-600 hover:text-[#3e3098] transition-colors text-sm inline-flex items-center group"
                   >
                     {link.name === "Contact Us" && <Mail className="w-4 h-4 mr-2" />}
                     <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
@@ -122,12 +122,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-200 dark:border-slate-800 pt-8">
+        <div className="border-t border-slate-200 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-slate-500 dark:text-slate-500 text-sm">
+            <p className="text-slate-500 text-sm">
               © 2026 IITM BS Learning. All rights reserved.
             </p>
-            <p className="text-slate-400 dark:text-slate-600 text-xs max-w-md text-center md:text-right">
+            <p className="text-slate-400 text-xs max-w-md text-center md:text-right">
               This platform is not affiliated with IIT Madras. Community-driven academic support only.
             </p>
           </div>

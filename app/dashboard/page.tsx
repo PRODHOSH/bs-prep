@@ -87,15 +87,15 @@ export default function StudentDashboard() {
   const getCourseTypeStyles = (courseType: string) => {
     switch (courseType) {
       case "skill-path":
-        return { bg: "bg-cyan-100", text: "text-cyan-900", label: "Skill path" }
+        return { bg: "bg-gradient-to-r from-cyan-50 to-cyan-100", text: "text-cyan-900", label: "Skill path", border: "border-l-4 border-cyan-500" }
       case "course":
-        return { bg: "bg-emerald-100", text: "text-emerald-900", label: "Course" }
+        return { bg: "bg-gradient-to-r from-emerald-50 to-emerald-100", text: "text-emerald-900", label: "Course", border: "border-l-4 border-emerald-500" }
       case "career-path":
-        return { bg: "bg-slate-900", text: "text-white", label: "Career path" }
+        return { bg: "bg-gradient-to-r from-slate-800 to-slate-900", text: "text-white", label: "Career path", border: "border-l-4 border-amber-500" }
       case "free-course":
-        return { bg: "bg-lime-200", text: "text-lime-950", label: "Free course" }
+        return { bg: "bg-gradient-to-r from-lime-100 to-lime-200", text: "text-lime-950", label: "Free course", border: "border-l-4 border-lime-600" }
       default:
-        return { bg: "bg-slate-100", text: "text-slate-900", label: "Course" }
+        return { bg: "bg-gradient-to-r from-slate-50 to-slate-100", text: "text-black", label: "Course", border: "border-l-4 border-slate-400" }
     }
   }
 
@@ -110,11 +110,11 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 border border-slate-700">
-        <h1 className="text-3xl font-bold text-white mb-2">
+      <div className="bg-white rounded-xl p-8 border border-[#E5DBC8]">
+        <h1 className="text-3xl font-bold text-black mb-2">
           Welcome back, {userName}!
         </h1>
-        <p className="text-slate-300">
+        <p className="text-black/70">
           Continue your learning journey with IITM BS courses
         </p>
       </div>
@@ -122,7 +122,7 @@ export default function StudentDashboard() {
       {/* Upcoming Live Classes */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Upcoming Live Classes</h2>
+          <h2 className="text-2xl font-bold text-black">Upcoming Live Classes</h2>
           <Link href="/dashboard/live-classes">
             <Button variant="outline" size="sm" className="text-sm">
               View All
@@ -132,35 +132,35 @@ export default function StudentDashboard() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {liveClasses.length === 0 ? (
-            <div className="col-span-full bg-white/5 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-8 text-center">
-              <p className="text-slate-600 dark:text-slate-400">No live classes scheduled at the moment.</p>
+            <div className="col-span-full bg-[#F5EFE7] border border-slate-300 rounded-lg p-8 text-center">
+              <p className="text-black/90">No live classes scheduled at the moment.</p>
             </div>
           ) : (
             liveClasses.slice(0, 3).map((liveClass, index) => (
-            <Card key={index} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all">
+            <Card key={index} className="bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-300 hover:shadow-lg rounded-lg">
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/10 border-red-500/20">
                     <Video className="w-3 h-3 mr-1" />
                     Live
                   </Badge>
-                  <Calendar className="w-4 h-4 text-slate-400" />
+                  <Calendar className="w-4 h-4 text-black/70" />
                 </div>
                 
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2">
+                <h3 className="font-semibold text-black mb-2 line-clamp-2">
                   {liveClass.subject}
                 </h3>
                 
-                <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
+                <p className="text-xs text-black/70 mb-4">
                   {liveClass.topic}
                 </p>
                 
                 <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                  <div className="flex items-center gap-2 text-black/80">
                     <Calendar className="w-4 h-4" />
                     <span>{new Date(liveClass.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                  <div className="flex items-center gap-2 text-black/80">
                     <Clock className="w-4 h-4" />
                     <span>{liveClass.time}</span>
                   </div>
@@ -182,7 +182,7 @@ export default function StudentDashboard() {
       {/* My Courses */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">My Courses</h2>
+          <h2 className="text-2xl font-bold text-black">My Courses</h2>
           <Link href="/dashboard/courses">
             <Button variant="outline" size="sm" className="text-sm">
               Explore More
@@ -196,61 +196,53 @@ export default function StudentDashboard() {
               const typeStyles = getCourseTypeStyles(course.courseType || "course")
               
               return (
-                <Link key={course.id} href={`/courses/${course.id}`} className="group">
-                  <Card className="relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all duration-300 overflow-hidden h-full hover:shadow-lg hover:shadow-[#51b206]/10">
+                <Link key={course.id} href={`/courses/${course.id}`} className="group block h-full">
+                  <Card className="relative bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-200 overflow-hidden hover:shadow-md rounded-xl h-full">
                     <CardContent className="p-0 flex flex-col h-full">
-                      {/* Colored Header with Type */}
-                      <div className={`${typeStyles.bg} ${typeStyles.text} px-4 py-2.5 font-medium text-sm`}>
-                        {typeStyles.label}
+                      {/* Top Badge - Certification Path / Course Type */>
+                      <div className="px-4 pt-3 pb-2">
+                        <span className="inline-block px-2.5 py-1 bg-[#F5EFE7] text-black/70 text-xs font-medium rounded">
+                          {typeStyles.label}
+                        </span>
                       </div>
 
-                      {/* Content */}
-                      <div className="p-5 flex-grow flex flex-col">
+                      <div className="px-4 pb-4 flex-grow flex flex-col">
+                        {/* Course Branding/Provider */}
+                        <div className="mb-2">
+                          <span className="text-sm font-bold text-[#3e3098]">IITM BS</span>
+                        </div>
+
                         {/* Title */}
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 min-h-[56px]">
+                        <h3 className="text-lg font-bold text-black mb-2 line-clamp-2 leading-tight min-h-[44px]">
                           {course.title}
                         </h3>
 
-                        {/* Description */}
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 flex-grow">
+                        {/* Description */>
+                        <p className="text-sm text-black/70 mb-3 line-clamp-2 leading-relaxed flex-grow">
                           {course.description}
                         </p>
 
-                        {/* Divider */}
-                        <div className="border-t border-slate-200 dark:border-slate-700/50 mb-4"></div>
+                        {/* Dotted Divider */}
+                        <div className="border-t border-dotted border-gray-300 my-3"></div>
 
-                        {/* Footer Meta Info */}
-                        <div className="space-y-3">
-                          {/* Includes Courses (if applicable) */}
-                          {course.includesCourses && (
-                            <div className="text-sm text-slate-600 dark:text-slate-400">
-                              Includes <span className="font-semibold text-slate-900 dark:text-white">{course.includesCourses} Courses</span>
+                        {/* Includes Courses */}
+                        {course.includesCourses && (
+                          <>
+                            <div className="text-sm text-black/80 mb-2">
+                              Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
                             </div>
-                          )}
+                            <div className="border-t border-dotted border-gray-300 my-3"></div>
+                          </>
+                        )}
 
-                          {/* Bottom row: Certificate, Level, Duration */}
-                          <div className="flex items-center justify-between text-sm">
-                            <div className="flex items-center gap-4">
-                              {/* Certificate Badge */}
-                              {(course.withCertificate !== false) && (
-                                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                                  <Award className="w-4 h-4" />
-                                  <span className="text-xs">With Certificate</span>
-                                </div>
-                              )}
-                            </div>
+                        {/* Bottom Row: Level and Duration */}
+                        <div className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-1.5 text-black/80">
+                            <BookOpen className="w-4 h-4" />
+                            <span className="text-sm font-medium capitalize">{course.level}</span>
                           </div>
-
-                          {/* Level and Duration */}
-                          <div className="flex items-center justify-between text-sm">
-                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                              <BookOpen className="w-4 h-4" />
-                              <span className="text-xs capitalize">{course.level} Friendly</span>
-                            </div>
-                            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                              <Clock className="w-4 h-4" />
-                              <span className="text-xs">{course.weeks * 6} hours</span>
-                            </div>
+                          <div className="flex items-center gap-1.5 text-black/80">
+                            <span className="text-sm font-medium">{course.weeks * 6} hours</span>
                           </div>
                         </div>
                       </div>
@@ -263,7 +255,7 @@ export default function StudentDashboard() {
         ) : (
           <div className="p-8 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 border border-slate-700 rounded-xl text-center">
             <div className="w-20 h-20 mx-auto bg-slate-800 dark:bg-slate-700 rounded-full flex items-center justify-center mb-4">
-              <BookOpen className="w-10 h-10 text-slate-400" />
+              <BookOpen className="w-10 h-10 text-black/50" />
             </div>
             <h2 className="text-2xl font-bold text-white mb-3">
               Welcome to BSPrep!

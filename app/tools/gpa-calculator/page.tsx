@@ -122,10 +122,10 @@ export default function GPACalculator() {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#3e3098] to-[#5842c3] mb-6 shadow-xl">
             <Calculator className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-slate-900 dark:text-white">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black">
             GPA Calculator
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-black/70 text-lg max-w-2xl mx-auto">
             Calculate your course scores and semester GPA with precision
           </p>
         </div>
@@ -138,7 +138,7 @@ export default function GPACalculator() {
               className={`px-8 py-3 rounded-xl font-semibol transition-all duration-300 ${
                 activeTab === "course" 
                   ? "bg-gradient-to-r from-[#3e3098] to-[#5842c3] text-white shadow-lg" 
-                  : "text-slate-600 dark:text-slate-400 hover:text-[#3e3098] dark:hover:text-white"
+                  : "text-black/70 hover:text-[#3e3098] dark:hover:text-white"
               }`}
             >
               Course Grade
@@ -148,7 +148,7 @@ export default function GPACalculator() {
               className={`px-8 py-3 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === "semester" 
                   ? "bg-gradient-to-r from-[#3e3098] to-[#5842c3] text-white shadow-lg" 
-                  : "text-slate-600 dark:text-slate-400 hover:text-[#3e3098] dark:hover:text-white"
+                  : "text-black/70 hover:text-[#3e3098] dark:hover:text-white"
               }`}
             >
               Semester GPA
@@ -163,8 +163,8 @@ export default function GPACalculator() {
             <div className="h-2 bg-gradient-to-r from-[#3e3098] to-[#5842c3]"></div>
             
             <CardHeader className="border-b border-slate-200 dark:border-slate-800 pb-6 bg-slate-50 dark:bg-slate-800/50">
-              <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">Calculate Course Grade</CardTitle>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-2">Select your course and enter your scores to get your final grade</p>
+              <CardTitle className="text-3xl font-bold text-black">Calculate Course Grade</CardTitle>
+              <p className="text-black/70 text-sm mt-2">Select your course and enter your scores to get your final grade</p>
             </CardHeader>
             <CardContent className="space-y-8 pt-8">
               {/* Course Selection */}
@@ -175,7 +175,7 @@ export default function GPACalculator() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Degree Program</Label>
+                    <Label className="text-sm font-semibold text-black/90">Degree Program</Label>
                     <Select value={selectedDegree} onValueChange={(v) => {
                       setSelectedDegree(v as any)
                       setSelectedLevel("")
@@ -194,7 +194,7 @@ export default function GPACalculator() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Level</Label>
+                    <Label className="text-sm font-semibold text-black/90">Level</Label>
                     <Select value={selectedLevel} onValueChange={(v) => {
                       setSelectedLevel(v as any)
                       setSelectedCourse(null)
@@ -215,7 +215,7 @@ export default function GPACalculator() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Course</Label>
+                    <Label className="text-sm font-semibold text-black/90">Course</Label>
                     <Select value={selectedCourse?.id || ""} onValueChange={(id) => {
                       const course = availableCourses.find((c) => c.id === id)
                       setSelectedCourse(course || null)
@@ -250,9 +250,9 @@ export default function GPACalculator() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {selectedCourse.formFields.map((field) => (
                           <div key={field.id} className="space-y-2">
-                            <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex justify-between">
+                            <Label className="text-sm font-semibold text-black/90 flex justify-between">
                               <span>{field.label}</span>
-                              <span className="text-slate-500 dark:text-slate-400 text-xs">Max: {field.max}</span>
+                              <span className="text-black/60 text-xs">Max: {field.max}</span>
                             </Label>
                             <Input
                               type="number"
@@ -264,7 +264,7 @@ export default function GPACalculator() {
                               }}
                               className="h-14 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:border-[#3e3098] transition-colors"
                             />
-                            <p className="text-xs text-slate-500 dark:text-slate-400">{field.description}</p>
+                            <p className="text-xs text-black/60">{field.description}</p>
                           </div>
                         ))}
                       </div>
@@ -289,21 +289,21 @@ export default function GPACalculator() {
                   {/* Result */}
                   {calculatedScore !== null && calculatedGrade && (
                     <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl p-10 text-center shadow-2xl">
-                      <p className="text-slate-600 dark:text-slate-300 text-sm uppercase tracking-wide mb-6 font-bold">✨ Your Final Score</p>
+                      <p className="text-black/80 text-sm uppercase tracking-wide mb-6 font-bold">✨ Your Final Score</p>
                       <div className="flex items-center justify-center gap-12 flex-wrap">
                         <div>
                           <p className="text-7xl font-black bg-gradient-to-r from-[#3e3098] to-[#5842c3] bg-clip-text text-transparent mb-2">
                             {calculatedScore.toFixed(2)}
                           </p>
-                          <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold">out of 100</p>
+                          <p className="text-black/60 text-sm font-semibold">out of 100</p>
                         </div>
                         <div className="h-24 w-px bg-gradient-to-b from-transparent via-slate-300 dark:via-slate-700 to-transparent"></div>
                         <div>
-                          <p className="text-slate-600 dark:text-slate-300 text-sm mb-2 font-semibold">Grade</p>
+                          <p className="text-black/80 text-sm mb-2 font-semibold">Grade</p>
                           <div className="text-6xl font-black bg-gradient-to-r from-[#3e3098] to-[#5842c3] bg-clip-text text-transparent">
                             {calculatedGrade}
                           </div>
-                          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-2">
+                          <p className="text-sm font-semibold text-black/60 mt-2">
                             {calculatedGrade === 'S' && '🏆 Outstanding!'}
                             {calculatedGrade === 'A' && '⭐ Excellent!'}
                             {calculatedGrade === 'B' && '👍 Great Job!'}
@@ -326,20 +326,20 @@ export default function GPACalculator() {
           <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl max-w-5xl mx-auto overflow-hidden">
           <div className="h-2 bg-gradient-to-r from-[#3e3098] to-[#5842c3]"></div>
             <CardHeader className="border-b border-slate-200 dark:border-slate-800 pb-6 bg-slate-50 dark:bg-slate-800/50">
-              <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">Calculate Semester GPA</CardTitle>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-2">Add your courses and grades to calculate your GPA</p>
+              <CardTitle className="text-3xl font-bold text-black">Calculate Semester GPA</CardTitle>
+              <p className="text-black/70 text-sm mt-2">Add your courses and grades to calculate your GPA</p>
             </CardHeader>
             <CardContent className="space-y-6 pt-8">
               {/* Table Header */}
               <div className="grid grid-cols-12 gap-4 px-4 pb-2 border-b border-slate-200 dark:border-slate-800">
                 <div className="col-span-5">
-                  <Label className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400 font-bold">Course Name</Label>
+                  <Label className="text-xs uppercase tracking-wide text-black/70 font-bold">Course Name</Label>
                 </div>
                 <div className="col-span-2">
-                  <Label className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400 font-bold">Credits</Label>
+                  <Label className="text-xs uppercase tracking-wide text-black/70 font-bold">Credits</Label>
                 </div>
                 <div className="col-span-4">
-                  <Label className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400 font-bold">Grade</Label>
+                  <Label className="text-xs uppercase tracking-wide text-black/70 font-bold">Grade</Label>
                 </div>
                 <div className="col-span-1"></div>
               </div>
@@ -411,24 +411,24 @@ export default function GPACalculator() {
               {semesterGPA !== null && (
                 <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl p-10 shadow-2xl">
                   <div className="text-center mb-8">
-                    <p className="text-slate-600 dark:text-slate-300 text-sm uppercase tracking-wide mb-6 font-bold">✨ Your Semester GPA</p>
+                    <p className="text-black/80 text-sm uppercase tracking-wide mb-6 font-bold">✨ Your Semester GPA</p>
                     <p className="text-8xl font-black bg-gradient-to-r from-[#51b206] to-[#3e3098] bg-clip-text text-transparent mb-4">{semesterGPA.toFixed(2)}</p>
-                    <p className="text-2xl font-bold text-slate-600 dark:text-slate-400">
+                    <p className="text-2xl font-bold text-black/70">
                       {semesterGPA >= 9 ? "🌟 Excellent Performance!" : semesterGPA >= 8 ? "✨ Very Good Work!" : semesterGPA >= 7 ? "👍 Good Progress!" : "📚 Keep Improving!"}
                     </p>
                   </div>
                   <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200 dark:border-slate-700">
                     <div className="text-center">
-                      <p className="text-slate-500 dark:text-slate-400 text-sm mb-2 font-semibold">Total Courses</p>
-                      <p className="text-4xl font-bold text-slate-900 dark:text-white">{semesterCourses.filter(c => c.credits > 0).length}</p>
+                      <p className="text-black/60 text-sm mb-2 font-semibold">Total Courses</p>
+                      <p className="text-4xl font-bold text-black">{semesterCourses.filter(c => c.credits > 0).length}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-slate-500 dark:text-slate-400 text-sm mb-2 font-semibold">Total Credits</p>
-                      <p className="text-4xl font-bold text-slate-900 dark:text-white">{semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits, 0)}</p>
+                      <p className="text-black/60 text-sm mb-2 font-semibold">Total Credits</p>
+                      <p className="text-4xl font-bold text-black">{semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits, 0)}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-slate-500 dark:text-slate-400 text-sm mb-2 font-semibold">Total Points</p>
-                      <p className="text-4xl font-bold text-slate-900 dark:text-white">{(semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits * c.gradePoints, 0)).toFixed(1)}</p>
+                      <p className="text-black/60 text-sm mb-2 font-semibold">Total Points</p>
+                      <p className="text-4xl font-bold text-black">{(semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits * c.gradePoints, 0)).toFixed(1)}</p>
                     </div>
                   </div>
                 </div>

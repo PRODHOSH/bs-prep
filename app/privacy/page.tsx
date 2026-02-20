@@ -26,10 +26,10 @@ export default function PrivacyPolicyPage() {
             <div className="inline-flex items-center gap-2 mb-6">
               <Shield className="w-8 h-8 text-[#3e3098]" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
               Privacy Policy
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-black/70">
               Last updated: January 4, 2026
             </p>
           </div>
@@ -42,8 +42,8 @@ export default function PrivacyPolicyPage() {
             }`}
           >
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Introduction</h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              <h2 className="text-2xl font-bold text-black mb-4">Introduction</h2>
+              <p className="text-black/70 leading-relaxed">
                 Welcome to IITM BS Learning Platform. We respect your privacy and are committed to protecting your personal data. 
                 This privacy policy will inform you about how we look after your personal data when you visit our platform and 
                 tell you about your privacy rights and how the law protects you.
@@ -61,11 +61,11 @@ export default function PrivacyPolicyPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Eye className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Information We Collect</h2>
+                <h2 className="text-2xl font-bold text-black">Information We Collect</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Personal Information</h3>
+                  <h3 className="font-semibold text-black mb-2">Personal Information</h3>
                   <ul className="list-disc list-inside space-y-2">
                     <li>Name and email address</li>
                     <li>Profile information (student ID, course enrollment)</li>
@@ -73,7 +73,7 @@ export default function PrivacyPolicyPage() {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Usage Data</h3>
+                  <h3 className="font-semibold text-black mb-2">Usage Data</h3>
                   <ul className="list-disc list-inside space-y-2">
                     <li>Learning progress and course completion</li>
                     <li>Quiz scores and performance analytics</li>
@@ -94,9 +94,9 @@ export default function PrivacyPolicyPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <UserCheck className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">How We Use Your Information</h2>
+                <h2 className="text-2xl font-bold text-black">How We Use Your Information</h2>
               </div>
-              <ul className="space-y-3 text-slate-600 dark:text-slate-400">
+              <ul className="space-y-3 text-black/70">
                 <li className="flex items-start gap-3">
                   <span className="text-[#51b206] mt-1">✓</span>
                   <span>To provide and maintain our educational services</span>
@@ -131,13 +131,13 @@ export default function PrivacyPolicyPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Lock className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Data Security</h2>
+                <h2 className="text-2xl font-bold text-black">Data Security</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <p className="text-black/70 leading-relaxed mb-4">
                 We have implemented appropriate security measures to prevent your personal data from being accidentally lost, 
                 used, or accessed in an unauthorized way. We use industry-standard encryption and security protocols including:
               </p>
-              <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-black/70">
                 <li className="flex items-start gap-3">
                   <span className="text-[#3e3098] mt-1">•</span>
                   <span>SSL/TLS encryption for data transmission</span>
@@ -164,19 +164,19 @@ export default function PrivacyPolicyPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Server className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Third-Party Services</h2>
+                <h2 className="text-2xl font-bold text-black">Third-Party Services</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <p className="text-black/70 leading-relaxed mb-4">
                 We use the following trusted third-party services to operate our platform:
               </p>
               <div className="space-y-3">
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                  <p className="font-semibold text-slate-900 dark:text-white">Supabase</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Authentication and database services</p>
+                  <p className="font-semibold text-black">Supabase</p>
+                  <p className="text-sm text-black/70">Authentication and database services</p>
                 </div>
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                  <p className="font-semibold text-slate-900 dark:text-white">Vercel Analytics</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Anonymous usage analytics</p>
+                  <p className="font-semibold text-black">Vercel Analytics</p>
+                  <p className="text-sm text-black/70">Anonymous usage analytics</p>
                 </div>
               </div>
             </div>
@@ -192,12 +192,12 @@ export default function PrivacyPolicyPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <AlertCircle className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Your Rights</h2>
+                <h2 className="text-2xl font-bold text-black">Your Rights</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <p className="text-black/70 leading-relaxed mb-4">
                 You have the right to:
               </p>
-              <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 text-black/70">
                 <li className="flex items-start gap-3">
                   <span className="text-[#3e3098] font-bold">→</span>
                   <span>Access your personal data</span>

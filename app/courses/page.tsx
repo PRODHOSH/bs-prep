@@ -150,7 +150,7 @@ export default function CoursesPage() {
     switch (level) {
       case "qualifier": return "bg-[#51b206]/20 text-[#51b206] border-[#51b206]/50"
       case "foundation": return "bg-blue-500/20 text-blue-400 border-blue-500/50"
-      default: return "bg-slate-500/20 text-slate-400 border-slate-500/50"
+      default: return "bg-slate-500/20 text-black/50 border-slate-500/50"
     }
   }
 
@@ -162,54 +162,57 @@ export default function CoursesPage() {
     switch (courseType) {
       case "skill-path":
         return {
-          bg: "bg-cyan-100",
+          bg: "bg-gradient-to-r from-cyan-50 to-cyan-100",
           text: "text-cyan-900",
-          label: "Skill path"
+          label: "Skill path",
+          border: "border-l-4 border-cyan-500"
         }
       case "course":
         return {
-          bg: "bg-emerald-100",
+          bg: "bg-gradient-to-r from-emerald-50 to-emerald-100",
           text: "text-emerald-900",
-          label: "Course"
+          label: "Course",
+          border: "border-l-4 border-emerald-500"
         }
       case "career-path":
         return {
-          bg: "bg-slate-900",
+          bg: "bg-gradient-to-r from-slate-800 to-slate-900",
           text: "text-white",
-          label: "Career path"
+          label: "Career path",
+          border: "border-l-4 border-amber-500"
         }
       case "free-course":
         return {
-          bg: "bg-lime-200",
+          bg: "bg-gradient-to-r from-lime-100 to-lime-200",
           text: "text-lime-950",
-          label: "Free course"
+          label: "Free course",
+          border: "border-l-4 border-lime-600"
         }
       default:
         return {
-          bg: "bg-slate-100",
-          text: "text-slate-900",
-          label: "Course"
+          bg: "bg-gradient-to-r from-slate-50 to-slate-100",
+          text: "text-black",
+          label: "Course",
+          border: "border-l-4 border-slate-400"
         }
     }
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#FEF9E7]">
       <Navbar isAuthenticated={false} />
 
       {/* Hero Section */}
       <section className="relative pt-24 pb-8 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-3">
-              <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-                IITM BS Courses
-              </span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-black">
+              IITM BS Courses
             </h1>
-            <p className="text-lg text-slate-400">
+            <p className="text-lg text-black/70">
               Master IITM BS curriculum with structured video courses in Tamil
             </p>
-            <p className="text-sm text-slate-500 mt-2">
+            <p className="text-sm text-black/60 mt-2">
               🇮🇳 All courses taught in Tamil language for better understanding
             </p>
           </div>
@@ -222,24 +225,24 @@ export default function CoursesPage() {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* LEFT SIDEBAR - FILTERS */}
             <div className="lg:w-64 flex-shrink-0">
-              <div className="bg-black/80 backdrop-blur-sm border border-slate-800 rounded-xl p-5 sticky top-24">
+              <div className="bg-white border border-[#E5DBC8] rounded-xl p-5 sticky top-24">
                 <div className="flex items-center justify-between mb-5">
-                  <h2 className="text-lg font-bold text-white">Filters</h2>
-                  <Badge className="bg-slate-700 text-slate-300 text-xs">{filteredCourses.length} results</Badge>
+                  <h2 className="text-lg font-bold text-black">Filters</h2>
+                  <Badge className="bg-[#F5EFE7] text-black text-xs border border-[#E5DBC8]">{filteredCourses.length} results</Badge>
                 </div>
 
                 {/* Program Level Filter */}
                 <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-slate-300 mb-3">Level</h3>
+                  <h3 className="text-sm font-semibold text-black mb-3">Level</h3>
                   <div className="space-y-2.5">
                     {["qualifier", "foundation"].map(level => (
                       <label key={level} className="flex items-center gap-2.5 cursor-pointer group">
                         <Checkbox
                           checked={selectedLevels.includes(level)}
                           onCheckedChange={() => toggleFilter("level", level)}
-                          className="border-slate-600 data-[state=checked]:bg-[#51b206] data-[state=checked]:border-[#51b206]"
+                          className="border-gray-300 data-[state=checked]:bg-[#3e3098] data-[state=checked]:border-[#3e3098]"
                         />
-                        <span className="text-sm text-slate-400 group-hover:text-white transition-colors capitalize">
+                        <span className="text-sm text-black/70 group-hover:text-black transition-colors capitalize">
                           {level}
                         </span>
                       </label>
@@ -249,16 +252,16 @@ export default function CoursesPage() {
 
                 {/* Course Type Filter */}
                 <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-slate-300 mb-3">Price</h3>
+                  <h3 className="text-sm font-semibold text-black mb-3">Price</h3>
                   <div className="space-y-2.5">
                     {["free", "paid"].map(type => (
                       <label key={type} className="flex items-center gap-2.5 cursor-pointer group">
                         <Checkbox
                           checked={selectedTypes.includes(type)}
                           onCheckedChange={() => toggleFilter("type", type)}
-                          className="border-slate-600 data-[state=checked]:bg-[#51b206] data-[state=checked]:border-[#51b206]"
+                          className="border-gray-300 data-[state=checked]:bg-[#3e3098] data-[state=checked]:border-[#3e3098]"
                         />
-                        <span className="text-sm text-slate-400 group-hover:text-white transition-colors capitalize">
+                        <span className="text-sm text-black/70 group-hover:text-black transition-colors capitalize">
                           {type}
                         </span>
                       </label>
@@ -268,14 +271,14 @@ export default function CoursesPage() {
 
                 {/* Course Type Filter */}
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-300 mb-3">Type</h3>
+                  <h3 className="text-sm font-semibold text-black mb-3">Type</h3>
                   <div className="space-y-2.5">
                     {["skill-path", "course", "career-path", "free-course"].map(ct => (
                       <label key={ct} className="flex items-center gap-2.5 cursor-pointer group">
                         <Checkbox
-                          className="border-slate-600 data-[state=checked]:bg-[#51b206] data-[state=checked]:border-[#51b206]"
+                          className="border-gray-300 data-[state=checked]:bg-[#3e3098] data-[state=checked]:border-[#3e3098]"
                         />
-                        <span className="text-sm text-slate-400 group-hover:text-white transition-colors capitalize">
+                        <span className="text-sm text-black/70 group-hover:text-black transition-colors capitalize">
                           {ct.replace('-', ' ')}
                         </span>
                       </label>
@@ -290,7 +293,7 @@ export default function CoursesPage() {
                       setSelectedLevels([])
                       setSelectedTypes([])
                     }}
-                    className="w-full mt-5 px-3 py-2 text-sm bg-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg transition-colors"
+                    className="w-full mt-5 px-3 py-2 text-sm bg-[#F5EFE7] hover:bg-[#E5DBC8] text-black rounded-lg transition-colors border border-[#E5DBC8]"
                   >
                     Reset All
                   </button>
@@ -303,16 +306,16 @@ export default function CoursesPage() {
               {/* Search and Sort Bar */}
               <div className="mb-6 flex flex-col sm:flex-row gap-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/50" />
                   <Input
                     type="text"
                     placeholder="Search IITM BS courses"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 h-10 bg-black/80 backdrop-blur-sm border-slate-700 focus:border-[#51b206] focus:ring-[#51b206] rounded-lg text-white placeholder:text-slate-500 text-sm"
+                    className="w-full pl-10 pr-4 h-10 bg-white border-[#E5DBC8] focus:border-[#3e3098] focus:ring-[#3e3098] rounded-lg text-black placeholder:text-black/50 text-sm"
                   />
                 </div>
-                <select className="px-4 h-10 bg-black/80 backdrop-blur-sm border border-slate-700 rounded-lg text-white text-sm focus:border-[#51b206] focus:ring-[#51b206] focus:outline-none">
+                <select className="px-4 h-10 bg-white border border-[#E5DBC8] rounded-lg text-black text-sm focus:border-[#3e3098] focus:ring-[#3e3098] focus:outline-none">
                   <option>Most relevant</option>
                   <option>Newest first</option>
                   <option>Oldest first</option>
@@ -322,9 +325,9 @@ export default function CoursesPage() {
 
               {filteredCourses.length === 0 ? (
                 <div className="text-center py-20">
-                  <Search className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">No courses found</h3>
-                  <p className="text-slate-400 mb-6">
+                  <Search className="w-16 h-16 text-black/50 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-black mb-2">No courses found</h3>
+                  <p className="text-black/70 mb-6">
                     Try adjusting your filters or search query
                   </p>
                   <button
@@ -333,13 +336,13 @@ export default function CoursesPage() {
                       setSelectedTypes([])
                       setSearchQuery("")
                     }}
-                    className="px-6 py-3 bg-[#51b206] hover:bg-[#51b206]/90 text-white rounded-lg transition-colors"
+                    className="px-6 py-3 bg-[#3e3098] hover:bg-[#3e3098]/90 text-white rounded-lg transition-colors"
                   >
                     Clear All Filters
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                   {filteredCourses.map(course => {
                   const isPaid = course.type === "paid"
                   const isLocked = isPaid
@@ -349,75 +352,63 @@ export default function CoursesPage() {
                     <Link
                       key={course.id}
                       href={`/courses/${course.id}`}
-                      className="group"
+                      className="group block h-full"
                     >
-                      <Card className="relative bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:border-[#51b206]/50 dark:hover:border-[#51b206]/50 transition-all duration-300 overflow-hidden h-full hover:shadow-lg hover:shadow-[#51b206]/10">
+                      <Card className="relative bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-200 overflow-hidden hover:shadow-md rounded-xl h-full">
                         <CardContent className="p-0 flex flex-col h-full">
-                          {/* Colored Header with Type */}
-                          <div className={`${typeStyles.bg} ${typeStyles.text} px-4 py-2.5 font-medium text-sm`}>
-                            {typeStyles.label}
+                          {/* Top Badge - Certification Path / Course Type */}
+                          <div className="px-4 pt-3 pb-2">
+                            <span className="inline-block px-2.5 py-1 bg-[#F5EFE7] text-black/70 text-xs font-medium rounded">
+                              {typeStyles.label}
+                            </span>
+                            {isLocked && (
+                              <Badge className="ml-2 bg-amber-500 hover:bg-amber-500 text-white text-xs px-2 py-0.5">
+                                <Lock className="w-3 h-3 mr-1" />
+                                Premium
+                              </Badge>
+                            )}
                           </div>
 
-                          {/* Content */}
-                          <div className="p-5 flex-grow flex flex-col">
+                          <div className="px-4 pb-4 flex-grow flex flex-col">
+                            {/* Course Branding/Provider */}
+                            <div className="mb-2">
+                              <span className="text-sm font-bold text-[#3e3098]">IITM BS</span>
+                            </div>
+
                             {/* Title */}
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 min-h-[56px]">
+                            <h3 className="text-lg font-bold text-black mb-2 line-clamp-2 leading-tight min-h-[44px]">
                               {course.title}
                             </h3>
 
                             {/* Description */}
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 flex-grow">
+                            <p className="text-sm text-black/70 mb-3 line-clamp-2 leading-relaxed flex-grow">
                               {course.description}
                             </p>
 
-                            {/* Divider */}
-                            <div className="border-t border-slate-200 dark:border-slate-700/50 mb-4"></div>
+                            {/* Dotted Divider */}
+                            <div className="border-t border-dotted border-gray-300 my-3"></div>
 
-                            {/* Footer Meta Info */}
-                            <div className="space-y-3">
-                              {/* Includes Courses (if applicable) */}
-                              {course.includesCourses && (
-                                <div className="text-sm text-slate-600 dark:text-slate-400">
-                                  Includes <span className="font-semibold text-slate-900 dark:text-white">{course.includesCourses} Courses</span>
+                            {/* Includes Courses */}
+                            {course.includesCourses && (
+                              <>
+                                <div className="text-sm text-black/80 mb-2">
+                                  Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
                                 </div>
-                              )}
+                                <div className="border-t border-dotted border-gray-300 my-3"></div>
+                              </>
+                            )}
 
-                              {/* Bottom row: Certificate, Level, Duration */}
-                              <div className="flex items-center justify-between text-sm">
-                                <div className="flex items-center gap-4">
-                                  {/* Certificate Badge */}
-                                  {course.withCertificate && (
-                                    <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                                      <Award className="w-4 h-4" />
-                                      <span className="text-xs">With Certificate</span>
-                                    </div>
-                                  )}
-                                </div>
+                            {/* Bottom Row: Level and Duration */}
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-1.5 text-black/80">
+                                <BookOpen className="w-4 h-4" />
+                                <span className="text-sm font-medium capitalize">{course.level}</span>
                               </div>
-
-                              {/* Level and Duration */}
-                              <div className="flex items-center justify-between text-sm">
-                                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                                  <BookOpen className="w-4 h-4" />
-                                  <span className="text-xs capitalize">{course.level} Friendly</span>
-                                </div>
-                                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                                  <Clock className="w-4 h-4" />
-                                  <span className="text-xs">{course.weeks * 6} hours</span>
-                                </div>
+                              <div className="flex items-center gap-1.5 text-black/80">
+                                <span className="text-sm font-medium">{course.weeks * 6} hours</span>
                               </div>
                             </div>
                           </div>
-
-                          {/* Locked Overlay for Paid Courses */}
-                          {isLocked && (
-                            <div className="absolute top-12 right-3">
-                              <Badge className="bg-amber-500 hover:bg-amber-500 text-white font-semibold shadow-lg">
-                                <Lock className="w-3 h-3 mr-1" />
-                                Premium
-                              </Badge>
-                            </div>
-                          )}
                         </CardContent>
                       </Card>
                     </Link>

@@ -27,11 +27,11 @@ export default function CommunityGuidelinesPage() {
               <Users className="w-8 h-8 text-[#3e3098]" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">
                 Community Guidelines
               </span>
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
+            <p className="text-lg text-black/70">
               Building a supportive and respectful learning environment together
             </p>
           </div>
@@ -79,9 +79,9 @@ export default function CommunityGuidelinesPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <ThumbsUp className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Be Respectful & Kind</h2>
+                <h2 className="text-2xl font-bold text-black">Be Respectful & Kind</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">
                   Our community thrives when everyone feels welcome and valued. We expect all members to:
                 </p>
@@ -89,28 +89,28 @@ export default function CommunityGuidelinesPage() {
                   <div className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
                     <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-white">Use respectful language</p>
+                      <p className="font-semibold text-black">Use respectful language</p>
                       <p className="text-sm mt-1">Communicate professionally and courteously at all times</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
                     <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-white">Be patient with others</p>
+                      <p className="font-semibold text-black">Be patient with others</p>
                       <p className="text-sm mt-1">Everyone learns at their own pace. Offer support, not judgment</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
                     <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-white">Provide constructive feedback</p>
+                      <p className="font-semibold text-black">Provide constructive feedback</p>
                       <p className="text-sm mt-1">Focus on helping others improve, not criticizing</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
                     <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-white">Respect different perspectives</p>
+                      <p className="font-semibold text-black">Respect different perspectives</p>
                       <p className="text-sm mt-1">Value diverse viewpoints and learning approaches</p>
                     </div>
                   </div>
@@ -129,30 +129,30 @@ export default function CommunityGuidelinesPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <MessageCircle className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Contribute Positively</h2>
+                <h2 className="text-2xl font-bold text-black">Contribute Positively</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">Help build a thriving learning community by:</p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-[#51b206] text-lg">→</span>
-                    <span><strong className="text-slate-900 dark:text-white">Sharing quality content:</strong> Post helpful resources, notes, and study materials</span>
+                    <span><strong className="text-black">Sharing quality content:</strong> Post helpful resources, notes, and study materials</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#51b206] text-lg">→</span>
-                    <span><strong className="text-slate-900 dark:text-white">Answering questions:</strong> Help fellow students with their doubts and queries</span>
+                    <span><strong className="text-black">Answering questions:</strong> Help fellow students with their doubts and queries</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#51b206] text-lg">→</span>
-                    <span><strong className="text-slate-900 dark:text-white">Participating actively:</strong> Engage in discussions and collaborative learning</span>
+                    <span><strong className="text-black">Participating actively:</strong> Engage in discussions and collaborative learning</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#51b206] text-lg">→</span>
-                    <span><strong className="text-slate-900 dark:text-white">Giving credit:</strong> Always attribute sources and acknowledge contributors</span>
+                    <span><strong className="text-black">Giving credit:</strong> Always attribute sources and acknowledge contributors</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#51b206] text-lg">→</span>
-                    <span><strong className="text-slate-900 dark:text-white">Reporting issues:</strong> Help us maintain quality by flagging inappropriate content</span>
+                    <span><strong className="text-black">Reporting issues:</strong> Help us maintain quality by flagging inappropriate content</span>
                   </li>
                 </ul>
               </div>
@@ -169,9 +169,9 @@ export default function CommunityGuidelinesPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Ban className="w-6 h-6 text-red-600" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Zero Tolerance Policy</h2>
+                <h2 className="text-2xl font-bold text-black">Zero Tolerance Policy</h2>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+              <p className="text-black/70 leading-relaxed mb-4">
                 The following behaviors are strictly prohibited and will result in immediate action:
               </p>
               <div className="grid gap-3">
@@ -209,9 +209,9 @@ export default function CommunityGuidelinesPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Academic Integrity</h2>
+                <h2 className="text-2xl font-bold text-black">Academic Integrity</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">
                   We are committed to maintaining high standards of academic honesty:
                 </p>
@@ -249,9 +249,9 @@ export default function CommunityGuidelinesPage() {
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 mb-4">
                 <AlertOctagon className="w-6 h-6 text-amber-600" />
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Enforcement & Consequences</h2>
+                <h2 className="text-2xl font-bold text-black">Enforcement & Consequences</h2>
               </div>
-              <div className="space-y-4 text-slate-600 dark:text-slate-400">
+              <div className="space-y-4 text-black/70">
                 <p className="leading-relaxed">
                   Violations of these guidelines may result in:
                 </p>

@@ -450,7 +450,7 @@ export default function ProfilePage() {
               {profileData.avatar_url ? (
                 <img src={profileData.avatar_url} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-4xl text-slate-500">
+                <div className="w-full h-full flex items-center justify-center text-4xl text-black/60">
                   {profileData.full_name?.charAt(0) || '?'}
                 </div>
               )}
@@ -479,7 +479,7 @@ export default function ProfilePage() {
             {isEditMode ? (
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Full Name</label>
+                  <label className="text-sm text-black/50 mb-1 block">Full Name</label>
                   <Input
                     value={profileData.full_name}
                     onChange={(e) => setProfileData({...profileData, full_name: e.target.value})}
@@ -488,7 +488,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Username</label>
+                  <label className="text-sm text-black/50 mb-1 block">Username</label>
                   <Input
                     value={profileData.username}
                     onChange={(e) => setProfileData({...profileData, username: e.target.value})}
@@ -497,7 +497,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Email</label>
+                  <label className="text-sm text-black/50 mb-1 block">Email</label>
                   <Input
                     value={profileData.email}
                     onChange={(e) => setProfileData({...profileData, email: e.target.value})}
@@ -507,7 +507,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">About</label>
+                  <label className="text-sm text-black/50 mb-1 block">About</label>
                   <Textarea
                     value={profileData.about}
                     onChange={(e) => setProfileData({...profileData, about: e.target.value})}
@@ -517,7 +517,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Location</label>
+                  <label className="text-sm text-black/50 mb-1 block">Location</label>
                   <Input
                     value={profileData.location}
                     onChange={(e) => setProfileData({...profileData, location: e.target.value})}
@@ -530,12 +530,12 @@ export default function ProfilePage() {
               <div className="space-y-3">
                 <div>
                   <h3 className="text-2xl font-bold text-white">{profileData.full_name || 'Your Name'}</h3>
-                  <p className="text-slate-400">@{profileData.username || 'username'}</p>
+                  <p className="text-black/50">@{profileData.username || 'username'}</p>
                 </div>
                 {profileData.about && (
                   <p className="text-slate-300">{profileData.about}</p>
                 )}
-                <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                <div className="flex flex-wrap gap-4 text-sm text-black/50">
                   {profileData.location && (
                     <div className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
@@ -561,7 +561,7 @@ export default function ProfilePage() {
             {isEditMode ? (
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Portfolio</label>
+                  <label className="text-sm text-black/50 mb-1 block">Portfolio</label>
                   <Input
                     value={profileData.portfolio}
                     onChange={(e) => setProfileData({...profileData, portfolio: e.target.value})}
@@ -570,7 +570,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">GitHub</label>
+                  <label className="text-sm text-black/50 mb-1 block">GitHub</label>
                   <Input
                     value={profileData.github}
                     onChange={(e) => setProfileData({...profileData, github: e.target.value})}
@@ -579,7 +579,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">LinkedIn</label>
+                  <label className="text-sm text-black/50 mb-1 block">LinkedIn</label>
                   <Input
                     value={profileData.linkedin}
                     onChange={(e) => setProfileData({...profileData, linkedin: e.target.value})}
@@ -612,7 +612,7 @@ export default function ProfilePage() {
                   </a>
                 )}
                 {!profileData.portfolio && !profileData.github && !profileData.linkedin && (
-                  <p className="text-slate-500">No social links added yet</p>
+                  <p className="text-black/60">No social links added yet</p>
                 )}
               </div>
             )}
@@ -677,7 +677,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {projects.length === 0 && (
-                  <p className="text-slate-500 text-center py-4">No projects added yet</p>
+                  <p className="text-black/60 text-center py-4">No projects added yet</p>
                 )}
               </div>
             ) : (
@@ -704,7 +704,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {projects.length === 0 && (
-                  <p className="text-slate-500 text-center py-4">No projects to display</p>
+                  <p className="text-black/60 text-center py-4">No projects to display</p>
                 )}
               </div>
             )}
@@ -769,7 +769,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {experiences.length === 0 && (
-                  <p className="text-slate-500 text-center py-4">No experience added yet</p>
+                  <p className="text-black/60 text-center py-4">No experience added yet</p>
                 )}
               </div>
             ) : (
@@ -778,12 +778,12 @@ export default function ProfilePage() {
                   <div key={exp.id} className="p-4 border border-slate-700 rounded-lg hover:border-slate-600 transition-colors">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center shrink-0">
-                        <Briefcase className="w-5 h-5 text-slate-400" />
+                        <Briefcase className="w-5 h-5 text-black/50" />
                       </div>
                       <div className="flex-1">
                         <h3 className="text-lg font-semibold text-white">{exp.position}</h3>
-                        <p className="text-slate-400">{exp.company}</p>
-                        <p className="text-slate-500 text-sm">{exp.duration}</p>
+                        <p className="text-black/50">{exp.company}</p>
+                        <p className="text-black/60 text-sm">{exp.duration}</p>
                         {exp.description && (
                           <p className="text-slate-300 mt-2">{exp.description}</p>
                         )}
@@ -792,7 +792,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {experiences.length === 0 && (
-                  <p className="text-slate-500 text-center py-4">No experience to display</p>
+                  <p className="text-black/60 text-center py-4">No experience to display</p>
                 )}
               </div>
             )}
@@ -857,7 +857,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {educations.length === 0 && (
-                  <p className="text-slate-500 text-center py-4">No education added yet</p>
+                  <p className="text-black/60 text-center py-4">No education added yet</p>
                 )}
               </div>
             ) : (
@@ -866,12 +866,12 @@ export default function ProfilePage() {
                   <div key={edu.id} className="p-4 border border-slate-700 rounded-lg hover:border-slate-600 transition-colors">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center shrink-0">
-                        <GraduationCap className="w-5 h-5 text-slate-400" />
+                        <GraduationCap className="w-5 h-5 text-black/50" />
                       </div>
                       <div className="flex-1">
                         <h3 className="text-lg font-semibold text-white">{edu.degree}</h3>
-                        <p className="text-slate-400">{edu.institution}</p>
-                        <p className="text-slate-500 text-sm">{edu.duration}</p>
+                        <p className="text-black/50">{edu.institution}</p>
+                        <p className="text-black/60 text-sm">{edu.duration}</p>
                         {edu.description && (
                           <p className="text-slate-300 mt-2">{edu.description}</p>
                         )}
@@ -880,7 +880,7 @@ export default function ProfilePage() {
                   </div>
                 ))}
                 {educations.length === 0 && (
-                  <p className="text-slate-500 text-center py-4">No education to display</p>
+                  <p className="text-black/60 text-center py-4">No education to display</p>
                 )}
               </div>
             )}

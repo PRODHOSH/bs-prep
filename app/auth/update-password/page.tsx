@@ -57,7 +57,7 @@ export default function UpdatePasswordPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">Update Password</h1>
-          <p className="text-slate-400 text-lg">Choose a new secure password.</p>
+          <p className="text-black/50 text-lg">Choose a new secure password.</p>
         </div>
 
         {!success ? (
@@ -73,7 +73,7 @@ export default function UpdatePasswordPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-14 text-base bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-purple-500 focus:ring-purple-500"
+                className="h-14 text-base bg-slate-900/50 border-slate-700 text-white placeholder:text-black/60 focus:border-purple-500 focus:ring-purple-500"
               />
             </div>
 
@@ -88,7 +88,7 @@ export default function UpdatePasswordPage() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="h-14 text-base bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-purple-500 focus:ring-purple-500"
+                className="h-14 text-base bg-slate-900/50 border-slate-700 text-white placeholder:text-black/60 focus:border-purple-500 focus:ring-purple-500"
               />
             </div>
 
@@ -115,14 +115,14 @@ export default function UpdatePasswordPage() {
             <p className="text-slate-300">
               Your password has been successfully updated.
             </p>
-            <p className="text-slate-400 text-sm">
+            <p className="text-black/50 text-sm">
               Redirecting to login page...
             </p>
           </div>
         )}
 
         <div className="text-center mt-8">
-          <Link href="/auth/login" className="text-slate-400 hover:text-white transition-colors">
+          <Link href="/auth/login" className="text-black/50 hover:text-white transition-colors">
             Back to <span className="text-white font-semibold underline">Login</span>
           </Link>
         </div>
