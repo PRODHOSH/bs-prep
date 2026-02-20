@@ -8,6 +8,7 @@ import type { Course } from "@/lib/gpa/types"
 import { Calculator, Plus, Trash2 } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -104,51 +105,53 @@ export default function GPACalculator() {
   // Show navbar even during loading to prevent blank page flash
   if (loading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-white relative">
+        <BeamsBackground />
         <Navbar isAuthenticated={isAuthenticated} />
-        <div className="container mx-auto px-4 py-20 flex items-center justify-center">
-          <div className="animate-spin w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full"></div>
+        <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
+          <div className="animate-spin w-12 h-12 border-4 border-black border-t-transparent rounded-full"></div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white relative">
+      <BeamsBackground />
       <Navbar isAuthenticated={isAuthenticated} />
       
-      <div className="container mx-auto px-4 py-20">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#3e3098] to-[#5842c3] mb-6 shadow-xl">
-            <Calculator className="w-10 h-10 text-white" />
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-black mb-4">
+            <Calculator className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-black">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-black">
             GPA Calculator
           </h1>
-          <p className="text-black/70 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 text-base max-w-2xl mx-auto">
             Calculate your course scores and semester GPA with precision
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-2 border border-slate-200 dark:border-slate-800 inline-flex gap-2 shadow-lg">
+        <div className="flex justify-center mb-6">
+          <div className="bg-white rounded-lg p-1.5 border border-gray-200 inline-flex gap-1">
             <button
               onClick={() => setActiveTab("course")}
-              className={`px-8 py-3 rounded-xl font-semibol transition-all duration-300 ${
+              className={`px-6 py-2 rounded-md font-semibold text-sm transition-all ${
                 activeTab === "course" 
-                  ? "bg-gradient-to-r from-[#3e3098] to-[#5842c3] text-white shadow-lg" 
-                  : "text-black/70 hover:text-[#3e3098] dark:hover:text-white"
+                  ? "bg-black text-white" 
+                  : "text-gray-600 hover:text-black"
               }`}
             >
               Course Grade
             </button>
             <button
               onClick={() => setActiveTab("semester")}
-              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-300 ${
+              className={`px-6 py-2 rounded-md font-semibold text-sm transition-all ${
                 activeTab === "semester" 
-                  ? "bg-gradient-to-r from-[#3e3098] to-[#5842c3] text-white shadow-lg" 
-                  : "text-black/70 hover:text-[#3e3098] dark:hover:text-white"
+                  ? "bg-black text-white" 
+                  : "text-gray-600 hover:text-black"
               }`}
             >
               Semester GPA
@@ -158,24 +161,21 @@ export default function GPACalculator() {
 
         {/* Course Grade Calculator */}
         {activeTab === "course" && (
-          <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl max-w-5xl mx-auto overflow-hidden">
-            {/* Colored Header */}
-            <div className="h-2 bg-gradient-to-r from-[#3e3098] to-[#5842c3]"></div>
-            
-            <CardHeader className="border-b border-slate-200 dark:border-slate-800 pb-6 bg-slate-50 dark:bg-slate-800/50">
-              <CardTitle className="text-3xl font-bold text-black">Calculate Course Grade</CardTitle>
-              <p className="text-black/70 text-sm mt-2">Select your course and enter your scores to get your final grade</p>
+          <Card className="bg-white border border-gray-200 shadow-sm max-w-5xl mx-auto rounded-lg">
+            <CardHeader className="border-b border-gray-200 pb-4 pt-6">
+              <CardTitle className="text-2xl font-bold text-black">Calculate Course Grade</CardTitle>
+              <p className="text-gray-600 text-sm mt-1">Select your course and enter your scores to get your final grade</p>
             </CardHeader>
-            <CardContent className="space-y-8 pt-8">
+            <CardContent className="space-y-6 pt-6">
               {/* Course Selection */}
-              <div className="space-y-6">
-                <h3 className="text-lg font-bold text-[#3e3098] flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#3e3098]/10 flex items-center justify-center text-sm font-bold">1</div>
+              <div className="space-y-4">
+                <h3 className="text-base font-bold text-black flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-md bg-gray-100 text-black flex items-center justify-center text-xs font-bold">1</div>
                   Select Course
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-black/90">Degree Program</Label>
+                    <Label className="text-sm font-semibold text-black">Degree Program</Label>
                     <Select value={selectedDegree} onValueChange={(v) => {
                       setSelectedDegree(v as any)
                       setSelectedLevel("")
@@ -183,30 +183,30 @@ export default function GPACalculator() {
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }}>
-                      <SelectTrigger className="h-14 text-base bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 hover:border-[#3e3098] transition-colors">
+                      <SelectTrigger className="h-12 text-base bg-white border-gray-300 hover:border-black transition-colors text-black">
                         <SelectValue placeholder="Choose degree" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
-                        <SelectItem value="data-science">Data Science</SelectItem>
-                        <SelectItem value="electronic-systems">Electronic Systems</SelectItem>
+                      <SelectContent className="bg-white border-gray-200">
+                        <SelectItem value="data-science" className="text-black">Data Science</SelectItem>
+                        <SelectItem value="electronic-systems" className="text-black">Electronic Systems</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-black/90">Level</Label>
+                    <Label className="text-sm font-semibold text-black">Level</Label>
                     <Select value={selectedLevel} onValueChange={(v) => {
                       setSelectedLevel(v as any)
                       setSelectedCourse(null)
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }} disabled={!selectedDegree}>
-                      <SelectTrigger className="h-14 text-base bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 hover:border-[#3e3098] transition-colors">
+                      <SelectTrigger className="h-12 text-base bg-white border-gray-300 hover:border-black transition-colors text-black">
                         <SelectValue placeholder="Choose level" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+                      <SelectContent className="bg-white border-gray-200">
                         {availableLevels.map((level) => (
-                          <SelectItem key={level} value={level}>
+                          <SelectItem key={level} value={level} className="text-black">
                             {level.charAt(0).toUpperCase() + level.slice(1)}
                           </SelectItem>
                         ))}
@@ -215,7 +215,7 @@ export default function GPACalculator() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-sm font-semibold text-black/90">Course</Label>
+                    <Label className="text-sm font-semibold text-black">Course</Label>
                     <Select value={selectedCourse?.id || ""} onValueChange={(id) => {
                       const course = availableCourses.find((c) => c.id === id)
                       setSelectedCourse(course || null)
@@ -223,12 +223,12 @@ export default function GPACalculator() {
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }} disabled={!selectedLevel}>
-                      <SelectTrigger className="h-14 text-base bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 hover:border-[#3e3098] transition-colors">
+                      <SelectTrigger className="h-12 text-base bg-white border-gray-300 hover:border-black transition-colors text-black">
                         <SelectValue placeholder="Choose course" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+                      <SelectContent className="bg-white border-gray-200">
                         {availableCourses.map((course) => (
-                          <SelectItem key={course.id} value={course.id}>
+                          <SelectItem key={course.id} value={course.id} className="text-black">
                             {course.name}
                           </SelectItem>
                         ))}
@@ -241,18 +241,18 @@ export default function GPACalculator() {
               {selectedCourse && (
                 <>
                   {/* Score Entry */}
-                  <div className="space-y-6">
-                    <h3 className="text-lg font-bold text-[#3e3098] dark:text-[#5842c3] flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-[#3e3098]/10 dark:bg-[#5842c3]/10 flex items-center justify-center text-sm font-bold">2</div>
+                  <div className="space-y-4">
+                    <h3 className="text-base font-bold text-black flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-gray-100 text-black flex items-center justify-center text-xs font-bold">2</div>
                       Enter Your Scores
                     </h3>
-                    <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {selectedCourse.formFields.map((field) => (
                           <div key={field.id} className="space-y-2">
-                            <Label className="text-sm font-semibold text-black/90 flex justify-between">
+                            <Label className="text-sm font-semibold text-black flex justify-between">
                               <span>{field.label}</span>
-                              <span className="text-black/60 text-xs">Max: {field.max}</span>
+                              <span className="text-gray-600 text-xs">Max: {field.max}</span>
                             </Label>
                             <Input
                               type="number"
@@ -262,9 +262,9 @@ export default function GPACalculator() {
                                 const val = Math.max(0, Math.min(Number(e.target.value), field.max))
                                 setFormValues({ ...formValues, [field.id]: val })
                               }}
-                              className="h-14 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:border-[#3e3098] transition-colors"
+                              className="h-12 text-base bg-white border-gray-300 focus:border-black transition-colors text-black"
                             />
-                            <p className="text-xs text-black/60">{field.description}</p>
+                            <p className="text-xs text-gray-600">{field.description}</p>
                           </div>
                         ))}
                       </div>
@@ -273,7 +273,7 @@ export default function GPACalculator() {
 
                   {/* Actions */}
                   <div className="flex gap-4">
-                    <Button onClick={handleCalculate} className="flex-1 h-14 bg-gradient-to-r from-[#3e3098] to-[#5842c3] hover:from-[#5842c3] hover:to-[#3e3098] text-white text-base font-bold shadow-lg hover:shadow-xl transition-all">
+                    <Button onClick={handleCalculate} className="flex-1 h-12 bg-black hover:bg-black/80 text-white text-base font-bold transition-all">
                       <Calculator className="w-5 h-5 mr-2" />
                       Calculate Grade
                     </Button>
@@ -281,29 +281,29 @@ export default function GPACalculator() {
                       setFormValues({})
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
-                    }} variant="outline" className="h-14 px-8 border-slate-300 dark:border-slate-700 hover:border-[#3e3098] transition-colors font-semibold">
+                    }} variant="outline" className="h-12 px-8 border-gray-300 hover:border-black transition-colors font-semibold text-black">
                       Reset
                     </Button>
                   </div>
 
                   {/* Result */}
                   {calculatedScore !== null && calculatedGrade && (
-                    <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl p-10 text-center shadow-2xl">
-                      <p className="text-black/80 text-sm uppercase tracking-wide mb-6 font-bold">✨ Your Final Score</p>
-                      <div className="flex items-center justify-center gap-12 flex-wrap">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-8 text-center">
+                      <p className="text-gray-700 text-sm uppercase tracking-wide mb-4 font-bold">Your Final Score</p>
+                      <div className="flex items-center justify-center gap-8 flex-wrap">
                         <div>
-                          <p className="text-7xl font-black bg-gradient-to-r from-[#3e3098] to-[#5842c3] bg-clip-text text-transparent mb-2">
+                          <p className="text-6xl font-black text-black mb-2">
                             {calculatedScore.toFixed(2)}
                           </p>
-                          <p className="text-black/60 text-sm font-semibold">out of 100</p>
+                          <p className="text-gray-600 text-sm font-semibold">out of 100</p>
                         </div>
-                        <div className="h-24 w-px bg-gradient-to-b from-transparent via-slate-300 dark:via-slate-700 to-transparent"></div>
+                        <div className="h-20 w-px bg-gray-300"></div>
                         <div>
-                          <p className="text-black/80 text-sm mb-2 font-semibold">Grade</p>
-                          <div className="text-6xl font-black bg-gradient-to-r from-[#3e3098] to-[#5842c3] bg-clip-text text-transparent">
+                          <p className="text-gray-700 text-sm mb-2 font-semibold">Grade</p>
+                          <div className="text-5xl font-black text-black">
                             {calculatedGrade}
                           </div>
-                          <p className="text-sm font-semibold text-black/60 mt-2">
+                          <p className="text-sm font-semibold text-gray-600 mt-2">
                             {calculatedGrade === 'S' && '🏆 Outstanding!'}
                             {calculatedGrade === 'A' && '⭐ Excellent!'}
                             {calculatedGrade === 'B' && '👍 Great Job!'}
@@ -323,23 +323,22 @@ export default function GPACalculator() {
 
         {/* Semester GPA Calculator */}
         {activeTab === "semester" && (
-          <Card className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl max-w-5xl mx-auto overflow-hidden">
-          <div className="h-2 bg-gradient-to-r from-[#3e3098] to-[#5842c3]"></div>
-            <CardHeader className="border-b border-slate-200 dark:border-slate-800 pb-6 bg-slate-50 dark:bg-slate-800/50">
-              <CardTitle className="text-3xl font-bold text-black">Calculate Semester GPA</CardTitle>
-              <p className="text-black/70 text-sm mt-2">Add your courses and grades to calculate your GPA</p>
+          <Card className="bg-white border border-gray-200 shadow-sm max-w-5xl mx-auto rounded-lg">
+            <CardHeader className="border-b border-gray-200 pb-4 pt-6">
+              <CardTitle className="text-2xl font-bold text-black">Calculate Semester GPA</CardTitle>
+              <p className="text-gray-600 text-sm mt-1">Add your courses and grades to calculate your GPA</p>
             </CardHeader>
-            <CardContent className="space-y-6 pt-8">
+            <CardContent className="space-y-5 pt-6">
               {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 px-4 pb-2 border-b border-slate-200 dark:border-slate-800">
-                <div className="col-span-5">
-                  <Label className="text-xs uppercase tracking-wide text-black/70 font-bold">Course Name</Label>
+              <div className="grid grid-cols-12 gap-4 px-4 pb-2 border-b border-gray-200">
+                <div className="col-span-4">
+                  <Label className="text-xs uppercase tracking-wide text-gray-700 font-bold">Course Name</Label>
                 </div>
-                <div className="col-span-2">
-                  <Label className="text-xs uppercase tracking-wide text-black/70 font-bold">Credits</Label>
+                <div className="col-span-3">
+                  <Label className="text-xs uppercase tracking-wide text-gray-700 font-bold">Credits</Label>
                 </div>
                 <div className="col-span-4">
-                  <Label className="text-xs uppercase tracking-wide text-black/70 font-bold">Grade</Label>
+                  <Label className="text-xs uppercase tracking-wide text-gray-700 font-bold">Grade</Label>
                 </div>
                 <div className="col-span-1"></div>
               </div>
@@ -347,18 +346,18 @@ export default function GPACalculator() {
               {/* Course Rows */}
               <div className="space-y-3">
                 {semesterCourses.map((course, index) => (
-                  <div key={course.id} className="grid grid-cols-12 gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-sm">
-                    <div className="col-span-5">
+                  <div key={course.id} className="grid grid-cols-12 gap-4 p-4 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div className="col-span-4">
                       <Input
                         placeholder="e.g., Mathematics I"
                         value={course.name}
                         onChange={(e) => setSemesterCourses(semesterCourses.map(c => 
                           c.id === course.id ? { ...c, name: e.target.value } : c
                         ))}
-                        className="h-14 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:border-[#3e3098] transition-colors"
+                        className="h-12 text-base bg-white border-gray-300 focus:border-black transition-colors text-black"
                       />
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-3">
                       <Input
                         type="number"
                         placeholder="4"
@@ -366,7 +365,7 @@ export default function GPACalculator() {
                         onChange={(e) => setSemesterCourses(semesterCourses.map(c => 
                           c.id === course.id ? { ...c, credits: Number(e.target.value) } : c
                         ))}
-                        className="h-14 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:border-[#3e3098] transition-colors"
+                        className="h-12 text-base bg-white border-gray-300 focus:border-black transition-colors text-black"
                         min="0"
                         max="10"
                       />
@@ -377,12 +376,12 @@ export default function GPACalculator() {
                           c.id === course.id ? { ...c, gradePoints: Number(v) } : c
                         ))
                       }>
-                        <SelectTrigger className="h-14 text-base bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 hover:border-[#3e3098] transition-colors">
+                        <SelectTrigger className="h-12 text-base bg-white border-gray-300 hover:border-black transition-colors text-black">
                           <SelectValue placeholder="Select grade" />
                         </SelectTrigger>
-                        <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+                        <SelectContent className="bg-white border-gray-200">
                           {gradePointsOptions.map((opt) => (
-                            <SelectItem key={opt.value} value={opt.value.toString()}>{opt.label}</SelectItem>
+                            <SelectItem key={opt.value} value={opt.value.toString()} className="text-black">{opt.label}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -393,7 +392,7 @@ export default function GPACalculator() {
                           onClick={() => removeCourse(course.id)} 
                           variant="ghost" 
                           size="icon" 
-                          className="h-11 w-11 text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                          className="h-11 w-11 text-red-600 hover:text-red-700 hover:bg-red-50"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -403,32 +402,32 @@ export default function GPACalculator() {
                 ))}
               </div>
 
-              <Button onClick={addCourse} variant="outline" className="w-full h-14 border-slate-300 dark:border-slate-700 border-2 border-dashed hover:border-[#3e3098] hover:bg-[#3e3098]/10 hover:text-[#3e3098] transition-all font-semibold">
+              <Button onClick={addCourse} variant="outline" className="w-full h-12 border-gray-300 border-2 border-dashed hover:border-black hover:bg-gray-50 transition-all font-semibold text-black">
                 <Plus className="w-5 h-5 mr-2" />
                 Add Another Course
               </Button>
 
               {semesterGPA !== null && (
-                <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-2xl p-10 shadow-2xl">
-                  <div className="text-center mb-8">
-                    <p className="text-black/80 text-sm uppercase tracking-wide mb-6 font-bold">✨ Your Semester GPA</p>
-                    <p className="text-8xl font-black bg-gradient-to-r from-[#51b206] to-[#3e3098] bg-clip-text text-transparent mb-4">{semesterGPA.toFixed(2)}</p>
-                    <p className="text-2xl font-bold text-black/70">
+                <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-8">
+                  <div className="text-center mb-6">
+                    <p className="text-gray-700 text-sm uppercase tracking-wide mb-4 font-bold">Your Semester GPA</p>
+                    <p className="text-7xl font-black text-black mb-3">{semesterGPA.toFixed(2)}</p>
+                    <p className="text-xl font-bold text-gray-700">
                       {semesterGPA >= 9 ? "🌟 Excellent Performance!" : semesterGPA >= 8 ? "✨ Very Good Work!" : semesterGPA >= 7 ? "👍 Good Progress!" : "📚 Keep Improving!"}
                     </p>
                   </div>
-                  <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200 dark:border-slate-700">
+                  <div className="grid grid-cols-3 gap-6 pt-6 border-t border-gray-200">
                     <div className="text-center">
-                      <p className="text-black/60 text-sm mb-2 font-semibold">Total Courses</p>
-                      <p className="text-4xl font-bold text-black">{semesterCourses.filter(c => c.credits > 0).length}</p>
+                      <p className="text-gray-600 text-sm mb-2 font-semibold">Total Courses</p>
+                      <p className="text-3xl font-bold text-black">{semesterCourses.filter(c => c.credits > 0).length}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-black/60 text-sm mb-2 font-semibold">Total Credits</p>
-                      <p className="text-4xl font-bold text-black">{semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits, 0)}</p>
+                      <p className="text-gray-600 text-sm mb-2 font-semibold">Total Credits</p>
+                      <p className="text-3xl font-bold text-black">{semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits, 0)}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-black/60 text-sm mb-2 font-semibold">Total Points</p>
-                      <p className="text-4xl font-bold text-black">{(semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits * c.gradePoints, 0)).toFixed(1)}</p>
+                      <p className="text-gray-600 text-sm mb-2 font-semibold">Total Points</p>
+                      <p className="text-3xl font-bold text-black">{(semesterCourses.filter(c => c.credits > 0).reduce((sum, c) => sum + c.credits * c.gradePoints, 0)).toFixed(1)}</p>
                     </div>
                   </div>
                 </div>
