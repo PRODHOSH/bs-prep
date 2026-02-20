@@ -16,8 +16,8 @@ const urbanist = Urbanist({
 })
 
 export const metadata: Metadata = {
-  title: "IIT Madras Learning Platform",
-  description: "A comprehensive learning platform for IIT Madras students with courses, mentoring, and community",
+  title: "BSPrep - IITM BS Learning Platform",
+  description: "A comprehensive learning platform for IITM BS students with Tamil courses, mentoring, and community support",
   generator: "v0.app",
   icons: {
     icon: "/logo.jpeg",
