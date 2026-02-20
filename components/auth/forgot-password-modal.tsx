@@ -34,9 +34,8 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
     setSuccess(false)
 
     try {
-      const redirectUrl = typeof window !== 'undefined' 
-        ? `${window.location.origin}/auth/update-password`
-        : 'https://bs-prep.vercel.app/auth/update-password'
+      // Use current origin for redirect (works for both localhost and production)
+      const redirectUrl = `${window.location.origin}/auth/update-password`
       
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: redirectUrl,
@@ -52,50 +51,50 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black border-slate-800 max-w-md p-0 overflow-hidden">
+      <DialogContent className="bg-white border-gray-200 max-w-md p-0 overflow-hidden">
         <div className="p-8">
           {!success ? (
             <>
               <button
                 onClick={onSwitchToLogin}
-                className="inline-flex items-center text-slate-400 hover:text-white transition-colors mb-6 group"
+                className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-6 group"
               >
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Back to Login
               </button>
 
               <DialogHeader className="text-center mb-6">
-                <DialogTitle className="text-4xl font-bold text-white mb-2">Forgot Password?</DialogTitle>
-                <DialogDescription className="text-slate-400 text-base">
+                <DialogTitle className="text-4xl font-bold text-black mb-2">Forgot Password?</DialogTitle>
+                <DialogDescription className="text-gray-600 text-base">
                   No worries, we'll send you reset instructions.
                 </DialogDescription>
               </DialogHeader>
 
               <form onSubmit={handleResetPassword} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                  <Label htmlFor="email" className="text-sm font-semibold text-black">
                     Email Address
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="e.g. user@example.com"
+                    placeholder="you@example.com"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="h-14 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                    className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                   />
                 </div>
 
                 {error && (
-                  <div className="p-3 bg-red-950/20 border border-red-900 rounded-lg text-sm text-red-400">
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
                     {error}
                   </div>
                 )}
 
                 <Button
                   type="submit"
-                  className="w-full h-14 text-base font-semibold bg-[#E8E889] hover:bg-[#E8E889]/90 text-black transition-colors"
+                  className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
                   disabled={isLoading}
                 >
                   {isLoading ? "Sending..." : "Send Reset Link"}
@@ -105,26 +104,26 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
               <div className="text-center mt-6">
                 <button
                   onClick={onSwitchToLogin}
-                  className="text-slate-400 hover:text-white transition-colors"
+                  className="text-gray-600 hover:text-black transition-colors"
                 >
-                  Remember your password? <span className="text-white font-semibold underline">Login</span>
+                  Remember your password? <span className="text-black font-semibold underline">Login</span>
                 </button>
               </div>
             </>
           ) : (
             <div className="text-center py-8 space-y-4">
               <div className="flex justify-center">
-                <CheckCircle className="w-16 h-16 text-green-500" />
+                <CheckCircle className="w-16 h-16 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold text-white">Check your email</h3>
-              <p className="text-slate-300">
-                We've sent a password reset link to <span className="text-white font-semibold">{email}</span>
+              <h3 className="text-2xl font-bold text-black">Check your email</h3>
+              <p className="text-gray-600">
+                We've sent a password reset link to <span className="text-black font-semibold">{email}</span>
               </p>
-              <p className="text-slate-400 text-sm">
+              <p className="text-gray-500 text-sm">
                 Didn't receive the email? Check your spam folder or{" "}
                 <button
                   onClick={() => setSuccess(false)}
-                  className="text-slate-300 hover:text-white underline"
+                  className="text-black hover:text-black/80 underline font-medium"
                 >
                   try again
                 </button>
@@ -134,7 +133,7 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
                   onOpenChange(false)
                   setSuccess(false)
                 }}
-                className="mt-4 bg-[#E8E889] hover:bg-[#E8E889]/90 text-black"
+                className="mt-4 bg-black hover:bg-black/80 text-white"
               >
                 Got it
               </Button>

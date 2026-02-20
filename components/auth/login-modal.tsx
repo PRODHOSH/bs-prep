@@ -55,9 +55,8 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
 
   const handleGoogleSignIn = async () => {
     const supabase = createClient()
-    const redirectUrl = typeof window !== 'undefined' 
-      ? `${window.location.origin}/auth/callback`
-      : 'https://bs-prep.vercel.app/auth/callback'
+    // Use current origin for redirect (works for both localhost and production)
+    const redirectUrl = `${window.location.origin}/auth/callback`
     
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -69,31 +68,31 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black border-slate-800 max-w-md p-0 overflow-hidden">
+      <DialogContent className="bg-white border-gray-200 max-w-md p-0 overflow-hidden">
         <div className="p-8">
           <DialogHeader className="text-center mb-6">
-            <DialogTitle className="text-4xl font-bold text-white mb-2">Welcome Back</DialogTitle>
-            <DialogDescription className="text-slate-400 text-base">Enter your coordinates.</DialogDescription>
+            <DialogTitle className="text-4xl font-bold text-black mb-2">Welcome Back</DialogTitle>
+            <DialogDescription className="text-gray-600 text-base">Enter your credentials to continue</DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                Username
+              <Label htmlFor="email" className="text-sm font-semibold text-black">
+                Email Address
               </Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="e.g. Euler"
+                placeholder="you@example.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-14 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="password" className="text-sm font-semibold text-black">
                 Password
               </Label>
               <Input
@@ -103,30 +102,30 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-14 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 
             {error && (
-              <div className="p-3 bg-red-950/20 border border-red-900 rounded-lg text-sm text-red-400">
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
                 {error}
               </div>
             )}
 
             <Button
               type="submit"
-              className="w-full h-14 text-base font-semibold bg-[#E8E889] hover:bg-[#E8E889]/90 text-black transition-colors"
+              className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
               disabled={isLoading}
             >
               {isLoading ? "Logging in..." : "Login"}
             </Button>
 
-            <div className="relative my-6">
+            <div className="relative my-5">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-slate-800" />
+                <span className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-black px-4 text-slate-500 tracking-wider">
+                <span className="bg-white px-4 text-gray-500 tracking-wider">
                   Or continue with
                 </span>
               </div>
@@ -135,7 +134,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
             <Button
               type="button"
               onClick={handleGoogleSignIn}
-              className="w-full h-14 text-base font-semibold bg-transparent hover:bg-slate-900 text-white border border-slate-700 rounded-md transition-colors"
+              className="w-full h-12 text-base font-semibold bg-white hover:bg-gray-50 text-black border border-gray-300"
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                 <path
@@ -162,7 +161,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
               <button
                 type="button"
                 onClick={onSwitchToForgotPassword}
-                className="text-sm text-slate-400 hover:text-slate-300 transition-colors underline"
+                className="text-sm text-gray-600 hover:text-black transition-colors underline"
               >
                 Forgot password?
               </button>
@@ -170,11 +169,11 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
           </form>
 
           <div className="text-center mt-6">
-            <p className="text-slate-400">
+            <p className="text-gray-600">
               Need an account?{" "}
               <button
                 onClick={onSwitchToSignUp}
-                className="text-slate-300 font-semibold hover:text-white transition-colors underline"
+                className="text-black font-semibold hover:text-black/80 transition-colors underline"
               >
                 Register
               </button>

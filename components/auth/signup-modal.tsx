@@ -59,9 +59,8 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
     }
 
     try {
-      const redirectUrl = typeof window !== 'undefined' 
-        ? `${window.location.origin}/dashboard`
-        : 'https://bs-prep.vercel.app/dashboard'
+      // Use current origin for redirect (works for both localhost and production)
+      const redirectUrl = `${window.location.origin}/dashboard`
       
       const { error } = await supabase.auth.signUp({
         email,
@@ -86,9 +85,8 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
   const handleGoogleSignUp = async () => {
     const supabase = createClient()
-    const redirectUrl = typeof window !== 'undefined' 
-      ? `${window.location.origin}/auth/callback`
-      : 'https://bs-prep.vercel.app/auth/callback'
+    // Use current origin for redirect (works for both localhost and production)
+    const redirectUrl = `${window.location.origin}/auth/callback`
     
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -101,18 +99,18 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   if (success) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="bg-black border-slate-800 max-w-md">
+        <DialogContent className="bg-white border-gray-200 max-w-md">
           <div className="text-center py-8 space-y-4">
-            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-              <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+              <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white">Check your email!</h3>
-            <p className="text-slate-300">
-              We've sent a confirmation email to <span className="text-white font-semibold">{email}</span>
+            <h3 className="text-2xl font-bold text-black">Check your email!</h3>
+            <p className="text-gray-600">
+              We've sent a confirmation email to <span className="text-black font-semibold">{email}</span>
             </p>
-            <p className="text-slate-400 text-sm">
+            <p className="text-gray-500 text-sm">
               Click the link in the email to verify your account and complete registration.
             </p>
             <Button
@@ -120,7 +118,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 onOpenChange(false)
                 setSuccess(false)
               }}
-              className="mt-4 bg-[#E8E889] hover:bg-[#E8E889]/90 text-black"
+              className="mt-4 bg-black hover:bg-black/80 text-white"
             >
               Got it
             </Button>
@@ -132,17 +130,17 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-black border-slate-800 max-w-md p-0 overflow-hidden max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-white border-gray-200 max-w-md p-0 overflow-hidden max-h-[90vh] overflow-y-auto">
         <div className="p-8">
           <DialogHeader className="text-center mb-6">
-            <DialogTitle className="text-4xl font-bold text-white mb-2">Create Account</DialogTitle>
-            <DialogDescription className="text-slate-400 text-base">Join the IITM BS community.</DialogDescription>
+            <DialogTitle className="text-4xl font-bold text-black mb-2">Create Account</DialogTitle>
+            <DialogDescription className="text-gray-600 text-base">Join the BSPrep community</DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleSignUp} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                <Label htmlFor="firstName" className="text-sm font-semibold text-black">
                   First Name
                 </Label>
                 <Input
@@ -151,11 +149,11 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                   required
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="h-12 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                  className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                <Label htmlFor="lastName" className="text-sm font-semibold text-black">
                   Last Name
                 </Label>
                 <Input
@@ -164,43 +162,43 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                   required
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="h-12 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                  className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="email" className="text-sm font-semibold text-black">
                 Email Address
               </Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="e.g. user@example.com"
+                placeholder="you@example.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-12 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="role" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="role" className="text-sm font-semibold text-black">
                 I am a
               </Label>
               <Select value={role} onValueChange={setRole}>
-                <SelectTrigger className="h-12 text-base bg-transparent border border-slate-700 text-white focus:border-slate-600 focus:ring-0">
+                <SelectTrigger className="h-12 text-base bg-white border-gray-300 focus:border-black text-black">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-900 border-slate-700">
-                  <SelectItem value="student" className="text-white hover:bg-slate-800">Student</SelectItem>
-                  <SelectItem value="mentor" className="text-white hover:bg-slate-800">Mentor (Senior)</SelectItem>
+                <SelectContent className="bg-white border-gray-200">
+                  <SelectItem value="student" className="text-black">Student</SelectItem>
+                  <SelectItem value="mentor" className="text-black">Mentor (Senior)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="password" className="text-sm font-semibold text-black">
                 Password
               </Label>
               <Input
@@ -210,12 +208,12 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-12 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="repeat-password" className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <Label htmlFor="repeat-password" className="text-sm font-semibold text-black">
                 Confirm Password
               </Label>
               <Input
@@ -225,38 +223,38 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 required
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
-                className="h-12 text-base bg-transparent border border-slate-700 rounded-md text-white placeholder:text-slate-600 focus:border-slate-600 focus:ring-0"
+                className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
               />
             </div>
 
-            <div className="flex items-start space-x-3 p-3 bg-slate-900/30 rounded-lg border border-slate-700">
+            <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
               <Checkbox
                 id="terms"
                 checked={agreedToTerms}
                 onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
                 className="mt-0.5"
               />
-              <label htmlFor="terms" className="text-sm text-slate-300 cursor-pointer flex-1 leading-relaxed">
+              <label htmlFor="terms" className="text-sm text-gray-600 cursor-pointer flex-1 leading-relaxed">
                 I agree to the{" "}
-                <Link href="/terms" className="text-slate-300 hover:text-white underline">
+                <Link href="/terms" className="text-black hover:text-black/80 underline font-medium">
                   Terms & Conditions
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" className="text-slate-300 hover:text-white underline">
+                <Link href="/privacy" className="text-black hover:text-black/80 underline font-medium">
                   Privacy Policy
                 </Link>
               </label>
             </div>
 
             {error && (
-              <div className="p-3 bg-red-950/20 border border-red-900 rounded-lg text-sm text-red-400">
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
                 {error}
               </div>
             )}
 
             <Button
               type="submit"
-              className="w-full h-12 text-base font-semibold bg-[#E8E889] hover:bg-[#E8E889]/90 text-black transition-colors"
+              className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
               disabled={isLoading || !agreedToTerms}
             >
               {isLoading ? "Creating account..." : "Create Account"}
@@ -264,10 +262,10 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
             <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-slate-800" />
+                <span className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-black px-4 text-slate-500 tracking-wider">
+                <span className="bg-white px-4 text-gray-500 tracking-wider">
                   Or continue with
                 </span>
               </div>
@@ -276,7 +274,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
             <Button
               type="button"
               onClick={handleGoogleSignUp}
-              className="w-full h-12 text-base font-semibold bg-transparent hover:bg-slate-900 text-white border border-slate-700 rounded-md transition-colors"
+              className="w-full h-12 text-base font-semibold bg-white hover:bg-gray-50 text-black border border-gray-300"
             >
               <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                 <path
@@ -301,11 +299,11 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
           </form>
 
           <div className="text-center mt-6">
-            <p className="text-slate-400">
+            <p className="text-gray-600">
               Already have an account?{" "}
               <button
                 onClick={onSwitchToLogin}
-                className="text-slate-300 font-semibold hover:text-white transition-colors underline"
+                className="text-black font-semibold hover:text-black/80 transition-colors underline"
               >
                 Login
               </button>
