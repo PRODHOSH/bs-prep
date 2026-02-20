@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer"
 import { AnimatedCounter } from "@/components/animated-counter"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { BookOpen, Users, TrendingUp, CheckCircle, Zap, Award, ArrowRight, ChevronDown } from "lucide-react"
+import CardSwap, { Card as SwapCard } from "@/components/card-swap"
 
 // Lazy load testimonials component
 const StaggerTestimonials = dynamic(() => import("@/components/stagger-testimonials").then(mod => ({ default: mod.StaggerTestimonials })), {
@@ -27,6 +28,12 @@ export default function HomePage() {
   const whyChooseRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
   const ctaRef = useScrollReveal<HTMLElement>({ threshold: 0.2 })
   const faqRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
+
+  const courseCards = [
+    { image: "/hero-section/image-1.png", title: "Mathematics for Data Science I" },
+    { image: "/hero-section/image-2.png", title: "Statistics for Data Science I" },
+    { image: "/hero-section/image-3.png", title: "Computational Thinking" }
+  ]
 
   const faqs = [
     {
@@ -47,37 +54,92 @@ export default function HomePage() {
     <div className="min-h-screen text-foreground">
       <Navbar isAuthenticated={false} />
 
-      <section ref={heroRef.ref} className={`relative overflow-hidden pt-20 md:pt-32 pb-20 md:pb-40 transition-all duration-1000 ${heroRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section ref={heroRef.ref} className={`relative overflow-hidden pt-10 md:pt-16 pb-10 md:pb-16 transition-all duration-1000 ${heroRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8 mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              <span className="block mb-3 bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">Learn IITM BS</span>
-              <span className="block bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">
-                With Mentors by Your Side
-              </span>
-            </h1>
+          {/* Two Column Layout */}
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
+            {/* Left Column: Content */}
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                <span className="block mb-3 bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">Learn IITM BS</span>
+                <span className="block bg-gradient-to-r from-black to-black/80 bg-clip-text text-transparent">
+                  With Mentors by Your Side
+                </span>
+              </h1>
 
-            <p className="text-lg md:text-xl text-black/70 max-w-2xl mx-auto leading-relaxed">
-              Expert-led learning in Tamil, community support, and peer mentorship for IITM BS students. Master concepts, solve
-              doubts, and ace your exams with our comprehensive platform.
-            </p>
+              <p className="text-lg md:text-xl text-black/70 leading-relaxed">
+                Expert-led learning in Tamil, community support, and peer mentorship for IITM BS students. Master concepts, solve
+                doubts, and ace your exams with our comprehensive platform.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/auth/sign-up">
-                <Button className="group bg-black text-white hover:bg-black/90 px-8 py-6 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
-                  Get Started Free
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/auth/login">
-                <Button className="bg-white text-black px-8 py-6 text-lg rounded-full border-2 border-gray-300 hover:border-black transition-all duration-300 font-medium">
-                  Sign In
-                </Button>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link href="/auth/sign-up">
+                  <Button className="group bg-black text-white hover:bg-black/90 px-8 py-6 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
+                    Get Started Free
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link href="/auth/login">
+                  <Button className="bg-white text-black px-8 py-6 text-lg rounded-full border-2 border-gray-300 hover:border-black transition-all duration-300 font-medium">
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Animated Card Stack */}
+            <div className="hidden md:block relative h-[330px]">
+              <CardSwap
+                width={500}
+                height={400}
+                cardDistance={60}
+                verticalDistance={70}
+                delay={4500}
+                pauseOnHover={false}
+              >
+                <SwapCard>
+                  <img
+                    src="/hero-section/image-1.png"
+                    alt="Mathematics for Data Science I"
+                    className="w-full h-full object-cover"
+                  />
+                </SwapCard>
+                <SwapCard>
+                  <img
+                    src="/hero-section/image-2.png"
+                    alt="Statistics for Data Science I"
+                    className="w-full h-full object-cover"
+                  />
+                </SwapCard>
+                <SwapCard>
+                  <img
+                    src="/hero-section/image-3.png"
+                    alt="Computational Thinking"
+                    className="w-full h-full object-cover"
+                  />
+                </SwapCard>
+              </CardSwap>
+            </div>
+
+            {/* Mobile: Horizontal Swipe Carousel */}
+            <div className="md:hidden overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+              <div className="flex gap-4 pb-4">
+                {courseCards.map((card, index) => (
+                  <div key={index} className="snap-center shrink-0 w-[85vw]">
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gray-200 h-80">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div ref={statsRef.ref} className={`grid grid-cols-3 gap-4 md:gap-8 mt-20 transition-all duration-1000 delay-300 ${statsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div ref={statsRef.ref} className={`grid grid-cols-3 gap-4 md:gap-8 mt-8 transition-all duration-1000 delay-300 ${statsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {[
               { label: "Active Students", value: 100, suffix: "+" },
               { label: "Expert Mentors", value: 15, suffix: "+" },
@@ -97,9 +159,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section ref={howItWorksRef.ref} className={`relative py-20 md:py-28 transition-all duration-1000 ${howItWorksRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section ref={howItWorksRef.ref} className={`relative py-12 md:py-16 transition-all duration-1000 ${howItWorksRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">How It Works</h2>
             <p className="text-black/70 text-lg">Three simple steps to transform your learning</p>
           </div>
@@ -141,9 +203,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section ref={coursesRef.ref} className={`relative py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white transition-all duration-1000 ${coursesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section ref={coursesRef.ref} className={`relative py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white transition-all duration-1000 ${coursesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Crack Qualifier with Tamil Courses</h2>
             <p className="text-black/70 text-lg mb-2">Master IITM BS Qualifier level with comprehensive Tamil video courses</p>
             <div className="flex items-center justify-center gap-6 mt-6">
@@ -225,9 +287,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section ref={whyChooseRef.ref} className={`relative py-20 md:py-28 transition-all duration-1000 ${whyChooseRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section ref={whyChooseRef.ref} className={`relative py-12 md:py-16 transition-all duration-1000 ${whyChooseRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Why Choose BSPrep?</h2>
             <p className="text-black/70 text-lg">Everything you need to succeed</p>
           </div>
@@ -258,7 +320,7 @@ export default function HomePage() {
 
       <StaggerTestimonials />
 
-      <section ref={ctaRef.ref} className={`relative py-20 md:py-28 transition-all duration-1000 ${ctaRef.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+      <section ref={ctaRef.ref} className={`relative py-12 md:py-16 transition-all duration-1000 ${ctaRef.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center bg-white backdrop-blur-sm rounded-3xl p-12 md:p-16 border border-gray-200 shadow-lg">
           <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">Ready to Transform Your Learning?</h2>
           <p className="text-black/70 text-lg mb-8 max-w-2xl mx-auto">
@@ -273,9 +335,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section ref={faqRef.ref} className={`relative py-20 md:py-28 bg-gradient-to-b from-transparent to-gray-50 transition-all duration-1000 ${faqRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section ref={faqRef.ref} className={`relative py-12 md:py-16 bg-gradient-to-b from-transparent to-gray-50 transition-all duration-1000 ${faqRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
               Frequently Asked Questions
             </h2>
