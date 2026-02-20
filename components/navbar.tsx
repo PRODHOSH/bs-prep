@@ -125,18 +125,18 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
-                  className="bg-black/95 backdrop-blur-md border-slate-700 shadow-2xl min-w-[240px] p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
+                  className="bg-white border-gray-200 shadow-lg min-w-[240px] p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
                   onMouseEnter={() => setToolsOpen(true)}
                   onMouseLeave={() => setToolsOpen(false)}
                 >
-                  <DropdownMenuItem asChild className="hover:bg-gradient-to-r hover:from-purple-900/50 hover:to-purple-800/50 focus:bg-gradient-to-r focus:from-purple-900/50 focus:to-purple-800/50 rounded-md transition-all duration-200 py-3 px-4">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-200 hover:text-white hover:translate-x-1 transition-transform duration-200 flex items-center gap-2">GPA Calculator</Link>
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Calculator</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-gradient-to-r hover:from-purple-900/50 hover:to-purple-800/50 focus:bg-gradient-to-r focus:from-purple-900/50 focus:to-purple-800/50 rounded-md transition-all duration-200 py-3 px-4">
-                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-200 hover:text-white hover:translate-x-1 transition-transform duration-200 flex items-center gap-2">GPA Predictor</Link>
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Predictor</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-gradient-to-r hover:from-purple-900/50 hover:to-purple-800/50 focus:bg-gradient-to-r focus:from-purple-900/50 focus:to-purple-800/50 rounded-md transition-all duration-200 py-3 px-4">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-200 hover:text-white hover:translate-x-1 transition-transform duration-200 flex items-center gap-2">CGPA Calculator</Link>
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">CGPA Calculator</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -174,18 +174,18 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
-                  className="bg-white border-slate-200 shadow-lg min-w-[240px] p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
+                  className="bg-white border-gray-200 shadow-lg min-w-[240px] p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
                   onMouseEnter={() => setToolsOpen(true)}
                   onMouseLeave={() => setToolsOpen(false)}
                 >
-                  <DropdownMenuItem asChild className="hover:bg-slate-50 focus:bg-slate-50 rounded-md transition-all duration-200 py-3 px-4">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-black hover:translate-x-1 transition-transform duration-200 flex items-center gap-2">GPA Calculator</Link>
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Calculator</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-slate-50 focus:bg-slate-50 rounded-md transition-all duration-200 py-3 px-4">
-                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-black hover:translate-x-1 transition-transform duration-200 flex items-center gap-2">GPA Predictor</Link>
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Predictor</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-slate-50 focus:bg-slate-50 rounded-md transition-all duration-200 py-3 px-4">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-black hover:translate-x-1 transition-transform duration-200 flex items-center gap-2">CGPA Calculator</Link>
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">CGPA Calculator</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

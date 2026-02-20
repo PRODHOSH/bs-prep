@@ -184,7 +184,14 @@ export default function HomePage() {
               }
             ].map((course) => (
               <Link key={course.id} href={`/courses/${course.id}`} className="group">
-                <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full">
+                <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full overflow-hidden">
+                  <div className="relative w-full aspect-video overflow-hidden">
+                    <img 
+                      src={course.thumbnail} 
+                      alt={course.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <CardContent className="p-5">
                     <div className="mb-2">
                       <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">IITM BS</span>
