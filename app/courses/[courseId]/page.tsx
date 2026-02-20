@@ -8,9 +8,19 @@ import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, BookOpen, Calendar } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { ArrowLeft, BookOpen, Calendar, FileText, Video } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
+
+interface LiveClass {
+  course: string
+  topic: string
+  meetingLink: string
+  time: string
+  date: string
+  youtubeLink?: string
+}
 
 // Course syllabus data
 const courseSyllabusData: Record<string, any> = {
@@ -111,20 +121,77 @@ export default function CoursePage() {
   const supabase = createClient()
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isEnrolled, setIsEnrolled] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [classes, setClasses] = useState<LiveClass[]>([])
+  const [loadingClasses, setLoadingClasses] = useState(false)
 
   useEffect(() => {
-    checkAuth()
+    checkAuthAndEnrollment()
   }, [])
 
-  const checkAuth = async () => {
+  const checkAuthAndEnrollment = async () => {
     const { data: { user } } = await supabase.auth.getUser()
     setIsAuthenticated(!!user)
+    
+    if (user) {
+      // Check if user is enrolled in this course
+      const { data: enrollment } = await supabase
+        .from('enrollments')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('course_id', courseId)
+        .single()
+      
+      setIsEnrolled(!!enrollment)
+      
+      // If enrolled, fetch classes for this course
+      if (enrollment) {
+        fetchClasses()
+      }
+    }
+    
     setLoading(false)
+  }
+
+  const fetchClasses = async () => {
+    setLoadingClasses(true)
+    try {
+      const response = await fetch("/api/live-classes")
+      if (response.ok) {
+        const data = await response.json()
+        // Filter classes for this specific course
+        const courseMap: { [key: string]: string } = {
+          'qualifier-computational-thinking': 'ct',
+          'qualifier-stats-1': 'stats-1',
+          'qualifier-math-1': 'math-1'
+        }
+        const courseCode = courseMap[courseId]
+        const filteredClasses = (data.classes || []).filter(
+          (cls: LiveClass) => cls.course.toLowerCase() === courseCode
+        )
+        setClasses(filteredClasses)
+      }
+    } catch (error) {
+      console.error('Error fetching classes:', error)
+    } finally {
+      setLoadingClasses(false)
+    }
   }
 
   const handleEnroll = () => {
     router.push(`/payment/${courseId}`)
+  }
+
+  const isUpcoming = (dateStr: string, timeStr: string) => {
+    try {
+      const [day, month, year] = dateStr.split('/').map(Number)
+      const [hours, minutes] = timeStr.split(':').map(Number)
+      const classDate = new Date(year, month - 1, day, hours, minutes)
+      return classDate > new Date()
+    } catch {
+      return false
+    }
   }
 
   if (!course) {
@@ -142,6 +209,194 @@ export default function CoursePage() {
     )
   }
 
+  // Enrolled User View
+  if (isEnrolled) {
+    const upcomingClasses = classes.filter(cls => isUpcoming(cls.date, cls.time))
+    const previousClasses = classes.filter(cls => !isUpcoming(cls.date, cls.time))
+
+    return (
+      <div className="min-h-screen bg-white relative">
+        <BeamsBackground />
+        <Navbar isAuthenticated={isAuthenticated} />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-24 pb-20 relative z-10">
+          {/* Back Button */}
+          <Link 
+            href="/dashboard/courses"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-8"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Courses
+          </Link>
+
+          {/* Course Header */}
+          <div className="flex items-start gap-8 mb-8">
+            {/* Thumbnail */}
+            <div className="w-80 h-48 bg-gray-50 rounded-xl overflow-hidden border border-gray-200 shadow-sm flex-shrink-0">
+              <img 
+                src={course.thumbnail} 
+                alt={course.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Course Info */}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <Badge className="bg-gray-100 text-black text-xs font-semibold px-3 py-1 rounded">
+                  {course.level.charAt(0).toUpperCase() + course.level.slice(1)}
+                </Badge>
+                <Badge className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded">
+                  Enrolled
+                </Badge>
+              </div>
+              
+              <h1 className="text-4xl font-bold text-black mb-3">
+                {course.title}
+              </h1>
+              
+              <p className="text-lg text-gray-600 mb-6">
+                {course.description}
+              </p>
+
+              {/* Syllabus Button */}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="bg-black hover:bg-black/80 text-white px-6 py-3 gap-2">
+                    <FileText className="w-4 h-4" />
+                    View Syllabus
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-white">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold">Course Syllabus - 4 Weeks</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-6 mt-4">
+                    {course.syllabus.map((week: any, index: number) => (
+                      <div key={week.week} className="border-b border-gray-200 pb-4 last:border-0">
+                        <div className="flex gap-4">
+                          <Badge className="bg-black text-white text-sm font-semibold px-3 py-1 rounded h-fit">
+                            Week {week.week}
+                          </Badge>
+                          <div className="flex-1">
+                            <h3 className="text-base font-bold text-black mb-2">
+                              {week.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                              {week.topics}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+
+          {/* Classes Section */}
+          <div className="space-y-8">
+            {/* Upcoming Classes */}
+            <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Upcoming Classes</h2>
+              {loadingClasses ? (
+                <div className="text-center py-8 text-gray-500">Loading classes...</div>
+              ) : upcomingClasses.length === 0 ? (
+                <Card className="bg-gray-50 border border-gray-200 rounded-lg">
+                  <CardContent className="p-8 text-center">
+                    <Video className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                    <p className="text-gray-600">No upcoming classes scheduled</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {upcomingClasses.map((cls, idx) => (
+                    <Card key={idx} className="bg-white border border-gray-200 hover:border-gray-400 transition-all">
+                      <CardContent className="p-5">
+                        <div className="flex items-start justify-between mb-4">
+                          <Badge className="bg-green-100 text-green-700 text-xs px-2 py-1">Upcoming</Badge>
+                          <div className="text-xs text-gray-500">{cls.date} • {cls.time}</div>
+                        </div>
+                        <div className="space-y-3">
+                          <div>
+                            <div className="text-sm font-bold text-black mb-1">Course:</div>
+                            <div className="text-base font-semibold text-gray-800">{cls.course.toUpperCase()}</div>
+                          </div>
+                          <div>
+                            <div className="text-sm font-bold text-black mb-1">Topic:</div>
+                            <div className="text-base text-gray-800 leading-snug">{cls.topic}</div>
+                          </div>
+                        </div>
+                        <a 
+                          href={cls.meetingLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 hover:text-blue-800 font-medium inline-block mt-4"
+                        >
+                          Join Meeting →
+                        </a>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Previous Classes */}
+            <div>
+              <h2 className="text-2xl font-bold text-black mb-4">Previous Classes</h2>
+              {previousClasses.length === 0 ? (
+                <Card className="bg-gray-50 border border-gray-200 rounded-lg">
+                  <CardContent className="p-8 text-center">
+                    <p className="text-gray-600">No previous classes</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {previousClasses.map((cls, idx) => (
+                    <Card key={idx} className="bg-white border border-gray-200 hover:border-gray-400 transition-all">
+                      <CardContent className="p-5">
+                        <div className="flex items-start justify-between mb-4">
+                          <Badge className="bg-gray-100 text-gray-700 text-xs px-2 py-1">Completed</Badge>
+                          <div className="text-xs text-gray-500">{cls.date} • {cls.time}</div>
+                        </div>
+                        <div className="space-y-3">
+                          <div>
+                            <div className="text-sm font-bold text-black mb-1">Course:</div>
+                            <div className="text-base font-semibold text-gray-800">{cls.course.toUpperCase()}</div>
+                          </div>
+                          <div>
+                            <div className="text-sm font-bold text-black mb-1">Topic:</div>
+                            <div className="text-base text-gray-800 leading-snug">{cls.topic}</div>
+                          </div>
+                        </div>
+                        {cls.youtubeLink && (
+                          <a 
+                            href={cls.youtubeLink} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-sm text-red-600 hover:text-red-800 font-medium inline-block mt-4"
+                          >
+                            Watch Recording →
+                          </a>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <Footer />
+      </div>
+    )
+  }
+
+  // Non-Enrolled User View (Original)
+
   return (
     <div className="min-h-screen bg-white relative">
       <BeamsBackground />
@@ -150,7 +405,7 @@ export default function CoursePage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl pt-24 pb-20 relative z-10">
         {/* Back Button */}
         <Link 
-          href="/courses"
+          href={isAuthenticated ? "/dashboard/courses" : "/courses"}
           className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />

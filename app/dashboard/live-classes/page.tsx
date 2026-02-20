@@ -5,11 +5,12 @@ import { LiveClassCard } from "@/components/live-class-card";
 import { Loader2 } from "lucide-react";
 
 interface LiveClass {
-  subject: string;
+  course: string;
   topic: string;
   meetingLink: string;
   time: string;
   date: string;
+  youtubeLink?: string;
 }
 
 export default function LiveClassesPage() {
@@ -72,7 +73,7 @@ export default function LiveClassesPage() {
           {classes.map((cls, index) => (
             <LiveClassCard
               key={index}
-              subject={cls.subject}
+              subject={cls.course}
               topic={cls.topic}
               meetingLink={cls.meetingLink}
               time={cls.time}

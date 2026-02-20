@@ -37,9 +37,9 @@ export function LiveClassCard({
   const status = getStatus();
 
   const statusColors = {
-    upcoming: "bg-gray-500 text-white",
-    live: "bg-green-500 text-white",
-    completed: "bg-gray-400 text-gray-200",
+    upcoming: "bg-blue-100 text-blue-700",
+    live: "bg-green-100 text-green-700",
+    completed: "bg-gray-100 text-gray-700",
   };
 
   const formatDate = (dateStr: string) => {
@@ -52,31 +52,37 @@ export function LiveClassCard({
   };
 
   return (
-    <Card className="bg-gradient-to-br from-gray-900 to-black border-gray-700 text-white">
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <CardTitle className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">{subject}</CardTitle>
-            <p className="text-gray-400 mt-1">{topic}</p>
-          </div>
+    <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all">
+      <CardHeader className="pb-3">
+        <div className="flex items-start justify-between mb-3">
           <Badge className={statusColors[status]}>
             {status === "live" ? "● LIVE" : status.toUpperCase()}
           </Badge>
         </div>
+        <div className="space-y-3">
+          <div>
+            <div className="text-sm font-bold text-black mb-1">Course:</div>
+            <div className="text-base font-semibold text-gray-800">{subject}</div>
+          </div>
+          <div>
+            <div className="text-sm font-bold text-black mb-1">Topic:</div>
+            <div className="text-base text-gray-800 leading-snug">{topic}</div>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-gray-300">
+          <div className="flex items-center gap-2 text-gray-600 text-sm">
             <Calendar className="h-4 w-4" />
             <span>{formatDate(date)}</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
+          <div className="flex items-center gap-2 text-gray-600 text-sm">
             <Clock className="h-4 w-4" />
             <span>{time}</span>
           </div>
           {meetingLink && (
             <Button
-              className="w-full bg-[#E8E889] text-black hover:bg-[#d4d477] font-semibold mt-2"
+              className="w-full bg-black text-white hover:bg-black/90 font-semibold mt-2"
               onClick={() => window.open(meetingLink, "_blank")}
               disabled={status === "completed"}
             >

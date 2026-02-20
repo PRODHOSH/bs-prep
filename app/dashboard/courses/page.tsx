@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Clock, Award, BookOpen, Lock } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { BookOpen, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 interface Course {
@@ -17,32 +18,134 @@ interface Course {
   weeks: number
   price: number
   thumbnail: string
-  instructor: string
-  students_count: number
   includesCourses?: number
   withCertificate?: boolean
+  available?: boolean
 }
 
+const courses: Course[] = [
+  // Available Qualifier Courses
+  {
+    id: "qualifier-math-1",
+    title: "Mathematics for Data Science I",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Master fundamental math concepts",
+    thumbnail: "/courses/math.jpg",
+    price: 349,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-stats-1",
+    title: "Statistics for Data Science I",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Learn statistical thinking & analysis",
+    thumbnail: "/courses/stats.jpg",
+    price: 349,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-computational-thinking",
+    title: "Computational Thinking",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Build problem-solving skills",
+    thumbnail: "/courses/ct.jpg",
+    price: 349,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-english-1",
+    title: "English I",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Essential communication skills",
+    thumbnail: "/courses/english.jpg",
+    price: 349,
+    available: false,
+    withCertificate: true
+  },
+  
+  // Foundation Courses (Coming Soon)
+  {
+    id: "foundation-math-2",
+    title: "Mathematics for Data Science II",
+    level: "foundation",
+    type: "paid",
+    courseType: "course",
+    weeks: 12,
+    description: "Advanced mathematical concepts",
+    thumbnail: "/courses/math.jpg",
+    price: 2500,
+    available: false,
+    withCertificate: true
+  },
+  {
+    id: "foundation-stats-2",
+    title: "Statistics for Data Science II",
+    level: "foundation",
+    type: "paid",
+    courseType: "course",
+    weeks: 12,
+    description: "Advanced statistical methods",
+    thumbnail: "/courses/stats.jpg",
+    price: 2500,
+    available: false,
+    withCertificate: true
+  },
+  {
+    id: "foundation-programming-python",
+    title: "Programming in Python",
+    level: "foundation",
+    type: "paid",
+    courseType: "course",
+    weeks: 12,
+    description: "Python for data analysis",
+    thumbnail: "/courses/ct.jpg",
+    price: 3000,
+    available: false,
+    withCertificate: true
+  },
+  {
+    id: "foundation-english-2",
+    title: "English II",
+    level: "foundation",
+    type: "paid",
+    courseType: "course",
+    weeks: 12,
+    description: "Advanced communication skills",
+    thumbnail: "/courses/english.jpg",
+    price: 2000,
+    available: false,
+    withCertificate: true
+  }
+]
+
 export default function ExploreCourses() {
-  const [courses, setCourses] = useState<Course[]>([])
   const [enrolledCourseIds, setEnrolledCourseIds] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedLevel, setSelectedLevel] = useState<string>("all")
+  const [searchQuery, setSearchQuery] = useState("")
   const supabase = createClient()
 
   useEffect(() => {
-    fetchData()
+    fetchEnrollments()
   }, [])
 
-  const fetchData = async () => {
+  const fetchEnrollments = async () => {
     try {
-      // Fetch all courses
-      const { data: coursesData, error: coursesError } = await supabase
-        .from('courses')
-        .select('*')
-        .order('level', { ascending: true })
-
-      if (coursesError) throw coursesError
-
       // Fetch user's enrollments
       const { data: { user } } = await supabase.auth.getUser()
       
@@ -56,14 +159,19 @@ export default function ExploreCourses() {
           setEnrolledCourseIds(enrollments.map(e => e.course_id))
         }
       }
-
-      setCourses(coursesData || [])
     } catch (error) {
-      console.error('Error fetching data:', error)
+      console.error('Error fetching enrollments:', error)
     } finally {
       setLoading(false)
     }
   }
+
+  const filteredCourses = courses.filter(course => {
+    const levelMatch = selectedLevel === "all" || course.level === selectedLevel
+    const searchMatch = searchQuery === "" || 
+      course.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return levelMatch && searchMatch
+  })
 
   const getCourseTypeStyles = (courseType: string) => {
     switch (courseType) {
@@ -106,92 +214,145 @@ export default function ExploreCourses() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FEF9E7]">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">Explore Courses</h1>
-          <p className="text-sm text-black/70">
-            Discover and enroll in new IITM BS courses taught in Tamil
-          </p>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative pt-8 pb-8 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-black">
+              Courses we offer
+            </h1>
+            <p className="text-lg text-black/70">
+              Master IITM BS curriculum with structured video courses in Tamil
+            </p>
+            <p className="text-sm text-black/60 mt-2">
+              🇮🇳 All courses taught in Tamil language for better understanding
+            </p>
+          </div>
         </div>
+      </section>
 
-        {/* Courses Grid */}
-        {loading ? (
-          <div className="text-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#51b206] mx-auto"></div>
-            <p className="text-black/70 mt-4 text-sm">Loading courses...</p>
+      {/* Main Content */}
+      <section className="pb-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          {/* Search and Filter Bar */}
+          <div className="mb-6 flex flex-col sm:flex-row gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/50" />
+              <Input
+                type="text"
+                placeholder="Search IITM BS courses"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 h-10 bg-white border-[#E5E5E5] focus:border-[#3e3098] focus:ring-[#3e3098] rounded-lg text-black placeholder:text-black/50 text-sm"
+                suppressHydrationWarning
+              />
+            </div>
+            <select 
+              value={selectedLevel}
+              onChange={(e) => setSelectedLevel(e.target.value)}
+              className="px-4 h-10 bg-white border border-[#E5E5E5] rounded-lg text-black text-sm focus:border-[#3e3098] focus:ring-[#3e3098] focus:outline-none min-w-[140px]"
+              suppressHydrationWarning
+            >
+              <option value="all">All Levels</option>
+              <option value="qualifier">Qualifier</option>
+              <option value="foundation">Foundation</option>
+              <option value="diploma">Diploma</option>
+              <option value="degree">Degree</option>
+            </select>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {courses.map((course) => {
-              const typeStyles = getCourseTypeStyles(course.courseType || "course")
-              const isPaid = course.type === "paid"
-              const isEnrolled = enrolledCourseIds.includes(course.id)
-              
-              return (
-                <Link key={course.id} href={`/courses/${course.id}`} className="group block h-full">
-                  <Card className="relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-xl h-full">
-                    <CardContent className="p-5 flex flex-col h-full">
-                      {/* Top Badge - Certification Path / Course Type */}
-                      <div className="mb-3">
-                        <span className="inline-block px-2.5 py-1 bg-gray-100 text-black text-xs font-semibold rounded">
-                          {typeStyles.label}
-                        </span>
-                        {isEnrolled && (
-                          <Badge className="ml-2 bg-[#51b206] hover:bg-[#51b206] text-white text-xs px-2 py-0.5">Enrolled</Badge>
-                        )}
-                        {isPaid && !isEnrolled && (
-                          <Badge className="ml-2 bg-amber-500 hover:bg-amber-500 text-white text-xs px-2 py-0.5">
-                            <Lock className="w-3 h-3 mr-1" />
-                            Premium
-                          </Badge>
-                        )}
-                      </div>
 
-                      {/* Course Branding/Provider */}
-                      <div className="mb-2">
-                        <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide">IITM BS</span>
-                      </div>
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#51b206] mx-auto"></div>
+              <p className="text-black/70 mt-4">Loading courses...</p>
+            </div>
+          ) : filteredCourses.length === 0 ? (
+            <div className="text-center py-20">
+              <Search className="w-16 h-16 text-black/50 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-black mb-2">No courses found</h3>
+              <p className="text-black/70 mb-6">
+                Try adjusting your search query
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+              {filteredCourses.map(course => {
+                const isAvailable = course.available !== false
+                const isEnrolled = enrolledCourseIds.includes(course.id)
+                const typeStyles = getCourseTypeStyles(course.courseType || "course")
 
-                      {/* Title */}
-                      <h3 className="text-lg font-bold text-black mb-3 line-clamp-2 leading-tight min-h-[44px]">
-                        {course.title}
-                      </h3>
-
-                      {/* Description - Brief */}
-                      <p className="text-xs text-gray-600 mb-3 line-clamp-1">
-                        {course.description}
-                      </p>
-
-                      {/* Divider */}
-                      <div className="h-px bg-gray-200 my-3"></div>
-
-                      <div className="mt-auto">
-                        {/* Level */}
-                        <div className="flex items-center gap-2 mb-3">
-                          <BookOpen className="w-4 h-4 text-gray-500" />
-                          <span className="text-sm font-medium capitalize text-gray-700">{course.level}</span>
+                return (
+                  <Link
+                    key={course.id}
+                    href={isAvailable ? `/courses/${course.id}` : "#"}
+                    className={`group block h-full ${!isAvailable ? 'pointer-events-none' : ''}`}
+                  >
+                    <Card className="relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full">
+                      <CardContent className="p-4 flex flex-col h-full">
+                        {/* Top Badge - Course Type */}
+                        <div className="mb-2">
+                          <span className="inline-block px-2 py-0.5 bg-gray-100 text-black text-xs font-semibold rounded">
+                            {typeStyles.label}
+                          </span>
+                          {isEnrolled && isAvailable && (
+                            <Badge className="ml-2 bg-[#51b206] hover:bg-[#51b206] text-white text-xs px-2 py-0.5">Enrolled</Badge>
+                          )}
                         </div>
-                        
-                        {/* Price */}
-                        {course.price && (
-                          <div className="flex items-center justify-between py-2 border-t border-gray-200">
-                            <span className="text-sm font-medium text-gray-600">Price</span>
-                            <div className="text-xl font-bold text-black">
-                              ₹{course.price}
-                            </div>
+
+                        {/* Course Branding/Provider */}
+                        <div className="mb-1">
+                          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">IITM BS</span>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-base font-bold text-black mb-2 line-clamp-2 leading-tight">
+                          {course.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-xs text-gray-600 mb-3 line-clamp-1 leading-relaxed">
+                          {course.description}
+                        </p>
+
+                        {/* Divider */}
+                        <div className="h-px bg-gray-200 my-2"></div>
+
+                        <div className="mt-auto space-y-2">
+                          {/* Level */}
+                          <div className="flex items-center gap-1.5">
+                            <BookOpen className="w-3.5 h-3.5 text-gray-500" />
+                            <span className="text-xs font-medium capitalize text-gray-700">{course.level}</span>
                           </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            })}
-          </div>
-        )}
-      </div>
+                          
+                          {/* Price */}
+                          {course.price && (
+                            <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+                              <span className="text-xs font-medium text-gray-600">Price</span>
+                              <div className="text-lg font-bold text-black">
+                                ₹{course.price}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                      
+                      {/* Coming Soon Overlay */}
+                      {!isAvailable && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-[1px] rounded-lg">
+                          <div className="bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-black">
+                            <p className="text-lg font-bold text-black">Coming Soon</p>
+                          </div>
+                        </div>
+                      )}
+                    </Card>
+                  </Link>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   )
 }

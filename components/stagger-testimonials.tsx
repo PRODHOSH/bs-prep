@@ -98,12 +98,12 @@ export function StaggerTestimonials() {
           {testimonials.map((testimonial, idx) => (
             <div
               key={idx}
-              className={`bg-black/80 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 w-[400px] h-[280px] shrink-0 hover:border-[#51b206]/50 transition-all duration-300 flex flex-col ${
+              className={`bg-white border border-gray-200 rounded-2xl p-6 w-[400px] h-[280px] shrink-0 hover:border-gray-300 hover:shadow-lg transition-all duration-300 flex flex-col ${
                 idx % 2 === 0 ? "mt-0" : "mt-12"
               }`}
             >
               <div className="flex items-start gap-4 mb-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#3e3098]/20 ring-2 ring-[#3e3098]/50">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.author}
@@ -112,11 +112,11 @@ export function StaggerTestimonials() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">{testimonial.author}</p>
+                  <p className="font-semibold text-black">{testimonial.author}</p>
                   <p className="text-sm text-[#51b206]">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-slate-300 leading-relaxed text-sm flex-1">"{testimonial.quote}"</p>
+              <p className="text-gray-700 leading-relaxed text-sm flex-1">"{testimonial.quote}"</p>
               <div className="flex gap-1 mt-4">
                 {[...Array(5)].map((_, i) => (
                   <svg
@@ -138,12 +138,12 @@ export function StaggerTestimonials() {
           {testimonials.map((testimonial, idx) => (
             <div
               key={`dup-${idx}`}
-              className={`bg-black/80 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 w-[400px] h-[280px] shrink-0 hover:border-[#51b206]/50 transition-all duration-300 flex flex-col ${
+              className={`bg-white border border-gray-200 rounded-2xl p-6 w-[400px] h-[280px] shrink-0 hover:border-gray-300 hover:shadow-lg transition-all duration-300 flex flex-col ${
                 idx % 2 === 0 ? "mt-0" : "mt-12"
               }`}
             >
               <div className="flex items-start gap-4 mb-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#3e3098]/20 ring-2 ring-[#3e3098]/50">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.author}
@@ -152,11 +152,11 @@ export function StaggerTestimonials() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">{testimonial.author}</p>
+                  <p className="font-semibold text-black">{testimonial.author}</p>
                   <p className="text-sm text-[#51b206]">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-slate-300 leading-relaxed text-sm flex-1">"{testimonial.quote}"</p>
+              <p className="text-gray-700 leading-relaxed text-sm flex-1">"{testimonial.quote}"</p>
               <div className="flex gap-1 mt-4">
                 {[...Array(5)].map((_, i) => (
                   <svg

@@ -94,7 +94,7 @@ export default function HomePage() {
                 height={400}
                 cardDistance={60}
                 verticalDistance={70}
-                delay={4500}
+                delay={2800}
                 pauseOnHover={false}
               >
                 <SwapCard>
