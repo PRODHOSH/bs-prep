@@ -34,10 +34,10 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <img 
                 src="/logo.jpeg" 
-                alt="IITM BS Logo" 
+                alt="BSPrep Logo" 
                 className="w-10 h-10 rounded-full object-cover"
               />
-              <span className="text-xl font-bold text-black">IITM BS</span>
+              <span className="text-xl font-bold text-black">BSPrep</span>
             </div>
             <p className="text-slate-600 text-sm leading-relaxed">
               Learn. Grow. Excel. Together.
@@ -125,7 +125,7 @@ export function Footer() {
         <div className="border-t border-slate-200 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-slate-500 text-sm">
-              © 2026 IITM BS Learning. All rights reserved.
+              © 2026 BSPrep. All rights reserved.
             </p>
             <p className="text-slate-400 text-xs max-w-md text-center md:text-right">
               This platform is not affiliated with IIT Madras. Community-driven academic support only.

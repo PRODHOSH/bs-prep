@@ -91,11 +91,11 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           <Link href={isAuthenticated ? "/dashboard" : "/"} className="flex items-center gap-3 flex-shrink-0 group">
             <img 
               src="/logo.jpeg" 
-              alt="IITM BS Logo" 
+              alt="BSPrep Logo" 
               className="w-11 h-11 rounded-full object-cover group-hover:opacity-80 transition-opacity"
             />
             <span className="font-bold text-2xl hidden sm:inline text-black">
-              IITM BS
+              BSPrep
             </span>
           </Link>
 
