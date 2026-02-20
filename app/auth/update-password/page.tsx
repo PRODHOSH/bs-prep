@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { BeamsBackground } from "@/components/beams-background"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
@@ -53,78 +54,83 @@ export default function UpdatePasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">Update Password</h1>
-          <p className="text-black/50 text-lg">Choose a new secure password.</p>
-        </div>
-
-        {!success ? (
-          <form onSubmit={handleUpdatePassword} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-slate-300 uppercase tracking-wide">
-                New Password
-              </Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="At least 6 characters"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="h-14 text-base bg-slate-900/50 border-slate-700 text-white placeholder:text-black/60 focus:border-purple-500 focus:ring-purple-500"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="confirm-password" className="text-sm font-medium text-slate-300 uppercase tracking-wide">
-                Confirm Password
-              </Label>
-              <Input
-                id="confirm-password"
-                type="password"
-                placeholder="••••••••"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="h-14 text-base bg-slate-900/50 border-slate-700 text-white placeholder:text-black/60 focus:border-purple-500 focus:ring-purple-500"
-              />
-            </div>
-
-            {error && (
-              <div className="p-3 bg-red-950/20 border border-red-900 rounded-lg text-sm text-red-400">
-                {error}
-              </div>
-            )}
-
-            <Button
-              type="submit"
-              className="w-full h-14 text-base font-semibold bg-[#E8E889] hover:bg-[#E8E889]/90 text-black transition-colors"
-              disabled={isLoading}
-            >
-              {isLoading ? "Updating..." : "Update Password"}
-            </Button>
-          </form>
-        ) : (
-          <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-8 text-center space-y-4">
-            <div className="flex justify-center">
-              <CheckCircle className="w-16 h-16 text-green-500" />
-            </div>
-            <h3 className="text-2xl font-bold text-white">Password Updated!</h3>
-            <p className="text-slate-300">
-              Your password has been successfully updated.
-            </p>
-            <p className="text-black/50 text-sm">
-              Redirecting to login page...
-            </p>
+    <div className="min-h-screen bg-white relative">
+      <BeamsBackground />
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-3">Update Password</h1>
+            <p className="text-gray-600 text-lg">Choose a new secure password</p>
           </div>
-        )}
 
-        <div className="text-center mt-8">
-          <Link href="/auth/login" className="text-black/50 hover:text-white transition-colors">
-            Back to <span className="text-white font-semibold underline">Login</span>
-          </Link>
+          {!success ? (
+            <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+              <form onSubmit={handleUpdatePassword} className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-sm font-semibold text-black">
+                    New Password
+                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="At least 6 characters"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-password" className="text-sm font-semibold text-black">
+                    Confirm Password
+                  </Label>
+                  <Input
+                    id="confirm-password"
+                    type="password"
+                    placeholder="••••••••"
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                  />
+                </div>
+
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                    {error}
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Updating..." : "Update Password"}
+                </Button>
+              </form>
+            </div>
+          ) : (
+            <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8 text-center space-y-4">
+              <div className="flex justify-center">
+                <CheckCircle className="w-16 h-16 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-black">Password Updated!</h3>
+              <p className="text-gray-600">
+                Your password has been successfully updated.
+              </p>
+              <p className="text-gray-500 text-sm">
+                Redirecting to login page...
+              </p>
+            </div>
+          )}
+
+          <div className="text-center mt-8">
+            <Link href="/" className="text-gray-600 hover:text-black transition-colors">
+              Back to <span className="text-black font-semibold underline">Home</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
