@@ -132,6 +132,83 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Crack Qualifier with Tamil Courses</h2>
+            <p className="text-black/70 text-lg mb-2">Master IITM BS Qualifier level with comprehensive Tamil video courses</p>
+            <div className="flex items-center justify-center gap-6 mt-6">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-black">₹349</p>
+                <p className="text-sm text-black/60">per course</p>
+              </div>
+              <div className="text-black/30">|</div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-[#51b206]">₹999</p>
+                <p className="text-sm text-black/60">for all 3 courses</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {[
+              {
+                id: "qualifier-math-1",
+                title: "Mathematics for Data Science I",
+                description: "Master fundamental math concepts",
+                thumbnail: "/courses/math.jpg",
+                price: 349
+              },
+              {
+                id: "qualifier-stats-1",
+                title: "Statistics for Data Science I",
+                description: "Learn statistical thinking & analysis",
+                thumbnail: "/courses/stats.jpg",
+                price: 349
+              },
+              {
+                id: "qualifier-computational-thinking",
+                title: "Computational Thinking",
+                description: "Build problem-solving skills",
+                thumbnail: "/courses/ct.jpg",
+                price: 349
+              }
+            ].map((course) => (
+              <Link key={course.id} href={`/courses/${course.id}`} className="group">
+                <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full">
+                  <CardContent className="p-5">
+                    <div className="mb-2">
+                      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">IITM BS</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-black mb-2 line-clamp-2">
+                      {course.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      {course.description}
+                    </p>
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                      <span className="text-sm font-medium text-gray-600">Price</span>
+                      <div className="text-xl font-bold text-black">
+                        ₹{course.price}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/courses">
+              <Button className="bg-black text-white hover:bg-black/90 px-8 py-4 rounded-full transition-all duration-300 font-medium">
+                View All Courses
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="relative py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">

@@ -34,7 +34,7 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 4,
-    description: "Fundamental mathematics concepts for data science",
+    description: "Master fundamental math concepts",
     thumbnail: "/courses/math.jpg",
     price: 349,
     available: true,
@@ -47,7 +47,7 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 4,
-    description: "Introduction to statistical thinking and analysis",
+    description: "Learn statistical thinking & analysis",
     thumbnail: "/courses/stats.jpg",
     price: 349,
     available: true,
@@ -58,13 +58,12 @@ const courses: Course[] = [
     title: "Computational Thinking",
     level: "qualifier",
     type: "paid",
-    courseType: "skill-path",
+    courseType: "course",
     weeks: 4,
-    description: "Problem-solving and algorithmic thinking fundamentals",
+    description: "Build problem-solving skills",
     thumbnail: "/courses/ct.jpg",
     price: 349,
     available: true,
-    includesCourses: 3,
     withCertificate: true
   },
   {
@@ -74,7 +73,7 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 4,
-    description: "Essential English communication skills",
+    description: "Essential communication skills",
     thumbnail: "/courses/english.jpg",
     price: 349,
     available: false,
@@ -87,13 +86,12 @@ const courses: Course[] = [
     title: "Mathematics for Data Science II",
     level: "foundation",
     type: "paid",
-    courseType: "career-path",
+    courseType: "course",
     weeks: 12,
-    description: "Advanced mathematical concepts for data science",
+    description: "Advanced mathematical concepts",
     thumbnail: "/courses/math.jpg",
     price: 349,
     available: false,
-    includesCourses: 5,
     withCertificate: true
   },
   {
@@ -103,7 +101,7 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 12,
-    description: "Comprehensive statistical methods and applications",
+    description: "Advanced statistical methods",
     thumbnail: "/courses/stats.jpg",
     price: 349,
     available: false,
@@ -114,13 +112,12 @@ const courses: Course[] = [
     title: "Programming in Python",
     level: "foundation",
     type: "paid",
-    courseType: "skill-path",
+    courseType: "course",
     weeks: 12,
-    description: "Python programming for data analysis",
+    description: "Python for data analysis",
     thumbnail: "/courses/ct.jpg",
     price: 349,
     available: false,
-    includesCourses: 4,
     withCertificate: true
   },
   {
@@ -130,7 +127,7 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 12,
-    description: "Advanced English communication skills",
+    description: "Advanced communication skills",
     thumbnail: "/courses/english.jpg",
     price: 349,
     available: false,
@@ -291,22 +288,12 @@ export default function CoursesPage() {
                           </h3>
 
                           {/* Description */}
-                          <p className="text-xs text-gray-600 mb-3 line-clamp-2 leading-relaxed">
+                          <p className="text-xs text-gray-600 mb-3 line-clamp-1 leading-relaxed">
                             {course.description}
                           </p>
 
                           {/* Divider */}
                           <div className="h-px bg-gray-200 my-2"></div>
-
-                          {/* Includes Courses */}
-                          {course.includesCourses && (
-                            <>
-                              <div className="text-xs text-gray-600 mb-2 flex items-center gap-1.5">
-                                <Award className="w-3.5 h-3.5 text-gray-500" />
-                                Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
-                              </div>
-                            </>
-                          )}
 
                           <div className="mt-auto space-y-2">
                             {/* Level */}

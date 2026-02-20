@@ -159,18 +159,13 @@ export default function ExploreCourses() {
                         {course.title}
                       </h3>
 
+                      {/* Description - Brief */}
+                      <p className="text-xs text-gray-600 mb-3 line-clamp-1">
+                        {course.description}
+                      </p>
+
                       {/* Divider */}
                       <div className="h-px bg-gray-200 my-3"></div>
-
-                      {/* Includes Courses */}
-                      {course.includesCourses && (
-                        <>
-                          <div className="text-sm text-gray-700 mb-3 flex items-center gap-2">
-                            <Award className="w-4 h-4 text-gray-500" />
-                            Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
-                          </div>
-                        </>
-                      )}
 
                       <div className="mt-auto">
                         {/* Level */}
