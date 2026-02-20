@@ -60,7 +60,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
     try {
       // Use current origin for redirect (works for both localhost and production)
-      const redirectUrl = `${window.location.origin}/dashboard`
+      const redirectUrl = `${window.location.origin}/auth/callback`
       
       const { error } = await supabase.auth.signUp({
         email,
