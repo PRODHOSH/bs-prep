@@ -4,9 +4,9 @@ import { useState } from "react"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Lock, Play, Clock, Star, Search, Award, BookOpen } from "lucide-react"
 
@@ -21,41 +21,49 @@ interface Course {
   thumbnail: string
   includesCourses?: number
   withCertificate?: boolean
+  price?: number
+  available?: boolean
 }
 
 const courses: Course[] = [
-  // Qualifier Courses (Always Free)
+  // Available Qualifier Courses
   {
     id: "qualifier-math-1",
     title: "Mathematics for Data Science I",
     level: "qualifier",
-    type: "free",
-    courseType: "free-course",
+    type: "paid",
+    courseType: "course",
     weeks: 4,
-    description: "Fundamental mathematics concepts for data science including algebra, calculus, and linear algebra basics.",
+    description: "Fundamental mathematics concepts for data science",
     thumbnail: "/courses/math.jpg",
+    price: 349,
+    available: true,
     withCertificate: true
   },
   {
     id: "qualifier-stats-1",
     title: "Statistics for Data Science I",
     level: "qualifier",
-    type: "free",
+    type: "paid",
     courseType: "course",
     weeks: 4,
-    description: "Introduction to statistical thinking and analysis with practical applications in data science.",
+    description: "Introduction to statistical thinking and analysis",
     thumbnail: "/courses/stats.jpg",
+    price: 349,
+    available: true,
     withCertificate: true
   },
   {
     id: "qualifier-computational-thinking",
     title: "Computational Thinking",
     level: "qualifier",
-    type: "free",
+    type: "paid",
     courseType: "skill-path",
     weeks: 4,
-    description: "Problem-solving and algorithmic thinking fundamentals for programming and data analysis.",
+    description: "Problem-solving and algorithmic thinking fundamentals",
     thumbnail: "/courses/ct.jpg",
+    price: 349,
+    available: true,
     includesCourses: 3,
     withCertificate: true
   },
@@ -63,15 +71,17 @@ const courses: Course[] = [
     id: "qualifier-english-1",
     title: "English I",
     level: "qualifier",
-    type: "free",
+    type: "paid",
     courseType: "course",
     weeks: 4,
-    description: "Essential English communication skills for academic and professional settings.",
+    description: "Essential English communication skills",
     thumbnail: "/courses/english.jpg",
+    price: 349,
+    available: false,
     withCertificate: true
   },
   
-  // Foundation Courses (Paid)
+  // Foundation Courses (Coming Soon)
   {
     id: "foundation-math-2",
     title: "Mathematics for Data Science II",
@@ -79,8 +89,10 @@ const courses: Course[] = [
     type: "paid",
     courseType: "career-path",
     weeks: 12,
-    description: "Advanced mathematical concepts for data science including multivariable calculus and optimization.",
+    description: "Advanced mathematical concepts for data science",
     thumbnail: "/courses/math.jpg",
+    price: 349,
+    available: false,
     includesCourses: 5,
     withCertificate: true
   },
@@ -91,8 +103,10 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 12,
-    description: "Comprehensive statistical methods and applications including hypothesis testing and regression.",
+    description: "Comprehensive statistical methods and applications",
     thumbnail: "/courses/stats.jpg",
+    price: 349,
+    available: false,
     withCertificate: true
   },
   {
@@ -102,8 +116,10 @@ const courses: Course[] = [
     type: "paid",
     courseType: "skill-path",
     weeks: 12,
-    description: "Python programming for data analysis and applications with hands-on projects.",
+    description: "Python programming for data analysis",
     thumbnail: "/courses/ct.jpg",
+    price: 349,
+    available: false,
     includesCourses: 4,
     withCertificate: true
   },
@@ -114,36 +130,23 @@ const courses: Course[] = [
     type: "paid",
     courseType: "course",
     weeks: 12,
-    description: "Advanced English communication and writing skills for professional development.",
+    description: "Advanced English communication skills",
     thumbnail: "/courses/english.jpg",
+    price: 349,
+    available: false,
     withCertificate: true
   }
 ]
 
 export default function CoursesPage() {
-  const [selectedLevels, setSelectedLevels] = useState<string[]>([])
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([])
+  const [selectedLevel, setSelectedLevel] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
 
-  const toggleFilter = (filterType: "level" | "type", value: string) => {
-    if (filterType === "level") {
-      setSelectedLevels(prev =>
-        prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]
-      )
-    } else {
-      setSelectedTypes(prev =>
-        prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]
-      )
-    }
-  }
-
   const filteredCourses = courses.filter(course => {
-    const levelMatch = selectedLevels.length === 0 || selectedLevels.includes(course.level)
-    const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(course.type)
+    const levelMatch = selectedLevel === "all" || course.level === selectedLevel
     const searchMatch = searchQuery === "" || 
-      course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      course.description.toLowerCase().includes(searchQuery.toLowerCase())
-    return levelMatch && typeMatch && searchMatch
+      course.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return levelMatch && searchMatch
   })
 
   const getLevelBadgeColor = (level: string) => {
@@ -199,7 +202,8 @@ export default function CoursesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FEF9E7]">
+    <div className="min-h-screen bg-white relative">
+      <BeamsBackground />
       <Navbar isAuthenticated={false} />
 
       {/* Hero Section */}
@@ -207,7 +211,7 @@ export default function CoursesPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-3 text-black">
-              IITM BS Courses
+              Courses we offer
             </h1>
             <p className="text-lg text-black/70">
               Master IITM BS curriculum with structured video courses in Tamil
@@ -222,202 +226,121 @@ export default function CoursesPage() {
       {/* Main Content */}
       <section className="pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* LEFT SIDEBAR - FILTERS */}
-            <div className="lg:w-64 flex-shrink-0">
-              <div className="bg-white border border-[#E5DBC8] rounded-xl p-5 sticky top-24">
-                <div className="flex items-center justify-between mb-5">
-                  <h2 className="text-lg font-bold text-black">Filters</h2>
-                  <Badge className="bg-[#F5EFE7] text-black text-xs border border-[#E5DBC8]">{filteredCourses.length} results</Badge>
-                </div>
-
-                {/* Program Level Filter */}
-                <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-black mb-3">Level</h3>
-                  <div className="space-y-2.5">
-                    {["qualifier", "foundation"].map(level => (
-                      <label key={level} className="flex items-center gap-2.5 cursor-pointer group">
-                        <Checkbox
-                          checked={selectedLevels.includes(level)}
-                          onCheckedChange={() => toggleFilter("level", level)}
-                          className="border-gray-300 data-[state=checked]:bg-[#3e3098] data-[state=checked]:border-[#3e3098]"
-                        />
-                        <span className="text-sm text-black/70 group-hover:text-black transition-colors capitalize">
-                          {level}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Course Type Filter */}
-                <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-black mb-3">Price</h3>
-                  <div className="space-y-2.5">
-                    {["free", "paid"].map(type => (
-                      <label key={type} className="flex items-center gap-2.5 cursor-pointer group">
-                        <Checkbox
-                          checked={selectedTypes.includes(type)}
-                          onCheckedChange={() => toggleFilter("type", type)}
-                          className="border-gray-300 data-[state=checked]:bg-[#3e3098] data-[state=checked]:border-[#3e3098]"
-                        />
-                        <span className="text-sm text-black/70 group-hover:text-black transition-colors capitalize">
-                          {type}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Course Type Filter */}
-                <div>
-                  <h3 className="text-sm font-semibold text-black mb-3">Type</h3>
-                  <div className="space-y-2.5">
-                    {["skill-path", "course", "career-path", "free-course"].map(ct => (
-                      <label key={ct} className="flex items-center gap-2.5 cursor-pointer group">
-                        <Checkbox
-                          className="border-gray-300 data-[state=checked]:bg-[#3e3098] data-[state=checked]:border-[#3e3098]"
-                        />
-                        <span className="text-sm text-black/70 group-hover:text-black transition-colors capitalize">
-                          {ct.replace('-', ' ')}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Reset Filters */}
-                {(selectedLevels.length > 0 || selectedTypes.length > 0) && (
-                  <button
-                    onClick={() => {
-                      setSelectedLevels([])
-                      setSelectedTypes([])
-                    }}
-                    className="w-full mt-5 px-3 py-2 text-sm bg-[#F5EFE7] hover:bg-[#E5DBC8] text-black rounded-lg transition-colors border border-[#E5DBC8]"
-                  >
-                    Reset All
-                  </button>
-                )}
-              </div>
+          {/* Search and Filter Bar */}
+          <div className="mb-6 flex flex-col sm:flex-row gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/50" />
+              <Input
+                type="text"
+                placeholder="Search IITM BS courses"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 h-10 bg-white border-[#E5E5E5] focus:border-[#3e3098] focus:ring-[#3e3098] rounded-lg text-black placeholder:text-black/50 text-sm"
+              />
             </div>
-
-            {/* RIGHT SIDE - COURSE CARDS */}
-            <div className="flex-1 min-w-0">
-              {/* Search and Sort Bar */}
-              <div className="mb-6 flex flex-col sm:flex-row gap-4">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/50" />
-                  <Input
-                    type="text"
-                    placeholder="Search IITM BS courses"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 h-10 bg-white border-[#E5DBC8] focus:border-[#3e3098] focus:ring-[#3e3098] rounded-lg text-black placeholder:text-black/50 text-sm"
-                  />
-                </div>
-                <select className="px-4 h-10 bg-white border border-[#E5DBC8] rounded-lg text-black text-sm focus:border-[#3e3098] focus:ring-[#3e3098] focus:outline-none">
-                  <option>Most relevant</option>
-                  <option>Newest first</option>
-                  <option>Oldest first</option>
-                  <option>A-Z</option>
-                </select>
-              </div>
+            <select 
+              value={selectedLevel}
+              onChange={(e) => setSelectedLevel(e.target.value)}
+              className="px-4 h-10 bg-white border border-[#E5E5E5] rounded-lg text-black text-sm focus:border-[#3e3098] focus:ring-[#3e3098] focus:outline-none min-w-[140px]"
+            >
+              <option value="all">All Levels</option>
+              <option value="qualifier">Qualifier</option>
+              <option value="foundation">Foundation</option>
+              <option value="diploma">Diploma</option>
+              <option value="degree">Degree</option>
+            </select>
+          </div>
 
               {filteredCourses.length === 0 ? (
                 <div className="text-center py-20">
                   <Search className="w-16 h-16 text-black/50 mx-auto mb-4" />
                   <h3 className="text-2xl font-bold text-black mb-2">No courses found</h3>
                   <p className="text-black/70 mb-6">
-                    Try adjusting your filters or search query
+                    Try adjusting your search query
                   </p>
-                  <button
-                    onClick={() => {
-                      setSelectedLevels([])
-                      setSelectedTypes([])
-                      setSearchQuery("")
-                    }}
-                    className="px-6 py-3 bg-[#3e3098] hover:bg-[#3e3098]/90 text-white rounded-lg transition-colors"
-                  >
-                    Clear All Filters
-                  </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                   {filteredCourses.map(course => {
-                  const isPaid = course.type === "paid"
-                  const isLocked = isPaid
+                  const isAvailable = course.available !== false
                   const typeStyles = getCourseTypeStyles(course.courseType)
 
                   return (
                     <Link
                       key={course.id}
-                      href={`/courses/${course.id}`}
-                      className="group block h-full"
+                      href={isAvailable ? `/courses/${course.id}` : "#"}
+                      className={`group block h-full ${!isAvailable ? 'pointer-events-none' : ''}`}
                     >
-                      <Card className="relative bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-200 overflow-hidden hover:shadow-md rounded-xl h-full">
-                        <CardContent className="p-0 flex flex-col h-full">
-                          {/* Top Badge - Certification Path / Course Type */}
-                          <div className="px-4 pt-3 pb-2">
-                            <span className="inline-block px-2.5 py-1 bg-[#F5EFE7] text-black/70 text-xs font-medium rounded">
+                      <Card className={`relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full ${!isAvailable ? 'opacity-60 blur-[2px]' : ''}`}>
+                        <CardContent className="p-4 flex flex-col h-full">
+                          {/* Top Badge - Course Type */}
+                          <div className="mb-2">
+                            <span className="inline-block px-2 py-0.5 bg-gray-100 text-black text-xs font-semibold rounded">
                               {typeStyles.label}
                             </span>
-                            {isLocked && (
-                              <Badge className="ml-2 bg-amber-500 hover:bg-amber-500 text-white text-xs px-2 py-0.5">
-                                <Lock className="w-3 h-3 mr-1" />
-                                Premium
-                              </Badge>
-                            )}
                           </div>
 
-                          <div className="px-4 pb-4 flex-grow flex flex-col">
-                            {/* Course Branding/Provider */}
-                            <div className="mb-2">
-                              <span className="text-sm font-bold text-[#3e3098]">IITM BS</span>
+                          {/* Course Branding/Provider */}
+                          <div className="mb-1">
+                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">IITM BS</span>
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="text-base font-bold text-black mb-2 line-clamp-2 leading-tight">
+                            {course.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-xs text-gray-600 mb-3 line-clamp-2 leading-relaxed">
+                            {course.description}
+                          </p>
+
+                          {/* Divider */}
+                          <div className="h-px bg-gray-200 my-2"></div>
+
+                          {/* Includes Courses */}
+                          {course.includesCourses && (
+                            <>
+                              <div className="text-xs text-gray-600 mb-2 flex items-center gap-1.5">
+                                <Award className="w-3.5 h-3.5 text-gray-500" />
+                                Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
+                              </div>
+                            </>
+                          )}
+
+                          <div className="mt-auto space-y-2">
+                            {/* Level */}
+                            <div className="flex items-center gap-1.5">
+                              <BookOpen className="w-3.5 h-3.5 text-gray-500" />
+                              <span className="text-xs font-medium capitalize text-gray-700">{course.level}</span>
                             </div>
-
-                            {/* Title */}
-                            <h3 className="text-lg font-bold text-black mb-2 line-clamp-2 leading-tight min-h-[44px]">
-                              {course.title}
-                            </h3>
-
-                            {/* Description */}
-                            <p className="text-sm text-black/70 mb-3 line-clamp-2 leading-relaxed flex-grow">
-                              {course.description}
-                            </p>
-
-                            {/* Dotted Divider */}
-                            <div className="border-t border-dotted border-gray-300 my-3"></div>
-
-                            {/* Includes Courses */}
-                            {course.includesCourses && (
-                              <>
-                                <div className="text-sm text-black/80 mb-2">
-                                  Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
+                            
+                            {/* Price */}
+                            {course.price && (
+                              <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+                                <span className="text-xs font-medium text-gray-600">Price</span>
+                                <div className="text-lg font-bold text-black">
+                                  ₹{course.price}
                                 </div>
-                                <div className="border-t border-dotted border-gray-300 my-3"></div>
-                              </>
+                              </div>
                             )}
-
-                            {/* Bottom Row: Level and Duration */}
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="flex items-center gap-1.5 text-black/80">
-                                <BookOpen className="w-4 h-4" />
-                                <span className="text-sm font-medium capitalize">{course.level}</span>
-                              </div>
-                              <div className="flex items-center gap-1.5 text-black/80">
-                                <span className="text-sm font-medium">{course.weeks * 6} hours</span>
-                              </div>
-                            </div>
                           </div>
                         </CardContent>
+                        
+                        {/* Coming Soon Overlay */}
+                        {!isAvailable && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg">
+                            <div className="bg-white px-4 py-2 rounded-md shadow-md border border-gray-300">
+                              <p className="text-sm font-bold text-black">Coming Soon</p>
+                            </div>
+                          </div>
+                        )}
                       </Card>
                     </Link>
                   )
                 })}
               </div>
               )}
-            </div>
-          </div>
         </div>
       </section>
 

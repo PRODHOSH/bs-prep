@@ -110,11 +110,11 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-white rounded-xl p-8 border border-[#E5DBC8]">
+      <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
         <h1 className="text-3xl font-bold text-black mb-2">
           Welcome back, {userName}!
         </h1>
-        <p className="text-black/70">
+        <p className="text-gray-600">
           Continue your learning journey with IITM BS courses
         </p>
       </div>
@@ -132,12 +132,12 @@ export default function StudentDashboard() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {liveClasses.length === 0 ? (
-            <div className="col-span-full bg-[#F5EFE7] border border-slate-300 rounded-lg p-8 text-center">
-              <p className="text-black/90">No live classes scheduled at the moment.</p>
+            <div className="col-span-full bg-white border border-gray-200 rounded-lg p-8 text-center">
+              <p className="text-gray-600">No live classes scheduled at the moment.</p>
             </div>
           ) : (
             liveClasses.slice(0, 3).map((liveClass, index) => (
-            <Card key={index} className="bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-300 hover:shadow-lg rounded-lg">
+            <Card key={index} className="bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-xl">
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/10 border-red-500/20">
@@ -191,60 +191,53 @@ export default function StudentDashboard() {
         </div>
 
         {enrolledCourses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {enrolledCourses.slice(0, 6).map((course) => {
               const typeStyles = getCourseTypeStyles(course.courseType || "course")
               
               return (
                 <Link key={course.id} href={`/courses/${course.id}`} className="group block h-full">
-                  <Card className="relative bg-white border border-[#E5DBC8] hover:border-[#3e3098] transition-all duration-200 overflow-hidden hover:shadow-md rounded-xl h-full">
-                    <CardContent className="p-0 flex flex-col h-full">
-                      {/* Top Badge - Certification Path / Course Type */>
-                      <div className="px-4 pt-3 pb-2">
-                        <span className="inline-block px-2.5 py-1 bg-[#F5EFE7] text-black/70 text-xs font-medium rounded">
+                  <Card className="relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full">
+                    <CardContent className="p-4 flex flex-col h-full">
+                      {/* Top Badge - Certification Path / Course Type */}
+                      <div className="mb-2">
+                        <span className="inline-block px-2 py-0.5 bg-gray-100 text-black text-xs font-semibold rounded">
                           {typeStyles.label}
                         </span>
                       </div>
 
-                      <div className="px-4 pb-4 flex-grow flex flex-col">
-                        {/* Course Branding/Provider */}
-                        <div className="mb-2">
-                          <span className="text-sm font-bold text-[#3e3098]">IITM BS</span>
-                        </div>
+                      {/* Course Branding/Provider */}
+                      <div className="mb-1">
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">IITM BS</span>
+                      </div>
 
-                        {/* Title */}
-                        <h3 className="text-lg font-bold text-black mb-2 line-clamp-2 leading-tight min-h-[44px]">
-                          {course.title}
-                        </h3>
+                      {/* Title */}
+                      <h3 className="text-base font-bold text-black mb-2 line-clamp-2 leading-tight">
+                        {course.title}
+                      </h3>
 
-                        {/* Description */>
-                        <p className="text-sm text-black/70 mb-3 line-clamp-2 leading-relaxed flex-grow">
-                          {course.description}
-                        </p>
+                      {/* Description */}
+                      <p className="text-xs text-gray-600 mb-3 line-clamp-2 leading-relaxed">
+                        {course.description}
+                      </p>
 
-                        {/* Dotted Divider */}
-                        <div className="border-t border-dotted border-gray-300 my-3"></div>
+                      {/* Divider */}
+                      <div className="h-px bg-gray-200 my-2"></div>
 
-                        {/* Includes Courses */}
-                        {course.includesCourses && (
-                          <>
-                            <div className="text-sm text-black/80 mb-2">
-                              Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
-                            </div>
-                            <div className="border-t border-dotted border-gray-300 my-3"></div>
-                          </>
-                        )}
-
-                        {/* Bottom Row: Level and Duration */}
-                        <div className="flex items-center justify-between text-sm">
-                          <div className="flex items-center gap-1.5 text-black/80">
-                            <BookOpen className="w-4 h-4" />
-                            <span className="text-sm font-medium capitalize">{course.level}</span>
+                      {/* Includes Courses */}
+                      {course.includesCourses && (
+                        <>
+                          <div className="text-xs text-gray-600 mb-2 flex items-center gap-1.5">
+                            <Award className="w-3.5 h-3.5 text-gray-500" />
+                            Includes <span className="font-semibold text-black">{course.includesCourses} courses</span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-black/80">
-                            <span className="text-sm font-medium">{course.weeks * 6} hours</span>
-                          </div>
-                        </div>
+                        </>
+                      )}
+
+                      {/* Level */}
+                      <div className="flex items-center gap-1.5 mt-auto">
+                        <BookOpen className="w-3.5 h-3.5 text-gray-500" />
+                        <span className="text-xs font-medium capitalize text-gray-700">{course.level}</span>
                       </div>
                     </CardContent>
                   </Card>

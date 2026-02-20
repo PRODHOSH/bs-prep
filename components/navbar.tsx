@@ -81,8 +81,8 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
 
   return (
     <nav
-      className={`sticky top-0 z-50 bg-white/95 backdrop-blur-lg transition-all duration-300 ${
-        scrolled ? "border-b border-slate-200 shadow-sm" : "border-b border-slate-100"
+      className={`sticky top-0 z-50 bg-[#FEF9E7]/95 backdrop-blur-lg transition-all duration-300 ${
+        scrolled ? "border-b border-[#E5DBC8] shadow-sm" : "border-b border-[#F0E9D8]"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
