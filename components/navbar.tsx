@@ -129,13 +129,13 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   onMouseEnter={() => setToolsOpen(true)}
                   onMouseLeave={() => setToolsOpen(false)}
                 >
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Calculator</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Predictor</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">CGPA Calculator</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -178,13 +178,13 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   onMouseEnter={() => setToolsOpen(true)}
                   onMouseLeave={() => setToolsOpen(false)}
                 >
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Calculator</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Predictor</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4">
+                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">CGPA Calculator</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

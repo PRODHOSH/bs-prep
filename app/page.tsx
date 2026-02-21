@@ -208,16 +208,23 @@ export default function HomePage() {
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">Crack Qualifier with Tamil Courses</h2>
             <p className="text-black/70 text-lg mb-2">Master IITM BS Qualifier level with comprehensive Tamil video courses</p>
-            <div className="flex items-center justify-center gap-6 mt-6">
-              <div className="text-center">
-                <p className="text-sm text-black/40 line-through">₹499</p>
-                <p className="text-2xl font-bold text-black">₹399</p>
-                <p className="text-sm text-black/60">per course</p>
+            <div className="inline-flex items-stretch mt-6 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+              {/* Per course */}
+              <div className="flex flex-col items-center justify-center px-8 py-4 gap-0.5">
+                <span className="text-xs font-medium text-black/40 uppercase tracking-widest mb-1">Per Course</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm text-black/35 line-through">₹499</span>
+                  <span className="text-3xl font-extrabold text-black leading-none">₹349</span>
+                </div>
+                <span className="mt-1 text-[11px] bg-black text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">30% OFF</span>
               </div>
-              <div className="text-black/30">|</div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-[#51b206]">₹999</p>
-                <p className="text-sm text-black/60">for all 3 courses</p>
+              {/* Divider */}
+              <div className="w-px bg-gray-200 my-3" />
+              {/* Bundle */}
+              <div className="flex flex-col items-center justify-center px-8 py-4 gap-0.5">
+                <span className="text-xs font-medium text-black/40 uppercase tracking-widest mb-1">All 3 Courses</span>
+                <span className="text-3xl font-extrabold text-[#51b206] leading-none">₹999</span>
+                <span className="mt-1 text-[11px] bg-[#51b206] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">Best Value</span>
               </div>
             </div>
           </div>
@@ -229,21 +236,21 @@ export default function HomePage() {
                 title: "Mathematics for Data Science I",
                 description: "Master fundamental math concepts",
                 thumbnail: "/courses/math.jpg",
-                price: 399, originalPrice: 499
+                price: 349, originalPrice: 499
               },
               {
                 id: "qualifier-stats-1",
                 title: "Statistics for Data Science I",
                 description: "Learn statistical thinking & analysis",
                 thumbnail: "/courses/stats.jpg",
-                price: 399, originalPrice: 499
+                price: 349, originalPrice: 499
               },
               {
                 id: "qualifier-computational-thinking",
                 title: "Computational Thinking",
                 description: "Build problem-solving skills",
                 thumbnail: "/courses/ct.jpg",
-                price: 399, originalPrice: 499
+                price: 349, originalPrice: 499
               }
             ].map((course) => (
               <Link key={course.id} href={`/courses/${course.id}`} className="group">

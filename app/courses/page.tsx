@@ -37,7 +37,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Master fundamental math concepts",
     thumbnail: "/courses/math.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: true,
     withCertificate: true
   },
@@ -50,7 +50,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Learn statistical thinking & analysis",
     thumbnail: "/courses/stats.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: true,
     withCertificate: true
   },
@@ -63,7 +63,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Build problem-solving skills",
     thumbnail: "/courses/ct.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: true,
     withCertificate: true
   },
@@ -76,7 +76,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Essential communication skills",
     thumbnail: "/courses/english.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: false,
     withCertificate: true
   },
@@ -91,7 +91,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Advanced mathematical concepts",
     thumbnail: "/courses/math.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: false,
     withCertificate: true
   },
@@ -104,7 +104,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Advanced statistical methods",
     thumbnail: "/courses/stats.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: false,
     withCertificate: true
   },
@@ -117,7 +117,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Python for data analysis",
     thumbnail: "/courses/ct.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: false,
     withCertificate: true
   },
@@ -130,7 +130,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Advanced communication skills",
     thumbnail: "/courses/english.jpg",
-    price: 399, originalPrice: 499,
+    price: 349, originalPrice: 499,
     available: false,
     withCertificate: true
   }
