@@ -210,7 +210,8 @@ export default function HomePage() {
             <p className="text-black/70 text-lg mb-2">Master IITM BS Qualifier level with comprehensive Tamil video courses</p>
             <div className="flex items-center justify-center gap-6 mt-6">
               <div className="text-center">
-                <p className="text-2xl font-bold text-black">₹349</p>
+                <p className="text-sm text-black/40 line-through">₹499</p>
+                <p className="text-2xl font-bold text-black">₹399</p>
                 <p className="text-sm text-black/60">per course</p>
               </div>
               <div className="text-black/30">|</div>
@@ -228,21 +229,21 @@ export default function HomePage() {
                 title: "Mathematics for Data Science I",
                 description: "Master fundamental math concepts",
                 thumbnail: "/courses/math.jpg",
-                price: 349
+                price: 399, originalPrice: 499
               },
               {
                 id: "qualifier-stats-1",
                 title: "Statistics for Data Science I",
                 description: "Learn statistical thinking & analysis",
                 thumbnail: "/courses/stats.jpg",
-                price: 349
+                price: 399, originalPrice: 499
               },
               {
                 id: "qualifier-computational-thinking",
                 title: "Computational Thinking",
                 description: "Build problem-solving skills",
                 thumbnail: "/courses/ct.jpg",
-                price: 349
+                price: 399, originalPrice: 499
               }
             ].map((course) => (
               <Link key={course.id} href={`/courses/${course.id}`} className="group">
@@ -266,8 +267,11 @@ export default function HomePage() {
                     </p>
                     <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                       <span className="text-sm font-medium text-gray-600">Price</span>
-                      <div className="text-xl font-bold text-black">
-                        ₹{course.price}
+                      <div className="flex items-center gap-2">
+                        {course.originalPrice && (
+                          <span className="text-sm text-gray-400 line-through">₹{course.originalPrice}</span>
+                        )}
+                        <span className="text-xl font-bold text-black">₹{course.price}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -434,3 +438,4 @@ export default function HomePage() {
     </div>
   )
 }
+

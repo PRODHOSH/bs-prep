@@ -13,39 +13,39 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     quote: "The mentorship program helped me understand complex Data Science concepts. Being a Tamil student, having support in my language made a huge difference!",
-    author: "Harshini",
+    author: "Kavitha",
     role: "Diploma Student",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=Harshini"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Kavitha"
   },
   {
     quote: "From struggling with assignments to topping my semester — this platform made all the difference. Tamil students especially will find this super helpful!",
-    author: "Sachin",
+    author: "Karthikeyan",
     role: "Qualifier Student",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=Sachin"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Karthikeyan"
   },
   {
     quote: "I love how the GPA Predictor helps me plan my grades. The tools section is incredibly useful for all IITM BS students!",
-    author: "Harish",
+    author: "Vignesh",
     role: "Foundation Student",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=Harish"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Vignesh"
   },
   {
     quote: "The Tamil content is a blessing. As a native Tamil speaker, I finally feel like I can grasp the material deeply. Highly recommend to all Tamil students!",
-    author: "Arjun Reddy",
+    author: "Meenakshi",
     role: "Diploma Student",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=ArjunReddy"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Meenakshi"
   },
   {
     quote: "Best decision I made was joining this platform. The mentors are always available and the Tamil resources made studying so much more comfortable.",
-    author: "Sneha Iyer",
+    author: "Murugesan",
     role: "Foundation Student",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=SnehaIyer"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Murugesan"
   },
   {
     quote: "The weekly live sessions and recorded lectures have been game-changers. As a Tamil student, having content in my language helped me learn at my own pace!",
-    author: "Siddu Kumar",
+    author: "Priya",
     role: "Qualifier Student",
-    image: "https://api.dicebear.com/7.x/personas/svg?seed=SidduKumar"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Priya"
   }
 ]
 

@@ -28,7 +28,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-math-1": {
     title: "Mathematics for Data Science I",
     level: "qualifier",
-    price: 349,
+    price: 399, originalPrice: 499,
     description: "Fundamental mathematics concepts for data science",
     thumbnail: "/courses/math.jpg",
     syllabus: [
@@ -57,7 +57,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-stats-1": {
     title: "Statistics for Data Science I",
     level: "qualifier",
-    price: 349,
+    price: 399, originalPrice: 499,
     description: "Introduction to statistical thinking and analysis",
     thumbnail: "/courses/stats.jpg",
     syllabus: [
@@ -86,7 +86,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-computational-thinking": {
     title: "Computational Thinking",
     level: "qualifier",
-    price: 349,
+    price: 399, originalPrice: 499,
     description: "Problem-solving and algorithmic thinking fundamentals",
     thumbnail: "/courses/ct.jpg",
     syllabus: [
@@ -412,8 +412,11 @@ export default function CoursePage() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="text-3xl font-bold text-black">
-                    ₹{course.price}
+                  <div>
+                    {course.originalPrice && (
+                      <p className="text-sm text-gray-400 line-through">₹{course.originalPrice}</p>
+                    )}
+                    <p className="text-3xl font-bold text-black">₹{course.price}</p>
                   </div>
                   <Button 
                     onClick={handleEnroll}
@@ -487,7 +490,7 @@ export default function CoursePage() {
               onClick={handleEnroll}
               className="bg-black hover:bg-black/80 text-white px-12 py-6 text-lg font-semibold"
             >
-              Enroll for ₹{course.price}
+              Enroll for ₹{course.price} <span className="text-sm font-normal line-through opacity-60">₹{course.originalPrice}</span>
             </Button>
           </CardContent>
         </Card>
