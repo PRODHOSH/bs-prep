@@ -170,20 +170,20 @@ export default function HomePage() {
             {[
               {
                 number: "01",
-                title: "Access Materials",
-                description: "Get comprehensive notes and video lectures from experienced mentors",
+                title: "Purchase our Tamil Courses",
+                description: "Get exclusive access to comprehensive live video lectures covering all IITM BS subjects in Tamil",
                 icon: BookOpen,
               },
               {
                 number: "02",
-                title: "Connect with Mentors",
-                description: "Request personalized guidance and get doubts solved in real-time",
+                title: "Join Live Mentoring Sessions",
+                description: "Interact with expert mentors, ask questions, and get personalized guidance to master concepts and solve doubts",
                 icon: Users,
               },
               {
                 number: "03",
-                title: "Track Progress",
-                description: "Practice with quizzes and compete on the leaderboard",
+                title: "Crack the Qualifier Exam",
+                description: "Using our structured courses and mentor support, confidently prepare for and ace the IITM BS Qualifier exam",
                 icon: TrendingUp,
               },
             ].map((step, i) => (

@@ -12,40 +12,40 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    quote: "The mentorship program helped me understand complex Data Science concepts that I was struggling with. The community support is amazing!",
-    author: "Priya Sharma",
-    role: "Data Science Student",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+    quote: "The mentorship program helped me understand complex Data Science concepts. Being a Tamil student, having support in my language made a huge difference!",
+    author: "Harshini",
+    role: "Diploma Student",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Harshini"
   },
   {
-    quote: "From struggling with assignments to topping my semester - this platform made all the difference. The study materials are top-notch!",
-    author: "Rahul Kumar",
-    role: "BS Degree Student",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul"
+    quote: "From struggling with assignments to topping my semester — this platform made all the difference. Tamil students especially will find this super helpful!",
+    author: "Sachin",
+    role: "Qualifier Student",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Sachin"
   },
   {
-    quote: "I love how the GPA calculator helps me plan my grades. The tools section is incredibly useful for all IITM BS students!",
-    author: "Ananya Patel",
-    role: "Foundation Level",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ananya"
+    quote: "I love how the GPA Predictor helps me plan my grades. The tools section is incredibly useful for all IITM BS students!",
+    author: "Harish",
+    role: "Foundation Student",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=Harish"
   },
   {
-    quote: "The leaderboard feature keeps me motivated to practice more quizzes. Competing with peers has improved my performance significantly!",
+    quote: "The Tamil content is a blessing. As a native Tamil speaker, I finally feel like I can grasp the material deeply. Highly recommend to all Tamil students!",
     author: "Arjun Reddy",
     role: "Diploma Student",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun"
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=ArjunReddy"
   },
   {
-    quote: "Best decision I made was joining this platform. The mentors are always available to clear doubts and guide us through difficult topics.",
+    quote: "Best decision I made was joining this platform. The mentors are always available and the Tamil resources made studying so much more comfortable.",
     author: "Sneha Iyer",
-    role: "Data Science Student",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sneha"
+    role: "Foundation Student",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=SnehaIyer"
   },
   {
-    quote: "The weekly live sessions and recorded lectures have been game-changers for my studies. I can learn at my own pace now!",
-    author: "Karthik Menon",
-    role: "Degree Student",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Karthik"
+    quote: "The weekly live sessions and recorded lectures have been game-changers. As a Tamil student, having content in my language helped me learn at my own pace!",
+    author: "Siddu Kumar",
+    role: "Qualifier Student",
+    image: "https://api.dicebear.com/7.x/personas/svg?seed=SidduKumar"
   }
 ]
 
