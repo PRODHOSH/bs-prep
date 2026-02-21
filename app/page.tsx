@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { LoginModal } from "@/components/auth/login-modal"
+import { SignUpModal } from "@/components/auth/signup-modal"
 import { AnimatedCounter } from "@/components/animated-counter"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown, Video, MessageCircle } from "lucide-react"
@@ -20,6 +22,8 @@ const StaggerTestimonials = dynamic(() => import("@/components/stagger-testimoni
 
 export default function HomePage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+  const [showLogin, setShowLogin] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
   
   const heroRef = useScrollReveal<HTMLElement>({ threshold: 0.1 })
   const statsRef = useScrollReveal<HTMLDivElement>({ threshold: 0.2 })
@@ -73,15 +77,16 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link href="/auth/sign-up">
+                <Button
+                  onClick={() => setShowLogin(true)}
+                  className="bg-white text-black px-8 py-6 text-lg rounded-full border-2 border-gray-300 hover:border-black transition-all duration-300 font-medium"
+                >
+                  Sign In
+                </Button>
+                <Link href="/community">
                   <Button className="group bg-black text-white hover:bg-black/90 px-8 py-6 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
-                    Get Started Free
+                    Join Community
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Link href="/auth/login">
-                  <Button className="bg-white text-black px-8 py-6 text-lg rounded-full border-2 border-gray-300 hover:border-black transition-all duration-300 font-medium">
-                    Sign In
                   </Button>
                 </Link>
               </div>
@@ -378,14 +383,27 @@ export default function HomePage() {
           <p className="text-black/70 text-lg mb-8 max-w-2xl mx-auto">
             Join thousands of IITM BS students accelerating their journey with expert mentorship and community support.
           </p>
-          <Link href="/auth/sign-up">
-            <Button className="group bg-black text-white hover:bg-black/90 px-12 py-7 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
-              Get Started Now – It's Free
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <Button
+            onClick={() => setShowLogin(true)}
+            className="group bg-black text-white hover:bg-black/90 px-12 py-7 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium"
+          >
+            Get Started
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </section>
+
+      <LoginModal
+        open={showLogin}
+        onOpenChange={setShowLogin}
+        onSwitchToSignUp={() => { setShowLogin(false); setShowSignup(true) }}
+        onSwitchToForgotPassword={() => {}}
+      />
+      <SignUpModal
+        open={showSignup}
+        onOpenChange={setShowSignup}
+        onSwitchToLogin={() => { setShowSignup(false); setShowLogin(true) }}
+      />
 
       <section ref={faqRef.ref} className={`relative py-12 md:py-16 bg-gradient-to-b from-transparent to-gray-50 transition-all duration-1000 ${faqRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
