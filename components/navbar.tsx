@@ -114,7 +114,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           {/* Logo */}
           <Link href={isAuthenticated ? "/dashboard" : "/"} className="flex items-center gap-3 flex-shrink-0 group">
             <img 
-              src="/logo.png" 
+              src="/logo.jpeg" 
               alt="BSPrep Logo" 
               className="w-11 h-11 rounded-full object-cover group-hover:opacity-80 transition-opacity"
             />
