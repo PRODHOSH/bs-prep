@@ -83,7 +83,7 @@ export default function HomePage() {
                 >
                   Sign In
                 </Button>
-                <Link href="/community">
+                <Link href="https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform?usp=sharing&ouid=109000575421815991569" target="_blank" rel="noopener noreferrer">
                   <Button className="group bg-black text-white hover:bg-black/90 px-8 py-6 text-lg rounded-full transition-all duration-300 shadow-md hover:shadow-lg font-medium">
                     Join Community
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -218,17 +218,20 @@ export default function HomePage() {
               <div className="flex flex-col items-center justify-center px-8 py-4 gap-0.5">
                 <span className="text-xs font-medium text-black/40 uppercase tracking-widest mb-1">Per Course</span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-black/35 line-through">₹499</span>
+                  <span className="text-sm text-black/35 line-through">₹999</span>
                   <span className="text-3xl font-extrabold text-black leading-none">₹349</span>
                 </div>
-                <span className="mt-1 text-[11px] bg-black text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">30% OFF</span>
+                <span className="mt-1 text-[11px] bg-black text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">65% OFF</span>
               </div>
               {/* Divider */}
               <div className="w-px bg-gray-200 my-3" />
               {/* Bundle */}
               <div className="flex flex-col items-center justify-center px-8 py-4 gap-0.5">
                 <span className="text-xs font-medium text-black/40 uppercase tracking-widest mb-1">All 3 Courses</span>
-                <span className="text-3xl font-extrabold text-[#51b206] leading-none">₹999</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm text-[#51b206]/50 line-through">₹2997</span>
+                  <span className="text-3xl font-extrabold text-[#51b206] leading-none">₹999</span>
+                </div>
                 <span className="mt-1 text-[11px] bg-[#51b206] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">Best Value</span>
               </div>
             </div>
@@ -241,21 +244,21 @@ export default function HomePage() {
                 title: "Mathematics for Data Science I",
                 description: "Master fundamental math concepts",
                 thumbnail: "/courses/math.jpg",
-                price: 349, originalPrice: 499
+                price: 349, originalPrice: 999
               },
               {
                 id: "qualifier-stats-1",
                 title: "Statistics for Data Science I",
                 description: "Learn statistical thinking & analysis",
                 thumbnail: "/courses/stats.jpg",
-                price: 349, originalPrice: 499
+                price: 349, originalPrice: 999
               },
               {
                 id: "qualifier-computational-thinking",
                 title: "Computational Thinking",
                 description: "Build problem-solving skills",
                 thumbnail: "/courses/ct.jpg",
-                price: 349, originalPrice: 499
+                price: 349, originalPrice: 999
               }
             ].map((course) => (
               <Link key={course.id} href={`/courses/${course.id}`} className="group">

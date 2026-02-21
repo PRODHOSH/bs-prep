@@ -17,6 +17,7 @@ interface Course {
   courseType?: string
   weeks: number
   price: number
+  originalPrice?: number
   thumbnail: string
   includesCourses?: number
   withCertificate?: boolean
@@ -34,7 +35,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Master fundamental math concepts",
     thumbnail: "/courses/math.jpg",
-    price: 349, originalPrice: 499,
+    price: 349, originalPrice: 999,
     available: true,
     withCertificate: true
   },
@@ -47,7 +48,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Learn statistical thinking & analysis",
     thumbnail: "/courses/stats.jpg",
-    price: 349, originalPrice: 499,
+    price: 349, originalPrice: 999,
     available: true,
     withCertificate: true
   },
@@ -60,7 +61,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Build problem-solving skills",
     thumbnail: "/courses/ct.jpg",
-    price: 349, originalPrice: 499,
+    price: 349, originalPrice: 999,
     available: true,
     withCertificate: true
   },
@@ -73,7 +74,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Essential communication skills",
     thumbnail: "/courses/english.jpg",
-    price: 349, originalPrice: 499,
+    price: 349, originalPrice: 999,
     available: false,
     withCertificate: true
   },

@@ -191,6 +191,7 @@ const DotGrid = ({
       pr.vy = vy;
       pr.speed = speed;
 
+      if (!canvasRef.current) return;
       const rect = canvasRef.current.getBoundingClientRect();
       pr.x = e.clientX - rect.left;
       pr.y = e.clientY - rect.top;
@@ -219,6 +220,7 @@ const DotGrid = ({
     };
 
     const onClick = e => {
+      if (!canvasRef.current) return;
       const rect = canvasRef.current.getBoundingClientRect();
       const cx = e.clientX - rect.left;
       const cy = e.clientY - rect.top;
