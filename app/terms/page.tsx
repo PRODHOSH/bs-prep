@@ -1,215 +1,118 @@
-"use client"
+﻿"use client"
 
+import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-import { FileText, Users, Shield, AlertTriangle, Scale, Globe } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
+
+const sections = [
+  {
+    num: "01",
+    title: "Agreement to Terms",
+    body: "By accessing and using BS Prep services, you agree to be bound by these Terms & Conditions. If you do not agree, please do not use our platform.",
+  },
+  {
+    num: "02",
+    title: "Service Description",
+    body: "We provide coaching and mentorship specifically for IITM BS Degree Qualifier preparation, including mentorship sessions, study materials, practice tests, webinars, and community access.",
+  },
+  {
+    num: "03",
+    title: "User Accounts",
+    body: "Users must provide accurate information, maintain account security, and are responsible for all activities under their account.",
+  },
+  {
+    num: "04",
+    title: "Acceptable Use",
+    body: "Users may not violate laws, share paid content, post harmful material, attempt unauthorized access, or misuse platform services.",
+  },
+  {
+    num: "05",
+    title: "Payments & Refunds",
+    body: "All payments are processed securely. Course fees are final. We do not provide refunds, cancellations, or exchanges.",
+  },
+  {
+    num: "06",
+    title: "Intellectual Property",
+    body: "All study materials, videos, notes, branding, and platform content are the property of BS Prep and protected by law.",
+  },
+  {
+    num: "07",
+    title: "Privacy",
+    body: "User data collection and usage are governed by our Privacy Policy.",
+  },
+  {
+    num: "08",
+    title: "Disclaimers",
+    body: "We do not guarantee exam results or academic outcomes. Service availability may be affected by maintenance or technical issues.",
+  },
+  {
+    num: "09",
+    title: "Employment Verification",
+    body: "Any certificates or verification letters issued must be used lawfully and not falsified or misused.",
+  },
+  {
+    num: "10",
+    title: "Termination",
+    body: "We may suspend or terminate accounts for violations of these Terms without prior notice.",
+  },
+]
 
 export default function TermsPage() {
-  const section1 = useScrollAnimation()
-  const section2 = useScrollAnimation()
-  const section3 = useScrollAnimation()
-  const section4 = useScrollAnimation()
-  const section5 = useScrollAnimation()
-  const section6 = useScrollAnimation()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const supabase = createClient()
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setIsAuthenticated(!!session)
+    }
+    checkAuth()
+  }, [])
 
   return (
-    <div className="min-h-screen">
-      <Navbar isAuthenticated={false} />
-      
-      <div className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#51b206]/5 to-transparent" />
-        
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-6">
-              <FileText className="w-8 h-8 text-[#51b206]" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-              Terms & Conditions
-            </h1>
-            <p className="text-lg text-black/70">
-              Last updated: January 4, 2026
-            </p>
+    <div className="min-h-screen flex flex-col">
+      <Navbar isAuthenticated={isAuthenticated} />
+
+      <main className="flex-1 py-16 px-4 relative z-10">
+        <div className="max-w-3xl mx-auto">
+
+          <div className="mb-10">
+            <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BS Prep</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Terms &amp; Conditions</h1>
+            <p className="text-black/50 text-sm mt-3">Qualifier Mentorship &amp; Coaching Platform  Last Updated: February 2026</p>
           </div>
 
-          {/* Acceptance of Terms */}
-          <div
-            ref={section1.ref}
-            className={`mb-12 transition-all duration-700 ${
-              section1.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <h2 className="text-2xl font-bold text-black mb-4">Acceptance of Terms</h2>
-              <p className="text-black/70 leading-relaxed">
-                By accessing and using the IITM BS Learning Platform, you accept and agree to be bound by the terms and 
-                provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.
-              </p>
-            </div>
-          </div>
-
-          {/* User Accounts */}
-          <div
-            ref={section2.ref}
-            className={`mb-12 transition-all duration-700 delay-100 ${
-              section2.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <Users className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-black">User Accounts</h2>
-              </div>
-              <div className="space-y-4 text-black/70">
-                <p className="leading-relaxed">
-                  When you create an account with us, you must provide accurate and complete information. You are responsible for:
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#51b206] mt-1">✓</span>
-                    <span>Maintaining the security of your account credentials</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#51b206] mt-1">✓</span>
-                    <span>All activities that occur under your account</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#51b206] mt-1">✓</span>
-                    <span>Notifying us immediately of any unauthorized access</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#51b206] mt-1">✓</span>
-                    <span>Ensuring your account information remains accurate and up-to-date</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Acceptable Use */}
-          <div
-            ref={section3.ref}
-            className={`mb-12 transition-all duration-700 delay-200 ${
-              section3.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <Shield className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-black">Acceptable Use Policy</h2>
-              </div>
-              <p className="text-black/70 leading-relaxed mb-4">
-                You agree not to use the platform for any purpose that is:
-              </p>
-              <div className="grid md:grid-cols-2 gap-3">
-                <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-900">
-                  <p className="text-sm text-red-800 dark:text-red-300">× Unlawful or fraudulent</p>
-                </div>
-                <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-900">
-                  <p className="text-sm text-red-800 dark:text-red-300">× Harmful or abusive</p>
-                </div>
-                <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-900">
-                  <p className="text-sm text-red-800 dark:text-red-300">× Infringing intellectual property</p>
-                </div>
-                <div className="p-4 bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-200 dark:border-red-900">
-                  <p className="text-sm text-red-800 dark:text-red-300">× Distributing malware</p>
+          <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-sm">
+            {sections.map((s, i) => (
+              <div
+                key={s.num}
+                className={`flex gap-5 px-7 py-6 ${i !== sections.length - 1 ? "border-b border-black/6" : ""}`}
+              >
+                <span className="text-xs font-mono text-black/25 pt-0.5 shrink-0 w-6">{s.num}</span>
+                <div>
+                  <p className="font-semibold text-black text-sm mb-1">{s.title}</p>
+                  <p className="text-sm text-black/60 leading-relaxed">{s.body}</p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
 
-          {/* Intellectual Property */}
-          <div
-            ref={section4.ref}
-            className={`mb-12 transition-all duration-700 delay-300 ${
-              section4.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <Scale className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-black">Intellectual Property Rights</h2>
-              </div>
-              <div className="space-y-4 text-black/70">
-                <p className="leading-relaxed">
-                  The platform and its original content, features, and functionality are owned by IITM BS Learning and are 
-                  protected by international copyright, trademark, and other intellectual property laws.
-                </p>
-                <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-6">
-                  <h3 className="font-semibold text-black mb-3">Content Usage Rights:</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#51b206]">✓</span>
-                      <span>Personal educational use only</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#51b206]">✓</span>
-                      <span>No redistribution without permission</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#51b206]">✓</span>
-                      <span>Proper attribution required for shared content</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+          <div className="mt-8 px-7 py-5 bg-black rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <p className="text-white font-semibold text-sm">Contact Us</p>
+              <p className="text-white/50 text-xs mt-0.5">BS Prep – Qualifier Mentorship &amp; Coaching</p>
             </div>
+            <a
+              href="mailto:bsprep.team@gmail.com"
+              className="text-white/70 hover:text-white text-xs font-mono transition-colors underline underline-offset-2"
+            >
+              bsprep.team@gmail.com
+            </a>
           </div>
 
-          {/* Limitation of Liability */}
-          <div
-            ref={section5.ref}
-            className={`mb-12 transition-all duration-700 delay-400 ${
-              section5.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <AlertTriangle className="w-6 h-6 text-[#51b206]" />
-                <h2 className="text-2xl font-bold text-black">Limitation of Liability</h2>
-              </div>
-              <p className="text-black/70 leading-relaxed mb-4">
-                To the maximum extent permitted by law, IITM BS Learning shall not be liable for any indirect, incidental, 
-                special, consequential, or punitive damages, or any loss of profits or revenues.
-              </p>
-              <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg p-4">
-                <p className="text-sm text-amber-800 dark:text-amber-300">
-                  <strong>Important:</strong> The platform is provided "as is" without warranties of any kind. 
-                  We do not guarantee uninterrupted or error-free service.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Governing Law */}
-          <div
-            ref={section6.ref}
-            className={`mb-12 transition-all duration-700 delay-500 ${
-              section6.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-3 mb-4">
-                <Globe className="w-6 h-6 text-[#3e3098]" />
-                <h2 className="text-2xl font-bold text-black">Governing Law</h2>
-              </div>
-              <p className="text-black/70 leading-relaxed">
-                These terms shall be governed by and construed in accordance with the laws of India, without regard to 
-                its conflict of law provisions. Any disputes arising from these terms will be subject to the exclusive 
-                jurisdiction of the courts in Chennai, Tamil Nadu.
-              </p>
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div className="bg-gradient-to-r from-[#51b206] to-[#3e3098] rounded-2xl p-8 text-white text-center">
-            <h3 className="text-2xl font-bold mb-4">Questions About Our Terms?</h3>
-            <p className="mb-6">Contact us at legal@iitmbs.com</p>
-          </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

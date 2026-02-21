@@ -3,10 +3,70 @@
 import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ArrowRight, Users, Hammer } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
+
+const guidelines = [
+  {
+    num: "01",
+    title: "Respect & Professional Conduct",
+    body: "Members must treat mentors and students respectfully, maintain polite communication, and avoid harassment, bullying, or offensive behavior.",
+  },
+  {
+    num: "02",
+    title: "Language Policy",
+    body: "Our community supports Tamil and English bilingual learning. Lectures and discussions may be conducted in both languages. Members must respect all language backgrounds.",
+  },
+  {
+    num: "03",
+    title: "Academic Integrity",
+    body: "Do not share answers during tests, leak paid materials, or plagiarize assignments. Use discussions only for genuine learning.",
+  },
+  {
+    num: "04",
+    title: "Relevant Discussions",
+    body: "Keep conversations focused on IITM BS Qualifier preparation, mentorship, and academic topics. Avoid spam or unrelated debates.",
+  },
+  {
+    num: "05",
+    title: "Promotions & Community Sharing",
+    body: "Members are allowed to promote BS Prep programs, mentorship opportunities, and events. Promotion of other coaching institutes or third-party courses is not allowed.",
+  },
+  {
+    num: "06",
+    title: "Content Sharing Rules",
+    body: "You may share study notes and resources but must not share pirated content, paid material leaks, or recorded sessions without permission.",
+  },
+  {
+    num: "07",
+    title: "Privacy & Safety",
+    body: "Do not share personal data, phone numbers, login credentials, or private screenshots without consent.",
+  },
+  {
+    num: "08",
+    title: "Live Session Etiquette",
+    body: "Join sessions on time, mute microphones, respect mentors, and avoid recording without permission.",
+  },
+  {
+    num: "09",
+    title: "Reporting Violations",
+    body: "Report misconduct to moderators privately with proof if available.",
+  },
+  {
+    num: "10",
+    title: "Disciplinary Actions",
+    body: "Violations may result in warnings, suspension, bans, or coaching access termination.",
+  },
+  {
+    num: "11",
+    title: "Positive Community Culture",
+    body: "Members are encouraged to collaborate, help juniors, share strategies, and motivate peers.",
+  },
+  {
+    num: "12",
+    title: "Updates to Guidelines",
+    body: "Guidelines may be updated as the community grows. Members will be notified of major changes.",
+  },
+]
 
 export default function CommunityPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -24,35 +84,46 @@ export default function CommunityPage() {
     <div className="min-h-screen flex flex-col">
       <Navbar isAuthenticated={isAuthenticated} />
 
-      <main className="flex-1 flex items-center justify-center py-20 px-4">
-        <div className="max-w-xl w-full text-center space-y-6">
-          <div className="flex items-center justify-center mb-2">
-            <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center">
-              <Users className="w-7 h-7 text-white" />
+      <main className="flex-1 py-16 px-4 relative z-10">
+        <div className="max-w-3xl mx-auto">
+
+          {/* Header */}
+          <div className="mb-10">
+            <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BS Prep</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Community Guidelines</h1>
+            <p className="text-black/50 text-sm mt-3">Qualifier Mentorship &amp; Coaching Community · Last Updated: February 2026</p>
+          </div>
+
+          {/* Guidelines box */}
+          <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-sm">
+            {guidelines.map((g, i) => (
+              <div
+                key={g.num}
+                className={`flex gap-5 px-7 py-6 ${i !== guidelines.length - 1 ? "border-b border-black/6" : ""}`}
+              >
+                <span className="text-xs font-mono text-black/25 pt-0.5 shrink-0 w-6">{g.num}</span>
+                <div>
+                  <p className="font-semibold text-black text-sm mb-1">{g.title}</p>
+                  <p className="text-sm text-black/60 leading-relaxed">{g.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Contact footer */}
+          <div className="mt-8 px-7 py-5 bg-black rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <p className="text-white font-semibold text-sm">Contact Us</p>
+              <p className="text-white/50 text-xs mt-0.5">BS Prep – Qualifier Mentorship &amp; Coaching</p>
             </div>
+            <a
+              href="mailto:bsprep.team@gmail.com"
+              className="text-white/70 hover:text-white text-xs font-mono transition-colors underline underline-offset-2"
+            >
+              bsprep.team@gmail.com
+            </a>
           </div>
 
-          <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 text-sm font-medium px-4 py-1.5 rounded-full">
-            <Hammer className="w-3.5 h-3.5" />
-            Under Construction
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
-            Community is<br />Coming Soon
-          </h1>
-
-          <p className="text-base text-black/60 max-w-md mx-auto leading-relaxed">
-            We&apos;re building a space for Tamil-speaking IITM BS students to connect, share notes, ask doubts, and grow together. Stay tuned!
-          </p>
-
-          <div className="pt-4">
-            <Link href={isAuthenticated ? "/dashboard" : "/"}>
-              <Button variant="outline" className="group border-slate-300 hover:border-slate-900 text-black hover:bg-transparent hover:text-black">
-                {isAuthenticated ? "Back to Dashboard" : "Back to Home"}
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
         </div>
       </main>
 
