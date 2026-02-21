@@ -25,7 +25,6 @@ interface NavbarProps {
 export function Navbar({ isAuthenticated = false, userRole = "student" }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
-  const [profilePhoto, setProfilePhoto] = useState<string>('')
   const [scrolled, setScrolled] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
@@ -43,34 +42,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   useEffect(() => {
     if (isAuthenticated) {
       supabase.auth.getUser().then(({ data }) => setUser(data.user))
-      fetchProfilePhoto()
-    }
-  }, [isAuthenticated])
-
-  const fetchProfilePhoto = async () => {
-    try {
-      const response = await fetch('/api/profile')
-      if (response.ok) {
-        const { profile } = await response.json()
-        if (profile?.photo_url) {
-          setProfilePhoto(profile.photo_url)
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching profile photo:', error)
-    }
-  }
-
-  // Poll for profile photo updates every 5 seconds when on profile page
-  useEffect(() => {
-    if (isAuthenticated && typeof window !== 'undefined') {
-      const interval = setInterval(() => {
-        if (window.location.pathname === '/dashboard/profile') {
-          fetchProfilePhoto()
-        }
-      }, 2000)
-      
-      return () => clearInterval(interval)
     }
   }, [isAuthenticated])
 
@@ -206,26 +177,14 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-[#3e3098] via-purple-600 to-green-500 p-[2px] hover:opacity-80 transition-opacity">
-                      <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-                        {profilePhoto ? (
-                          <img src={profilePhoto} alt="Profile" className="w-full h-full object-cover" />
-                        ) : (
-                          <User className="w-5 h-5 text-slate-600" />
-                        )}
-                      </div>
+                    <button className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-50 transition-colors">
+                      <User className="w-5 h-5 text-slate-600" />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <div className="px-2 py-1.5 text-sm font-medium text-slate-700">{user?.email}</div>
+                  <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200 shadow-lg">
+                    <div className="px-3 py-2 text-sm text-slate-600 truncate">{user?.email}</div>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link href="/dashboard/profile" className="cursor-pointer">
-                        Profile
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="text-red-600 cursor-pointer" onClick={handleLogout}>
+                    <DropdownMenuItem className="text-red-600 cursor-pointer hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]" onClick={handleLogout}>
                       Logout
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -345,9 +304,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 </Link>
                 <Link href="/support" className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all">
                   Support
-                </Link>
-                <Link href="/dashboard/profile" className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all">
-                  Profile
                 </Link>
               </>
             )}

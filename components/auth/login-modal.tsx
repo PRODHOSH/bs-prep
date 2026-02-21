@@ -42,11 +42,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
       // Close modal first
       onOpenChange(false)
       
-      // Small delay then redirect to dashboard with full page reload
-      // This ensures auth state is properly refreshed
-      setTimeout(() => {
-        window.location.href = "/dashboard"
-      }, 100)
+      setTimeout(() => { window.location.href = "/dashboard" }, 100)
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
       setIsLoading(false)
@@ -55,7 +51,6 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
 
   const handleGoogleSignIn = async () => {
     const supabase = createClient()
-    // Use current origin for redirect (works for both localhost and production)
     const redirectUrl = `${window.location.origin}/auth/callback`
     
     await supabase.auth.signInWithOAuth({

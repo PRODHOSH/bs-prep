@@ -74,7 +74,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Essential communication skills",
     thumbnail: "/courses/english.jpg",
-    price: 349, originalPrice: 999,
+    price: 499, originalPrice: 999,
     available: false,
     withCertificate: true
   },
@@ -89,7 +89,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Advanced mathematical concepts",
     thumbnail: "/courses/math.jpg",
-    price: 2500,
+    price: 499,
     available: false,
     withCertificate: true
   },
@@ -102,7 +102,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Advanced statistical methods",
     thumbnail: "/courses/stats.jpg",
-    price: 2500,
+    price: 499,
     available: false,
     withCertificate: true
   },
@@ -115,7 +115,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Python for data analysis",
     thumbnail: "/courses/ct.jpg",
-    price: 3000,
+    price: 499,
     available: false,
     withCertificate: true
   },
@@ -128,7 +128,7 @@ const courses: Course[] = [
     weeks: 12,
     description: "Advanced communication skills",
     thumbnail: "/courses/english.jpg",
-    price: 2000,
+    price: 499,
     available: false,
     withCertificate: true
   }
@@ -139,6 +139,7 @@ export default function ExploreCourses() {
   const [loading, setLoading] = useState(true)
   const [selectedLevel, setSelectedLevel] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
+  const [activeTab, setActiveTab] = useState<"explore" | "my">("my")
   const supabase = createClient()
 
   useEffect(() => {
@@ -171,7 +172,8 @@ export default function ExploreCourses() {
     const levelMatch = selectedLevel === "all" || course.level === selectedLevel
     const searchMatch = searchQuery === "" || 
       course.title.toLowerCase().includes(searchQuery.toLowerCase())
-    return levelMatch && searchMatch
+    const tabMatch = activeTab === "explore" || enrolledCourseIds.includes(course.id)
+    return levelMatch && searchMatch && tabMatch
   })
 
   const getCourseTypeStyles = (courseType: string) => {
@@ -217,18 +219,44 @@ export default function ExploreCourses() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative pt-8 pb-8 overflow-hidden">
+      <section className="relative pt-8 pb-4 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-3 text-black">
-              Courses we offer
+          <div className="mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-2 text-black">
+              Courses
             </h1>
-            <p className="text-lg text-black/70">
+            <p className="text-base text-black/60">
               Master IITM BS curriculum with structured video courses in Tamil
             </p>
-            <p className="text-sm text-black/60 mt-2">
-              🇮🇳 All courses taught in Tamil language for better understanding
-            </p>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex gap-1 bg-gray-100 rounded-xl p-1 w-fit">
+            <button
+              onClick={() => setActiveTab("my")}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+                activeTab === "my"
+                  ? "bg-white text-black shadow-sm"
+                  : "text-gray-500 hover:text-black"
+              }`}
+            >
+              My Courses
+              {enrolledCourseIds.length > 0 && (
+                <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${
+                  activeTab === "my" ? "bg-black text-white" : "bg-gray-300 text-gray-600"
+                }`}>{enrolledCourseIds.length}</span>
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab("explore")}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                activeTab === "explore"
+                  ? "bg-white text-black shadow-sm"
+                  : "text-gray-500 hover:text-black"
+              }`}
+            >
+              Explore Courses
+            </button>
           </div>
         </div>
       </section>
@@ -271,10 +299,22 @@ export default function ExploreCourses() {
           ) : filteredCourses.length === 0 ? (
             <div className="text-center py-20">
               <Search className="w-16 h-16 text-black/50 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-black mb-2">No courses found</h3>
+              <h3 className="text-2xl font-bold text-black mb-2">
+                {activeTab === "my" ? "No enrolled courses yet" : "No courses found"}
+              </h3>
               <p className="text-black/70 mb-6">
-                Try adjusting your search query
+                {activeTab === "my"
+                  ? "Enroll in a course to see it here"
+                  : "Try adjusting your search query"}
               </p>
+              {activeTab === "my" && (
+                <button
+                  onClick={() => setActiveTab("explore")}
+                  className="bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black/80 transition-colors"
+                >
+                  Explore Courses
+                </button>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -326,8 +366,8 @@ export default function ExploreCourses() {
                             <span className="text-xs font-medium capitalize text-gray-700">{course.level}</span>
                           </div>
                           
-                          {/* Price */}
-                          {course.price && (
+                          {/* Price — hide when enrolled, show with strikethrough when not */}
+                          {course.price && !isEnrolled && (
                             <div className="flex items-center justify-between pt-2 border-t border-gray-200">
                               <span className="text-xs font-medium text-gray-600">Price</span>
                               <div className="flex items-center gap-2">

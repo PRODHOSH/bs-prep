@@ -13,6 +13,8 @@ import { ArrowLeft, BookOpen, Calendar, FileText, Video } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { LiveClassCard } from "@/components/live-class-card"
+import { LoginModal } from "@/components/auth/login-modal"
+import { SignUpModal } from "@/components/auth/signup-modal"
 
 interface LiveClass {
   course: string
@@ -126,6 +128,8 @@ export default function CoursePage() {
   const [loading, setLoading] = useState(true)
   const [classes, setClasses] = useState<LiveClass[]>([])
   const [loadingClasses, setLoadingClasses] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
 
   useEffect(() => {
     checkAuthAndEnrollment()
@@ -181,6 +185,10 @@ export default function CoursePage() {
   }
 
   const handleEnroll = () => {
+    if (!isAuthenticated) {
+      setShowLogin(true)
+      return
+    }
     router.push(`/payment/${courseId}`)
   }
 
@@ -364,6 +372,7 @@ export default function CoursePage() {
   // Non-Enrolled User View (Original)
 
   return (
+    <>
     <div className="min-h-screen bg-white relative">
       <BeamsBackground />
       <Navbar isAuthenticated={isAuthenticated} />
@@ -498,5 +507,19 @@ export default function CoursePage() {
 
       <Footer />
     </div>
+
+    {/* Auth modals for unauthenticated enroll flow */}
+    <LoginModal
+      open={showLogin}
+      onOpenChange={setShowLogin}
+      onSwitchToSignUp={() => { setShowLogin(false); setShowSignup(true) }}
+      onSwitchToForgotPassword={() => setShowLogin(false)}
+    />
+    <SignUpModal
+      open={showSignup}
+      onOpenChange={setShowSignup}
+      onSwitchToLogin={() => { setShowSignup(false); setShowLogin(true) }}
+    />
+  </>
   )
 }

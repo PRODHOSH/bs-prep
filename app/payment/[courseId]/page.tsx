@@ -292,6 +292,7 @@ export default function PaymentPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-black focus:outline-none focus:border-gray-400 transition-colors"
+                      suppressHydrationWarning
                     />
                   </div>
 
@@ -305,6 +306,7 @@ export default function PaymentPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-black focus:outline-none focus:border-gray-400 transition-colors"
+                      suppressHydrationWarning
                     />
                   </div>
 
@@ -318,6 +320,7 @@ export default function PaymentPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white text-black focus:outline-none focus:border-gray-400 transition-colors"
+                      suppressHydrationWarning
                     />
                   </div>
                 </div>
@@ -326,6 +329,7 @@ export default function PaymentPage() {
                   onClick={handlePayment}
                   disabled={loading}
                   className="w-full bg-black hover:bg-black/80 text-white py-6 text-lg font-semibold"
+                  suppressHydrationWarning
                 >
                   {loading ? "Processing..." : `Pay ₹${course.price}`}
                 </Button>
