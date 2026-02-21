@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { ArrowLeft, BookOpen, Calendar, FileText, Video } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
+import { LiveClassCard } from "@/components/live-class-card"
 
 interface LiveClass {
   course: string
@@ -185,10 +186,11 @@ export default function CoursePage() {
 
   const isUpcoming = (dateStr: string, timeStr: string) => {
     try {
-      const [day, month, year] = dateStr.split('/').map(Number)
+      const classDate = new Date(dateStr)
       const [hours, minutes] = timeStr.split(':').map(Number)
-      const classDate = new Date(year, month - 1, day, hours, minutes)
-      return classDate > new Date()
+      classDate.setHours(hours, minutes, 0, 0)
+      const diffMins = Math.floor((classDate.getTime() - Date.now()) / 60000)
+      return diffMins > -60
     } catch {
       return false
     }
@@ -312,32 +314,15 @@ export default function CoursePage() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {upcomingClasses.map((cls, idx) => (
-                    <Card key={idx} className="bg-white border border-gray-200 hover:border-gray-400 transition-all">
-                      <CardContent className="p-5">
-                        <div className="flex items-start justify-between mb-4">
-                          <Badge className="bg-green-100 text-green-700 text-xs px-2 py-1">Upcoming</Badge>
-                          <div className="text-xs text-gray-500">{cls.date} • {cls.time}</div>
-                        </div>
-                        <div className="space-y-3">
-                          <div>
-                            <div className="text-sm font-bold text-black mb-1">Course:</div>
-                            <div className="text-base font-semibold text-gray-800">{cls.course.toUpperCase()}</div>
-                          </div>
-                          <div>
-                            <div className="text-sm font-bold text-black mb-1">Topic:</div>
-                            <div className="text-base text-gray-800 leading-snug">{cls.topic}</div>
-                          </div>
-                        </div>
-                        <a 
-                          href={cls.meetingLink} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:text-blue-800 font-medium inline-block mt-4"
-                        >
-                          Join Meeting →
-                        </a>
-                      </CardContent>
-                    </Card>
+                    <LiveClassCard
+                      key={idx}
+                      course={cls.course}
+                      topic={cls.topic}
+                      meetingLink={cls.meetingLink}
+                      time={cls.time}
+                      date={cls.date}
+                      youtubeLink={cls.youtubeLink}
+                    />
                   ))}
                 </div>
               )}
@@ -355,34 +340,15 @@ export default function CoursePage() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {previousClasses.map((cls, idx) => (
-                    <Card key={idx} className="bg-white border border-gray-200 hover:border-gray-400 transition-all">
-                      <CardContent className="p-5">
-                        <div className="flex items-start justify-between mb-4">
-                          <Badge className="bg-gray-100 text-gray-700 text-xs px-2 py-1">Completed</Badge>
-                          <div className="text-xs text-gray-500">{cls.date} • {cls.time}</div>
-                        </div>
-                        <div className="space-y-3">
-                          <div>
-                            <div className="text-sm font-bold text-black mb-1">Course:</div>
-                            <div className="text-base font-semibold text-gray-800">{cls.course.toUpperCase()}</div>
-                          </div>
-                          <div>
-                            <div className="text-sm font-bold text-black mb-1">Topic:</div>
-                            <div className="text-base text-gray-800 leading-snug">{cls.topic}</div>
-                          </div>
-                        </div>
-                        {cls.youtubeLink && (
-                          <a 
-                            href={cls.youtubeLink} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-sm text-red-600 hover:text-red-800 font-medium inline-block mt-4"
-                          >
-                            Watch Recording →
-                          </a>
-                        )}
-                      </CardContent>
-                    </Card>
+                    <LiveClassCard
+                      key={idx}
+                      course={cls.course}
+                      topic={cls.topic}
+                      meetingLink={cls.meetingLink}
+                      time={cls.time}
+                      date={cls.date}
+                      youtubeLink={cls.youtubeLink}
+                    />
                   ))}
                 </div>
               )}

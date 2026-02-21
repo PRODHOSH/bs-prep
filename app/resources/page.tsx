@@ -38,7 +38,7 @@ export default function ResourcesPage() {
 
           <div className="pt-4">
             <Link href={isAuthenticated ? "/dashboard" : "/tools"}>
-              <Button variant="outline" className="group border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-white text-black">
+              <Button variant="outline" className="group border-slate-300 dark:border-slate-700 hover:border-slate-900 dark:hover:border-white text-black hover:bg-transparent hover:text-black">
                 Explore Other Tools
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
