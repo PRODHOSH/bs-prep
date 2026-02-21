@@ -350,7 +350,7 @@ export default function HomePage() {
                 <p className="text-white/60 text-sm leading-relaxed max-w-md">Ask doubts, share notes, and study together with thousands of Tamil-speaking IITM BS students across all terms.</p>
               </div>
               <div className="shrink-0 text-right">
-                <span className="text-5xl font-extrabold text-white leading-none block">2500+</span>
+                <span className="text-5xl font-extrabold text-white leading-none block">500+</span>
                 <span className="text-sm text-white/45">students</span>
               </div>
             </div>
