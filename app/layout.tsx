@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description: "A comprehensive learning platform for IITM BS students with Tamil courses, mentoring, and community support",
   generator: "v0.app",
   icons: {
-    icon: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
   viewport: {
     width: "device-width",

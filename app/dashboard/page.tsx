@@ -65,7 +65,19 @@ export default function StudentDashboard() {
         const response = await fetch("/api/live-classes")
         if (response.ok) {
           const data = await response.json()
-          setLiveClasses(data.classes || [])
+          const now = Date.now()
+          const upcoming = (data.classes || []).filter((cls: LiveClass) => {
+            try {
+              const [h, m] = (cls.time || "0:0").split(":").map(Number)
+              const d = new Date(cls.date)
+              d.setHours(h, m, 0, 0)
+              // keep classes that haven't ended (allow 60 min past start)
+              return d.getTime() + 60 * 60 * 1000 > now
+            } catch {
+              return true
+            }
+          })
+          setLiveClasses(upcoming)
         }
       } catch (error) {
         console.error("Error fetching live classes:", error)
@@ -133,13 +145,23 @@ export default function StudentDashboard() {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
-        <h1 className="text-3xl font-bold text-black mb-2">
-          Welcome back, {userName}!
-        </h1>
-        <p className="text-gray-600">
-          Continue your learning journey with IITM BS courses
-        </p>
+      <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-black mb-2">
+            Welcome back, {userName}!
+          </h1>
+          <p className="text-gray-600">
+            Continue your learning journey with IITM BS courses
+          </p>
+        </div>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform?usp=sharing&ouid=109000575421815991569"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-shrink-0 px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-full hover:bg-black/80 transition-colors"
+        >
+          Join Us
+        </a>
       </div>
 
       {enrolledCourses.length === 0 ? (

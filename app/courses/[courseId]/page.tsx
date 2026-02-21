@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { ArrowLeft, BookOpen, Calendar, FileText, Video } from "lucide-react"
+import { ArrowLeft, BookOpen, Calendar, FileText, Video, Search, X } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { LiveClassCard } from "@/components/live-class-card"
@@ -130,6 +130,7 @@ export default function CoursePage() {
   const [loadingClasses, setLoadingClasses] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [showSignup, setShowSignup] = useState(false)
+  const [previousSearch, setPreviousSearch] = useState("")
 
   useEffect(() => {
     checkAuthAndEnrollment()
@@ -223,6 +224,9 @@ export default function CoursePage() {
   if (isEnrolled) {
     const upcomingClasses = classes.filter(cls => isUpcoming(cls.date, cls.time))
     const previousClasses = classes.filter(cls => !isUpcoming(cls.date, cls.time))
+    const filteredPrevious = previousClasses.filter(cls =>
+      !previousSearch.trim() || cls.topic.toLowerCase().includes(previousSearch.trim().toLowerCase())
+    )
 
     return (
       <div className="min-h-screen bg-white relative">
@@ -338,16 +342,45 @@ export default function CoursePage() {
 
             {/* Previous Classes */}
             <div>
-              <h2 className="text-2xl font-bold text-black mb-4">Previous Classes</h2>
+              <div className="mb-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <h2 className="text-2xl font-bold text-black">Previous Classes</h2>
+                  {previousClasses.length > 0 && (
+                    <div className="relative w-full sm:w-64">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                      <input
+                        type="text"
+                        placeholder="Search by topic…"
+                        value={previousSearch}
+                        onChange={e => setPreviousSearch(e.target.value)}
+                        className="w-full pl-9 pr-8 py-2 rounded-lg border border-gray-200 bg-white text-sm text-black focus:outline-none focus:border-black transition-colors"
+                        suppressHydrationWarning
+                      />
+                      {previousSearch && (
+                        <button onClick={() => setPreviousSearch("")} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black">
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
               {previousClasses.length === 0 ? (
                 <Card className="bg-gray-50 border border-gray-200 rounded-lg">
                   <CardContent className="p-8 text-center">
                     <p className="text-gray-600">No previous classes</p>
                   </CardContent>
                 </Card>
+              ) : filteredPrevious.length === 0 ? (
+                <Card className="bg-gray-50 border border-gray-200 rounded-lg">
+                  <CardContent className="p-8 text-center">
+                    <p className="text-gray-600">No classes match &ldquo;{previousSearch}&rdquo;</p>
+                    <button onClick={() => setPreviousSearch("")} className="mt-2 text-sm text-black underline underline-offset-2">Clear search</button>
+                  </CardContent>
+                </Card>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {previousClasses.map((cls, idx) => (
+                  {filteredPrevious.map((cls, idx) => (
                     <LiveClassCard
                       key={idx}
                       course={cls.course}

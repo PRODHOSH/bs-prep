@@ -30,8 +30,61 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   const [loginOpen, setLoginOpen] = useState(false)
   const [signUpOpen, setSignUpOpen] = useState(false)
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
+  const [notifOpen, setNotifOpen] = useState(false)
+  const [upcomingClasses, setUpcomingClasses] = useState<any[]>([])
+  const [seenIds, setSeenIds] = useState<string[]>([])
   const router = useRouter()
   const supabase = createClient()
+
+  // Build a stable ID for a class notification
+  const notifId = (cls: any) => `${cls.course}-${cls.date}-${cls.time}`
+
+  // Load seen IDs from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('bsprep_seen_notifs')
+      if (stored) setSeenIds(JSON.parse(stored))
+    } catch {}
+  }, [])
+
+  // Fetch upcoming classes when authenticated
+  useEffect(() => {
+    if (!isAuthenticated) return
+    const load = async () => {
+      try {
+        const res = await fetch('/api/live-classes')
+        if (!res.ok) return
+        const data = await res.json()
+        const now = Date.now()
+        const upcoming = (data.classes || []).filter((cls: any) => {
+          try {
+            const [h, m] = (cls.time || '0:0').split(':').map(Number)
+            const d = new Date(cls.date)
+            d.setHours(h, m, 0, 0)
+            return d.getTime() + 60 * 60 * 1000 > now
+          } catch { return true }
+        })
+        setUpcomingClasses(upcoming)
+      } catch {}
+    }
+    load()
+    const interval = setInterval(load, 60_000)
+    return () => clearInterval(interval)
+  }, [isAuthenticated])
+
+  const unreadCount = upcomingClasses.filter(cls => !seenIds.includes(notifId(cls))).length
+
+  const markAllSeen = () => {
+    const ids = upcomingClasses.map(notifId)
+    const merged = Array.from(new Set([...seenIds, ...ids]))
+    setSeenIds(merged)
+    try { localStorage.setItem('bsprep_seen_notifs', JSON.stringify(merged)) } catch {}
+  }
+
+  const handleNotifOpen = (open: boolean) => {
+    setNotifOpen(open)
+    if (open) markAllSeen()
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -61,7 +114,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           {/* Logo */}
           <Link href={isAuthenticated ? "/dashboard" : "/"} className="flex items-center gap-3 flex-shrink-0 group">
             <img 
-              src="/logo.jpeg" 
+              src="/logo.png" 
               alt="BSPrep Logo" 
               className="w-11 h-11 rounded-full object-cover group-hover:opacity-80 transition-opacity"
             />
@@ -170,10 +223,61 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
-                <button className="relative p-2 text-slate-600 hover:text-black transition-colors">
-                  <Bell className="w-5 h-5" />
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
+                <DropdownMenu open={notifOpen} onOpenChange={handleNotifOpen}>
+                  <DropdownMenuTrigger asChild>
+                    <button className="relative p-2 text-slate-600 hover:text-black transition-colors">
+                      <Bell className="w-5 h-5" />
+                      {unreadCount > 0 && (
+                        <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[9px] font-bold flex items-center justify-center">
+                          {unreadCount > 9 ? '9+' : unreadCount}
+                        </span>
+                      )}
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-80 bg-white border-gray-200 shadow-xl p-0 overflow-hidden">
+                    <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                      <span className="font-bold text-black text-sm">Notifications</span>
+                      {upcomingClasses.length > 0 && (
+                        <span className="text-xs text-gray-500">{upcomingClasses.length} upcoming</span>
+                      )}
+                    </div>
+                    {upcomingClasses.length === 0 ? (
+                      <div className="px-4 py-8 text-center text-sm text-gray-400">
+                        No upcoming classes
+                      </div>
+                    ) : (
+                      <div className="max-h-80 overflow-y-auto divide-y divide-gray-100">
+                        {upcomingClasses.map((cls, i) => {
+                          const id = notifId(cls)
+                          const isUnseen = !seenIds.includes(id)
+                          const [h, min] = (cls.time || '0:0').split(':').map(Number)
+                          const d = new Date(cls.date)
+                          d.setHours(h, min, 0, 0)
+                          const dateStr = d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })
+                          const timeStr = d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true }).toUpperCase()
+                          const courseNames: Record<string, string> = {
+                            'ct': 'Computational Thinking',
+                            'math-1': 'Mathematics I',
+                            'stats-1': 'Statistics I',
+                            'math-2': 'Mathematics II',
+                            'stats-2': 'Statistics II',
+                          }
+                          const courseName = courseNames[cls.course?.toLowerCase()] ?? cls.course
+                          return (
+                            <div key={i} className={`px-4 py-3 flex items-start gap-3 ${isUnseen ? 'bg-red-50' : 'bg-white'}`}>
+                              <div className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${isUnseen ? 'bg-red-500' : 'bg-gray-300'}`} />
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-0.5">{courseName}</p>
+                                <p className="text-sm font-semibold text-black leading-snug">{cls.topic}</p>
+                                <p className="text-xs text-gray-500 mt-1">{dateStr} &bull; {timeStr}</p>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

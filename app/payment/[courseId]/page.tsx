@@ -166,6 +166,43 @@ export default function PaymentPage() {
     }
   }
 
+  const handleDemoEnroll = async () => {
+    setLoading(true)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        alert('Please log in first')
+        setLoading(false)
+        return
+      }
+
+      // Check if already enrolled
+      const { data: existing } = await supabase
+        .from('enrollments')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('course_id', courseId)
+        .single()
+
+      if (existing) {
+        alert('You are already enrolled in this course!')
+        router.push(`/dashboard/courses`)
+        return
+      }
+
+      const { error } = await supabase
+        .from('enrollments')
+        .insert({ user_id: user.id, course_id: courseId, payment_status: 'completed' })
+
+      if (error) throw error
+      router.push(`/dashboard`)
+    } catch (err) {
+      console.error('Demo enroll error:', err)
+      alert('Enrollment failed. Please try again.')
+      setLoading(false)
+    }
+  }
+
   if (!course) {
     return (
       <div className="min-h-screen bg-white relative">
@@ -333,6 +370,20 @@ export default function PaymentPage() {
                 >
                   {loading ? "Processing..." : `Pay ₹${course.price}`}
                 </Button>
+
+                {/* Demo enroll — testing only */}
+                <div className="mt-3 border border-dashed border-gray-300 rounded-lg p-3">
+                  <p className="text-xs text-center text-gray-400 mb-2 uppercase tracking-widest font-semibold">Testing only</p>
+                  <Button
+                    onClick={handleDemoEnroll}
+                    disabled={loading}
+                    variant="outline"
+                    className="w-full border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-black font-semibold"
+                    suppressHydrationWarning
+                  >
+                    {loading ? "Enrolling..." : "Demo Pay to Enroll"}
+                  </Button>
+                </div>
 
                 <p className="text-xs text-center text-gray-500 mt-4">
                   By completing this purchase, you agree to our Terms of Service and Privacy Policy
