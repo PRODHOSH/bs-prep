@@ -7,17 +7,31 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { LoginModal } from "@/components/auth/login-modal"
-import { SignUpModal } from "@/components/auth/signup-modal"
-import { AnimatedCounter } from "@/components/animated-counter"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown, Video, MessageCircle } from "lucide-react"
 import CardSwap, { Card as SwapCard } from "@/components/card-swap"
 
-// Lazy load testimonials component
+const spinner = <div className="animate-spin w-6 h-6 border-2 border-gray-200 border-t-black rounded-full" />
+
+// Lazy load heavy / interaction-only components
 const StaggerTestimonials = dynamic(() => import("@/components/stagger-testimonials").then(mod => ({ default: mod.StaggerTestimonials })), {
   ssr: false,
-  loading: () => <div className="h-96 flex items-center justify-center"><div className="animate-spin w-8 h-8 border-2 border-gray-200 border-t-black rounded-full"></div></div>
+  loading: () => <div className="h-96 flex items-center justify-center">{spinner}</div>
+})
+
+const LoginModal = dynamic(() => import("@/components/auth/login-modal").then(mod => ({ default: mod.LoginModal })), {
+  ssr: false,
+  loading: () => null
+})
+
+const SignUpModal = dynamic(() => import("@/components/auth/signup-modal").then(mod => ({ default: mod.SignUpModal })), {
+  ssr: false,
+  loading: () => null
+})
+
+const AnimatedCounter = dynamic(() => import("@/components/animated-counter").then(mod => ({ default: mod.AnimatedCounter })), {
+  ssr: false,
+  loading: () => <span className="text-4xl md:text-5xl font-bold text-black">—</span>
 })
 
 export default function HomePage() {

@@ -3,7 +3,12 @@
 import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useEffect, useState } from "react"
-import { Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
+import dynamic from "next/dynamic"
+
+const AdminRoleChart = dynamic(() => import("@/components/admin-role-chart"), {
+  ssr: false,
+  loading: () => <div className="h-[300px] animate-pulse rounded-xl bg-gray-100" />
+})
 
 export default function AdminAnalyticsPage() {
   const [stats, setStats] = useState({
@@ -53,7 +58,7 @@ export default function AdminAnalyticsPage() {
     }
   }
 
-  const COLORS = ["#3e30d9", "#51b206", "#f1f3f7"]
+
 
   return (
     <div className="space-y-8">
@@ -96,39 +101,11 @@ export default function AdminAnalyticsPage() {
           <CardTitle>User Distribution</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-6 md:grid-cols-2">
-            <div>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={roleData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, value }) => `${name}: ${value}`}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {roleData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="space-y-4 flex flex-col justify-center">
-              <div>
-                <p className="text-sm text-muted-foreground">Students</p>
-                <p className="text-2xl font-bold text-primary">{stats.totalStudents}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Mentors</p>
-                <p className="text-2xl font-bold text-secondary">{stats.totalMentors}</p>
-              </div>
-            </div>
-          </div>
+          <AdminRoleChart
+            roleData={roleData}
+            totalStudents={stats.totalStudents}
+            totalMentors={stats.totalMentors}
+          />
         </CardContent>
       </Card>
 

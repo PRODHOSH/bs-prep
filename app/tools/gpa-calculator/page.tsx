@@ -5,16 +5,21 @@ import { courseData } from "@/lib/gpa/course-data"
 import { calculateScore } from "@/lib/gpa/calculate-score"
 import { assignGrade } from "@/lib/gpa/grade-utils"
 import type { Course } from "@/lib/gpa/types"
+import dynamic from "next/dynamic"
 import { Calculator, Plus, Trash2 } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createClient } from "@/lib/supabase/client"
+
+const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 bg-white -z-10" />
+})
 
 interface SemesterCourse {
   id: string

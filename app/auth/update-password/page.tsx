@@ -1,15 +1,20 @@
 "use client"
 
 import type React from "react"
+import dynamic from "next/dynamic"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { BeamsBackground } from "@/components/beams-background"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { CheckCircle } from "lucide-react"
+
+const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 bg-white -z-10" />
+})
 
 export default function UpdatePasswordPage() {
   const [password, setPassword] = useState("")
