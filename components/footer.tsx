@@ -13,28 +13,31 @@ const developers = [
     instagram: "https://www.instagram.com/itzprodhosh/",
     twitter: "https://x.com/prodhosh3",
     portfolio: "https://prodhosh.netlify.app/",
+    handles: { linkedin: "prodhoshvs", github: "PRODHOSH", instagram: "itzprodhosh", twitter: "prodhosh3", portfolio: "prodhosh.netlify.app" },
     about:
       "Freshman at VIT Chennai and IIT Madras BS Data Science.\nI mainly build SaaS-style web platforms for clubs, communities, and small organizations with focus on usability and scalability.\nCurrently transitioning from full-stack development toward AI engineering by strengthening fundamentals and integrating intelligence into applications.\nGoal: build software that doesn't just run — it learns and adapts.",
   },
   {
-    name: "Saran",
-    photo: "https://api.dicebear.com/7.x/personas/svg?seed=Saran",
-    linkedin: "",
-    github: "",
-    instagram: "",
+    name: "Saran V",
+    photo: "developers/saran.jpg",
+    linkedin: "https://www.linkedin.com/in/saran-v-7060b1385",
+    github: "https://github.com/saranv007",
+    instagram: "https://www.instagram.com/itz_sano_x",
     twitter: "",
     portfolio: "",
-    about: "",
+    handles: { linkedin: "saran-v", github: "saranv007", instagram: "itz_sano_x", twitter: "", portfolio: "" },
+    about: "Hi, I'm Saran V, a Data Science student pursuing BS in Data Science at IIT Madras and BSc in Computer Science & Mathematics at Christ University, Bangalore. I'm passionate about Data Science and Machine Learning, aiming to become a Data Scientist/ML Engineer who builds real-world solutions using data. Through this website, I contribute to this sector by building quiz preparation tools, sharing useful resources, and integrating payment gateway systems to create practical and impactful digital solutions.",
   },
   {
-    name: "Rishwanth",
-    photo: "https://api.dicebear.com/7.x/personas/svg?seed=Rishwanth",
-    linkedin: "",
-    github: "",
-    instagram: "",
+    name: "Rishwanth S V",
+    photo: "developers/rishwanth.jpg",
+    linkedin: "https://www.linkedin.com/in/RishSV/",
+    github: "https://github.com/rishsv/",
+    instagram: "https://www.instagram.com/rish.offcl",
     twitter: "",
     portfolio: "",
-    about: "",
+    handles: { linkedin: "RishSV", github: "rishsv", instagram: "rish.offcl", twitter: "", portfolio: "" },
+    about: "Student at Saveetha Engineering College and IIT Madras BS in Data Science. I build practical web platforms for clubs, events, and student communities, focusing on simplicity, reliability, and real-world usability. Alongside academics, I freelance — developing websites, managing deployments, and designing logos and branding assets for organizations and small teams.\n\nMy current journey is moving from full-stack development toward AI Engineering and Data Science, data-driven systems by strengthening programming fundamentals, problem solving, and analytical thinking. I'm especially interested in creating applications that don't just display information but understand users and improve with data.\n\nI enjoy learning new technologies, experimenting with ideas, and turning concepts into working products. Long-term, I aim to build scalable software and intelligent tools that genuinely help people — tools that automate effort, support decisions, and grow smarter over time.",
   },
 ]
 
@@ -155,103 +158,187 @@ export function Footer() {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
           onClick={() => setActiveDev(null)}
         >
-          <div
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Black header */}
-            <div className="bg-black px-8 pt-8 pb-16 relative">
-              <button
-                onClick={() => setActiveDev(null)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-              >
-                <X className="w-4 h-4 text-white" />
-              </button>
-              <p className="text-white/40 text-xs uppercase tracking-widest font-medium">Developer</p>
-              <h2 className="text-3xl font-bold text-white mt-1">{selectedDev.name}</h2>
-            </div>
-
-            {/* Photo overlapping header/body */}
-            <div className="relative px-8">
-              <div className="-mt-12 mb-4">
+          {selectedDev.name === "Rishwanth S V" ? (
+            /* ── Rishwanth: photo in header, wide, scrollable ── */
+            <div
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="bg-black px-8 py-7 relative shrink-0 flex items-center justify-between gap-6">
+                <div>
+                  <p className="text-white/40 text-xs uppercase tracking-widest font-medium mb-1">Developer</p>
+                  <h2 className="text-3xl font-bold text-white">{selectedDev.name}</h2>
+                </div>
                 <img
                   src={selectedDev.photo}
                   alt={selectedDev.name}
-                  className="w-24 h-24 rounded-2xl object-cover border-4 border-white shadow-xl bg-gray-100"
+                  className="w-20 h-20 rounded-xl object-cover border-2 border-white/20 shadow-xl bg-gray-700 shrink-0"
                 />
+                <button
+                  onClick={() => setActiveDev(null)}
+                  className="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center transition-colors"
+                >
+                  <X className="w-3.5 h-3.5 text-white" />
+                </button>
               </div>
-
-              {/* Socials grid */}
-              {(selectedDev.linkedin || selectedDev.github || selectedDev.instagram || selectedDev.twitter || selectedDev.portfolio) ? (
-                <div className="grid grid-cols-2 gap-2 mb-5">
-                  {selectedDev.linkedin && (
-                    <a href={selectedDev.linkedin} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                      <Linkedin className="w-4 h-4 shrink-0" />
-                      <div>
-                        <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">LinkedIn</p>
-                        <p className="text-xs font-semibold mt-0.5 truncate">prodhoshvs</p>
-                      </div>
-                    </a>
-                  )}
-                  {selectedDev.github && (
-                    <a href={selectedDev.github} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                      <Github className="w-4 h-4 shrink-0" />
-                      <div>
-                        <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">GitHub</p>
-                        <p className="text-xs font-semibold mt-0.5 truncate">PRODHOSH</p>
-                      </div>
-                    </a>
-                  )}
-                  {selectedDev.instagram && (
-                    <a href={selectedDev.instagram} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                      <Instagram className="w-4 h-4 shrink-0" />
-                      <div>
-                        <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">Instagram</p>
-                        <p className="text-xs font-semibold mt-0.5 truncate">itzprodhosh</p>
-                      </div>
-                    </a>
-                  )}
-                  {selectedDev.twitter && (
-                    <a href={selectedDev.twitter} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                      <Twitter className="w-4 h-4 shrink-0" />
-                      <div>
-                        <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">X / Twitter</p>
-                        <p className="text-xs font-semibold mt-0.5 truncate">prodhosh3</p>
-                      </div>
-                    </a>
-                  )}
-                  {selectedDev.portfolio && (
-                    <a href={selectedDev.portfolio} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group col-span-2">
-                      <Globe className="w-4 h-4 shrink-0" />
-                      <div>
-                        <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">Portfolio</p>
-                        <p className="text-xs font-semibold mt-0.5">prodhosh.netlify.app</p>
-                      </div>
-                    </a>
-                  )}
+              <div className="px-8 py-6 overflow-y-auto space-y-5">
+                {(selectedDev.linkedin || selectedDev.github || selectedDev.instagram || selectedDev.twitter || selectedDev.portfolio) && (
+                  <div className="grid grid-cols-2 gap-2">
+                    {selectedDev.linkedin && (
+                      <a href={selectedDev.linkedin} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Linkedin className="w-4 h-4 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">LinkedIn</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.linkedin}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.github && (
+                      <a href={selectedDev.github} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Github className="w-4 h-4 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">GitHub</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.github}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.instagram && (
+                      <a href={selectedDev.instagram} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Instagram className="w-4 h-4 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">Instagram</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.instagram}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.twitter && (
+                      <a href={selectedDev.twitter} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Twitter className="w-4 h-4 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">X / Twitter</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.twitter}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.portfolio && (
+                      <a href={selectedDev.portfolio} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group col-span-2">
+                        <Globe className="w-4 h-4 shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">Portfolio</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.portfolio}</p>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                )}
+                {selectedDev.about ? (
+                  <div className="border-t border-gray-100 pt-5 pb-2">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-3">About</p>
+                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{selectedDev.about}</p>
+                  </div>
+                ) : (
+                  <div className="border-t border-gray-100 pt-5 pb-2">
+                    <p className="text-sm text-gray-400 italic">Details coming soon.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            /* ── Prodhosh / Saran: original overlapping-photo design ── */
+            <div
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="bg-black px-8 pt-8 pb-16 relative">
+                <button
+                  onClick={() => setActiveDev(null)}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <X className="w-4 h-4 text-white" />
+                </button>
+                <p className="text-white/40 text-xs uppercase tracking-widest font-medium">Developer</p>
+                <h2 className="text-3xl font-bold text-white mt-1">{selectedDev.name}</h2>
+              </div>
+              <div className="relative px-8">
+                <div className="-mt-12 mb-4">
+                  <img
+                    src={selectedDev.photo}
+                    alt={selectedDev.name}
+                    className="w-24 h-24 rounded-2xl object-cover border-4 border-white shadow-xl bg-gray-100"
+                  />
                 </div>
-              ) : null}
-
-              {/* Bio */}
-              {selectedDev.about ? (
-                <>
+                {(selectedDev.linkedin || selectedDev.github || selectedDev.instagram || selectedDev.twitter || selectedDev.portfolio) ? (
+                  <div className="grid grid-cols-2 gap-2 mb-5">
+                    {selectedDev.linkedin && (
+                      <a href={selectedDev.linkedin} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Linkedin className="w-4 h-4 shrink-0" />
+                        <div>
+                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">LinkedIn</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.linkedin}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.github && (
+                      <a href={selectedDev.github} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Github className="w-4 h-4 shrink-0" />
+                        <div>
+                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">GitHub</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.github}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.instagram && (
+                      <a href={selectedDev.instagram} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Instagram className="w-4 h-4 shrink-0" />
+                        <div>
+                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">Instagram</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.instagram}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.twitter && (
+                      <a href={selectedDev.twitter} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
+                        <Twitter className="w-4 h-4 shrink-0" />
+                        <div>
+                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">X / Twitter</p>
+                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.twitter}</p>
+                        </div>
+                      </a>
+                    )}
+                    {selectedDev.portfolio && (
+                      <a href={selectedDev.portfolio} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group col-span-2">
+                        <Globe className="w-4 h-4 shrink-0" />
+                        <div>
+                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">Portfolio</p>
+                          <p className="text-xs font-semibold mt-0.5">{selectedDev.handles?.portfolio}</p>
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                ) : null}
+                {selectedDev.about ? (
                   <div className="border-t border-gray-100 pt-5 mb-6">
                     <p className="text-[11px] text-gray-400 uppercase tracking-widest font-medium mb-2">About</p>
                     <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{selectedDev.about}</p>
                   </div>
-                </>
-              ) : (
-                <div className="pb-8">
-                  <p className="text-sm text-gray-400 italic">Details coming soon.</p>
-                </div>
-              )}
+                ) : (
+                  <div className="pb-8">
+                    <p className="text-sm text-gray-400 italic">Details coming soon.</p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </>
