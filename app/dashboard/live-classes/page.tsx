@@ -1,9 +1,17 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { LiveClassCard } from "@/components/live-class-card";
+import dynamic from "next/dynamic";
 import { Loader2, ArrowLeft, Video, Search, X } from "lucide-react";
 import Link from "next/link";
+
+const LiveClassCard = dynamic(
+  () => import("@/components/live-class-card").then(mod => ({ default: mod.LiveClassCard })),
+  {
+    ssr: false,
+    loading: () => <div className="h-36 animate-pulse rounded-xl bg-gray-100" />
+  }
+);
 
 interface LiveClass {
   course: string;

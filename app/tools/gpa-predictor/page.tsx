@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import dynamic from "next/dynamic"
 import { TrendingUp } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,6 +14,11 @@ import { courseData } from "@/lib/gpa/course-data"
 import { Course } from "@/lib/gpa/types"
 import { calculateScore } from "@/lib/gpa/calculate-score"
 import { createClient } from "@/lib/supabase/client"
+
+const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 bg-white -z-10" />
+})
 
 interface GradePrediction {
   grade: string

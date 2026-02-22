@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,6 +12,11 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { MessageSquare, Star, Send, MessageCircle } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
+
+const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 bg-white -z-10" />
+})
 
 export default function SupportPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
