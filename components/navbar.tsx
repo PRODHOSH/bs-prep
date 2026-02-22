@@ -167,6 +167,9 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               <Link href="/support" className="text-base font-medium text-slate-700 hover:text-black transition-colors">
                 Support
               </Link>
+              <Link href="/careers" className="text-base font-medium text-slate-700 hover:text-black transition-colors">
+                Careers
+              </Link>
             </div>
           )}
 
@@ -373,6 +376,12 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all"
                 >
                   Support
+                </Link>
+                <Link
+                  href="/careers"
+                  className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all"
+                >
+                  Careers
                 </Link>
               </>
             )}

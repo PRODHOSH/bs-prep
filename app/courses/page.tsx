@@ -210,7 +210,7 @@ export default function CoursesPage() {
       <Navbar isAuthenticated={false} />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-8 overflow-hidden">
+      <section className="relative z-10 pt-24 pb-8 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-3 text-black">
@@ -227,7 +227,7 @@ export default function CoursesPage() {
       </section>
 
       {/* Main Content */}
-      <section className="pb-20">
+      <section className="relative z-10 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           {/* Search and Filter Bar */}
           <div className="mb-6 flex flex-col sm:flex-row gap-4">
