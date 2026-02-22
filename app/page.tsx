@@ -366,7 +366,7 @@ export default function HomePage() {
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
               <h3 className="font-bold text-xl text-black mb-1">Study Materials</h3>
-              <p className="text-black/55 text-sm mb-4 leading-relaxed">Curated notes, PDF guides, and Tamil-language resources for every subject.</p>
+              <p className="text-black/55 text-sm mb-4 leading-relaxed">Curated notes, PDF guides, and resources for every subject.</p>
               <div className="mt-auto flex items-end gap-1">
                 <span className="text-4xl font-extrabold text-black leading-none">500+</span>
                 <span className="text-sm text-black/45 mb-1">resources</span>
