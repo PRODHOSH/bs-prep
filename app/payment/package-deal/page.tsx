@@ -7,8 +7,9 @@ import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
-  ArrowLeft, CreditCard, Lock, Check, Shield, Package, Star
+  ArrowLeft, CreditCard, Lock, Check, Shield, Package, Star, FileText
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
@@ -22,6 +23,12 @@ const BUNDLE_COURSES = [
     thumbnail: "/courses/math.jpg",
     weeks: 4,
     individualPrice: 349,
+    syllabus: [
+      { week: 1, title: "Set Theory - Number system, Sets and their operations", topics: "Relations and functions - Relations and their types, Functions and their types" },
+      { week: 2, title: "Rectangular coordinate system, Straight Lines", topics: "Slope of a line, Parallel and perpendicular lines, Representations of a Line, General equations of a line, Straight-line fit" },
+      { week: 3, title: "Quadratic Functions", topics: "Quadratic functions, Minima, maxima, vertex, and slope, Quadratic Equations" },
+      { week: 4, title: "Algebra of Polynomials", topics: "Addition, subtraction, multiplication, and division, Algorithms, Graphs of Polynomials - X-intercepts, multiplicities, end behavior, and turning points, Graphing & polynomial creation" },
+    ],
   },
   {
     id: "qualifier-stats-1",
@@ -30,6 +37,12 @@ const BUNDLE_COURSES = [
     thumbnail: "/courses/stats.jpg",
     weeks: 4,
     individualPrice: 349,
+    syllabus: [
+      { week: 1, title: "Introduction and type of data", topics: "Types of data, Descriptive and Inferential statistics, Scales of measurement" },
+      { week: 2, title: "Describing categorical data", topics: "Frequency distribution of categorical data, Best practices for graphing categorical data, Mode and median for categorical variable" },
+      { week: 3, title: "Describing numerical data", topics: "Frequency tables for numerical data, Measures of central tendency - Mean, median and mode, Quartiles and percentiles, Measures of dispersion - Range, variance, standard deviation and IQR, Five number summary" },
+      { week: 4, title: "Association between two variables", topics: "Association between two categorical variables - Using relative frequencies in contingency tables, Association between two numerical variables - Scatterplot, covariance, Pearson correlation coefficient, Point bi-serial correlation coefficient" },
+    ],
   },
   {
     id: "qualifier-computational-thinking",
@@ -38,6 +51,12 @@ const BUNDLE_COURSES = [
     thumbnail: "/courses/ct.jpg",
     weeks: 4,
     individualPrice: 349,
+    syllabus: [
+      { week: 1, title: "Variables, Initialization, Iterators, Filtering", topics: "Datatypes, Flowcharts, Sanity of data" },
+      { week: 2, title: "Iteration, Filtering, Selection", topics: "Pseudocode, Finding max and min, AND operator" },
+      { week: 3, title: "Multiple iterations (non-nested)", topics: "Three prizes problem, Procedures, Parameters, Side effects, OR operator" },
+      { week: 4, title: "Nested iterations", topics: "Birthday paradox, Binning" },
+    ],
   },
 ]
 
@@ -48,6 +67,7 @@ export default function PackageDealPage() {
   const router = useRouter()
   const supabase = createClient()
 
+  const [authChecked, setAuthChecked] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" })
@@ -62,7 +82,13 @@ export default function PackageDealPage() {
 
   const checkAuth = async () => {
     const { data: { user } } = await supabase.auth.getUser()
-    setIsAuthenticated(!!user)
+    if (!user) {
+      // Not signed in — send back to courses
+      router.replace("/courses")
+      return
+    }
+    setIsAuthenticated(true)
+    setAuthChecked(true)
   }
 
   const handlePayment = async () => {
@@ -87,7 +113,7 @@ export default function PackageDealPage() {
         handler: async function (response: any) {
           console.log("Payment Success:", response)
           alert("Payment successful! Payment ID: " + response.razorpay_payment_id)
-          router.push(isAuthenticated ? "/dashboard/courses" : "/courses")
+          router.push("/dashboard/courses")
         },
         modal: {
           ondismiss: function () {
@@ -110,8 +136,7 @@ export default function PackageDealPage() {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) {
-        alert("Please log in first")
-        setLoading(false)
+        router.replace("/courses")
         return
       }
 
@@ -138,6 +163,19 @@ export default function PackageDealPage() {
     }
   }
 
+  // Show spinner while auth is being verified
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen bg-white relative">
+        <BeamsBackground />
+        <Navbar isAuthenticated={false} />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-black" />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-white relative">
       <BeamsBackground />
@@ -146,7 +184,7 @@ export default function PackageDealPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-24 pb-20 relative z-10">
         {/* Back Button */}
         <Link
-          href={isAuthenticated ? "/dashboard/courses" : "/courses"}
+          href="/dashboard/courses"
           className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -180,11 +218,41 @@ export default function PackageDealPage() {
                         <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-black leading-tight truncate">{course.title}</p>
+                        <p className="text-sm font-semibold text-black leading-tight">{course.title}</p>
                         <p className="text-xs text-gray-500 mt-0.5">{course.weeks} weeks · Qualifier</p>
                       </div>
-                      <div className="shrink-0 text-right">
+                      <div className="flex items-center gap-3 shrink-0">
                         <p className="text-xs text-gray-400 line-through">₹{course.individualPrice}</p>
+                        {/* Syllabus popup */}
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <button className="inline-flex items-center gap-1 text-xs font-semibold text-black border border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all px-2.5 py-1 rounded-lg">
+                              <FileText className="w-3 h-3" />
+                              Syllabus
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-white">
+                            <DialogHeader>
+                              <DialogTitle className="text-xl font-bold text-black">{course.title} — Syllabus</DialogTitle>
+                              <p className="text-sm text-gray-500 mt-1">{course.weeks} Weeks · Qualifier Level</p>
+                            </DialogHeader>
+                            <div className="space-y-5 mt-4">
+                              {course.syllabus.map((week) => (
+                                <div key={week.week} className="border-b border-gray-200 pb-4 last:border-0 last:pb-0">
+                                  <div className="flex gap-4">
+                                    <Badge className="bg-black text-white text-xs font-semibold px-3 py-1 rounded h-fit shrink-0">
+                                      Week {week.week}
+                                    </Badge>
+                                    <div className="flex-1">
+                                      <h3 className="text-sm font-bold text-black mb-1.5">{week.title}</h3>
+                                      <p className="text-sm text-gray-600 leading-relaxed">{week.topics}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </div>
                   ))}

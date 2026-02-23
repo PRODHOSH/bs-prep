@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Lock, Play, Clock, Star, Search, Award, BookOpen, Package, CheckCircle2 } from "lucide-react"
+import { LoginModal } from "@/components/auth/login-modal"
+import { SignUpModal } from "@/components/auth/signup-modal"
 
 const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
   ssr: false,
@@ -144,6 +146,8 @@ const courses: Course[] = [
 export default function CoursesPage() {
   const [selectedLevel, setSelectedLevel] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
+  const [showLogin, setShowLogin] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
 
   const filteredCourses = courses.filter(course => {
     const levelMatch = selectedLevel === "all" || course.level === selectedLevel
@@ -205,6 +209,7 @@ export default function CoursesPage() {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-white relative">
       <BeamsBackground />
       <Navbar isAuthenticated={false} />
@@ -259,8 +264,11 @@ export default function CoursesPage() {
               {/* Package Deal Card */}
               {(selectedLevel === "all" || selectedLevel === "qualifier") && searchQuery === "" && (
                 <div className="mb-6">
-                  <Link href="/payment/package-deal">
-                    <div className="relative overflow-hidden rounded-xl border-2 border-[#51b206] bg-gradient-to-r from-[#f0fde7] via-white to-[#f0fde7] shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group">
+                  <div
+                    onClick={() => setShowLogin(true)}
+                    className="cursor-pointer"
+                  >
+                    <div className="relative overflow-hidden rounded-xl border-2 border-[#51b206] bg-gradient-to-r from-[#f0fde7] via-white to-[#f0fde7] shadow-md hover:shadow-xl transition-all duration-300 group">
                       {/* Ribbon */}
                       <div className="absolute top-0 right-0 bg-[#51b206] text-white text-xs font-bold px-4 py-1 rounded-bl-xl tracking-wide">BEST VALUE</div>
 
@@ -300,7 +308,7 @@ export default function CoursesPage() {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               )}
 
@@ -392,6 +400,19 @@ export default function CoursesPage() {
 
       <Footer />
     </div>
+
+    <LoginModal
+      open={showLogin}
+      onOpenChange={setShowLogin}
+      onSwitchToSignUp={() => { setShowLogin(false); setShowSignup(true) }}
+      onSwitchToForgotPassword={() => setShowLogin(false)}
+    />
+    <SignUpModal
+      open={showSignup}
+      onOpenChange={setShowSignup}
+      onSwitchToLogin={() => { setShowSignup(false); setShowLogin(true) }}
+    />
+  </>
   )
 }
 
