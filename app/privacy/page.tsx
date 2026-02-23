@@ -80,8 +80,8 @@ export default function PrivacyPolicyPage() {
           {/* Header */}
           <div className="mb-10">
             <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BS Prep</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Privacy Policy</h1>
-            <p className="text-black/50 text-sm mt-3">Qualifier Mentorship &amp; Coaching Platform  Last Updated: February 2026</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-black leading-tight">Privacy Policy</h1>
+            <p className="text-black/50 text-base mt-3">Qualifier Mentorship &amp; Coaching Platform  Last Updated: February 2026</p>
           </div>
 
           {/* Sections box */}
@@ -91,10 +91,10 @@ export default function PrivacyPolicyPage() {
                 key={s.num}
                 className={`flex gap-5 px-7 py-6 ${i !== sections.length - 1 ? "border-b border-black/6" : ""}`}
               >
-                <span className="text-xs font-mono text-black/25 pt-0.5 shrink-0 w-6">{s.num}</span>
+                <span className="text-sm font-mono text-black/25 pt-0.5 shrink-0 w-6">{s.num}</span>
                 <div>
-                  <p className="font-semibold text-black text-sm mb-1">{s.title}</p>
-                  <p className="text-sm text-black/60 leading-relaxed">{s.body}</p>
+                  <p className="font-semibold text-black text-base mb-1">{s.title}</p>
+                  <p className="text-base text-black/60 leading-relaxed">{s.body}</p>
                 </div>
               </div>
             ))}

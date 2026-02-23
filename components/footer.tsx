@@ -4,7 +4,9 @@ import Link from "next/link"
 import { useState } from "react"
 import { Linkedin, Youtube, Github, Globe, X, Instagram, Twitter } from "lucide-react"
 
-const developers = [
+const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
+/* DEVELOPERS_DISABLED
+const _developers_data = [
   {
     name: "Prodhosh VS",
     photo: "developers/prodhosh_photo.jpeg",
@@ -40,10 +42,20 @@ const developers = [
     about: "Student at Saveetha Engineering College and IIT Madras BS in Data Science. I build practical web platforms for clubs, events, and student communities, focusing on simplicity, reliability, and real-world usability. Alongside academics, I freelance — developing websites, managing deployments, and designing logos and branding assets for organizations and small teams.\n\nMy current journey is moving from full-stack development toward AI Engineering and Data Science, data-driven systems by strengthening programming fundamentals, problem solving, and analytical thinking. I'm especially interested in creating applications that don't just display information but understand users and improve with data.\n\nI enjoy learning new technologies, experimenting with ideas, and turning concepts into working products. Long-term, I aim to build scalable software and intelligent tools that genuinely help people — tools that automate effort, support decisions, and grow smarter over time.",
   },
 ]
+DEVELOPERS_DISABLED */
 
 export function Footer() {
   const [activeDev, setActiveDev] = useState<string | null>(null)
   const selectedDev = developers.find((d) => d.name === activeDev) ?? null
+
+  const quickLinks = [
+    { name: "Courses", href: "/courses" },
+    { name: "Quiz Prep", href: "/quiz-prep" },
+    { name: "Resources", href: "/resources" },
+    { name: "Tools", href: "/tools" },
+    { name: "Support", href: "/support" },
+    { name: "Careers", href: "/careers" },
+  ]
 
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
@@ -90,24 +102,15 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Developers */}
+            {/* Quick Links */}
             <div>
-              <h3 className="font-semibold text-black mb-4">Developers</h3>
+              <h3 className="font-semibold text-black mb-4">Quick Links</h3>
               <ul className="space-y-3">
-                {developers.map((dev) => (
-                  <li key={dev.name}>
-                    <button
-                      onClick={() => setActiveDev(dev.name)}
-                      className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center gap-2 group"
-                      suppressHydrationWarning
-                    >
-                      <img
-                        src={dev.photo}
-                        alt={dev.name}
-                        className="w-5 h-5 rounded-full object-cover border border-slate-200 bg-white"
-                      />
-                      <span className="group-hover:translate-x-0.5 transition-transform inline-block">{dev.name}</span>
-                    </button>
+                {quickLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center group">
+                      <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
