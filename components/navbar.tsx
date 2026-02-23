@@ -159,9 +159,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Predictor</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">CGPA Calculator</Link>
-                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Link href="/support" className="text-base font-medium text-slate-700 hover:text-black transition-colors">
@@ -210,9 +207,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
                     <Link href="/tools/gpa-predictor" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">GPA Predictor</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-md py-3 px-4 hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-base font-medium text-slate-700 hover:text-slate-700 focus:text-slate-700 flex items-center gap-2">CGPA Calculator</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -366,12 +360,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   GPA Predictor
                 </Link>
                 <Link
-                  href="/tools/gpa-calculator"
-                  className="block px-6 py-2 text-sm text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all"
-                >
-                  CGPA Calculator
-                </Link>
-                <Link
                   href="/support"
                   className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all"
                 >
@@ -411,9 +399,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 </Link>
                 <Link href="/tools/gpa-predictor" className="block px-6 py-2 text-sm text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all">
                   GPA Predictor
-                </Link>
-                <Link href="/tools/gpa-calculator" className="block px-6 py-2 text-sm text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all">
-                  CGPA Calculator
                 </Link>
                 <Link href="/support" className="block px-4 py-2 text-sm font-medium text-slate-700 hover:text-black hover:bg-slate-50 rounded-lg transition-all">
                   Support
