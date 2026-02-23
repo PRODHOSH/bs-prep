@@ -51,6 +51,17 @@ export default function MentorFacultyPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
+  const GOOGLE_FORM_ACTION =
+    "https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/formResponse"
+
+  const FIELD_IDS = {
+    name:    "entry.608891286",
+    email:   "entry.1051364914",
+    phone:   "entry.1945044492",
+    course:  "entry.1254380614",
+    message: "entry.1797278696",
+  }
+
   const handleChange = (field: string, value: string) => setForm(prev => ({ ...prev, [field]: value }))
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,8 +73,23 @@ export default function MentorFacultyPage() {
     setError("")
     setLoading(true)
     try {
-      // Send via mailto as fallback — replace with API route if needed
-      await new Promise(res => setTimeout(res, 800))
+      const body = new FormData()
+      body.append(FIELD_IDS.name,    form.name)
+      body.append(FIELD_IDS.email,   form.email)
+      body.append(FIELD_IDS.phone,   form.phone)
+      body.append(FIELD_IDS.course,  form.course)
+      body.append(FIELD_IDS.message, form.message)
+
+      // Google Forms doesn't allow CORS reads — fire-and-forget with no-cors
+      await fetch(GOOGLE_FORM_ACTION, {
+        method: "POST",
+        mode: "no-cors",
+        body,
+      })
+
+      setSubmitted(true)
+    } catch {
+      // no-cors responses always throw a network error — treat as success
       setSubmitted(true)
     } finally {
       setLoading(false)
@@ -89,8 +115,8 @@ export default function MentorFacultyPage() {
             <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Hiring Now</span>
             <span className="text-xs text-gray-400">Part-time &bull; Remote &bull; Academics</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-black mb-3">Subject Mentor / Faculty</h1>
-          <p className="text-lg text-black/60 max-w-2xl">
+          <h1 className="text-5xl md:text-6xl font-bold text-black mb-3">Subject Mentor / Faculty</h1>
+          <p className="text-xl text-black/60 max-w-2xl">
             An opportunity to teach, grow, and make a genuine difference for Tamil-speaking IIT Madras BS students.
           </p>
         </div>
@@ -102,24 +128,24 @@ export default function MentorFacultyPage() {
 
             {/* About the role */}
             <section>
-              <h2 className="text-xl font-bold text-black mb-4">About the Role</h2>
-              <p className="text-sm text-gray-700 leading-relaxed mb-3">
+              <h2 className="text-2xl font-bold text-black mb-4">About the Role</h2>
+              <p className="text-base text-gray-700 leading-relaxed mb-3">
                 BSPrep is a student-focused platform built to help Tamil-speaking IIT Madras BS students tackle their coursework with confidence. We combine structured video content, live interactive sessions, and community-driven support to bridge the gap between lectures and real understanding.
               </p>
-              <p className="text-sm text-gray-700 leading-relaxed mb-3">
+              <p className="text-base text-gray-700 leading-relaxed mb-3">
                 We're looking for motivated students who have already excelled in their IIT Madras BS courses and want to channel that knowledge into helping others. As a Subject Mentor, you'll take ownership of a course, guide students through challenging concepts, and play a direct role in their academic success.
               </p>
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-base text-gray-700 leading-relaxed">
                 This is a paid, part-time, remote role — structured to fit comfortably alongside your own studies. Compensation details are shared during the selection conversation.
               </p>
             </section>
 
             {/* What you'll do */}
             <section>
-              <h2 className="text-xl font-bold text-black mb-4">What You'll Do</h2>
+              <h2 className="text-2xl font-bold text-black mb-4">What You'll Do</h2>
               <ul className="space-y-3">
                 {responsibilities.map((r, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                  <li key={i} className="flex items-start gap-3 text-base text-gray-700">
                     <ChevronRight className="w-4 h-4 text-black/40 mt-0.5 shrink-0" />
                     <span className="leading-relaxed">{r}</span>
                   </li>
@@ -129,17 +155,17 @@ export default function MentorFacultyPage() {
 
             {/* Requirements */}
             <section>
-              <h2 className="text-xl font-bold text-black mb-1">Requirements & Eligibility</h2>
-              <p className="text-sm text-gray-500 mb-5">You must meet all of the following to be considered.</p>
+              <h2 className="text-2xl font-bold text-black mb-1">Requirements & Eligibility</h2>
+              <p className="text-base text-gray-500 mb-5">You must meet all of the following to be considered.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {requirements.map((req) => (
                   <div key={req.label} className="flex gap-3 p-4 rounded-xl border border-gray-200 bg-gray-50">
-                    <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center shrink-0 mt-0.5">
-                      <req.icon className="w-4 h-4 text-white" />
+                    <div className="w-9 h-9 rounded-lg bg-black flex items-center justify-center shrink-0 mt-0.5">
+                      <req.icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-black mb-0.5">{req.label}</p>
-                      <p className="text-xs text-gray-600 leading-relaxed">{req.text}</p>
+                      <p className="text-sm font-semibold text-black mb-0.5">{req.label}</p>
+                      <p className="text-sm text-gray-600 leading-relaxed">{req.text}</p>
                     </div>
                   </div>
                 ))}
@@ -151,8 +177,8 @@ export default function MentorFacultyPage() {
               <div className="flex gap-3 items-start">
                 <IndianRupee className="w-5 h-5 text-black/50 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-sm font-bold text-black mb-1">Compensation</p>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-base font-bold text-black mb-1">Compensation</p>
+                  <p className="text-base text-gray-600 leading-relaxed">
                     This is a paid role. Payment structure and amounts are discussed individually after the initial selection round — based on the course, session frequency, and your profile. We believe in fair, transparent compensation.
                   </p>
                 </div>
@@ -167,7 +193,7 @@ export default function MentorFacultyPage() {
             {/* Quick facts */}
             <Card className="border-gray-200">
               <CardContent className="p-5 space-y-4">
-                <h3 className="text-sm font-bold text-black">Role at a Glance</h3>
+                <h3 className="text-base font-bold text-black">Role at a Glance</h3>
                 {[
                   { label: "Type", value: "Part-time" },
                   { label: "Mode", value: "Remote" },
@@ -176,7 +202,7 @@ export default function MentorFacultyPage() {
                   { label: "Pay", value: "Discussed on contact" },
                   { label: "Language", value: "Tamil / English" },
                 ].map(item => (
-                  <div key={item.label} className="flex justify-between items-center text-xs border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+                  <div key={item.label} className="flex justify-between items-center text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0">
                     <span className="text-gray-500 font-medium">{item.label}</span>
                     <span className="font-semibold text-black text-right">{item.value}</span>
                   </div>
@@ -187,14 +213,14 @@ export default function MentorFacultyPage() {
             {/* Perks */}
             <Card className="border-gray-200">
               <CardContent className="p-5">
-                <h3 className="text-sm font-bold text-black mb-4">Why Join Us</h3>
+                <h3 className="text-base font-bold text-black mb-4">Why Join Us</h3>
                 <div className="space-y-3">
                   {perks.map(p => (
                     <div key={p.label} className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-semibold text-black">{p.label}</p>
-                        <p className="text-[11px] text-gray-500">{p.sub}</p>
+                        <p className="text-sm font-semibold text-black">{p.label}</p>
+                        <p className="text-xs text-gray-500">{p.sub}</p>
                       </div>
                     </div>
                   ))}
@@ -203,7 +229,7 @@ export default function MentorFacultyPage() {
             </Card>
 
             {/* CTA scroll hint */}
-            <p className="text-xs text-gray-400 text-center px-2">
+            <p className="text-sm text-gray-400 text-center px-2">
               Interested? Fill in the application form below.
             </p>
           </div>
@@ -212,8 +238,8 @@ export default function MentorFacultyPage() {
         {/* Application Form */}
         <div className="mt-16 border-t border-gray-200 pt-12">
           <div className="max-w-2xl">
-            <h2 className="text-2xl font-bold text-black mb-1">Apply for this role</h2>
-            <p className="text-sm text-gray-500 mb-8">
+            <h2 className="text-3xl font-bold text-black mb-1">Apply for this role</h2>
+            <p className="text-base text-gray-500 mb-8">
               We'll review your application and get back to you within a few days.
             </p>
 

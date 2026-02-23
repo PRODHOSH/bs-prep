@@ -210,7 +210,7 @@ export default function PaymentPage() {
         <Navbar isAuthenticated={isAuthenticated} />
         <div className="container mx-auto px-4 pt-32 text-center relative z-10">
           <h1 className="text-2xl font-bold text-black mb-4">Course Not Found</h1>
-          <Link href="/courses">
+          <Link href={isAuthenticated ? "/dashboard/courses" : "/courses"}>
             <Button className="bg-black hover:bg-black/80 text-white">Back to Courses</Button>
           </Link>
         </div>
@@ -226,11 +226,11 @@ export default function PaymentPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-24 pb-20 relative z-10">
         {/* Back Button */}
         <Link 
-          href={`/courses/${courseId}`}
+          href={isAuthenticated ? `/dashboard/courses` : `/courses/${courseId}`}
           className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Course
+          Back to Course{isAuthenticated ? "s" : ""}
         </Link>
 
         {/* Page Header */}

@@ -99,6 +99,7 @@ export function Footer() {
                     <button
                       onClick={() => setActiveDev(dev.name)}
                       className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center gap-2 group"
+                      suppressHydrationWarning
                     >
                       <img
                         src={dev.photo}
