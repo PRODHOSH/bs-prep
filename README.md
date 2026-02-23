@@ -5,8 +5,8 @@ Community preparation platform for the IIT Madras BS Degree Program, maintained 
 ## Setup
 
 ```bash
-git clone https://github.com/IITMBSTamilCommunity/bsprep
-cd bsprep
+git clone https://github.com/IITMBSTamilCommunity/bs-prep
+cd bs-prep
 npm install
 npm run dev
 ```
