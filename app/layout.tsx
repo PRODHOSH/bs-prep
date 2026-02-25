@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "BSPrep - IITM BS Learning Platform",
   description: "A comprehensive learning platform for IITM BS students with Tamil courses, mentoring, and community support",
   generator: "v0.app",
+  verification: {
+    google: "5ODn-khJLlBmRAPlBkHz4w54nYhejaoLbrkwl_1-_NU",
+  },
   icons: {
     icon: "/logo.jpeg",
     apple: "/logo.jpeg",
