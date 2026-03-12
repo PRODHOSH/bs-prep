@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 import { createClient } from "@supabase/supabase-js"
 
-const BASE_URL = "https://bs-prep.vercel.app"
+const BASE_URL = "https://bsprep.in"
 
 // Static public routes with SEO priority/frequency hints
 const staticRoutes: MetadataRoute.Sitemap = [

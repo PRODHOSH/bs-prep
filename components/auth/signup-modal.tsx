@@ -5,7 +5,6 @@ import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Dialog,
@@ -28,7 +27,6 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   const [repeatPassword, setRepeatPassword] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
-  const [role, setRole] = useState("student")
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -70,7 +68,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
           data: {
             first_name: firstName,
             last_name: lastName,
-            role,
+            role: "student",
           },
         },
       })
@@ -183,21 +181,6 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 className="h-12 text-base bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
                 suppressHydrationWarning
               />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="role" className="text-sm font-semibold text-black">
-                I am a
-              </Label>
-              <Select value={role} onValueChange={setRole}>
-                <SelectTrigger className="h-12 text-base bg-white border-gray-300 focus:border-black text-black">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-white border-gray-200">
-                  <SelectItem value="student" className="text-black">Student</SelectItem>
-                  <SelectItem value="mentor" className="text-black">Mentor (Senior)</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
 
             <div className="space-y-2">

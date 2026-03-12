@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { createClient } from "@/lib/supabase/client"
-import { Bell, User, Menu, X, ChevronDown } from "lucide-react"
+import { Bell, User, Menu, X, ChevronDown, Settings } from "lucide-react"
 import { LoginModal } from "@/components/auth/login-modal"
 import { SignUpModal } from "@/components/auth/signup-modal"
 import { ForgotPasswordModal } from "@/components/auth/forgot-password-modal"
@@ -284,6 +284,13 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200 shadow-lg">
                     <div className="px-3 py-2 text-sm text-slate-600 truncate">{user?.email}</div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild className="cursor-pointer hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]">
+                      <Link href="/dashboard/settings" className="flex items-center gap-2 text-black">
+                        <Settings className="w-4 h-4" />
+                        Settings
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="text-red-600 cursor-pointer hover:bg-[#fdf6ec] focus:bg-[#fdf6ec]" onClick={handleLogout}>
                       Logout
