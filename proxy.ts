@@ -107,6 +107,32 @@ export async function proxy(request: NextRequest) {
 
   // Handle Supabase session and authentication
   const response = await updateSession(request)
+
+  // Block unauthenticated access to /dashboard/admin
+  if (pathname.startsWith('/dashboard/admin')) {
+    const { createServerClient } = await import('@supabase/ssr')
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { cookies: { getAll: () => request.cookies.getAll(), setAll: () => {} } }
+    )
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/'
+      return NextResponse.redirect(url)
+    }
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+    if (!profile || profile.role !== 'admin') {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard'
+      return NextResponse.redirect(url)
+    }
+  }
   
   // Add security headers to the response
   const securedResponse = addSecurityHeaders(response)
