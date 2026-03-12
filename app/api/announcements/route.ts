@@ -1,9 +1,15 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { validateAndSanitizeInput, validateRequiredFields } from "@/lib/security/validation"
+import { apiRateLimiter, writeRateLimiter } from "@/lib/rate-limit"
 
 // GET: fetch announcements - public endpoint
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  const rl = await apiRateLimiter.check(ip)
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  }
   try {
     const supabase = await createClient()
     
@@ -32,7 +38,12 @@ export async function GET() {
 }
 
 // POST: create announcement - requires admin authentication
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  const rl = await writeRateLimiter.check(ip)
+  if (!rl.success) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  }
   try {
     const supabase = await createClient()
     

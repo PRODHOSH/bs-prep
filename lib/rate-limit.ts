@@ -103,3 +103,9 @@ export const writeRateLimiter = new RateLimiter({
   uniqueTokenPerInterval: 500,
   maxRequests: 10 // 10 write operations per minute
 })
+
+export const deleteAccountRateLimiter = new RateLimiter({
+  interval: 60 * 60 * 1000, // 1 hour
+  uniqueTokenPerInterval: 500,
+  maxRequests: 3 // 3 attempts per hour per IP
+})

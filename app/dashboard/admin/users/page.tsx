@@ -1,6 +1,5 @@
 "use client"
 
-import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useEffect, useState } from "react"
@@ -17,7 +16,6 @@ interface User {
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const supabase = createClient()
 
   useEffect(() => {
     fetchUsers()
@@ -25,20 +23,19 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await supabase.from("profiles").select("*").order("created_at", { ascending: false })
-
-      if (data) {
-        const formattedUsers = data.map((user) => ({
-          id: user.id,
-          name: `${user.first_name} ${user.last_name}`.trim(),
-          email: user.email,
-          role: user.role || "student",
-          created_at: user.created_at,
-        }))
-        setUsers(formattedUsers)
-      }
+      const res = await fetch('/api/admin/users')
+      if (!res.ok) throw new Error('Unauthorized')
+      const data = await res.json()
+      const formattedUsers = (data.users ?? []).map((user: any) => ({
+        id: user.id,
+        name: `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim(),
+        email: user.email,
+        role: user.role || 'student',
+        created_at: user.created_at,
+      }))
+      setUsers(formattedUsers)
     } catch (error) {
-      console.error("Error fetching users:", error)
+      console.error('Error fetching users:', error)
     } finally {
       setIsLoading(false)
     }
@@ -46,14 +43,18 @@ export default function AdminUsersPage() {
 
   const handleRoleChange = async (userId: string, newRole: string) => {
     try {
-      const { error } = await supabase.from("profiles").update({ role: newRole }).eq("id", userId)
-
-      if (error) throw error
+      const res = await fetch('/api/admin/users', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, role: newRole }),
+      })
+      if (!res.ok) throw new Error('Failed to update role')
       fetchUsers()
     } catch (error) {
-      console.error("Error updating user role:", error)
+      console.error('Error updating user role:', error)
     }
   }
+
 
   return (
     <div className="space-y-8">
