@@ -13,6 +13,10 @@
 </p>
 
 <p align="center">
+	<sub>Website: <a href="https://bsprep.in" target="_blank" rel="noopener noreferrer">bsprep.in</a></sub>
+</p>
+
+<p align="center">
 	<img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js" />
 	<img src="https://img.shields.io/badge/TypeScript-Ready-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
 	<img src="https://img.shields.io/badge/Supabase-Backend-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
@@ -28,35 +32,32 @@ BSPrep is a full-stack web platform focused on helping IITM BS learners stay con
 - Dashboard with profile and progress workflows
 - Community and support experiences
 - Secure backend-only payment flow
+- GPA Calculator with updated details
 
-## Project Gallery
+## Showcase
 
-<!-- Replace the image paths below with your own screenshots -->
-<p align="center">
-	<img src="public/readme/hero-main.png" alt="Hero section" width="31%" />
-	<img src="public/readme/dashboard-preview.png" alt="Dashboard preview" width="31%" />
-	<img src="public/readme/payment-preview.png" alt="Payment flow preview" width="31%" />
-</p>
+### Hero Section
+![Hero section](public/readme/hero-section.png)
 
-<p align="center">
-	<img src="public/readme/courses-grid.png" alt="Courses page" width="48.5%" />
-	<img src="public/readme/community-preview.png" alt="Community page" width="48.5%" />
-</p>
+### Dashboard Preview
+![Dashboard preview](public/readme/dashboard-preview.png)
 
-### Suggested Screenshot Names
+### Payment Flow Preview
+![Payment flow preview](public/readme/payment-preview.png)
 
-- public/readme/hero-main.png
-- public/readme/dashboard-preview.png
-- public/readme/payment-preview.png
-- public/readme/courses-grid.png
-- public/readme/community-preview.png
+### Courses Page
+![Courses page](public/readme/courses-grid.png)
+
+### Why BSPrep
+![Community page](public/readme/why-bsprep.png)
+
 
 ## Tech Stack
 
 - Frontend: Next.js App Router, TypeScript, Tailwind CSS, shadcn/ui
 - Backend: Next.js API Routes, Supabase
 - Auth and Data: Supabase Auth + Postgres with RLS
-- Payments: Razorpay (server-side order creation and verification)
+- Payments: Razorpay
 
 ## Run Locally
 
@@ -79,3 +80,11 @@ App runs on: http://localhost:3000
 ## Disclaimer
 
 This project is an independent student initiative and is not affiliated with or endorsed by IIT Madras.
+
+## Usage Restriction
+
+This source code is proprietary.
+
+- You cannot copy, reuse, redistribute, republish, or deploy this code anywhere else.
+- You cannot use this code in personal, academic, or commercial projects.
+- Written permission from the BSPrep team is required for any form of use.
