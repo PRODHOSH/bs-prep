@@ -290,8 +290,6 @@ export default function PackageDealPage() {
                   "All 3 qualifier courses unlocked immediately",
                   "Expert-led video lectures in Tamil",
                   "Practice assignments and quizzes for each course",
-                  "Certificate of completion for each course",
-                  "Lifetime access to all course materials",
                   "Live doubt-clearing sessions",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2.5">

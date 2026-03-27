@@ -20,7 +20,7 @@ const coursePaymentData: Record<string, any> = {
     price: 99,
     description: "Fundamental mathematics concepts for data science",
     thumbnail: "/courses/math.jpg",
-    weeks: 12,
+    weeks: 4,
   },
   "qualifier-stats-1": {
     title: "Statistics for Data Science I",
@@ -28,7 +28,7 @@ const coursePaymentData: Record<string, any> = {
     price: 99,
     description: "Introduction to statistical thinking and analysis",
     thumbnail: "/courses/stats.jpg",
-    weeks: 12,
+    weeks: 4,
   },
   "qualifier-computational-thinking": {
     title: "Computational Thinking",
@@ -36,7 +36,7 @@ const coursePaymentData: Record<string, any> = {
     price: 99,
     description: "Problem-solving and algorithmic thinking fundamentals",
     thumbnail: "/courses/ct.jpg",
-    weeks: 12,
+    weeks: 4,
   },
 }
 
@@ -286,14 +286,6 @@ export default function PaymentPage() {
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-700">Practice assignments and quizzes</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-700">Certificate of completion</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-700">Lifetime access to course materials</span>
                   </div>
                 </div>
 
