@@ -36,6 +36,17 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   const router = useRouter()
   const supabase = createClient()
 
+  const getGoogleAvatarUrl = (currentUser: any): string | null => {
+    if (!currentUser) return null
+
+    const provider = currentUser?.app_metadata?.provider || currentUser?.app_metadata?.providers?.[0]
+    if (provider !== 'google') return null
+
+    return currentUser?.user_metadata?.avatar_url || currentUser?.user_metadata?.picture || null
+  }
+
+  const googleAvatarUrl = getGoogleAvatarUrl(user)
+
   // Build a stable ID for a class notification
   const notifId = (cls: any) => `${cls.course}-${cls.date}-${cls.time}`
 
@@ -279,7 +290,16 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-300 bg-white hover:bg-gray-50 transition-colors">
-                      <User className="w-5 h-5 text-slate-600" />
+                      {googleAvatarUrl ? (
+                        <img
+                          src={googleAvatarUrl}
+                          alt="Profile"
+                          className="w-full h-full rounded-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <User className="w-5 h-5 text-slate-600" />
+                      )}
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200 shadow-lg">

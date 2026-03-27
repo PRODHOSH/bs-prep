@@ -21,20 +21,36 @@ export default function DashboardLayout({
     const getUser = async () => {
       const {
         data: { user },
+        error: userError,
       } = await supabase.auth.getUser()
+
+      if (userError) {
+        console.error("Error fetching auth user:", userError)
+        router.push("/")
+        return
+      }
+
       if (!user) {
         router.push("/")
         return
       }
+
       setUser(user)
 
-      const { data: profile, error } = await supabase.from("profiles").select("role").eq("id", user.id).single()
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .maybeSingle()
 
       if (error) {
         console.error("Error fetching profile:", error)
-        // Default to student if profile not found
+        // Keep app usable even if role fetch fails for unexpected reasons.
         setRole("student")
-      } else if (profile) {
+        return
+      }
+
+      if (profile) {
         console.log("User role detected:", profile.role)
         setRole(profile.role || "student")
         
@@ -44,10 +60,28 @@ export default function DashboardLayout({
         } else if (profile.role === "mentor" && window.location.pathname === "/dashboard") {
           router.push("/dashboard/mentor/courses")
         }
-      } else {
-        // No profile found, default to student
-        setRole("student")
+        return
       }
+
+      // If profile row does not exist yet, create a default one and proceed as student.
+      const { error: createProfileError } = await supabase
+        .from("profiles")
+        .upsert(
+          {
+            id: user.id,
+            email: user.email ?? null,
+            first_name: user.user_metadata?.first_name ?? "",
+            last_name: user.user_metadata?.last_name ?? "",
+            role: "student",
+          },
+          { onConflict: "id" }
+        )
+
+      if (createProfileError) {
+        console.error("Error creating default profile:", createProfileError)
+      }
+
+      setRole("student")
     }
 
     getUser()
