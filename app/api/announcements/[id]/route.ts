@@ -124,9 +124,12 @@ export async function PUT(req: NextRequest, { params }: Params) {
       .single()
 
     if (error) {
-      const fallbackPayload = {
+      const fallbackPayload: Record<string, string | number> = {
         title: sanitizedTitle,
         message: sanitizedMessage,
+      }
+      if (parsedDisplayHours !== null) {
+        fallbackPayload.display_hours = parsedDisplayHours
       }
 
       const retry = await supabase

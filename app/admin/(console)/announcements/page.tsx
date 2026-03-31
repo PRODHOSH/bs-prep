@@ -6,6 +6,8 @@ type Announcement = {
   id: string | number
   title: string
   message: string
+  content?: string
+  announcement_type?: string
   display_hours?: number | null
   created_at: string
 }
@@ -221,8 +223,13 @@ export default function AdminAnnouncementsPage() {
         <div className="mt-4 space-y-3">
           {!loadingList && announcements.map((a) => (
             <article key={a.id} className="rounded-xl border border-white/10 bg-[#0a101c] p-4">
-              <h3 className="font-semibold text-slate-100">{a.title}</h3>
-              <p className="mt-2 text-sm text-slate-300 whitespace-pre-wrap">{a.message || ""}</p>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="font-semibold text-slate-100">{a.title}</h3>
+                <span className="text-xs font-medium text-slate-400 bg-slate-700/40 px-2 py-1 rounded">
+                  {a.announcement_type || 'General'}
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-slate-300 whitespace-pre-wrap">{a.message || a.content || ""}</p>
               <p className="mt-2 text-xs text-slate-500">{new Date(a.created_at).toLocaleString()}</p>
               <p className="mt-1 text-xs text-slate-500">Visible for: {a.display_hours ?? 24} hour(s)</p>
               <div className="mt-3 flex gap-2">

@@ -385,6 +385,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                           const id = announcementNotifId(announcement)
                           const isUnseen = !seenAnnouncementIds.includes(id)
                           const createdAt = announcement.created_at ? new Date(announcement.created_at) : null
+                          const message = announcement.message || announcement.content || ''
                           return (
                             <div key={id} className={`px-4 py-3 flex items-start gap-3 ${isUnseen ? 'bg-red-50' : 'bg-white'}`}>
                               <div className={`mt-1 w-2 h-2 rounded-full shrink-0 ${isUnseen ? 'bg-red-500' : 'bg-gray-300'}`} />
