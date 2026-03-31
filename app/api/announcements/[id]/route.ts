@@ -148,6 +148,30 @@ export async function PUT(req: NextRequest, { params }: Params) {
       .single()
 
     if (error) {
+      // If announcement_type column doesn't exist in DB yet, retry without it
+      if (error.code === 'PGRST204' && error.message?.includes('announcement_type')) {
+        const fallbackPayload = {
+          title: titleValidation.sanitized,
+          message: messageValidation.sanitized,
+        }
+        if (parsedDate) {
+          fallbackPayload.created_at = parsedDate
+        }
+        const retry = await supabase
+          .from("announcements")
+          .update(fallbackPayload)
+          .eq("id", announcementId)
+          .select()
+          .single()
+
+        if (retry.error) {
+          console.error("Announcement update error:", retry.error)
+          return NextResponse.json({ error: "Failed to update announcement" }, { status: 500 })
+        }
+
+        return NextResponse.json(retry.data)
+      }
+
       console.error("Announcement update error:", error)
       return NextResponse.json({ error: "Failed to update announcement" }, { status: 500 })
     }

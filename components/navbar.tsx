@@ -35,6 +35,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   const [announcements, setAnnouncements] = useState<any[]>([])
   const [seenIds, setSeenIds] = useState<string[]>([])
   const [seenAnnouncementIds, setSeenAnnouncementIds] = useState<string[]>([])
+  const [expandedAnnouncementId, setExpandedAnnouncementId] = useState<string | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
@@ -291,16 +292,26 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                           const id = announcementNotifId(announcement)
                           const isUnseen = !seenAnnouncementIds.includes(id)
                           const createdAt = announcement.created_at ? new Date(announcement.created_at) : null
+                          const isExpanded = expandedAnnouncementId === id
+                          const message = announcement.message || announcement.content || ''
                           return (
                             <div key={id} className={`px-4 py-3 flex items-start gap-3 ${isUnseen ? 'bg-red-50' : 'bg-white'}`}>
                               <div className={`mt-1 w-2 h-2 rounded-full flex-shrink-0 ${isUnseen ? 'bg-red-500' : 'bg-gray-300'}`} />
                               <div className="flex-1 min-w-0">
                                 <p className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-0.5">Announcement</p>
                                 <p className="text-sm font-semibold text-black leading-snug">{announcement.title}</p>
-                                <p className="text-xs text-gray-600 mt-0.5 line-clamp-2">{announcement.message || announcement.content || ''}</p>
+                                <p className={`text-xs text-gray-600 mt-0.5 ${isExpanded ? '' : 'line-clamp-2'} whitespace-pre-wrap`}>{message}</p>
                                 {createdAt ? (
                                   <p className="text-xs text-gray-500 mt-1">{createdAt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</p>
                                 ) : null}
+                                {message.length > 100 && (
+                                  <button
+                                    onClick={() => setExpandedAnnouncementId(isExpanded ? null : id)}
+                                    className="text-xs font-semibold text-blue-600 hover:text-blue-800 mt-2"
+                                  >
+                                    {isExpanded ? 'Show less' : 'View all'}
+                                  </button>
+                                )}
                               </div>
                             </div>
                           )

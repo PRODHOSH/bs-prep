@@ -11,15 +11,6 @@ type Params = {
 
 // PUT: Update user profile (admin only)
 export async function PUT(req: NextRequest, { params }: Params) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
-  const rl = await writeRateLimiter.check(ip)
-  if (!rl.success) {
-    return NextResponse.json(
-      { error: 'Too many requests' },
-      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.reset - Date.now()) / 1000)) } }
-    )
-  }
-
   try {
     const { id: userId } = await params
 
@@ -46,6 +37,15 @@ export async function PUT(req: NextRequest, { params }: Params) {
       return NextResponse.json(
         { error: 'Forbidden - Admin access required' },
         { status: 403 }
+      )
+    }
+
+    // Use admin user ID for rate limiting (not IP, to avoid false blocks when multiple admins share IP)
+    const rl = await writeRateLimiter.check(adminUser.id)
+    if (!rl.success) {
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.reset - Date.now()) / 1000)) } }
       )
     }
 

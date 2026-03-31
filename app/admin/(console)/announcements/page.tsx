@@ -260,7 +260,7 @@ export default function AdminAnnouncementsPage() {
             <article key={a.id} className="rounded-xl border border-white/10 bg-[#0a101c] p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-semibold text-slate-100">{a.title}</h3>
-                <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider ${getAnnouncementTypeColor(a.announcement_type)}`}>
+                <span className="text-xs font-medium text-slate-400 bg-slate-700/40 px-2 py-1 rounded">
                   {a.announcement_type || 'General'}
                 </span>
               </div>

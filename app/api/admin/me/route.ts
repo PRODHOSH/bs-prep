@@ -59,13 +59,22 @@ export async function PATCH(request: NextRequest) {
     const lastNameRaw = typeof body?.last_name === "string" ? body.last_name : ""
     const emailRaw = typeof body?.email === "string" ? body.email.trim() : ""
 
+    // For admins, at least one name field must be provided and valid (but not both required)
     const firstNameValidation = validateAndSanitizeInput(firstNameRaw, 100)
     const lastNameValidation = validateAndSanitizeInput(lastNameRaw, 100)
 
-    if (!firstNameValidation.valid) {
+    // At least one name must be valid and provided
+    const hasFirstName = firstNameRaw && firstNameValidation.valid
+    const hasLastName = lastNameRaw && lastNameValidation.valid
+
+    if (!hasFirstName && !hasLastName) {
+      return NextResponse.json({ error: "At least first name or last name is required" }, { status: 400 })
+    }
+
+    if (firstNameRaw && !firstNameValidation.valid) {
       return NextResponse.json({ error: "Invalid first name" }, { status: 400 })
     }
-    if (!lastNameValidation.valid) {
+    if (lastNameRaw && !lastNameValidation.valid) {
       return NextResponse.json({ error: "Invalid last name" }, { status: 400 })
     }
 
@@ -74,9 +83,14 @@ export async function PATCH(request: NextRequest) {
     }
 
     const service = createServiceRoleClient()
-    const updatePayload: Record<string, string | null> = {
-      first_name: firstNameValidation.sanitized || null,
-      last_name: lastNameValidation.sanitized || null,
+    const updatePayload: Record<string, string | null> = {}
+
+    // Only include name fields that were actually provided and valid
+    if (hasFirstName) {
+      updatePayload.first_name = firstNameValidation.sanitized
+    }
+    if (hasLastName) {
+      updatePayload.last_name = lastNameValidation.sanitized
     }
 
     if (emailRaw) {
