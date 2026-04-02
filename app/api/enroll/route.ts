@@ -48,6 +48,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Course not found' }, { status: 404 })
     }
 
+    if (course.type === 'paid') {
+      return NextResponse.json(
+        { error: 'Paid courses require verified payment checkout' },
+        { status: 403 }
+      )
+    }
+
     // Check if already enrolled
     const { data: existingEnrollment } = await supabase
       .from('enrollments')
@@ -72,16 +79,13 @@ export async function POST(request: NextRequest) {
       }, { status: 429 })
     }
 
-    // For paid courses, check payment status (in real app, verify payment here)
-    const paymentStatus = course.type === 'paid' ? 'pending' : 'completed'
-
     // Create enrollment
     const { data: enrollment, error: enrollError } = await supabase
       .from('enrollments')
       .insert({
         user_id: user.id,
         course_id: courseId,
-        payment_status: paymentStatus
+        payment_status: 'completed'
       })
       .select()
       .single()

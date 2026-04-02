@@ -12,6 +12,16 @@ import { ArrowLeft, CreditCard, Lock, Check, Shield } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 
+type RazorpaySuccessResponse = {
+  razorpay_order_id: string
+  razorpay_payment_id: string
+  razorpay_signature: string
+}
+
+type RazorpayConstructor = new (options: Record<string, unknown>) => {
+  open: () => void
+}
+
 // Course data matching the course detail page
 const coursePaymentData: Record<string, any> = {
   "qualifier-math-1": {
@@ -50,6 +60,7 @@ export default function PaymentPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(false)
   const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+  const [checkoutReady, setCheckoutReady] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -62,7 +73,13 @@ export default function PaymentPage() {
     const script = document.createElement('script')
     script.src = 'https://checkout.razorpay.com/v1/checkout.js'
     script.async = true
+    script.onload = () => setCheckoutReady(true)
+    script.onerror = () => setCheckoutReady(false)
     document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
   }, [])
 
   const checkAuth = async () => {
@@ -85,31 +102,48 @@ export default function PaymentPage() {
     setLoading(true)
 
     try {
-      // STEP 1: Create order on your backend
-      // Uncomment when you have backend API ready
-      /*
-      const orderResponse = await fetch('/api/create-razorpay-order', {
+      if (!checkoutReady) {
+        alert('Payment gateway is still loading. Please try again in a moment.')
+        setLoading(false)
+        return
+      }
+
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        router.replace('/courses')
+        return
+      }
+
+      const orderResponse = await fetch('/api/payment/create-order', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
         body: JSON.stringify({
-          amount: course.price * 100, // Razorpay expects amount in paise
-          currency: 'INR',
-          courseId: courseId
-        })
+          courseId,
+          isBundle: false,
+          payer: formData,
+        }),
       })
       const orderData = await orderResponse.json()
-      */
+      if (!orderResponse.ok || !orderData?.orderId) {
+        throw new Error(orderData?.error || 'Failed to create payment order')
+      }
 
-      // STEP 2: Initialize Razorpay
+      const keyId = typeof orderData.keyId === 'string' ? orderData.keyId : razorpayKeyId
+      if (!keyId) {
+        throw new Error('Missing Razorpay public key configuration')
+      }
+
       const options = {
-        // Get these from Razorpay Dashboard: https://dashboard.razorpay.com/app/website-app-settings/api-keys
-        key: razorpayKeyId,
-        amount: course.price * 100, // Amount in paise (₹99 = 9900 paise)
+        key: keyId,
+        amount: orderData.amount,
         currency: 'INR',
         name: 'IITM BS',
         description: course.title,
-        image: '/logo.png', // Your logo
-        // order_id: orderData.orderId, // Uncomment when using backend
+        image: '/logo.png',
+        order_id: orderData.orderId,
         
         // Prefill customer details
         prefill: {
@@ -124,33 +158,34 @@ export default function PaymentPage() {
         },
         
         // Success handler
-        handler: async function (response: any) {
-          // Payment successful
-          console.log('Payment Success:', response)
-          
-          // STEP 3: Verify payment on backend (IMPORTANT for security)
-          /*
-          const verifyResponse = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              courseId: courseId,
-              userId: user?.id
+        handler: async function (response: RazorpaySuccessResponse) {
+          try {
+            const verifyResponse = await fetch('/api/payment/verify', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${session.access_token}`,
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                courseId,
+              })
             })
-          })
-          
-          if (verifyResponse.ok) {
-            // Enroll user in course
-            await enrollUser()
+
+            const verifyData = await verifyResponse.json()
+            if (!verifyResponse.ok) {
+              throw new Error(verifyData?.error || 'Payment verification failed')
+            }
+
+            alert('Payment successful! Your enrollment is confirmed.')
+            router.push('/dashboard/courses')
+          } catch (verifyError) {
+            const message = verifyError instanceof Error ? verifyError.message : 'Payment verification failed'
+            alert(message)
+            setLoading(false)
           }
-          */
-          
-          alert('Payment successful! Payment ID: ' + response.razorpay_payment_id)
-          // Redirect to course page
-          router.push(`/courses/${courseId}`)
         },
         
         // Error handler
@@ -161,50 +196,18 @@ export default function PaymentPage() {
         }
       }
 
-      // @ts-ignore - Razorpay is loaded via script
-      const razorpay = new window.Razorpay(options)
+      const RazorpayRef = (window as unknown as { Razorpay?: RazorpayConstructor }).Razorpay
+      if (!RazorpayRef) {
+        throw new Error('Payment gateway unavailable. Please refresh and try again.')
+      }
+
+      const razorpay = new RazorpayRef(options)
       razorpay.open()
       
     } catch (error) {
       console.error('Payment error:', error)
-      alert('Payment failed. Please try again.')
-      setLoading(false)
-    }
-  }
-
-  const handleDemoEnroll = async () => {
-    setLoading(true)
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        alert('Please log in first')
-        setLoading(false)
-        return
-      }
-
-      // Check if already enrolled
-      const { data: existing } = await supabase
-        .from('enrollments')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('course_id', courseId)
-        .single()
-
-      if (existing) {
-        alert('You are already enrolled in this course!')
-        router.push(`/dashboard/courses`)
-        return
-      }
-
-      const { error } = await supabase
-        .from('enrollments')
-        .insert({ user_id: user.id, course_id: courseId, payment_status: 'completed' })
-
-      if (error) throw error
-      router.push(`/dashboard`)
-    } catch (err) {
-      console.error('Demo enroll error:', err)
-      alert('Enrollment failed. Please try again.')
+      const message = error instanceof Error ? error.message : 'Payment failed. Please try again.'
+      alert(message)
       setLoading(false)
     }
   }

@@ -1,11 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import Razorpay from "razorpay";
 import { verifyUserFromToken, createServiceRoleClient } from "@/lib/supabase/server";
-import {
-  validateCourseId,
-  constantTimeCompare,
-} from "@/lib/validation";
+import { constantTimeCompare } from "@/lib/validation";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/rate-limit";
+
+const coursePricing: Record<string, number> = {
+  "qualifier-math-1": 9900,
+  "qualifier-stats-1": 9900,
+  "qualifier-computational-thinking": 9900,
+  bundle: 24900,
+};
+
+function getRazorpayClient() {
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+  if (!keyId || !keySecret) {
+    throw new Error("Missing Razorpay server credentials");
+  }
+
+  return new Razorpay({
+    key_id: keyId,
+    key_secret: keySecret,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,13 +56,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
-    const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-      courseId,
-    } = body;
+    const raw = await request.text();
+    if (!raw || raw.length > 5000) {
+      return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    }
+
+    let body: Record<string, unknown>;
+    try {
+      body = JSON.parse(raw) as Record<string, unknown>;
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
+    }
+    const razorpay_order_id = typeof body.razorpay_order_id === "string" ? body.razorpay_order_id : "";
+    const razorpay_payment_id = typeof body.razorpay_payment_id === "string" ? body.razorpay_payment_id : "";
+    const razorpay_signature = typeof body.razorpay_signature === "string" ? body.razorpay_signature : "";
 
     // Validate inputs
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -53,10 +79,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const razorpaySecret = process.env.RAZORPAY_KEY_SECRET;
+    if (!razorpaySecret) {
+      return NextResponse.json({ error: "Payment gateway misconfigured" }, { status: 500 });
+    }
+
     // Verify Razorpay signature (CRITICAL SECURITY CHECK)
     const text = `${razorpay_order_id}|${razorpay_payment_id}`;
     const generated_signature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
+      .createHmac("sha256", razorpaySecret)
       .update(text)
       .digest("hex");
 
@@ -69,18 +100,61 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Signature verified - now enroll user
+    const razorpay = getRazorpayClient();
+
+    const [order, payment] = await Promise.all([
+      razorpay.orders.fetch(razorpay_order_id),
+      razorpay.payments.fetch(razorpay_payment_id),
+    ]);
+
+    const expectedCourseId = typeof order.notes?.courseId === "string" ? order.notes.courseId : "";
+    const expectedUserId = typeof order.notes?.userId === "string" ? order.notes.userId : "";
+
+    if (!expectedCourseId || !(expectedCourseId in coursePricing)) {
+      return NextResponse.json({ error: "Invalid order metadata" }, { status: 400 });
+    }
+
+    if (expectedUserId !== userId) {
+      return NextResponse.json({ error: "Order does not belong to user" }, { status: 403 });
+    }
+
+    if (payment.order_id !== razorpay_order_id || payment.status !== "captured") {
+      return NextResponse.json({ error: "Payment not captured" }, { status: 400 });
+    }
+
+    if (payment.currency !== "INR" || payment.amount !== coursePricing[expectedCourseId]) {
+      return NextResponse.json({ error: "Payment amount mismatch" }, { status: 400 });
+    }
+
+    // Signature and Razorpay records verified - now enroll user
     const supabase = createServiceRoleClient();
 
+    const { data: existingPayment } = await supabase
+      .from("payment_orders")
+      .select("id, user_id")
+      .eq("razorpay_payment_id", razorpay_payment_id)
+      .maybeSingle();
+
+    if (existingPayment) {
+      if (existingPayment.user_id !== userId) {
+        return NextResponse.json({ error: "Duplicate payment conflict" }, { status: 409 });
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: "Payment already verified",
+      });
+    }
+
     // Determine if bundle or single course
-    const isBundle = courseId === "bundle";
+    const isBundle = expectedCourseId === "bundle";
     const enrollmentIds = isBundle
       ? [
           "qualifier-math-1",
           "qualifier-stats-1",
           "qualifier-computational-thinking",
         ]
-      : [validateCourseId(courseId)];
+      : [expectedCourseId];
 
     // Store payment record (for audit trail)
     const { error: paymentError } = await supabase
@@ -130,6 +204,14 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Payment verification error:", error);
+
+    if (error instanceof Error && (error.name === "ZodError" || error.message.toLowerCase().includes("invalid"))) {
+      return NextResponse.json(
+        { error: "Invalid verification payload" },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Verification failed" },
       { status: 500 }

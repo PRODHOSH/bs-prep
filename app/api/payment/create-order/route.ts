@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { verifyUserFromToken } from "@/lib/supabase/server";
-import { validateCourseId, validateAmount } from "@/lib/validation";
+import { validateCourseId, validateAmount, validatePaymentForm } from "@/lib/validation";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/rate-limit";
 
 function getRazorpayClient() {
@@ -57,10 +57,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse request body
-    const body = await request.json();
-    const courseId = validateCourseId(body.courseId);
-    const isBundle = body.isBundle === true;
+    const raw = await request.text();
+    if (!raw || raw.length > 5000) {
+      return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    }
+
+    let body: Record<string, unknown>;
+    try {
+      body = JSON.parse(raw) as Record<string, unknown>;
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
+    }
+    const isBundle = body?.isBundle === true;
+    const courseId = isBundle ? "bundle" : validateCourseId(body?.courseId);
+
+    // Validate payer fields to avoid malformed or abusive payloads.
+    const payer = validatePaymentForm(body?.payer || {});
 
     // Determine amount
     let amount: number;
@@ -91,7 +103,10 @@ export async function POST(request: NextRequest) {
       receipt: `receipt_${userId}_${Date.now()}`,
       notes: {
         userId,
-        courseId: isBundle ? "bundle" : courseId,
+        courseId,
+        payerName: payer.name,
+        payerEmail: payer.email,
+        payerPhone: payer.phone,
       },
     });
 
@@ -99,9 +114,18 @@ export async function POST(request: NextRequest) {
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
+      keyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
     });
   } catch (error) {
     console.error("Order creation error:", error);
+
+    if (error instanceof Error && (error.name === "ZodError" || error.message.toLowerCase().includes("invalid"))) {
+      return NextResponse.json(
+        { error: "Invalid payment request" },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to create order" },
       { status: 500 }

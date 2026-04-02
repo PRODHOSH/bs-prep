@@ -15,6 +15,16 @@ import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
+type RazorpaySuccessResponse = {
+  razorpay_order_id: string
+  razorpay_payment_id: string
+  razorpay_signature: string
+}
+
+type RazorpayConstructor = new (options: Record<string, unknown>) => {
+  open: () => void
+}
+
 const BUNDLE_COURSES = [
   {
     id: "qualifier-math-1",
@@ -71,6 +81,7 @@ export default function PackageDealPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(false)
   const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+  const [checkoutReady, setCheckoutReady] = useState(false)
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" })
 
   useEffect(() => {
@@ -78,7 +89,13 @@ export default function PackageDealPage() {
     const script = document.createElement("script")
     script.src = "https://checkout.razorpay.com/v1/checkout.js"
     script.async = true
+    script.onload = () => setCheckoutReady(true)
+    script.onerror = () => setCheckoutReady(false)
     document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
   }, [])
 
   const checkAuth = async () => {
@@ -105,22 +122,81 @@ export default function PackageDealPage() {
 
     setLoading(true)
     try {
+      if (!checkoutReady) {
+        alert("Payment gateway is still loading. Please try again in a moment.")
+        setLoading(false)
+        return
+      }
+
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        router.replace("/courses")
+        return
+      }
+
+      const orderResponse = await fetch("/api/payment/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          isBundle: true,
+          payer: formData,
+        }),
+      })
+
+      const orderData = await orderResponse.json()
+      if (!orderResponse.ok || !orderData?.orderId) {
+        throw new Error(orderData?.error || "Failed to create payment order")
+      }
+
+      const keyId = typeof orderData.keyId === "string" ? orderData.keyId : razorpayKeyId
+      if (!keyId) {
+        throw new Error("Missing Razorpay public key configuration")
+      }
+
       const options = {
-        key: razorpayKeyId,
-        amount: BUNDLE_PRICE * 100,
+        key: keyId,
+        amount: orderData.amount,
         currency: "INR",
         name: "BSPrep",
         description: "Qualifier Bundle — All 3 Courses",
+        order_id: orderData.orderId,
         prefill: {
           name: formData.name,
           email: formData.email,
           contact: formData.phone,
         },
         theme: { color: "#000000" },
-        handler: async function (response: any) {
-          console.log("Payment Success:", response)
-          alert("Payment successful! Payment ID: " + response.razorpay_payment_id)
-          router.push("/dashboard/courses")
+        handler: async function (response: RazorpaySuccessResponse) {
+          try {
+            const verifyResponse = await fetch("/api/payment/verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session.access_token}`,
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                courseId: "bundle",
+              }),
+            })
+
+            const verifyData = await verifyResponse.json()
+            if (!verifyResponse.ok) {
+              throw new Error(verifyData?.error || "Payment verification failed")
+            }
+
+            alert("Payment successful! Your enrollment is confirmed.")
+            router.push("/dashboard/courses")
+          } catch (verifyError) {
+            const message = verifyError instanceof Error ? verifyError.message : "Payment verification failed"
+            alert(message)
+            setLoading(false)
+          }
         },
         modal: {
           ondismiss: function () {
@@ -128,44 +204,18 @@ export default function PackageDealPage() {
           },
         },
       }
-      // @ts-ignore
-      const razorpay = new window.Razorpay(options)
+
+      const RazorpayRef = (window as unknown as { Razorpay?: RazorpayConstructor }).Razorpay
+      if (!RazorpayRef) {
+        throw new Error("Payment gateway unavailable. Please refresh and try again.")
+      }
+
+      const razorpay = new RazorpayRef(options)
       razorpay.open()
     } catch (error) {
       console.error("Payment error:", error)
-      alert("Payment failed. Please try again.")
-      setLoading(false)
-    }
-  }
-
-  const handleDemoEnroll = async () => {
-    setLoading(true)
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        router.replace("/courses")
-        return
-      }
-
-      for (const course of BUNDLE_COURSES) {
-        const { data: existing } = await supabase
-          .from("enrollments")
-          .select("id")
-          .eq("user_id", user.id)
-          .eq("course_id", course.id)
-          .single()
-
-        if (!existing) {
-          await supabase
-            .from("enrollments")
-            .insert({ user_id: user.id, course_id: course.id, payment_status: "completed" })
-        }
-      }
-
-      router.push("/dashboard/courses")
-    } catch (err) {
-      console.error("Demo enroll error:", err)
-      alert("Enrollment failed. Please try again.")
+      const message = error instanceof Error ? error.message : "Payment failed. Please try again."
+      alert(message)
       setLoading(false)
     }
   }
