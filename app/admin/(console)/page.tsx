@@ -4,16 +4,18 @@ import { createServiceRoleClient } from "@/lib/supabase/server"
 async function getPortalStats() {
   const service = createServiceRoleClient()
 
-  const [{ count: userCount }, { count: announcementCount }, { count: adminCount }] = await Promise.all([
+  const [{ count: userCount }, { count: announcementCount }, { count: adminCount }, { count: doubtCount }] = await Promise.all([
     service.from("profiles").select("id", { count: "exact", head: true }),
     service.from("announcements").select("id", { count: "exact", head: true }),
     service.from("profiles").select("id", { count: "exact", head: true }).eq("role", "admin"),
+    service.from("doubts").select("id", { count: "exact", head: true }),
   ])
 
   return {
     users: userCount ?? 0,
     announcements: announcementCount ?? 0,
     admins: adminCount ?? 0,
+    doubts: doubtCount ?? 0,
   }
 }
 
@@ -34,6 +36,12 @@ export default async function AdminPage() {
       value: stats.announcements,
     },
     {
+      title: "Doubts",
+      description: "Reply to student doubts and track resolution status.",
+      href: "/admin/doubts",
+      value: stats.doubts,
+    },
+    {
       title: "Settings",
       description: "Manage your admin profile and account settings.",
       href: "/admin/details",
@@ -48,7 +56,7 @@ export default async function AdminPage() {
         <p className="mt-1 text-sm text-slate-400">Manage users, announcements, and admin access from one place.</p>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => (
           <Link
             key={card.title}
