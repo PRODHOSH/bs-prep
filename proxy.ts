@@ -72,12 +72,20 @@ export async function proxy(request: NextRequest) {
     const key = getRateLimitKey(request)
     
     // Different rate limits for different endpoints
-    let maxRequests = 60
+    let maxRequests = request.method === 'GET' ? 2000 : 180
     let windowMs = 60 * 1000 // 1 minute
     
     if (pathname.includes('/auth/')) {
       maxRequests = 5
       windowMs = 15 * 60 * 1000 // 15 minutes for auth
+    } else if (
+      pathname.startsWith('/api/admin/notifications') ||
+      pathname.startsWith('/api/doubts/notifications') ||
+      pathname.startsWith('/api/announcements') ||
+      pathname.startsWith('/api/live-classes')
+    ) {
+      maxRequests = 600
+      windowMs = 60 * 1000 // 1 minute for polling-heavy notification endpoints
     } else if (pathname.startsWith('/api/payment/webhook')) {
       maxRequests = 300
       windowMs = 60 * 1000 // 1 minute for webhook callbacks

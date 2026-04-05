@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -53,6 +53,13 @@ export default function ResourcesPage() {
   const [ratingLoadingId, setRatingLoadingId] = useState<string | null>(null)
   const [ratingsEnabled, setRatingsEnabled] = useState(true)
 
+  const [searchQuery, setSearchQuery] = useState("")
+  const [levelFilter, setLevelFilter] = useState("all")
+  const [typeFilter, setTypeFilter] = useState("all")
+  const [ratingFilter, setRatingFilter] = useState<"all" | "rated" | "unrated" | "popular">("all")
+  const [minRatingsFilter, setMinRatingsFilter] = useState("0")
+  const [sortBy, setSortBy] = useState<"newest" | "oldest" | "rating-high" | "rating-low">("newest")
+
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [level, setLevel] = useState("")
@@ -90,12 +97,21 @@ export default function ResourcesPage() {
   }
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const checkAuthAndLoad = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      setIsAuthenticated(!!session)
+      const authenticated = Boolean(session)
+      setIsAuthenticated(authenticated)
+
+      if (authenticated) {
+        await loadResources()
+      } else {
+        setResources([])
+        setMySubmissions([])
+        setRatingsEnabled(false)
+        setIsLoading(false)
+      }
     }
-    checkAuth()
-    void loadResources()
+    void checkAuthAndLoad()
   }, [])
 
   useEffect(() => {
@@ -103,6 +119,38 @@ export default function ResourcesPage() {
       setViewMode("all")
     }
   }, [isAuthenticated, viewMode])
+
+  const filteredResources = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase()
+    const minRatings = Number.parseInt(minRatingsFilter, 10) || 0
+
+    const filtered = resources.filter((resource) => {
+      const matchesQuery =
+        !query ||
+        resource.title.toLowerCase().includes(query) ||
+        resource.description.toLowerCase().includes(query) ||
+        resource.uploaded_by.toLowerCase().includes(query)
+
+      const matchesLevel = levelFilter === "all" || resource.level === levelFilter
+      const matchesType = typeFilter === "all" || resource.resource_type === typeFilter
+      const matchesMinRatings = resource.rating_count >= minRatings
+
+      const matchesRatingMode =
+        ratingFilter === "all" ||
+        (ratingFilter === "rated" && resource.user_has_rated) ||
+        (ratingFilter === "unrated" && !resource.user_has_rated) ||
+        (ratingFilter === "popular" && resource.rating_count >= 3)
+
+      return matchesQuery && matchesLevel && matchesType && matchesMinRatings && matchesRatingMode
+    })
+
+    return filtered.sort((a, b) => {
+      if (sortBy === "newest") return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      if (sortBy === "oldest") return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      if (sortBy === "rating-high") return b.rating_count - a.rating_count
+      return a.rating_count - b.rating_count
+    })
+  }, [resources, searchQuery, levelFilter, typeFilter, ratingFilter, minRatingsFilter, sortBy])
 
   async function toggleRating(resourceId: string) {
     if (!isAuthenticated) {
@@ -215,6 +263,14 @@ export default function ResourcesPage() {
             <div className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-700">{loadWarning}</div>
           ) : null}
 
+          {!isAuthenticated ? (
+            <section className="rounded-2xl border border-gray-200 bg-white p-5 md:p-8">
+              <h2 className="text-2xl font-semibold text-black">Sign In Required</h2>
+              <p className="mt-2 text-sm text-black/70">
+                Resources are available only after signup/login. Please sign in and then open this page again.
+              </p>
+            </section>
+          ) : (
           <section className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
             <div className="flex items-center justify-between gap-3">
               <div>
@@ -311,6 +367,7 @@ export default function ResourcesPage() {
 
             {status ? <p className="mt-3 text-sm text-black/70">{status}</p> : null}
           </section>
+          )}
 
           {isAuthenticated ? (
             <section className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
@@ -383,19 +440,87 @@ export default function ResourcesPage() {
               )}
             </section>
           ) : (
+            isAuthenticated ? (
             <section className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl font-semibold text-black">All Resources</h2>
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <h2 className="text-xl font-semibold text-black">All Resources</h2>
+                <p className="text-sm text-black/60">Showing {filteredResources.length} of {resources.length}</p>
+              </div>
+
+              <div className="mb-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+                <input
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search title, description, uploader"
+                  className="h-10 rounded-lg border border-gray-300 px-3 text-sm outline-none focus:border-black"
+                />
+
+                <select
+                  value={levelFilter}
+                  onChange={(event) => setLevelFilter(event.target.value)}
+                  className="h-10 rounded-lg border border-gray-300 px-3 text-sm outline-none focus:border-black"
+                >
+                  <option value="all">All levels</option>
+                  {levels.map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={typeFilter}
+                  onChange={(event) => setTypeFilter(event.target.value)}
+                  className="h-10 rounded-lg border border-gray-300 px-3 text-sm outline-none focus:border-black"
+                >
+                  <option value="all">All types</option>
+                  {resourceTypes.map((item) => (
+                    <option key={item} value={item}>{item}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={ratingFilter}
+                  onChange={(event) => setRatingFilter(event.target.value as "all" | "rated" | "unrated" | "popular")}
+                  className="h-10 rounded-lg border border-gray-300 px-3 text-sm outline-none focus:border-black"
+                >
+                  <option value="all">All ratings</option>
+                  <option value="rated">Rated by me</option>
+                  <option value="unrated">Not rated by me</option>
+                  <option value="popular">Popular (3+ ratings)</option>
+                </select>
+
+                <select
+                  value={minRatingsFilter}
+                  onChange={(event) => setMinRatingsFilter(event.target.value)}
+                  className="h-10 rounded-lg border border-gray-300 px-3 text-sm outline-none focus:border-black"
+                >
+                  <option value="0">Min ratings: 0</option>
+                  <option value="1">Min ratings: 1</option>
+                  <option value="3">Min ratings: 3</option>
+                  <option value="5">Min ratings: 5</option>
+                </select>
+
+                <select
+                  value={sortBy}
+                  onChange={(event) => setSortBy(event.target.value as "newest" | "oldest" | "rating-high" | "rating-low")}
+                  className="h-10 rounded-lg border border-gray-300 px-3 text-sm outline-none focus:border-black"
+                >
+                  <option value="newest">Sort: Newest</option>
+                  <option value="oldest">Sort: Oldest</option>
+                  <option value="rating-high">Sort: Highest rated</option>
+                  <option value="rating-low">Sort: Lowest rated</option>
+                </select>
+              </div>
 
               {isLoading ? (
                 <div className="mt-4 flex items-center gap-2 text-sm text-black/70">
                   <Loader2 className="h-4 w-4 animate-spin" />
                   Loading resources...
                 </div>
-              ) : resources.length === 0 ? (
-                <p className="mt-3 text-sm text-black/60">No approved resources yet.</p>
+              ) : filteredResources.length === 0 ? (
+                <p className="mt-3 text-sm text-black/60">No resources match your current filters.</p>
               ) : (
                 <div className="mt-4 grid gap-3 md:grid-cols-2">
-                  {resources.map((resource) => (
+                  {filteredResources.map((resource) => (
                     <article key={resource.id} className="rounded-xl border border-gray-200 p-4">
                       <p className="text-base font-semibold text-black">{resource.title}</p>
                       <p className="mt-1 text-sm text-black/70">{resource.description}</p>
@@ -441,6 +566,7 @@ export default function ResourcesPage() {
                 </div>
               )}
             </section>
+            ) : null
           )}
         </div>
       </main>

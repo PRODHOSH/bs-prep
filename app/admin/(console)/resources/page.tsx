@@ -33,6 +33,7 @@ export default function AdminResourcesPage() {
   const [loadWarning, setLoadWarning] = useState("")
   const [reviewNotesById, setReviewNotesById] = useState<Record<string, string>>({})
   const [shortDescriptionById, setShortDescriptionById] = useState<Record<string, string>>({})
+  const [fileNameById, setFileNameById] = useState<Record<string, string>>({})
 
   async function parseApiResponse(res: Response): Promise<{ data: any; fallbackMessage: string }> {
     const text = await res.text()
@@ -97,12 +98,18 @@ export default function AdminResourcesPage() {
     setMessage("")
     try {
       const reviewNotes = reviewNotesById[submissionId]?.trim() ?? ""
+      if (status === "rejected" && !reviewNotes) {
+        setMessage("Reason is mandatory when rejecting a file.")
+        return
+      }
+
       const adminDescription = shortDescriptionById[submissionId]?.trim() ?? ""
+      const approvedTitle = fileNameById[submissionId]?.trim() ?? ""
 
       const res = await fetch("/api/admin/resources", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ submissionId, status, reviewNotes, adminDescription }),
+        body: JSON.stringify({ submissionId, status, reviewNotes, adminDescription, approvedTitle }),
       })
       const { data, fallbackMessage } = await parseApiResponse(res)
       if (!res.ok) {
@@ -112,6 +119,11 @@ export default function AdminResourcesPage() {
       setMessage(`Submission ${status}.`)
       setReviewNotesById((prev) => ({ ...prev, [submissionId]: "" }))
       setShortDescriptionById((prev) => ({ ...prev, [submissionId]: "" }))
+      setFileNameById((prev) => {
+        const next = { ...prev }
+        delete next[submissionId]
+        return next
+      })
       await loadSubmissions()
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Failed to update submission")
@@ -299,15 +311,32 @@ export default function AdminResourcesPage() {
                     )}
                   </div>
 
-                  {statusFilter === "pending" ? (
+                  {statusFilter !== "approved" ? (
                     <div className="mt-4 space-y-3 rounded-lg border border-white/10 bg-[#0b1220] p-3">
+                      <div>
+                        <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                          Final File Name / Title (Optional)
+                        </label>
+                        <input
+                          value={fileNameById[submission.id] ?? submission.title}
+                          onChange={(event) =>
+                            setFileNameById((prev) => ({
+                              ...prev,
+                              [submission.id]: event.target.value,
+                            }))
+                          }
+                          placeholder="Rename title shown to students"
+                          className="h-10 w-full rounded-md border border-white/10 bg-[#0a101b] px-3 text-xs text-slate-100 outline-none"
+                        />
+                      </div>
+
                       <div className="grid gap-3 md:grid-cols-2">
                         <div>
                           <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-400">
                             Short Description (Optional)
                           </label>
                           <textarea
-                            value={shortDescriptionById[submission.id] ?? ""}
+                            value={shortDescriptionById[submission.id] ?? submission.admin_description ?? ""}
                             onChange={(event) =>
                               setShortDescriptionById((prev) => ({
                                 ...prev,
@@ -321,10 +350,10 @@ export default function AdminResourcesPage() {
 
                         <div>
                           <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                            Comment To Uploader (Optional)
+                            Comment To Uploader {statusFilter === "rejected" ? "(Required to Reject Again)" : "(Optional)"}
                           </label>
                           <textarea
-                            value={reviewNotesById[submission.id] ?? ""}
+                            value={reviewNotesById[submission.id] ?? submission.review_notes ?? ""}
                             onChange={(event) =>
                               setReviewNotesById((prev) => ({
                                 ...prev,
@@ -343,7 +372,7 @@ export default function AdminResourcesPage() {
                           disabled={isSaving}
                           className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-60"
                         >
-                          Approve
+                          {statusFilter === "rejected" ? "Approve Again" : "Approve"}
                         </button>
                         <button
                           onClick={() => updateSubmission(submission.id, "rejected")}

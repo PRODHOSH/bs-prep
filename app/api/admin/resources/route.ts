@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { hasAdminRole } from "@/lib/security/admin-role"
 import { validateAndSanitizeInput } from "@/lib/security/validation"
-
-const RESOURCE_BUCKET = "resource-pdfs"
+import { resolveResourcePdfUrl } from "@/lib/google-drive"
 
 type AdminStatus = "pending" | "approved" | "rejected"
 
@@ -110,9 +109,6 @@ export async function GET(request: NextRequest) {
 
     const submissions = (rows ?? []).map((row) => {
       const profile = profileById.get(row.user_id)
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from(RESOURCE_BUCKET).getPublicUrl(row.pdf_path)
 
       return {
         id: row.id,
@@ -128,7 +124,7 @@ export async function GET(request: NextRequest) {
         review_notes: row.review_notes,
         created_at: row.created_at,
         reviewed_at: row.reviewed_at,
-        pdf_url: publicUrl,
+        pdf_url: resolveResourcePdfUrl(row.pdf_path),
       }
     })
 
@@ -160,6 +156,7 @@ export async function PATCH(request: NextRequest) {
       status?: AdminStatus
       reviewNotes?: string
       adminDescription?: string
+      approvedTitle?: string
     }
 
     const submissionId = typeof body.submissionId === "string" ? body.submissionId.trim() : ""
@@ -178,6 +175,10 @@ export async function PATCH(request: NextRequest) {
       reviewNotes = noteValidation.sanitized
     }
 
+    if (status === "rejected" && !reviewNotes) {
+      return NextResponse.json({ error: "Reason is mandatory when rejecting a file" }, { status: 400 })
+    }
+
     let adminDescription: string | null = null
     if (typeof body.adminDescription === "string" && body.adminDescription.trim().length > 0) {
       const descValidation = validateAndSanitizeInput(body.adminDescription, 220)
@@ -187,10 +188,20 @@ export async function PATCH(request: NextRequest) {
       adminDescription = descValidation.sanitized
     }
 
+    let approvedTitle: string | null = null
+    if (typeof body.approvedTitle === "string" && body.approvedTitle.trim().length > 0) {
+      const titleValidation = validateAndSanitizeInput(body.approvedTitle, 180)
+      if (!titleValidation.valid || titleValidation.sanitized.length < 3) {
+        return NextResponse.json({ error: "Invalid final file name/title" }, { status: 400 })
+      }
+      approvedTitle = titleValidation.sanitized
+    }
+
     const supabase = createServiceRoleClient()
     let { error } = await supabase
       .from("resource_submissions")
       .update({
+        title: approvedTitle ?? undefined,
         status,
         review_notes: reviewNotes,
         admin_description: adminDescription,
@@ -199,18 +210,17 @@ export async function PATCH(request: NextRequest) {
         updated_at: new Date().toISOString(),
       })
       .eq("id", submissionId)
-      .eq("status", "pending")
 
     if ((error as { code?: string } | null)?.code === "42703") {
       const fallbackUpdate = await supabase
         .from("resource_submissions")
         .update({
+          title: approvedTitle ?? undefined,
           status,
           review_notes: reviewNotes,
           updated_at: new Date().toISOString(),
         })
         .eq("id", submissionId)
-        .eq("status", "pending")
 
       error = fallbackUpdate.error
     }

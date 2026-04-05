@@ -72,7 +72,4 @@ BEFORE UPDATE ON public.resource_submissions
 FOR EACH ROW
 EXECUTE FUNCTION public.resource_submissions_set_updated_at();
 
--- Storage bucket for uploaded PDFs (run once).
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('resource-pdfs', 'resource-pdfs', true)
-ON CONFLICT (id) DO NOTHING;
+-- PDF files are stored in Google Drive. The pdf_path column holds the Drive file ID.

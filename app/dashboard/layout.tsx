@@ -4,7 +4,7 @@ import type React from "react"
 
 import { createClient } from "@/lib/supabase/client"
 import { Navbar } from "@/components/navbar"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 function formatSupabaseError(error: unknown) {
@@ -44,6 +44,7 @@ export default function DashboardLayout({
   const [user, setUser] = useState<any>(null)
   const [role, setRole] = useState<string | null>(null)
   const router = useRouter()
+  const pathname = usePathname()
   const supabase = createClient()
 
   useEffect(() => {
@@ -84,10 +85,10 @@ export default function DashboardLayout({
         console.log("User role detected:", profile.role)
         setRole(profile.role || "student")
         
-        // Redirect admin/mentor to their respective dashboards
-        if (profile.role === "admin" && window.location.pathname === "/dashboard") {
+        // Redirect admin/mentor away from student dashboard routes.
+        if (profile.role === "admin" && pathname?.startsWith("/dashboard")) {
           router.push("/admin")
-        } else if (profile.role === "mentor" && window.location.pathname === "/dashboard") {
+        } else if (profile.role === "mentor" && pathname?.startsWith("/dashboard")) {
           router.push("/dashboard/mentor/courses")
         }
         return
@@ -115,7 +116,7 @@ export default function DashboardLayout({
     }
 
     getUser()
-  }, [])
+  }, [pathname, router, supabase])
 
   if (!user) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>

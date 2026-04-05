@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { validateAndSanitizeInput } from "@/lib/security/validation"
-
-const RESOURCE_BUCKET = "resource-pdfs"
+import { deleteGoogleDriveFile, resolveResourcePdfUrl, uploadPdfToGoogleDrive } from "@/lib/google-drive"
 const MAX_PDF_SIZE_BYTES = 45 * 1024 * 1024
 const MAX_PDF_SIZE_MB = Math.floor(MAX_PDF_SIZE_BYTES / (1024 * 1024))
 
@@ -14,11 +13,6 @@ type AllowedResourceType = (typeof ALLOWED_RESOURCE_TYPES)[number]
 
 function sanitizeFileName(fileName: string): string {
   return fileName.replace(/[^a-zA-Z0-9._-]/g, "_")
-}
-
-function isMissingBucketError(error: unknown): boolean {
-  const message = String((error as { message?: string } | null)?.message ?? "").toLowerCase()
-  return message.includes("bucket") && (message.includes("not found") || message.includes("does not exist"))
 }
 
 function formatProfileName(profile?: { first_name?: string | null; last_name?: string | null; email?: string | null }) {
@@ -39,46 +33,28 @@ function isRatingsTableMissingError(error: unknown): boolean {
   return false
 }
 
-async function ensureResourceBucket(service: ReturnType<typeof createServiceRoleClient>): Promise<{ ok: true } | { ok: false; error: string }> {
-  const bucketInfo = await service.storage.getBucket(RESOURCE_BUCKET)
-  if (!bucketInfo.error) {
-    return { ok: true }
-  }
-
-  // Auto-heal common setup issue: missing storage bucket.
-  const isMissingBucket = isMissingBucketError(bucketInfo.error)
-
-  if (isMissingBucket) {
-    const createResult = await service.storage.createBucket(RESOURCE_BUCKET, {
-      public: true,
-      fileSizeLimit: `${MAX_PDF_SIZE_BYTES}`,
-      allowedMimeTypes: ["application/pdf"],
-    })
-
-    if (!createResult.error) {
-      return { ok: true }
-    }
-
-    const createMessage = String((createResult.error as { message?: string } | null)?.message ?? "")
-    return {
-      ok: false,
-      error: createMessage || "Could not create storage bucket resource-pdfs",
-    }
-  }
-
-  const existingErrorMessage = String((bucketInfo.error as { message?: string } | null)?.message ?? "")
-  return {
-    ok: false,
-    error: existingErrorMessage || "Resource storage bucket is not ready",
-  }
-}
-
 export async function GET() {
   try {
     const supabase = await createClient()
     const {
       data: { user },
+      error: authError,
     } = await supabase.auth.getUser()
+
+    if (authError || !user) {
+      return NextResponse.json(
+        {
+          error: "Please sign in to access resources",
+          resources: [],
+          mySubmissions: [],
+          isAuthenticated: false,
+          ratingsEnabled: false,
+          levels: ALLOWED_LEVELS,
+          resourceTypes: ALLOWED_RESOURCE_TYPES,
+        },
+        { status: 401 },
+      )
+    }
 
     const service = createServiceRoleClient()
 
@@ -203,10 +179,6 @@ export async function GET() {
     }
 
     const resources = (approvedRows ?? []).map((row) => {
-      const {
-        data: { publicUrl },
-      } = service.storage.from(RESOURCE_BUCKET).getPublicUrl(row.pdf_path)
-
       const uploaderProfile = profileById.get((row as { user_id?: string | null }).user_id ?? "")
       const approverProfile = profileById.get((row as { reviewed_by?: string | null }).reviewed_by ?? "")
 
@@ -220,7 +192,7 @@ export async function GET() {
         course_title: courseById.get((row as { course_id?: string | null }).course_id ?? "")?.title ?? "General Resource",
         level: (row as { level?: string }).level ?? "other",
         resource_type: (row as { resource_type?: string }).resource_type ?? "other",
-        pdf_url: publicUrl,
+        pdf_url: resolveResourcePdfUrl(row.pdf_path),
         created_at: row.created_at,
         uploaded_by: formatProfileName(uploaderProfile),
         approved_by: formatProfileName(approverProfile),
@@ -290,9 +262,6 @@ export async function GET() {
         }
 
         mySubmissions = (ownRows ?? []).map((row) => {
-          const pdfPath = (row as { pdf_path?: string | null }).pdf_path
-          const pdfUrl = pdfPath ? service.storage.from(RESOURCE_BUCKET).getPublicUrl(pdfPath).data.publicUrl : null
-
           return {
             id: row.id,
             title: row.title,
@@ -303,7 +272,7 @@ export async function GET() {
             status: row.status,
             created_at: row.created_at,
             review_notes: row.review_notes,
-            pdf_url: pdfUrl,
+            pdf_url: resolveResourcePdfUrl((row as { pdf_path?: string | null }).pdf_path),
           }
         })
       }
@@ -380,7 +349,7 @@ export async function POST(request: Request) {
 
     const service = createServiceRoleClient()
 
-    // Ensure DB schema exists before uploading any file to storage.
+    // Ensure DB schema exists before uploading any file to Drive.
     const tableProbe = await service.from("resource_submissions").select("id").limit(1)
     if (tableProbe.error && (tableProbe.error as { code?: string }).code === "42P01") {
       return NextResponse.json(
@@ -397,39 +366,51 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: probeMessage || "Failed to verify resource table" }, { status: 500 })
     }
 
-    const bucketReady = await ensureResourceBucket(service)
-    if (!bucketReady.ok) {
-      return NextResponse.json({ error: bucketReady.error }, { status: 500 })
-    }
-
     const safeName = sanitizeFileName(file.name)
-    const filePath = `${user.id}/${Date.now()}-${safeName}`
     const fileBuffer = Buffer.from(await file.arrayBuffer())
 
-    let { error: uploadError } = await service.storage.from(RESOURCE_BUCKET).upload(filePath, fileBuffer, {
-      contentType: "application/pdf",
-      upsert: false,
-    })
-
-    // In case bucket was deleted between checks, auto-recreate and retry once.
-    if (uploadError && isMissingBucketError(uploadError)) {
-      const bucketRetryReady = await ensureResourceBucket(service)
-      if (!bucketRetryReady.ok) {
-        return NextResponse.json({ error: bucketRetryReady.error }, { status: 500 })
-      }
-      const retryUpload = await service.storage.from(RESOURCE_BUCKET).upload(filePath, fileBuffer, {
-        contentType: "application/pdf",
-        upsert: false,
+    let uploadedFileId: string | null = null
+    let uploadedToDrive = false
+    try {
+      const uploadResult = await uploadPdfToGoogleDrive({
+        fileName: safeName,
+        fileBuffer,
       })
-      uploadError = retryUpload.error
-    }
+      uploadedFileId = uploadResult.fileId
+      uploadedToDrive = true
+    } catch (uploadError) {
+      const message = uploadError instanceof Error ? uploadError.message : "Failed to upload PDF"
+      const normalizedMessage = message.toLowerCase()
 
-    if (uploadError) {
-      const uploadMessage = (uploadError as { message?: string } | null)?.message
-      if (String(uploadMessage ?? "").toLowerCase().includes("exceeded the maximum allowed size")) {
-        return NextResponse.json({ error: `PDF is too large for storage. Please upload up to ${MAX_PDF_SIZE_MB} MB.` }, { status: 400 })
+      // If Google credentials are not configured, fall back to Supabase storage.
+      if (normalizedMessage.includes("google credentials are missing")) {
+        const fallbackPath = `${user.id}/${Date.now()}-${safeName}`
+        const fallbackUpload = await service.storage.from("resource-pdfs").upload(fallbackPath, fileBuffer, {
+          contentType: "application/pdf",
+          upsert: false,
+        })
+
+        if (fallbackUpload.error) {
+          return NextResponse.json(
+            { error: `Google credentials missing and Supabase fallback upload failed: ${fallbackUpload.error.message}` },
+            { status: 500 },
+          )
+        }
+
+        uploadedFileId = fallbackPath
+        uploadedToDrive = false
       }
-      return NextResponse.json({ error: uploadMessage || "Failed to upload PDF" }, { status: 500 })
+
+      if (message.toLowerCase().includes("google drive folder is not configured")) {
+        return NextResponse.json({ error: message }, { status: 500 })
+      }
+      if (message.toLowerCase().includes("too large")) {
+        return NextResponse.json({ error: `PDF is too large. Please upload up to ${MAX_PDF_SIZE_MB} MB.` }, { status: 400 })
+      }
+
+      if (!uploadedFileId) {
+        return NextResponse.json({ error: message }, { status: 500 })
+      }
     }
 
     const baseInsertPayload = {
@@ -438,7 +419,7 @@ export async function POST(request: Request) {
       resource_type: typeRaw,
       title: titleValidation.sanitized,
       description: descriptionValidation.sanitized,
-      pdf_path: filePath,
+      pdf_path: uploadedFileId,
       status: "pending",
     }
 
@@ -446,7 +427,7 @@ export async function POST(request: Request) {
       user_id: user.id,
       title: titleValidation.sanitized,
       description: descriptionValidation.sanitized,
-      pdf_path: filePath,
+      pdf_path: uploadedFileId,
       status: "pending",
     }
 
@@ -483,7 +464,17 @@ export async function POST(request: Request) {
     }
 
     if (insertError) {
-      await service.storage.from(RESOURCE_BUCKET).remove([filePath])
+      if (uploadedFileId) {
+        try {
+          if (uploadedToDrive) {
+            await deleteGoogleDriveFile(uploadedFileId)
+          } else {
+            await service.storage.from("resource-pdfs").remove([uploadedFileId])
+          }
+        } catch (cleanupError) {
+          console.warn("Failed to clean up uploaded PDF after insert error:", cleanupError)
+        }
+      }
 
       const code = (insertError as { code?: string }).code
       const message = (insertError as { message?: string } | null)?.message

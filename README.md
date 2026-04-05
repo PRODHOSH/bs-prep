@@ -60,6 +60,14 @@ BSPrep is a full-stack web platform focused on helping IITM BS learners stay con
 - Backend: Next.js API Routes, Supabase
 - Auth and Data: Supabase Auth + Postgres with RLS
 - Payments: Razorpay
+- Resource PDFs: Google Drive-backed storage to avoid Supabase storage limits
+
+## Environment Notes
+
+Resource uploads now require a Google service account and a Drive folder ID:
+
+- `GOOGLE_APPLICATION_CREDENTIALS` or `GOOGLE_SERVICE_ACCOUNT_KEY`
+- `GOOGLE_DRIVE_FOLDER_ID`
 
 ## Run Locally
 

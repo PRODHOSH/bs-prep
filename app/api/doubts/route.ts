@@ -35,6 +35,10 @@ export async function GET(request: NextRequest) {
     const view = request.nextUrl.searchParams.get("view")
     const adminView = admin && view === "admin"
 
+    if (admin && !adminView) {
+      return NextResponse.json({ error: "Admins must use admin doubts view" }, { status: 403 })
+    }
+
     if (!isDevelopment) {
       const rl = await checkRateLimit(user.id, {
         maxRequests: adminView ? 2000 : 10000,
@@ -141,6 +145,11 @@ export async function POST(request: NextRequest) {
 
     if (authError || !user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    const isAdmin = await hasAdminRole(user.id, user.email)
+    if (isAdmin) {
+      return NextResponse.json({ error: "Admins cannot create student doubts" }, { status: 403 })
     }
 
     if (!isDevelopment) {

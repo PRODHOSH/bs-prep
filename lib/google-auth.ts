@@ -1,44 +1,117 @@
 import { readFileSync } from 'fs'
-import { join } from 'path'
 import { createSign } from 'crypto'
+
+type ServiceAccountKey = {
+  client_email: string
+  private_key: string
+  token_uri: string
+}
+
+function normalizeEnvJson(raw: string): string {
+  const trimmed = raw.trim()
+  if (
+    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
+    return trimmed.slice(1, -1)
+  }
+
+  return trimmed
+}
+
+function parseInlineServiceAccount(raw: string): ServiceAccountKey | null {
+  const normalized = normalizeEnvJson(raw)
+
+  // Direct JSON object string.
+  if (normalized.startsWith('{') && normalized.endsWith('}')) {
+    return JSON.parse(normalized) as ServiceAccountKey
+  }
+
+  // JSON-stringified JSON object string.
+  const once = JSON.parse(normalized)
+  if (typeof once === 'string') {
+    const nested = once.trim()
+    if (nested.startsWith('{') && nested.endsWith('}')) {
+      return JSON.parse(nested) as ServiceAccountKey
+    }
+  }
+
+  return null
+}
 
 /**
  * Load Google service account credentials.
  *
  * Priority:
  *  1. GOOGLE_APPLICATION_CREDENTIALS env var (path to a JSON file)
- *  2. The bundled iitm-bs-483310-f82521e3a93c.json in the project root
+ *  2. GOOGLE_SERVICE_ACCOUNT_KEY env var (single-line JSON string)
  *
- * The raw multi-line JSON in GOOGLE_SERVICE_ACCOUNT_KEY cannot be parsed
- * reliably from .env.local because dotenv only reads the first line of
- * un-quoted values. We therefore fall back to reading the file directly.
+ * This project intentionally avoids hardcoded file fallbacks so deployments
+ * fail with explicit configuration errors rather than ENOENT file-system errors.
  */
-function loadServiceAccountKey(): {
-  client_email: string
-  private_key: string
-  token_uri: string
-} {
+function loadServiceAccountKey(): ServiceAccountKey {
   // 1. Try a file-path env var first (most explicit)
   const credPath = process.env.GOOGLE_APPLICATION_CREDENTIALS
   if (credPath) {
-    const raw = readFileSync(credPath, 'utf-8')
-    return JSON.parse(raw)
+    try {
+      const raw = readFileSync(credPath, 'utf-8')
+      return JSON.parse(raw)
+    } catch (error) {
+      throw new Error(
+        `Invalid GOOGLE_APPLICATION_CREDENTIALS path or JSON at ${credPath}. ` +
+          `Provide a valid service-account JSON file path. Original error: ${String(error)}`,
+      )
+    }
   }
 
   // 2. Try the inline env var (only works when set as a single-line JSON)
   const inline = process.env.GOOGLE_SERVICE_ACCOUNT_KEY?.trim()
-  if (inline && inline.startsWith('{') && inline.endsWith('}')) {
+  if (inline) {
     try {
-      return JSON.parse(inline)
-    } catch {
-      // fall through to file-based fallback
+      const parsed = parseInlineServiceAccount(inline)
+      if (parsed) {
+        return parsed
+      }
+    } catch (error) {
+      throw new Error(
+        `GOOGLE_SERVICE_ACCOUNT_KEY is not valid JSON. ` +
+          `Set it as a single-line JSON string (quoted or unquoted is fine). Original error: ${String(error)}`,
+      )
     }
   }
 
-  // 3. Fall back to the credentials JSON file in the project root
-  const filePath = join(process.cwd(), 'iitm-bs-483310-f82521e3a93c.json')
-  const raw = readFileSync(filePath, 'utf-8')
-  return JSON.parse(raw)
+  // 3. Base64-encoded JSON credentials (safer for env transports)
+  const base64 = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_BASE64?.trim()
+  if (base64) {
+    try {
+      const decoded = Buffer.from(base64, 'base64').toString('utf-8')
+      const parsed = parseInlineServiceAccount(decoded)
+      if (parsed) {
+        return parsed
+      }
+
+      throw new Error('Decoded base64 value is not a JSON service-account object')
+    } catch (error) {
+      throw new Error(
+        `GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 is not valid base64 JSON. Original error: ${String(error)}`,
+      )
+    }
+  }
+
+  // 4. Split env vars for environments where JSON is hard to store.
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL?.trim()
+  const privateKeyRaw = process.env.GOOGLE_PRIVATE_KEY?.trim()
+  if (clientEmail && privateKeyRaw) {
+    return {
+      client_email: clientEmail,
+      private_key: privateKeyRaw.replace(/\\n/g, '\n'),
+      token_uri: process.env.GOOGLE_TOKEN_URI?.trim() || 'https://oauth2.googleapis.com/token',
+    }
+  }
+
+  throw new Error(
+    "Google credentials are missing. Set GOOGLE_APPLICATION_CREDENTIALS (path), GOOGLE_SERVICE_ACCOUNT_KEY (single-line JSON), GOOGLE_SERVICE_ACCOUNT_KEY_BASE64, or GOOGLE_CLIENT_EMAIL + GOOGLE_PRIVATE_KEY.",
+  )
 }
 
 /**
