@@ -109,7 +109,10 @@ export async function PUT(req: NextRequest, { params }: Params) {
       }
     }
 
-    // If email is being updated, we need to use admin client
+    const service = createServiceRoleClient()
+    let normalizedEmail: string | undefined
+
+    // If email is being updated, validate and reserve it.
     if (email !== undefined) {
       if (!validateEmail(email)) {
         return NextResponse.json(
@@ -117,8 +120,6 @@ export async function PUT(req: NextRequest, { params }: Params) {
           { status: 400 }
         )
       }
-
-      const service = createServiceRoleClient()
 
       // Check if email already exists (excluding current user)
       const { data: existingUser } = await service
@@ -134,25 +135,57 @@ export async function PUT(req: NextRequest, { params }: Params) {
         )
       }
 
-      // Update auth user email
-      const { error: authError } = await service.auth.admin.updateUserById(userId, {
-        email: email.toLowerCase(),
-      })
+      normalizedEmail = email.toLowerCase()
+      updates.email = normalizedEmail
+    }
 
-      if (authError) {
-        console.error('Failed to update user email:', authError)
+    const syncFirstName = typeof updates.first_name === 'string' ? updates.first_name : undefined
+    const syncLastName = typeof updates.last_name === 'string' ? updates.last_name : undefined
+    const shouldSyncMetadata = syncFirstName !== undefined || syncLastName !== undefined
+
+    if (normalizedEmail || shouldSyncMetadata) {
+      const { data: authUserData, error: authReadError } = await service.auth.admin.getUserById(userId)
+
+      if (authReadError) {
+        console.error('Failed to read auth user:', authReadError)
         return NextResponse.json(
-          { error: 'Failed to update email' },
+          { error: 'Failed to update account metadata' },
           { status: 500 }
         )
       }
 
-      // Update profile email
-      updates.email = email.toLowerCase()
+      const existingMetadata = (authUserData?.user?.user_metadata ?? {}) as Record<string, unknown>
+      const nextMetadata: Record<string, unknown> = { ...existingMetadata }
+
+      if (shouldSyncMetadata) {
+        const first = syncFirstName !== undefined ? syncFirstName : String(existingMetadata.first_name ?? '').trim()
+        const last = syncLastName !== undefined ? syncLastName : String(existingMetadata.last_name ?? '').trim()
+
+        nextMetadata.first_name = first
+        nextMetadata.last_name = last
+        nextMetadata.full_name = `${first} ${last}`.trim()
+      }
+
+      const authUpdatePayload: { email?: string; user_metadata?: Record<string, unknown> } = {}
+      if (normalizedEmail) {
+        authUpdatePayload.email = normalizedEmail
+      }
+      if (shouldSyncMetadata) {
+        authUpdatePayload.user_metadata = nextMetadata
+      }
+
+      const { error: authUpdateError } = await service.auth.admin.updateUserById(userId, authUpdatePayload)
+
+      if (authUpdateError) {
+        console.error('Failed to update auth user:', authUpdateError)
+        return NextResponse.json(
+          { error: 'Failed to update account details' },
+          { status: 500 }
+        )
+      }
     }
 
     // Update profile in database
-    const service = createServiceRoleClient()
     const { data, error } = await service
       .from('profiles')
       .update({ ...updates, updated_at: new Date().toISOString() })

@@ -150,7 +150,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     if (error) {
       // If announcement_type column doesn't exist in DB yet, retry without it
       if (error.code === 'PGRST204' && error.message?.includes('announcement_type')) {
-        const fallbackPayload = {
+        const fallbackPayload: Record<string, string> = {
           title: titleValidation.sanitized,
           message: messageValidation.sanitized,
         }

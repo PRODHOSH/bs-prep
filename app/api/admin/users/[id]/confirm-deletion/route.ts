@@ -127,7 +127,7 @@ export async function POST(req: NextRequest, { params }: Params) {
       .eq('user_id', userId)
 
     // Get target user info
-    const { data: targetUser, error: userError } = await service.auth.admin.getUserById(userId)
+    const { data: { user: targetUser }, error: userError } = await service.auth.admin.getUserById(userId)
 
     if (userError || !targetUser) {
       return NextResponse.json(

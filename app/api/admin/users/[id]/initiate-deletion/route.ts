@@ -78,7 +78,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
     // Get the user to be deleted
     const service = createServiceRoleClient()
-    const { data: targetUser, error: userError } = await service.auth.admin.getUserById(userId)
+    const { data: { user: targetUser }, error: userError } = await service.auth.admin.getUserById(userId)
 
     if (userError || !targetUser) {
       return NextResponse.json(

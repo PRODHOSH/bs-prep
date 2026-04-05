@@ -4,16 +4,30 @@ import { createServiceRoleClient } from "@/lib/supabase/server"
 async function getPortalStats() {
   const service = createServiceRoleClient()
 
-  const [{ count: userCount }, { count: announcementCount }, { count: adminCount }] = await Promise.all([
+  const [{ count: userCount }, { count: announcementCount }, { count: adminCount }, { data: paidCourses }] = await Promise.all([
     service.from("profiles").select("id", { count: "exact", head: true }),
     service.from("announcements").select("id", { count: "exact", head: true }),
     service.from("profiles").select("id", { count: "exact", head: true }).eq("role", "admin"),
+    service.from("courses").select("id").eq("type", "paid"),
   ])
+
+  const paidCourseIds = (paidCourses ?? []).map((row) => row.id)
+  let paidEnrollmentCount = 0
+
+  if (paidCourseIds.length > 0) {
+    const { count } = await service
+      .from("enrollments")
+      .select("id", { count: "exact", head: true })
+      .in("course_id", paidCourseIds)
+
+    paidEnrollmentCount = count ?? 0
+  }
 
   return {
     users: userCount ?? 0,
     announcements: announcementCount ?? 0,
     admins: adminCount ?? 0,
+    paidEnrollments: paidEnrollmentCount,
   }
 }
 
@@ -39,6 +53,12 @@ export default async function AdminPage() {
       href: "/admin/details",
       value: stats.admins,
     },
+    {
+      title: "Course Access",
+      description: "See buyers and grant paid course access manually.",
+      href: "/admin/course-access",
+      value: stats.paidEnrollments,
+    },
   ]
 
   return (
@@ -48,7 +68,7 @@ export default async function AdminPage() {
         <p className="mt-1 text-sm text-slate-400">Manage users, announcements, and admin access from one place.</p>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => (
           <Link
             key={card.title}

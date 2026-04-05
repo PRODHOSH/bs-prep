@@ -1,5 +1,3 @@
-import redis from "@upstash/redis";
-
 // Rate limiting store using in-memory fallback (install @upstash/redis for cloud version)
 const store = new Map<string, { count: number; resetTime: number }>();
 

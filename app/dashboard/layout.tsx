@@ -96,19 +96,19 @@ export default function DashboardLayout({
       // If profile row does not exist yet, create a default one and proceed as student.
       const { error: createProfileError } = await supabase
         .from("profiles")
-        .upsert(
-          {
-            id: user.id,
-            email: user.email ?? null,
-            first_name: user.user_metadata?.first_name ?? "",
-            last_name: user.user_metadata?.last_name ?? "",
-            role: "student",
-          },
-          { onConflict: "id" }
-        )
+        .insert({
+          id: user.id,
+          email: user.email ?? null,
+          first_name: user.user_metadata?.first_name ?? "",
+          last_name: user.user_metadata?.last_name ?? "",
+          role: "student",
+        })
 
       if (createProfileError) {
-        console.error("Error creating default profile:", createProfileError)
+        // Ignore duplicate profile creation race; log only unexpected failures.
+        if (createProfileError.code !== "23505") {
+          console.error("Error creating default profile:", createProfileError)
+        }
       }
 
       setRole("student")

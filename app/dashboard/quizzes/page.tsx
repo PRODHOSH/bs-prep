@@ -44,14 +44,18 @@ export default function QuizzesPage() {
           .order("attempted_at", { ascending: false })
 
         if (data) {
-          const formattedData = data.map((attempt) => ({
-            id: attempt.id,
-            quiz_id: attempt.quiz_id,
-            score: attempt.score,
-            passed: attempt.passed,
-            attempted_at: attempt.attempted_at,
-            quiz_title: attempt.quizzes.title,
-          }))
+          const formattedData = data.map((attempt) => {
+            const quiz = Array.isArray(attempt.quizzes) ? attempt.quizzes[0] : attempt.quizzes
+
+            return {
+              id: attempt.id,
+              quiz_id: attempt.quiz_id,
+              score: attempt.score,
+              passed: attempt.passed,
+              attempted_at: attempt.attempted_at,
+              quiz_title: quiz?.title || "Untitled Quiz",
+            }
+          })
           setAttempts(formattedData)
 
           const passed = formattedData.filter((a) => a.passed).length

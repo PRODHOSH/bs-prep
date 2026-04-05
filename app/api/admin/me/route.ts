@@ -93,13 +93,64 @@ export async function PATCH(request: NextRequest) {
       updatePayload.last_name = lastNameValidation.sanitized
     }
 
-    if (emailRaw) {
-      updatePayload.email = emailRaw
+    const normalizedEmail = emailRaw ? emailRaw.toLowerCase() : ""
+
+    if (normalizedEmail) {
+      const { data: existingUser } = await service
+        .from("profiles")
+        .select("id")
+        .eq("email", normalizedEmail)
+        .maybeSingle()
+
+      if (existingUser && existingUser.id !== user!.id) {
+        return NextResponse.json({ error: "Email already in use" }, { status: 409 })
+      }
+
+      updatePayload.email = normalizedEmail
+    }
+
+    const { data: authUserData, error: authReadError } = await service.auth.admin.getUserById(user!.id)
+    if (authReadError) {
+      return NextResponse.json({ error: "Failed to read auth user" }, { status: 500 })
+    }
+
+    const existingMetadata = (authUserData?.user?.user_metadata ?? {}) as Record<string, unknown>
+    const nextFirstName =
+      hasFirstName
+        ? firstNameValidation.sanitized
+        : typeof existingMetadata.first_name === "string"
+          ? existingMetadata.first_name
+          : ""
+    const nextLastName =
+      hasLastName
+        ? lastNameValidation.sanitized
+        : typeof existingMetadata.last_name === "string"
+          ? existingMetadata.last_name
+          : ""
+
+    const nextMetadata: Record<string, unknown> = {
+      ...existingMetadata,
+      first_name: nextFirstName,
+      last_name: nextLastName,
+      full_name: `${nextFirstName} ${nextLastName}`.trim(),
+    }
+
+    const authUpdatePayload: { email?: string; user_metadata: Record<string, unknown> } = {
+      user_metadata: nextMetadata,
+    }
+
+    if (normalizedEmail) {
+      authUpdatePayload.email = normalizedEmail
+    }
+
+    const { error: authUpdateError } = await service.auth.admin.updateUserById(user!.id, authUpdatePayload)
+    if (authUpdateError) {
+      return NextResponse.json({ error: "Failed to update account details" }, { status: 500 })
     }
 
     const { data: profile, error: updateError } = await service
       .from("profiles")
-      .update(updatePayload)
+      .update({ ...updatePayload, updated_at: new Date().toISOString() })
       .eq("id", user!.id)
       .select("id, email, first_name, last_name, role, created_at")
       .single()

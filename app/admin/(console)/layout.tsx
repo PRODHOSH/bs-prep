@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { BadgeCheck, LayoutDashboard, LogOut, Megaphone, Users } from "lucide-react"
+import { BadgeCheck, CreditCard, FileCheck2, LayoutDashboard, LogOut, Megaphone, Users } from "lucide-react"
 import { hasAdminRole } from "@/lib/security/admin-role"
 
 type AdminLayoutProps = {
@@ -20,7 +20,7 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("email, avatar_url")
+    .select("email, avatar_url, first_name, last_name")
     .eq("id", user.id)
     .maybeSingle()
 
@@ -51,6 +51,18 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
       active: true,
     },
     {
+      label: "Course Access",
+      href: "/admin/course-access",
+      icon: CreditCard,
+      active: true,
+    },
+    {
+      label: "Resources Review",
+      href: "/admin/resources",
+      icon: FileCheck2,
+      active: true,
+    },
+    {
       label: "Admin Details",
       href: "/admin/details",
       icon: BadgeCheck,
@@ -62,6 +74,15 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
     profile?.avatar_url ||
     (typeof user.user_metadata?.avatar_url === "string" ? user.user_metadata.avatar_url : null) ||
     (typeof user.user_metadata?.picture === "string" ? user.user_metadata.picture : null)
+
+  const adminDisplayName =
+    `${(profile?.first_name ?? "").trim()} ${(profile?.last_name ?? "").trim()}`.trim() ||
+    (typeof user.user_metadata?.full_name === "string" ? user.user_metadata.full_name : "") ||
+    profile?.email ||
+    user.email ||
+    "Admin"
+
+  const adminEmail = profile?.email || user.email || ""
 
   return (
     <main className="min-h-screen bg-[#04070e] text-slate-100">
@@ -103,10 +124,13 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
                 />
               ) : (
                 <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-[#131c2f] text-xs font-semibold text-slate-200">
-                  {((profile?.email || user.email || "A").trim()[0] || "A").toUpperCase()}
+                  {((adminDisplayName || "A").trim()[0] || "A").toUpperCase()}
                 </div>
               )}
-              <p className="truncate text-sm font-semibold text-slate-200">{profile?.email || user.email}</p>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-slate-200">{adminDisplayName}</p>
+                {adminEmail ? <p className="truncate text-xs text-slate-400">{adminEmail}</p> : null}
+              </div>
             </div>
             <form action="/auth/signout" method="post" className="mt-3">
               <button

@@ -48,14 +48,18 @@ export default function MentorRequestsPage() {
         .order("created_at", { ascending: false })
 
       if (data) {
-        const formattedRequests = data.map((request) => ({
-          id: request.id,
-          student_name: `${request.profiles.first_name} ${request.profiles.last_name}`.trim(),
-          subject: request.subject,
-          message: request.message,
-          status: request.status,
-          created_at: request.created_at,
-        }))
+        const formattedRequests = data.map((request) => {
+          const profile = Array.isArray(request.profiles) ? request.profiles[0] : request.profiles
+
+          return {
+            id: request.id,
+            student_name: `${profile?.first_name || ""} ${profile?.last_name || ""}`.trim() || "Unknown Student",
+            subject: request.subject,
+            message: request.message,
+            status: request.status,
+            created_at: request.created_at,
+          }
+        })
         setRequests(formattedRequests)
       }
     } catch (error) {

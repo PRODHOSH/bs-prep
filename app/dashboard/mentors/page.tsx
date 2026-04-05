@@ -82,13 +82,17 @@ export default function MentorsPage() {
 
           if (requestsList) {
             setRequests(
-              requestsList.map((r) => ({
-                id: r.id,
-                mentor_name: `${r.profiles.first_name} ${r.profiles.last_name}`.trim(),
-                status: r.status,
-                subject: r.subject,
-                created_at: r.created_at,
-              })),
+              requestsList.map((r) => {
+                const profile = Array.isArray(r.profiles) ? r.profiles[0] : r.profiles
+
+                return {
+                  id: r.id,
+                  mentor_name: `${profile?.first_name || ""} ${profile?.last_name || ""}`.trim() || "Unknown Mentor",
+                  status: r.status,
+                  subject: r.subject,
+                  created_at: r.created_at,
+                }
+              }),
             )
           }
         }
