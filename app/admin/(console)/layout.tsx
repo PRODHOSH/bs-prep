@@ -1,9 +1,10 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { BadgeCheck, BarChart2, LayoutDashboard, LogOut, Megaphone, MessageSquare, Users } from "lucide-react"
-import { hasAdminRole } from "@/lib/security/admin-role"
 import { AdminRefreshButton } from "@/components/admin-refresh-button"
+import { AdminNotificationBell } from "@/components/admin-notification-bell"
+import { BadgeCheck, BarChart2, FileCheck2, LayoutDashboard, LogOut, Megaphone, MessageSquare, Users } from "lucide-react"
+import { hasAdminRole } from "@/lib/security/admin-role"
 
 type AdminLayoutProps = {
   children: React.ReactNode
@@ -21,7 +22,7 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("email, avatar_url")
+    .select("email, avatar_url, first_name, last_name")
     .eq("id", user.id)
     .maybeSingle()
 
@@ -64,7 +65,13 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
       active: true,
     },
     {
-      label: "Settings",
+      label: "Resources Review",
+      href: "/admin/resources",
+      icon: FileCheck2,
+      active: true,
+    },
+    {
+      label: "Admin Details",
       href: "/admin/details",
       icon: BadgeCheck,
       active: true,
@@ -76,10 +83,19 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
     (typeof user.user_metadata?.avatar_url === "string" ? user.user_metadata.avatar_url : null) ||
     (typeof user.user_metadata?.picture === "string" ? user.user_metadata.picture : null)
 
+  const adminDisplayName =
+    `${(profile?.first_name ?? "").trim()} ${(profile?.last_name ?? "").trim()}`.trim() ||
+    (typeof user.user_metadata?.full_name === "string" ? user.user_metadata.full_name : "") ||
+    profile?.email ||
+    user.email ||
+    "Admin"
+
+  const adminEmail = profile?.email || user.email || ""
+
   return (
-    <main className="h-screen overflow-hidden bg-[#050608] text-slate-100">
-      <div className="mx-auto flex h-full w-full max-w-screen-2xl gap-0 px-0 md:px-4">
-        <aside className="hidden h-screen w-64 shrink-0 border-r border-white/5 bg-[#080a0d] p-5 md:flex md:flex-col">
+    <main className="min-h-screen bg-[#04070e] text-slate-100">
+      <div className="mx-auto flex w-full max-w-screen-2xl gap-0 px-0 md:px-4">
+        <aside className="hidden min-h-screen w-64 border-r border-white/5 bg-[#070d19] p-5 md:flex md:flex-col">
           <div>
             <h1 className="text-3xl font-semibold tracking-tight">Admin</h1>
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Management Console</p>
@@ -92,10 +108,11 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${item.active
-                      ? "bg-[#121720] text-slate-100"
+                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                    item.active
+                      ? "bg-[#0d1b3a] text-[#66a3ff]"
                       : "text-slate-300 hover:bg-white/5 hover:text-white"
-                    }`}
+                  }`}
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
@@ -104,7 +121,7 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
             })}
           </nav>
 
-          <div className="mt-auto rounded-2xl border border-white/10 bg-[#0c0f14] p-4">
+          <div className="mt-auto rounded-2xl border border-white/10 bg-[#090f1a] p-4">
             <div className="mb-3 flex items-center gap-3">
               {avatarUrl ? (
                 <img
@@ -114,17 +131,19 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-[#1a1e26] text-xs font-semibold text-slate-200">
-                  {((profile?.email || user.email || "A").trim()[0] || "A").toUpperCase()}
+                <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-[#131c2f] text-xs font-semibold text-slate-200">
+                  {((adminDisplayName || "A").trim()[0] || "A").toUpperCase()}
                 </div>
               )}
-              <p className="truncate text-sm font-semibold text-slate-200">{profile?.email || user.email}</p>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-slate-200">{adminDisplayName}</p>
+                {adminEmail ? <p className="truncate text-xs text-slate-400">{adminEmail}</p> : null}
+              </div>
             </div>
             <form action="/auth/signout" method="post" className="mt-3">
               <button
                 type="submit"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-sm font-medium text-rose-300 transition hover:bg-rose-500/20"
-                suppressHydrationWarning
               >
                 <LogOut className="h-4 w-4" />
                 Sign Out
@@ -133,13 +152,17 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
           </div>
         </aside>
 
-        <section className="flex h-screen min-h-0 flex-1 flex-col overflow-hidden">
-          <div className="shrink-0 border-b border-white/5 bg-[#090b10]/80 px-4 py-4 backdrop-blur md:px-7">
-            <div className="flex items-center justify-end">
-              <AdminRefreshButton />
+        <section className="flex min-h-screen flex-1 flex-col">
+          <div className="border-b border-white/5 bg-[#050b15]/80 px-4 py-4 backdrop-blur md:px-7">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/5 bg-[#090f1b] px-4 py-3 text-sm text-slate-400">
+              <div>Search management items...</div>
+              <div className="flex items-center gap-2">
+                <AdminNotificationBell />
+                <AdminRefreshButton />
+              </div>
             </div>
           </div>
-          <div className="flex-1 min-h-0 overflow-y-auto p-4 md:p-7">{children}</div>
+          <div className="flex-1 p-4 md:p-7">{children}</div>
         </section>
       </div>
     </main>

@@ -52,15 +52,22 @@ export default function MentorStudentsPage() {
 
       if (data) {
         const formattedStudents = data
-          .filter((enrollment) => enrollment.courses?.instructor_id === user.id)
-          .map((enrollment) => ({
-            id: enrollment.profiles.id,
-            name: `${enrollment.profiles.first_name} ${enrollment.profiles.last_name}`.trim(),
-            email: enrollment.profiles.email,
-            course: enrollment.courses?.title || "Unknown",
-            progress: enrollment.progress,
-            status: enrollment.status,
-          }))
+          .map((enrollment) => {
+            const profile = Array.isArray(enrollment.profiles) ? enrollment.profiles[0] : enrollment.profiles
+            const course = Array.isArray(enrollment.courses) ? enrollment.courses[0] : enrollment.courses
+
+            return {
+              id: profile?.id || enrollment.id,
+              name: `${profile?.first_name || ""} ${profile?.last_name || ""}`.trim() || "Unknown Student",
+              email: profile?.email || "No email",
+              course: course?.title || "Unknown",
+              progress: enrollment.progress,
+              status: enrollment.status,
+              instructorId: course?.instructor_id,
+            }
+          })
+          .filter((student) => student.instructorId === user.id)
+          .map(({ instructorId, ...student }) => student)
         setStudents(formattedStudents)
       }
     } catch (error) {

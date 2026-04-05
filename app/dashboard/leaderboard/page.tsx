@@ -41,13 +41,17 @@ export default function LeaderboardPage() {
           .order("rank", { ascending: true })
 
         if (data) {
-          const formattedData = data.map((entry) => ({
-            id: entry.id,
-            rank: entry.rank,
-            student_name: `${entry.profiles.first_name} ${entry.profiles.last_name}`.trim(),
-            total_score: entry.total_score,
-            courses_completed: entry.courses_completed,
-          }))
+          const formattedData = data.map((entry) => {
+            const profile = Array.isArray(entry.profiles) ? entry.profiles[0] : entry.profiles
+
+            return {
+              id: entry.id,
+              rank: entry.rank,
+              student_name: `${profile?.first_name || ""} ${profile?.last_name || ""}`.trim() || "Unknown Student",
+              total_score: entry.total_score,
+              courses_completed: entry.courses_completed,
+            }
+          })
           setLeaderboard(formattedData)
 
           if (user) {

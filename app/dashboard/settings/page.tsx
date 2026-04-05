@@ -41,19 +41,22 @@ export default function SettingsPage() {
         setLoadingProfile(false)
         return
       }
-      setEmail(user.email ?? "")
 
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("first_name, last_name, role")
-        .eq("id", user.id)
-        .single()
+      const response = await fetch("/api/account/profile", { cache: "no-store" })
+      const result = await response.json().catch(() => null)
 
-      if (profile) {
-        setFirstName(profile.first_name ?? "")
-        setLastName(profile.last_name ?? "")
-        setRole(profile.role ?? "student")
+      if (!response.ok) {
+        setEmail(user.email ?? "")
+        setProfileError(result?.error || "Failed to load profile")
+        setLoadingProfile(false)
+        return
       }
+
+      const profile = result?.profile
+      setEmail(profile?.email ?? user.email ?? "")
+      setFirstName(profile?.first_name ?? "")
+      setLastName(profile?.last_name ?? "")
+      setRole(profile?.role ?? "student")
       setLoadingProfile(false)
     }
     load()
@@ -82,6 +85,12 @@ export default function SettingsPage() {
       setProfileError(data.error || "Failed to update profile")
       setIsSavingProfile(false)
       return
+    }
+
+    const profile = data?.profile
+    if (profile) {
+      setFirstName(profile.first_name ?? "")
+      setLastName(profile.last_name ?? "")
     }
 
     setProfileSuccess(true)

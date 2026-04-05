@@ -13,7 +13,7 @@ console.log('🔒 Testing Security Implementation...\n')
 let passed = 0
 let failed = 0
 
-function test(name, fn) {
+function test(name: string, fn: () => boolean) {
   try {
     const result = fn()
     if (result) {
@@ -24,7 +24,8 @@ function test(name, fn) {
       failed++
     }
   } catch (error) {
-    console.log(`❌ ${name} - Error: ${error.message}`)
+    const message = error instanceof Error ? error.message : String(error)
+    console.log(`❌ ${name} - Error: ${message}`)
     failed++
   }
 }
@@ -61,17 +62,17 @@ console.log('\n🛡️ Testing XSS Protection...\n')
 // XSS Detection
 test('Script tag detected', () => {
   const result = validateAndSanitizeInput('<script>alert(1)</script>')
-  return !result.valid && result.errors.some(e => e.includes('XSS'))
+  return !result.valid && result.errors.some((e: string) => e.includes('XSS'))
 })
 
 test('JavaScript protocol detected', () => {
   const result = validateAndSanitizeInput('javascript:alert(1)')
-  return !result.valid && result.errors.some(e => e.includes('XSS'))
+  return !result.valid && result.errors.some((e: string) => e.includes('XSS'))
 })
 
 test('Event handler detected', () => {
   const result = validateAndSanitizeInput('<img onerror="alert(1)">')
-  return !result.valid && result.errors.some(e => e.includes('XSS'))
+  return !result.valid && result.errors.some((e: string) => e.includes('XSS'))
 })
 
 console.log('\n💉 Testing SQL Injection Protection...\n')
@@ -79,17 +80,17 @@ console.log('\n💉 Testing SQL Injection Protection...\n')
 // SQL Injection Detection
 test('SELECT statement detected', () => {
   const result = validateAndSanitizeInput("'; SELECT * FROM users; --")
-  return !result.valid && result.errors.some(e => e.includes('SQL'))
+  return !result.valid && result.errors.some((e: string) => e.includes('SQL'))
 })
 
 test('DROP statement detected', () => {
   const result = validateAndSanitizeInput('DROP TABLE users')
-  return !result.valid && result.errors.some(e => e.includes('SQL'))
+  return !result.valid && result.errors.some((e: string) => e.includes('SQL'))
 })
 
 test('UNION statement detected', () => {
   const result = validateAndSanitizeInput("1' UNION SELECT password FROM users--")
-  return !result.valid && result.errors.some(e => e.includes('SQL'))
+  return !result.valid && result.errors.some((e: string) => e.includes('SQL'))
 })
 
 console.log('\n🧹 Testing Sanitization...\n')

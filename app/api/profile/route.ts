@@ -190,7 +190,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   // PUT and POST do the same thing (upsert)
   return POST(request)
 }

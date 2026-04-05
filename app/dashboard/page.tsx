@@ -91,7 +91,22 @@ export default function StudentDashboard() {
       try {
         const { data: { user } } = await supabase.auth.getUser()
         if (user) {
-          setUserName(user.email?.split("@")[0] || "Student")
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("first_name, last_name")
+            .eq("id", user.id)
+            .maybeSingle()
+
+          const firstName = (profile?.first_name ?? "").trim()
+          const lastName = (profile?.last_name ?? "").trim()
+          const fullName = `${firstName} ${lastName}`.trim()
+
+          setUserName(
+            fullName ||
+              (typeof user.user_metadata?.full_name === "string" ? user.user_metadata.full_name : "") ||
+              user.email?.split("@")[0] ||
+              "Student",
+          )
           
           // Get enrolled courses with details
           const { data: enrollments } = await supabase
