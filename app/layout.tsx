@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description: "Prepare smarter for IITM BS with GPA tools, notes, quiz prep, and community support.",
     images: [
       {
-        url: "/logo.jpeg",
+        url: "https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/logo.jpeg",
         width: 1200,
         height: 630,
         alt: "BSPrep",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BSPrep | IITM BS Prep, GPA Tools, Notes and Community",
     description: "Prepare smarter for IITM BS with GPA tools, notes, quiz prep, and community support.",
-    images: ["/logo.jpeg"],
+    images: ["https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/logo.jpeg"],
   },
   robots: {
     index: true,
@@ -75,8 +75,8 @@ export const metadata: Metadata = {
     google: "5ODn-khJLlBmRAPlBkHz4w54nYhejaoLbrkwl_1-_NU",
   },
   icons: {
-    icon: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/logo.jpeg",
+    apple: "https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/logo.jpeg",
   },
 }
 
@@ -115,7 +115,7 @@ export default function RootLayout({
             "@type": "Organization",
             name: siteName,
             url: siteUrl,
-            logo: `${siteUrl}/logo.jpeg`,
+            logo: "https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/logo.jpeg",
             sameAs: [
               "https://www.linkedin.com/",
               "https://github.com/",
