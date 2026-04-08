@@ -4,6 +4,8 @@ import { checkRateLimit, getRateLimitHeaders } from "@/lib/rate-limit"
 import { createServiceRoleClient } from "@/lib/supabase/server"
 
 const isDevelopment = process.env.NODE_ENV !== "production"
+const MIN_DONATION_INR = 10
+const MAX_DONATION_INR = 500000
 
 function getClientIp(request: NextRequest): string | null {
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
@@ -51,9 +53,11 @@ export async function POST(request: NextRequest) {
 
     // Parse and validate amount
     let amount = typeof body.amount === "number" ? body.amount : Number(body.amount)
-    if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000) {
+    if (!Number.isFinite(amount) || amount < MIN_DONATION_INR || amount > MAX_DONATION_INR) {
       return NextResponse.json(
-        { error: "Invalid amount. Please enter an amount between ₹1 and ₹1,000,000" },
+        {
+          error: `Invalid amount. Please enter an amount between ₹${MIN_DONATION_INR} and ₹${MAX_DONATION_INR.toLocaleString("en-IN")}`,
+        },
         { status: 400 },
       )
     }

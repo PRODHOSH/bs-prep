@@ -14,6 +14,8 @@ type DonorDetailsPayload = {
   contributorImageUrl?: string
 }
 
+const DONOR_MESSAGE_MAX_LENGTH = 220
+
 function isValidPublicImageUrl(url: string): boolean {
   if (!url) return false
   if (!url.startsWith("http://") && !url.startsWith("https://")) return false
@@ -59,7 +61,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate message (optional)
-    const safeMessage = messageRaw ? sanitizeString(messageRaw, 300) : null
+    const safeMessage = messageRaw ? sanitizeString(messageRaw, DONOR_MESSAGE_MAX_LENGTH) : null
 
     // Validate image URL
     const safeImageUrl = contributorImageUrlRaw && isValidPublicImageUrl(contributorImageUrlRaw) ? contributorImageUrlRaw : null

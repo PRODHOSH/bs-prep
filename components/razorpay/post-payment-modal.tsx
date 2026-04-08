@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { X, Loader2 } from "lucide-react"
 
+const DONOR_MESSAGE_MAX_LENGTH = 220
+
 type PostPaymentModalProps = {
   paymentId: string
   orderId: string
@@ -170,13 +172,13 @@ export function PostPaymentModal({ paymentId, orderId, defaultName = "", default
             </label>
             <textarea
               value={message}
-              onChange={(e) => setMessage(e.target.value.slice(0, 300))}
+              onChange={(e) => setMessage(e.target.value.slice(0, DONOR_MESSAGE_MAX_LENGTH))}
               disabled={isSubmitting}
-              maxLength={300}
+              maxLength={DONOR_MESSAGE_MAX_LENGTH}
               className="h-28 w-full rounded-md border border-black/30 bg-white px-3 py-2 text-sm outline-none focus:border-black disabled:opacity-50"
-              placeholder="Share why you support BSPREP... (max 300 chars)"
+              placeholder="Share why you support BSPREP... (max 220 chars)"
             />
-            <p className="mt-1 text-right text-xs text-slate-500">{message.length}/300</p>
+            <p className="mt-1 text-right text-xs text-slate-500">{message.length}/{DONOR_MESSAGE_MAX_LENGTH}</p>
           </div>
 
           {/* Image Upload */}
