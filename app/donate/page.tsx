@@ -5,14 +5,27 @@ import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { createClient } from "@/lib/supabase/client"
-import { Heart, ShieldCheck } from "lucide-react"
-import { RazorpayButton } from "@/components/razorpay/razorpay-button"
+import { BadgeCheck, HeartHandshake, LockKeyhole, ShieldCheck, Sparkles, Wallet } from "lucide-react"
 import { PostPaymentModal } from "@/components/razorpay/post-payment-modal"
 
 const BeamsBackground = dynamic(() => import("@/components/beams-background").then((mod) => ({ default: mod.BeamsBackground })), {
   ssr: false,
   loading: () => <div className="fixed inset-0 -z-10 bg-white" />,
 })
+
+const DonateRazorpayButton = dynamic(
+  () => import("@/components/razorpay/razorpay-button").then((mod) => ({ default: mod.RazorpayButton })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+        Loading secure payment form...
+      </div>
+    ),
+  },
+)
+
+const SUPPORTER_NOTE_DISPLAY_LIMIT = 180
 
 type PublicDonation = {
   id: string
@@ -58,7 +71,6 @@ export default function DonatePage() {
   const [loadingSupporters, setLoadingSupporters] = useState(true)
 
   // Payment flow state
-  const [paymentProcessing, setPaymentProcessing] = useState(false)
   const [paymentError, setPaymentError] = useState<string | null>(null)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [currentPaymentId, setCurrentPaymentId] = useState<string | null>(null)
@@ -66,7 +78,7 @@ export default function DonatePage() {
   const [paymentSuccess, setPaymentSuccess] = useState(false)
   const paymentSuccessTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [supporterPage, setSupporterPage] = useState(0)
-  const supportersPerPage = 50
+  const supportersPerPage = 12
 
   const sortedSupporters = useMemo(
     () => [...supporters].sort((a, b) => new Date(b.submitted_at).getTime() - new Date(a.submitted_at).getTime()),
@@ -176,137 +188,121 @@ export default function DonatePage() {
       <Navbar isAuthenticated={isAuthenticated} />
 
       <section className="mx-auto max-w-7xl px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pt-20">
-        <div className="grid gap-8 lg:grid-cols-2">
-          {/* Left Column - Donation Info */}
-          <div className="space-y-6">
-            <div className="rounded-3xl border border-black/10 bg-[#FAF8F5]/95 p-7 shadow-sm backdrop-blur-[1px]">
-              <p className="inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-sm font-semibold text-rose-700">
-                <Heart className="h-4 w-4" />
-                Support BSPREP
-              </p>
-              <h1 className="mt-4 text-4xl font-extrabold tracking-tight">Help Us Keep Learning Accessible</h1>
-              <p className="mt-4 text-base leading-7 text-slate-700">
-                BSPREP is an independent educational platform built to make learning data science simple, accessible, and affordable for everyone.
-              </p>
-              <p className="mt-3 text-base leading-7 text-slate-700">
-                If you find our content helpful, you can support us to keep improving and creating more valuable resources.
+        <div className="relative overflow-hidden rounded-[28px] border border-slate-200 bg-white/95 p-8 shadow-[0_18px_60px_rgba(15,23,42,0.08)] sm:p-10">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(1100px_280px_at_0%_0%,rgba(190,24,93,0.14),transparent),radial-gradient(900px_280px_at_100%_100%,rgba(15,23,42,0.08),transparent)]" />
+
+          <div className="relative grid gap-8 lg:grid-cols-12">
+            <div className="space-y-6 lg:col-span-7">
+              <p className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-sm font-semibold text-rose-700">
+                <HeartHandshake className="h-4 w-4" />
+                Trustworthy Support
               </p>
 
-              <div className="mt-6 rounded-2xl border border-black/10 bg-white p-5">
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Your support helps us</p>
+              <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+                Help Us Keep Quality Learning Open for Everyone
+              </h1>
+
+              <p className="max-w-2xl text-base leading-7 text-slate-700 sm:text-lg">
+                Your donation directly funds course updates, better tools, and reliable infrastructure so learners can keep growing without barriers.
+              </p>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <article className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Verified Payments</p>
+                  <p className="mt-2 text-base font-semibold text-slate-900">Only payment-confirmed entries are acknowledged.</p>
+                </article>
+                <article className="rounded-2xl border border-slate-200 bg-white p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Moderated Wall</p>
+                  <p className="mt-2 text-base font-semibold text-slate-900">Public messages are reviewed before display.</p>
+                </article>
+              </div>
+
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <p className="text-sm font-semibold text-slate-900">How your donation is used</p>
                 <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                  <li>Create high-quality data science content</li>
-                  <li>Maintain and improve the platform</li>
-                  <li>Keep resources accessible to all learners</li>
+                  <li className="flex items-start gap-2">
+                    <Sparkles className="mt-0.5 h-4 w-4 text-rose-600" />
+                    Course content quality and new learning modules
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Sparkles className="mt-0.5 h-4 w-4 text-rose-600" />
+                    Platform reliability, performance, and improvements
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Sparkles className="mt-0.5 h-4 w-4 text-rose-600" />
+                    Accessible resources for student-first learning
+                  </li>
                 </ul>
               </div>
             </div>
 
-            
-          </div>
+            <div className="space-y-6 lg:col-span-5">
+              {paymentSuccess ? (
+                <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-7 text-emerald-900 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-xl text-white">✓</div>
+                  <h2 className="mt-3 text-2xl font-bold">Payment Received</h2>
+                  <p className="mt-3 text-sm leading-7">
+                    Thank you for supporting BSPREP. Your contribution is confirmed and your acknowledgement email is on the way.
+                  </p>
+                  <p className="mt-3 text-sm leading-7">
+                    You can optionally share your profile in the next step for our moderated supporter wall.
+                  </p>
+                </div>
+              ) : (
+                <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+                  <div className="flex items-center gap-2">
+                    <Wallet className="h-5 w-5 text-slate-800" />
+                    <h2 className="text-2xl font-bold text-slate-900">Secure Donation</h2>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Set an amount and continue with Razorpay checkout.
+                  </p>
 
-          {/* Right Column - Payment + Easy & Secure */}
-          <div className="space-y-6">
-            {paymentSuccess ? (
-              <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-7 text-emerald-900 shadow-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-xl text-white">✓</div>
-                <h3 className="mt-3 text-2xl font-bold">Thank You!</h3>
-                <p className="mt-3 text-sm leading-7">
-                  Your support has been received successfully. We're grateful for your contribution to BSPREP.
-                </p>
-                <p className="mt-3 text-sm leading-7">
-                  An email confirmation has been sent to you. Your name may also appear on our supporter wall.
-                </p>
-                <p className="mt-4 text-sm font-semibold">Keep learning. Keep growing.</p>
-              </div>
-            ) : (
-              <div className="rounded-3xl border border-black/10 bg-[#FAF8F5]/95 p-7 shadow-sm backdrop-blur-[1px]">
-                <h2 className="text-2xl font-bold">Support Us Today</h2>
-                <p className="mt-2 text-sm text-slate-600">Enter your desired amount and proceed to secure payment via Razorpay.</p>
+                  <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
+                    Allowed range: <strong>₹10</strong> to <strong>₹5,00,000</strong> per transaction.
+                  </div>
 
-                <div className="mt-6 space-y-4">
-                  <RazorpayButton
-                    onPaymentSuccess={handlePaymentSuccess}
-                    onPaymentError={handlePaymentError}
-                  />
+                  <div className="mt-5 space-y-3">
+                    <DonateRazorpayButton onPaymentSuccess={handlePaymentSuccess} onPaymentError={handlePaymentError} />
 
-                  {paymentError && (
-                    <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">
-                      {paymentError}
-                    </div>
-                  )}
+                    {paymentError ? (
+                      <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">{paymentError}</div>
+                    ) : null}
+                  </div>
+                </div>
+              )}
 
-                  <p className="text-xs text-slate-500">
-                    We partner with Razorpay, India's leading payment gateway, for secure and reliable transactions.
+              <div className="rounded-3xl border border-slate-200 bg-[#0F172A] p-6 text-slate-100 shadow-sm">
+                <h3 className="text-lg font-bold">Payment Trust Layer</h3>
+                <div className="mt-4 space-y-3 text-sm">
+                  <p className="flex items-start gap-2">
+                    <LockKeyhole className="mt-0.5 h-4 w-4 text-rose-300" />
+                    Razorpay checkout with encrypted transfer and gateway-level verification.
+                  </p>
+                  <p className="flex items-start gap-2">
+                    <BadgeCheck className="mt-0.5 h-4 w-4 text-rose-300" />
+                    Public supporter wall includes only approved and verified entries.
+                  </p>
+                  <p className="flex items-start gap-2">
+                    <ShieldCheck className="mt-0.5 h-4 w-4 text-rose-300" />
+                    We do not store card details and limit public fields to what you choose to share.
                   </p>
                 </div>
               </div>
-            )}
-
-            <div className="rounded-3xl border border-black/10 bg-[#FAF8F5]/95 p-7 shadow-sm backdrop-blur-[1px]">
-              <h2 className="text-2xl font-bold">Easy & Secure</h2>
-              <ul className="mt-4 space-y-3 text-sm text-slate-700">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-rose-600 flex-shrink-0"></span>
-                  <span>
-                    <strong>Choose Amount:</strong> Select any amount you're comfortable with
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-rose-600 flex-shrink-0"></span>
-                  <span>
-                    <strong>Secure Payment:</strong> Powered by Razorpay with bank-level encryption
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-rose-600 flex-shrink-0"></span>
-                  <span>
-                    <strong>Share Your Story:</strong> After payment, tell us about yourself (optional)
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-rose-600 flex-shrink-0"></span>
-                  <span>
-                    <strong>Get Recognized:</strong> Join our supporter wall (if you choose)
-                  </span>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
 
-        {/* Security Info Section */}
-        <section className="mt-10 rounded-3xl border border-blue-200 bg-blue-50 p-7 text-slate-900 shadow-sm">
-          <div className="flex items-start gap-3">
-            <ShieldCheck className="h-6 w-6 flex-shrink-0 text-blue-600" />
-            <div>
-              <h3 className="text-xl font-bold text-blue-900">Secure & Private</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-700">
-                Your payment is processed through Razorpay, India's most trusted payment gateway. All transactions are encrypted with bank-level security. We never store your card details.
-              </p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600 flex-shrink-0"></span>
-                  <span>PCI DSS Level 1 compliance</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600 flex-shrink-0"></span>
-                  <span>256-bit SSL encryption for all transactions</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600 flex-shrink-0"></span>
-                  <span>Your data is never shared with third parties</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
         {/* Supporter Wall */}
-        <section className="mt-10 rounded-3xl border border-[#E5DBC8] bg-white p-7 shadow-sm">
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-2xl font-bold">Supporter Wall</h2>
-            <p className="text-sm text-slate-600">Amazing people who support BSPREP</p>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">Verified Supporter Wall</h2>
+              <p className="mt-1 text-sm text-slate-600">Moderated public acknowledgements from verified payments only.</p>
+            </div>
+            <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
+              Showing {paginatedSupporters.length} of {sortedSupporters.length}
+            </div>
           </div>
 
           {loadingSupporters ? (
@@ -317,7 +313,7 @@ export default function DonatePage() {
             <>
               <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {paginatedSupporters.map((item) => (
-                  <article key={item.id} className="w-full rounded-2xl border border-[#E8E1D3] bg-[#FFFEFB] p-4">
+                  <article key={item.id} className="w-full rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
                     <div className="flex items-center gap-3">
                       {(() => {
                         const imageUrl = resolveContributorImageUrl(item.contributor_image_url)
@@ -325,25 +321,30 @@ export default function DonatePage() {
                           <img
                             src={imageUrl}
                             alt={item.name}
-                            className="h-12 w-12 rounded-full border border-[#E5DBC8] object-cover"
+                            className="h-12 w-12 rounded-full border border-slate-200 object-cover"
                             referrerPolicy="no-referrer"
                             onError={(event) => {
                               event.currentTarget.style.display = "none"
                             }}
                           />
                         ) : (
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E5DBC8] bg-[#FFF5E5] text-sm font-bold text-[#7C5200]">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-bold text-slate-700">
                             {item.name.slice(0, 1).toUpperCase()}
                           </div>
                         )
                       })()}
                       <div>
-                        <p className="font-semibold">{item.name}</p>
+                        <p className="font-semibold text-slate-900">{item.name}</p>
                         <p className="text-xs text-slate-500">{new Date(item.submitted_at).toLocaleDateString()}</p>
                       </div>
                     </div>
 
-                    <p className="mt-2 break-words text-sm text-slate-600">{item.note?.trim() || "No comment"}</p>
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-rose-700">Verified supporter</p>
+
+                    <p className="mt-2 wrap-break-word text-sm text-slate-600">
+                      {(item.note?.trim() || "No comment").slice(0, SUPPORTER_NOTE_DISPLAY_LIMIT)}
+                      {(item.note?.trim() || "").length > SUPPORTER_NOTE_DISPLAY_LIMIT ? "..." : ""}
+                    </p>
                   </article>
                 ))}
               </div>

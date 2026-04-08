@@ -20,6 +20,9 @@ type DonationInsertResult = {
   error: PostgrestError | null
 }
 
+const MIN_DONATION_INR = 10
+const MAX_DONATION_INR = 500000
+
 function parseAmount(input: number | string | undefined): number {
   if (typeof input === "number") return input
   if (typeof input === "string") return Number(input)
@@ -248,8 +251,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Please enter a valid email address" }, { status: 400 })
     }
 
-    if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000) {
-      return NextResponse.json({ error: "Please enter a valid amount" }, { status: 400 })
+    if (!Number.isFinite(amount) || amount < MIN_DONATION_INR || amount > MAX_DONATION_INR) {
+      return NextResponse.json(
+        {
+          error: `Please enter a valid amount between ₹${MIN_DONATION_INR} and ₹${MAX_DONATION_INR.toLocaleString("en-IN")}`,
+        },
+        { status: 400 },
+      )
     }
 
     if (!upiValidation.valid || !upiValidation.sanitized) {

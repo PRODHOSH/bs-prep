@@ -8,6 +8,11 @@ type RazorpayButtonProps = {
   onPaymentError: (error: string) => void
 }
 
+const MIN_DONATION_INR = 10
+const MAX_DONATION_INR = 500000
+const MAX_DONATION_LABEL = "5,00,000"
+const SUGGESTED_AMOUNTS = [199, 499, 999, 1999]
+
 declare global {
   interface Window {
     Razorpay: any
@@ -23,8 +28,9 @@ export function RazorpayButton({ onPaymentSuccess, onPaymentError }: RazorpayBut
   const [isLoading, setIsLoading] = useState(false)
 
   async function handleDonate() {
-    if (!amount || Number(amount) <= 0) {
-      onPaymentError("Please enter a valid amount")
+    const amountValue = Number(amount)
+    if (!Number.isFinite(amountValue) || amountValue < MIN_DONATION_INR || amountValue > MAX_DONATION_INR) {
+      onPaymentError(`Please enter an amount between ₹${MIN_DONATION_INR} and ₹${MAX_DONATION_LABEL}`)
       return
     }
 
@@ -35,7 +41,7 @@ export function RazorpayButton({ onPaymentSuccess, onPaymentError }: RazorpayBut
       const orderRes = await fetch("/api/donations/razorpay/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: Number(amount) }),
+        body: JSON.stringify({ amount: amountValue }),
       })
 
       if (!orderRes.ok) {
@@ -68,7 +74,7 @@ export function RazorpayButton({ onPaymentSuccess, onPaymentError }: RazorpayBut
       const razorpay = new window.Razorpay({
         key: keyId,
         order_id: orderId,
-        amount: Number(amount) * 100, // Convert to paise
+        amount: amountValue * 100, // Convert to paise
         currency,
         name: "BSPREP",
         description: "Support BSPREP - Help us keep learning accessible",
@@ -102,27 +108,47 @@ export function RazorpayButton({ onPaymentSuccess, onPaymentError }: RazorpayBut
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border border-black/20 bg-[#FAF8F5] p-4">
+    <div className="space-y-4 rounded-2xl border border-rose-200 bg-rose-50/60 p-4">
       <div>
-        <label className="mb-1 block text-sm font-semibold text-black">Donation Amount (₹)</label>
+        <label className="mb-1 block text-sm font-semibold text-rose-900">Donation Amount (₹)</label>
         <input
           type="number"
-          min="1"
-          max="1000000"
+          min={MIN_DONATION_INR}
+          max={MAX_DONATION_INR}
           step="1"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           disabled={isLoading}
-          className="h-11 w-full rounded-md border border-black/30 bg-white px-3 text-sm outline-none focus:border-black disabled:opacity-50"
+          className="h-11 w-full rounded-md border border-rose-300 bg-white px-3 text-sm outline-none focus:border-rose-500 disabled:opacity-50"
           placeholder="Enter amount in INR"
         />
-        <p className="mt-2 text-xs text-slate-600">Minimum ₹10, Maximum ₹10,00,000</p>
+        <p className="mt-2 text-xs text-rose-700">Minimum ₹{MIN_DONATION_INR}, Maximum ₹{MAX_DONATION_LABEL}</p>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {SUGGESTED_AMOUNTS.map((value) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setAmount(String(value))}
+            disabled={isLoading}
+            className="rounded-full border border-rose-300 bg-white px-3 py-1.5 text-xs font-semibold text-rose-700 transition hover:border-rose-500"
+          >
+            ₹{value.toLocaleString("en-IN")}
+          </button>
+        ))}
       </div>
 
       <button
         onClick={handleDonate}
-        disabled={isLoading || !amount}
-        className="flex h-11 w-full items-center justify-center gap-2 rounded-md border border-black bg-black px-4 text-sm font-semibold text-white transition hover:bg-[#111] disabled:opacity-50"
+        disabled={
+          isLoading ||
+          !amount ||
+          !Number.isFinite(Number(amount)) ||
+          Number(amount) < MIN_DONATION_INR ||
+          Number(amount) > MAX_DONATION_INR
+        }
+        className="flex h-11 w-full items-center justify-center gap-2 rounded-md border border-rose-700 bg-rose-700 px-4 text-sm font-semibold text-white transition hover:bg-rose-800 disabled:opacity-50"
       >
         {isLoading ? (
           <>
