@@ -53,6 +53,9 @@ BSPrep is a full-stack web platform focused on helping IITM BS learners stay con
 ### Why BSPrep
 ![Community page](https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/readme/why-bsprep.png)
 
+### Compiler Preview
+![Compiler preview](https://cdn.jsdelivr.net/gh/PRODHOSH/bs-prep@main/public/readme/compiler-preview.png)
+
 
 ## Tech Stack
 
