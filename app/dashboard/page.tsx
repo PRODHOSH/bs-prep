@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { BookOpen, Trophy, Users, TrendingUp, Calendar, Clock, Video, Award } from "lucide-react"
+import { BookOpen, Trophy, Users, TrendingUp, Calendar, Clock, Video, Award, Star } from "lucide-react"
 
 interface Course {
   id: string
@@ -54,6 +54,8 @@ function formatTime12hr(time: string): string {
 
 export default function StudentDashboard() {
   const [userName, setUserName] = useState("")
+  const [userEmail, setUserEmail] = useState("")
+  const [userAvatar, setUserAvatar] = useState<string | null>(null)
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([])
   const [liveClasses, setLiveClasses] = useState<LiveClass[]>([])
   const [loading, setLoading] = useState(true)
@@ -91,7 +93,10 @@ export default function StudentDashboard() {
       try {
         const { data: { user } } = await supabase.auth.getUser()
         if (user) {
-          setUserName(user.email?.split("@")[0] || "Student")
+          setUserName(user.user_metadata?.full_name || user.email?.split("@")[0] || "Student")
+          setUserEmail(user.email || "")
+          const av = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
+          setUserAvatar(av)
           
           // Get enrolled courses with details
           const { data: enrollments } = await supabase
@@ -146,13 +151,46 @@ export default function StudentDashboard() {
     <div className="space-y-8">
       {/* Welcome Section */}
       <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-black mb-2">
-            Welcome back, {userName}!
-          </h1>
-          <p className="text-gray-600">
-            Continue your learning journey with IITM BS courses
-          </p>
+        <div className="flex items-start gap-4">
+          {/* Avatar with Pro star */}
+          <div className="relative shrink-0">
+            {userAvatar ? (
+              <img
+                src={userAvatar}
+                alt={userName}
+                className="h-14 w-14 rounded-full border-2 border-gray-200 object-cover"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-gray-200 bg-gray-100 text-lg font-bold text-gray-600">
+                {(userName[0] || "S").toUpperCase()}
+              </div>
+            )}
+            {enrolledCourses.length > 0 && (
+              <span
+                title="Enrolled student"
+                className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-amber-400 to-orange-500 shadow"
+              >
+                <Star className="h-2.5 w-2.5 fill-white text-white" />
+              </span>
+            )}
+          </div>
+
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-3xl font-bold text-black">
+                Welcome back, {userName}!
+              </h1>
+              {enrolledCourses.length > 0 && (
+                <span className="shrink-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white shadow">
+                  Pro
+                </span>
+              )}
+            </div>
+            <p className="text-gray-600 mt-1">
+              Continue your learning journey with IITM BS courses
+            </p>
+          </div>
         </div>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform?usp=sharing&ouid=109000575421815991569"

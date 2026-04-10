@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { CalendarDays, Mail, Search, ShieldCheck, UserRound, Trash2, Edit3, BookOpen, X } from "lucide-react"
+import { CalendarDays, Mail, Search, ShieldCheck, UserRound, Trash2, Edit3, BookOpen, X, Star } from "lucide-react"
 
 type DirectoryUser = {
   id: string
@@ -27,6 +27,9 @@ export default function AdminUsersDirectoryPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchValue, setSearchValue] = useState("")
 
+  // Map of userId -> enrollment count (fetched lazily per-user OR bulk)
+  const [enrolledUserIds, setEnrolledUserIds] = useState<Set<string>>(new Set())
+
   const [statusMessage, setStatusMessage] = useState("")
 
   const [editingUserId, setEditingUserId] = useState<string | null>(null)
@@ -50,11 +53,26 @@ export default function AdminUsersDirectoryPage() {
     const loadUsers = async () => {
       try {
         const res = await fetch("/api/admin/users", { cache: "no-store" })
-        if (!res.ok) {
-          throw new Error("Failed to fetch users")
-        }
+        if (!res.ok) throw new Error("Failed to fetch users")
         const data = (await res.json()) as { users?: DirectoryUser[] }
-        setUsers(Array.isArray(data.users) ? data.users : [])
+        const loaded = Array.isArray(data.users) ? data.users : []
+        setUsers(loaded)
+
+        // Fetch enrollment counts for all users in parallel (fire-and-forget)
+        const enrolled = new Set<string>()
+        await Promise.allSettled(
+          loaded.map(async (u) => {
+            try {
+              const r = await fetch(`/api/admin/users/${u.id}/enrollments`, { cache: "no-store" })
+              if (!r.ok) return
+              const d = await r.json() as { enrollments?: UserEnrollment[] }
+              if (Array.isArray(d.enrollments) && d.enrollments.length > 0) {
+                enrolled.add(u.id)
+              }
+            } catch {}
+          })
+        )
+        setEnrolledUserIds(new Set(enrolled))
       } catch {
         setUsers([])
       } finally {
@@ -231,6 +249,7 @@ export default function AdminUsersDirectoryPage() {
         {sectionUsers.map((user) => {
           const fullName = user.full_name || `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim() || "Unnamed User"
           const isAdmin = (user.role || "student").toLowerCase() === "admin"
+          const isPro   = enrolledUserIds.has(user.id)
           const initials = fullName
             .split(" ")
             .filter(Boolean)
@@ -242,20 +261,39 @@ export default function AdminUsersDirectoryPage() {
             <article key={user.id} className="grid grid-cols-1 items-center gap-4 px-6 py-4 md:grid-cols-[2.2fr_1fr_1fr_150px]">
               <div className="min-w-0">
                 <div className="flex items-center gap-3">
-                  {user.avatar_url ? (
-                    <img
-                      src={user.avatar_url}
-                      alt={fullName}
-                      className="h-10 w-10 rounded-full border border-white/15 object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#1a1f29] text-xs font-semibold text-slate-300">
-                      {initials || <UserRound className="h-4 w-4" />}
-                    </div>
-                  )}
+                  {/* Avatar with Pro badge */}
+                  <div className="relative shrink-0">
+                    {user.avatar_url ? (
+                      <img
+                        src={user.avatar_url}
+                        alt={fullName}
+                        className="h-10 w-10 rounded-full border border-white/15 object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#1a1f29] text-xs font-semibold text-slate-300">
+                        {initials || <UserRound className="h-4 w-4" />}
+                      </div>
+                    )}
+                    {isPro && (
+                      <span
+                        title="Enrolled in a course"
+                        className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-[#0c1016] bg-gradient-to-br from-amber-400 to-orange-500 shadow"
+                      >
+                        <Star className="h-2.5 w-2.5 fill-white text-white" />
+                      </span>
+                    )}
+                  </div>
+
                   <div className="min-w-0">
-                    <p className="truncate text-base font-semibold text-slate-100">{fullName}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="truncate text-base font-semibold text-slate-100">{fullName}</p>
+                      {isPro && (
+                        <span className="shrink-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow">
+                          Pro
+                        </span>
+                      )}
+                    </div>
                     <p className="flex items-center gap-1 truncate text-xs text-slate-400">
                       <Mail className="h-3 w-3" />
                       {user.email}
