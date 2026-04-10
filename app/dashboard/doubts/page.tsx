@@ -3,10 +3,25 @@
 import { useEffect, useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle2, ImagePlus, Loader2, MessageCircle, Send, Upload } from "lucide-react"
+import {
+  CheckCircle2,
+  ImagePlus,
+  Loader2,
+  MessageCircle,
+  Send,
+  Upload,
+  MessagesSquare,
+  Clock,
+  ChevronRight,
+  Plus,
+  X,
+  CircleDot,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react"
 import { useSearchParams } from "next/navigation"
 
+// ── Types ─────────────────────────────────────────────────────────────────────
 type DoubtItem = {
   id: string
   subject: string
@@ -36,73 +51,77 @@ type DoubtDetailResponse = {
   viewer_role: "student" | "admin"
 }
 
-function statusStyles(status: DoubtItem["status"]): string {
-  if (status === "resolved") return "bg-emerald-100 text-emerald-700 border-emerald-200"
-  if (status === "in_progress") return "bg-blue-100 text-blue-700 border-blue-200"
-  return "bg-amber-100 text-amber-700 border-amber-200"
-}
-
-function statusLabel(status: DoubtItem["status"]): string {
-  if (status === "in_progress") return "In Progress"
-  if (status === "resolved") return "Resolved"
-  return "Open"
-}
-
+// ── Helpers ───────────────────────────────────────────────────────────────────
 function formatTime(value: string): string {
+  const date = new Date(value)
+  const now = new Date()
+  const diff = now.getTime() - date.getTime()
+  const hours = diff / (1000 * 60 * 60)
+  if (hours < 24) return date.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true })
+  return date.toLocaleDateString("en-IN", { day: "numeric", month: "short" })
+}
+
+function formatFull(value: string): string {
   return new Date(value).toLocaleString("en-IN", {
-    day: "numeric",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
+    day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: true,
   })
 }
 
+function getInitials(name: string): string {
+  return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+}
+
+// ── Status config ─────────────────────────────────────────────────────────────
+const STATUS_CONFIG = {
+  open:        { label: "Open",        icon: CircleDot,    class: "bg-amber-100  text-amber-700  border-amber-200",  dot: "bg-amber-500"  },
+  in_progress: { label: "In Progress", icon: AlertCircle,  class: "bg-blue-100   text-blue-700   border-blue-200",   dot: "bg-blue-500"   },
+  resolved:    { label: "Resolved",    icon: CheckCircle,  class: "bg-emerald-100 text-emerald-700 border-emerald-200", dot: "bg-emerald-500" },
+}
+
+// ── Component ──────────────────────────────────────────────────────────────────
 export default function DashboardDoubtsPage() {
   const searchParams = useSearchParams()
-  const [doubts, setDoubts] = useState<DoubtItem[]>([])
+  const [doubts,          setDoubts]          = useState<DoubtItem[]>([])
   const [selectedDoubtId, setSelectedDoubtId] = useState<string | null>(null)
-  const [messages, setMessages] = useState<DoubtMessage[]>([])
-  const [threadLoading, setThreadLoading] = useState(false)
-  const [listLoading, setListLoading] = useState(true)
+  const [messages,        setMessages]        = useState<DoubtMessage[]>([])
+  const [threadLoading,   setThreadLoading]   = useState(false)
+  const [listLoading,     setListLoading]     = useState(true)
+  const [showForm,        setShowForm]        = useState(false)
 
-  const [subject, setSubject] = useState("")
-  const [question, setQuestion] = useState("")
-  const [newReply, setNewReply] = useState("")
+  const [subject,             setSubject]             = useState("")
+  const [question,            setQuestion]            = useState("")
+  const [newReply,            setNewReply]            = useState("")
   const [uploadingScreenshot, setUploadingScreenshot] = useState(false)
   const [createScreenshotUrl, setCreateScreenshotUrl] = useState<string | null>(null)
-  const [replyScreenshotUrl, setReplyScreenshotUrl] = useState<string | null>(null)
-  const [creating, setCreating] = useState(false)
-  const [replying, setReplying] = useState(false)
-  const [statusUpdating, setStatusUpdating] = useState(false)
-  const [error, setError] = useState("")
+  const [replyScreenshotUrl,  setReplyScreenshotUrl]  = useState<string | null>(null)
+  const [creating,            setCreating]            = useState(false)
+  const [replying,            setReplying]            = useState(false)
+  const [statusUpdating,      setStatusUpdating]      = useState(false)
+  const [error,               setError]               = useState("")
 
   const selectedDoubt = useMemo(
-    () => doubts.find((doubt) => doubt.id === selectedDoubtId) ?? null,
+    () => doubts.find((d) => d.id === selectedDoubtId) ?? null,
     [doubts, selectedDoubtId],
   )
 
+  // Derived stats
+  const openCount     = doubts.filter((d) => d.status === "open").length
+  const progressCount = doubts.filter((d) => d.status === "in_progress").length
+  const resolvedCount = doubts.filter((d) => d.status === "resolved").length
+
+  // ── Data fetching ──────────────────────────────────────────────────────────
   const loadDoubts = async () => {
     try {
-      const response = await fetch("/api/doubts", { cache: "no-store" })
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to fetch doubts")
-      }
-
+      const res  = await fetch("/api/doubts", { cache: "no-store" })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to fetch doubts")
       const list = (data.doubts || []) as DoubtItem[]
       setDoubts(list)
-
-      if (!selectedDoubtId && list.length > 0) {
-        setSelectedDoubtId(list[0].id)
-      }
-
-      if (selectedDoubtId && !list.some((item) => item.id === selectedDoubtId)) {
+      if (!selectedDoubtId && list.length > 0) setSelectedDoubtId(list[0].id)
+      if (selectedDoubtId && !list.some((i) => i.id === selectedDoubtId))
         setSelectedDoubtId(list[0]?.id ?? null)
-      }
-    } catch (fetchError) {
-      const message = fetchError instanceof Error ? fetchError.message : "Failed to load doubts"
-      setError(message)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load doubts")
     } finally {
       setListLoading(false)
     }
@@ -111,393 +130,495 @@ export default function DashboardDoubtsPage() {
   const loadThread = async (doubtId: string) => {
     setThreadLoading(true)
     try {
-      const response = await fetch(`/api/doubts/${doubtId}`, { cache: "no-store" })
-      const data = (await response.json()) as DoubtDetailResponse | { error: string }
-      if (!response.ok) {
-        throw new Error((data as { error?: string }).error || "Failed to load messages")
-      }
-
+      const res  = await fetch(`/api/doubts/${doubtId}`, { cache: "no-store" })
+      const data = (await res.json()) as DoubtDetailResponse | { error: string }
+      if (!res.ok) throw new Error((data as { error?: string }).error || "Failed to load messages")
       setMessages((data as DoubtDetailResponse).messages || [])
-    } catch (fetchError) {
-      const message = fetchError instanceof Error ? fetchError.message : "Failed to load thread"
-      setError(message)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load thread")
     } finally {
       setThreadLoading(false)
     }
   }
 
-  useEffect(() => {
-    void loadDoubts()
-  }, [])
+  useEffect(() => { void loadDoubts() }, [])
 
   useEffect(() => {
-    if (!selectedDoubtId) {
-      setMessages([])
-      return
-    }
-
+    if (!selectedDoubtId) { setMessages([]); return }
     void loadThread(selectedDoubtId)
-
-    const interval = setInterval(() => {
-      if (document.visibilityState !== "visible") {
-        return
-      }
-      void loadThread(selectedDoubtId)
+    const iv = setInterval(() => {
+      if (document.visibilityState === "visible") void loadThread(selectedDoubtId)
     }, 45000)
-
-    return () => clearInterval(interval)
+    return () => clearInterval(iv)
   }, [selectedDoubtId])
 
   useEffect(() => {
-    const preferredThread = searchParams.get("thread")
-    if (!preferredThread) return
-
-    if (doubts.some((item) => item.id === preferredThread)) {
-      setSelectedDoubtId(preferredThread)
-    }
+    const preferred = searchParams.get("thread")
+    if (preferred && doubts.some((i) => i.id === preferred)) setSelectedDoubtId(preferred)
   }, [doubts, searchParams])
 
+  // ── Upload ─────────────────────────────────────────────────────────────────
   const uploadScreenshot = async (file: File): Promise<string> => {
     const body = new FormData()
     body.append("file", file)
-
-    const response = await fetch("/api/doubts/upload-screenshot", {
-      method: "POST",
-      body,
-    })
-
-    const data = await response.json()
-    if (!response.ok || !data.url) {
-      throw new Error(data.error || "Failed to upload screenshot")
-    }
-
+    const res  = await fetch("/api/doubts/upload-screenshot", { method: "POST", body })
+    const data = await res.json()
+    if (!res.ok || !data.url) throw new Error(data.error || "Upload failed")
     return data.url as string
   }
 
   const handleCreateScreenshot = async (file: File | null) => {
     if (!file) return
-
-    setUploadingScreenshot(true)
-    setError("")
-    try {
-      const url = await uploadScreenshot(file)
-      setCreateScreenshotUrl(url)
-    } catch (uploadError) {
-      const message = uploadError instanceof Error ? uploadError.message : "Screenshot upload failed"
-      setError(message)
-    } finally {
-      setUploadingScreenshot(false)
-    }
+    setUploadingScreenshot(true); setError("")
+    try { setCreateScreenshotUrl(await uploadScreenshot(file)) }
+    catch (e) { setError(e instanceof Error ? e.message : "Upload failed") }
+    finally { setUploadingScreenshot(false) }
   }
 
   const handleReplyScreenshot = async (file: File | null) => {
     if (!file) return
-
-    setUploadingScreenshot(true)
-    setError("")
-    try {
-      const url = await uploadScreenshot(file)
-      setReplyScreenshotUrl(url)
-    } catch (uploadError) {
-      const message = uploadError instanceof Error ? uploadError.message : "Screenshot upload failed"
-      setError(message)
-    } finally {
-      setUploadingScreenshot(false)
-    }
+    setUploadingScreenshot(true); setError("")
+    try { setReplyScreenshotUrl(await uploadScreenshot(file)) }
+    catch (e) { setError(e instanceof Error ? e.message : "Upload failed") }
+    finally { setUploadingScreenshot(false) }
   }
 
+  // ── Actions ────────────────────────────────────────────────────────────────
   const createDoubt = async () => {
-    if (!subject.trim() || !question.trim()) {
-      setError("Please enter both subject and your question.")
-      return
-    }
-
-    setCreating(true)
-    setError("")
+    if (!subject.trim() || !question.trim()) { setError("Please enter both subject and question."); return }
+    setCreating(true); setError("")
     try {
-      const response = await fetch("/api/doubts", {
+      const res  = await fetch("/api/doubts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject,
-          message: question,
-          screenshotUrl: createScreenshotUrl,
-        }),
+        body: JSON.stringify({ subject, message: question, screenshotUrl: createScreenshotUrl }),
       })
-
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to create doubt")
-      }
-
-      setSubject("")
-      setQuestion("")
-      setCreateScreenshotUrl(null)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to create doubt")
+      setSubject(""); setQuestion(""); setCreateScreenshotUrl(null); setShowForm(false)
       await loadDoubts()
-      if (data?.doubt?.id) {
-        setSelectedDoubtId(data.doubt.id)
-      }
-    } catch (createError) {
-      const message = createError instanceof Error ? createError.message : "Failed to post your doubt"
-      setError(message)
-    } finally {
-      setCreating(false)
-    }
+      if (data?.doubt?.id) setSelectedDoubtId(data.doubt.id)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to post doubt")
+    } finally { setCreating(false) }
   }
 
   const sendReply = async () => {
-    if (!selectedDoubtId || !newReply.trim()) {
-      return
-    }
-
-    setReplying(true)
-    setError("")
+    if (!selectedDoubtId || !newReply.trim()) return
+    setReplying(true); setError("")
     try {
-      const response = await fetch(`/api/doubts/${selectedDoubtId}/reply`, {
+      const res  = await fetch(`/api/doubts/${selectedDoubtId}/reply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: newReply,
-          screenshotUrl: replyScreenshotUrl,
-        }),
+        body: JSON.stringify({ message: newReply, screenshotUrl: replyScreenshotUrl }),
       })
-
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send reply")
-      }
-
-      setNewReply("")
-      setReplyScreenshotUrl(null)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to send reply")
+      setNewReply(""); setReplyScreenshotUrl(null)
       await loadThread(selectedDoubtId)
-    } catch (replyError) {
-      const message = replyError instanceof Error ? replyError.message : "Failed to send reply"
-      setError(message)
-    } finally {
-      setReplying(false)
-    }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to send reply")
+    } finally { setReplying(false) }
   }
 
   const updateStatus = async (status: DoubtItem["status"]) => {
     if (!selectedDoubtId) return
-
-    setStatusUpdating(true)
-    setError("")
+    setStatusUpdating(true); setError("")
     try {
-      const response = await fetch(`/api/doubts/${selectedDoubtId}/status`, {
+      const res  = await fetch(`/api/doubts/${selectedDoubtId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       })
-
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to update status")
-      }
-
-      await loadDoubts()
-      await loadThread(selectedDoubtId)
-    } catch (statusError) {
-      const message = statusError instanceof Error ? statusError.message : "Failed to update status"
-      setError(message)
-    } finally {
-      setStatusUpdating(false)
-    }
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to update status")
+      await loadDoubts(); await loadThread(selectedDoubtId)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to update status")
+    } finally { setStatusUpdating(false) }
   }
 
+  // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="text-3xl font-bold text-black">Get your doubts solved instantly</h1>
-        <p className="mt-1 text-sm text-gray-600">Ask questions, attach screenshots, and chat with admin mentors until you are clear.</p>
-      </header>
+    <div className="space-y-5">
 
-      {error ? <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p> : null}
+      {/* ══ HERO HEADER ══════════════════════════════════════════════════════ */}
+      <div className="relative overflow-hidden rounded-2xl border border-[#E5DBC8] bg-white shadow-sm">
+        {/* Decorative beige stripe */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FAF8F5] via-white to-white pointer-events-none" />
+        <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[#F7F2E8]/60 to-transparent pointer-events-none" />
 
-      <Card className="border-gray-200">
-        <CardContent className="space-y-4 p-5">
-          <h2 className="text-lg font-semibold text-black">Ask a New Doubt</h2>
-          <input
-            type="text"
-            value={subject}
-            onChange={(event) => setSubject(event.target.value)}
-            placeholder="Subject (e.g., Probability question from Week 2)"
-            className="h-11 w-full rounded-md border-2 border-gray-300 bg-white px-3 text-sm text-black caret-black outline-none transition-colors placeholder:text-gray-400 focus:border-black focus:ring-2 focus:ring-black/10"
-            suppressHydrationWarning
-          />
-          <textarea
-            value={question}
-            onChange={(event) => setQuestion(event.target.value)}
-            placeholder="Describe your doubt in detail so admin can help quickly"
-            rows={5}
-            className="min-h-28 w-full resize-y rounded-md border-2 border-gray-300 bg-white px-3 py-2 text-sm text-black caret-black outline-none transition-colors placeholder:text-gray-400 focus:border-black focus:ring-2 focus:ring-black/10"
-            suppressHydrationWarning
-          />
+        <div className="relative px-6 py-6 sm:px-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-black sm:text-3xl">
+                Doubts &amp; Support
+              </h1>
+              <p className="mt-1 text-sm text-slate-500">
+                Ask questions and get answers from your admin mentors.
+              </p>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-              <ImagePlus className="h-4 w-4" />
-              Attach Screenshot
-              <input
-                type="file"
-                accept="image/png,image/jpeg,image/jpg,image/webp"
-                className="hidden"
-                onChange={(event) => void handleCreateScreenshot(event.target.files?.[0] ?? null)}
-              />
-            </label>
-            {uploadingScreenshot ? <span className="text-xs text-gray-500">Uploading...</span> : null}
-            {createScreenshotUrl ? <span className="text-xs text-emerald-600">Screenshot attached</span> : null}
+              {/* Stats row */}
+              {!listLoading && (
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                    {openCount} Open
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                    {progressCount} In Progress
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    {resolvedCount} Resolved
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => setShowForm((v) => !v)}
+              className={`inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all ${
+                showForm
+                  ? "bg-[#F7F2E8] text-black border border-[#D8CCB2] hover:bg-[#EFE6D5]"
+                  : "bg-black text-white hover:bg-black/85"
+              }`}
+            >
+              {showForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+              {showForm ? "Cancel" : "New Doubt"}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ══ ERROR BANNER ════════════════════════════════════════════════════ */}
+      {error && (
+        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {error}
+        </div>
+      )}
+
+      {/* ══ NEW DOUBT FORM (collapsible) ═════════════════════════════════════ */}
+      {showForm && (
+        <div className="rounded-2xl border border-[#E5DBC8] bg-white shadow-sm overflow-hidden">
+          {/* Form header strip */}
+          <div className="border-b border-[#F0E8D8] bg-[#FAF8F5] px-6 py-3">
+            <h2 className="text-sm font-semibold text-black">Post a New Doubt</h2>
           </div>
 
-          <Button onClick={createDoubt} disabled={creating || uploadingScreenshot} className="bg-black text-white hover:bg-black/85" suppressHydrationWarning>
-            {creating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
-            {creating ? "Posting..." : "Post Doubt"}
-          </Button>
-        </CardContent>
-      </Card>
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[360px_1fr]">
-        <Card className="border-gray-200">
-          <CardContent className="p-0">
-            <div className="border-b border-gray-100 px-4 py-3">
-              <h3 className="font-semibold text-black">Your Threads</h3>
+          <div className="px-6 py-5 space-y-4">
+            {/* Subject */}
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Subject
+              </label>
+              <input
+                type="text"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                placeholder="e.g. Probability question from Week 2"
+                className="h-11 w-full rounded-lg border border-[#D8CCB2] bg-[#FAFAF7] px-3 text-sm text-black outline-none transition placeholder:text-slate-400 focus:border-black focus:bg-white"
+                suppressHydrationWarning
+              />
             </div>
+
+            {/* Question */}
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Your Question
+              </label>
+              <textarea
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                placeholder="Describe your doubt in detail…"
+                rows={4}
+                className="w-full resize-y rounded-lg border border-[#D8CCB2] bg-[#FAFAF7] px-3 py-2.5 text-sm text-black outline-none transition placeholder:text-slate-400 focus:border-black focus:bg-white"
+                suppressHydrationWarning
+              />
+            </div>
+
+            {/* Actions row */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[#D8CCB2] bg-[#F7F2E8] px-3 py-2 text-xs font-medium text-slate-700 hover:bg-[#EFE6D5] transition">
+                <ImagePlus className="h-3.5 w-3.5" />
+                {uploadingScreenshot ? "Uploading…" : createScreenshotUrl ? "✓ Screenshot attached" : "Attach Screenshot"}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/jpg,image/webp"
+                  className="hidden"
+                  onChange={(e) => void handleCreateScreenshot(e.target.files?.[0] ?? null)}
+                />
+              </label>
+
+              <Button
+                onClick={createDoubt}
+                disabled={creating || uploadingScreenshot}
+                className="h-10 bg-black text-white hover:bg-black/85 rounded-lg"
+                suppressHydrationWarning
+              >
+                {creating
+                  ? <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  : <Upload className="mr-2 h-4 w-4" />}
+                {creating ? "Posting…" : "Post Doubt"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ══ MAIN PANELS ══════════════════════════════════════════════════════ */}
+      <div className="grid gap-4 lg:grid-cols-[288px_minmax(0,1fr)]" style={{ minHeight: 520 }}>
+
+        {/* ── LEFT: Thread List ─────────────────────────────────────────── */}
+        <aside className="flex flex-col rounded-2xl border border-[#E5DBC8] bg-white shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between border-b border-[#F0E8D8] bg-[#FAF8F5] px-4 py-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Your Threads
+            </h3>
+            <span className="rounded-full bg-[#EFE6D5] px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+              {doubts.length}
+            </span>
+          </div>
+
+          <div className="flex-1 overflow-y-auto">
             {listLoading ? (
-              <div className="px-4 py-6 text-sm text-gray-500">Loading doubts...</div>
-            ) : doubts.length === 0 ? (
-              <div className="px-4 py-6 text-sm text-gray-500">No doubts yet. Post your first question.</div>
-            ) : (
-              <div className="max-h-140 overflow-y-auto">
-                {doubts.map((doubt) => (
-                  <button
-                    type="button"
-                    key={doubt.id}
-                    onClick={() => setSelectedDoubtId(doubt.id)}
-                    className={`w-full border-b border-gray-100 px-4 py-3 text-left transition hover:bg-gray-50 ${selectedDoubtId === doubt.id ? "bg-blue-50" : "bg-white"}`}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="line-clamp-1 text-sm font-semibold text-black">{doubt.subject}</p>
-                      {doubt.unread_for_student ? <span className="h-2.5 w-2.5 rounded-full bg-red-500" /> : null}
-                    </div>
-                    <div className="mt-1 flex items-center gap-2">
-                      <Badge className={`border text-[10px] ${statusStyles(doubt.status)}`}>{statusLabel(doubt.status)}</Badge>
-                      <span className="text-[11px] text-gray-500">{formatTime(doubt.last_message_at)}</span>
-                    </div>
-                    <p className="mt-2 line-clamp-2 text-xs text-gray-600">{doubt.last_message || "No replies yet"}</p>
-                  </button>
-                ))}
+              <div className="flex h-full items-center justify-center gap-2 py-12 text-sm text-slate-400">
+                <Loader2 className="h-4 w-4 animate-spin" /> Loading…
               </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="border-gray-200">
-          <CardContent className="p-0">
-            {!selectedDoubt ? (
-              <div className="px-6 py-12 text-center text-gray-500">Select a doubt thread to view replies.</div>
-            ) : (
-              <>
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 px-5 py-4">
-                  <div>
-                    <h3 className="text-base font-semibold text-black">{selectedDoubt.subject}</h3>
-                    <p className="text-xs text-gray-500">Created on {formatTime(selectedDoubt.created_at)}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge className={`border text-xs ${statusStyles(selectedDoubt.status)}`}>{statusLabel(selectedDoubt.status)}</Badge>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-emerald-300 text-emerald-700 hover:bg-emerald-50"
-                      onClick={() => void updateStatus("resolved")}
-                      disabled={statusUpdating || selectedDoubt.status === "resolved"}
-                      suppressHydrationWarning
-                    >
-                      <CheckCircle2 className="mr-1 h-4 w-4" />
-                      Mark Resolved
-                    </Button>
-                  </div>
+            ) : doubts.length === 0 ? (
+              <div className="flex h-full flex-col items-center justify-center gap-3 py-12 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F7F2E8]">
+                  <MessagesSquare className="h-5 w-5 text-[#C8BA97]" />
                 </div>
-
-                <div className="max-h-105 space-y-3 overflow-y-auto px-5 py-4">
-                  {threadLoading ? (
-                    <p className="text-sm text-gray-500">Loading thread...</p>
-                  ) : messages.length === 0 ? (
-                    <p className="text-sm text-gray-500">No messages yet.</p>
-                  ) : (
-                    messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-                          message.sender_role === "student"
-                            ? "ml-auto bg-black text-white"
-                            : "mr-auto bg-gray-100 text-black"
+                <p className="text-sm text-slate-400 px-4">No doubts posted yet.</p>
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="text-xs font-semibold text-black underline-offset-2 hover:underline"
+                >
+                  Post your first doubt →
+                </button>
+              </div>
+            ) : (
+              <ul className="divide-y divide-[#F5EDD8]">
+                {doubts.map((doubt) => {
+                  const cfg     = STATUS_CONFIG[doubt.status]
+                  const active  = selectedDoubtId === doubt.id
+                  return (
+                    <li key={doubt.id}>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedDoubtId(doubt.id)}
+                        className={`group relative w-full px-4 py-3.5 text-left transition-all ${
+                          active
+                            ? "bg-[#F7F2E8]"
+                            : "bg-white hover:bg-[#FDFAF6]"
                         }`}
                       >
-                        <p className="text-xs font-semibold opacity-80">{message.sender_role === "student" ? "You" : "Admin"}</p>
-                        <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed">{message.message}</p>
-                        {message.screenshot_url ? (
-                          <a
-                            href={message.screenshot_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`mt-2 block text-xs underline ${message.sender_role === "student" ? "text-white/90" : "text-blue-700"}`}
-                          >
-                            View screenshot
-                          </a>
-                        ) : null}
-                        <p className={`mt-2 text-[11px] ${message.sender_role === "student" ? "text-white/70" : "text-gray-500"}`}>
-                          {formatTime(message.created_at)}
+                        {/* Active indicator strip */}
+                        {active && (
+                          <span className="absolute left-0 top-0 h-full w-0.5 rounded-r bg-black" />
+                        )}
+
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="line-clamp-1 text-sm font-semibold text-black pr-1">
+                            {doubt.subject}
+                          </p>
+                          <div className="flex shrink-0 items-center gap-1 pt-0.5">
+                            {doubt.unread_for_student && (
+                              <span className="h-2 w-2 rounded-full bg-red-500" />
+                            )}
+                            <ChevronRight className={`h-3.5 w-3.5 text-slate-300 transition-transform ${active ? "rotate-90 text-slate-500" : ""}`} />
+                          </div>
+                        </div>
+
+                        <div className="mt-1.5 flex items-center gap-2">
+                          <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium ${cfg.class}`}>
+                            <span className={`h-1.5 w-1.5 rounded-full ${cfg.dot}`} />
+                            {cfg.label}
+                          </span>
+                          <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                            <Clock className="h-2.5 w-2.5" />
+                            {formatTime(doubt.last_message_at)}
+                          </span>
+                        </div>
+
+                        <p className="mt-1.5 line-clamp-1 text-xs text-slate-400">
+                          {doubt.last_message || "No replies yet"}
                         </p>
-                      </div>
-                    ))
-                  )}
-                </div>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
+        </aside>
 
-                <div className="border-t border-gray-100 px-5 py-4">
-                  <textarea
-                    value={newReply}
-                    onChange={(event) => setNewReply(event.target.value)}
-                    placeholder="Add follow-up message"
-                    rows={4}
-                    className="min-h-24 w-full resize-y rounded-md border-2 border-gray-300 bg-white px-3 py-2 text-sm text-black caret-black outline-none transition-colors placeholder:text-gray-400 focus:border-black focus:ring-2 focus:ring-black/10"
-                    suppressHydrationWarning
-                  />
-                  <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <label className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50">
-                        <ImagePlus className="h-3.5 w-3.5" />
-                        Attach
-                        <input
-                          type="file"
-                          accept="image/png,image/jpeg,image/jpg,image/webp"
-                          className="hidden"
-                          onChange={(event) => void handleReplyScreenshot(event.target.files?.[0] ?? null)}
-                        />
-                      </label>
-                      {replyScreenshotUrl ? <span className="text-xs text-emerald-600">Attached</span> : null}
-                    </div>
-
-                    <Button
-                      onClick={sendReply}
-                      disabled={replying || uploadingScreenshot || !newReply.trim()}
-                      className="bg-black text-white hover:bg-black/85"
-                      suppressHydrationWarning
-                    >
-                      {replying ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-                      Send Reply
-                    </Button>
+        {/* ── RIGHT: Chat Panel ──────────────────────────────────────────── */}
+        <div className="flex flex-col rounded-2xl border border-[#E5DBC8] bg-white shadow-sm overflow-hidden">
+          {!selectedDoubt ? (
+            /* Empty state */
+            <div className="flex flex-1 flex-col items-center justify-center gap-4 px-8 py-20 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[#F7F2E8]">
+                <MessagesSquare className="h-7 w-7 text-[#C8BA97]" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-black">No thread selected</p>
+                <p className="mt-0.5 text-xs text-slate-400">Select a doubt from the list to view the conversation.</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Thread header */}
+              <div className="flex-shrink-0 border-b border-[#E5DBC8] bg-[#FAF8F5]">
+                <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+                  <div className="min-w-0">
+                    <h3 className="truncate text-base font-bold text-black">
+                      {selectedDoubt.subject}
+                    </h3>
+                    <p className="mt-0.5 text-xs text-slate-400">
+                      Created {formatFull(selectedDoubt.created_at)}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Badge className={`border text-xs ${STATUS_CONFIG[selectedDoubt.status].class}`}>
+                      {STATUS_CONFIG[selectedDoubt.status].label}
+                    </Badge>
+                    {selectedDoubt.status !== "resolved" && (
+                      <button
+                        onClick={() => void updateStatus("resolved")}
+                        disabled={statusUpdating}
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-[#D8CCB2] bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-[#F7F2E8] transition disabled:opacity-50"
+                        suppressHydrationWarning
+                      >
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                        Mark Resolved
+                      </button>
+                    )}
                   </div>
                 </div>
-              </>
-            )}
-          </CardContent>
-        </Card>
+              </div>
+
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto px-5 py-5 space-y-4" style={{ background: "linear-gradient(to bottom, #FDFAF6, #FFFFFF)" }}>
+                {threadLoading ? (
+                  <div className="flex items-center justify-center gap-2 py-10 text-sm text-slate-400">
+                    <Loader2 className="h-4 w-4 animate-spin" /> Loading conversation…
+                  </div>
+                ) : messages.length === 0 ? (
+                  <div className="flex flex-col items-center gap-2 py-10 text-center">
+                    <MessageCircle className="h-8 w-8 text-[#D8CCB2]" />
+                    <p className="text-sm text-slate-400">No messages yet — admin will reply soon.</p>
+                  </div>
+                ) : (
+                  messages.map((msg) => {
+                    const isStudent = msg.sender_role === "student"
+                    return (
+                      <div
+                        key={msg.id}
+                        className={`flex items-end gap-2.5 ${isStudent ? "flex-row-reverse" : "flex-row"}`}
+                      >
+                        {/* Avatar */}
+                        <div
+                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                            isStudent
+                              ? "bg-black text-white"
+                              : "bg-[#EFE6D5] text-slate-700 border border-[#D8CCB2]"
+                          }`}
+                        >
+                          {isStudent ? "Y" : getInitials(msg.sender_name || "Admin")}
+                        </div>
+
+                        {/* Bubble */}
+                        <div className={`max-w-[72%] space-y-1 ${isStudent ? "items-end" : "items-start"} flex flex-col`}>
+                          <div
+                            className={`rounded-2xl px-4 py-2.5 ${
+                              isStudent
+                                ? "rounded-br-sm bg-black text-white"
+                                : "rounded-bl-sm border border-[#E5DBC8] bg-white text-black shadow-sm"
+                            }`}
+                          >
+                            <p className="whitespace-pre-wrap text-sm leading-relaxed">
+                              {msg.message}
+                            </p>
+                            {msg.screenshot_url && (
+                              <a
+                                href={msg.screenshot_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`mt-2 block text-xs underline ${
+                                  isStudent ? "text-white/80" : "text-blue-600"
+                                }`}
+                              >
+                                View screenshot ↗
+                              </a>
+                            )}
+                          </div>
+                          <span className="px-1 text-[10px] text-slate-400">
+                            {formatFull(msg.created_at)}
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+
+              {/* Reply box */}
+              <div className="flex-shrink-0 border-t border-[#E5DBC8] bg-white px-5 py-4">
+                <textarea
+                  value={newReply}
+                  onChange={(e) => setNewReply(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { void sendReply() }
+                  }}
+                  placeholder="Write a follow-up… (Ctrl+Enter to send)"
+                  rows={2}
+                  className="w-full resize-none rounded-xl border border-[#D8CCB2] bg-[#FAFAF7] px-3.5 py-2.5 text-sm text-black outline-none transition placeholder:text-slate-400 focus:border-black focus:bg-white"
+                  suppressHydrationWarning
+                />
+                <div className="mt-2.5 flex items-center justify-between gap-3">
+                  <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[#D8CCB2] bg-[#F7F2E8] px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:bg-[#EFE6D5] transition">
+                    <ImagePlus className="h-3.5 w-3.5" />
+                    {replyScreenshotUrl ? "✓ Attached" : "Attach"}
+                    <input
+                      type="file"
+                      accept="image/png,image/jpeg,image/jpg,image/webp"
+                      className="hidden"
+                      onChange={(e) => void handleReplyScreenshot(e.target.files?.[0] ?? null)}
+                    />
+                  </label>
+
+                  <button
+                    onClick={sendReply}
+                    disabled={replying || uploadingScreenshot || !newReply.trim()}
+                    className="inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-black/85 disabled:opacity-40"
+                    suppressHydrationWarning
+                  >
+                    {replying
+                      ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      : <Send className="h-3.5 w-3.5" />}
+                    Send
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-800">
-        <MessageCircle className="mr-2 inline h-4 w-4" />
-        Admin team responds in this thread. You will also get a bell notification when there is a new reply.
+      {/* ══ FOOTER NOTE ═════════════════════════════════════════════════════ */}
+      <div className="flex items-start gap-3 rounded-xl border border-[#E5DBC8] bg-[#FDFAF6] px-4 py-3.5">
+        <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EFE6D5]">
+          <MessageCircle className="h-3.5 w-3.5 text-slate-600" />
+        </div>
+        <p className="text-xs text-slate-500 leading-relaxed">
+          Admin team responds in each thread. You&apos;ll receive a bell notification when there is a new reply.
+          Use <kbd className="rounded border border-[#D8CCB2] bg-[#F7F2E8] px-1.5 py-0.5 font-mono text-[10px]">Ctrl + Enter</kbd> to send messages quickly.
+        </p>
       </div>
+
     </div>
   )
 }

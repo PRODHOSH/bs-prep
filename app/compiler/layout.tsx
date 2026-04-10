@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
   title: "Python Compiler | BSPrep",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
  * Isolated layout for /compiler.
  * - No Navbar / Footer
  * - No BeamsBackground dotted canvas
- * - Body-level background is overridden so the compiler fills the full viewport cleanly
+ * - Wraps in Suspense so useSearchParams() works for share links
  */
 export default function CompilerLayout({
   children,
@@ -19,7 +20,9 @@ export default function CompilerLayout({
 }) {
   return (
     <div className="cc-layout-root">
-      {children}
+      <Suspense>
+        {children}
+      </Suspense>
     </div>
   )
 }

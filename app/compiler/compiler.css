@@ -126,6 +126,7 @@
   min-height: 0;
   width: 100%;
   overflow: hidden;
+  position: relative;           /* anchor for .cc-share-toast */
   background: var(--cc-bg);
   color: var(--cc-text);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -137,6 +138,86 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ── Read-only banner ───────────────────────────────────────────────────────*/
+.cc-readonly-banner {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px;
+  height: 32px;
+  background: #eff6ff;
+  border-bottom: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cc-dark .cc-readonly-banner {
+  background: #1e2a3a;
+  border-bottom-color: #1e3a5f;
+  color: #60a5fa;
+}
+
+.cc-fork-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  height: 22px;
+  padding: 0 10px;
+  border: 1px solid #2563eb !important;
+  border-radius: 4px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: background 0.12s;
+}
+
+.cc-fork-btn:hover { background: #1d4ed8; }
+
+.cc-dark .cc-fork-btn {
+  border-color: #3b82f6 !important;
+  background: #3b82f6;
+}
+.cc-dark .cc-fork-btn:hover { background: #2563eb; }
+
+/* ── Share toast ─────────────────────────────────────────────────────────── */
+.cc-share-toast {
+  position: absolute;
+  top: 72px;        /* below banner + topbar */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  background: #111827;
+  color: #f9fafb;
+  font-size: 12.5px;
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  z-index: 100;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: cc-toast-in 0.2s ease;
+}
+
+@keyframes cc-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Share button success state */
+.cc-icon-btn--success {
+  color: #22c55e !important;
 }
 
 /* ── Top bar ─────────────────────────────────────────────────────────────── */
