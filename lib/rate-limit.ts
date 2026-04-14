@@ -83,25 +83,25 @@ export class RateLimiter {
 export const apiRateLimiter = new RateLimiter({
   interval: 60 * 1000, // 1 minute
   uniqueTokenPerInterval: 500,
-  maxRequests: 60 // 60 requests per minute
+  maxRequests: 120 // 120 requests per minute
 })
 
 export const authRateLimiter = new RateLimiter({
   interval: 15 * 60 * 1000, // 15 minutes
   uniqueTokenPerInterval: 500,
-  maxRequests: 5 // 5 login attempts per 15 minutes
+  maxRequests: 60 // 60 auth attempts per 15 minutes
 })
 
 export const enrollmentRateLimiter = new RateLimiter({
   interval: 60 * 1000, // 1 minute
   uniqueTokenPerInterval: 500,
-  maxRequests: 3 // 3 enrollments per minute
+  maxRequests: 10 // 10 enrollments per minute
 })
 
 export const writeRateLimiter = new RateLimiter({
   interval: 60 * 1000, // 1 minute
   uniqueTokenPerInterval: 500,
-  maxRequests: 10 // 10 write operations per minute
+  maxRequests: 30 // 30 write operations per minute
 })
 
 export const deleteAccountRateLimiter = new RateLimiter({

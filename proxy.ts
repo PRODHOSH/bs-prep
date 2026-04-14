@@ -72,12 +72,16 @@ export async function proxy(request: NextRequest) {
     const key = getRateLimitKey(request)
     
     // Different rate limits for different endpoints
-    let maxRequests = 60
+    let maxRequests = 120
     let windowMs = 60 * 1000 // 1 minute
     
-    if (pathname.includes('/auth/')) {
-      maxRequests = 5
-      windowMs = 15 * 60 * 1000 // 15 minutes for auth
+    if (
+      pathname.includes('/auth/') ||
+      pathname.startsWith('/api/account/') ||
+      pathname.startsWith('/api/profile')
+    ) {
+      maxRequests = 60
+      windowMs = 15 * 60 * 1000 // 15 minutes for auth/account flows
     } else if (pathname.startsWith('/api/payment/webhook')) {
       maxRequests = 300
       windowMs = 60 * 1000 // 1 minute for webhook callbacks
@@ -85,10 +89,10 @@ export async function proxy(request: NextRequest) {
       maxRequests = 120
       windowMs = 60 * 1000 // 1 minute for checkout/verify requests
     } else if (pathname.startsWith('/api/enroll')) {
-      maxRequests = 3
+      maxRequests = 10
       windowMs = 60 * 1000 // 1 minute for enrollment
     } else if (request.method === 'POST' || request.method === 'PUT' || request.method === 'DELETE') {
-      maxRequests = 10
+      maxRequests = 30
       windowMs = 60 * 1000 // 1 minute for write operations
     }
 
