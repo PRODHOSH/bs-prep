@@ -3,8 +3,8 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
-  title: "Python Compiler | BSPrep",
-  description: "Online Python 3 compiler — write, run, and share Python code in your browser.",
+  title: "Online Compiler | BSPrep",
+  description: "Online compiler — write, run, and share Python, Java, C, and C++ code in your browser.",
 }
 
 /**

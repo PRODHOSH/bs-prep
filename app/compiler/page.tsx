@@ -2,6 +2,8 @@
 
 import CodeMirror from "@uiw/react-codemirror"
 import { python } from "@codemirror/lang-python"
+import { java } from "@codemirror/lang-java"
+import { cpp } from "@codemirror/lang-cpp"
 import { oneDark } from "@codemirror/theme-one-dark"
 import { EditorView } from "@codemirror/view"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -27,6 +29,7 @@ import {
   CheckCheck,
   GitFork,
   Lock,
+  ChevronDown,
 } from "lucide-react"
 import "./compiler.css"
 
@@ -57,6 +60,40 @@ def main():
 
 main()`
 
+const DEFAULT_JAVA_CODE = `// cook your dish here
+
+class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello, World!");
+  }
+}`
+
+const DEFAULT_C_CODE = `// cook your dish here
+
+#include <stdio.h>
+
+int main(void) {
+  printf("Hello, World!\\n");
+  return 0;
+}`
+
+const DEFAULT_CPP_CODE = `// cook your dish here
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  cout << "Hello, World!" << "\\n";
+  return 0;
+}`
+
+const DEFAULT_CODE_BY_LANGUAGE: Record<SupportedLanguage, string> = {
+  python: DEFAULT_CODE,
+  java: DEFAULT_JAVA_CODE,
+  c: DEFAULT_C_CODE,
+  cpp: DEFAULT_CPP_CODE,
+}
+
 const FILES_KEY   = "cc:python:files"
 const ACTIVE_KEY  = "cc:python:active"
 const STDIN_KEY   = "cc:python:stdin"
@@ -81,6 +118,66 @@ function toMessage(e: unknown): string {
 
 function uid() {
   return Math.random().toString(36).slice(2)
+}
+
+type SupportedLanguage = "python" | "java" | "c" | "cpp"
+
+const LANGUAGE_OPTIONS: Array<{ value: SupportedLanguage; label: string }> = [
+  { value: "python", label: "Python 3" },
+  { value: "java", label: "Java" },
+  { value: "c", label: "C" },
+  { value: "cpp", label: "C++" },
+]
+
+function getLanguageFromFileName(fileName: string): SupportedLanguage | null {
+  const dot = fileName.lastIndexOf(".")
+  const ext = dot >= 0 ? fileName.slice(dot + 1).toLowerCase() : ""
+
+  if (ext === "py") return "python"
+  if (ext === "java") return "java"
+  if (ext === "c") return "c"
+  if (ext === "cpp" || ext === "cc" || ext === "cxx") return "cpp"
+
+  return null
+}
+
+function getLanguageLabel(fileName: string): string {
+  const language = getLanguageFromFileName(fileName)
+
+  if (language === "python") return "Python 3"
+  if (language === "java") return "Java"
+  if (language === "c") return "C"
+  if (language === "cpp") return "C++"
+
+  return "Python 3"
+}
+
+function getFileExtensionForLanguage(language: SupportedLanguage): string {
+  if (language === "python") return "py"
+  if (language === "java") return "java"
+  if (language === "c") return "c"
+  return "cpp"
+}
+
+function getFileNameForLanguage(fileName: string, language: SupportedLanguage): string {
+  const trimmed = fileName.trim()
+  const dot = trimmed.lastIndexOf(".")
+  let base = dot > 0 ? trimmed.slice(0, dot) : trimmed
+
+  if (!base) {
+    base = language === "java" ? "Main" : "main"
+  }
+
+  if (language === "java") {
+    base = "Main"
+  }
+
+  return `${base}.${getFileExtensionForLanguage(language)}`
+}
+
+function isStarterTemplate(code: string): boolean {
+  const value = code.trim()
+  return Object.values(DEFAULT_CODE_BY_LANGUAGE).some((tpl) => tpl.trim() === value)
 }
 
 /** Encode files array → safe base64 URL param */
@@ -218,6 +315,7 @@ export default function CompilerPage() {
   const searchParams = useSearchParams()
   const pyRef       = useRef<PyodideRuntime | null>(null)
   const signInRef   = useRef(false)
+  const languageMenuRef = useRef<HTMLDivElement | null>(null)
 
   // ── Detect share param FIRST (before any state init) ────────────────────
   const shareParam   = searchParams.get("s")
@@ -241,6 +339,7 @@ export default function CompilerPage() {
   const [editingName, setEditingName] = useState("")
 
   const activeFile = files.find(f => f.id === activeId) ?? files[0]
+  const activeLanguage = getLanguageFromFileName(activeFile.name) ?? "python"
 
   const [stdin, setStdin] = useState("")
 
@@ -253,6 +352,7 @@ export default function CompilerPage() {
   // Share UI state
   const [shareToast, setShareToast] = useState(false)       // copied toast
   const [showShareBar, setShowShareBar] = useState(false)   // link input bar
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -283,6 +383,30 @@ export default function CompilerPage() {
   useEffect(() => { if (mounted && !isReadOnly) localStorage.setItem(STDIN_KEY, stdin) }, [stdin, mounted, isReadOnly])
 
   useEffect(() => {
+    if (!isLanguageMenuOpen) return
+
+    const onPointerDown = (event: MouseEvent) => {
+      if (!languageMenuRef.current) return
+      if (!languageMenuRef.current.contains(event.target as Node)) {
+        setIsLanguageMenuOpen(false)
+      }
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsLanguageMenuOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", onPointerDown)
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown)
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [isLanguageMenuOpen])
+
+  useEffect(() => {
     // Skip auth check entirely for share/read-only links
     if (isReadOnly) { setAuthChecked(true); setAuthed(true); return }
     let alive = true
@@ -309,9 +433,11 @@ export default function CompilerPage() {
   const addFile = useCallback(() => {
     if (isReadOnly) return
     const newId = uid()
-    setFiles(prev => [...prev, { id: newId, name: `file${prev.length + 1}.py`, code: "" }])
+    const ext = getFileExtensionForLanguage(activeLanguage)
+    const starter = DEFAULT_CODE_BY_LANGUAGE[activeLanguage]
+    setFiles(prev => [...prev, { id: newId, name: `file${prev.length + 1}.${ext}`, code: starter }])
     setActiveId(newId)
-  }, [isReadOnly])
+  }, [isReadOnly, activeLanguage])
 
   const removeFile = useCallback((id: string) => {
     if (isReadOnly || files.length === 1) return
@@ -333,7 +459,7 @@ export default function CompilerPage() {
     const trimmed = editingName.trim()
     if (trimmed) {
       setFiles(prev => prev.map(f =>
-        f.id === editingId ? { ...f, name: trimmed.endsWith(".py") ? trimmed : trimmed + ".py" } : f
+        f.id === editingId ? { ...f, name: trimmed } : f
       ))
     }
     setEditingId(null)
@@ -343,6 +469,23 @@ export default function CompilerPage() {
     if (isReadOnly) return
     setFiles(prev => prev.map(f => f.id === activeId ? { ...f, code: val } : f))
   }, [activeId, isReadOnly])
+
+  const changeLanguage = useCallback((language: SupportedLanguage) => {
+    if (isReadOnly) return
+    setFiles(prev => prev.map(f => (
+      f.id === activeId
+        ? {
+            ...f,
+            name: getFileNameForLanguage(f.name, language),
+            code: (f.code.trim().length === 0 || isStarterTemplate(f.code))
+              ? DEFAULT_CODE_BY_LANGUAGE[language]
+              : f.code,
+          }
+        : f
+    )))
+  }, [activeId, isReadOnly])
+
+  const activeLanguageOption = LANGUAGE_OPTIONS.find((opt) => opt.value === activeLanguage) ?? LANGUAGE_OPTIONS[0]
 
   // ── Share link ───────────────────────────────────────────────────────────
   const shareLink = useCallback(() => {
@@ -383,7 +526,52 @@ export default function CompilerPage() {
     if (status === "running" || status === "loading-rt") return
     const code = activeFile.code
     if (!code.trim()) { setStderr("No code to run."); return }
+
+    const language = getLanguageFromFileName(activeFile.name)
+    if (!language) {
+      setStdout("")
+      setStatus("error")
+      setStderr("Unsupported file extension. Use .py, .java, .c, or .cpp")
+      return
+    }
+
     setStdout(""); setStderr(""); setStatus("running")
+
+    if (language !== "python") {
+      try {
+        const response = await fetch("/api/compiler/execute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            language,
+            code,
+            stdin,
+            filename: activeFile.name,
+          }),
+        })
+
+        const result = await response.json().catch(() => null) as
+          | { stdout?: string; stderr?: string; error?: string }
+          | null
+
+        if (!response.ok) {
+          throw new Error(result?.error || `Execution failed (${response.status})`)
+        }
+
+        const nextStdout = result?.stdout ?? ""
+        const nextStderr = result?.stderr ?? ""
+        setStdout(nextStdout)
+        setStderr(nextStderr)
+        setStatus(nextStderr ? "error" : "done")
+      } catch (e) {
+        setStderr(toMessage(e))
+        setStatus("error")
+      } finally {
+        setStatus((s) => (s === "running" ? "done" : s))
+      }
+      return
+    }
+
     const harness = `
 import builtins, contextlib, io, json, traceback
 _out = io.StringIO(); _err = io.StringIO()
@@ -423,7 +611,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
       }
       setStatus((s) => (s === "running" ? "done" : s))
     }
-  }, [activeFile.code, stdin, status, loadRuntime])
+  }, [activeFile.code, activeFile.name, stdin, status, loadRuntime])
 
   const downloadCode = useCallback(() => {
     const blob = new Blob([activeFile.code], { type: "text/plain" })
@@ -435,14 +623,18 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
 
   const resetCode = useCallback(() => {
     if (isReadOnly) return
-    setFiles(prev => prev.map(f => f.id === activeId ? { ...f, code: DEFAULT_CODE } : f))
+    setFiles(prev => prev.map(f => {
+      if (f.id !== activeId) return f
+      const language = getLanguageFromFileName(f.name) ?? "python"
+      return { ...f, code: DEFAULT_CODE_BY_LANGUAGE[language] }
+    }))
     setStdout(""); setStderr(""); setStatus("idle")
   }, [activeId, isReadOnly])
 
   const statusLabel: Record<Status, string> = {
-    idle:         rtReady ? "Ready" : "Idle",
-    "loading-rt": "Loading…",
-    running:      "Running…",
+    idle:         activeLanguage === "python" ? (rtReady ? "Ready" : "Idle") : "Ready",
+    "loading-rt": "Running...",
+    running:      "Running...",
     done:         "Done",
     error:        "Error",
   }
@@ -454,7 +646,12 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
     error:        "#ef4444",
   }
 
-  const extensions = useMemo(() => [python()], [])
+  const extensions = useMemo(() => {
+    if (activeLanguage === "python") return [python()]
+    if (activeLanguage === "java") return [java()]
+    if (activeLanguage === "c" || activeLanguage === "cpp") return [cpp()]
+    return []
+  }, [activeLanguage])
 
   // ── Loading / auth screens (full IDE only — share links skip this) ─────────
   if (!mounted) {
@@ -481,7 +678,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
           <div className="cc-topbar-left">
             <div className="cc-lang-pill">
               <FileCode2 size={13} />
-              Python 3
+              {getLanguageLabel(sharedFile.name)}
             </div>
             <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: "var(--cc-sub)" }}>
               <Lock size={10} /> Read-only
@@ -508,7 +705,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
               {(status === "running" || status === "loading-rt")
                 ? <Loader2 size={13} className="cc-spin" />
                 : <Play size={13} fill="currentColor" />}
-              {status === "loading-rt" ? "Loading…" : status === "running" ? "Running…" : "Run"}
+              {status === "loading-rt" ? "Running..." : status === "running" ? "Running..." : "Run"}
             </button>
           </div>
         </div>
@@ -575,7 +772,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
                     {status === "running" || status === "loading-rt" ? (
                       <div className="cc-io-running">
                         <Loader2 size={15} className="cc-spin" />
-                        <span>{status === "loading-rt" ? "Loading Python runtime — first run ~10s…" : "Executing…"}</span>
+                        <span>Running...</span>
                       </div>
                     ) : stdout || stderr ? (
                       <>
@@ -649,9 +846,38 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
             <ArrowLeft size={14} />
             Back to Dashboard
           </button>
-          <div className="cc-lang-pill">
-            <FileCode2 size={13} />
-            Python 3
+          <div className="cc-lang-dropdown" ref={languageMenuRef}>
+            <button
+              type="button"
+              className={`cc-lang-trigger ${isLanguageMenuOpen ? "cc-lang-trigger-open" : ""}`}
+              onClick={() => setIsLanguageMenuOpen((open) => !open)}
+              aria-haspopup="listbox"
+              aria-expanded={isLanguageMenuOpen}
+            >
+              <FileCode2 size={13} />
+              <span className="cc-lang-trigger-label">{activeLanguageOption.label}</span>
+              <ChevronDown size={12} className={`cc-lang-chevron ${isLanguageMenuOpen ? "cc-lang-chevron-open" : ""}`} />
+            </button>
+
+            {isLanguageMenuOpen && (
+              <div className="cc-lang-menu" role="listbox" aria-label="Select language">
+                {LANGUAGE_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className={`cc-lang-option ${opt.value === activeLanguage ? "cc-lang-option-active" : ""}`}
+                    onClick={() => {
+                      changeLanguage(opt.value)
+                      setIsLanguageMenuOpen(false)
+                    }}
+                    role="option"
+                    aria-selected={opt.value === activeLanguage}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -695,8 +921,8 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
             {(status === "running" || status === "loading-rt")
               ? <Loader2 size={13} className="cc-spin" />
               : <Play    size={13} fill="currentColor" />}
-            {status === "loading-rt" ? "Loading…"
-              : status === "running"  ? "Running…"
+            {status === "loading-rt" ? "Running..."
+              : status === "running"  ? "Running..."
               : "Run"}
           </button>
         </div>
@@ -844,11 +1070,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
                   {status === "running" || status === "loading-rt" ? (
                     <div className="cc-io-running">
                       <Loader2 size={15} className="cc-spin" />
-                      <span>
-                        {status === "loading-rt"
-                          ? "Loading Python runtime — first run ~10s…"
-                          : "Executing…"}
-                      </span>
+                      <span>Running...</span>
                     </div>
                   ) : stdout || stderr ? (
                     <>

@@ -90,6 +90,9 @@ export async function proxy(request: NextRequest) {
     } else if (pathname.startsWith('/api/payment/webhook')) {
       maxRequests = 300
       windowMs = 60 * 1000 // 1 minute for webhook callbacks
+    } else if (pathname.startsWith('/api/compiler/execute')) {
+      maxRequests = 240
+      windowMs = 60 * 1000 // 1 minute for compiler runs
     } else if (pathname.startsWith('/api/payment/')) {
       maxRequests = 120
       windowMs = 60 * 1000 // 1 minute for checkout/verify requests
