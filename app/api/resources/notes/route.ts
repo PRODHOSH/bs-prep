@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { sanitizeString } from "@/lib/security/validation"
 
 const DEGREE_VALUES = ["data-science", "electronic-systems"] as const
@@ -27,8 +27,14 @@ export async function GET(request: NextRequest) {
     const level = sanitizeString(request.nextUrl.searchParams.get("level") ?? "", 30)
     const subject = sanitizeString(request.nextUrl.searchParams.get("subject") ?? "", 120)
 
-    const supabase = await createClient()
-    let query = supabase
+    const authClient = await createClient()
+    const service = createServiceRoleClient()
+
+    const {
+      data: { user },
+    } = await authClient.auth.getUser()
+
+    let query = service
       .from("resources_notes")
       .select("id, degree, level, subject, notes_week_from, notes_week_to, title, contributor_name, notes_content_label, drive_link, created_at")
       .eq("status", "approved")
@@ -58,7 +64,50 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Failed to load notes" }, { status: 500 })
     }
 
-    return NextResponse.json({ notes: data ?? [] })
+    const notes = data ?? []
+    const noteIds = notes.map((note) => note.id)
+
+    if (noteIds.length === 0) {
+      return NextResponse.json({ notes: [] })
+    }
+
+    const { data: starRows, error: starError } = await service
+      .from("resources_note_stars")
+      .select("note_id")
+      .in("note_id", noteIds)
+
+    if (starError && (starError as { code?: string }).code !== "42P01") {
+      console.error("Resources notes stars lookup error:", starError)
+    }
+
+    const starCountMap = new Map<string, number>()
+    for (const row of starRows ?? []) {
+      const key = row.note_id as string
+      starCountMap.set(key, (starCountMap.get(key) ?? 0) + 1)
+    }
+
+    let userStarredSet = new Set<string>()
+    if (user?.id) {
+      const { data: userStars, error: userStarsError } = await service
+        .from("resources_note_stars")
+        .select("note_id")
+        .eq("user_id", user.id)
+        .in("note_id", noteIds)
+
+      if (userStarsError && (userStarsError as { code?: string }).code !== "42P01") {
+        console.error("Resources notes user stars lookup error:", userStarsError)
+      }
+
+      userStarredSet = new Set((userStars ?? []).map((row) => row.note_id as string))
+    }
+
+    const enriched = notes.map((note) => ({
+      ...note,
+      stars: starCountMap.get(note.id) ?? 0,
+      user_starred: userStarredSet.has(note.id),
+    }))
+
+    return NextResponse.json({ notes: enriched })
   } catch (error) {
     console.error("Resources notes GET route error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState, useEffect } from "react"
+import { useMemo, useState, useEffect, useCallback } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -10,9 +10,10 @@ import { Label } from "@/components/ui/label"
 import { LoginModal } from "@/components/auth/login-modal"
 import { SignUpModal } from "@/components/auth/signup-modal"
 import { ForgotPasswordModal } from "@/components/auth/forgot-password-modal"
+import { Loading } from "@/components/loading"
 import { courseData } from "@/lib/gpa/course-data"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, Loader2, Plus } from "lucide-react"
+import { ArrowLeft, ArrowRight, CheckCircle2, CircleHelp, ExternalLink, Loader2, Plus, Star } from "lucide-react"
 
 type LevelValue = "foundation" | "diploma" | "degree"
 type DegreeValue = "data-science" | "electronic-systems"
@@ -29,6 +30,20 @@ type ResourceNote = {
   notes_content_label: string
   drive_link: string
   created_at: string
+  stars: number
+  user_starred: boolean
+}
+
+type Contributor = {
+  rank: number
+  userId: string | null
+  name: string
+  avatarUrl: string | null
+  notesCount: number
+  stars: number
+  xp: number
+  bonus: number
+  milestoneLabel: string | null
 }
 
 const levelLabels: Record<LevelValue, string> = {
@@ -51,13 +66,33 @@ const initialForm = {
   driveLink: "",
 }
 
+function getInitials(name: string): string {
+  const parts = name
+    .split(" ")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .slice(0, 2)
+
+  if (parts.length === 0) {
+    return "U"
+  }
+
+  return parts.map((part) => part[0]?.toUpperCase() ?? "").join("")
+}
+
 export default function ResourcesPage() {
   const supabase = useMemo(() => createClient(), [])
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [notes, setNotes] = useState<ResourceNote[]>([])
   const [notesLoading, setNotesLoading] = useState(false)
   const [notesError, setNotesError] = useState<string | null>(null)
+  const [starringNoteId, setStarringNoteId] = useState<string | null>(null)
+  const [contributors, setContributors] = useState<Contributor[]>([])
+  const [contributorsLoading, setContributorsLoading] = useState(false)
+  const [contributorsError, setContributorsError] = useState<string | null>(null)
+  const [showXpGuide, setShowXpGuide] = useState(false)
 
   const [selectedDegree, setSelectedDegree] = useState<DegreeValue>("data-science")
   const [selectedLevel, setSelectedLevel] = useState<LevelValue>("diploma")
@@ -92,27 +127,69 @@ export default function ResourcesPage() {
   const filteredNotes = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
 
-    return notes.filter((note) => {
-      if (selectedSubject && note.subject !== selectedSubject) {
-        return false
-      }
+    return notes
+      .filter((note) => {
+        if (selectedSubject && note.subject !== selectedSubject) {
+          return false
+        }
 
-      if (!query) {
-        return true
-      }
+        if (!query) {
+          return true
+        }
 
-      return (
-        note.title.toLowerCase().includes(query) ||
-        note.contributor_name.toLowerCase().includes(query) ||
-        note.notes_content_label.toLowerCase().includes(query)
-      )
-    })
+        return (
+          note.title.toLowerCase().includes(query) ||
+          note.contributor_name.toLowerCase().includes(query) ||
+          note.notes_content_label.toLowerCase().includes(query)
+        )
+      })
+      .sort((a, b) => {
+        if (b.stars !== a.stars) {
+          return b.stars - a.stars
+        }
+
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      })
   }, [notes, selectedSubject, searchQuery])
 
   const currentWeekFrom = Number(formData.notesWeekFrom)
   const currentWeekTo = Number(formData.notesWeekTo)
   const hasValidWeekRange = Number.isInteger(currentWeekFrom) && Number.isInteger(currentWeekTo) && currentWeekFrom > 0 && currentWeekTo >= currentWeekFrom
   const dynamicWeekLabel = hasValidWeekRange ? `Weeks ${currentWeekFrom}-${currentWeekTo}` : "Selected weeks"
+
+  const loadContributors = useCallback(async (showLoader: boolean) => {
+    if (showLoader) {
+      setContributorsLoading(true)
+    }
+    setContributorsError(null)
+
+    try {
+      const params = new URLSearchParams({
+        degree: selectedDegree,
+        level: selectedLevel,
+      })
+
+      const response = await fetch(`/api/resources/contributors?${params.toString()}`)
+      const payload = await response.json()
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Failed to load contributors")
+      }
+
+      setContributors(Array.isArray(payload.contributors) ? payload.contributors : [])
+    } catch (error: unknown) {
+      setContributorsError(error instanceof Error ? error.message : "Failed to load contributors")
+      setContributors([])
+    } finally {
+      if (showLoader) {
+        setContributorsLoading(false)
+      }
+    }
+  }, [selectedDegree, selectedLevel])
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
 
   useEffect(() => {
     let isMounted = true
@@ -201,6 +278,10 @@ export default function ResourcesPage() {
     loadNotes()
   }, [selectedDegree, selectedLevel, selectedSubject])
 
+  useEffect(() => {
+    loadContributors(true)
+  }, [loadContributors])
+
   const resetAddNotesForm = () => {
     setFormData(initialForm)
     setAddStep(1)
@@ -270,6 +351,49 @@ export default function ResourcesPage() {
     setAddStep((step) => Math.max(step - 1, 1))
   }
 
+  const handleToggleStar = async (noteId: string) => {
+    if (!isAuthenticated) {
+      setShouldOpenAfterSignIn(false)
+      setShowAuthPrompt(true)
+      return
+    }
+
+    setStarringNoteId(noteId)
+
+    try {
+      const response = await fetch(`/api/resources/notes/${noteId}/star`, {
+        method: "POST",
+      })
+
+      const payload = await response.json()
+
+      if (!response.ok) {
+        throw new Error(payload.error || "Failed to update star")
+      }
+
+      const nextStarred = Boolean(payload.starred)
+      const nextStars = Number(payload.stars) || 0
+
+      setNotes((current) =>
+        current.map((note) =>
+          note.id === noteId
+            ? {
+                ...note,
+                user_starred: nextStarred,
+                stars: nextStars,
+              }
+            : note
+        )
+      )
+
+      void loadContributors(false)
+    } catch (error: unknown) {
+      setNotesError(error instanceof Error ? error.message : "Failed to update star")
+    } finally {
+      setStarringNoteId(null)
+    }
+  }
+
   const submitNote = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -315,6 +439,10 @@ export default function ResourcesPage() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  if (!hasMounted) {
+    return <Loading />
   }
 
   return (
@@ -388,7 +516,7 @@ export default function ResourcesPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[250px_minmax(0,1fr)]">
+          <div className="grid gap-4 lg:grid-cols-[250px_minmax(0,1fr)_300px]">
             <aside className="rounded-2xl border border-[#E5DBC8] bg-white p-3 shadow-sm">
               <h2 className="px-2 py-1 text-sm font-semibold text-black">Subjects</h2>
               <div className="mt-2 space-y-1">
@@ -441,7 +569,22 @@ export default function ResourcesPage() {
                       className="rounded-xl border border-[#E5DBC8] bg-white p-4 shadow-sm"
                     >
                       <div className="space-y-2">
-                        <p className="text-xs text-slate-600">{note.contributor_name}</p>
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="truncate text-xs text-slate-600">{note.contributor_name}</p>
+                          <button
+                            type="button"
+                            onClick={() => void handleToggleStar(note.id)}
+                            disabled={starringNoteId === note.id}
+                            className={`inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs font-medium transition ${
+                              note.user_starred
+                                ? "border-amber-300 bg-amber-50 text-amber-700"
+                                : "border-[#D8CCB2] bg-white text-slate-700 hover:bg-[#F7F2E8]"
+                            } disabled:opacity-70`}
+                          >
+                            <Star className={`h-3.5 w-3.5 ${note.user_starred ? "fill-current" : ""}`} />
+                            {note.stars}
+                          </button>
+                        </div>
                         <h3 className="line-clamp-2 text-base font-semibold text-black">{note.title}</h3>
                         <p className="inline-flex items-center rounded-md bg-[#F7F2E8] px-2.5 py-1 text-xs text-slate-700">
                           {note.notes_content_label}
@@ -464,6 +607,84 @@ export default function ResourcesPage() {
                 </div>
               )}
             </section>
+
+            <aside className="rounded-2xl border border-[#E5DBC8] bg-white p-4 shadow-sm">
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <h2 className="text-sm font-semibold text-black">Top Contributors</h2>
+                <button
+                  type="button"
+                  onClick={() => setShowXpGuide(true)}
+                  className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 underline-offset-2 hover:underline"
+                >
+                  <CircleHelp className="h-3.5 w-3.5" />
+                  How to earn XP
+                </button>
+              </div>
+
+              {contributorsLoading && (
+                <div className="flex items-center gap-2 rounded-md border border-[#E5DBC8] bg-[#FFFCF8] px-3 py-2 text-xs text-slate-700">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  Loading contributors...
+                </div>
+              )}
+
+              {!contributorsLoading && contributorsError && (
+                <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+                  {contributorsError}
+                </div>
+              )}
+
+              {!contributorsLoading && !contributorsError && contributors.length === 0 && (
+                <p className="rounded-md border border-[#E5DBC8] bg-[#FFFCF8] px-3 py-3 text-xs text-slate-600">
+                  No contributors yet for this section.
+                </p>
+              )}
+
+              {!contributorsLoading && !contributorsError && contributors.length > 0 && (
+                <div className="max-h-115 space-y-2 overflow-y-auto pr-1">
+                  {contributors.map((contributor) => (
+                    <div key={`${contributor.userId}-${contributor.rank}`} className="rounded-lg border border-[#E5DBC8] bg-[#FFFCF8] p-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex min-w-0 items-center gap-2.5">
+                          <div className="rounded-md border border-[#D8CCB2] bg-white px-1.5 py-0.5 text-[11px] font-semibold text-slate-600">
+                            #{contributor.rank}
+                          </div>
+
+                          {contributor.avatarUrl ? (
+                            <img
+                              src={contributor.avatarUrl}
+                              alt={contributor.name}
+                              className="h-9 w-9 shrink-0 rounded-full border border-[#D8CCB2] object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D8CCB2] bg-white text-xs font-semibold text-slate-700">
+                              {getInitials(contributor.name)}
+                            </div>
+                          )}
+
+                          <div className="min-w-0">
+                            <p className="line-clamp-1 text-sm font-semibold leading-tight text-black">{contributor.name}</p>
+                          </div>
+                        </div>
+                        <div className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700">
+                          <Star className="h-3.5 w-3.5 fill-current" />
+                          <span>{contributor.stars}</span>
+                        </div>
+                      </div>
+
+                      <div className="mt-2.5 flex items-center gap-2 text-xs text-slate-600">
+                        <span className="rounded-full bg-white px-2 py-1">{contributor.notesCount} notes</span>
+                        <span className="rounded-full bg-white px-2 py-1">{contributor.xp} XP</span>
+                      </div>
+
+                      {contributor.milestoneLabel && (
+                        <p className="mt-1 text-[11px] font-medium text-emerald-700">+{contributor.bonus} {contributor.milestoneLabel}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </aside>
           </div>
         </div>
       </main>
@@ -482,6 +703,24 @@ export default function ResourcesPage() {
             <Button onClick={openSignInModal} className="bg-black text-white hover:bg-black/85">
               Sign In
             </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showXpGuide} onOpenChange={setShowXpGuide}>
+        <DialogContent className="max-w-md border-[#E5DBC8] bg-white text-black">
+          <DialogHeader>
+            <DialogTitle className="text-xl text-black">How to earn XP</DialogTitle>
+            <DialogDescription className="text-slate-600">
+              Contributors are ranked by stars first, then notes count.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-2 text-sm text-slate-700">
+            <p>1. Every approved note gives 10 XP.</p>
+            <p>2. Every star on your notes gives 2 XP.</p>
+            <p>3. Upload 50+ approved notes to unlock +500 bonus XP.</p>
+            <p>4. Higher stars means higher contributor rank.</p>
           </div>
         </DialogContent>
       </Dialog>
