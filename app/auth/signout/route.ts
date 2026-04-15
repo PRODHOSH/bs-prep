@@ -6,5 +6,7 @@ export async function POST(request: Request) {
   await supabase.auth.signOut()
 
   const url = new URL(request.url)
-  return NextResponse.redirect(`${url.origin}/admin/signin`)
+  const next = url.searchParams.get('next')
+  const safeNext = next && next.startsWith('/') ? next : '/admin/signin'
+  return NextResponse.redirect(`${url.origin}${safeNext}`)
 }

@@ -154,6 +154,22 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(url)
     }
   }
+
+  // Block unauthenticated access to mentor routes.
+  if (pathname.startsWith('/mentor') && pathname !== '/mentor/signin') {
+    const { createServerClient } = await import('@supabase/ssr')
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { cookies: { getAll: () => request.cookies.getAll(), setAll: () => {} } }
+    )
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/mentor/signin'
+      return NextResponse.redirect(url)
+    }
+  }
   
   // Add security headers to the response
   const securedResponse = addSecurityHeaders(response, request)

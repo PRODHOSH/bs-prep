@@ -4,6 +4,7 @@ import type React from "react"
 
 import { createClient } from "@/lib/supabase/client"
 import { Navbar } from "@/components/navbar"
+import { FloatingChatButton } from "@/components/floating-chat-button"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -52,7 +53,7 @@ export default function DashboardLayout({
       if (detectedRole === "admin" && window.location.pathname === "/dashboard") {
         router.push("/admin")
       } else if (detectedRole === "mentor" && window.location.pathname === "/dashboard") {
-        router.push("/dashboard/mentor/courses")
+        router.push("/mentor")
       }
     }
 
@@ -69,6 +70,7 @@ export default function DashboardLayout({
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
+      {role !== "admin" && role !== "mentor" ? <FloatingChatButton href="/dashboard/chats" label="Open chat" /> : null}
     </div>
   )
 }
