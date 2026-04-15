@@ -66,12 +66,6 @@ const staticRoutes: MetadataRoute.Sitemap = [
     priority: 0.6,
   },
   {
-    url: `${BASE_URL}/careers/mentor-faculty`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.5,
-  },
-  {
     url: `${BASE_URL}/support`,
     lastModified: new Date(),
     changeFrequency: "monthly",
