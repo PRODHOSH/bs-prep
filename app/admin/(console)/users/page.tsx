@@ -99,8 +99,16 @@ export default function AdminUsersDirectoryPage() {
     () => filteredUsers.filter((u) => (u.role || "student").toLowerCase() === "admin"),
     [filteredUsers],
   )
+  const mentors = useMemo(
+    () => filteredUsers.filter((u) => (u.role || "student").toLowerCase() === "mentor"),
+    [filteredUsers],
+  )
   const students = useMemo(
-    () => filteredUsers.filter((u) => (u.role || "student").toLowerCase() !== "admin"),
+    () =>
+      filteredUsers.filter((u) => {
+        const normalizedRole = (u.role || "student").toLowerCase()
+        return normalizedRole !== "admin" && normalizedRole !== "mentor"
+      }),
     [filteredUsers],
   )
 
@@ -248,7 +256,10 @@ export default function AdminUsersDirectoryPage() {
       <div className="divide-y divide-white/5">
         {sectionUsers.map((user) => {
           const fullName = user.full_name || `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim() || "Unnamed User"
-          const isAdmin = (user.role || "student").toLowerCase() === "admin"
+          const normalizedRole = (user.role || "student").toLowerCase()
+          const isAdmin = normalizedRole === "admin"
+          const isMentor = normalizedRole === "mentor"
+          const roleLabel = isAdmin ? "Admin" : isMentor ? "Mentor" : "Student"
           const isPro   = enrolledUserIds.has(user.id)
           const initials = fullName
             .split(" ")
@@ -278,7 +289,7 @@ export default function AdminUsersDirectoryPage() {
                     {isPro && (
                       <span
                         title="Enrolled in a course"
-                        className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-[#0c1016] bg-gradient-to-br from-amber-400 to-orange-500 shadow"
+                        className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-[#0c1016] bg-linear-to-br from-amber-400 to-orange-500 shadow"
                       >
                         <Star className="h-2.5 w-2.5 fill-white text-white" />
                       </span>
@@ -288,8 +299,19 @@ export default function AdminUsersDirectoryPage() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <p className="truncate text-base font-semibold text-slate-100">{fullName}</p>
+                      <span
+                        className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                          isAdmin
+                            ? "bg-emerald-500/20 text-emerald-300"
+                            : isMentor
+                              ? "bg-indigo-500/20 text-indigo-300"
+                              : "bg-slate-700/70 text-slate-300"
+                        }`}
+                      >
+                        {roleLabel}
+                      </span>
                       {isPro && (
-                        <span className="shrink-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow">
+                        <span className="shrink-0 rounded-full bg-linear-to-r from-amber-400 to-orange-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow">
                           Pro
                         </span>
                       )}
@@ -308,11 +330,13 @@ export default function AdminUsersDirectoryPage() {
                   className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider ${
                     isAdmin
                       ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
-                      : "border-white/15 bg-white/5 text-slate-300"
+                      : isMentor
+                        ? "border-indigo-500/40 bg-indigo-500/10 text-indigo-300"
+                        : "border-white/15 bg-white/5 text-slate-300"
                   }`}
                 >
                   {isAdmin ? <ShieldCheck className="h-3.5 w-3.5" /> : null}
-                  {isAdmin ? "Admin" : "Student"}
+                  {roleLabel}
                 </span>
               </div>
 
@@ -392,10 +416,14 @@ export default function AdminUsersDirectoryPage() {
         )}
       </section>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-xl border border-white/10 bg-[#0c1016] px-4 py-3">
           <p className="text-xs uppercase tracking-wider text-slate-500">Admins</p>
           <p className="mt-1 text-2xl font-semibold text-slate-100">{admins.length}</p>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-[#0c1016] px-4 py-3">
+          <p className="text-xs uppercase tracking-wider text-slate-500">Mentors</p>
+          <p className="mt-1 text-2xl font-semibold text-slate-100">{mentors.length}</p>
         </div>
         <div className="rounded-xl border border-white/10 bg-[#0c1016] px-4 py-3">
           <p className="text-xs uppercase tracking-wider text-slate-500">Students</p>

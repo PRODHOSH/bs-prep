@@ -49,13 +49,89 @@ type DirectMessageRow = {
   created_at: string
 }
 
-function fullName(profile: ProfileRow | undefined, fallback: string): string {
-  if (!profile) {
-    return fallback
+function sanitizeDisplayName(value: string | null | undefined): string | null {
+  if (!value) {
+    return null
   }
 
-  const name = `${profile.first_name ?? ""} ${profile.last_name ?? ""}`.trim()
-  return name || profile.email || fallback
+  const normalized = value.replace(/\s+/g, " ").trim()
+  if (normalized.length < 2) {
+    return null
+  }
+
+  return normalized
+}
+
+function metadataDisplayName(metadata: unknown): string | null {
+  if (!metadata || typeof metadata !== "object") {
+    return null
+  }
+
+  const record = metadata as Record<string, unknown>
+  const fullName = sanitizeDisplayName(typeof record.full_name === "string" ? record.full_name : null)
+  if (fullName) {
+    return fullName
+  }
+
+  return sanitizeDisplayName(typeof record.name === "string" ? record.name : null)
+}
+
+async function getAuthDisplayNames(service: ReturnType<typeof createServiceRoleClient>, userIds: string[]) {
+  const resolvedEntries = await Promise.all(
+    userIds.map(async (userId) => {
+      try {
+        const { data, error } = await service.auth.admin.getUserById(userId)
+        if (error || !data?.user) {
+          return null
+        }
+
+        const metadataName = metadataDisplayName(data.user.user_metadata)
+        if (!metadataName) {
+          return null
+        }
+
+        return [userId, metadataName] as const
+      } catch {
+        return null
+      }
+    }),
+  )
+
+  return new Map<string, string>(resolvedEntries.filter((entry): entry is readonly [string, string] => Boolean(entry)))
+}
+
+function nameFromEmail(email: string | null | undefined): string | null {
+  if (!email) {
+    return null
+  }
+
+  const localPart = email.split("@")[0]?.trim()
+  if (!localPart) {
+    return null
+  }
+
+  const words = localPart
+    .replace(/[._-]+/g, " ")
+    .replace(/\d+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+
+  if (!words.length) {
+    return null
+  }
+
+  const displayName = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")
+  return displayName.length >= 2 ? displayName : null
+}
+
+function resolveDisplayName(profile: ProfileRow | undefined, authName: string | undefined, fallback: string): string {
+  if (profile) {
+    const profileName = `${profile.first_name ?? ""} ${profile.last_name ?? ""}`.trim()
+    return profileName || authName || nameFromEmail(profile.email) || fallback
+  }
+
+  return authName || fallback
 }
 
 export async function GET() {
@@ -226,6 +302,8 @@ export async function GET() {
       profileById.set(sender.id, sender)
     }
 
+    const authDisplayNames = await getAuthDisplayNames(service, senderIds)
+
     const groupConversations = groups.map((group) => {
       const latestMessage = latestGroupMessageByGroupId.get(group.id)
       const sender = latestMessage ? profileById.get(latestMessage.sender_id) : undefined
@@ -239,7 +317,9 @@ export async function GET() {
         subtitle: SUBJECT_CHAT_LABEL_BY_ID[group.course_id] ?? group.course_id,
         last_message: latestMessage?.message ?? "No messages yet",
         last_message_at: latestMessage?.created_at ?? null,
-        last_sender_name: latestMessage ? fullName(sender, latestMessage.sender_role) : null,
+        last_sender_name: latestMessage
+          ? resolveDisplayName(sender, authDisplayNames.get(latestMessage.sender_id), latestMessage.sender_role)
+          : null,
         last_sender_role: latestMessage?.sender_role ?? null,
       }
     })
@@ -254,18 +334,32 @@ export async function GET() {
         kind: "direct" as const,
         chat_id: chat.id,
         course_id: chat.course_id,
-        title: fullName(partner, chat.student_id === user.id ? "Mentor" : "Student"),
+        title: resolveDisplayName(
+          partner,
+          authDisplayNames.get(partnerId),
+          chat.student_id === user.id ? "Mentor" : "Student",
+        ),
         subtitle: `${SUBJECT_CHAT_LABEL_BY_ID[chat.course_id] ?? chat.course_id} • ${chat.student_id === user.id ? "Mentor" : "Student"}`,
         partner: {
           id: partnerId,
-          name: fullName(partner, chat.student_id === user.id ? "Mentor" : "Student"),
+          name: resolveDisplayName(
+            partner,
+            authDisplayNames.get(partnerId),
+            chat.student_id === user.id ? "Mentor" : "Student",
+          ),
           avatar_url: partner?.avatar_url ?? null,
           role: partner?.role ?? null,
           email: partner?.email ?? null,
         },
         last_message: latestMessage?.message ?? "Start your conversation",
         last_message_at: latestMessage?.created_at ?? chat.updated_at ?? chat.created_at,
-        last_sender_name: latestMessage ? fullName(profileById.get(latestMessage.sender_id), latestMessage.sender_role) : null,
+        last_sender_name: latestMessage
+          ? resolveDisplayName(
+              profileById.get(latestMessage.sender_id),
+              authDisplayNames.get(latestMessage.sender_id),
+              latestMessage.sender_role,
+            )
+          : null,
         last_sender_role: latestMessage?.sender_role ?? null,
       }
     })
@@ -277,6 +371,7 @@ export async function GET() {
     })
 
     return NextResponse.json({
+      viewer_id: user.id,
       viewer_role: isAdmin ? "admin" : isMentor ? "mentor" : "student",
       needs_mentor_subject: isMentor && !subjectCourseIds.length,
       mentor_subject: getMentorSubjectCourseIds(profile)[0] ?? null,

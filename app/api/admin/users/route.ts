@@ -75,6 +75,8 @@ export async function GET(request: NextRequest) {
         (typeof metadata.name === 'string' && metadata.name.trim()) ||
         null
 
+      const metadataRole = typeof metadata.role === 'string' ? metadata.role.toLowerCase() : null
+
       const [derivedFirst, ...derivedLastParts] = metadataFullName ? metadataFullName.split(' ') : []
       const derivedLast = derivedLastParts.join(' ').trim()
 
@@ -93,7 +95,7 @@ export async function GET(request: NextRequest) {
         first_name: firstName,
         last_name: lastName,
         full_name: fullName,
-        role: profile?.role || 'user',
+        role: profile?.role || metadataRole || 'user',
         avatar_url: profile?.avatar_url || metadataAvatar,
         phone: profile?.phone || null,
         created_at: profile?.created_at || authUser.created_at,

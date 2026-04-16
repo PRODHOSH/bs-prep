@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import {
   Dialog,
   DialogContent,
@@ -33,6 +34,7 @@ interface MentorRequest {
 }
 
 export default function MentorsPage() {
+  const router = useRouter()
   const [mentors, setMentors] = useState<Mentor[]>([])
   const [requests, setRequests] = useState<MentorRequest[]>([])
   const [selectedMentor, setSelectedMentor] = useState<string | null>(null)
@@ -40,6 +42,30 @@ export default function MentorsPage() {
   const [message, setMessage] = useState("")
   const [isLoading, setIsLoading] = useState(true)
   const supabase = createClient()
+
+  const fallbackNameFromEmail = (email: string | null | undefined, fallback: string) => {
+    if (!email) {
+      return fallback
+    }
+
+    const localPart = email.split("@")[0]?.trim()
+    if (!localPart) {
+      return fallback
+    }
+
+    const words = localPart
+      .replace(/[._-]+/g, " ")
+      .replace(/\d+/g, " ")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+
+    if (!words.length) {
+      return fallback
+    }
+
+    return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")
+  }
 
   useEffect(() => {
     const fetchMentorsAndRequests = async () => {
@@ -50,14 +76,14 @@ export default function MentorsPage() {
 
         const { data: mentorsList } = await supabase
           .from("profiles")
-          .select("id, first_name, last_name, bio")
+          .select("id, first_name, last_name, bio, email")
           .eq("role", "mentor")
 
         if (mentorsList) {
           setMentors(
             mentorsList.map((m) => ({
               id: m.id,
-              name: `${m.first_name} ${m.last_name}`.trim(),
+              name: `${m.first_name ?? ""} ${m.last_name ?? ""}`.trim() || fallbackNameFromEmail(m.email, "Mentor"),
               bio: m.bio || "Experienced mentor",
               role: "Mentor",
             })),
@@ -147,6 +173,10 @@ export default function MentorsPage() {
     }
   }
 
+  const handleContactMentor = (mentorId: string) => {
+    router.push(`/dashboard/chats?contactMentorId=${encodeURIComponent(mentorId)}`)
+  }
+
   if (isLoading) {
     return <div className="text-center py-8">Loading mentors...</div>
   }
@@ -191,43 +221,49 @@ export default function MentorsPage() {
                 <CardDescription>{mentor.bio}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="w-full bg-primary" onClick={() => setSelectedMentor(mentor.id)}>
-                      Request Mentoring
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Request Mentoring from {mentor.name}</DialogTitle>
-                      <DialogDescription>Tell them what you need help with</DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="subject">Subject</Label>
-                        <Input
-                          id="subject"
-                          placeholder="What do you need help with?"
-                          value={subject}
-                          onChange={(e) => setSubject(e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="message">Message</Label>
-                        <Textarea
-                          id="message"
-                          placeholder="Provide more details..."
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                          rows={4}
-                        />
-                      </div>
-                      <Button onClick={handleSubmitRequest} className="w-full bg-primary">
-                        Send Request
+                <div className="space-y-2">
+                  <Button className="w-full" onClick={() => handleContactMentor(mentor.id)}>
+                    Contact
+                  </Button>
+
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="w-full" onClick={() => setSelectedMentor(mentor.id)}>
+                        Request Mentoring
                       </Button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Request Mentoring from {mentor.name}</DialogTitle>
+                        <DialogDescription>Tell them what you need help with</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="subject">Subject</Label>
+                          <Input
+                            id="subject"
+                            placeholder="What do you need help with?"
+                            value={subject}
+                            onChange={(e) => setSubject(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="message">Message</Label>
+                          <Textarea
+                            id="message"
+                            placeholder="Provide more details..."
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            rows={4}
+                          />
+                        </div>
+                        <Button onClick={handleSubmitRequest} className="w-full bg-primary">
+                          Send Request
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </CardContent>
             </Card>
           ))}

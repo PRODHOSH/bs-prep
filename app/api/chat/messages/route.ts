@@ -30,13 +30,89 @@ type DirectChatRow = {
   course_id: string
 }
 
-function fullName(profile: ProfileRow | undefined, fallback: string): string {
-  if (!profile) {
-    return fallback
+function sanitizeDisplayName(value: string | null | undefined): string | null {
+  if (!value) {
+    return null
   }
 
-  const value = `${profile.first_name ?? ""} ${profile.last_name ?? ""}`.trim()
-  return value || profile.email || fallback
+  const normalized = value.replace(/\s+/g, " ").trim()
+  if (normalized.length < 2) {
+    return null
+  }
+
+  return normalized
+}
+
+function metadataDisplayName(metadata: unknown): string | null {
+  if (!metadata || typeof metadata !== "object") {
+    return null
+  }
+
+  const record = metadata as Record<string, unknown>
+  const fullName = sanitizeDisplayName(typeof record.full_name === "string" ? record.full_name : null)
+  if (fullName) {
+    return fullName
+  }
+
+  return sanitizeDisplayName(typeof record.name === "string" ? record.name : null)
+}
+
+async function getAuthDisplayNames(service: ReturnType<typeof createServiceRoleClient>, userIds: string[]) {
+  const resolvedEntries = await Promise.all(
+    userIds.map(async (userId) => {
+      try {
+        const { data, error } = await service.auth.admin.getUserById(userId)
+        if (error || !data?.user) {
+          return null
+        }
+
+        const metadataName = metadataDisplayName(data.user.user_metadata)
+        if (!metadataName) {
+          return null
+        }
+
+        return [userId, metadataName] as const
+      } catch {
+        return null
+      }
+    }),
+  )
+
+  return new Map<string, string>(resolvedEntries.filter((entry): entry is readonly [string, string] => Boolean(entry)))
+}
+
+function nameFromEmail(email: string | null | undefined): string | null {
+  if (!email) {
+    return null
+  }
+
+  const localPart = email.split("@")[0]?.trim()
+  if (!localPart) {
+    return null
+  }
+
+  const words = localPart
+    .replace(/[._-]+/g, " ")
+    .replace(/\d+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+
+  if (!words.length) {
+    return null
+  }
+
+  const displayName = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")
+  return displayName.length >= 2 ? displayName : null
+}
+
+function resolveDisplayName(profile: ProfileRow | undefined, authName: string | undefined, fallback: string): string {
+  if (profile) {
+    const profileName = `${profile.first_name ?? ""} ${profile.last_name ?? ""}`.trim()
+    return profileName || authName || nameFromEmail(profile.email) || fallback
+  }
+
+  return authName || fallback
 }
 
 function parseConversationId(conversationId: string | null): { kind: "group" | "direct"; id: string } | null {
@@ -148,6 +224,8 @@ export async function GET(request: NextRequest) {
         profileById.set(sender.id, sender)
       }
 
+      const authDisplayNames = await getAuthDisplayNames(service, senderIds)
+
       return NextResponse.json({
         conversation: {
           id: `group:${groupRow.id}`,
@@ -160,7 +238,11 @@ export async function GET(request: NextRequest) {
           id: String(message.id),
           sender_id: String(message.sender_id),
           sender_role: message.sender_role,
-          sender_name: fullName(profileById.get(String(message.sender_id)), message.sender_role),
+          sender_name: resolveDisplayName(
+            profileById.get(String(message.sender_id)),
+            authDisplayNames.get(String(message.sender_id)),
+            message.sender_role,
+          ),
           message: String(message.message ?? ""),
           created_at: String(message.created_at),
         })),
@@ -202,6 +284,8 @@ export async function GET(request: NextRequest) {
       profileById.set(item.id, item)
     }
 
+    const authDisplayNames = await getAuthDisplayNames(service, [chatRow.student_id, chatRow.mentor_id])
+
     const { data: messages, error: messageError } = await service
       .from("mentor_direct_messages")
       .select("id, sender_id, sender_role, message, created_at")
@@ -219,7 +303,11 @@ export async function GET(request: NextRequest) {
       conversation: {
         id: `direct:${chatRow.id}`,
         kind: "direct",
-        title: fullName(partner, chatRow.student_id === user.id ? "Mentor" : "Student"),
+        title: resolveDisplayName(
+          partner,
+          authDisplayNames.get(partnerId),
+          chatRow.student_id === user.id ? "Mentor" : "Student",
+        ),
         subtitle: `${SUBJECT_CHAT_LABEL_BY_ID[chatRow.course_id] ?? chatRow.course_id} • ${chatRow.student_id === user.id ? "Mentor" : "Student"}`,
         course_id: chatRow.course_id,
         partner: {
@@ -233,7 +321,11 @@ export async function GET(request: NextRequest) {
         id: String(message.id),
         sender_id: String(message.sender_id),
         sender_role: message.sender_role,
-        sender_name: fullName(profileById.get(String(message.sender_id)), message.sender_role),
+        sender_name: resolveDisplayName(
+          profileById.get(String(message.sender_id)),
+          authDisplayNames.get(String(message.sender_id)),
+          message.sender_role,
+        ),
         message: String(message.message ?? ""),
         created_at: String(message.created_at),
       })),
@@ -361,6 +453,147 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: inserted }, { status: 201 })
   } catch (error) {
     console.error("Chat messages POST error:", error)
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 })
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const context = await getAuthContext()
+    if (context.error || !context.user || !context.service) {
+      return context.error
+    }
+
+    const body = (await request.json()) as {
+      conversationId?: string
+      messageId?: string
+    }
+
+    const parsed = parseConversationId(body.conversationId ?? null)
+    const messageId = typeof body.messageId === "string" ? body.messageId.trim() : ""
+
+    if (!parsed || !messageId) {
+      return NextResponse.json({ error: "Invalid delete request" }, { status: 400 })
+    }
+
+    const { user, service, profile, isAdmin, isMentor } = context
+
+    if (parsed.kind === "group") {
+      const { data: group, error: groupError } = await service
+        .from("subject_chat_groups")
+        .select("id, course_id")
+        .eq("id", parsed.id)
+        .maybeSingle()
+
+      if (groupError) {
+        return NextResponse.json({ error: "Failed to load group" }, { status: 500 })
+      }
+
+      if (!group) {
+        return NextResponse.json({ error: "Group not found" }, { status: 404 })
+      }
+
+      const enrolledCourseIds = await getEnrolledSubjectCourseIds(service, user.id)
+      const mentorCourseIds = getMentorSubjectCourseIds(profile)
+      const canAccess =
+        isAdmin ||
+        (isMentor && mentorCourseIds.includes(String(group.course_id))) ||
+        enrolledCourseIds.includes(String(group.course_id))
+
+      if (!canAccess) {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+      }
+
+      const { data: messageRow, error: messageError } = await service
+        .from("subject_chat_messages")
+        .select("id, sender_id")
+        .eq("id", messageId)
+        .eq("group_id", parsed.id)
+        .maybeSingle()
+
+      if (messageError) {
+        return NextResponse.json({ error: "Failed to load message" }, { status: 500 })
+      }
+
+      if (!messageRow) {
+        return NextResponse.json({ error: "Message not found" }, { status: 404 })
+      }
+
+      if (!isAdmin && String(messageRow.sender_id) !== user.id) {
+        return NextResponse.json({ error: "You can only delete your own messages" }, { status: 403 })
+      }
+
+      const { error: deleteError } = await service
+        .from("subject_chat_messages")
+        .delete()
+        .eq("id", messageId)
+        .eq("group_id", parsed.id)
+
+      if (deleteError) {
+        return NextResponse.json({ error: "Failed to delete message" }, { status: 500 })
+      }
+
+      return NextResponse.json({ success: true })
+    }
+
+    const { data: chat, error: chatError } = await service
+      .from("mentor_direct_chats")
+      .select("id, mentor_id, student_id")
+      .eq("id", parsed.id)
+      .maybeSingle()
+
+    if (chatError) {
+      return NextResponse.json({ error: "Failed to load direct chat" }, { status: 500 })
+    }
+
+    if (!chat) {
+      return NextResponse.json({ error: "Chat not found" }, { status: 404 })
+    }
+
+    const chatRow = chat as DirectChatRow
+    const canAccess = isAdmin || chatRow.student_id === user.id || chatRow.mentor_id === user.id
+
+    if (!canAccess) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+
+    const { data: messageRow, error: messageError } = await service
+      .from("mentor_direct_messages")
+      .select("id, sender_id")
+      .eq("id", messageId)
+      .eq("chat_id", chatRow.id)
+      .maybeSingle()
+
+    if (messageError) {
+      return NextResponse.json({ error: "Failed to load message" }, { status: 500 })
+    }
+
+    if (!messageRow) {
+      return NextResponse.json({ error: "Message not found" }, { status: 404 })
+    }
+
+    if (!isAdmin && String(messageRow.sender_id) !== user.id) {
+      return NextResponse.json({ error: "You can only delete your own messages" }, { status: 403 })
+    }
+
+    const { error: deleteError } = await service
+      .from("mentor_direct_messages")
+      .delete()
+      .eq("id", messageId)
+      .eq("chat_id", chatRow.id)
+
+    if (deleteError) {
+      return NextResponse.json({ error: "Failed to delete message" }, { status: 500 })
+    }
+
+    await service
+      .from("mentor_direct_chats")
+      .update({ updated_at: new Date().toISOString() })
+      .eq("id", chatRow.id)
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error("Chat messages DELETE error:", error)
     return NextResponse.json({ error: "Invalid request" }, { status: 400 })
   }
 }

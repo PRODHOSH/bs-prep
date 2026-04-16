@@ -6,8 +6,9 @@ export default function MentorChatsPage() {
       title="Mentor Chats"
       subtitle="Subject groups and direct student chats in one place."
       homeHref="/mentor"
-      homeLabel="Back to Mentor Home"
+      homeLabel="Back to Dashboard"
       onboardingHref={null}
+      headerTheme="dark"
     />
   )
 }
