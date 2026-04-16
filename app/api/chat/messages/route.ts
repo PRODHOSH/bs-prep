@@ -296,6 +296,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Failed to load messages" }, { status: 500 })
     }
 
+    const mentorProfile = profileById.get(chatRow.mentor_id)
+    const studentProfile = profileById.get(chatRow.student_id)
+
+    const mentorName = resolveDisplayName(mentorProfile, authDisplayNames.get(chatRow.mentor_id), "Participant A")
+    const studentName = resolveDisplayName(studentProfile, authDisplayNames.get(chatRow.student_id), "Participant B")
+
     const partnerId = chatRow.student_id === user.id ? chatRow.mentor_id : chatRow.student_id
     const partner = profileById.get(partnerId)
     const partnerRoleRaw = String(partner?.role ?? "member").toLowerCase()
@@ -309,20 +315,34 @@ export async function GET(request: NextRequest) {
             : "Member"
     const partnerFallback = partnerRoleLabel === "Member" ? "Participant" : partnerRoleLabel
 
+    const title = isAdmin
+      ? `${mentorName} <-> ${studentName}`
+      : resolveDisplayName(partner, authDisplayNames.get(partnerId), partnerFallback)
+
+    const subtitle = isAdmin
+      ? `${SUBJECT_CHAT_LABEL_BY_ID[chatRow.course_id] ?? chatRow.course_id} • Direct DM`
+      : `${SUBJECT_CHAT_LABEL_BY_ID[chatRow.course_id] ?? chatRow.course_id} • ${partnerRoleLabel}`
+
+    const conversation = {
+      id: `direct:${chatRow.id}`,
+      kind: "direct" as const,
+      title,
+      subtitle,
+      course_id: chatRow.course_id,
+      ...(isAdmin
+        ? {}
+        : {
+            partner: {
+              id: partnerId,
+              role: partner?.role ?? null,
+              avatar_url: partner?.avatar_url ?? null,
+              email: partner?.email ?? null,
+            },
+          }),
+    }
+
     return NextResponse.json({
-      conversation: {
-        id: `direct:${chatRow.id}`,
-        kind: "direct",
-        title: resolveDisplayName(partner, authDisplayNames.get(partnerId), partnerFallback),
-        subtitle: `${SUBJECT_CHAT_LABEL_BY_ID[chatRow.course_id] ?? chatRow.course_id} • ${partnerRoleLabel}`,
-        course_id: chatRow.course_id,
-        partner: {
-          id: partnerId,
-          role: partner?.role ?? null,
-          avatar_url: partner?.avatar_url ?? null,
-          email: partner?.email ?? null,
-        },
-      },
+      conversation,
       messages: (messages ?? []).map((message) => ({
         id: String(message.id),
         sender_id: String(message.sender_id),
@@ -366,6 +386,10 @@ export async function POST(request: NextRequest) {
 
     const { user, service, profile, isAdmin, isMentor } = context
     const senderRole: "student" | "mentor" | "admin" = isAdmin ? "admin" : isMentor ? "mentor" : "student"
+
+    if (parsed.kind === "direct" && isAdmin) {
+      return NextResponse.json({ error: "Admins can only view direct chats" }, { status: 403 })
+    }
 
     if (parsed.kind === "group") {
       const { data: group, error: groupError } = await service

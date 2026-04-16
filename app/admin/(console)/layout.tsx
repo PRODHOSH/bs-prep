@@ -1,7 +1,18 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { BadgeCheck, BarChart2, BookOpen, HandHeart, LayoutDashboard, LogOut, Megaphone, MessageSquare, Users } from "lucide-react"
+import {
+  BadgeCheck,
+  BarChart2,
+  BookOpen,
+  HandHeart,
+  LayoutDashboard,
+  LogOut,
+  Megaphone,
+  MessageSquare,
+  MessagesSquare,
+  Users,
+} from "lucide-react"
 import { hasAdminRole } from "@/lib/security/admin-role"
 import { AdminRefreshButton } from "@/components/admin-refresh-button"
 
@@ -55,6 +66,12 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
       label: "Doubts",
       href: "/admin/doubts",
       icon: MessageSquare,
+      active: true,
+    },
+    {
+      label: "Chats",
+      href: "/admin/chats",
+      icon: MessagesSquare,
       active: true,
     },
     {
