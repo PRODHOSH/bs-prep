@@ -172,6 +172,7 @@ export function WhatsAppChatPage({
   const [threadMeta, setThreadMeta] = useState<ThreadResponse["conversation"] | null>(null)
   const [contextMenu, setContextMenu] = useState<MessageContextMenuState | null>(null)
   const [messageInfo, setMessageInfo] = useState<MessageInfoState | null>(null)
+  const [showPrivacyDisclaimer, setShowPrivacyDisclaimer] = useState(false)
   const [error, setError] = useState("")
 
   const endRef = useRef<HTMLDivElement | null>(null)
@@ -189,6 +190,8 @@ export function WhatsAppChatPage({
     () => conversations.find((item) => item.id === selectedConversationId) ?? null,
     [conversations, selectedConversationId],
   )
+  const selectedConversationKind = threadMeta?.kind ?? selectedConversation?.kind ?? null
+  const isDirectReadOnlyForAdmin = inbox?.viewer_role === "admin" && selectedConversationKind === "direct"
 
   useEffect(() => {
     selectedConversationIdRef.current = selectedConversationId
@@ -263,6 +266,11 @@ export function WhatsAppChatPage({
   }
 
   const sendMessage = async () => {
+    if (isDirectReadOnlyForAdmin) {
+      setError("Direct chats are view-only for admin")
+      return
+    }
+
     if (!selectedConversationId || !composer.trim()) {
       return
     }
@@ -860,18 +868,41 @@ export function WhatsAppChatPage({
                 </div>
 
                 <div className={`border-t px-3 py-3 ${isDarkChat ? "border-slate-700 bg-slate-800" : "border-[#d9e0e6] bg-[#f0f2f5]"}`}>
+                  {isDirectReadOnlyForAdmin ? (
+                    <p className={`mb-2 text-xs font-medium ${isDarkChat ? "text-amber-300" : "text-amber-700"}`}>
+                      Admin view only: personal direct chats cannot be replied to.
+                    </p>
+                  ) : null}
+
+                  {inbox?.viewer_role !== "admin" ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowPrivacyDisclaimer(true)}
+                      className={`mb-2 inline-flex items-center text-xs font-medium underline underline-offset-2 transition ${
+                        isDarkChat ? "text-slate-300 hover:text-slate-100" : "text-slate-600 hover:text-slate-900"
+                      }`}
+                    >
+                      Privacy and Safety Disclaimer
+                    </button>
+                  ) : null}
+
                   <div className="flex items-end gap-2">
                     <textarea
                       value={composer}
                       onChange={(event) => setComposer(event.target.value)}
                       onKeyDown={(event) => {
+                        if (isDirectReadOnlyForAdmin) {
+                          return
+                        }
+
                         if (event.key === "Enter" && !event.shiftKey) {
                           event.preventDefault()
                           void sendMessage()
                         }
                       }}
-                      placeholder="Type a message"
+                      placeholder={isDirectReadOnlyForAdmin ? "Direct chat is read-only for admin" : "Type a message"}
                       rows={1}
+                      disabled={isDirectReadOnlyForAdmin}
                       className={`max-h-36 min-h-10 flex-1 resize-y rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#53bdeb] ${
                         isDarkChat
                           ? "border-slate-600 bg-slate-900 text-slate-100 placeholder:text-slate-400"
@@ -882,7 +913,7 @@ export function WhatsAppChatPage({
                     <button
                       type="button"
                       onClick={toggleVoiceInput}
-                      disabled={!voiceSupported}
+                      disabled={!voiceSupported || isDirectReadOnlyForAdmin}
                       className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition disabled:cursor-not-allowed disabled:opacity-60 ${
                         isListening
                           ? "border-rose-500 bg-rose-500 text-white hover:bg-rose-600"
@@ -903,7 +934,7 @@ export function WhatsAppChatPage({
                     <button
                       type="button"
                       onClick={() => void sendMessage()}
-                      disabled={sending || !composer.trim()}
+                      disabled={isDirectReadOnlyForAdmin || sending || !composer.trim()}
                       className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#00a884] text-white transition hover:bg-[#02bd94] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <SendHorizonal className="h-4 w-4" />}
@@ -996,6 +1027,50 @@ export function WhatsAppChatPage({
             <button
               type="button"
               onClick={() => setMessageInfo(null)}
+              className={`mt-4 inline-flex h-9 items-center rounded-lg border px-3 text-sm font-medium transition ${
+                isDarkChat
+                  ? "border-slate-600 bg-slate-800 text-slate-100 hover:bg-slate-700"
+                  : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+              }`}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {showPrivacyDisclaimer ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" onClick={() => setShowPrivacyDisclaimer(false)}>
+          <div
+            className={`w-full max-w-xl rounded-2xl border p-5 shadow-xl ${
+              isDarkChat ? "border-slate-700 bg-slate-900 text-slate-100" : "border-slate-200 bg-white text-slate-900"
+            }`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h3 className="text-base font-semibold">Privacy and Safety Disclaimer</h3>
+            <p className={`mt-2 text-sm ${isDarkChat ? "text-slate-300" : "text-slate-600"}`}>
+              For your safety and privacy, please do not share personal information in the chat box, including but not limited to:
+            </p>
+
+            <ul className={`mt-3 list-disc space-y-1 pl-5 text-sm ${isDarkChat ? "text-slate-200" : "text-slate-700"}`}>
+              <li>Phone numbers</li>
+              <li>Email addresses</li>
+              <li>Home or college addresses</li>
+              <li>Bank or payment details</li>
+              <li>Any sensitive personal data</li>
+            </ul>
+
+            <p className={`mt-3 text-sm ${isDarkChat ? "text-slate-300" : "text-slate-600"}`}>
+              This chat is meant for general queries and academic discussions only. Sharing personal information may put your privacy and security at risk.
+            </p>
+            <p className={`mt-2 text-sm ${isDarkChat ? "text-slate-300" : "text-slate-600"}`}>
+              If needed, our team will contact you through official channels only.
+            </p>
+            <p className={`mt-2 text-sm font-medium ${isDarkChat ? "text-slate-100" : "text-slate-900"}`}>Stay safe. Stay smart.</p>
+
+            <button
+              type="button"
+              onClick={() => setShowPrivacyDisclaimer(false)}
               className={`mt-4 inline-flex h-9 items-center rounded-lg border px-3 text-sm font-medium transition ${
                 isDarkChat
                   ? "border-slate-600 bg-slate-800 text-slate-100 hover:bg-slate-700"

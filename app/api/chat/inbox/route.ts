@@ -164,18 +164,25 @@ export async function GET() {
 
     let subjectCourseIds: string[] = []
 
-    if (isMentor) {
+    if (isAdmin) {
+      const { data: allGroupCourses } = await service.from("subject_chat_groups").select("course_id")
+      subjectCourseIds = Array.from(
+        new Set((allGroupCourses ?? []).map((item) => String(item.course_id)).filter(Boolean)),
+      )
+    } else if (isMentor) {
       subjectCourseIds = getMentorSubjectCourseIds(profile).filter((courseId) => isSubjectChatCourse(courseId))
     } else {
       subjectCourseIds = await getEnrolledSubjectCourseIds(service, user.id)
     }
 
-    const { data: groupsData } = subjectCourseIds.length
-      ? await service
-          .from("subject_chat_groups")
-          .select("id, course_id, name")
-          .in("course_id", subjectCourseIds)
-      : { data: [] }
+    const { data: groupsData } = isAdmin
+      ? await service.from("subject_chat_groups").select("id, course_id, name")
+      : subjectCourseIds.length
+        ? await service
+            .from("subject_chat_groups")
+            .select("id, course_id, name")
+            .in("course_id", subjectCourseIds)
+        : { data: [] }
 
     const groups = (groupsData ?? []) as SubjectGroupRow[]
     const groupIds = groups.map((item) => item.id)
@@ -197,7 +204,7 @@ export async function GET() {
 
     let directChats: DirectChatRow[] = []
 
-    if (!isMentor && subjectCourseIds.length > 0) {
+    if (!isMentor && !isAdmin && subjectCourseIds.length > 0) {
       const [{ data: mentorsBySingle }, { data: mentorsByArray }] = await Promise.all([
         service
           .from("profiles")
@@ -235,11 +242,14 @@ export async function GET() {
       }
     }
 
-    const { data: chatRows } = await service
+    const directChatsQuery = service
       .from("mentor_direct_chats")
       .select("id, mentor_id, student_id, course_id, updated_at, created_at")
-      .or(`mentor_id.eq.${user.id},student_id.eq.${user.id}`)
       .order("updated_at", { ascending: false })
+
+    const { data: chatRows } = isAdmin
+      ? await directChatsQuery
+      : await directChatsQuery.or(`mentor_id.eq.${user.id},student_id.eq.${user.id}`)
 
     directChats = (chatRows ?? []) as DirectChatRow[]
 
@@ -260,13 +270,18 @@ export async function GET() {
       }
     }
 
-    const partnerIds = Array.from(
+    const participantIds = Array.from(
       new Set(
-        directChats.map((chat) => {
-          if (chat.student_id === user.id) {
-            return chat.mentor_id
+        directChats.flatMap((chat) => {
+          if (isAdmin) {
+            return [chat.mentor_id, chat.student_id]
           }
-          return chat.student_id
+
+          if (chat.student_id === user.id) {
+            return [chat.mentor_id]
+          }
+
+          return [chat.student_id]
         }),
       ),
     )
@@ -276,7 +291,7 @@ export async function GET() {
         [
           ...Array.from(latestGroupMessageByGroupId.values()).map((message) => message.sender_id),
           ...Array.from(latestDirectMessageByChatId.values()).map((message) => message.sender_id),
-          ...partnerIds,
+          ...participantIds,
         ].filter(Boolean),
       ),
     )
@@ -317,6 +332,12 @@ export async function GET() {
 
     const directConversations = directChats.map((chat) => {
       const latestMessage = latestDirectMessageByChatId.get(chat.id)
+      const mentorProfile = profileById.get(chat.mentor_id)
+      const studentProfile = profileById.get(chat.student_id)
+
+      const mentorName = resolveDisplayName(mentorProfile, authDisplayNames.get(chat.mentor_id), "Participant A")
+      const studentName = resolveDisplayName(studentProfile, authDisplayNames.get(chat.student_id), "Participant B")
+
       const partnerId = chat.student_id === user.id ? chat.mentor_id : chat.student_id
       const partner = profileById.get(partnerId)
       const partnerRoleRaw = String(partner?.role ?? "member").toLowerCase()
@@ -330,20 +351,32 @@ export async function GET() {
               : "Member"
       const partnerFallback = partnerRoleLabel === "Member" ? "Participant" : partnerRoleLabel
 
+      const title = isAdmin
+        ? `${mentorName} <-> ${studentName}`
+        : resolveDisplayName(partner, authDisplayNames.get(partnerId), partnerFallback)
+
+      const subtitle = isAdmin
+        ? `${SUBJECT_CHAT_LABEL_BY_ID[chat.course_id] ?? chat.course_id} • Direct DM`
+        : `${SUBJECT_CHAT_LABEL_BY_ID[chat.course_id] ?? chat.course_id} • ${partnerRoleLabel}`
+
       return {
         id: `direct:${chat.id}`,
         kind: "direct" as const,
         chat_id: chat.id,
         course_id: chat.course_id,
-        title: resolveDisplayName(partner, authDisplayNames.get(partnerId), partnerFallback),
-        subtitle: `${SUBJECT_CHAT_LABEL_BY_ID[chat.course_id] ?? chat.course_id} • ${partnerRoleLabel}`,
-        partner: {
-          id: partnerId,
-          name: resolveDisplayName(partner, authDisplayNames.get(partnerId), partnerFallback),
-          avatar_url: partner?.avatar_url ?? null,
-          role: partner?.role ?? null,
-          email: partner?.email ?? null,
-        },
+        title,
+        subtitle,
+        ...(isAdmin
+          ? {}
+          : {
+              partner: {
+                id: partnerId,
+                name: resolveDisplayName(partner, authDisplayNames.get(partnerId), partnerFallback),
+                avatar_url: partner?.avatar_url ?? null,
+                role: partner?.role ?? null,
+                email: partner?.email ?? null,
+              },
+            }),
         last_message: latestMessage?.message ?? "Start your conversation",
         last_message_at: latestMessage?.created_at ?? chat.updated_at ?? chat.created_at,
         last_sender_name: latestMessage
