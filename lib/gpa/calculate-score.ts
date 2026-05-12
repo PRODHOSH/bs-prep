@@ -8,142 +8,152 @@ export function calculateScore(courseId: string, values: Record<string, number>)
     case "mds1":
     case "eng1":
     case "ct":
-    case "mds2":
-      return Math.min(
-        (0.1 * values.GAA +
-          Math.max(
-            0.6 * values.F + 0.2 * Math.max(values.Qz1, values.Qz2),
-            0.4 * values.F + 0.2 * values.Qz1 + 0.3 * values.Qz2,
-          )) *
-          (1 + 0.01 * (values.Extra || 0)),
-        100,
+      return Math.max(
+        0.6 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
+        0.45 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
       )
 
+    case "mds2":
+      baseScore = Math.max(
+        0.6 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
+        0.45 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
+      )
+      // Add bonus (up to 6 marks, capped at 100)
+      return Math.min(baseScore + (values.Extra || 0), 100)
+
     case "eng2":
-      return (
-        0.1 * values.GAA +
-        Math.max(
-          0.6 * values.F + 0.2 * Math.max(values.Qz1, values.Qz2),
-          0.4 * values.F + 0.2 * values.Qz1 + 0.3 * values.Qz2,
-        )
+      return Math.max(
+        0.6 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
+        0.45 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
       )
 
     case "stats1":
     case "stats2":
-      return (
-        0.1 * values.GAA +
-        Math.max(
-          0.6 * values.F + 0.2 * Math.max(values.Qz1, values.Qz2),
-          0.4 * values.F + 0.2 * values.Qz1 + 0.3 * values.Qz2,
-        ) +
-        (values.Extra || 0)
+      baseScore = Math.max(
+        0.6 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
+        0.45 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
       )
+      // Bonus only applied when passing (>= 40)
+      if (baseScore >= 40) {
+        baseScore += Math.min(5, values.Extra || 0)
+      }
+      return baseScore
 
     case "python":
       return (
-        0.1 * values.GAA1 +
-        0.1 * values.GAA2 +
-        0.1 * values.Qz1 +
+        0.15 * values.Qz1 +
         0.4 * values.F +
         0.25 * Math.max(values.PE1, values.PE2) +
-        0.15 * Math.min(values.PE1, values.PE2)
+        0.2 * Math.min(values.PE1, values.PE2)
       )
 
     // Diploma Level
     case "mlf":
       return (
-        0.1 * values.GAA +
+        0.05 * values.GAA +
         Math.max(
-          0.6 * values.F + 0.2 * Math.max(values.Qz1, values.Qz2),
-          0.4 * values.F + 0.2 * values.Qz1 + 0.3 * values.Qz2,
+          0.6 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
+          0.4 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
         )
       )
 
     case "mlt":
-      return (
-        0.1 * values.GAA +
-        0.4 * values.F +
-        Math.max(0.25 * values.Qz1 + 0.25 * values.Qz2, 0.4 * Math.max(values.Qz1, values.Qz2))
+      baseScore = (
+        0.05 * values.GAA +
+        Math.max(
+          0.6 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
+          0.4 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
+        )
       )
+      // Add 3 marks bonus if GAA >= 40
+      if (values.GAA >= 40) {
+        baseScore += Math.min(3, values.ProgrammingBonus || 0)
+      }
+      return baseScore
 
     case "mlp":
-      return 0.1 * values.GAA + 0.3 * values.F + 0.2 * values.OPE1 + 0.2 * values.OPE2 + 0.2 * values.KA
+      return 0.1 * values.GAA + 0.3 * values.F + 0.2 * values.OPPE1 + 0.2 * values.OPPE2 + 0.2 * values.KA
 
     // Added missing Diploma Level courses
     case "bdm":
-      return 0.3 * values.GA + 0.2 * values.Q2 + 0.2 * values.TA + 0.3 * values.F
+      return values.GA + values.Qz2 + values.TimedAssignment + values.F
 
     case "ban":
-      return 0.7 * Math.max(values.Qz1, values.Qz2) + 0.3 * Math.min(values.Qz1, values.Qz2)
+      return (
+        0.7 * Math.max(values.Qz1, values.Qz2) +
+        0.3 * Math.min(values.Qz1, values.Qz2) +
+        values.A +
+        values.F
+      )
 
     case "tds":
-      return 0.2 * values.GAA + 0.2 * values.ROE1 + 0.2 * values.P1 + 0.2 * values.P2 + 0.2 * values.F
+      return 0.1 * values.GAA + 0.2 * values.ROE + 0.2 * values.P1 + 0.2 * values.P2 + 0.3 * values.F
 
     case "dl-genAI":
-      return 0.2 * values.GAA + 0.15 * values.Qz1 + 0.15 * values.Qz2 + 0.2 * values.F + 0.15 * values.NPPE1 + 0.15 * values.NPPE2 
+      return 0.1 * values.GAA + 0.2 * values.Qz1 + 0.2 * values.Qz2 + 0.25 * values.F + 0.1 * values.NPPE1 + 0.15 * values.NPPE2 
 
     case "pds":
     case "pdsa":
       return (
-        0.1 * values.GAA +
-        0.4 * values.F +
+        0.05 * values.GAA +
         0.2 * values.OP +
-        Math.max(0.2 * Math.max(values.Qz1, values.Qz2), 0.15 * values.Qz1 + 0.15 * values.Qz2)
+        0.45 * values.F +
+        Math.max(0.2 * Math.max(values.Qz1, values.Qz2), 0.1 * values.Qz1 + 0.2 * values.Qz2)
       )
 
     case "dbms":
       return (
-        0.04 * values.GAA1 +
         0.03 * values.GAA2 +
-        0.03 * values.GAA3 +
+        0.02 * values.GAA3 +
         0.2 * values.OP +
-        Math.max(
-          0.45 * values.F + 0.15 * Math.max(values.Qz1, values.Qz2),
-          0.4 * values.F + 0.1 * values.Qz1 + 0.2 * values.Qz2,
-        )
+        0.45 * values.F +
+        Math.max(0.2 * Math.max(values.Qz1, values.Qz2), 0.1 * values.Qz1 + 0.2 * values.Qz2)
       )
 
     case "ad1":
     case "appdev-1":
       return (
-        0.15 * values.GLA +
-        0.05 * values.GA +
+        0.05 * values.GLA +
         Math.max(
-          0.35 * values.F + 0.2 * values.Qz1 + 0.25 * values.Qz2,
-          0.4 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
+          0.6 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
+          0.4 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
         )
       )
 
     case "java":
       return (
-        0.1 * values.GAA +
-        0.3 * values.F +
+        0.05 * values.GAA +
         0.2 * Math.max(values.PE1, values.PE2) +
-        0.1 * Math.min(values.PE1, values.PE2) +
-        Math.max(0.25 * Math.max(values.Qz1, values.Qz2), 0.15 * values.Qz1 + 0.25 * values.Qz2)
+        0.45 * values.F +
+        Math.max(0.2 * Math.max(values.Qz1, values.Qz2), 0.1 * values.Qz1 + 0.2 * values.Qz2) +
+        0.1 * Math.min(values.PE1, values.PE2)
       )
 
     case "sys":
     case "sc":
-      return 0.1 * values.GAA + 0.2 * values.Qz1 + 0.3 * values.OPE + 0.3 * values.F + 0.1 * values.BPTA
+      return 0.05 * values.GAA + 0.25 * values.Qz1 + 0.3 * values.OPPE + 0.3 * values.F + 0.1 * values.BPTA
 
     case "ad2":
     case "appdev-2":
       return (
-        0.05 * values.GAA1 +
-        0.05 * values.GAA2 +
+        0.05 * values.GAA +
         Math.max(
-          0.35 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
-          0.5 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
+          0.6 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
+          0.4 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
         )
       )
 
     // Degree Level
     case "st":
-      return 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+      baseScore = 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+      // Add bonus if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "se":
-      return (
+      baseScore = (
         0.05 * values.GAA +
         0.2 * values.Qz2 +
         0.4 * values.F +
@@ -152,27 +162,35 @@ export function calculateScore(courseId: string, values: Record<string, number>)
         0.1 * values.PP +
         0.05 * values.CP
       )
+      // Add bonus if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "dl":
-      return (
-        0.1 * values.GAA +
-        Math.max(
-          0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2,
-          0.5 * values.F + 0.3 * Math.max(values.Qz1, values.Qz2),
-        )
-      )
+      baseScore = 0.05 * values.GAA + 0.25 * values.Qz1 + 0.25 * values.Qz2 + 0.45 * values.F
+      // Add bonuses if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.ProgrammingBonus || 0) + (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "ai-search":
-      return (
-        0.1 * values.GAA +
-        Math.max(
-          0.45 * values.F + 0.35 * Math.max(values.Qz1, values.Qz2),
-          0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2,
-        )
-      )
+      baseScore = 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+      // Add bonuses if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.ProgrammingBonus || 0) + (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "llm":
-      return 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+      baseScore = 0.05 * values.GAA + 0.35 * values.F + 0.3 * values.Qz1 + 0.3 * values.Qz2
+      // Add bonuses if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.LLMProgrammingBonus || 0) + (values.NormalBonus || 0)
+      }
+      return baseScore
 
     // Added missing Degree Level courses
     case "spg":
@@ -205,13 +223,12 @@ export function calculateScore(courseId: string, values: Record<string, number>)
       )
 
     case "atb":
-      return (
-        0.2 * values.GAA +
-        Math.max(
-          0.2 * values.Qz1 + 0.2 * values.Qz2 + 0.4 * values.F,
-          0.45 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
-        )
-      )
+      baseScore = 0.075 * values.GAA + 0.025 * values.GAAP + 0.25 * values.Qz1 + 0.25 * values.Qz2 + 0.4 * values.F
+      // Add bonus if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "i4":
       return values.A + 0.3 * values.F + 0.15 * (values.Qz1 + values.Qz2) + 0.05 * values.Game + 0.1 * values.Project
@@ -226,21 +243,26 @@ export function calculateScore(courseId: string, values: Record<string, number>)
       )
 
     case "lsm":
-      return (
+      baseScore = (
         0.1 * values.GAA +
-        0.5 * values.F +
-        Math.max(0.2 * values.Qz1 + 0.2 * values.Qz2, 0.3 * Math.max(values.Qz1, values.Qz2))
+        Math.max(
+          0.6 * values.F + 0.2 * Math.max(values.Qz1, values.Qz2),
+          0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2,
+        )
       )
+      // Add bonus if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "cprog":
-      return (
-        0.05 * values.GAA +
-        0.1 * values.GAAP +
-        0.15 * values.Qz1 +
-        0.2 * values.OPPE1 +
-        0.2 * values.OPPE2 +
-        0.3 * values.F
-      )
+      baseScore = 0.1 * values.GAA + 0.2 * values.Qz1 + 0.2 * values.OPPE1 + 0.2 * values.OPPE2 + 0.3 * values.F
+      // Add bonus if total >= 40
+      if (baseScore >= 40) {
+        baseScore += (values.NormalBonus || 0)
+      }
+      return baseScore
 
     case "ff":
       return (
