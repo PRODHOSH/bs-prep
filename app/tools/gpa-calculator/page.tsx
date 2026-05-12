@@ -84,11 +84,7 @@ export default function GPACalculator() {
   const handleCalculate = () => {
     if (!selectedCourse) return
     try {
-      let score = calculateScore(selectedCourse.id, formValues)
-      const bonusMarks = formValues.Bonus || 0
-      if (score >= 40 && bonusMarks > 0) {
-        score = Math.min(score + bonusMarks, 100)
-      }
+      const score = calculateScore(selectedCourse.id, formValues)
       const grade = assignGrade(score)
       setCalculatedScore(score)
       setCalculatedGrade(grade)
