@@ -60,8 +60,8 @@ export function Footer() {
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms & Conditions", href: "/terms" },
+    { name: "Cookie Policy", href: "/cookies" },
     { name: "Disclaimer", href: "/disclaimer" },
-    { name: "Community Guidelines", href: "/community" },
   ]
 
   const supportLinks = [

@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
@@ -8,53 +8,78 @@ import { createClient } from "@/lib/supabase/client"
 const sections = [
   {
     num: "01",
-    title: "Information We Collect",
-    body: "We may collect personal information such as Full Name, Email Address, Phone Number, Educational Institution, Course/Program enrolled, and payment details (processed via secure third-party gateways). We may also collect non-personal information including IP address, browser type, device details, and usage analytics.",
+    title: "Who We Are",
+    body: "BSPrep is a student-led platform built to help students prepare for the IIT Madras BS Degree Qualifier examinations. We are an independent initiative — not affiliated with, endorsed by, or officially connected to IIT Madras in any way. This platform is operated by students for students.",
   },
   {
     num: "02",
-    title: "How We Use Your Information",
-    body: "We use collected information to provide coaching and mentorship services, manage enrollments, deliver classes and study materials, send updates, improve platform experience, and provide student support. We do not sell or rent student data to third parties.",
+    title: "Information We Collect",
+    body: "We may collect personal information including your full name, email address, phone number, educational institution, and course or program details. When you make a payment, transaction metadata is handled by Razorpay — we do not store your card or banking credentials on our servers.",
   },
   {
     num: "03",
-    title: "Payments & Transactions",
-    body: "All payments are processed through secure third-party payment providers. We do not store card or banking credentials on our servers.",
+    title: "How We Use Your Information",
+    body: "Your information is used to deliver our services: processing enrollments, providing course materials, sending transactional emails (account confirmations, payment receipts, course updates, and support responses), and improving the platform. We do not sell, rent, or trade your personal data to any third party under any circumstances.",
   },
   {
     num: "04",
-    title: "Cookies & Tracking",
-    body: "We use cookies to maintain login sessions, store preferences, and analyze traffic. Users may disable cookies through browser settings.",
+    title: "Email Communications",
+    body: "We use Resend (a transactional email service) to send account notifications, payment receipts, course enrollment confirmations, platform announcements, and replies to support requests. You can opt out of non-essential communications by contacting us.",
   },
   {
     num: "05",
-    title: "Data Sharing",
-    body: "We may share limited information with payment gateways, hosting providers, or when required by law. No unnecessary third-party sharing occurs.",
+    title: "Payment Processing",
+    body: "All payments are processed securely through Razorpay, a PCI-DSS compliant payment gateway. BSPrep does not store, view, or have access to your card details or banking credentials. Razorpay's own privacy policy governs the handling of payment data.",
   },
   {
     num: "06",
-    title: "Data Security",
-    body: "We implement security measures such as SSL/HTTPS encryption, secure databases, and restricted admin access. However, no system is completely immune to risks.",
+    title: "Data Storage",
+    body: "User accounts, course enrollments, and platform data are stored in Supabase — a secure, cloud-hosted database infrastructure. Data is protected with encrypted connections and access controls.",
   },
   {
     num: "07",
-    title: "Student Content & Community",
-    body: "Content posted in community spaces may be visible to enrolled members. Users should avoid sharing sensitive personal data. We reserve the right to moderate content.",
+    title: "Analytics & Monitoring",
+    body: "We use Google Analytics 4 to understand how users interact with the platform (pages visited, features used, session duration). We also use Google Search Console and Bing Webmaster Tools to monitor search performance — these tools collect aggregated, non-personally-identifiable data. Vercel Analytics provides anonymous page performance data.",
   },
   {
     num: "08",
-    title: "Children & Minor Students",
-    body: "If minors enroll in coaching programs, parental or guardian consent is assumed.",
+    title: "Cookies & Tracking",
+    body: "We use cookies to maintain your login session (Supabase authentication), store your preferences, and collect anonymous usage analytics (Google Analytics). You can view full cookie details in our Cookie Policy. Users may disable cookies through their browser settings, though this may affect login functionality.",
   },
   {
     num: "09",
-    title: "External Platforms",
-    body: "Links to external platforms (Zoom, Google Meet, YouTube, etc.) are governed by their own privacy policies.",
+    title: "Data Sharing",
+    body: "We share your data only with the service providers necessary to operate BSPrep: Razorpay (payments), Supabase (data storage), Resend (transactional emails), and Google Analytics (anonymised usage data). We do not share your data with advertisers, data brokers, or any unrelated third parties.",
   },
   {
     num: "10",
+    title: "Data Security",
+    body: "We implement security measures including HTTPS/SSL encryption, secure database access controls, and restricted admin permissions. However, no system is fully immune to security risks, and we cannot guarantee absolute security.",
+  },
+  {
+    num: "11",
+    title: "Your Rights",
+    body: "You have the right to access, correct, or request deletion of your personal data. To exercise these rights or raise a data concern, contact us at bsprep.team@gmail.com. We will respond within a reasonable timeframe.",
+  },
+  {
+    num: "12",
+    title: "Community Content",
+    body: "Content posted in community spaces may be visible to other enrolled members. Avoid sharing sensitive personal information publicly. BSPrep reserves the right to moderate or remove content that violates community standards.",
+  },
+  {
+    num: "13",
+    title: "Minor Students",
+    body: "If students under 18 enroll in our programs, parental or guardian consent is assumed. We do not knowingly collect personal data from children under 13 without parental consent.",
+  },
+  {
+    num: "14",
+    title: "External Platforms",
+    body: "Our platform may link to or integrate with external services such as Zoom, Google Meet, or YouTube. These platforms operate under their own privacy policies, and BSPrep is not responsible for their data practices.",
+  },
+  {
+    num: "15",
     title: "Policy Updates",
-    body: "We may revise this Privacy Policy periodically. Updates will be posted with a revised date.",
+    body: "We may revise this Privacy Policy from time to time. Material updates will be posted on this page with a revised date. Continued use of BSPrep after changes constitutes your acceptance of the updated policy.",
   },
 ]
 
@@ -77,14 +102,13 @@ export default function PrivacyPolicyPage() {
       <main className="flex-1 py-16 px-4 relative z-10">
         <div className="max-w-3xl mx-auto">
 
-          {/* Header */}
           <div className="mb-10">
-            <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BS Prep</p>
-            <h1 className="text-4xl md:text-6xl font-bold text-black leading-tight">Privacy Policy</h1>
-            <p className="text-black/50 text-base mt-3">Qualifier Mentorship &amp; Coaching Platform  Last Updated: February 2026</p>
+            <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BSPrep — Legal</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Privacy Policy</h1>
+            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: June 2026</p>
+            <p className="text-black/40 text-xs mt-2">BSPrep is an independent student initiative and is not affiliated with IIT Madras.</p>
           </div>
 
-          {/* Sections box */}
           <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-sm">
             {sections.map((s, i) => (
               <div
@@ -94,17 +118,16 @@ export default function PrivacyPolicyPage() {
                 <span className="text-sm font-mono text-black/25 pt-0.5 shrink-0 w-6">{s.num}</span>
                 <div>
                   <p className="font-semibold text-black text-base mb-1">{s.title}</p>
-                  <p className="text-base text-black/60 leading-relaxed">{s.body}</p>
+                  <p className="text-sm text-black/60 leading-relaxed">{s.body}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Contact footer */}
           <div className="mt-8 px-7 py-5 bg-black rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-              <p className="text-white font-semibold text-sm">Contact Us</p>
-              <p className="text-white/50 text-xs mt-0.5">BS Prep – Qualifier Mentorship &amp; Coaching</p>
+              <p className="text-white font-semibold text-sm">Questions about this policy?</p>
+              <p className="text-white/50 text-xs mt-0.5">BSPrep — Student-led IITM BS Qualifier Prep</p>
             </div>
             <a
               href="mailto:bsprep.team@gmail.com"

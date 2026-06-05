@@ -120,9 +120,10 @@ export default function RootLayout({
             name: siteName,
             url: siteUrl,
             logo: `${siteUrl}/og-image.png`,
+            description: "Student-led platform for IIT Madras BS Degree Qualifier preparation. Not affiliated with IIT Madras.",
             sameAs: [
-              "https://www.linkedin.com/",
-              "https://github.com/",
+              "https://www.linkedin.com/company/bs-prep/",
+              "https://www.youtube.com/@DataScienceIITMTamil",
             ],
           })}
         </Script>
