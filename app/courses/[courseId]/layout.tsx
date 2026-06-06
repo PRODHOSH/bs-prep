@@ -1,7 +1,7 @@
 import type { Metadata, ResolvingMetadata } from 'next'
 
 type Props = {
-  params: { courseId: string }
+  params: Promise<{ courseId: string }>
 }
 
 const courseData: Record<string, any> = {
@@ -27,7 +27,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const id = params.courseId
+  const { courseId: id } = await params
   const course = courseData[id]
 
   if (!course) {

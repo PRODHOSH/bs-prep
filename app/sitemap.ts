@@ -1,3 +1,6 @@
+// this file is sitemap xml file for google to track which pages are on the website and how often they are updated. It is generated at build time and served at /sitemap.xml
+
+
 import type { MetadataRoute } from "next"
 import { createClient } from "@supabase/supabase-js"
 
