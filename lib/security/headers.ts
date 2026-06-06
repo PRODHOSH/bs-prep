@@ -69,12 +69,15 @@ export function getSecurityHeaders(request?: NextRequest) {
 }
 
 export function addSecurityHeaders(response: NextResponse, request?: NextRequest) {
+  if (!response?.headers) return response
   const securityHeaders = getSecurityHeaders(request)
-  
-  securityHeaders.forEach((value, key) => {
-    response.headers.set(key, value)
-  })
-  
+  try {
+    securityHeaders.forEach((value, key) => {
+      response.headers.set(key, value)
+    })
+  } catch {
+    // headers immutable on some redirect responses — skip silently
+  }
   return response
 }
 
