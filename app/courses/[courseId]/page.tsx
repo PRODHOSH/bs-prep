@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { ArrowLeft, BookOpen, Calendar, FileText, Video, Search, X } from "lucide-react"
+import { ArrowLeft, Award, BookOpen, Calendar, FileText, Video, Search, X } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { LiveClassCard } from "@/components/live-class-card"
@@ -154,6 +154,7 @@ export default function CoursePage() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isEnrolled, setIsEnrolled] = useState(false)
+  const [certEnabled, setCertEnabled] = useState(false)
   const [loading, setLoading] = useState(true)
   const [classes, setClasses] = useState<LiveClass[]>([])
   const [loadingClasses, setLoadingClasses] = useState(false)
@@ -179,10 +180,16 @@ export default function CoursePage() {
         .single()
       
       setIsEnrolled(!!enrollment)
-      
-      // If enrolled, fetch classes for this course
+
+      // Check certificate availability
       if (enrollment) {
         fetchClasses()
+        const { data: cert } = await supabase
+          .from("course_certificates")
+          .select("enabled")
+          .eq("course_id", courseId)
+          .single()
+        setCertEnabled(cert?.enabled ?? false)
       }
     }
     
@@ -303,6 +310,20 @@ export default function CoursePage() {
                 {course.description}
               </p>
 
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-3">
+              {certEnabled && (
+                <Button
+                  asChild
+                  className="bg-white border-2 border-black text-black hover:bg-black hover:text-white px-6 py-3 gap-2 transition-colors"
+                >
+                  <a href={`/certificate/${courseId}`} target="_blank" rel="noopener noreferrer">
+                    <Award className="w-4 h-4" />
+                    Download Certificate
+                  </a>
+                </Button>
+              )}
+
               {/* Syllabus Button */}
               <Dialog>
                 <DialogTrigger asChild>
@@ -336,6 +357,7 @@ export default function CoursePage() {
                   </div>
                 </DialogContent>
               </Dialog>
+              </div>{/* end flex button row */}
             </div>
           </div>
 

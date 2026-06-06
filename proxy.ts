@@ -74,12 +74,18 @@ export async function proxy(request: NextRequest) {
       return addSecurityHeaders(response, request)
     }
 
+    // Admin API routes: skip rate limiting — they're already protected by auth
+    if (pathname.startsWith('/api/admin/')) {
+      const response = await updateSession(request)
+      return addSecurityHeaders(response, request)
+    }
+
     const key = getRateLimitKey(request)
-    
+
     // Different rate limits for different endpoints
-    let maxRequests = 120
+    let maxRequests = 600
     let windowMs = 60 * 1000 // 1 minute
-    
+
     if (
       pathname.includes('/auth/') ||
       pathname.startsWith('/api/account/') ||
@@ -100,7 +106,7 @@ export async function proxy(request: NextRequest) {
       maxRequests = 10
       windowMs = 60 * 1000 // 1 minute for enrollment
     } else if (request.method === 'POST' || request.method === 'PUT' || request.method === 'DELETE') {
-      maxRequests = 30
+      maxRequests = 200
       windowMs = 60 * 1000 // 1 minute for write operations
     }
 

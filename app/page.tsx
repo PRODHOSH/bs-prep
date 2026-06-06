@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Script from "next/script"
-import { useState, Suspense } from "react"
+import { useState } from "react"
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -10,6 +10,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { AnnouncementBar } from "@/components/announcement-bar"
 import { WelcomeModal } from "@/components/welcome-modal"
+import { QualifierCountdown } from "@/components/qualifier-countdown"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown, Video, MessageCircle } from "lucide-react"
 import CardSwap, { Card as SwapCard } from "@/components/card-swap"
@@ -188,6 +189,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <QualifierCountdown />
 
       <section ref={howItWorksRef.ref} className={`relative py-12 md:py-16 transition-all duration-1000 ${howItWorksRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

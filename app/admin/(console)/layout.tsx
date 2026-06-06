@@ -2,6 +2,7 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import {
+  Award,
   BadgeCheck,
   BarChart2,
   BookOpen,
@@ -90,6 +91,12 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
       label: "Analytics",
       href: "/admin/analytics",
       icon: BarChart2,
+      active: true,
+    },
+    {
+      label: "Certificates",
+      href: "/admin/certificates",
+      icon: Award,
       active: true,
     },
     {
