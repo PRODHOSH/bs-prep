@@ -13,6 +13,7 @@ type DirectoryUser = {
   role: string | null
   avatar_url: string | null
   created_at: string
+  is_enrolled: boolean
 }
 
 type UserEnrollment = {
@@ -27,7 +28,6 @@ export default function AdminUsersDirectoryPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchValue, setSearchValue] = useState("")
 
-  // Map of userId -> enrollment count (fetched lazily per-user OR bulk)
   const [enrolledUserIds, setEnrolledUserIds] = useState<Set<string>>(new Set())
 
   const [statusMessage, setStatusMessage] = useState("")
@@ -57,22 +57,7 @@ export default function AdminUsersDirectoryPage() {
         const data = (await res.json()) as { users?: DirectoryUser[] }
         const loaded = Array.isArray(data.users) ? data.users : []
         setUsers(loaded)
-
-        // Fetch enrollment counts for all users in parallel (fire-and-forget)
-        const enrolled = new Set<string>()
-        await Promise.allSettled(
-          loaded.map(async (u) => {
-            try {
-              const r = await fetch(`/api/admin/users/${u.id}/enrollments`, { cache: "no-store" })
-              if (!r.ok) return
-              const d = await r.json() as { enrollments?: UserEnrollment[] }
-              if (Array.isArray(d.enrollments) && d.enrollments.length > 0) {
-                enrolled.add(u.id)
-              }
-            } catch {}
-          })
-        )
-        setEnrolledUserIds(new Set(enrolled))
+        setEnrolledUserIds(new Set(loaded.filter((u) => u.is_enrolled).map((u) => u.id)))
       } catch {
         setUsers([])
       } finally {

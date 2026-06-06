@@ -2,50 +2,29 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MessageSquare, Star, Send, MessageCircle, Heart } from "lucide-react"
+import { MessageSquare, Star, Send, MessageCircle, Heart, CheckCircle2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
-
-const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
-  ssr: false,
-  loading: () => <div className="fixed inset-0 bg-white -z-10" />
-})
 
 export default function SupportPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState<"contact" | "feedback">("contact")
   const supabase = createClient()
 
-  // Contact Form State
-  const [contactForm, setContactForm] = useState({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: ""
-  })
+  const [contactForm, setContactForm] = useState({ fullName: "", email: "", subject: "", message: "" })
   const [contactSubmitting, setContactSubmitting] = useState(false)
   const [contactSuccess, setContactSuccess] = useState(false)
 
-  // Feedback Form State
-  const [feedbackForm, setFeedbackForm] = useState({
-    name: "",
-    email: "",
-    rating: 0,
-    category: "",
-    message: "",
-    recommend: ""
-  })
+  const [feedbackForm, setFeedbackForm] = useState({ name: "", email: "", rating: 0, category: "", message: "", recommend: "" })
   const [feedbackSubmitting, setFeedbackSubmitting] = useState(false)
   const [feedbackSuccess, setFeedbackSuccess] = useState(false)
-
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -57,16 +36,13 @@ export default function SupportPage() {
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setContactSubmitting(true)
-    
     try {
-      // Google Form entry IDs
       const formData = new FormData()
       formData.append('entry.1241521326', contactForm.fullName)
       formData.append('entry.1423357531', contactForm.email)
       formData.append('entry.1834255665', contactForm.subject)
       formData.append('entry.13986512', contactForm.message)
 
-      // Submit to Google Forms using iframe method
       const iframe = document.createElement('iframe')
       iframe.name = 'hidden_iframe'
       iframe.style.display = 'none'
@@ -76,7 +52,7 @@ export default function SupportPage() {
       form.target = 'hidden_iframe'
       form.method = 'POST'
       form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/formResponse'
-      
+
       formData.forEach((value, key) => {
         const input = document.createElement('input')
         input.type = 'hidden'
@@ -88,7 +64,6 @@ export default function SupportPage() {
       document.body.appendChild(form)
       form.submit()
 
-      // Clean up
       setTimeout(() => {
         document.body.removeChild(form)
         document.body.removeChild(iframe)
@@ -97,7 +72,6 @@ export default function SupportPage() {
       setContactSubmitting(false)
       setContactSuccess(true)
       setContactForm({ fullName: "", email: "", subject: "", message: "" })
-      
       setTimeout(() => setContactSuccess(false), 5000)
     } catch (error) {
       console.error('Error submitting form:', error)
@@ -108,9 +82,7 @@ export default function SupportPage() {
   const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setFeedbackSubmitting(true)
-    
     try {
-      // Google Form entry IDs
       const formData = new FormData()
       formData.append('entry.238739504', feedbackForm.name)
       formData.append('entry.861191758', feedbackForm.email)
@@ -119,7 +91,6 @@ export default function SupportPage() {
       formData.append('entry.985887691', feedbackForm.message)
       formData.append('entry.149124503', feedbackForm.recommend)
 
-      // Submit to Google Forms using iframe method
       const iframe = document.createElement('iframe')
       iframe.name = 'hidden_iframe'
       iframe.style.display = 'none'
@@ -129,7 +100,7 @@ export default function SupportPage() {
       form.target = 'hidden_iframe'
       form.method = 'POST'
       form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/formResponse'
-      
+
       formData.forEach((value, key) => {
         const input = document.createElement('input')
         input.type = 'hidden'
@@ -141,7 +112,6 @@ export default function SupportPage() {
       document.body.appendChild(form)
       form.submit()
 
-      // Clean up
       setTimeout(() => {
         document.body.removeChild(form)
         document.body.removeChild(iframe)
@@ -150,7 +120,6 @@ export default function SupportPage() {
       setFeedbackSubmitting(false)
       setFeedbackSuccess(true)
       setFeedbackForm({ name: "", email: "", rating: 0, category: "", message: "", recommend: "" })
-      
       setTimeout(() => setFeedbackSuccess(false), 5000)
     } catch (error) {
       console.error('Error submitting form:', error)
@@ -158,69 +127,106 @@ export default function SupportPage() {
     }
   }
 
-
-  if (loading) {
-    return null
-  }
+  if (loading) return null
 
   return (
-    <div className="min-h-screen bg-white relative">
-      <BeamsBackground />
+    <div className="min-h-screen bg-white">
       <Navbar isAuthenticated={isAuthenticated} />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-12 z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 text-black">
-              Support Center
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We're here to help. Get in touch or share your feedback.
-            </p>
+      {/* Hero */}
+      <section className="pt-28 pb-16 bg-white">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
+          <h1 className="text-5xl md:text-6xl font-semibold text-[#111111] tracking-[-2px] leading-[1.05] mb-4">
+            Support Center
+          </h1>
+          <p className="text-[#374151] text-base max-w-xl mx-auto">
+            Get help, share feedback, or support the initiative.
+          </p>
+        </div>
+      </section>
+
+      {/* Quick channels */}
+      <section className="pb-12 bg-white">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-[#f5f5f5] rounded-xl p-5">
+              <div className="w-9 h-9 bg-[#111111] rounded-lg flex items-center justify-center mb-3">
+                <MessageSquare className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="font-semibold text-sm text-[#111111] mb-1">Contact Support</h3>
+              <p className="text-xs text-[#6b7280] leading-relaxed">Send us a message and we'll get back to you.</p>
+            </div>
+            <div className="bg-[#f5f5f5] rounded-xl p-5">
+              <div className="w-9 h-9 bg-[#111111] rounded-lg flex items-center justify-center mb-3">
+                <MessageCircle className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="font-semibold text-sm text-[#111111] mb-1">Share Feedback</h3>
+              <p className="text-xs text-[#6b7280] leading-relaxed">Rate your experience and help us improve.</p>
+            </div>
+            <div className="bg-[#f5f5f5] rounded-xl p-5">
+              <div className="w-9 h-9 bg-[#111111] rounded-lg flex items-center justify-center mb-3">
+                <Heart className="w-4 h-4 text-white" />
+              </div>
+              <h3 className="font-semibold text-sm text-[#111111] mb-1">Support via Donation</h3>
+              <p className="text-xs text-[#6b7280] leading-relaxed">Contribute to keep BSPrep growing.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Forms Section */}
-      <section className="pb-20 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* A. CONTACT / SUPPORT FORM */}
-            <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all shadow-sm">
-              <CardHeader className="space-y-3 pb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
-                    <MessageSquare className="w-6 h-6 text-black" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl font-bold text-black">Contact Support</CardTitle>
-                    <CardDescription className="text-gray-600 text-sm mt-1">Get help with questions or issues</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleContactSubmit} className="space-y-5">
-                  {/* Full Name */}
-                  <div className="space-y-2">
-                    <Label htmlFor="fullName" className="text-sm font-semibold text-black">
-                      Full Name <span className="text-red-600">*</span>
+      {/* Tab area */}
+      <section className="pb-24 bg-[#f8f9fa]">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-12">
+          {/* Tab switcher */}
+          <div className="flex gap-1 bg-[#f5f5f5] rounded-full p-1.5 mb-10 w-fit mx-auto">
+            <button
+              type="button"
+              onClick={() => setActiveTab("contact")}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                activeTab === "contact"
+                  ? "bg-white text-[#111111] shadow-sm"
+                  : "text-[#6b7280]"
+              }`}
+            >
+              Contact Support
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("feedback")}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                activeTab === "feedback"
+                  ? "bg-white text-[#111111] shadow-sm"
+                  : "text-[#6b7280]"
+              }`}
+            >
+              Share Feedback
+            </button>
+          </div>
+
+          {/* Contact Form */}
+          {activeTab === "contact" && (
+            <div className="bg-white rounded-2xl border border-[#e5e7eb] p-8">
+              <h2 className="text-xl font-semibold text-[#111111] tracking-[-0.3px] mb-1">Contact Support</h2>
+              <p className="text-sm text-[#6b7280] mb-6">Get help with questions or issues — we'll reply to your email.</p>
+
+              <form onSubmit={handleContactSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="fullName" className="text-sm font-medium text-[#111111]">
+                      Full Name <span className="text-[#ef4444]">*</span>
                     </Label>
                     <Input
                       id="fullName"
-                      placeholder="Enter your name"
+                      placeholder="Your name"
                       required
                       value={contactForm.fullName}
                       onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
-                      className="h-12 bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                      className="h-10 bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                     />
                   </div>
-
-                  {/* Email Address */}
-                  <div className="space-y-2">
-                    <Label htmlFor="contactEmail" className="text-sm font-semibold text-black">
-                      Email Address <span className="text-red-600">*</span>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="contactEmail" className="text-sm font-medium text-[#111111]">
+                      Email Address <span className="text-[#ef4444]">*</span>
                     </Label>
                     <Input
                       id="contactEmail"
@@ -229,107 +235,89 @@ export default function SupportPage() {
                       required
                       value={contactForm.email}
                       onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                      className="h-12 bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                      className="h-10 bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                     />
-                  </div>
-
-                  {/* Subject */}
-                  <div className="space-y-2">
-                    <Label htmlFor="subject" className="text-sm font-semibold text-black">
-                      Subject <span className="text-red-600">*</span>
-                    </Label>
-                    <Select 
-                      value={contactForm.subject} 
-                      onValueChange={(value) => setContactForm({ ...contactForm, subject: value })}
-                      required
-                    >
-                      <SelectTrigger className="h-12 bg-white border-gray-300 focus:border-black text-black">
-                        <SelectValue placeholder="Select a subject" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-gray-200">
-                        <SelectItem value="General Question" className="text-black">General Question</SelectItem>
-                        <SelectItem value="Technical Issue" className="text-black">Technical Issue</SelectItem>
-                        <SelectItem value="Content Issue" className="text-black">Content Issue</SelectItem>
-                        <SelectItem value="Account Problem" className="text-black">Account Problem</SelectItem>
-                        <SelectItem value="Other" className="text-black">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Message */}
-                  <div className="space-y-2">
-                    <Label htmlFor="contactMessage" className="text-sm font-semibold text-black">
-                      Message <span className="text-red-600">*</span>
-                    </Label>
-                    <Textarea
-                      id="contactMessage"
-                      placeholder="Describe your issue or question clearly..."
-                      required
-                      value={contactForm.message}
-                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                      className="min-h-[140px] resize-none bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
-                    />
-                  </div>
-
-                  {/* Success Message */}
-                  {contactSuccess && (
-                    <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
-                      ✓ Message sent successfully! We'll get back to you soon.
-                    </div>
-                  )}
-
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
-                    disabled={contactSubmitting}
-                  >
-                    {contactSubmitting ? (
-                      <>Sending...</>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 mr-2" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            {/* B. FEEDBACK FORM */}
-            <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all shadow-sm">
-              <CardHeader className="space-y-3 pb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-black" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl font-bold text-black">Share Feedback</CardTitle>
-                    <CardDescription className="text-gray-600 text-sm mt-1">Help us improve your experience</CardDescription>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleFeedbackSubmit} className="space-y-5">
-                  {/* Name (Optional) */}
-                  <div className="space-y-2">
-                    <Label htmlFor="feedbackName" className="text-sm font-semibold text-black">
-                      Name <span className="text-gray-500 text-xs font-normal">(optional)</span>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="subject" className="text-sm font-medium text-[#111111]">
+                    Subject <span className="text-[#ef4444]">*</span>
+                  </Label>
+                  <Select value={contactForm.subject} onValueChange={(value) => setContactForm({ ...contactForm, subject: value })} required>
+                    <SelectTrigger className="h-10 bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] rounded-lg">
+                      <SelectValue placeholder="Select a subject" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border-[#e5e7eb]">
+                      <SelectItem value="General Question" className="text-[#111111]">General Question</SelectItem>
+                      <SelectItem value="Technical Issue" className="text-[#111111]">Technical Issue</SelectItem>
+                      <SelectItem value="Content Issue" className="text-[#111111]">Content Issue</SelectItem>
+                      <SelectItem value="Account Problem" className="text-[#111111]">Account Problem</SelectItem>
+                      <SelectItem value="Other" className="text-[#111111]">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="contactMessage" className="text-sm font-medium text-[#111111]">
+                    Message <span className="text-[#ef4444]">*</span>
+                  </Label>
+                  <Textarea
+                    id="contactMessage"
+                    placeholder="Describe your issue or question clearly..."
+                    required
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    className="min-h-30 resize-none bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                  />
+                </div>
+
+                {contactSuccess && (
+                  <div className="flex items-center gap-2 p-3 bg-[#f0fdf4] border border-[#10b981]/30 rounded-lg text-[#10b981] text-sm font-medium">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    Message sent! We'll get back to you soon.
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  className="h-10 px-6 text-sm font-semibold bg-[#111111] hover:bg-[#242424] text-white rounded-lg transition-colors"
+                  disabled={contactSubmitting}
+                >
+                  {contactSubmitting ? "Sending..." : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
+          )}
+
+          {/* Feedback Form */}
+          {activeTab === "feedback" && (
+            <div className="bg-white rounded-2xl border border-[#e5e7eb] p-8">
+              <h2 className="text-xl font-semibold text-[#111111] tracking-[-0.3px] mb-1">Share Feedback</h2>
+              <p className="text-sm text-[#6b7280] mb-6">Help us improve your experience — your input shapes what we build next.</p>
+
+              <form onSubmit={handleFeedbackSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="feedbackName" className="text-sm font-medium text-[#111111]">
+                      Name <span className="text-xs text-[#6b7280] font-normal">(optional)</span>
                     </Label>
                     <Input
                       id="feedbackName"
                       placeholder="Your name"
                       value={feedbackForm.name}
                       onChange={(e) => setFeedbackForm({ ...feedbackForm, name: e.target.value })}
-                      className="h-12 bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                      className="h-10 bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                     />
                   </div>
-
-                  {/* Email (Optional) */}
-                  <div className="space-y-2">
-                    <Label htmlFor="feedbackEmail" className="text-sm font-semibold text-black">
-                      Email <span className="text-gray-500 text-xs font-normal">(optional)</span>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="feedbackEmail" className="text-sm font-medium text-[#111111]">
+                      Email <span className="text-xs text-[#6b7280] font-normal">(optional)</span>
                     </Label>
                     <Input
                       id="feedbackEmail"
@@ -337,158 +325,135 @@ export default function SupportPage() {
                       placeholder="you@example.com"
                       value={feedbackForm.email}
                       onChange={(e) => setFeedbackForm({ ...feedbackForm, email: e.target.value })}
-                      className="h-12 bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                      className="h-10 bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                     />
-                    <p className="text-xs text-gray-500">Only if you'd like us to follow up</p>
-                  </div>
-
-                  {/* Overall Experience Rating */}
-                  <div className="space-y-3">
-                    <Label className="text-sm font-semibold text-black">
-                      Overall Experience Rating <span className="text-red-600">*</span>
-                    </Label>
-                    <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() => setFeedbackForm({ ...feedbackForm, rating: star })}
-                          className="transition-all hover:scale-110"
-                        >
-                          <Star
-                            className={`w-8 h-8 transition-all ${
-                              star <= feedbackForm.rating
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-gray-300 hover:text-gray-400"
-                            }`}
-                          />
-                        </button>
-                      ))}
-                      {feedbackForm.rating > 0 && (
-                        <span className="ml-2 text-sm font-medium text-black">
-                          {feedbackForm.rating === 1 && "Very Poor"}
-                          {feedbackForm.rating === 2 && "Poor"}
-                          {feedbackForm.rating === 3 && "Average"}
-                          {feedbackForm.rating === 4 && "Good"}
-                          {feedbackForm.rating === 5 && "Excellent"}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Feedback Category */}
-                  <div className="space-y-2">
-                    <Label htmlFor="feedbackCategory" className="text-sm font-semibold text-black">
-                      What are you giving feedback about? <span className="text-red-600">*</span>
-                    </Label>
-                    <Select 
-                      value={feedbackForm.category} 
-                      onValueChange={(value) => setFeedbackForm({ ...feedbackForm, category: value })}
-                      required
-                    >
-                      <SelectTrigger className="h-12 bg-white border-gray-300 focus:border-black text-black">
-                        <SelectValue placeholder="Select a category" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-gray-200">
-                        <SelectItem value="Study Materials" className="text-black">Study Materials</SelectItem>
-                        <SelectItem value="Quizzes & Practice" className="text-black">Quizzes & Practice</SelectItem>
-                        <SelectItem value="Doubt Solving" className="text-black">Doubt Solving</SelectItem>
-                        <SelectItem value="Mentors" className="text-black">Mentors</SelectItem>
-                        <SelectItem value="Website / UI" className="text-black">Website / UI</SelectItem>
-                        <SelectItem value="Overall Experience" className="text-black">Overall Experience</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Feedback Message */}
-                  <div className="space-y-2">
-                    <Label htmlFor="feedbackMessage" className="text-sm font-semibold text-black">
-                      Feedback Message <span className="text-red-600">*</span>
-                    </Label>
-                    <Textarea
-                      id="feedbackMessage"
-                      placeholder="Tell us what you liked or what we can improve..."
-                      required
-                      value={feedbackForm.message}
-                      onChange={(e) => setFeedbackForm({ ...feedbackForm, message: e.target.value })}
-                      className="min-h-[120px] resize-none bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
-                    />
-                  </div>
-
-                  {/* Would you recommend */}
-                  <div className="space-y-3">
-                    <Label className="text-sm font-semibold text-black">Would you recommend BSPrep to others?</Label>
-                    <div className="grid grid-cols-3 gap-3">
-                      {[
-                        { value: "Yes", label: "Yes", emoji: "👍" },
-                        { value: "Maybe", label: "Maybe", emoji: "🤔" },
-                        { value: "No", label: "No", emoji: "👎" }
-                      ].map((option) => (
-                        <button
-                          key={option.value}
-                          type="button"
-                          onClick={() => setFeedbackForm({ ...feedbackForm, recommend: option.value })}
-                          className={`h-11 rounded-lg font-medium transition-all ${
-                            feedbackForm.recommend === option.value
-                              ? "bg-black text-white"
-                              : "bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-400"
-                          }`}
-                        >
-                          <span className="mr-2">{option.emoji}</span>
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Success Message */}
-                  {feedbackSuccess && (
-                    <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
-                      ✓ Thank you for your feedback! It helps us improve.
-                    </div>
-                  )}
-
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
-                    disabled={feedbackSubmitting || feedbackForm.rating === 0}
-                  >
-                    {feedbackSubmitting ? (
-                      <>Submitting...</>
-                    ) : (
-                      <>
-                        <Star className="w-4 h-4 mr-2" />
-                        Submit Feedback
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white border border-gray-200 hover:border-gray-400 transition-all shadow-sm">
-              <CardHeader className="space-y-3 pb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-rose-50 flex items-center justify-center">
-                    <Heart className="w-6 h-6 text-rose-600" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl font-bold text-black">Support BSPREP by Donation</CardTitle>
-                    <CardDescription className="text-gray-600 text-sm mt-1">You can contribute from our dedicated donation page.</CardDescription>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Share your support through UPI and submit contribution details, including your name and optional image, on the donation page.
-                </p>
-                <Link href="/donate" className="inline-flex w-full items-center justify-center h-12 rounded-lg bg-black text-white text-base font-semibold hover:bg-black/80 transition-colors">
-                  Open Donation Page
-                </Link>
-              </CardContent>
-            </Card>
 
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-[#111111]">
+                    Overall Rating <span className="text-[#ef4444]">*</span>
+                  </Label>
+                  <div className="flex items-center gap-2 p-4 bg-[#f5f5f5] rounded-xl">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setFeedbackForm({ ...feedbackForm, rating: star })}
+                        className="transition-transform hover:scale-110"
+                      >
+                        <Star className={`w-7 h-7 transition-all ${star <= feedbackForm.rating ? "fill-[#fb923c] text-[#fb923c]" : "text-[#e5e7eb]"}`} />
+                      </button>
+                    ))}
+                    {feedbackForm.rating > 0 && (
+                      <span className="ml-2 text-sm font-medium text-[#111111]">
+                        {["", "Very Poor", "Poor", "Average", "Good", "Excellent"][feedbackForm.rating]}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium text-[#111111]">
+                    Feedback Category <span className="text-[#ef4444]">*</span>
+                  </Label>
+                  <Select value={feedbackForm.category} onValueChange={(value) => setFeedbackForm({ ...feedbackForm, category: value })} required>
+                    <SelectTrigger className="h-10 bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] rounded-lg">
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border-[#e5e7eb]">
+                      <SelectItem value="Study Materials" className="text-[#111111]">Study Materials</SelectItem>
+                      <SelectItem value="Quizzes & Practice" className="text-[#111111]">Quizzes & Practice</SelectItem>
+                      <SelectItem value="Doubt Solving" className="text-[#111111]">Doubt Solving</SelectItem>
+                      <SelectItem value="Mentors" className="text-[#111111]">Mentors</SelectItem>
+                      <SelectItem value="Website / UI" className="text-[#111111]">Website / UI</SelectItem>
+                      <SelectItem value="Overall Experience" className="text-[#111111]">Overall Experience</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="feedbackMessage" className="text-sm font-medium text-[#111111]">
+                    Feedback Message <span className="text-[#ef4444]">*</span>
+                  </Label>
+                  <Textarea
+                    id="feedbackMessage"
+                    placeholder="Tell us what you liked or what we can improve..."
+                    required
+                    value={feedbackForm.message}
+                    onChange={(e) => setFeedbackForm({ ...feedbackForm, message: e.target.value })}
+                    className="min-h-25 resize-none bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-[#111111]">Would you recommend BSPrep?</Label>
+                  <div className="flex gap-2">
+                    {[
+                      { value: "Yes", label: "Yes 👍" },
+                      { value: "Maybe", label: "Maybe 🤔" },
+                      { value: "No", label: "No 👎" }
+                    ].map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setFeedbackForm({ ...feedbackForm, recommend: option.value })}
+                        className={`flex-1 h-10 rounded-lg text-sm font-medium transition-all border ${
+                          feedbackForm.recommend === option.value
+                            ? "bg-[#111111] text-white border-[#111111]"
+                            : "bg-white text-[#374151] border-[#e5e7eb]"
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {feedbackSuccess && (
+                  <div className="flex items-center gap-2 p-3 bg-[#f0fdf4] border border-[#10b981]/30 rounded-lg text-[#10b981] text-sm font-medium">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    Thank you for your feedback! It helps us improve.
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  className="h-10 px-6 text-sm font-semibold bg-[#111111] hover:bg-[#242424] text-white rounded-lg transition-colors"
+                  disabled={feedbackSubmitting || feedbackForm.rating === 0}
+                >
+                  {feedbackSubmitting ? "Submitting..." : (
+                    <>
+                      <Star className="w-4 h-4 mr-2" />
+                      Submit Feedback
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Donation strip */}
+      <section className="py-12 bg-white border-t border-[#e5e7eb]">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-[#f5f5f5] rounded-lg flex items-center justify-center shrink-0">
+                <Heart className="w-4 h-4 text-[#111111]" />
+              </div>
+              <div>
+                <p className="font-semibold text-sm text-[#111111]">Support BSPrep by Donation</p>
+                <p className="text-xs text-[#6b7280]">Contribute via UPI on our dedicated donation page.</p>
+              </div>
+            </div>
+            <Link
+              href="/donate"
+              className="shrink-0 inline-flex items-center justify-center h-10 px-5 rounded-lg bg-[#111111] text-white text-sm font-semibold hover:bg-[#242424] transition-colors"
+            >
+              Open Donation Page
+            </Link>
           </div>
         </div>
       </section>

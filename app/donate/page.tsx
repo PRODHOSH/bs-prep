@@ -5,20 +5,15 @@ import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { createClient } from "@/lib/supabase/client"
-import { BadgeCheck, HeartHandshake, LockKeyhole, ShieldCheck, Sparkles, Wallet } from "lucide-react"
+import { BadgeCheck, HeartHandshake, LockKeyhole, ShieldCheck, Wallet } from "lucide-react"
 import { PostPaymentModal } from "@/components/razorpay/post-payment-modal"
-
-const BeamsBackground = dynamic(() => import("@/components/beams-background").then((mod) => ({ default: mod.BeamsBackground })), {
-  ssr: false,
-  loading: () => <div className="fixed inset-0 -z-10 bg-white" />,
-})
 
 const DonateRazorpayButton = dynamic(
   () => import("@/components/razorpay/razorpay-button").then((mod) => ({ default: mod.RazorpayButton })),
   {
     ssr: false,
     loading: () => (
-      <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+      <div className="rounded-xl border border-[#e5e7eb] bg-[#f8f9fa] p-4 text-sm text-[#6b7280]">
         Loading secure payment form...
       </div>
     ),
@@ -38,26 +33,14 @@ type PublicDonation = {
 
 function resolveContributorImageUrl(url: string | null): string | null {
   if (!url) return null
-
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    return url
-  }
+  if (url.startsWith("http://") || url.startsWith("https://")) return url
 
   const base = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "")
   if (!base) return url
 
-  if (url.startsWith("/storage/v1/object/public/")) {
-    return `${base}${url}`
-  }
-
-  if (url.startsWith("storage/v1/object/public/")) {
-    return `${base}/${url}`
-  }
-
-  if (url.startsWith("contributors/")) {
-    return `${base}/storage/v1/object/public/donations/${url}`
-  }
-
+  if (url.startsWith("/storage/v1/object/public/")) return `${base}${url}`
+  if (url.startsWith("storage/v1/object/public/")) return `${base}/${url}`
+  if (url.startsWith("contributors/")) return `${base}/storage/v1/object/public/donations/${url}`
   return url
 }
 
@@ -66,11 +49,8 @@ export default function DonatePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [defaultDonorName, setDefaultDonorName] = useState("")
   const [defaultDonorEmail, setDefaultDonorEmail] = useState("")
-
   const [supporters, setSupporters] = useState<PublicDonation[]>([])
   const [loadingSupporters, setLoadingSupporters] = useState(true)
-
-  // Payment flow state
   const [paymentError, setPaymentError] = useState<string | null>(null)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [currentPaymentId, setCurrentPaymentId] = useState<string | null>(null)
@@ -85,17 +65,12 @@ export default function DonatePage() {
 
   useEffect(() => {
     const bootstrap = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-
+      const { data: { user } } = await supabase.auth.getUser()
       setIsAuthenticated(!!user)
       if (user) {
         const firstName = typeof user.user_metadata?.first_name === "string" ? user.user_metadata.first_name.trim() : ""
         const lastName = typeof user.user_metadata?.last_name === "string" ? user.user_metadata.last_name.trim() : ""
-        const fullName = [firstName, lastName].filter(Boolean).join(" ")
-
-        setDefaultDonorName(fullName)
+        setDefaultDonorName([firstName, lastName].filter(Boolean).join(" "))
         setDefaultDonorEmail(user.email || "")
       }
 
@@ -111,7 +86,6 @@ export default function DonatePage() {
         setLoadingSupporters(false)
       }
     }
-
     void bootstrap()
   }, [supabase])
 
@@ -136,26 +110,17 @@ export default function DonatePage() {
   }
 
   function handlePaymentModalSuccess() {
-    if (paymentSuccessTimerRef.current) {
-      clearTimeout(paymentSuccessTimerRef.current)
-    }
-
+    if (paymentSuccessTimerRef.current) clearTimeout(paymentSuccessTimerRef.current)
     setPaymentSuccess(true)
     setShowPaymentModal(false)
     setCurrentPaymentId(null)
     setCurrentOrderId(null)
     setPaymentError(null)
 
-    // Refresh supporters list
     setTimeout(() => {
       fetch("/api/donations", { cache: "no-store" })
-        .then((res) => {
-          if (res.ok) return res.json()
-          throw new Error("Failed to fetch")
-        })
-        .then((data) => {
-          setSupporters(Array.isArray(data.donations) ? data.donations : [])
-        })
+        .then((res) => { if (res.ok) return res.json(); throw new Error("Failed") })
+        .then((data) => { setSupporters(Array.isArray(data.donations) ? data.donations : []) })
         .catch((error) => console.error("Failed to refresh supporters:", error))
     }, 1000)
 
@@ -166,173 +131,181 @@ export default function DonatePage() {
   }
 
   useEffect(() => {
-    return () => {
-      if (paymentSuccessTimerRef.current) {
-        clearTimeout(paymentSuccessTimerRef.current)
-      }
-    }
+    return () => { if (paymentSuccessTimerRef.current) clearTimeout(paymentSuccessTimerRef.current) }
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-white text-black">
-      <BeamsBackground />
+    <div className="min-h-screen bg-white text-[#111111]">
       <Navbar isAuthenticated={isAuthenticated} />
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pt-20">
-        <header className="mb-8 rounded-3xl border border-[#E6DAC6] bg-[#F8F4ED] px-6 py-5">
-          <p className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-700">
-            <HeartHandshake className="h-4 w-4" />
-            Trustworthy Support
-          </p>
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            Support BSPREP, See the Community You Are Building
+      {/* Hero header */}
+      <section className="pt-28 pb-10 border-b border-[#e5e7eb]">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#fff1f2] border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-600 mb-4">
+            <HeartHandshake className="h-3.5 w-3.5" />
+            Community Support
+          </span>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-[-1.5px] leading-[1.1] text-[#111111] mb-3">
+            Support BSPrep
           </h1>
-          <p className="mt-2 max-w-3xl text-sm text-slate-700 sm:text-base">
-            Left side shows verified public acknowledgements. Right side is a secure Razorpay checkout with clear limits.
+          <p className="text-[#374151] text-base max-w-2xl">
+            Every contribution helps us keep the platform free and growing for Tamil-speaking IITM BS students.
           </p>
-        </header>
+        </div>
+      </section>
 
-        <div className="grid gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-900">Verified Supporter Wall</h2>
-                  <p className="mt-1 text-sm text-slate-600">Real supporters, polished acknowledgements, moderated visibility.</p>
-                </div>
-                <div className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">
-                  Showing {sortedSupporters.length}
-                </div>
-              </div>
+      <section className="py-12 md:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-12">
 
-              {loadingSupporters ? (
-                <p className="mt-4 text-sm text-slate-500">Loading supporters...</p>
-              ) : sortedSupporters.length === 0 ? (
-                <p className="mt-4 text-sm text-slate-500">No public contributions yet. Be the first supporter!</p>
-              ) : (
-                <>
-                  <div className="mt-6 max-h-152 overflow-y-auto pr-1">
+            {/* Supporter Wall */}
+            <div className="lg:col-span-7">
+              <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 sm:p-8">
+                <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
+                  <div>
+                    <h2 className="text-xl font-semibold text-[#111111] tracking-[-0.3px]">Supporter Wall</h2>
+                    <p className="mt-1 text-sm text-[#6b7280]">Verified public acknowledgements — moderated for quality.</p>
+                  </div>
+                  <span className="shrink-0 inline-flex items-center rounded-full bg-[#f5f5f5] border border-[#e5e7eb] px-3 py-1 text-xs font-medium text-[#374151]">
+                    {sortedSupporters.length} supporter{sortedSupporters.length !== 1 ? "s" : ""}
+                  </span>
+                </div>
+
+                {loadingSupporters ? (
+                  <div className="flex items-center gap-2 py-8 text-sm text-[#6b7280]">
+                    <div className="w-4 h-4 border-2 border-[#e5e7eb] border-t-[#111111] rounded-full animate-spin" />
+                    Loading supporters...
+                  </div>
+                ) : sortedSupporters.length === 0 ? (
+                  <div className="py-12 text-center">
+                    <div className="w-12 h-12 rounded-2xl bg-[#f5f5f5] flex items-center justify-center mx-auto mb-3">
+                      <HeartHandshake className="w-6 h-6 text-[#6b7280]" />
+                    </div>
+                    <p className="text-sm font-medium text-[#111111]">No supporters yet</p>
+                    <p className="text-sm text-[#6b7280] mt-1">Be the first to support BSPrep!</p>
+                  </div>
+                ) : (
+                  <div className="max-h-150 overflow-y-auto pr-1">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {sortedSupporters.map((item) => (
-                      <article key={item.id} className="relative overflow-hidden rounded-2xl border border-[#E6DAC6] bg-[#FBF7F1] p-4">
-                        <div className="pointer-events-none absolute right-0 top-0 h-16 w-16 rounded-bl-4xl bg-[#F2E7D9]" />
-                        {(() => {
-                          const imageUrl = resolveContributorImageUrl(item.contributor_image_url)
-                          const displayName = (item.name || "").replace(/\s+/g, " ").trim() || "Supporter"
-                          const wallMessage = (item.note || "").replace(/\s+/g, " ").trim() || "No comment"
+                      {sortedSupporters.map((item) => {
+                        const imageUrl = resolveContributorImageUrl(item.contributor_image_url)
+                        const displayName = (item.name || "").replace(/\s+/g, " ").trim() || "Supporter"
+                        const wallMessage = (item.note || "").replace(/\s+/g, " ").trim() || "No comment"
 
-                          return (
-                            <>
-                              <div className="relative flex items-center gap-3">
-                                {imageUrl ? (
-                                  <img
-                                    src={imageUrl}
-                                    alt={displayName}
-                                    className="h-12 w-12 rounded-full border border-[#E4D7C5] object-cover"
-                                    referrerPolicy="no-referrer"
-                                    onError={(event) => {
-                                      event.currentTarget.style.display = "none"
-                                    }}
-                                  />
-                                ) : (
-                                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E4D7C5] bg-white text-sm font-bold text-slate-700">
-                                    {displayName.slice(0, 1).toUpperCase()}
-                                  </div>
-                                )}
-                                <div>
-                                  <p className="font-semibold text-slate-900">{displayName}</p>
-                                  <p className="text-xs text-slate-500">{new Date(item.submitted_at).toLocaleDateString()}</p>
+                        return (
+                          <article key={item.id} className="rounded-xl border border-[#e5e7eb] bg-[#f8f9fa] p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              {imageUrl ? (
+                                <img
+                                  src={imageUrl}
+                                  alt={displayName}
+                                  className="h-10 w-10 rounded-full border border-[#e5e7eb] object-cover shrink-0"
+                                  referrerPolicy="no-referrer"
+                                  onError={(e) => { e.currentTarget.style.display = "none" }}
+                                />
+                              ) : (
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white border border-[#e5e7eb] text-sm font-semibold text-[#111111]">
+                                  {displayName.slice(0, 1).toUpperCase()}
                                 </div>
+                              )}
+                              <div className="min-w-0">
+                                <p className="text-sm font-semibold text-[#111111] truncate">{displayName}</p>
+                                <p className="text-xs text-[#6b7280]">{new Date(item.submitted_at).toLocaleDateString()}</p>
                               </div>
-
-                              <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-rose-700">Verified supporter</p>
-
-                              <p className="mt-2 wrap-break-word text-sm leading-6 text-slate-600">
-                                {wallMessage.slice(0, SUPPORTER_NOTE_DISPLAY_LIMIT)}
-                                {wallMessage.length > SUPPORTER_NOTE_DISPLAY_LIMIT ? "..." : ""}
-                              </p>
-                            </>
-                          )
-                        })()}
-                      </article>
-                    ))}
+                            </div>
+                            <div className="inline-flex items-center gap-1 rounded-full bg-[#f0fdf4] border border-[#10b981]/30 px-2 py-0.5 mb-2">
+                              <BadgeCheck className="w-3 h-3 text-[#10b981]" />
+                              <span className="text-[10px] font-semibold text-[#10b981]">Verified supporter</span>
+                            </div>
+                            <p className="text-sm leading-relaxed text-[#374151] wrap-break-word">
+                              {wallMessage.slice(0, SUPPORTER_NOTE_DISPLAY_LIMIT)}
+                              {wallMessage.length > SUPPORTER_NOTE_DISPLAY_LIMIT ? "…" : ""}
+                            </p>
+                          </article>
+                        )
+                      })}
                     </div>
                   </div>
-                </>
-              )}
-            </section>
-          </div>
+                )}
+              </div>
+            </div>
 
-          <div className="space-y-6 lg:col-span-5">
-            <div className="top-24 space-y-6 lg:sticky">
-              {paymentSuccess ? (
-                <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-7 text-emerald-900 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-xl text-white">✓</div>
-                  <h2 className="mt-3 text-2xl font-bold">Payment Received</h2>
-                  <p className="mt-3 text-sm leading-7">
-                    Thank you for supporting BSPREP. Your contribution is confirmed and your acknowledgement email is on the way.
-                  </p>
-                  <p className="mt-3 text-sm leading-7">
-                    You can optionally share your profile in the next step for our moderated supporter wall.
-                  </p>
-                </div>
-              ) : (
-                <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                  <div className="flex items-center gap-2">
-                    <Wallet className="h-5 w-5 text-slate-800" />
-                    <h2 className="text-2xl font-bold text-slate-900">Secure Donation</h2>
+            {/* Payment sidebar */}
+            <div className="lg:col-span-5">
+              <div className="top-24 space-y-4 lg:sticky">
+
+                {/* Success state */}
+                {paymentSuccess ? (
+                  <div className="rounded-2xl border border-[#bbf7d0] bg-[#f0fdf4] p-7">
+                    <div className="w-12 h-12 rounded-full bg-[#10b981] flex items-center justify-center mb-4">
+                      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h2 className="text-xl font-semibold text-[#111111] tracking-[-0.3px] mb-2">Payment received!</h2>
+                    <p className="text-sm text-[#374151] leading-relaxed">
+                      Thank you for supporting BSPrep. Your contribution is confirmed and an acknowledgement email is on the way.
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    Set an amount and continue with Razorpay checkout.
-                  </p>
+                ) : (
+                  <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Wallet className="h-4 w-4 text-[#111111]" />
+                      <h2 className="text-lg font-semibold text-[#111111] tracking-[-0.3px]">Make a Donation</h2>
+                    </div>
+                    <p className="text-sm text-[#6b7280] mb-4">
+                      Secure checkout via Razorpay. Set any amount between ₹10 and ₹5,00,000.
+                    </p>
 
-                  <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
-                    Allowed range: <strong>₹10</strong> to <strong>₹5,00,000</strong> per transaction.
-                  </div>
+                    <div className="rounded-lg bg-[#f8f9fa] border border-[#e5e7eb] p-3 text-xs text-[#6b7280] mb-5">
+                      Allowed range: <span className="font-semibold text-[#111111]">₹10</span> — <span className="font-semibold text-[#111111]">₹5,00,000</span> per transaction
+                    </div>
 
-                  <div className="mt-5 space-y-3">
                     <DonateRazorpayButton onPaymentSuccess={handlePaymentSuccess} onPaymentError={handlePaymentError} />
 
-                    {paymentError ? (
-                      <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">{paymentError}</div>
-                    ) : null}
+                    {paymentError && (
+                      <div className="mt-3 rounded-lg border border-[#ef4444]/30 bg-[#fef2f2] p-3 text-sm text-[#ef4444]">
+                        {paymentError}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Trust layer */}
+                <div className="rounded-2xl border border-[#e5e7eb] bg-[#111111] p-6 text-white">
+                  <h3 className="text-sm font-semibold mb-4">Payment Trust Layer</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 text-sm text-white/75">
+                      <LockKeyhole className="mt-0.5 h-4 w-4 text-white/50 shrink-0" />
+                      Razorpay checkout with encrypted transfer and gateway-level verification.
+                    </div>
+                    <div className="flex items-start gap-3 text-sm text-white/75">
+                      <BadgeCheck className="mt-0.5 h-4 w-4 text-white/50 shrink-0" />
+                      Public supporter wall includes only approved and verified entries.
+                    </div>
+                    <div className="flex items-start gap-3 text-sm text-white/75">
+                      <ShieldCheck className="mt-0.5 h-4 w-4 text-white/50 shrink-0" />
+                      We do not store card details and limit public fields to what you choose to share.
+                    </div>
                   </div>
                 </div>
-              )}
 
-              <div className="rounded-3xl border border-slate-200 bg-[#0F172A] p-6 text-slate-100 shadow-sm">
-                <h3 className="text-lg font-bold">Payment Trust Layer</h3>
-                <div className="mt-4 space-y-3 text-sm">
-                  <p className="flex items-start gap-2">
-                    <LockKeyhole className="mt-0.5 h-4 w-4 text-rose-300" />
-                    Razorpay checkout with encrypted transfer and gateway-level verification.
-                  </p>
-                  <p className="flex items-start gap-2">
-                    <BadgeCheck className="mt-0.5 h-4 w-4 text-rose-300" />
-                    Public supporter wall includes only approved and verified entries.
-                  </p>
-                  <p className="flex items-start gap-2">
-                    <ShieldCheck className="mt-0.5 h-4 w-4 text-rose-300" />
-                    We do not store card details and limit public fields to what you choose to share.
+                {/* Disclaimer */}
+                <div className="rounded-2xl border border-[#fb923c]/30 bg-[#fff7ed] p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ShieldCheck className="h-4 w-4 text-[#ea580c]" />
+                    <span className="text-xs font-semibold text-[#ea580c]">Disclaimer</span>
+                  </div>
+                  <p className="text-sm text-[#9a3412] leading-relaxed">
+                    This is a personal initiative and not a registered charitable organization. Contributions are voluntary and used solely for the development and maintenance of the BSPrep platform.
                   </p>
                 </div>
               </div>
-
-              <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
-                <p className="flex items-center gap-2 text-sm font-semibold">
-                  <ShieldCheck className="h-4 w-4" />
-                  Note
-                </p>
-                <p className="mt-2 text-sm leading-6">
-                  This is a personal initiative and not a registered charitable organization. Contributions are voluntary and used solely for the development and maintenance of the BSPREP platform.
-                </p>
-              </section>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Payment Modal */}
       {showPaymentModal && currentPaymentId && currentOrderId && (
         <PostPaymentModal
           paymentId={currentPaymentId}

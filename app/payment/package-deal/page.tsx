@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -244,7 +243,6 @@ export default function PackageDealPage() {
   if (!authChecked) {
     return (
       <div className="min-h-screen bg-white relative">
-        <BeamsBackground />
         <Navbar isAuthenticated={false} />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-black" />
@@ -255,7 +253,6 @@ export default function PackageDealPage() {
 
   return (
     <div className="min-h-screen bg-white relative">
-      <BeamsBackground />
       <Navbar isAuthenticated={isAuthenticated} />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-24 pb-20 relative z-10">

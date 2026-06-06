@@ -4,7 +4,6 @@ import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BeamsBackground } from "@/components/beams-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -232,7 +231,6 @@ export default function PaymentPage() {
   if (!course) {
     return (
       <div className="min-h-screen bg-white relative">
-        <BeamsBackground />
         <Navbar isAuthenticated={isAuthenticated} />
         <div className="container mx-auto px-4 pt-32 text-center relative z-10">
           <h1 className="text-2xl font-bold text-black mb-4">Course Not Found</h1>
@@ -246,7 +244,6 @@ export default function PaymentPage() {
 
   return (
     <div className="min-h-screen bg-white relative">
-      <BeamsBackground />
       <Navbar isAuthenticated={isAuthenticated} />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-24 pb-20 relative z-10">

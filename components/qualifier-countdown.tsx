@@ -31,118 +31,59 @@ export function QualifierCountdown() {
 
   if (!time || time.expired) return null
 
-  return (
-    <section className="py-6 md:py-8">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white">
+  const units = [
+    { value: time.days,    label: "DAYS" },
+    { value: time.hours,   label: "HRS" },
+    { value: time.minutes, label: "MIN" },
+    { value: time.seconds, label: "SEC" },
+  ]
 
-          {/* Top rule with label */}
-          <div className="flex items-center justify-between border-b border-gray-100 px-8 md:px-12 py-3.5">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
+  return (
+    <section className="py-4 md:py-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#111111] text-white rounded-2xl px-6 md:px-10 py-6 flex flex-col sm:flex-row sm:items-center gap-6">
+
+          {/* Left — label + date */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-red-500">
+              <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">
                 Live Countdown
               </span>
             </div>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/30">
-              July 19, 2026
-            </span>
+            <p className="text-lg font-semibold tracking-[-0.3px]">Qualifier Exam</p>
+            <p className="text-sm text-white/45 mt-0.5">July 19, 2026 &mdash; {time.days} days remaining</p>
           </div>
 
-          {/* Main content */}
-          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-0 px-8 md:px-12 py-8 md:py-10">
-
-            {/* LEFT — headline */}
-            <div className="md:flex-1">
-
-              {/* QUALIFIER — solid black */}
-              <div
-                className="font-black text-black leading-none tracking-tight"
-                style={{ fontSize: "clamp(40px, 7vw, 84px)" }}
-              >
-                QUALIFIER
+          {/* Center — time blocks */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {units.map(({ value, label }, i) => (
+              <div key={label} className="flex items-center gap-2 sm:gap-3">
+                {i > 0 && <span className="text-white/20 text-lg font-light select-none">:</span>}
+                <div className="flex flex-col items-center bg-white/10 rounded-xl px-3.5 sm:px-5 py-3 min-w-14 sm:min-w-17">
+                  <span className="text-xl sm:text-2xl font-semibold tabular-nums leading-none">
+                    {String(value).padStart(2, "0")}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-white/35 tracking-widest mt-1.5 font-medium">
+                    {label}
+                  </span>
+                </div>
               </div>
-
-              {/* EXAM — outline */}
-              <div
-                className="font-black leading-none tracking-tight"
-                style={{
-                  fontSize: "clamp(40px, 7vw, 84px)",
-                  WebkitTextStroke: "2px rgba(0,0,0,0.2)",
-                  color: "transparent",
-                }}
-              >
-                EXAM
-              </div>
-
-              <p className="mt-4 text-sm text-black/40 font-medium">
-                {time.days} days left to crack the qualifier
-              </p>
-            </div>
-
-            {/* DIVIDER */}
-            <div className="hidden md:block h-20 w-px bg-gray-200 mx-8 shrink-0" />
-
-            {/* RIGHT — days hero + hms */}
-            <div className="md:flex-1">
-
-              {/* Days — big */}
-              <div className="flex items-end gap-3 mb-5">
-                <span
-                  className="font-black text-black tabular-nums leading-none"
-                  style={{ fontSize: "clamp(64px, 11vw, 128px)" }}
-                >
-                  {String(time.days).padStart(2, "0")}
-                </span>
-                <span
-                  className="font-black leading-none mb-2"
-                  style={{
-                    fontSize: "clamp(20px, 3vw, 32px)",
-                    WebkitTextStroke: "1.5px rgba(0,0,0,0.2)",
-                    color: "transparent",
-                  }}
-                >
-                  DAYS
-                </span>
-              </div>
-
-              {/* H : M : S */}
-              <div className="flex items-end gap-4 pt-4 border-t border-gray-100">
-                {[
-                  { value: time.hours,   label: "hrs" },
-                  { value: time.minutes, label: "min" },
-                  { value: time.seconds, label: "sec" },
-                ].map(({ value, label }, i) => (
-                  <div key={label} className="flex items-end gap-4">
-                    {i > 0 && <span className="text-xl font-light text-black/15 mb-1">:</span>}
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl md:text-4xl font-black text-black/50 tabular-nums leading-none">
-                        {String(value).padStart(2, "0")}
-                      </span>
-                      <span className="text-[9px] font-bold uppercase tracking-widest text-black/25 mb-0.5">
-                        {label}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="md:ml-8 shrink-0">
-              <Link
-                href="/courses"
-                className="inline-flex items-center gap-2 bg-black text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-black/80 transition-colors"
-              >
-                Enroll Now
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-
+            ))}
           </div>
+
+          {/* Right — CTA */}
+          <Link
+            href="/courses"
+            className="shrink-0 inline-flex items-center gap-2 bg-white text-[#111111] font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-[#f5f5f5] transition-colors"
+          >
+            Enroll Now
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+
         </div>
       </div>
     </section>

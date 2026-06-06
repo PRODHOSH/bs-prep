@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
+import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import {
   Award,
   BadgeCheck,
@@ -14,7 +14,6 @@ import {
   MessagesSquare,
   Users,
 } from "lucide-react"
-import { hasAdminRole } from "@/lib/security/admin-role"
 import { AdminRefreshButton } from "@/components/admin-refresh-button"
 
 type AdminLayoutProps = {
@@ -31,15 +30,15 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
     redirect("/admin/signin")
   }
 
-  const { data: profile } = await supabase
+  // Single query: fetch email, avatar AND role — was 3 separate queries before
+  const service = createServiceRoleClient()
+  const { data: profile } = await service
     .from("profiles")
-    .select("email, avatar_url")
+    .select("email, avatar_url, role")
     .eq("id", user.id)
     .maybeSingle()
 
-  const isAdmin = await hasAdminRole(user.id, user.email)
-
-  if (!isAdmin) {
+  if (profile?.role?.toLowerCase() !== "admin") {
     await supabase.auth.signOut()
     redirect("/admin/signin?error=access_denied")
   }

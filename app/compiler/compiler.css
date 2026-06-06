@@ -71,47 +71,47 @@
   --cc-add-file-hov: rgba(255,255,255,0.07);
 }
 
-/* ── Design tokens — LIGHT (clean white like Programiz) ──────────────────── */
+/* ── Design tokens — LIGHT (DESIGN.md: white/gray/black system) ──────────── */
 .cc-light {
   --cc-topbar:       #ffffff;
   --cc-topbar-bd:    #e5e7eb;
-  --cc-tabs-bg:      #f9fafb;
+  --cc-tabs-bg:      #f8f9fa;
   --cc-tabs-bd:      #e5e7eb;
   --cc-tab-bg:       transparent;
   --cc-tab-active:   #ffffff;
   --cc-tab-text:     #9ca3af;
-  --cc-tab-text-a:   #111827;
-  --cc-tab-bd-a:     #2563eb;
-  --cc-bg:           #f3f4f6;
-  --cc-text:         #111827;
+  --cc-tab-text-a:   #111111;
+  --cc-tab-bd-a:     #111111;
+  --cc-bg:           #f5f5f5;
+  --cc-text:         #111111;
   --cc-sub:          #6b7280;
-  --cc-lang-bg:      #f3f4f6;
-  --cc-lang-bd:      #d1d5db;
+  --cc-lang-bg:      #f5f5f5;
+  --cc-lang-bd:      #e5e7eb;
   --cc-lang-c:       #374151;
   --cc-icon-hov:     rgba(0,0,0,0.06);
   --cc-icon-c:       #6b7280;
   --cc-handle:       #e5e7eb;
   --cc-grip:         #d1d5db;
-  --cc-grip-hov:     #2563eb;
+  --cc-grip-hov:     #111111;
   --cc-io-bg:        #ffffff;
   --cc-io-bd:        #e5e7eb;
-  --cc-stdin-bg:     #f9fafb;
-  --cc-stdin-c:      #111827;
+  --cc-stdin-bg:     #f8f9fa;
+  --cc-stdin-c:      #111111;
   --cc-stdin-ph:     #9ca3af;
-  --cc-hint-bg:      #f9fafb;
+  --cc-hint-bg:      #f8f9fa;
   --cc-hint-c:       #9ca3af;
-  --cc-hint-link:    #2563eb;
+  --cc-hint-link:    #374151;
   --cc-out-label-c:  #374151;
   --cc-out-bg:       #ffffff;
   --cc-stdout-c:     #166534;
   --cc-stderr-c:     #991b1b;
-  --cc-run:          #2563eb;
-  --cc-run-hov:      #1d4ed8;
+  --cc-run:          #111111;
+  --cc-run-hov:      #242424;
   --cc-editor-bg:    #ffffff;
-  --cc-back-bg:      #f3f4f6;
-  --cc-back-bd:      #d1d5db;
+  --cc-back-bg:      #f5f5f5;
+  --cc-back-bd:      #e5e7eb;
   --cc-back-c:       #374151;
-  --cc-back-hov:     #e5e7eb;
+  --cc-back-hov:     #ececec;
   --cc-add-file-c:   #6b7280;
   --cc-add-file-hov: rgba(0,0,0,0.06);
 }
@@ -776,12 +776,12 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe !important;
+  background: #f5f5f5;
+  border: 1px solid #e5e7eb !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2563eb;
+  color: #111111;
 }
 
 .cc-auth-title { margin: 0; font-size: 17px; font-weight: 700; color: #111827; }
@@ -794,7 +794,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #2563eb;
+  background: #111111;
   border: none;
   outline: none;
   animation: dot-pulse 1.2s ease-in-out infinite;

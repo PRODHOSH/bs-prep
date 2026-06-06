@@ -32,7 +32,7 @@ export function WelcomeModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-60 bg-black/60 backdrop-blur-sm overflow-y-auto"
       onClick={close}
     >
       {/* push modal below announcement bar + navbar (~108px), small gap at bottom */}

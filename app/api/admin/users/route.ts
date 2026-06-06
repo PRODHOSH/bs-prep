@@ -24,13 +24,16 @@ export async function GET(request: NextRequest) {
 
   const service = createServiceRoleClient()
 
-  const { data: profileRows, error: profileError } = await service
-    .from('profiles')
-    .select('id, first_name, last_name, email, role, created_at, avatar_url, phone')
+  const [{ data: profileRows, error: profileError }, { data: enrollmentRows }] = await Promise.all([
+    service.from('profiles').select('id, first_name, last_name, email, role, created_at, avatar_url, phone'),
+    service.from('enrollments').select('user_id'),
+  ])
 
   if (profileError) {
     return NextResponse.json({ error: 'Failed to fetch user profiles' }, { status: 500 })
   }
+
+  const enrolledUserIds = new Set((enrollmentRows ?? []).map((r) => r.user_id))
 
   const profilesById = new Map(
     (profileRows ?? []).map((row) => [row.id, row]),
@@ -46,6 +49,7 @@ export async function GET(request: NextRequest) {
     avatar_url: string | null
     phone: string | null
     created_at: string
+    is_enrolled: boolean
   }> = []
 
   let page = 1
@@ -99,6 +103,7 @@ export async function GET(request: NextRequest) {
         avatar_url: profile?.avatar_url || metadataAvatar,
         phone: profile?.phone || null,
         created_at: profile?.created_at || authUser.created_at,
+        is_enrolled: enrolledUserIds.has(authUser.id),
       })
     }
 

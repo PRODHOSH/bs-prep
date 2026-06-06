@@ -5,9 +5,10 @@ import Script from "next/script"
 import { Urbanist } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
-import { BeamsBackground } from "@/components/beams-background"
+import { BeamsBackgroundLazy } from "@/components/beams-background-lazy"
 import { LoadingProvider } from "@/components/loading-provider"
 import { Loading } from "@/components/loading"
+import { AuthErrorHandler } from "@/components/auth-error-handler"
 import "./globals.css"
 
 const urbanist = Urbanist({ 
@@ -140,12 +141,18 @@ export default function RootLayout({
             },
           })}
         </Script>
+        {/* Cloudflare Turnstile */}
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+        />
       </head>
       <body className={`font-sans antialiased ${urbanist.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
-          <BeamsBackground />
+          <BeamsBackgroundLazy />
           <div className="relative z-10">
-            <LoadingProvider>
+            <AuthErrorHandler />
+          <LoadingProvider>
               <Suspense fallback={<Loading />}>
                 {children}
               </Suspense>

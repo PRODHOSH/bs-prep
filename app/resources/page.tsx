@@ -7,13 +7,24 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { LoginModal } from "@/components/auth/login-modal"
-import { SignUpModal } from "@/components/auth/signup-modal"
-import { ForgotPasswordModal } from "@/components/auth/forgot-password-modal"
+import dynamic from "next/dynamic"
 import { Loading } from "@/components/loading"
 import { courseData } from "@/lib/gpa/course-data"
 import { createClient } from "@/lib/supabase/client"
 import { ArrowLeft, ArrowRight, CheckCircle2, CircleHelp, ExternalLink, Loader2, Plus, Star } from "lucide-react"
+
+const LoginModal = dynamic(
+  () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
+  { ssr: false }
+)
+const SignUpModal = dynamic(
+  () => import("@/components/auth/signup-modal").then((m) => ({ default: m.SignUpModal })),
+  { ssr: false }
+)
+const ForgotPasswordModal = dynamic(
+  () => import("@/components/auth/forgot-password-modal").then((m) => ({ default: m.ForgotPasswordModal })),
+  { ssr: false }
+)
 
 type LevelValue = "foundation" | "diploma" | "degree"
 type DegreeValue = "data-science" | "electronic-systems"
@@ -451,11 +462,11 @@ export default function ResourcesPage() {
 
       <main className="flex-1 px-4 py-10">
         <div className="mx-auto w-full max-w-7xl space-y-6">
-          <div className="rounded-2xl border border-[#E5DBC8] bg-white p-5 shadow-sm sm:p-7">
+          <div className="rounded-2xl border border-[#e5e7eb] bg-white p-5 shadow-sm sm:p-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">Resources Notes</h1>
-                <p className="max-w-2xl text-sm text-slate-700 sm:text-base">
+                <h1 className="text-3xl font-semibold tracking-[-1px] text-[#111111] sm:text-4xl">Resources Notes</h1>
+                <p className="max-w-2xl text-sm text-[#374151] sm:text-base">
                   Community-driven notes linked by subject from GPA tools. Browse approved links or submit your own notes for approval.
                 </p>
               </div>
@@ -465,11 +476,11 @@ export default function ResourcesPage() {
                   placeholder="Search notes"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="h-11 border-[#D8CCB2] bg-white text-black placeholder:text-slate-500 focus:border-black sm:w-72"
+                  className="h-10 border-[#e5e7eb] bg-white text-[#111111] placeholder:text-[#6b7280] focus:border-[#111111] sm:w-72 rounded-lg"
                 />
                 <Button
                   onClick={handleOpenAddNotes}
-                  className="h-11 bg-black text-white hover:bg-black/85"
+                  className="h-10 bg-[#111111] text-white hover:bg-[#242424] rounded-lg text-sm font-semibold"
                   disabled={isLoading}
                 >
                   <Plus className="mr-2 h-4 w-4" />
@@ -480,14 +491,14 @@ export default function ResourcesPage() {
 
             <div className="mt-6 grid gap-3 md:grid-cols-2">
               <div>
-                <Label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-700">Degree</Label>
+                <Label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#6b7280]">Degree</Label>
                 <select
                   value={selectedDegree}
                   onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)}
-                  className="h-11 w-full rounded-md border border-[#D8CCB2] bg-white px-3 text-black outline-none transition focus:border-black"
+                  className="h-10 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-[#111111] outline-none transition focus:border-[#111111]"
                 >
                   {degreeValues.map((degree) => (
-                    <option key={degree} value={degree} className="bg-white text-black">
+                    <option key={degree} value={degree} className="bg-white text-[#111111]">
                       {degreeLabels[degree]}
                     </option>
                   ))}
@@ -495,8 +506,8 @@ export default function ResourcesPage() {
               </div>
 
               <div>
-                <Label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-700">Level</Label>
-                <div className="grid grid-cols-3 gap-2 rounded-md bg-[#F7F2E8] p-1">
+                <Label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-[#6b7280]">Level</Label>
+                <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#f5f5f5] p-1">
                   {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
                     <button
                       key={level}
@@ -504,8 +515,8 @@ export default function ResourcesPage() {
                       onClick={() => setSelectedLevel(level)}
                       className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                         selectedLevel === level
-                          ? "bg-black text-white"
-                          : "bg-transparent text-slate-700 hover:bg-[#EFE6D5]"
+                          ? "bg-[#111111] text-white"
+                          : "bg-transparent text-[#374151] hover:bg-[#e5e7eb]"
                       }`}
                     >
                       {levelLabels[level]}
@@ -517,11 +528,11 @@ export default function ResourcesPage() {
           </div>
 
           <div className="grid gap-4 lg:grid-cols-[250px_minmax(0,1fr)_300px]">
-            <aside className="rounded-2xl border border-[#E5DBC8] bg-white p-3 shadow-sm">
-              <h2 className="px-2 py-1 text-sm font-semibold text-black">Subjects</h2>
+            <aside className="rounded-2xl border border-[#e5e7eb] bg-white p-3 shadow-sm">
+              <h2 className="px-2 py-1 text-sm font-semibold text-[#111111]">Subjects</h2>
               <div className="mt-2 space-y-1">
                 {subjectsForSelection.length === 0 && (
-                  <p className="px-2 py-3 text-sm text-slate-600">No subjects found for this selection.</p>
+                  <p className="px-2 py-3 text-sm text-[#6b7280]">No subjects found for this selection.</p>
                 )}
 
                 {subjectsForSelection.map((subject) => (
@@ -529,10 +540,10 @@ export default function ResourcesPage() {
                     key={subject}
                     type="button"
                     onClick={() => setSelectedSubject(subject)}
-                    className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm transition ${
+                    className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition ${
                       selectedSubject === subject
-                        ? "bg-black text-white"
-                        : "text-slate-700 hover:bg-[#F7F2E8]"
+                        ? "bg-[#111111] text-white"
+                        : "text-[#374151] hover:bg-[#f5f5f5]"
                     }`}
                   >
                     <span className="truncate">{subject}</span>
@@ -544,19 +555,19 @@ export default function ResourcesPage() {
 
             <section className="space-y-4">
               {notesLoading && (
-                <div className="flex h-36 items-center justify-center rounded-2xl border border-[#E5DBC8] bg-white shadow-sm">
-                  <Loader2 className="h-5 w-5 animate-spin text-black" />
+                <div className="flex h-36 items-center justify-center rounded-2xl border border-[#e5e7eb] bg-white shadow-sm">
+                  <Loader2 className="h-5 w-5 animate-spin text-[#111111]" />
                 </div>
               )}
 
               {!notesLoading && notesError && (
-                <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <div className="rounded-2xl border border-[#ef4444]/30 bg-[#fef2f2] px-4 py-3 text-sm text-[#ef4444]">
                   {notesError}
                 </div>
               )}
 
               {!notesLoading && !notesError && filteredNotes.length === 0 && (
-                <div className="rounded-2xl border border-[#E5DBC8] bg-white px-5 py-8 text-center text-slate-700 shadow-sm">
+                <div className="rounded-2xl border border-[#e5e7eb] bg-white px-5 py-8 text-center text-[#6b7280] shadow-sm text-sm">
                   No approved notes found for this subject yet.
                 </div>
               )}
@@ -566,37 +577,37 @@ export default function ResourcesPage() {
                   {filteredNotes.map((note) => (
                     <article
                       key={note.id}
-                      className="rounded-xl border border-[#E5DBC8] bg-white p-4 shadow-sm"
+                      className="rounded-xl border border-[#e5e7eb] bg-white p-4 shadow-sm"
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between gap-3">
-                          <p className="truncate text-xs text-slate-600">{note.contributor_name}</p>
+                          <p className="truncate text-xs text-[#6b7280]">{note.contributor_name}</p>
                           <button
                             type="button"
                             onClick={() => void handleToggleStar(note.id)}
                             disabled={starringNoteId === note.id}
                             className={`inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs font-medium transition ${
                               note.user_starred
-                                ? "border-amber-300 bg-amber-50 text-amber-700"
-                                : "border-[#D8CCB2] bg-white text-slate-700 hover:bg-[#F7F2E8]"
+                                ? "border-[#fb923c]/40 bg-[#fff7ed] text-[#fb923c]"
+                                : "border-[#e5e7eb] bg-white text-[#374151] hover:bg-[#f5f5f5]"
                             } disabled:opacity-70`}
                           >
                             <Star className={`h-3.5 w-3.5 ${note.user_starred ? "fill-current" : ""}`} />
                             {note.stars}
                           </button>
                         </div>
-                        <h3 className="line-clamp-2 text-base font-semibold text-black">{note.title}</h3>
-                        <p className="inline-flex items-center rounded-md bg-[#F7F2E8] px-2.5 py-1 text-xs text-slate-700">
+                        <h3 className="line-clamp-2 text-base font-semibold text-[#111111]">{note.title}</h3>
+                        <p className="inline-flex items-center rounded-md bg-[#f5f5f5] px-2.5 py-1 text-xs text-[#374151]">
                           {note.notes_content_label}
                         </p>
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-[#6b7280]">
                           Weeks {note.notes_week_from} to {note.notes_week_to}
                         </p>
                       </div>
 
                       <div className="mt-3">
                         <a href={note.drive_link} target="_blank" rel="noreferrer">
-                          <Button variant="outline" className="h-9 w-full border-[#D8CCB2] bg-white text-black hover:bg-[#F7F2E8]">
+                          <Button variant="outline" className="h-9 w-full border-[#e5e7eb] bg-white text-[#111111] hover:bg-[#f5f5f5] rounded-lg">
                             <ExternalLink className="mr-2 h-4 w-4" />
                             Open
                           </Button>
@@ -608,13 +619,13 @@ export default function ResourcesPage() {
               )}
             </section>
 
-            <aside className="rounded-2xl border border-[#E5DBC8] bg-white p-4 shadow-sm">
+            <aside className="rounded-2xl border border-[#e5e7eb] bg-white p-4 shadow-sm">
               <div className="mb-3 flex items-center justify-between gap-2">
-                <h2 className="text-sm font-semibold text-black">Top Contributors</h2>
+                <h2 className="text-sm font-semibold text-[#111111]">Top Contributors</h2>
                 <button
                   type="button"
                   onClick={() => setShowXpGuide(true)}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 underline-offset-2 hover:underline"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-[#6b7280] underline-offset-2 hover:underline"
                 >
                   <CircleHelp className="h-3.5 w-3.5" />
                   How to earn XP
@@ -622,20 +633,20 @@ export default function ResourcesPage() {
               </div>
 
               {contributorsLoading && (
-                <div className="flex items-center gap-2 rounded-md border border-[#E5DBC8] bg-[#FFFCF8] px-3 py-2 text-xs text-slate-700">
+                <div className="flex items-center gap-2 rounded-lg border border-[#e5e7eb] bg-[#f8f9fa] px-3 py-2 text-xs text-[#374151]">
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
                   Loading contributors...
                 </div>
               )}
 
               {!contributorsLoading && contributorsError && (
-                <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+                <div className="rounded-lg border border-[#ef4444]/30 bg-[#fef2f2] px-3 py-2 text-xs text-[#ef4444]">
                   {contributorsError}
                 </div>
               )}
 
               {!contributorsLoading && !contributorsError && contributors.length === 0 && (
-                <p className="rounded-md border border-[#E5DBC8] bg-[#FFFCF8] px-3 py-3 text-xs text-slate-600">
+                <p className="rounded-lg border border-[#e5e7eb] bg-[#f8f9fa] px-3 py-3 text-xs text-[#6b7280]">
                   No contributors yet for this section.
                 </p>
               )}
@@ -643,10 +654,10 @@ export default function ResourcesPage() {
               {!contributorsLoading && !contributorsError && contributors.length > 0 && (
                 <div className="max-h-115 space-y-2 overflow-y-auto pr-1">
                   {contributors.map((contributor) => (
-                    <div key={`${contributor.userId}-${contributor.rank}`} className="rounded-lg border border-[#E5DBC8] bg-[#FFFCF8] p-3">
+                    <div key={`${contributor.userId}-${contributor.rank}`} className="rounded-xl border border-[#e5e7eb] bg-[#f8f9fa] p-3">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex min-w-0 items-center gap-2.5">
-                          <div className="rounded-md border border-[#D8CCB2] bg-white px-1.5 py-0.5 text-[11px] font-semibold text-slate-600">
+                          <div className="rounded-md border border-[#e5e7eb] bg-white px-1.5 py-0.5 text-[11px] font-semibold text-[#6b7280]">
                             #{contributor.rank}
                           </div>
 
@@ -654,31 +665,31 @@ export default function ResourcesPage() {
                             <img
                               src={contributor.avatarUrl}
                               alt={contributor.name}
-                              className="h-9 w-9 shrink-0 rounded-full border border-[#D8CCB2] object-cover"
+                              className="h-9 w-9 shrink-0 rounded-full border border-[#e5e7eb] object-cover"
                             />
                           ) : (
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D8CCB2] bg-white text-xs font-semibold text-slate-700">
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#e5e7eb] bg-white text-xs font-semibold text-[#374151]">
                               {getInitials(contributor.name)}
                             </div>
                           )}
 
                           <div className="min-w-0">
-                            <p className="line-clamp-1 text-sm font-semibold leading-tight text-black">{contributor.name}</p>
+                            <p className="line-clamp-1 text-sm font-semibold leading-tight text-[#111111]">{contributor.name}</p>
                           </div>
                         </div>
-                        <div className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700">
+                        <div className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-[#fff7ed] px-2 py-1 text-xs font-semibold text-[#fb923c]">
                           <Star className="h-3.5 w-3.5 fill-current" />
                           <span>{contributor.stars}</span>
                         </div>
                       </div>
 
-                      <div className="mt-2.5 flex items-center gap-2 text-xs text-slate-600">
+                      <div className="mt-2.5 flex items-center gap-2 text-xs text-[#6b7280]">
                         <span className="rounded-full bg-white px-2 py-1">{contributor.notesCount} notes</span>
                         <span className="rounded-full bg-white px-2 py-1">{contributor.xp} XP</span>
                       </div>
 
                       {contributor.milestoneLabel && (
-                        <p className="mt-1 text-[11px] font-medium text-emerald-700">+{contributor.bonus} {contributor.milestoneLabel}</p>
+                        <p className="mt-1 text-[11px] font-medium text-[#10b981]">+{contributor.bonus} {contributor.milestoneLabel}</p>
                       )}
                     </div>
                   ))}
@@ -692,15 +703,15 @@ export default function ResourcesPage() {
       <Footer />
 
       <Dialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt}>
-        <DialogContent className="max-w-md border-[#E5DBC8] bg-white text-black">
+        <DialogContent className="max-w-md border-[#e5e7eb] bg-white text-[#111111]">
           <DialogHeader>
-            <DialogTitle className="text-2xl text-black">Sign in required</DialogTitle>
-            <DialogDescription className="text-slate-600">
+            <DialogTitle className="text-xl font-semibold text-[#111111]">Sign in required</DialogTitle>
+            <DialogDescription className="text-[#6b7280]">
               Please sign in first to add notes. After sign in, you can submit your Google Drive note link for approval.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end">
-            <Button onClick={openSignInModal} className="bg-black text-white hover:bg-black/85">
+            <Button onClick={openSignInModal} className="bg-[#111111] text-white hover:bg-[#242424] rounded-lg text-sm font-semibold h-10">
               Sign In
             </Button>
           </div>
@@ -708,15 +719,15 @@ export default function ResourcesPage() {
       </Dialog>
 
       <Dialog open={showXpGuide} onOpenChange={setShowXpGuide}>
-        <DialogContent className="max-w-md border-[#E5DBC8] bg-white text-black">
+        <DialogContent className="max-w-md border-[#e5e7eb] bg-white text-[#111111]">
           <DialogHeader>
-            <DialogTitle className="text-xl text-black">How to earn XP</DialogTitle>
-            <DialogDescription className="text-slate-600">
+            <DialogTitle className="text-xl font-semibold text-[#111111]">How to earn XP</DialogTitle>
+            <DialogDescription className="text-[#6b7280]">
               Contributors are ranked by stars first, then notes count.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-2 text-sm text-slate-700">
+          <div className="space-y-2 text-sm text-[#374151]">
             <p>1. Every approved note gives 10 XP.</p>
             <p>2. Every star on your notes gives 2 XP.</p>
             <p>3. Upload 50+ approved notes to unlock +500 bonus XP.</p>
@@ -734,21 +745,21 @@ export default function ResourcesPage() {
           }
         }}
       >
-        <DialogContent className="max-h-[90vh] overflow-y-auto border-[#E5DBC8] bg-white text-black sm:max-w-2xl">
+        <DialogContent className="max-h-[90vh] overflow-y-auto border-[#e5e7eb] bg-white text-[#111111] sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl text-black">Enter the details to upload your notes.</DialogTitle>
-            <DialogDescription className="text-slate-600">
+            <DialogTitle className="text-xl font-semibold text-[#111111]">Enter the details to upload your notes.</DialogTitle>
+            <DialogDescription className="text-[#6b7280]">
               Step {addStep} of 3
             </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={submitNote} className="space-y-5">
-            <div className="grid grid-cols-3 gap-2 rounded-md bg-[#F7F2E8] p-1">
+            <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#f5f5f5] p-1">
               {[1, 2, 3].map((step) => (
                 <div
                   key={step}
                   className={`rounded-md px-3 py-2 text-center text-sm font-medium ${
-                    addStep >= step ? "bg-black text-white" : "bg-transparent text-slate-700"
+                    addStep >= step ? "bg-[#111111] text-white" : "bg-transparent text-[#6b7280]"
                   }`}
                 >
                   Step {step}
@@ -757,16 +768,16 @@ export default function ResourcesPage() {
             </div>
 
             {addStep === 1 && (
-              <div className="space-y-4 rounded-lg border border-[#E5DBC8] bg-[#FFFCF8] p-4">
+              <div className="space-y-4 rounded-xl border border-[#e5e7eb] bg-[#f8f9fa] p-4">
                 <div>
-                  <Label className="mb-2 block text-slate-700">Degree</Label>
+                  <Label className="mb-2 block text-sm font-medium text-[#111111]">Degree</Label>
                   <select
                     value={selectedDegree}
                     onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)}
-                    className="h-11 w-full rounded-md border border-[#D8CCB2] bg-white px-3 text-black outline-none focus:border-black"
+                    className="h-10 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-[#111111] outline-none focus:border-[#111111]"
                   >
                     {degreeValues.map((degree) => (
-                      <option key={degree} value={degree} className="bg-white text-black">
+                      <option key={degree} value={degree} className="bg-white text-[#111111]">
                         {degreeLabels[degree]}
                       </option>
                     ))}
@@ -774,8 +785,8 @@ export default function ResourcesPage() {
                 </div>
 
                 <div>
-                  <Label className="mb-2 block text-slate-700">Levels</Label>
-                  <div className="grid grid-cols-3 gap-2 rounded-md bg-[#F7F2E8] p-1">
+                  <Label className="mb-2 block text-sm font-medium text-[#111111]">Level</Label>
+                  <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#f5f5f5] p-1">
                     {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
                       <button
                         key={level}
@@ -783,8 +794,8 @@ export default function ResourcesPage() {
                         onClick={() => setSelectedLevel(level)}
                         className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                           selectedLevel === level
-                            ? "bg-black text-white"
-                            : "text-slate-700 hover:bg-[#EFE6D5]"
+                            ? "bg-[#111111] text-white"
+                            : "text-[#374151] hover:bg-[#e5e7eb]"
                         }`}
                       >
                         {levelLabels[level]}
@@ -794,14 +805,14 @@ export default function ResourcesPage() {
                 </div>
 
                 <div>
-                  <Label className="mb-2 block text-slate-700">Subject</Label>
+                  <Label className="mb-2 block text-sm font-medium text-[#111111]">Subject</Label>
                   <select
                     value={selectedSubject}
                     onChange={(e) => setSelectedSubject(e.target.value)}
-                    className="h-11 w-full rounded-md border border-[#D8CCB2] bg-white px-3 text-black outline-none focus:border-black"
+                    className="h-10 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-[#111111] outline-none focus:border-[#111111]"
                   >
                     {subjectsForSelection.map((subject) => (
-                      <option key={subject} value={subject} className="bg-white text-black">
+                      <option key={subject} value={subject} className="bg-white text-[#111111]">
                         {subject}
                       </option>
                     ))}
@@ -811,9 +822,9 @@ export default function ResourcesPage() {
             )}
 
             {addStep === 2 && (
-              <div className="space-y-4 rounded-lg border border-[#E5DBC8] bg-[#FFFCF8] p-4">
+              <div className="space-y-4 rounded-xl border border-[#e5e7eb] bg-[#f8f9fa] p-4">
                 <div>
-                  <Label className="mb-2 block text-slate-700">Notes Week (From To)</Label>
+                  <Label className="mb-2 block text-sm font-medium text-[#111111]">Notes Week (From → To)</Label>
                   <div className="grid grid-cols-2 gap-3">
                     <Input
                       type="number"
@@ -821,7 +832,7 @@ export default function ResourcesPage() {
                       max={52}
                       value={formData.notesWeekFrom}
                       onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekFrom: e.target.value }))}
-                      className="h-11 border-[#D8CCB2] bg-white text-black placeholder:text-slate-500"
+                      className="h-10 border-[#e5e7eb] bg-white text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                       placeholder="From"
                     />
                     <Input
@@ -830,19 +841,19 @@ export default function ResourcesPage() {
                       max={52}
                       value={formData.notesWeekTo}
                       onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekTo: e.target.value }))}
-                      className="h-11 border-[#D8CCB2] bg-white text-black placeholder:text-slate-500"
+                      className="h-10 border-[#e5e7eb] bg-white text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                       placeholder="To"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="name" className="mb-2 block text-slate-700">Your Name</Label>
+                  <Label htmlFor="name" className="mb-2 block text-sm font-medium text-[#111111]">Your Name</Label>
                   <Input
                     id="name"
                     value={formData.contributorName}
                     onChange={(e) => setFormData((prev) => ({ ...prev, contributorName: e.target.value }))}
-                    className="h-11 border-[#D8CCB2] bg-white text-black placeholder:text-slate-500"
+                    className="h-10 border-[#e5e7eb] bg-white text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                     placeholder="Enter Your Name"
                   />
                 </div>
@@ -850,32 +861,32 @@ export default function ResourcesPage() {
             )}
 
             {addStep === 3 && (
-              <div className="space-y-4 rounded-lg border border-[#E5DBC8] bg-[#FFFCF8] p-4">
+              <div className="space-y-4 rounded-xl border border-[#e5e7eb] bg-[#f8f9fa] p-4">
                 <div>
-                  <Label htmlFor="driveLink" className="mb-2 block text-slate-700">Upload Drive Link ({dynamicWeekLabel})</Label>
+                  <Label htmlFor="driveLink" className="mb-2 block text-sm font-medium text-[#111111]">Upload Drive Link ({dynamicWeekLabel})</Label>
                   <Input
                     id="driveLink"
                     value={formData.driveLink}
                     onChange={(e) => setFormData((prev) => ({ ...prev, driveLink: e.target.value }))}
-                    className="h-11 border-[#D8CCB2] bg-white text-black placeholder:text-slate-500"
+                    className="h-10 border-[#e5e7eb] bg-white text-[#111111] placeholder:text-[#6b7280] rounded-lg"
                     placeholder="https://drive.google.com/..."
                   />
                 </div>
 
-                <div className="rounded-md border border-[#D8CCB2] bg-[#F7F2E8] px-3 py-2 text-xs text-slate-700">
+                <div className="rounded-lg border border-[#e5e7eb] bg-[#f5f5f5] px-3 py-2 text-xs text-[#374151]">
                   Submit for Approval: Only approved notes are shown in public resources.
                 </div>
               </div>
             )}
 
             {formError && (
-              <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              <div className="rounded-lg border border-[#ef4444]/30 bg-[#fef2f2] px-3 py-2 text-sm text-[#ef4444]">
                 {formError}
               </div>
             )}
 
             {formSuccess && (
-              <div className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-3 text-sm font-medium text-emerald-700">
+              <div className="rounded-lg border border-[#10b981]/30 bg-[#f0fdf4] px-3 py-3 text-sm font-medium text-[#10b981]">
                 <CheckCircle2 className="mr-2 inline h-4 w-4" />
                 {formSuccess}
               </div>
@@ -887,14 +898,14 @@ export default function ResourcesPage() {
                 variant="outline"
                 onClick={handleBack}
                 disabled={addStep === 1 || submitting || !!formSuccess}
-                className="border-[#D8CCB2] bg-white text-black hover:bg-[#F7F2E8]"
+                className="border-[#e5e7eb] bg-white text-[#111111] hover:bg-[#f5f5f5] rounded-lg h-10 text-sm font-semibold"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back
               </Button>
 
               {addStep < 3 ? (
-                <Button type="button" onClick={handleNext} className="bg-black text-white hover:bg-black/85">
+                <Button type="button" onClick={handleNext} className="bg-[#111111] text-white hover:bg-[#242424] rounded-lg h-10 text-sm font-semibold">
                   Next
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -907,12 +918,12 @@ export default function ResourcesPage() {
                         setShowAddNotesDialog(false)
                         resetAddNotesForm()
                       }}
-                      className="bg-black text-white hover:bg-black/85"
+                      className="bg-[#111111] text-white hover:bg-[#242424] rounded-lg h-10 text-sm font-semibold"
                     >
                       Close
                     </Button>
                   ) : (
-                    <Button type="submit" disabled={submitting} className="bg-black text-white hover:bg-black/85">
+                    <Button type="submit" disabled={submitting} className="bg-[#111111] text-white hover:bg-[#242424] rounded-lg h-10 text-sm font-semibold">
                       {submitting ? "Submitting..." : "Submit for Approval"}
                     </Button>
                   )}

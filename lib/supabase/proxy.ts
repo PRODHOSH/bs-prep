@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 
-export async function updateSession(request: NextRequest) {
+export async function updateSession(request: NextRequest): Promise<{ response: NextResponse; user: { id: string; email?: string } | null }> {
   let supabaseResponse = NextResponse.next({
     request,
   })
@@ -25,15 +25,19 @@ export async function updateSession(request: NextRequest) {
     },
   )
 
+  // getSession reads the JWT from the cookie — no network call, instant.
+  // API routes and server components that need strict validation call getUser() themselves.
   const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  const user = session?.user ?? null
 
   if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
     const url = request.nextUrl.clone()
     url.pathname = "/auth/login"
-    return NextResponse.redirect(url)
+    return { response: NextResponse.redirect(url), user: null }
   }
 
-  return supabaseResponse
+  return { response: supabaseResponse, user }
 }
