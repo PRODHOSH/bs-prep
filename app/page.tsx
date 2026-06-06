@@ -121,7 +121,7 @@ export default function HomePage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10b981]" />
                 </span>
-                <span className="text-sm font-medium text-[#374151]">Now enrolling — Qualifier 2025</span>
+                <span className="text-sm font-medium text-[#374151]">Now enrolling — Qualifier 2026</span>
               </div>
 
               <h1 className="text-[44px] md:text-[44px] lg:text-[60px] xl:text-[72px] font-semibold tracking-[-2.5px] leading-[1.06] text-[#111111]">

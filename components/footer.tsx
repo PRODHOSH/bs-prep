@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Linkedin, Youtube, Github, Globe, X, Instagram, Twitter, HeartHandshake } from "lucide-react"
+import { Linkedin, Youtube, HeartHandshake } from "lucide-react"
 
 const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
 /* DEVELOPERS_DISABLED
@@ -48,32 +48,53 @@ export function Footer() {
   const [activeDev, setActiveDev] = useState<string | null>(null)
   const selectedDev = developers.find((d) => d.name === activeDev) ?? null
 
-  const quickLinks = [
-    { name: "Courses", href: "/courses" },
-    { name: "Quiz Prep", href: "/quiz-prep" },
-    { name: "Resources", href: "/resources" },
-    { name: "Donate", href: "/donate" },
-    { name: "Support", href: "/support" },
-    { name: "Careers", href: "/careers" },
-  ]
-
-  const legalLinks = [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms & Conditions", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-    { name: "Disclaimer", href: "/disclaimer" },
-  ]
-
-  const supportLinks = [
-    { name: "Contact Us", href: "mailto:bsprep.team@gmail.com" },
-    { name: "Support", href: "/support" },
+  const columns = [
+    {
+      heading: "Platform",
+      links: [
+        { name: "Courses", href: "/courses" },
+        { name: "Quiz Prep", href: "/quiz-prep" },
+        { name: "Compiler", href: "/compiler", pro: true },
+        { name: "Resources", href: "/resources" },
+        { name: "Live Classes", href: "/dashboard/live-classes", pro: true },
+        { name: "Tools", href: "/tools" },
+      ],
+    },
+    {
+      heading: "Community",
+      links: [
+        { name: "Dashboard", href: "/dashboard", pro: true },
+        { name: "Leaderboard", href: "/dashboard/leaderboard", pro: true },
+        { name: "Mentors", href: "/dashboard/mentors", pro: true },
+        { name: "Doubts", href: "/dashboard/doubts", pro: true },
+        { name: "Community", href: "/community", pro: true },
+      ],
+    },
+    {
+      heading: "Company",
+      links: [
+        { name: "Careers", href: "/careers" },
+        { name: "Support", href: "/support" },
+        { name: "Donate", href: "/donate" },
+        { name: "Announcements", href: "/announcements" },
+      ],
+    },
+    {
+      heading: "Legal",
+      links: [
+        { name: "Privacy Policy", href: "/privacy" },
+        { name: "Terms & Conditions", href: "/terms" },
+        { name: "Cookie Policy", href: "/cookies" },
+        { name: "Disclaimer", href: "/disclaimer" },
+      ],
+    },
   ]
 
   return (
     <>
       <footer className="bg-[#FAF8F5]/95 backdrop-blur-sm border-t border-[#EDE6DE] mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8 mb-10">
             {/* Brand */}
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -102,66 +123,45 @@ export function Footer() {
                   <Youtube className="w-4 h-4" />
                 </a>
               </div>
+              <Link
+                href="/donate"
+                className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-100"
+              >
+                <HeartHandshake className="h-3.5 w-3.5" />
+                Support BSPrep
+              </Link>
             </div>
 
-            {/* Quick Links */}
-            <div>
-              <h3 className="font-semibold text-black mb-4">Quick Links</h3>
-              <ul className="space-y-3">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h3 className="font-semibold text-black mb-4">Legal</h3>
-              <ul className="space-y-3">
-                {legalLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div>
-              <h3 className="font-semibold text-black mb-4">Support</h3>
-              <ul className="space-y-3">
-                {supportLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform inline-block">{link.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4">
-                <Link
-                  href="/donate"
-                  className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-100"
-                >
-                  <HeartHandshake className="h-3.5 w-3.5" />
-                  Support BSPREP
-                </Link>
+            {/* Link columns */}
+            {columns.map((col) => (
+              <div key={col.heading}>
+                <h3 className="font-semibold text-black text-xs uppercase tracking-widest mb-4">{col.heading}</h3>
+                <ul className="space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center gap-2 group"
+                      >
+                        <span className="group-hover:translate-x-0.5 transition-transform inline-block">{link.name}</span>
+                        {link.pro && (
+                          <span className="inline-flex items-center rounded-full bg-[#111111] text-white text-[9px] font-bold px-1.5 py-0.5 leading-none tracking-wide">
+                            PRO
+                          </span>
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
           </div>
 
-          <div className="border-t border-slate-200 pt-8">
+          <div className="border-t border-[#EDE6DE] pt-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-slate-500 text-sm"> 2026 BSPrep. All rights reserved.</p>
+              <p className="text-slate-500 text-sm">© 2026 BSPrep. All rights reserved.</p>
               <p className="text-slate-400 text-xs max-w-md text-center md:text-right">
-                This platform is not affiliated with IIT Madras.
+                Not affiliated with IIT Madras. Independent student-led platform.
               </p>
             </div>
           </div>

@@ -33,8 +33,8 @@ const sections = [
   },
   {
     num: "06",
-    title: "Payments & Refunds",
-    body: "All payments are processed securely through Razorpay. Course and mentorship fees are final and non-refundable once enrollment is confirmed. We do not offer refunds, cancellations, or transfers under any circumstances. Please review course details carefully before purchasing.",
+    title: "Payments & Refund Policy",
+    body: "All payments are processed securely through Razorpay. All course and mentorship fees are strictly non-refundable. Once enrollment is confirmed and payment is received, no refunds, partial refunds, cancellations, or transfers will be issued under any circumstances — including but not limited to change of mind, inability to attend, or dissatisfaction with the platform. By completing payment, you explicitly acknowledge and accept this no-refund policy. Please review all course details carefully before purchasing.",
   },
   {
     num: "07",
@@ -97,6 +97,15 @@ export default function TermsPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Terms &amp; Conditions</h1>
             <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: June 2026</p>
             <p className="text-black/40 text-xs mt-2">BSPrep is an independent student initiative and is not affiliated with IIT Madras.</p>
+          </div>
+
+          {/* Refund Policy Callout */}
+          <div className="mb-6 rounded-2xl border-2 border-black bg-black text-white px-7 py-6">
+            <p className="text-[11px] uppercase tracking-widest font-semibold text-white/40 mb-1">Important Notice</p>
+            <p className="font-bold text-lg leading-snug mb-2">No Refund Policy</p>
+            <p className="text-sm text-white/70 leading-relaxed">
+              BSPrep operates a strict <span className="text-white font-semibold">no-refund policy</span>. All payments made for courses, mentorship sessions, or any other service are <span className="text-white font-semibold">final and non-refundable</span>. No exceptions are made for any reason, including change of mind, inability to attend, or dissatisfaction. By purchasing, you agree to this policy.
+            </p>
           </div>
 
           <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-sm">
