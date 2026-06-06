@@ -2,81 +2,41 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
-
-const COURSE_NAMES: Record<string, string> = {
-  "qualifier-math-1":                "Mathematics for Data Science I",
-  "qualifier-stats-1":               "Statistics for Data Science I",
-  "qualifier-computational-thinking": "Computational Thinking",
-  "qualifier-english-1":             "English I",
-}
 
 export default function CertificatePage() {
   const { courseId } = useParams() as { courseId: string }
   const router = useRouter()
-  const supabase = createClient()
 
   const [studentName, setStudentName] = useState("")
+  const [courseName, setCourseName] = useState("")
   const [issueDate, setIssueDate] = useState("")
+  const [isAdminPreview, setIsAdminPreview] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
   useEffect(() => {
     async function init() {
       try {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user) {
-          setError("Please sign in to view your certificate.")
-          setLoading(false)
+        const res = await fetch(`/api/certificate/${courseId}`)
+        const data = await res.json()
+
+        if (!res.ok) {
+          if (data.error === "not_authenticated") {
+            setError("Please sign in to view your certificate.")
+          } else if (data.error === "not_enrolled") {
+            setError("You are not enrolled in this course.")
+          } else if (data.error === "cert_not_available") {
+            setError("Certificate not yet available for this course.")
+          } else {
+            setError("Something went wrong. Please try again.")
+          }
           return
         }
 
-        // Check enrollment — maybeSingle avoids PGRST116 error
-        const { data: enroll } = await supabase
-          .from("enrollments")
-          .select("created_at")
-          .eq("user_id", user.id)
-          .eq("course_id", courseId)
-          .maybeSingle()
-
-        if (!enroll) {
-          setError("You are not enrolled in this course.")
-          setLoading(false)
-          return
-        }
-
-        // Check certificate enabled
-        const { data: cert } = await supabase
-          .from("course_certificates")
-          .select("enabled, enabled_at")
-          .eq("course_id", courseId)
-          .maybeSingle()
-
-        if (!cert?.enabled) {
-          setError("Certificate not yet available for this course.")
-          setLoading(false)
-          return
-        }
-
-        // Get student name
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("first_name, last_name")
-          .eq("id", user.id)
-          .maybeSingle()
-
-        const name =
-          [profile?.first_name, profile?.last_name].filter(Boolean).join(" ") ||
-          user.user_metadata?.full_name ||
-          user.email?.split("@")[0] ||
-          "Student"
-
-        setStudentName(name)
-        setIssueDate(
-          new Date(cert.enabled_at ?? new Date()).toLocaleDateString("en-IN", {
-            day: "numeric", month: "long", year: "numeric",
-          })
-        )
+        setStudentName(data.studentName)
+        setCourseName(data.courseName)
+        setIssueDate(data.issueDate)
+        setIsAdminPreview(data.isAdminPreview ?? false)
       } catch (err) {
         console.error("Certificate page error:", err)
         setError("Something went wrong. Please try again.")
@@ -86,8 +46,6 @@ export default function CertificatePage() {
     }
     void init()
   }, [courseId])
-
-  const courseName = COURSE_NAMES[courseId] ?? courseId
 
   if (loading) {
     return (
@@ -108,6 +66,11 @@ export default function CertificatePage() {
 
   return (
     <>
+      {isAdminPreview && (
+        <div className="no-print fixed top-14 left-0 right-0 z-40 text-center py-1.5 bg-amber-50 border-b border-amber-200 text-xs font-semibold text-amber-700">
+          Admin preview — certificate not yet enabled for students
+        </div>
+      )}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
