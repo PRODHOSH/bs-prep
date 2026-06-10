@@ -58,6 +58,7 @@ export function Footer() {
         { name: "Resources", href: "/resources" },
         { name: "Live Classes", href: "/dashboard/live-classes", pro: true },
         { name: "Tools", href: "/tools" },
+        { name: "Blogs", href: "https://blog.bsprep.in", external: true },
       ],
     },
     {
@@ -137,21 +138,32 @@ export function Footer() {
               <div key={col.heading}>
                 <h3 className="font-semibold text-black text-xs uppercase tracking-widest mb-4">{col.heading}</h3>
                 <ul className="space-y-2.5">
-                  {col.links.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center gap-2 group"
-                      >
+                  {col.links.map((link) => {
+                    const linkClass = "text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center gap-2 group"
+                    const content = (
+                      <>
                         <span className="group-hover:translate-x-0.5 transition-transform inline-block">{link.name}</span>
                         {link.pro && (
                           <span className="inline-flex items-center rounded-full bg-[#111111] text-white text-[9px] font-bold px-1.5 py-0.5 leading-none tracking-wide">
                             PRO
                           </span>
                         )}
-                      </Link>
-                    </li>
-                  ))}
+                      </>
+                    )
+                    return (
+                      <li key={link.name}>
+                        {link.external ? (
+                          <a href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                            {content}
+                          </a>
+                        ) : (
+                          <Link href={link.href} className={linkClass}>
+                            {content}
+                          </Link>
+                        )}
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             ))}
