@@ -33,6 +33,7 @@ const COURSE_LABELS: Record<string, string> = {
   "stats-2": "Statistics II",
   "english-1": "English I",
   "english-2": "English II",
+  "doubts": "Doubt Session",
 };
 
 function getStatus(date: string, time: string): "live" | "upcoming" | "completed" {

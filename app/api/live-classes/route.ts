@@ -62,9 +62,9 @@ export async function GET(request: NextRequest) {
       }))
       .filter((cls: { course: string; topic: string }) => cls.course && cls.topic) // Filter out empty rows
       .filter((cls: { course: string }) => {
-        // Keep Python classes visible for everyone in dashboard.
+        // Keep Python and Doubts classes visible for everyone in dashboard.
         const code = cls.course.toLowerCase();
-        if (code === 'python') {
+        if (code === 'python' || code === 'doubts') {
           return true;
         }
 

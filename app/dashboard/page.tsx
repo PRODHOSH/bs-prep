@@ -38,6 +38,7 @@ const COURSE_DISPLAY_NAMES: Record<string, string> = {
   "stats-2": "Statistics II",
   "english-1": "English I",
   "english-2": "English II",
+  "doubts": "Doubt Session",
 }
 
 function getCourseDisplayName(code: string): string {
@@ -150,7 +151,10 @@ export default function StudentDashboard() {
 
   const hasNoEnrollments = enrolledCourses.length === 0
   const dashboardLiveClasses = hasNoEnrollments
-    ? liveClasses.filter((cls) => cls.course?.toLowerCase() === "python")
+    ? liveClasses.filter((cls) => {
+        const code = cls.course?.toLowerCase()
+        return code === "python" || code === "doubts"
+      })
     : liveClasses
 
   return (
@@ -212,7 +216,7 @@ export default function StudentDashboard() {
       <div>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-black">
-            {hasNoEnrollments ? "Python Live Classes" : "Upcoming Live Classes"}
+            Upcoming Live Classes
           </h2>
           <Link href="/dashboard/live-classes">
             <Button size="sm" className="bg-black text-white hover:bg-black/80 text-sm font-semibold">
@@ -225,9 +229,7 @@ export default function StudentDashboard() {
           {dashboardLiveClasses.length === 0 ? (
             <div className="col-span-full bg-white border border-gray-200 rounded-lg p-8 text-center">
               <p className="text-gray-600">
-                {hasNoEnrollments
-                  ? "No Python live classes scheduled at the moment."
-                  : "No live classes scheduled at the moment."}
+                No live classes scheduled at the moment.
               </p>
             </div>
           ) : (
