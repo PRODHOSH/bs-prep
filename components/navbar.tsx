@@ -442,6 +442,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                             'python': 'Programming in Python',
                             'math-2': 'Mathematics II',
                             'stats-2': 'Statistics II',
+                            'doubts': 'Doubt Session',
                           }
                           const courseName = courseNames[cls.course?.toLowerCase()] ?? cls.course
                           return (
