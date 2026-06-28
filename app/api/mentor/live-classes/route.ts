@@ -90,8 +90,8 @@ export async function POST(request: NextRequest) {
       let attendees: { email: string }[] = [];
       
       if (fetchAllUsers || enrolledUserIds.length > 0) {
-        // We use admin listUsers to get emails
-        const { data: { users }, error: usersError } = await adminSupabase.auth.admin.listUsers();
+        // We use admin listUsers to get emails (max 1000 per page for larger cohorts)
+        const { data: { users }, error: usersError } = await adminSupabase.auth.admin.listUsers({ perPage: 1000 });
         
         if (!usersError && users) {
           attendees = users
