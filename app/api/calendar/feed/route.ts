@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 
+// RFC 5545 requires lines to be folded at 75 octets.
+function foldLine(line: string) {
+  let result = "";
+  for (let i = 0; i < line.length; i += 75) {
+    if (i > 0) result += "\r\n ";
+    result += line.substring(i, i + 75);
+  }
+  return result;
+}
+
 // Generates an iCalendar (.ics) string from live classes
 function generateICS(classes: any[]) {
   const events = classes.map((cls) => {
@@ -47,7 +57,7 @@ function generateICS(classes: any[]) {
 
     const description = `Join the meeting here: ${cls.meeting_link}\\n\\nTopic: ${cls.topic}`;
 
-    return [
+    const eventLines = [
       "BEGIN:VEVENT",
       `UID:${cls.id || Math.random().toString(36).substring(2)}@bsprep.com`,
       `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
@@ -57,10 +67,11 @@ function generateICS(classes: any[]) {
       `DESCRIPTION:${description}`,
       `URL:${cls.meeting_link}`,
       "END:VEVENT"
-    ].join("\r\n");
+    ];
+    return eventLines.map(foldLine).join("\r\n");
   });
 
-  return [
+  const calendarLines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "PRODID:-//BS Prep//Live Classes//EN",
@@ -77,10 +88,10 @@ function generateICS(classes: any[]) {
     "TZNAME:IST",
     "DTSTART:19700101T000000",
     "END:STANDARD",
-    "END:VTIMEZONE",
-    ...events,
-    "END:VCALENDAR"
-  ].join("\r\n");
+    "END:VTIMEZONE"
+  ];
+  
+  return [...calendarLines, ...events, "END:VCALENDAR"].join("\r\n");
 }
 
 export async function GET(request: NextRequest) {
