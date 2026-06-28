@@ -84,12 +84,14 @@ export default function LiveClassesPage() {
   }, []);
 
   const handleAddToCalendar = () => {
-    if (confirm("This will subscribe your calendar to all live classes. Click OK to continue.")) {
+    if (confirm("This will subscribe your Google Calendar to all live classes. Click OK to continue.")) {
       const host = window.location.host;
-      const protocol = window.location.protocol === 'https:' ? 'webcal://' : 'http://'; 
-      // some devices handle http:// better for local testing, but webcal:// is standard for production
-      const url = `${protocol}${host}/api/calendar/feed${userId ? `?userId=${userId}` : ''}`;
-      window.open(url, '_blank');
+      const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:'; 
+      const feedUrl = `${protocol}//${host}/api/calendar/feed${userId ? `?userId=${userId}` : ''}`;
+      
+      // Use Google Calendar's special 'cid' parameter to automatically subscribe them
+      const gcalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(feedUrl)}`;
+      window.open(gcalUrl, '_blank');
     }
   };
 
