@@ -85,8 +85,7 @@ function generateICS(classes: any[]) {
 
 export async function GET(request: NextRequest) {
   try {
-    const url = new URL(request.url);
-    const userId = url.searchParams.get("userId"); // Simple auth for calendar feed
+    const userId = request.nextUrl.searchParams.get("userId"); // Simple auth for calendar feed
     
     // In a production app, you'd want a secure, unguessable token for calendar feeds,
     // not just the raw user ID, to prevent calendar scraping.
