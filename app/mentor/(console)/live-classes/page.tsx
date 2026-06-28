@@ -81,7 +81,10 @@ export default function MentorLiveClassesPage() {
       const res = await fetch(`/api/mentor/live-classes?id=${id}`, {
         method: "DELETE",
       });
-      if (!res.ok) throw new Error("Failed to delete class");
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to delete class");
+      }
       await fetchClasses();
     } catch (err: any) {
       alert(err.message);

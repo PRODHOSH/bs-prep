@@ -74,8 +74,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const url = new URL(request.url);
-    const id = url.searchParams.get("id");
+    const id = request.nextUrl.searchParams.get("id");
 
     if (!id) {
       return NextResponse.json({ error: "Missing class ID" }, { status: 400 });
@@ -92,6 +91,6 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("Error deleting live class:", error);
-    return NextResponse.json({ error: "Failed to delete class" }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Failed to delete class" }, { status: 500 });
   }
 }
