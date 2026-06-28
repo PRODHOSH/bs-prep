@@ -83,17 +83,6 @@ export default function LiveClassesPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleAddToCalendar = () => {
-    if (confirm("This will subscribe your Google Calendar to all live classes. Click OK to continue.")) {
-      const host = window.location.host;
-      const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:'; 
-      // Add a cache buster so Google Calendar is forced to fetch the latest fixed version
-      const feedUrl = `${protocol}//${host}/api/calendar/feed?v=${Date.now()}${userId ? `&userId=${userId}` : ''}`;
-      
-      const gcalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(feedUrl)}`;
-      window.open(gcalUrl, '_blank');
-    }
-  };
 
   // Unique course codes present in data
   const availableCourses = useMemo(() => {
@@ -154,13 +143,7 @@ export default function LiveClassesPage() {
           </div>
         </div>
         <div className="flex items-center gap-6">
-          <button
-            onClick={handleAddToCalendar}
-            className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-900 transition-colors"
-          >
-            <CalendarIcon className="w-4 h-4" />
-            Add to Calendar
-          </button>
+
           <div className="text-right hidden sm:block">
             <p className="text-2xl font-bold text-black">{classes.length}</p>
             <p className="text-xs text-gray-500 font-medium">Total Classes</p>
