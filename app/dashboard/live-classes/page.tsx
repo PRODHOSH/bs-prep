@@ -87,9 +87,9 @@ export default function LiveClassesPage() {
     if (confirm("This will subscribe your Google Calendar to all live classes. Click OK to continue.")) {
       const host = window.location.host;
       const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:'; 
-      const feedUrl = `${protocol}//${host}/api/calendar/feed${userId ? `?userId=${userId}` : ''}`;
+      // Add a cache buster so Google Calendar is forced to fetch the latest fixed version
+      const feedUrl = `${protocol}//${host}/api/calendar/feed?v=${Date.now()}${userId ? `&userId=${userId}` : ''}`;
       
-      // Use Google Calendar's special 'cid' parameter to automatically subscribe them
       const gcalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(feedUrl)}`;
       window.open(gcalUrl, '_blank');
     }

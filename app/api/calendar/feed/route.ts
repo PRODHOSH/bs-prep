@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 
+export const dynamic = 'force-dynamic';
+
 // RFC 5545 requires lines to be folded at 75 octets.
 function foldLine(line: string) {
   let result = "";
@@ -55,7 +57,7 @@ function generateICS(classes: any[]) {
       endStr = "20240101T010000";
     }
 
-    const description = `Join the meeting here: ${cls.meeting_link}\\n\\nTopic: ${cls.topic}`;
+    const description = `Join the meeting here: ${cls.meeting_link}${cls.youtube_link ? `\\nRecording: ${cls.youtube_link}` : ''}\\n\\nTopic: ${cls.topic}`;
 
     const eventLines = [
       "BEGIN:VEVENT",
