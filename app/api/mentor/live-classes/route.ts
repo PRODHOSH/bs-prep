@@ -71,21 +71,31 @@ export async function POST(request: NextRequest) {
       const mappedCourseId = courseIdMap[body.course] || body.course;
       
       // 1. Fetch enrolled students
-      const { data: enrollments, error: enrollError } = await adminSupabase
-        .from('enrollments')
-        .select('user_id')
-        .eq('course_id', mappedCourseId);
+      let enrolledUserIds: string[] = [];
+      let fetchAllUsers = false;
+      
+      if (mappedCourseId === 'doubts') {
+        fetchAllUsers = true;
+      } else {
+        const { data: enrollments, error: enrollError } = await adminSupabase
+          .from('enrollments')
+          .select('user_id')
+          .eq('course_id', mappedCourseId);
+          
+        if (!enrollError && enrollments) {
+          enrolledUserIds = enrollments.map(e => e.user_id);
+        }
+      }
         
       let attendees: { email: string }[] = [];
       
-      if (!enrollError && enrollments && enrollments.length > 0) {
-        // We use admin listUsers to get emails
-        const enrolledUserIds = enrollments.map(e => e.user_id);
-        const { data: { users }, error: usersError } = await adminSupabase.auth.admin.listUsers();
+      if (fetchAllUsers || enrolledUserIds.length > 0) {
+        // We use admin listUsers to get emails (max 1000 per page for larger cohorts)
+        const { data: { users }, error: usersError } = await adminSupabase.auth.admin.listUsers({ perPage: 1000 });
         
         if (!usersError && users) {
           attendees = users
-            .filter(u => enrolledUserIds.includes(u.id) && u.email)
+            .filter(u => (fetchAllUsers || enrolledUserIds.includes(u.id)) && u.email)
             .map(u => ({ email: u.email! }));
         }
       }
