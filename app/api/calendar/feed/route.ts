@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/server";
 
 // Generates an iCalendar (.ics) string from live classes
 function generateICS(classes: any[]) {
@@ -57,7 +57,7 @@ function generateICS(classes: any[]) {
       `DESCRIPTION:${description}`,
       `URL:${cls.meeting_link}`,
       "END:VEVENT"
-    ].join("\\r\\n");
+    ].join("\r\n");
   });
 
   return [
@@ -80,7 +80,7 @@ function generateICS(classes: any[]) {
     "END:VTIMEZONE",
     ...events,
     "END:VCALENDAR"
-  ].join("\\r\\n");
+  ].join("\r\n");
 }
 
 export async function GET(request: NextRequest) {
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
     // In a production app, you'd want a secure, unguessable token for calendar feeds,
     // not just the raw user ID, to prevent calendar scraping.
     
-    const supabase = await createClient();
+    const supabase = createServiceRoleClient();
     
     // If no userId, we can just return all public classes (Python/Doubts)
     let enrolledCourseIds: string[] = [];
