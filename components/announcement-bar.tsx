@@ -23,16 +23,10 @@ export function AnnouncementBar() {
   return (
     <div className="relative z-50 bg-black text-white text-xs sm:text-sm px-4 py-2.5 flex items-center justify-center gap-3">
       <span className="flex items-center gap-2">
-        <span className="hidden sm:inline-flex items-center gap-1 bg-white/15 text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full">
-          New
+        <span className="hidden sm:inline-flex items-center gap-1 bg-orange-500/80 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
+          Coming Soon
         </span>
-        Online Compiler is live — write &amp; run Python, Java and C++ right in the browser.
-        <Link
-          href="/compiler"
-          className="font-semibold underline underline-offset-2 hover:text-white/70 transition-colors whitespace-nowrap"
-        >
-          Try it →
-        </Link>
+        The BSPrep Student Ambassador Program is launching soon!
       </span>
       <button
         onClick={dismiss}

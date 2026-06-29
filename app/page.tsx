@@ -11,7 +11,7 @@ import { Footer } from "@/components/footer"
 import { AnnouncementBar } from "@/components/announcement-bar"
 import { QualifierCountdown } from "@/components/qualifier-countdown"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
-import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown, Megaphone, Award, FileText, Star, FileCheck, FileBadge2 } from "lucide-react"
+import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown, Megaphone, Award, FileText, Star, FileCheck, FileBadge2, Linkedin } from "lucide-react"
 
 const spinner = <div className="animate-spin w-6 h-6 border-2 border-[#e5e7eb] border-t-[#111111] rounded-full" />
 
@@ -409,13 +409,15 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-16">
             
-            {/* Left side: Character pointing up (on md screens, points up-right) */}
-            <div className="w-full md:w-1/2 flex justify-center md:justify-end relative pb-8 md:pb-0">
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#f8e5c8] rounded-full blur-3xl w-[250px] h-[250px] md:w-[350px] md:h-[350px]"></div>
-               <img src="/3d-female-character-pointing-up.png" alt="Ambassador pointing" className="relative z-10 w-full max-w-[320px] md:max-w-[400px] drop-shadow-2xl object-contain" />
+            {/* Left side: Character pointing at Badge */}
+            <div className="w-full md:w-1/2 flex justify-center md:justify-end relative pb-8 md:pb-0 min-h-[400px]">
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#f8e5c8] rounded-full blur-3xl w-[250px] h-[250px] md:w-[350px] md:h-[350px] z-0"></div>
+               
+               {/* Giant Girl */}
+               <img src="/3d-female-character-pointing-up.png" alt="Ambassador pointing" className="relative z-10 w-full max-w-[350px] md:max-w-[450px] drop-shadow-2xl object-contain" />
             </div>
 
-            {/* Right side: Text and Badge */}
+            {/* Right side: Text and Benefits */}
             <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left relative z-20">
               <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 text-sm font-semibold text-orange-600 mb-6 shadow-sm">
                  Coming Soon
@@ -426,23 +428,37 @@ export default function HomePage() {
                 PROGRAM
               </h2>
               
-              <p className="text-[#475569] text-base md:text-lg mb-8 max-w-md">
-                Join the elite team of BSPrep Growth Fellows. Lead the community, build your resume, and earn exclusive rewards including an official offer letter and LORs.
+              <p className="text-[#475569] text-base md:text-lg mb-10 max-w-md">
+                Join the elite team of BSPrep Growth Fellows. Lead the community, build your resume, and earn exclusive rewards.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-black/5 shadow-sm">
-                <img src="/badge.png" alt="Ambassador Badge" className="w-24 h-auto drop-shadow-md" />
-                <div className="flex flex-col gap-3 justify-center h-full">
-                  <div className="flex items-center gap-2.5 text-sm font-semibold text-[#111111]">
-                    <div className="bg-[#a18057]/10 p-1.5 rounded-md"><Star className="w-4 h-4 text-[#a18057]" /></div> Exclusive Badge
-                  </div>
-                  <div className="flex items-center gap-2.5 text-sm font-semibold text-[#111111]">
-                    <div className="bg-[#a18057]/10 p-1.5 rounded-md"><FileText className="w-4 h-4 text-[#a18057]" /></div> Official Offer Letter
-                  </div>
-                  <div className="flex items-center gap-2.5 text-sm font-semibold text-[#111111]">
-                    <div className="bg-[#a18057]/10 p-1.5 rounded-md"><Award className="w-4 h-4 text-[#a18057]" /></div> Top Performer LORs
-                  </div>
-                </div>
+              {/* Simple Benefits List */}
+              <div className="w-full flex flex-col gap-4 max-w-[480px]">
+
+                 <div className="bg-white/60 backdrop-blur-sm border border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-4">
+                    <div className="shrink-0"><img src="/badge.png" className="w-12 h-12 object-contain" alt="Ambassador Badge" /></div>
+                    <div className="text-left">
+                       <div className="text-sm font-bold text-[#111111]">Exclusive Ambassador Badge</div>
+                       <div className="text-xs font-medium text-[#6b7280] mt-0.5">Showcase your leadership</div>
+                    </div>
+                 </div>
+                 
+                 <div className="bg-white/60 backdrop-blur-sm border border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4">
+                    <div className="bg-[#a18057]/10 p-2.5 rounded-xl shrink-0"><FileText className="w-5 h-5 text-[#a18057]" /></div>
+                    <div className="text-left">
+                       <div className="text-sm font-bold text-[#111111]">Official Offer Letter &amp; Certificate</div>
+                       <div className="text-xs font-medium text-[#6b7280] mt-0.5">For all selected ambassadors</div>
+                    </div>
+                 </div>
+
+                 <div className="bg-white/60 backdrop-blur-sm border border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4">
+                    <div className="bg-[#a18057]/10 p-2.5 rounded-xl shrink-0"><Linkedin className="w-5 h-5 text-[#0077b5]" /></div>
+                    <div className="text-left">
+                       <div className="text-sm font-bold text-[#111111]">LOR &amp; LinkedIn Endorsement</div>
+                       <div className="text-xs font-medium text-[#6b7280] mt-0.5">Exclusive for top performers</div>
+                    </div>
+                 </div>
+
               </div>
             </div>
 

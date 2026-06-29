@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Linkedin, Youtube, HeartHandshake } from "lucide-react"
+import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe } from "lucide-react"
 
 const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
 /* DEVELOPERS_DISABLED
@@ -78,7 +78,6 @@ export function Footer() {
         { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
         { name: "Contact", href: "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog", external: true },
         { name: "Donate", href: "https://rzp.io/rzp/support-bsprep", external: true },
-        { name: "Announcements", href: "/announcements" },
       ],
     },
     {
@@ -173,12 +172,23 @@ export function Footer() {
             ))}
           </div>
 
-          <div className="border-t border-[#EDE6DE] pt-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="border-t border-[#EDE6DE] pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex flex-col items-center md:items-start gap-1">
               <p className="text-slate-500 text-sm">© 2026 BSPrep. All rights reserved.</p>
-              <p className="text-slate-400 text-xs max-w-md text-center md:text-right">
+              <p className="text-slate-400 text-xs text-center md:text-left">
                 Not affiliated with IIT Madras. Independent student-led platform.
               </p>
+            </div>
+            
+            <div className="flex flex-wrap justify-center items-center gap-6">
+              <a href="mailto:security@bsprep.in" className="flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                Report a Vulnerability
+              </a>
+              <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
+                <Lock className="w-4 h-4 text-slate-400" />
+                Secure Platform
+              </div>
             </div>
           </div>
         </div>

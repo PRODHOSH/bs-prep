@@ -407,14 +407,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                           )
                         })}
 
-                        {announcements.length > 3 && (
-                          <div className="px-4 py-2 bg-white">
-                            <Link href="/announcements" className="text-xs font-semibold text-blue-700 hover:underline" onClick={() => setNotifOpen(false)}>
-                              View all announcements
-                            </Link>
-                          </div>
-                        )}
-
                         {announcements.length > 0 && upcomingClasses.length > 0 && (
                           <div className="px-4 py-1 bg-gray-50 text-[10px] font-semibold uppercase tracking-wider text-gray-500">
                             Live Classes
