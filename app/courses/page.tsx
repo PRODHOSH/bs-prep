@@ -43,7 +43,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Master fundamental math concepts",
     thumbnail: "/courses/math.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -56,7 +56,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Learn statistical thinking & analysis",
     thumbnail: "/courses/stats.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -69,7 +69,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Build problem-solving skills",
     thumbnail: "/courses/ct.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -82,7 +82,33 @@ const courses: Course[] = [
     weeks: 4,
     description: "Essential communication skills",
     thumbnail: "/courses/english.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-python",
+    title: "Programming in Python",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Learn Python from scratch and build real-world applications.",
+    thumbnail: "/courses/python.png",
+    price: 499, originalPrice: 599,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-java",
+    title: "Programming in Java",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Master Object Oriented Programming principles with Java.",
+    thumbnail: "/courses/java.png",
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -217,49 +243,91 @@ export default function CoursesPage() {
               </div>
             </div>
 
-            {/* Package deal */}
+            {/* Package deals */}
             {(selectedLevel === "all" || selectedLevel === "qualifier") && searchQuery === "" && (
-              <div
-                onClick={() => setShowLogin(true)}
-                className="mb-6 cursor-pointer group"
-              >
-                <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200">
-                  <div className="flex flex-col md:flex-row md:items-center gap-6">
-                    {/* Icon + title */}
-                    <div className="flex items-center gap-4 flex-1">
-                      <div className="w-12 h-12 rounded-xl bg-[#f5f5f5] flex items-center justify-center shrink-0">
-                        <Package className="w-6 h-6 text-[#111111]" />
+              <div className="grid grid-cols-1 gap-4 mb-6">
+                <div
+                  onClick={() => setShowLogin(true)}
+                  className="cursor-pointer group"
+                >
+                  <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200">
+                    <div className="flex flex-col md:flex-row md:items-center gap-6">
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="w-12 h-12 rounded-xl bg-[#f5f5f5] flex items-center justify-center shrink-0">
+                          <Package className="w-6 h-6 text-[#111111]" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Qualifier Bundle</span>
+                            <span className="inline-flex rounded-full bg-[#111111] text-white text-[10px] font-semibold px-2 py-0.5 tracking-wide">BEST VALUE</span>
+                          </div>
+                          <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">All 4 Qualifier Courses</h3>
+                          <p className="text-sm text-[#6b7280] mt-0.5">Math, Stats, CT, and English</p>
+                        </div>
                       </div>
+
+                      <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
+                        <div>
+                          <p className="text-xs text-[#6b7280] line-through">₹1999</p>
+                          <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1499</p>
+                          <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹500</p>
+                        </div>
+                        <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
+                          Get Package Deal
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div
+                    onClick={() => setShowLogin(true)}
+                    className="cursor-pointer group"
+                  >
+                    <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200 h-full flex flex-col justify-between">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Qualifier Bundle</span>
-                          <span className="inline-flex rounded-full bg-[#111111] text-white text-[10px] font-semibold px-2 py-0.5 tracking-wide">BEST VALUE</span>
                         </div>
-                        <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">All 4 Courses — Package Deal</h3>
-                        <p className="text-sm text-[#6b7280] mt-0.5">Enroll in all 4 available qualifier courses at once</p>
+                        <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">Any 3 Courses</h3>
+                        <p className="text-sm text-[#6b7280] mt-0.5">Choose any 3 from Math, Stats, CT, English</p>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mt-6">
+                        <div>
+                          <p className="text-xs text-[#6b7280] line-through">₹1499</p>
+                          <p className="text-2xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1199</p>
+                        </div>
+                        <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
+                          Get Deal
+                        </span>
                       </div>
                     </div>
+                  </div>
 
-                    {/* Course list */}
-                    <div className="grid grid-cols-2 gap-1.5 flex-1">
-                      {["Mathematics for Data Science I", "Statistics for Data Science I", "Computational Thinking", "English I"].map(name => (
-                        <div key={name} className="flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#10b981] shrink-0" />
-                          <span className="text-xs text-[#374151]">{name}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Price + CTA */}
-                    <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
+                  <div
+                    onClick={() => setShowLogin(true)}
+                    className="cursor-pointer group"
+                  >
+                    <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200 h-full flex flex-col justify-between">
                       <div>
-                        <p className="text-xs text-[#6b7280] line-through">₹599</p>
-                        <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹499</p>
-                        <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹100</p>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Coding Bundle</span>
+                        </div>
+                        <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">Python + Java</h3>
+                        <p className="text-sm text-[#6b7280] mt-0.5">Master both programming languages</p>
                       </div>
-                      <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
-                        Get Package Deal
-                      </span>
+                      
+                      <div className="flex items-center justify-between mt-6">
+                        <div>
+                          <p className="text-xs text-[#6b7280] line-through">₹1199</p>
+                          <p className="text-2xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹999</p>
+                        </div>
+                        <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
+                          Get Deal
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

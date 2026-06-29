@@ -13,11 +13,15 @@ function withGatewayFee(baseAmountPaise: number): number {
 }
 
 const courseBasePricing: Record<string, number> = {
-  "qualifier-math-1": 12900,
-  "qualifier-stats-1": 12900,
-  "qualifier-computational-thinking": 12900,
-  "qualifier-english-1": 12900,
-  bundle: 49900,
+  "qualifier-math-1": 49900,
+  "qualifier-stats-1": 49900,
+  "qualifier-computational-thinking": 49900,
+  "qualifier-english-1": 49900,
+  "qualifier-python": 49900,
+  "qualifier-java": 49900,
+  "bundle": 149900,
+  "core-3-bundle": 119900,
+  "coding-bundle": 99900,
 };
 
 const payableCoursePricing: Record<string, number> = Object.fromEntries(
@@ -31,6 +35,8 @@ const courseFallbackTitles: Record<string, string> = {
   "qualifier-stats-1": "Statistics 1",
   "qualifier-computational-thinking": "Computational Thinking",
   "qualifier-english-1": "English I",
+  "qualifier-python": "Programming in Python",
+  "qualifier-java": "Programming in Java",
   bundle: "Qualifier Bundle (4 Courses)",
 };
 
@@ -243,15 +249,14 @@ export async function POST(request: NextRequest) {
       }
 
       if (!existingPayment.welcome_email_sent_at) {
-        const isBundle = expectedCourseId === "bundle";
-        const enrollmentIds = isBundle
-          ? [
-              "qualifier-math-1",
-              "qualifier-stats-1",
-              "qualifier-computational-thinking",
-              "qualifier-english-1",
-            ]
-          : [expectedCourseId];
+        let enrollmentIds: string[] = [expectedCourseId];
+        if (expectedCourseId === "bundle") {
+          enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking", "qualifier-english-1"];
+        } else if (expectedCourseId === "core-3-bundle") {
+          enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking"];
+        } else if (expectedCourseId === "coding-bundle") {
+          enrollmentIds = ["qualifier-python", "qualifier-java"];
+        }
 
         const { data: courseRows, error: courseError } = await supabase
           .from("courses")
@@ -297,16 +302,14 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Determine if bundle or single course
-    const isBundle = expectedCourseId === "bundle";
-    const enrollmentIds = isBundle
-      ? [
-          "qualifier-math-1",
-          "qualifier-stats-1",
-          "qualifier-computational-thinking",
-          "qualifier-english-1",
-        ]
-      : [expectedCourseId];
+    let enrollmentIds: string[] = [expectedCourseId];
+    if (expectedCourseId === "bundle") {
+      enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking", "qualifier-english-1"];
+    } else if (expectedCourseId === "core-3-bundle") {
+      enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking"];
+    } else if (expectedCourseId === "coding-bundle") {
+      enrollmentIds = ["qualifier-python", "qualifier-java"];
+    }
 
     // Store payment record (for audit trail)
     const { error: paymentError } = await supabase
@@ -315,7 +318,7 @@ export async function POST(request: NextRequest) {
         user_id: userId,
         razorpay_order_id,
         razorpay_payment_id,
-        is_bundle: isBundle,
+        is_bundle: expectedCourseId === "bundle" || expectedCourseId === "core-3-bundle" || expectedCourseId === "coding-bundle",
         status: "completed",
         created_at: new Date().toISOString(),
       });

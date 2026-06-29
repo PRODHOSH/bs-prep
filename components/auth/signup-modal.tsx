@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { TurnstileWidget } from "@/components/turnstile-widget"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -33,15 +32,8 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!turnstileToken) {
-      setError("Please complete the security check first.")
-      return
-    }
 
     if (password !== repeatPassword) {
       setError("Passwords do not match")
@@ -62,19 +54,6 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
     setError(null)
 
     try {
-      const verifyRes = await fetch("/api/verify-turnstile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: turnstileToken }),
-      })
-      const verifyData = await verifyRes.json()
-      if (!verifyData.success) {
-        setError(verifyData.error || "Security check failed. Please try again.")
-        setTurnstileToken(null)
-        setIsLoading(false)
-        return
-      }
-
       const supabase = createClient()
       const redirectUrl = `${window.location.origin}/auth/callback`
       const { error } = await supabase.auth.signUp({
@@ -89,7 +68,6 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
       setSuccess(true)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
-      setTurnstileToken(null)
     } finally {
       setIsLoading(false)
     }
@@ -228,12 +206,6 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
               </label>
             </div>
 
-            <TurnstileWidget
-              open={open}
-              onSuccess={(token) => { setTurnstileToken(token); setError(null) }}
-              onExpire={() => setTurnstileToken(null)}
-              onError={() => { setTurnstileToken(null); setError("Security check failed. Please refresh and try again.") }}
-            />
 
             {error && (
               <div className="p-3 bg-[#fef2f2] border border-[#ef4444]/30 rounded-lg text-sm text-[#ef4444]">
@@ -244,7 +216,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
             <Button
               type="submit"
               className="w-full h-10 text-sm font-semibold bg-[#111111] hover:bg-[#242424] text-white rounded-lg disabled:opacity-50"
-              disabled={isLoading || !agreedToTerms || !turnstileToken}
+              disabled={isLoading || !agreedToTerms}
               suppressHydrationWarning
             >
               {isLoading ? "Creating account..." : "Create Account"}

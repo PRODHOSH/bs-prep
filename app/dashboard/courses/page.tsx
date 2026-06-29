@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { BookOpen, Search, Package, CheckCircle2 } from 'lucide-react'
+import { BookOpen, Search, Package, CheckCircle2, Lock } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 interface Course {
@@ -35,7 +35,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Master fundamental math concepts",
     thumbnail: "/courses/math.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -48,7 +48,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Learn statistical thinking & analysis",
     thumbnail: "/courses/stats.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -61,7 +61,7 @@ const courses: Course[] = [
     weeks: 4,
     description: "Build problem-solving skills",
     thumbnail: "/courses/ct.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -74,7 +74,33 @@ const courses: Course[] = [
     weeks: 4,
     description: "Essential communication skills",
     thumbnail: "/courses/english.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-python",
+    title: "Programming in Python",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Learn Python from scratch and build real-world applications.",
+    thumbnail: "/courses/python.png",
+    price: 499, originalPrice: 599,
+    available: true,
+    withCertificate: true
+  },
+  {
+    id: "qualifier-java",
+    title: "Programming in Java",
+    level: "qualifier",
+    type: "paid",
+    courseType: "course",
+    weeks: 4,
+    description: "Master Object Oriented Programming principles with Java.",
+    thumbnail: "/courses/java.png",
+    price: 499, originalPrice: 599,
     available: true,
     withCertificate: true
   },
@@ -295,51 +321,85 @@ export default function ExploreCourses() {
             </select>
           </div>
 
-          {/* Package Deal Card */}
+          {/* Package Deals */}
           {activeTab === "explore" && (selectedLevel === "all" || selectedLevel === "qualifier") && searchQuery === "" && (
-            <div className="mb-6">
-              <Link href="/payment/package-deal">
-                <div className="relative overflow-hidden rounded-xl border-2 border-[#51b206] bg-gradient-to-r from-[#f0fde7] via-white to-[#f0fde7] shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                  {/* Ribbon */}
-                  <div className="absolute top-0 right-0 bg-[#51b206] text-white text-xs font-bold px-4 py-1 rounded-bl-xl tracking-wide">BEST VALUE</div>
-
-                  <div className="p-6 flex flex-col md:flex-row md:items-center gap-6">
-                    {/* Icon + Title */}
+            <div className="grid grid-cols-1 gap-4 mb-6">
+              <Link href="/payment/bundle" className="cursor-pointer group block">
+                <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200">
+                  <div className="flex flex-col md:flex-row md:items-center gap-6">
                     <div className="flex items-center gap-4 flex-1">
-                      <div className="w-14 h-14 rounded-full bg-[#51b206]/15 flex items-center justify-center shrink-0">
-                        <Package className="w-7 h-7 text-[#51b206]" />
+                      <div className="w-12 h-12 rounded-xl bg-[#f5f5f5] flex items-center justify-center shrink-0">
+                        <Package className="w-6 h-6 text-[#111111]" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold text-[#51b206] uppercase tracking-widest mb-0.5">Qualifier Bundle</p>
-                        <h3 className="text-xl font-extrabold text-black leading-tight">All 4 Courses — Package Deal</h3>
-                        <p className="text-sm text-gray-500 mt-0.5">Enroll in all 4 available qualifier courses at once</p>
-                      </div>
-                    </div>
-
-                    {/* Included Courses */}
-                    <div className="flex flex-col gap-1.5 flex-1">
-                      {["Mathematics for Data Science I", "Statistics for Data Science I", "Computational Thinking", "English I"].map(name => (
-                        <div key={name} className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-[#51b206] shrink-0" />
-                          <span className="text-sm text-gray-700 font-medium">{name}</span>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Qualifier Bundle</span>
+                          <span className="inline-flex rounded-full bg-[#111111] text-white text-[10px] font-semibold px-2 py-0.5 tracking-wide">BEST VALUE</span>
                         </div>
-                      ))}
+                        <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">All 4 Qualifier Courses</h3>
+                        <p className="text-sm text-[#6b7280] mt-0.5">Math, Stats, CT, and English</p>
+                      </div>
                     </div>
 
-                    {/* Price + CTA */}
-                    <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
-                      <div className="text-center md:text-right">
-                        <p className="text-xs text-gray-400 line-through">₹599</p>
-                        <p className="text-4xl font-extrabold text-black">₹499</p>
-                        <p className="text-xs text-[#51b206] font-semibold">Save ₹100</p>
+                    <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
+                      <div>
+                        <p className="text-xs text-[#6b7280] line-through">₹1999</p>
+                        <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1499</p>
+                        <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹500</p>
                       </div>
-                      <span className="inline-block bg-[#51b206] text-white text-sm font-bold px-6 py-2.5 rounded-full group-hover:bg-[#3d8e04] transition-colors">
+                      <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
                         Get Package Deal
                       </span>
                     </div>
                   </div>
                 </div>
               </Link>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link href="/payment/core-3-bundle" className="cursor-pointer group block">
+                  <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Qualifier Bundle</span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">Core 3 Bundle</h3>
+                      <p className="text-sm text-[#6b7280] mt-0.5">Math, Stats, and Computational Thinking</p>
+                    </div>
+                    
+                    <div className="flex items-center justify-between mt-6">
+                      <div>
+                        <p className="text-xs text-[#6b7280] line-through">₹1499</p>
+                        <p className="text-2xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1199</p>
+                      </div>
+                      <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
+                        Get Deal
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="/payment/coding-bundle" className="cursor-pointer group block">
+                  <div className="rounded-2xl border border-[#e5e7eb] bg-white p-6 hover:border-[#111111] transition-all duration-200 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Coding Bundle</span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">Python + Java</h3>
+                      <p className="text-sm text-[#6b7280] mt-0.5">Master both programming languages</p>
+                    </div>
+                    
+                    <div className="flex items-center justify-between mt-6">
+                      <div>
+                        <p className="text-xs text-[#6b7280] line-through">₹1199</p>
+                        <p className="text-2xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹999</p>
+                      </div>
+                      <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
+                        Get Deal
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </div>
           )}
 
@@ -369,79 +429,76 @@ export default function ExploreCourses() {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {filteredCourses.map(course => {
                 const isAvailable = course.available !== false
                 const isEnrolled = enrolledCourseIds.includes(course.id)
-                const typeStyles = getCourseTypeStyles(course.courseType || "course")
-
                 return (
                   <Link
                     key={course.id}
                     href={isAvailable ? `/courses/${course.id}` : "#"}
                     className={`group block h-full ${!isAvailable ? 'pointer-events-none' : ''}`}
                   >
-                    <Card className="relative bg-white border border-gray-200 hover:border-gray-400 transition-all duration-200 hover:shadow-lg rounded-lg h-full">
-                      <CardContent className="p-4 flex flex-col h-full">
-                        {/* Top Badge - Course Type */}
-                        <div className="mb-2">
-                          <span className="inline-block px-2 py-0.5 bg-gray-100 text-black text-xs font-semibold rounded">
-                            {typeStyles.label}
+                    <div className="relative bg-white border border-[#e5e7eb] hover:border-[#111111] hover:shadow-md transition-all duration-200 rounded-2xl h-full overflow-hidden flex flex-col">
+                      {/* Thumbnail */}
+                      <div className="relative w-full overflow-hidden bg-[#f5f5f5]" style={{ aspectRatio: "16/9" }}>
+                        <img
+                          src={course.thumbnail}
+                          alt={course.title}
+                          className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                        />
+                        {/* Level & Enrolled badges over image */}
+                        <div className="absolute top-3 left-3 flex items-center gap-2">
+                          <span className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-sm ${
+                            course.level === "qualifier"
+                              ? "bg-white text-[#10b981] border border-[#10b981]/20"
+                              : "bg-white text-[#6b7280] border border-[#e5e7eb]"
+                          }`}>
+                            {course.level.charAt(0).toUpperCase() + course.level.slice(1)}
                           </span>
                           {isEnrolled && isAvailable && (
-                            <Badge className="ml-2 bg-[#51b206] hover:bg-[#51b206] text-white text-xs px-2 py-0.5">Enrolled</Badge>
+                            <span className="inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-sm bg-[#111111] text-white border border-[#111111]/20">
+                              Enrolled
+                            </span>
                           )}
                         </div>
+                      </div>
 
-                        {/* Course Branding/Provider */}
-                        <div className="mb-1">
-                          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">IITM BS</span>
-                        </div>
+                      {/* Content */}
+                      <div className="p-5 flex flex-col flex-1">
+                        <span className="text-[10px] font-semibold text-[#6b7280] uppercase tracking-widest mb-2">IITM BS</span>
 
-                        {/* Title */}
-                        <h3 className="text-base font-bold text-black mb-2 line-clamp-2 leading-tight">
+                        <h3 className="text-[17px] font-semibold text-[#111111] mb-1.5 line-clamp-2 leading-snug flex-1 tracking-[-0.3px]">
                           {course.title}
                         </h3>
+                        <p className="text-[15px] text-[#6b7280] mb-4 line-clamp-1">{course.description}</p>
 
-                        {/* Description */}
-                        <p className="text-xs text-gray-600 mb-3 line-clamp-1 leading-relaxed">
-                          {course.description}
-                        </p>
-
-                        {/* Divider */}
-                        <div className="h-px bg-gray-200 my-2"></div>
-
-                        <div className="mt-auto space-y-2">
-                          {/* Level */}
-                          <div className="flex items-center gap-1.5">
-                            <BookOpen className="w-3.5 h-3.5 text-gray-500" />
-                            <span className="text-xs font-medium capitalize text-gray-700">{course.level}</span>
+                        <div className="flex items-center justify-between pt-4 border-t border-[#e5e7eb] mt-auto">
+                          <div className="flex items-center gap-1.5 text-xs text-[#6b7280]">
+                            <BookOpen className="w-3.5 h-3.5" />
+                            <span>{course.weeks} weeks</span>
                           </div>
-                          
-                          {/* Price — hide when enrolled, show with strikethrough when not */}
-                          {course.price && !isEnrolled && (
-                            <div className="flex items-center justify-between pt-2 border-t border-gray-200">
-                              <span className="text-xs font-medium text-gray-600">Price</span>
-                              <div className="flex items-center gap-2">
-                                {course.originalPrice && (
-                                  <span className="text-xs text-gray-400 line-through">₹{course.originalPrice}</span>
-                                )}
-                                <span className="text-lg font-bold text-black">₹{course.price}</span>
-                              </div>
+                          {course.price && !isEnrolled ? (
+                            <div className="flex items-center gap-1.5">
+                              {course.originalPrice && (
+                                <span className="text-xs text-[#6b7280] line-through">₹{course.originalPrice}</span>
+                              )}
+                              <span className="text-lg font-semibold text-[#111111] tracking-[-0.3px]">₹{course.price}</span>
                             </div>
-                          )}
+                          ) : null}
                         </div>
-                      </CardContent>
-                      
-                      {/* Coming Soon Overlay */}
+                      </div>
+
+                      {/* Coming Soon overlay */}
                       {!isAvailable && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-[1px] rounded-lg">
-                          <div className="bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-black">
-                            <p className="text-lg font-bold text-black">Coming Soon</p>
+                        <div className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-[2px] rounded-2xl">
+                          <div className="flex items-center gap-2 bg-[#111111] text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-lg">
+                            <Lock className="w-3.5 h-3.5" />
+                            Coming Soon
                           </div>
                         </div>
                       )}
-                    </Card>
+                    </div>
                   </Link>
                 )
               })}

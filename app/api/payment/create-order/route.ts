@@ -26,13 +26,16 @@ function getRazorpayClient() {
 
 // Base prices (without gateway fee), amount in paise
 const courseBasePricing: Record<string, number> = {
-  "qualifier-math-1": 12900, // ₹129
-  "qualifier-stats-1": 12900,
-  "qualifier-computational-thinking": 12900,
-  "qualifier-english-1": 12900,
+  "qualifier-math-1": 49900,
+  "qualifier-stats-1": 49900,
+  "qualifier-computational-thinking": 49900,
+  "qualifier-english-1": 49900,
+  "qualifier-python": 49900,
+  "qualifier-java": 49900,
+  "bundle": 149900,
+  "core-3-bundle": 119900,
+  "coding-bundle": 99900,
 };
-
-const BUNDLE_BASE_PRICE = 49900; // ₹499 in paise
 
 function buildReceipt(userId: string): string {
   // Razorpay receipt max length is 40 chars.
@@ -82,29 +85,20 @@ export async function POST(request: NextRequest) {
     } catch {
       return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
     }
-    const isBundle = body?.isBundle === true;
-    const courseId = isBundle ? "bundle" : validateCourseId(body?.courseId);
+    const courseId = validateCourseId(body?.courseId);
 
     // Validate payer fields to avoid malformed or abusive payloads.
     const payer = validatePaymentForm(body?.payer || {});
 
-    // Determine amount
-    let amount: number;
-    let description: string;
-
-    if (isBundle) {
-      amount = withGatewayFee(BUNDLE_BASE_PRICE);
-      description = "Qualifier Bundle — All 4 Courses";
-    } else {
-      if (!(courseId in courseBasePricing)) {
-        return NextResponse.json(
-          { error: "Invalid course" },
-          { status: 400 }
-        );
-      }
-      amount = courseId in courseBasePricing ? withGatewayFee(courseBasePricing[courseId]) : 0;
-      description = `Course Enrollment - ${courseId}`;
+    if (!(courseId in courseBasePricing)) {
+      return NextResponse.json(
+        { error: "Invalid course" },
+        { status: 400 }
+      );
     }
+    
+    const amount = withGatewayFee(courseBasePricing[courseId]);
+    const description = `Course Enrollment - ${courseId}`;
 
     // Validate amount
     validateAmount(amount);
@@ -118,7 +112,7 @@ export async function POST(request: NextRequest) {
       notes: {
         userId,
         courseId,
-        baseAmountPaise: String(isBundle ? BUNDLE_BASE_PRICE : courseBasePricing[courseId]),
+        baseAmountPaise: String(courseBasePricing[courseId]),
         gatewayFeePercent: String(GATEWAY_FEE_PERCENT),
         chargeDescription: description,
         payerName: payer.name,

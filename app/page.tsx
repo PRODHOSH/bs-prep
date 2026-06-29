@@ -9,10 +9,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { AnnouncementBar } from "@/components/announcement-bar"
-import { WelcomeModal } from "@/components/welcome-modal"
 import { QualifierCountdown } from "@/components/qualifier-countdown"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
-import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown } from "lucide-react"
+import { BookOpen, Users, TrendingUp, ArrowRight, ChevronDown, Megaphone, Award, FileText, Star, FileCheck, FileBadge2, Linkedin } from "lucide-react"
 
 const spinner = <div className="animate-spin w-6 h-6 border-2 border-[#e5e7eb] border-t-[#111111] rounded-full" />
 
@@ -97,7 +96,6 @@ export default function HomePage() {
       `}</style>
 
       <Script src="https://www.noupe.com/embed/019d8d0fbba47ae59158befce960de8af525.js" strategy="afterInteractive" />
-      <WelcomeModal />
       <AnnouncementBar />
       <Navbar isAuthenticated={false} />
 
@@ -322,37 +320,48 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f5] border border-[#e5e7eb] px-3 py-1 text-xs font-medium text-[#6b7280] mb-4">
-              Tamil medium · Qualifier level
+              Tamil medium · Foundational level
             </span>
-            <h2 className="text-4xl md:text-5xl font-semibold text-[#111111] tracking-[-1.5px] leading-[1.1] mb-4">Crack Qualifier with Tamil Courses</h2>
-            <p className="text-[#6b7280] text-base mb-2">Master IITM BS Qualifier level with comprehensive Tamil video courses</p>
-            <div className="inline-flex items-stretch mt-6 rounded-xl border border-[#e5e7eb] bg-white overflow-hidden">
-              <div className="flex flex-col items-center justify-center px-6 py-4 gap-0.5">
+            <h2 className="text-4xl md:text-5xl font-semibold text-[#111111] tracking-[-1.5px] leading-[1.1] mb-4">Accelerate Your IITM BS Journey</h2>
+            <p className="text-[#6b7280] text-base mb-2">Master Foundation level courses including Qualifier, Python, and Java with comprehensive Tamil tutorials.</p>
+            <div className="inline-flex flex-col sm:flex-row items-stretch mt-6 rounded-xl border border-[#e5e7eb] bg-white overflow-hidden shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)]">
+              <div className="flex flex-col items-center justify-center px-6 py-4 gap-0.5 w-full sm:w-auto">
                 <span className="text-xs font-medium text-[#6b7280] uppercase tracking-widest mb-1">Per Course</span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-[#6b7280] line-through">₹149</span>
-                  <span className="text-3xl font-semibold text-[#111111] leading-none tracking-[-0.5px]">₹129</span>
+                  <span className="text-sm text-[#6b7280] line-through">₹599</span>
+                  <span className="text-3xl font-semibold text-[#111111] leading-none tracking-[-0.5px]">₹499</span>
                 </div>
-                <span className="mt-1 text-[11px] bg-[#111111] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">Special Price</span>
+                <span className="mt-1 text-[11px] bg-[#111111] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">Base Price</span>
               </div>
-              <div className="w-px bg-[#e5e7eb] my-3" />
-              <div className="flex flex-col items-center justify-center px-6 py-4 gap-0.5">
-                <span className="text-xs font-medium text-[#6b7280] uppercase tracking-widest mb-1">All 4 Courses</span>
+              <div className="h-px sm:h-auto w-full sm:w-px bg-[#e5e7eb] sm:my-3" />
+              <div className="flex flex-col items-center justify-center px-6 py-4 gap-0.5 w-full sm:w-auto bg-[#faf8f5]">
+                <span className="text-xs font-bold text-[#c2410c] uppercase tracking-widest mb-1">Coding Bundle</span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-[#10b981]/60 line-through">₹599</span>
-                  <span className="text-3xl font-semibold text-[#10b981] leading-none tracking-[-0.5px]">₹499</span>
+                  <span className="text-sm text-[#ea580c]/60 line-through">₹1199</span>
+                  <span className="text-3xl font-semibold text-[#ea580c] leading-none tracking-[-0.5px]">₹999</span>
                 </div>
-                <span className="mt-1 text-[11px] bg-[#10b981] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide">Best Value</span>
+                <span className="mt-1 text-[11px] bg-[#ea580c] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide shadow-sm">Python + Java</span>
+              </div>
+              <div className="h-px sm:h-auto w-full sm:w-px bg-[#e5e7eb] sm:my-3" />
+              <div className="flex flex-col items-center justify-center px-6 py-4 gap-0.5 w-full sm:w-auto">
+                <span className="text-xs font-bold text-[#10b981] uppercase tracking-widest mb-1">Qualifier Bundle</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm text-[#10b981]/60 line-through">₹1999</span>
+                  <span className="text-3xl font-semibold text-[#10b981] leading-none tracking-[-0.5px]">₹1499</span>
+                </div>
+                <span className="mt-1 text-[11px] bg-[#10b981] text-white rounded-full px-2.5 py-0.5 font-semibold tracking-wide shadow-sm">All 4 Subjects</span>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {[
-              { id: "qualifier-math-1", title: "Mathematics for Data Science I", description: "Master fundamental math concepts", thumbnail: "/courses/math.png", price: 129, originalPrice: 149 },
-              { id: "qualifier-stats-1", title: "Statistics for Data Science I", description: "Learn statistical thinking & analysis", thumbnail: "/courses/stats.png", price: 129, originalPrice: 149 },
-              { id: "qualifier-computational-thinking", title: "Computational Thinking", description: "Build problem-solving skills", thumbnail: "/courses/ct.png", price: 129, originalPrice: 149 },
-              { id: "qualifier-english-1", title: "English I", description: "Build core English communication skills", thumbnail: "/courses/english.png", price: 129, originalPrice: 149 }
+              { id: "qualifier-math-1", title: "Mathematics for Data Science I", description: "Master functions, limits, derivatives, and their applications.", thumbnail: "/courses/math.png", price: 499, originalPrice: 599 },
+              { id: "qualifier-stats-1", title: "Statistics for Data Science I", description: "Learn probability, distributions, and descriptive statistics.", thumbnail: "/courses/stats.png", price: 499, originalPrice: 599 },
+              { id: "qualifier-computational-thinking", title: "Computational Thinking", description: "Develop problem-solving skills and algorithmic logic.", thumbnail: "/courses/ct.png", price: 499, originalPrice: 599 },
+              { id: "qualifier-english-1", title: "English I", description: "Improve your technical reading and writing skills.", thumbnail: "/courses/english.png", price: 499, originalPrice: 599 },
+              { id: "qualifier-python", title: "Programming in Python", description: "Learn Python from scratch and build real-world applications.", thumbnail: "/courses/python.png", price: 499, originalPrice: 599 },
+              { id: "qualifier-java", title: "Programming in Java", description: "Master Object Oriented Programming principles with Java.", thumbnail: "/courses/java.png", price: 499, originalPrice: 599 }
             ].map((course) => (
               <Link key={course.id} href={`/courses/${course.id}`} className="group">
                 <Card className="bg-white border border-[#e5e7eb] hover:border-[#111111] transition-all duration-200 rounded-xl h-full overflow-hidden">
@@ -389,6 +398,73 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Ambassador Section */}
+      <section className="relative py-24 bg-[#FCFBF8] border-y border-[#e5e7eb] overflow-hidden">
+        {/* Background Patterns */}
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] opacity-10 pointer-events-none" 
+          style={{ backgroundImage: 'radial-gradient(circle at 10px 10px, #111111 2px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-10 pointer-events-none" 
+          style={{ backgroundImage: 'radial-gradient(circle at 10px 10px, #111111 2px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 lg:gap-16">
+            
+            {/* Left side: Character pointing at Badge */}
+            <div className="w-full md:w-1/2 flex justify-center md:justify-end relative pb-8 md:pb-0 min-h-[400px]">
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#f8e5c8] rounded-full blur-3xl w-[250px] h-[250px] md:w-[350px] md:h-[350px] z-0"></div>
+               
+               {/* Giant Girl */}
+               <img src="/3d-female-character-pointing-up.png" alt="Ambassador pointing" className="relative z-10 w-full max-w-[350px] md:max-w-[450px] drop-shadow-2xl object-contain" />
+            </div>
+
+            {/* Right side: Text and Benefits */}
+            <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left relative z-20">
+              <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 text-sm font-semibold text-orange-600 mb-6 shadow-sm">
+                 Coming Soon
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-[54px] font-black text-[#111111] tracking-tight leading-[1.1] mb-6">
+                STUDENT <br className="hidden md:block"/>
+                <span className="text-[#a18057]">AMBASSADOR</span> <br className="hidden md:block"/>
+                PROGRAM
+              </h2>
+              
+              <p className="text-[#475569] text-base md:text-lg mb-10 max-w-md">
+                Join the elite team of BSPrep Growth Fellows. Lead the community, build your resume, and earn exclusive rewards.
+              </p>
+
+              {/* Simple Benefits List */}
+              <div className="w-full flex flex-col gap-4 max-w-[480px]">
+
+                 <div className="bg-white/60 backdrop-blur-sm border border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-4">
+                    <div className="shrink-0"><img src="/badge.png" className="w-12 h-12 object-contain" alt="Ambassador Badge" /></div>
+                    <div className="text-left">
+                       <div className="text-sm font-bold text-[#111111]">Exclusive Ambassador Badge</div>
+                       <div className="text-xs font-medium text-[#6b7280] mt-0.5">Showcase your leadership</div>
+                    </div>
+                 </div>
+                 
+                 <div className="bg-white/60 backdrop-blur-sm border border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4">
+                    <div className="bg-[#a18057]/10 p-2.5 rounded-xl shrink-0"><FileText className="w-5 h-5 text-[#a18057]" /></div>
+                    <div className="text-left">
+                       <div className="text-sm font-bold text-[#111111]">Official Offer Letter &amp; Certificate</div>
+                       <div className="text-xs font-medium text-[#6b7280] mt-0.5">For all selected ambassadors</div>
+                    </div>
+                 </div>
+
+                 <div className="bg-white/60 backdrop-blur-sm border border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4">
+                    <div className="bg-[#a18057]/10 p-2.5 rounded-xl shrink-0"><Linkedin className="w-5 h-5 text-[#0077b5]" /></div>
+                    <div className="text-left">
+                       <div className="text-sm font-bold text-[#111111]">LOR &amp; LinkedIn Endorsement</div>
+                       <div className="text-xs font-medium text-[#6b7280] mt-0.5">Exclusive for top performers</div>
+                    </div>
+                 </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       <StaggerTestimonials />
 
@@ -409,9 +485,9 @@ export default function HomePage() {
 
           <p className="mt-5 text-xs text-white/40">
             Want to support the initiative?{" "}
-            <Link href="/donate" className="font-semibold text-white/70 underline underline-offset-4">
+            <a href="https://rzp.io/rzp/support-bsprep" target="_blank" rel="noopener noreferrer" className="font-semibold text-white/70 underline underline-offset-4">
               Donate to BSPREP
-            </Link>
+            </a>
           </p>
         </div>
       </section>

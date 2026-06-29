@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { TurnstileWidget } from "@/components/turnstile-widget"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -27,32 +26,14 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!turnstileToken) {
-      setError("Please complete the security check first.")
-      return
-    }
 
     setIsLoading(true)
     setError(null)
 
     try {
-      const verifyRes = await fetch("/api/verify-turnstile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: turnstileToken }),
-      })
-      const verifyData = await verifyRes.json()
-      if (!verifyData.success) {
-        setError(verifyData.error || "Security check failed. Please try again.")
-        setTurnstileToken(null)
-        setIsLoading(false)
-        return
-      }
 
       const supabase = createClient()
       const { error } = await supabase.auth.signInWithPassword({ email, password })
@@ -61,7 +42,6 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
       setTimeout(() => { window.location.href = "/dashboard" }, 100)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
-      setTurnstileToken(null)
       setIsLoading(false)
     }
   }
@@ -113,12 +93,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
               />
             </div>
 
-            <TurnstileWidget
-              open={open}
-              onSuccess={(token) => { setTurnstileToken(token); setError(null) }}
-              onExpire={() => setTurnstileToken(null)}
-              onError={() => { setTurnstileToken(null); setError("Security check failed. Please refresh and try again.") }}
-            />
+
 
             {error && (
               <div className="p-3 bg-[#fef2f2] border border-[#ef4444]/30 rounded-lg text-sm text-[#ef4444]">
@@ -129,7 +104,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
             <Button
               type="submit"
               className="w-full h-10 text-sm font-semibold bg-[#111111] hover:bg-[#242424] text-white rounded-lg disabled:opacity-50"
-              disabled={isLoading || !turnstileToken}
+              disabled={isLoading}
               suppressHydrationWarning
             >
               {isLoading ? "Logging in..." : "Login"}

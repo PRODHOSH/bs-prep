@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
         'python': 'foundation-programming-python'
       };
       
-      const mappedCourseId = courseIdMap[body.course] || body.course;
+      const normalizedCourse = body.course.toLowerCase();
+      const mappedCourseId = courseIdMap[normalizedCourse] || body.course;
       
       // 1. Fetch enrolled students
       let enrolledUserIds: string[] = [];

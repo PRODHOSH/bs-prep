@@ -26,8 +26,8 @@ const coursePaymentData: Record<string, any> = {
   "qualifier-math-1": {
     title: "Mathematics for Data Science I",
     level: "qualifier",
-    price: 129,
-    originalPrice: 149,
+    price: 499,
+    originalPrice: 599,
     description: "Fundamental mathematics concepts for data science",
     thumbnail: "/courses/math.png",
     weeks: 4,
@@ -35,8 +35,8 @@ const coursePaymentData: Record<string, any> = {
   "qualifier-stats-1": {
     title: "Statistics for Data Science I",
     level: "qualifier",
-    price: 129,
-    originalPrice: 149,
+    price: 499,
+    originalPrice: 599,
     description: "Introduction to statistical thinking and analysis",
     thumbnail: "/courses/stats.png",
     weeks: 4,
@@ -44,8 +44,8 @@ const coursePaymentData: Record<string, any> = {
   "qualifier-computational-thinking": {
     title: "Computational Thinking",
     level: "qualifier",
-    price: 129,
-    originalPrice: 149,
+    price: 499,
+    originalPrice: 599,
     description: "Problem-solving and algorithmic thinking fundamentals",
     thumbnail: "/courses/ct.png",
     weeks: 4,
@@ -53,10 +53,58 @@ const coursePaymentData: Record<string, any> = {
   "qualifier-english-1": {
     title: "English I",
     level: "qualifier",
-    price: 129,
-    originalPrice: 149,
+    price: 499,
+    originalPrice: 599,
     description: "Build core English communication skills for IITM BS.",
     thumbnail: "/courses/english.png",
+    weeks: 4,
+  },
+  "qualifier-python": {
+    title: "Programming in Python",
+    level: "qualifier",
+    price: 499,
+    originalPrice: 599,
+    description: "Learn Python from scratch and build real-world applications.",
+    thumbnail: "/courses/python.png",
+    weeks: 4,
+  },
+  "qualifier-java": {
+    title: "Programming in Java",
+    level: "qualifier",
+    price: 499,
+    originalPrice: 599,
+    description: "Master Object Oriented Programming principles with Java.",
+    thumbnail: "/courses/java.png",
+    weeks: 4,
+  },
+  "bundle": {
+    title: "Qualifier Bundle (4 Courses)",
+    level: "qualifier",
+    price: 1499,
+    originalPrice: 1999,
+    description: "Enroll in all 4 available qualifier courses at once",
+    thumbnail: "/courses/math.png",
+    thumbnails: ["/courses/math.png", "/courses/stats.png", "/courses/ct.png", "/courses/english.png"],
+    weeks: 4,
+  },
+  "core-3-bundle": {
+    title: "Core 3 Bundle",
+    level: "qualifier",
+    price: 1199,
+    originalPrice: 1497,
+    description: "Math, Stats, and Computational Thinking",
+    thumbnail: "/courses/stats.png",
+    thumbnails: ["/courses/math.png", "/courses/stats.png", "/courses/ct.png"],
+    weeks: 4,
+  },
+  "coding-bundle": {
+    title: "Coding Bundle (Python + Java)",
+    level: "qualifier",
+    price: 999,
+    originalPrice: 1199,
+    description: "Master both Python and Java programming languages",
+    thumbnail: "/courses/python.png",
+    thumbnails: ["/courses/python.png", "/courses/java.png"],
     weeks: 4,
   },
 }
@@ -138,7 +186,6 @@ export default function PaymentPage() {
         },
         body: JSON.stringify({
           courseId,
-          isBundle: false,
           payer: formData,
         }),
       })
@@ -268,15 +315,25 @@ export default function PaymentPage() {
             {/* Course Info Card */}
             <Card className="bg-white border border-gray-200 shadow-sm rounded-lg">
               <CardContent className="p-6">
-                {/* Course Thumbnail */}
-                <div className="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden border border-gray-200 mb-4">
-                  <img 
-                    src={course.thumbnail} 
-                    alt={course.title}
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: 'center' }}
-                  />
-                </div>
+                {/* Course Thumbnail(s) */}
+                {course.thumbnails ? (
+                  <div className={`grid gap-2 mb-4 ${course.thumbnails.length === 4 ? 'grid-cols-2' : course.thumbnails.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+                    {course.thumbnails.map((src: string, idx: number) => (
+                      <div key={idx} className="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden border border-gray-200">
+                        <img src={src} className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="w-full aspect-video bg-gray-50 rounded-xl overflow-hidden border border-gray-200 mb-4">
+                    <img 
+                      src={course.thumbnail} 
+                      alt={course.title}
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: 'center' }}
+                    />
+                  </div>
+                )}
 
                 <div className="flex items-center gap-3 mb-3">
                   <Badge className="bg-gray-100 text-black text-xs font-semibold px-3 py-1 rounded">

@@ -34,7 +34,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-math-1": {
     title: "Mathematics for Data Science I",
     level: "qualifier",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     description: "Fundamental mathematics concepts for data science",
     thumbnail: "/courses/math.png",
     syllabus: [
@@ -47,7 +47,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-stats-1": {
     title: "Statistics for Data Science I",
     level: "qualifier",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     description: "Introduction to statistical thinking and analysis",
     thumbnail: "/courses/stats.png",
     syllabus: [
@@ -60,7 +60,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-computational-thinking": {
     title: "Computational Thinking",
     level: "qualifier",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     description: "Problem-solving and algorithmic thinking fundamentals",
     thumbnail: "/courses/ct.png",
     syllabus: [
@@ -73,7 +73,7 @@ const courseSyllabusData: Record<string, any> = {
   "qualifier-english-1": {
     title: "English I",
     level: "qualifier",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     description: "Build core spoken and written English skills for IITM BS.",
     thumbnail: "/courses/english.png",
     syllabus: [
@@ -81,6 +81,32 @@ const courseSyllabusData: Record<string, any> = {
       { week: 2, title: "Parts of Speech", topics: "Nouns, pronouns, verbs, adjectives, adverbs and usage" },
       { week: 3, title: "Sentences", topics: "Phrases and idioms" },
       { week: 4, title: "Speaking Skills", topics: "Spoken English preliminaries" }
+    ]
+  },
+  "qualifier-python": {
+    title: "Programming in Python",
+    level: "qualifier",
+    price: 499, originalPrice: 599,
+    description: "Learn Python from scratch and build real-world applications.",
+    thumbnail: "/courses/python.png",
+    syllabus: [
+      { week: 1, title: "Introduction to Python", topics: "Variables, Data Types, Input/Output, Operators" },
+      { week: 2, title: "Control Flow", topics: "If-Else statements, For loops, While loops" },
+      { week: 3, title: "Data Structures", topics: "Lists, Tuples, Dictionaries, Sets" },
+      { week: 4, title: "Functions and Modules", topics: "Defining functions, scope, importing modules" }
+    ]
+  },
+  "qualifier-java": {
+    title: "Programming in Java",
+    level: "qualifier",
+    price: 499, originalPrice: 599,
+    description: "Master Object Oriented Programming principles with Java.",
+    thumbnail: "/courses/java.png",
+    syllabus: [
+      { week: 1, title: "Java Basics", topics: "Syntax, Data types, Variables, Operators" },
+      { week: 2, title: "Control Structures", topics: "Conditional statements, Loops, Switch cases" },
+      { week: 3, title: "Object Oriented Programming", topics: "Classes, Objects, Methods, Constructors" },
+      { week: 4, title: "Advanced OOP concepts", topics: "Inheritance, Polymorphism, Encapsulation, Abstraction" }
     ]
   }
 }
