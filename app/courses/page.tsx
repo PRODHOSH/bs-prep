@@ -269,8 +269,8 @@ export default function CoursesPage() {
                       <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
                         <div>
                           <p className="text-xs text-[#6b7280] line-through">₹1999</p>
-                          <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1499</p>
-                          <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹500</p>
+                          <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1799</p>
+                          <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹200</p>
                         </div>
                         <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
                           Get Package Deal
@@ -290,8 +290,8 @@ export default function CoursesPage() {
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-xs font-semibold text-[#6b7280] uppercase tracking-widest">Qualifier Bundle</span>
                         </div>
-                        <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">Any 3 Courses</h3>
-                        <p className="text-sm text-[#6b7280] mt-0.5">Choose any 3 from Math, Stats, CT, English</p>
+                        <h3 className="text-lg font-semibold text-[#111111] leading-tight tracking-[-0.3px]">Core 3 Bundle</h3>
+                        <p className="text-sm text-[#6b7280] mt-0.5">Math, Stats, and Computational Thinking</p>
                       </div>
                       
                       <div className="flex items-center justify-between mt-6">

@@ -344,8 +344,8 @@ export default function ExploreCourses() {
                     <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
                       <div>
                         <p className="text-xs text-[#6b7280] line-through">₹1999</p>
-                        <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1499</p>
-                        <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹500</p>
+                        <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹1799</p>
+                        <p className="text-xs text-[#10b981] font-medium mt-0.5">Save ₹200</p>
                       </div>
                       <span className="inline-flex items-center h-10 bg-[#111111] group-hover:bg-[#242424] text-white text-sm font-semibold px-5 rounded-lg transition-colors">
                         Get Package Deal
