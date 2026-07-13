@@ -19,7 +19,7 @@ const courseBasePricing: Record<string, number> = {
   "qualifier-english-1": 49900,
   "qualifier-python": 49900,
   "qualifier-java": 49900,
-  "bundle": 149900,
+  "bundle": 179900,
   "core-3-bundle": 119900,
   "coding-bundle": 99900,
 };

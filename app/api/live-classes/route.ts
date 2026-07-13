@@ -57,7 +57,8 @@ export async function GET(request: NextRequest) {
         'ct': 'qualifier-computational-thinking',
         'stats-1': 'qualifier-stats-1',
         'math-1': 'qualifier-math-1',
-        'python': 'foundation-programming-python'
+        'qualifier-python': 'qualifier-python',
+        'qualifier-java': 'qualifier-java'
       };
       const courseId = courseIdMap[code];
       return courseId ? enrolledCourseIds.includes(courseId) : false;

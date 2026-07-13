@@ -8,18 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { BookOpen, Trophy, Users, TrendingUp, Calendar, Clock, Video, Award, Star } from "lucide-react"
 
-interface Course {
-  id: string
-  title: string
-  description: string
-  level: string
-  type: string
-  courseType?: string
-  weeks: number
-  thumbnail: string
-  includesCourses?: number
-  withCertificate?: boolean
-}
+import { Course, courses as staticCourses } from "@/lib/course-catalog"
 
 interface LiveClass {
   course: string
@@ -33,7 +22,9 @@ const COURSE_DISPLAY_NAMES: Record<string, string> = {
   "ct": "Computational Thinking",
   "math-1": "Mathematics for Data Science I",
   "stats-1": "Statistics I",
-  "python": "Programming in Python",
+  "python": "Programming in Python (Free)",
+  "qualifier-python": "Programming in Python",
+  "qualifier-java": "Programming in Java",
   "math-2": "Mathematics for Data Science II",
   "stats-2": "Statistics II",
   "english-1": "English I",
@@ -108,12 +99,19 @@ export default function StudentDashboard() {
           
           if (enrollments && enrollments.length > 0) {
             const courseIds = enrollments.map(e => e.course_id)
-            const { data: courses } = await supabase
+            const { data: dbCourses } = await supabase
               .from('courses')
               .select('*')
               .in('id', courseIds)
             
-            setEnrolledCourses(courses || [])
+            // Map course details, fallback to static if DB is missing
+            const courses = courseIds.map(id => {
+              const dbCourse = dbCourses?.find(c => c.id === id);
+              const staticCourse = staticCourses.find(c => c.id === id);
+              return dbCourse || staticCourse;
+            }).filter(Boolean) as Course[];
+
+            setEnrolledCourses(courses)
           }
         }
       } catch (error) {

@@ -65,7 +65,9 @@ export async function POST(request: NextRequest) {
         'ct': 'qualifier-computational-thinking',
         'stats-1': 'qualifier-stats-1',
         'math-1': 'qualifier-math-1',
-        'python': 'foundation-programming-python'
+        'python': 'python', // Legacy free python
+        'qualifier-python': 'qualifier-python',
+        'qualifier-java': 'qualifier-java'
       };
       
       const normalizedCourse = body.course.toLowerCase();
@@ -75,7 +77,7 @@ export async function POST(request: NextRequest) {
       let enrolledUserIds: string[] = [];
       let fetchAllUsers = false;
       
-      if (mappedCourseId === 'doubts') {
+      if (mappedCourseId === 'doubts' || mappedCourseId === 'python') {
         fetchAllUsers = true;
       } else {
         const { data: enrollments, error: enrollError } = await adminSupabase

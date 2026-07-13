@@ -3,12 +3,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server"
 import { hasAdminRole } from "@/lib/security/admin-role"
 import { createClient } from "@/lib/supabase/server"
 
-const COURSES = [
-  { id: "qualifier-math-1",                title: "Mathematics for Data Science I" },
-  { id: "qualifier-stats-1",               title: "Statistics for Data Science I" },
-  { id: "qualifier-computational-thinking", title: "Computational Thinking" },
-  { id: "qualifier-english-1",             title: "English I" },
-]
+import { courses as COURSES } from "@/lib/course-catalog"
 
 async function assertAdmin() {
   const supabase = await createClient()

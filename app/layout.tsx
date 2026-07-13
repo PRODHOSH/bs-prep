@@ -9,6 +9,7 @@ import { BeamsBackgroundLazy } from "@/components/beams-background-lazy"
 import { LoadingProvider } from "@/components/loading-provider"
 import { Loading } from "@/components/loading"
 import { AuthErrorHandler } from "@/components/auth-error-handler"
+import { ReferralTracker } from "@/components/referral-tracker"
 import "./globals.css"
 
 const urbanist = Urbanist({ 
@@ -149,6 +150,7 @@ export default function RootLayout({
       </head>
       <body className={`font-sans antialiased ${urbanist.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
+          <ReferralTracker />
           <BeamsBackgroundLazy />
           <div className="relative z-10">
             <AuthErrorHandler />

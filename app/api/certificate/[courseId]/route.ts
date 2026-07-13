@@ -2,12 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { hasAdminRole } from "@/lib/security/admin-role"
 
-const COURSE_NAMES: Record<string, string> = {
-  "qualifier-math-1":                "Mathematics for Data Science I",
-  "qualifier-stats-1":               "Statistics for Data Science I",
-  "qualifier-computational-thinking": "Computational Thinking",
-  "qualifier-english-1":             "English I",
-}
+import { courses } from "@/lib/course-catalog"
 
 export async function GET(
   _req: NextRequest,
@@ -15,7 +10,8 @@ export async function GET(
 ) {
   const { courseId } = await params
 
-  if (!COURSE_NAMES[courseId]) {
+  const course = courses.find((c) => c.id === courseId)
+  if (!course) {
     return NextResponse.json({ error: "Unknown course" }, { status: 404 })
   }
 
@@ -68,7 +64,7 @@ export async function GET(
 
   return NextResponse.json({
     studentName: name,
-    courseName: COURSE_NAMES[courseId],
+    courseName: course.title,
     issueDate: new Date(cert?.enabled_at ?? new Date()).toLocaleDateString("en-IN", {
       day: "numeric", month: "long", year: "numeric",
     }),

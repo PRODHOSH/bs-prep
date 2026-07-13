@@ -13,21 +13,18 @@ type EnrollmentRow = {
   payment_status?: string | null
 }
 
-const courseTitleFallback: Record<string, string> = {
-  "qualifier-math-1": "Mathematics for Data Science I",
-  "qualifier-stats-1": "Statistics for Data Science I",
-  "qualifier-computational-thinking": "Computational Thinking",
-  "qualifier-english-1": "English I",
-  "foundation-math-2": "Mathematics for Data Science II",
-  "foundation-stats-2": "Statistics for Data Science II",
-  "foundation-programming-python": "Programming in Python",
-  "foundation-english-2": "English II",
-  bundle: "Qualifier Bundle (4 Courses)",
-}
+import { courses } from "@/lib/course-catalog"
 
 function formatFallbackTitle(courseId: string): string {
   if (!courseId) return "Untitled Course"
-  return courseTitleFallback[courseId] || courseId.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  
+  // Check our static course catalog first
+  const catalogCourse = courses.find(c => c.id === courseId)
+  if (catalogCourse) return catalogCourse.title
+  
+  if (courseId === "bundle") return "Qualifier Bundle (4 Courses)"
+  
+  return courseId.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 export async function GET(_request: NextRequest, { params }: Params) {

@@ -60,11 +60,55 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServiceRoleClient()
 
+    const notes = paymentEntity?.notes as Record<string, string> | undefined
+    
     if (eventName === "payment.captured" || eventName === "order.paid") {
-      await supabase
+      // First try to just update if it exists
+      const { data: existing } = await supabase
         .from("payment_orders")
-        .update({ status: "completed", updated_at: new Date().toISOString() })
+        .select("id")
         .or(`razorpay_order_id.eq.${orderId},razorpay_payment_id.eq.${paymentId}`)
+        .maybeSingle()
+
+      if (existing) {
+        await supabase
+          .from("payment_orders")
+          .update({ status: "completed", updated_at: new Date().toISOString() })
+          .eq("id", existing.id)
+      } else if (notes?.userId && notes?.courseId) {
+        // If it doesn't exist, the user closed the tab before verify/route.ts ran.
+        // We must insert the payment order AND the enrollments!
+        const expectedCourseId = notes.courseId;
+        const isBundle = expectedCourseId === "bundle" || expectedCourseId === "core-3-bundle" || expectedCourseId === "coding-bundle";
+        
+        await supabase.from("payment_orders").insert({
+          user_id: notes.userId,
+          razorpay_order_id: orderId,
+          razorpay_payment_id: paymentId,
+          is_bundle: isBundle,
+          status: "completed",
+          created_at: new Date().toISOString(),
+        });
+        
+        let enrollmentIds: string[] = [expectedCourseId];
+        if (expectedCourseId === "bundle") {
+          enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking", "qualifier-english-1"];
+        } else if (expectedCourseId === "core-3-bundle") {
+          enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking"];
+        } else if (expectedCourseId === "coding-bundle") {
+          enrollmentIds = ["qualifier-python", "qualifier-java"];
+        }
+        
+        const enrollments = enrollmentIds.map((id) => ({
+          user_id: notes.userId,
+          course_id: id,
+          enrolled_at: new Date().toISOString(),
+        }));
+        
+        await supabase.from("enrollments").upsert(enrollments, {
+          onConflict: "user_id,course_id",
+        });
+      }
     }
 
     if (eventName === "payment.failed") {

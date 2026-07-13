@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { processReferral } from "@/app/actions/referral"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -28,10 +29,21 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   const [repeatPassword, setRepeatPassword] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [referralCode, setReferralCode] = useState("")
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+
+  useEffect(() => {
+    // Read the referral cookie if it exists
+    const cookies = document.cookie.split(";")
+    const refCookie = cookies.find((c) => c.trim().startsWith("bsprep_ref="))
+    if (refCookie) {
+      setReferralCode(refCookie.split("=")[1])
+    }
+  }, [])
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -56,7 +68,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
     try {
       const supabase = createClient()
       const redirectUrl = `${window.location.origin}/auth/callback`
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -65,6 +77,11 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
         },
       })
       if (error) throw error
+
+      if (data.user && referralCode) {
+        await processReferral(data.user.id, referralCode)
+      }
+
       setSuccess(true)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred")
@@ -187,6 +204,18 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
                 className="h-10 text-[25px] bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                suppressHydrationWarning
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="signup-referral" className="text-sm font-medium text-[#111111]">Referral Code (Optional)</Label>
+              <Input
+                id="signup-referral"
+                placeholder="e.g. BSPREP10"
+                value={referralCode}
+                onChange={(e) => setReferralCode(e.target.value)}
+                className="h-10 text-sm bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg uppercase"
                 suppressHydrationWarning
               />
             </div>

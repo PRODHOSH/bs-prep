@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { processReferral } from '@/app/actions/referral'
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
@@ -47,6 +48,11 @@ export async function GET(request: Request) {
           }
         }
 
+        // Handle referral
+        const refCookie = request.cookies.get('bsprep_ref')
+        if (refCookie?.value) {
+          await processReferral(user.id, refCookie.value)
+        }
       }
       
       // Successful authentication - redirect to requested local path.

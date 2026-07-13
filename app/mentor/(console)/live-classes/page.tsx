@@ -115,7 +115,7 @@ export default function MentorLiveClassesPage() {
               <input
                 required
                 type="text"
-                placeholder="e.g. python, ct, stats-1"
+                placeholder="e.g. qualifier-python, ct, stats-1"
                 className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500"
                 value={formData.course}
                 onChange={e => setFormData({ ...formData, course: e.target.value })}
