@@ -52,11 +52,11 @@ export function Footer() {
     {
       heading: "Platform",
       links: [
+        { name: "Home", href: "/" },
         { name: "Courses", href: "/courses" },
         { name: "Quiz Prep", href: "/quiz-prep" },
-        { name: "Compiler", href: "/compiler", pro: true },
         { name: "Resources", href: "/resources" },
-        { name: "Live Classes", href: "/dashboard/live-classes", pro: true },
+        { name: "Live Classes", href: "/dashboard/live-classes" },
         { name: "Tools", href: "/tools" },
         { name: "Blogs", href: "https://blog.bsprep.in", external: true },
       ],
@@ -64,20 +64,12 @@ export function Footer() {
     {
       heading: "Community",
       links: [
-        { name: "Dashboard", href: "/dashboard", pro: true },
-        { name: "Leaderboard", href: "/dashboard/leaderboard", pro: true },
-        { name: "Mentors", href: "/dashboard/mentors", pro: true },
-        { name: "Doubts", href: "/dashboard/doubts", pro: true },
-        { name: "Community", href: "/community", pro: true },
-      ],
-    },
-    {
-      heading: "Company",
-      links: [
+        { name: "Dashboard", href: "/dashboard" },
+        { name: "Doubts", href: "/dashboard/doubts" },
         { name: "Careers", href: "https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform", external: true },
+        { name: "Ambassador Portal", href: "https://ambassador.bsprep.in/", external: true },
         { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
         { name: "Contact", href: "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog", external: true },
-        { name: "Donate", href: "https://rzp.io/rzp/support-bsprep", external: true },
       ],
     },
     {
@@ -95,24 +87,24 @@ export function Footer() {
     <>
       <footer className="bg-[#FDFBF7] border-t border-black/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-10">
             {/* Brand */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-[68px] h-[68px] overflow-hidden rounded-full bg-white border border-black/5">
+              <div className="flex items-center gap-2">
+                <div className="w-[44px] h-[44px] overflow-hidden rounded-full bg-white border border-black/5 shrink-0">
                   <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.6]" />
                 </div>
-                <span className="text-xl font-bold text-black uppercase tracking-widest">BSPREP</span>
+                <span className="font-black text-2xl tracking-tighter text-black">BSPREP</span>
               </div>
               <p className="text-black/70 text-xs font-bold leading-relaxed uppercase">Learn. Grow. Excel. Together.</p>
               <p className="text-black/50 text-[10px] font-bold uppercase">Community-driven academic support for IIT Madras students.</p>
               <a href="mailto:support@bsprep.in" className="text-black/50 text-[10px] font-bold hover:text-black transition-colors inline-block mt-1 uppercase">SUPPORT@BSPREP.IN</a>
-              <div className="flex gap-3 pt-2">
+              <div className="flex gap-2 pt-2">
                 <a
                   href="https://www.linkedin.com/company/bs-prep/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-[#0077b5] hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
+                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-[#0077b5] hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -120,9 +112,17 @@ export function Footer() {
                   href="https://www.youtube.com/@DataScienceIITMTamil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
+                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
                 >
                   <Youtube className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://www.instagram.com/bsprep.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
+                >
+                  <Instagram className="w-4 h-4" />
                 </a>
               </div>
               <a
