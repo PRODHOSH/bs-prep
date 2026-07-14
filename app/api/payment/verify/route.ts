@@ -91,19 +91,36 @@ function toAbsoluteAssetUrl(assetPath: string | null | undefined, siteUrl: strin
   return new URL(normalizedPath, siteUrl).toString()
 }
 
+import { courses as catalogCourses } from "@/lib/course-catalog";
+
 function resolveCourseEmailData(
   enrollmentIds: string[],
   courseRows: Array<{ id: string; title: string; thumbnail: string | null }> | null | undefined,
   siteUrl: string
 ): Array<{ title: string; thumbnailUrl: string | null }> {
   return enrollmentIds.map((courseId) => {
-    const match = courseRows?.find((row) => row.id === courseId)
-    const title = match?.title || courseFallbackTitles[courseId] || courseId
-    const thumbnailUrl = toAbsoluteAssetUrl(match?.thumbnail ?? null, siteUrl)
+    // 1. Try course catalog first (best source for thumbnails and titles)
+    const catalogMatch = catalogCourses.find((c) => c.id === courseId)
+    if (catalogMatch) {
+      return {
+        title: catalogMatch.title,
+        thumbnailUrl: toAbsoluteAssetUrl(catalogMatch.thumbnail, siteUrl),
+      }
+    }
 
+    // 2. Fallback to database row
+    const dbMatch = courseRows?.find((row) => row.id === courseId)
+    if (dbMatch) {
+      return {
+        title: dbMatch.title,
+        thumbnailUrl: toAbsoluteAssetUrl(dbMatch.thumbnail, siteUrl),
+      }
+    }
+
+    // 3. Fallback to hardcoded titles
     return {
-      title,
-      thumbnailUrl,
+      title: courseFallbackTitles[courseId] || courseId,
+      thumbnailUrl: null,
     }
   })
 }

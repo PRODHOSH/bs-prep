@@ -4,16 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Users, TrendingUp, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { AnimatedCounter } from "@/components/animated-counter";
-import dynamic from "next/dynamic";
-
-const CardSwap = dynamic(
-  () => import("@/components/card-swap"),
-  { ssr: false, loading: () => <div className="h-[400px] bg-white rounded-3xl shadow-xl" /> }
-);
-const SwapCard = dynamic(
-  () => import("@/components/card-swap").then((m) => ({ default: m.Card })),
-  { ssr: false }
-);
+import { HeroGraphic } from "@/components/hero-graphic";
 
 export function Hero() {
   return (
@@ -67,37 +58,14 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Card Stack */}
+          {/* Right: Graphic */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative h-[250px] md:h-[400px] w-full flex items-center justify-center lg:justify-end mt-8 md:mt-0 hidden sm:flex lg:-mr-4"
+            className="relative h-[250px] md:h-[400px] w-full mt-8 md:mt-0 hidden sm:flex items-center justify-center lg:justify-end lg:-mr-4"
           >
-            <CardSwap
-              width={640}
-              height={400}
-              cardDistance={40}
-              verticalDistance={50}
-              delay={3500}
-              pauseOnHover={true}
-            >
-              <SwapCard>
-                <div className="w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden ring-1 ring-black/5">
-                  <img src="/hero-section/image-1.png" alt="Mathematics for Data Science I" className="w-full h-full object-cover" />
-                </div>
-              </SwapCard>
-              <SwapCard>
-                <div className="w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden ring-1 ring-black/5">
-                  <img src="/hero-section/image-2.png" alt="Statistics for Data Science I" className="w-full h-full object-cover" />
-                </div>
-              </SwapCard>
-              <SwapCard>
-                <div className="w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden ring-1 ring-black/5">
-                  <img src="/hero-section/image-3.png" alt="Computational Thinking" className="w-full h-full object-cover" />
-                </div>
-              </SwapCard>
-            </CardSwap>
+            <HeroGraphic />
           </motion.div>
         </div>
 
