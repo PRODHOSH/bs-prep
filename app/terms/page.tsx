@@ -24,7 +24,7 @@ const sections = [
   {
     num: "04",
     title: "User Accounts",
-    body: "You must provide accurate and complete information when creating an account. You are responsible for maintaining the confidentiality of your credentials and for all activities that occur under your account. Notify us immediately at bsprep.team@gmail.com if you suspect unauthorized access.",
+    body: "You must provide accurate and complete information when creating an account. You are responsible for maintaining the confidentiality of your credentials and for all activities that occur under your account. Notify us immediately at support@bsprep.in if you suspect unauthorized access.",
   },
   {
     num: "05",
@@ -86,7 +86,7 @@ export default function TermsPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
       <Navbar isAuthenticated={isAuthenticated} />
 
       <main className="flex-1 py-16 px-4 relative z-10">
@@ -100,7 +100,7 @@ export default function TermsPage() {
           </div>
 
           {/* Refund Policy Callout */}
-          <div className="mb-6 rounded-2xl border-2 border-black bg-black text-white px-7 py-6">
+          <div className="mb-6 rounded-2xl bg-black shadow-md text-white px-7 py-6">
             <p className="text-[11px] uppercase tracking-widest font-semibold text-white/40 mb-1">Important Notice</p>
             <p className="font-bold text-lg leading-snug mb-2">No Refund Policy</p>
             <p className="text-sm text-white/70 leading-relaxed">
@@ -129,10 +129,10 @@ export default function TermsPage() {
               <p className="text-white/50 text-xs mt-0.5">BSPrep — Student-led IITM BS Qualifier Prep</p>
             </div>
             <a
-              href="mailto:bsprep.team@gmail.com"
+              href="mailto:support@bsprep.in"
               className="text-white/70 hover:text-white text-xs font-mono transition-colors underline underline-offset-2"
             >
-              bsprep.team@gmail.com
+              support@bsprep.in
             </a>
           </div>
 

@@ -7,8 +7,6 @@ import { assignGrade } from "@/lib/gpa/grade-utils"
 import type { Course } from "@/lib/gpa/types"
 import dynamic from "next/dynamic"
 import { Calculator, Plus, Trash2 } from "lucide-react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -38,7 +36,7 @@ const gradePointsOptions = [
   { label: "U (0)", value: 0 },
 ]
 
-export default function GPACalculator() {
+export default function DashboardGPACalculatorPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
@@ -122,8 +120,7 @@ export default function GPACalculator() {
     return (
       <div className="min-h-screen bg-white relative">
         <BeamsBackground />
-        <Navbar isAuthenticated={isAuthenticated} />
-        <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
+                <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
           <div className="animate-spin w-12 h-12 border-4 border-black border-t-transparent rounded-full"></div>
         </div>
       </div>
@@ -133,8 +130,7 @@ export default function GPACalculator() {
   return (
     <div className="min-h-screen bg-white relative">
       <BeamsBackground />
-      <Navbar isAuthenticated={isAuthenticated} />
-      
+            
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl border border-black/10 bg-black mb-6 shadow-md">
@@ -507,7 +503,6 @@ export default function GPACalculator() {
         )}
       </div>
 
-      <Footer />
-    </div>
+          </div>
   )
 }

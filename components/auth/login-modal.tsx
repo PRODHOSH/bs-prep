@@ -57,16 +57,16 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-[#e5e7eb] max-w-md p-0 overflow-hidden rounded-2xl">
-        <div className="p-8">
+      <DialogContent className="bg-white border border-black/5 max-w-md p-0 overflow-hidden rounded-3xl shadow-2xl">
+        <div className="p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
           <DialogHeader className="text-center mb-7">
-            <DialogTitle className="text-3xl font-semibold text-[#111111] tracking-[-1px] mb-1.5">Welcome back</DialogTitle>
-            <DialogDescription className="text-[#6b7280] text-sm">Enter your credentials to continue</DialogDescription>
+            <DialogTitle className="text-3xl font-black text-black uppercase tracking-tight mb-1.5">WELCOME BACK</DialogTitle>
+            <DialogDescription className="text-black/70 text-sm font-medium uppercase tracking-widest">Enter your credentials to continue</DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="login-email" className="text-sm font-medium text-[#111111]">Email Address</Label>
+              <Label htmlFor="login-email" className="text-sm font-bold text-black uppercase tracking-widest">EMAIL ADDRESS</Label>
               <Input
                 id="login-email"
                 type="email"
@@ -74,13 +74,13 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-10 text-sm bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
                 suppressHydrationWarning
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="login-password" className="text-sm font-medium text-[#111111]">Password</Label>
+              <Label htmlFor="login-password" className="text-sm font-bold text-black uppercase tracking-widest">PASSWORD</Label>
               <Input
                 id="login-password"
                 type="password"
@@ -88,7 +88,7 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-10 text-[50px] bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
                 suppressHydrationWarning
               />
             </div>
@@ -103,26 +103,26 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
 
             <Button
               type="submit"
-              className="w-full h-10 text-sm font-semibold bg-[#111111] hover:bg-[#242424] text-white rounded-lg disabled:opacity-50"
+              className="w-full h-12 text-sm font-bold bg-[#0a192f] hover:bg-[#112a52] text-white rounded-full disabled:opacity-50 tracking-widest uppercase transition-colors shadow-md"
               disabled={isLoading}
               suppressHydrationWarning
             >
-              {isLoading ? "Logging in..." : "Login"}
+              {isLoading ? "LOGGING IN..." : "LOGIN"}
             </Button>
 
             <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-[#e5e7eb]" />
+                <span className="w-full border-t border-black/10" />
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-4 text-[#6b7280] tracking-wider">Or continue with</span>
+              <div className="relative flex justify-center text-xs font-bold uppercase tracking-widest">
+                <span className="bg-white px-4 text-black">OR CONTINUE WITH</span>
               </div>
             </div>
 
             <Button
               type="button"
               onClick={handleGoogleSignIn}
-              className="w-full h-10 text-sm font-semibold bg-white hover:bg-[#f5f5f5] text-[#111111] border border-[#e5e7eb] rounded-lg"
+              className="w-full h-12 text-sm font-bold bg-white hover:bg-black/5 text-black border border-black/10 rounded-full uppercase tracking-widest transition-all shadow-sm"
             >
               <svg className="w-4 h-4 mr-2.5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -137,21 +137,21 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
               <button
                 type="button"
                 onClick={onSwitchToForgotPassword}
-                className="text-sm text-[#6b7280] hover:text-[#111111] transition-colors"
+                className="text-xs font-bold text-black/60 hover:text-black transition-colors uppercase tracking-widest underline underline-offset-4"
               >
-                Forgot password?
+                FORGOT PASSWORD?
               </button>
             </div>
           </form>
 
-          <div className="text-center mt-6 pt-5 border-t border-[#e5e7eb]">
-            <p className="text-sm text-[#6b7280]">
-              Need an account?{" "}
+          <div className="text-center mt-6 pt-5 border-t border-black/10">
+            <p className="text-xs font-bold uppercase tracking-widest text-black/60">
+              NEED AN ACCOUNT?{" "}
               <button
                 onClick={onSwitchToSignUp}
-                className="text-[#111111] font-semibold hover:text-[#242424] transition-colors"
+                className="text-black font-black hover:text-[#1e3a8a] transition-colors"
               >
-                Register
+                REGISTER
               </button>
             </p>
           </div>

@@ -51,29 +51,29 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-gray-200 max-w-md p-0 overflow-hidden">
-        <div className="p-8">
+      <DialogContent className="bg-white border border-black/5 max-w-md p-0 overflow-hidden rounded-3xl shadow-2xl">
+        <div className="p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
           {!success ? (
             <>
               <button
                 onClick={onSwitchToLogin}
-                className="inline-flex items-center text-gray-600 hover:text-black transition-colors mb-6 group"
+                className="inline-flex items-center text-xs font-bold text-black/60 hover:text-black transition-colors mb-6 group tracking-widest uppercase"
               >
                 <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-                Back to Login
+                BACK TO LOGIN
               </button>
 
               <DialogHeader className="text-center mb-6">
-                <DialogTitle className="text-4xl font-bold text-black mb-2">Forgot Password?</DialogTitle>
-                <DialogDescription className="text-gray-600 text-base">
+                <DialogTitle className="text-3xl font-black text-black uppercase tracking-tight mb-1.5">FORGOT PASSWORD</DialogTitle>
+                <DialogDescription className="text-black/70 text-sm font-medium uppercase tracking-widest">
                   No worries, we'll send you reset instructions.
                 </DialogDescription>
               </DialogHeader>
 
               <form onSubmit={handleResetPassword} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-semibold text-black">
-                    Email Address
+                  <Label htmlFor="email" className="text-sm font-bold text-black uppercase tracking-widest">
+                    EMAIL ADDRESS
                   </Label>
                   <Input
                     id="email"
@@ -82,7 +82,7 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="h-12 text-lg bg-white border-gray-300 focus:border-black text-black placeholder:text-gray-400"
+                    className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
                   />
                 </div>
 
@@ -94,19 +94,19 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
 
                 <Button
                   type="submit"
-                  className="w-full h-12 text-base font-semibold bg-black hover:bg-black/80 text-white"
+                  className="w-full h-12 text-sm font-bold bg-[#0a192f] hover:bg-[#112a52] text-white rounded-full disabled:opacity-50 tracking-widest uppercase transition-colors shadow-md"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Sending..." : "Send Reset Link"}
+                  {isLoading ? "SENDING..." : "SEND RESET LINK"}
                 </Button>
               </form>
 
               <div className="text-center mt-6">
                 <button
                   onClick={onSwitchToLogin}
-                  className="text-gray-600 hover:text-black transition-colors"
+                  className="text-xs font-bold uppercase tracking-widest text-black/60 hover:text-black transition-colors"
                 >
-                  Remember your password? <span className="text-black font-semibold underline">Login</span>
+                  REMEMBER YOUR PASSWORD? <span className="text-[#1e3a8a] font-black underline">LOGIN</span>
                 </button>
               </div>
             </>
@@ -115,17 +115,17 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
               <div className="flex justify-center">
                 <CheckCircle className="w-16 h-16 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold text-black">Check your email</h3>
-              <p className="text-gray-600">
-                We've sent a password reset link to <span className="text-black font-semibold">{email}</span>
+              <h3 className="text-2xl font-black uppercase text-black">CHECK YOUR EMAIL</h3>
+              <p className="text-black/70 text-sm font-bold uppercase">
+                We've sent a password reset link to <span className="text-[#0a192f] font-black">{email}</span>
               </p>
-              <p className="text-gray-500 text-sm">
+              <p className="text-black/50 text-xs font-bold uppercase mt-2">
                 Didn't receive the email? Check your spam folder or{" "}
                 <button
                   onClick={() => setSuccess(false)}
-                  className="text-black hover:text-black/80 underline font-medium"
+                  className="text-[#0a192f] hover:text-[#112a52] underline font-black"
                 >
-                  try again
+                  TRY AGAIN
                 </button>
               </p>
               <Button
@@ -133,9 +133,9 @@ export function ForgotPasswordModal({ open, onOpenChange, onSwitchToLogin }: For
                   onOpenChange(false)
                   setSuccess(false)
                 }}
-                className="mt-4 bg-black hover:bg-black/80 text-white"
+                className="mt-6 h-12 text-sm font-bold bg-[#0a192f] hover:bg-[#112a52] text-white rounded-full tracking-widest uppercase transition-colors shadow-md px-8"
               >
-                Got it
+                GOT IT
               </Button>
             </div>
           )}

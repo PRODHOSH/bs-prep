@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import Image from "next/image"
+import { MessageCircle } from "lucide-react"
 
 interface Testimonial {
   quote: string
@@ -73,37 +74,41 @@ export function StaggerTestimonials() {
   }, [])
 
   return (
-    <div className="relative w-full py-12 md:py-16 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
+    <div className="relative w-full py-20 sm:py-32 overflow-hidden bg-transparent text-black font-semibold">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 md:mb-24">
         <div className="text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
-            What Students Say
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest mb-8 text-[#0a192f] bg-[#0a192f]/10">
+            <MessageCircle className="w-4 h-4" /> TESTIMONIALS
+          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight mb-6 leading-[1.1]">
+            WHAT STUDENTS <br />
+            <span className="text-[#0a192f]">SAY ABOUT US</span>
           </h2>
-          <p className="text-slate-400 text-lg">
-            Join thousands of students transforming their learning journey
+          <p className="text-sm sm:text-base font-medium text-black/70 leading-relaxed max-w-2xl mx-auto">
+            Join thousands of students transforming their learning journey.
           </p>
         </div>
       </div>
 
       <div 
         ref={scrollerRef}
-        className="flex gap-6 overflow-hidden"
+        className="flex gap-6 overflow-hidden pb-10"
         style={{
-          maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
+          maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)"
         }}
       >
         {/* First set */}
-        <div className="flex gap-6 shrink-0">
+        <div className="flex gap-6 shrink-0 items-center">
           {testimonials.map((testimonial, idx) => (
             <div
               key={idx}
-              className={`bg-white border border-gray-200 rounded-2xl p-6 w-[400px] h-[280px] shrink-0 hover:border-gray-300 hover:shadow-lg transition-all duration-300 flex flex-col ${
+              className={`bg-white rounded-3xl p-8 w-[350px] md:w-[420px] shrink-0 shadow-lg shadow-black/5 hover:-translate-y-2 transition-all duration-300 flex flex-col ring-1 ring-black/5 ${
                 idx % 2 === 0 ? "mt-0" : "mt-12"
               }`}
             >
-              <div className="flex items-start gap-4 mb-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="relative w-14 h-14 rounded-full bg-[#0a192f]/5 shrink-0 overflow-hidden ring-2 ring-white shadow-sm">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.author}
@@ -112,16 +117,16 @@ export function StaggerTestimonials() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-black">{testimonial.author}</p>
-                  <p className="text-sm text-[#51b206]">{testimonial.role}</p>
+                  <p className="tracking-tight text-xl leading-tight mb-1 uppercase font-black">{testimonial.author}</p>
+                  <p className="text-xs font-bold tracking-widest text-black/50 uppercase">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-gray-700 leading-relaxed text-sm flex-1">"{testimonial.quote}"</p>
-              <div className="flex gap-1 mt-4">
+              <p className="text-black/80 leading-relaxed text-sm font-medium flex-1 min-h-[100px]">"{testimonial.quote}"</p>
+              <div className="flex gap-1 mt-6">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className="w-5 h-5 text-[#51b206]"
+                    className="w-5 h-5 text-[#0a192f]"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -134,16 +139,16 @@ export function StaggerTestimonials() {
         </div>
 
         {/* Duplicate set for infinite scroll */}
-        <div className="flex gap-6 shrink-0">
+        <div className="flex gap-6 shrink-0 items-center">
           {testimonials.map((testimonial, idx) => (
             <div
               key={`dup-${idx}`}
-              className={`bg-white border border-gray-200 rounded-2xl p-6 w-[400px] h-[280px] shrink-0 hover:border-gray-300 hover:shadow-lg transition-all duration-300 flex flex-col ${
+              className={`bg-white rounded-3xl p-8 w-[350px] md:w-[420px] shrink-0 shadow-lg shadow-black/5 hover:-translate-y-2 transition-all duration-300 flex flex-col ring-1 ring-black/5 ${
                 idx % 2 === 0 ? "mt-0" : "mt-12"
               }`}
             >
-              <div className="flex items-start gap-4 mb-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 ring-2 ring-gray-200">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="relative w-14 h-14 rounded-full bg-[#0a192f]/5 shrink-0 overflow-hidden ring-2 ring-white shadow-sm">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.author}
@@ -152,16 +157,16 @@ export function StaggerTestimonials() {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-black">{testimonial.author}</p>
-                  <p className="text-sm text-[#51b206]">{testimonial.role}</p>
+                  <p className="tracking-tight text-xl leading-tight mb-1 uppercase font-black">{testimonial.author}</p>
+                  <p className="text-xs font-bold tracking-widest text-black/50 uppercase">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-gray-700 leading-relaxed text-sm flex-1">"{testimonial.quote}"</p>
-              <div className="flex gap-1 mt-4">
+              <p className="text-black/80 leading-relaxed text-sm font-medium flex-1 min-h-[100px]">"{testimonial.quote}"</p>
+              <div className="flex gap-1 mt-6">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className="w-5 h-5 text-[#51b206]"
+                    className="w-5 h-5 text-[#0a192f]"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >

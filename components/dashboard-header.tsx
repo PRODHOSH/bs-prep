@@ -33,7 +33,7 @@ interface NavbarProps {
   userRole?: string
 }
 
-export function Navbar({ isAuthenticated = false, userRole = "student" }: NavbarProps) {
+export function DashboardHeader({ isAuthenticated = false, userRole = "student" }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [scrolled, setScrolled] = useState(false)
@@ -217,14 +217,11 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   }
 
   return (
-    <nav
-      className={`sticky top-0 z-50 bg-[#FDFBF7] font-semibold uppercase tracking-widest transition-all duration-300 ${scrolled ? "shadow-md" : ""
-        }`}
-    >
+    <header className="md:hidden sticky top-0 z-40 bg-white border-b border-black/10 font-semibold uppercase tracking-widest transition-all duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href={isAuthenticated ? "/dashboard" : "/"} className="flex items-center gap-1 shrink-0 group">
+          <Link href={isAuthenticated ? "/dashboard" : "/"} className="md:hidden flex items-center gap-1 shrink-0 group">
             <div className="w-[68px] h-[68px] rounded-full overflow-hidden">
               <img
                 src="/new-logo.jpeg"
@@ -236,96 +233,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               BSPREP
             </span>
           </Link>
-
-          {/* Desktop Navigation */}
-          {!isAuthenticated && (
-            <div className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                HOME
-              </Link>
-              <Link href="/courses" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                COURSES
-              </Link>
-              <Link href="/quiz-prep" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                Quiz Prep
-              </Link>
-              <Link href="/resources" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                RESOURCES
-              </Link>
-              <DropdownMenu open={toolsOpen} onOpenChange={setToolsOpen}>
-                <DropdownMenuTrigger
-                  className="text-xs font-bold text-black/70 hover:text-black transition-all duration-300 flex items-center gap-1"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                  suppressHydrationWarning
-                >
-                  TOOLS
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="bg-white border border-black/5 rounded-2xl shadow-xl min-w-60 p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                >
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA CALCULATOR</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA PREDICTOR</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                CAREERS
-              </a>
-            </div>
-          )}
-
-          {isAuthenticated && (
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/dashboard" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                DASHBOARD
-              </Link>
-              <Link href="/dashboard/courses" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                COURSES
-              </Link>
-              <Link href="/quiz-prep" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                QUIZ PREP
-              </Link>
-              <Link href="/compiler" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                COMPILER
-              </Link>
-              <Link href="/resources" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                RESOURCES
-              </Link>
-              <Link href="/dashboard/doubts" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                DOUBTS
-              </Link>
-              <DropdownMenu open={toolsOpen} onOpenChange={setToolsOpen}>
-                <DropdownMenuTrigger
-                  className="text-xs font-bold text-black/70 hover:text-black transition-all duration-300 flex items-center gap-1"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                  suppressHydrationWarning
-                >
-                  TOOLS
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="bg-white border border-black/5 rounded-2xl shadow-xl min-w-60 p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                >
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA CALCULATOR</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA PREDICTOR</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          )}
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
@@ -504,99 +411,39 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           </div>
         </div>
 
-        {/* Mobile Menu */}
+                {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden pb-4 space-y-2 animate-in slide-in-from-top duration-300">
-            {!isAuthenticated && (
-              <>
-                <Link href="/" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  HOME
-                </Link>
-                <Link
-                  href="/courses"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  COURSES
-                </Link>
-                <Link
-                  href="/quiz-prep"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  QUIZ PREP
-                </Link>
-                <Link
-                  href="/resources"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  RESOURCES
-                </Link>
-                <div className="px-4 py-2 text-[10px] font-bold text-black/40">
-                  TOOLS
-                </div>
-                <Link
-                  href="/tools/gpa-calculator"
-                  className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  GPA CALCULATOR
-                </Link>
-                <Link
-                  href="/tools/gpa-predictor"
-                  className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  GPA PREDICTOR
-                </Link>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  CAREERS
-                </a>
-              </>
-            )}
-
-            {isAuthenticated && (
-              <>
-                <Link href="/dashboard" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  DASHBOARD
-                </Link>
-                <Link href="/dashboard/courses" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  COURSES
-                </Link>
-                <Link href="/quiz-prep" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  QUIZ PREP
-                </Link>
-                <Link href="/compiler" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  COMPILER
-                </Link>
-                <Link href="/resources" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  RESOURCES
-                </Link>
-                <Link href="/dashboard/doubts" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  DOUBTS
-                </Link>
-                <div className="px-4 py-2 text-[10px] font-bold text-black/40">
-                  TOOLS
-                </div>
-                <Link href="/tools/gpa-calculator" className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  GPA CALCULATOR
-                </Link>
-                <Link href="/tools/gpa-predictor" className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  GPA PREDICTOR
-                </Link>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  CAREERS
-                </a>
-              </>
-            )}
+            <Link href="/dashboard" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              DASHBOARD
+            </Link>
+            <Link href="/dashboard/courses" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              COURSES
+            </Link>
+            <Link href="/quiz-prep" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              QUIZ PREP
+            </Link>
+            <Link href="/compiler" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              COMPILER
+            </Link>
+            <Link href="/resources" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              RESOURCES
+            </Link>
+            <Link href="/dashboard/doubts" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              DOUBTS
+            </Link>
+            <div className="px-4 py-2 text-[10px] font-bold text-black/40">
+              TOOLS
+            </div>
+            <Link href="/tools/gpa-calculator" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              GPA CALCULATOR
+            </Link>
+            <Link href="/tools/gpa-predictor" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              GPA PREDICTOR
+            </Link>
           </div>
         )}
+
       </div>
 
       {/* Auth Modals */}
@@ -628,6 +475,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           setLoginOpen(true)
         }}
       />
-    </nav>
+    </header>
   )
 }

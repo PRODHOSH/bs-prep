@@ -1,8 +1,6 @@
 "use client"
 
 import { useMemo, useState, useEffect, useCallback } from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -91,7 +89,7 @@ function getInitials(name: string): string {
   return parts.map((part) => part[0]?.toUpperCase() ?? "").join("")
 }
 
-export default function ResourcesPage() {
+export default function DashboardResourcesPage() {
   const supabase = useMemo(() => createClient(), [])
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [hasMounted, setHasMounted] = useState(false)
@@ -457,10 +455,8 @@ export default function ResourcesPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar isAuthenticated={isAuthenticated} />
-
-      <main className="flex-1 px-4 py-10">
+    <div className="flex-1 flex flex-col">
+            <main className="flex-1 px-4 py-10">
         <div className="mx-auto w-full max-w-7xl space-y-6">
           <div className="border border-black/10 bg-white p-6 md:p-10 shadow-xl rounded-2xl">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -705,9 +701,7 @@ export default function ResourcesPage() {
         </div>
       </main>
 
-      <Footer />
-
-      <Dialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt}>
+            <Dialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt}>
         <DialogContent className="max-w-md border border-black/10 bg-white text-black p-0 overflow-hidden shadow-xl rounded-2xl">
           <DialogHeader className="p-6 border-b-2 border-black bg-[#FDFBF7]">
             <DialogTitle className="text-xl font-black text-black uppercase tracking-widest">SIGN IN REQUIRED</DialogTitle>

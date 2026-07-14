@@ -3,8 +3,9 @@
 import type React from "react"
 
 import { createClient } from "@/lib/supabase/client"
-import { Navbar } from "@/components/navbar"
-import { FloatingChatButton } from "@/components/floating-chat-button"
+import { Sidebar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
+
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -65,12 +66,16 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen">
-      <Navbar isAuthenticated={true} userRole={role || "student"} />
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        {children}
-      </main>
-      {role !== "admin" && role !== "mentor" ? <FloatingChatButton href="/dashboard/chats" label="Open chat" /> : null}
+    <div className="h-screen bg-transparent flex overflow-hidden">
+      <Sidebar isAuthenticated={true} userRole={role || "student"} />
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <DashboardHeader isAuthenticated={true} userRole={role || "student"} />
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+          <div className="mx-auto max-w-7xl">
+            {children}
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

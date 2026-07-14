@@ -79,7 +79,7 @@ export default function CookiePolicyPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
       <Navbar isAuthenticated={isAuthenticated} />
 
       <main className="flex-1 py-16 px-4 relative z-10">
@@ -154,10 +154,10 @@ export default function CookiePolicyPage() {
               <p className="text-white/50 text-xs mt-0.5">BSPrep — Student-led IITM BS Qualifier Prep</p>
             </div>
             <a
-              href="mailto:bsprep.team@gmail.com"
+              href="mailto:support@bsprep.in"
               className="text-white/70 hover:text-white text-xs font-mono transition-colors underline underline-offset-2"
             >
-              bsprep.team@gmail.com
+              support@bsprep.in
             </a>
           </div>
 

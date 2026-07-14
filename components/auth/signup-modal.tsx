@@ -27,8 +27,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [repeatPassword, setRepeatPassword] = useState("")
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
+  const [fullName, setFullName] = useState("")
   const [referralCode, setReferralCode] = useState("")
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -73,7 +72,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
         password,
         options: {
           emailRedirectTo: redirectUrl,
-          data: { first_name: firstName, last_name: lastName, role: "student" },
+          data: { first_name: fullName, last_name: "", role: "student" },
         },
       })
       if (error) throw error
@@ -131,43 +130,29 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white border-[#e5e7eb] max-w-md p-0 overflow-hidden max-h-[90vh] overflow-y-auto rounded-2xl">
-        <div className="p-8">
+      <DialogContent className="bg-white border border-black/5 max-w-md p-0 overflow-hidden rounded-3xl shadow-2xl">
+        <div className="p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
           <DialogHeader className="text-center mb-7">
-            <DialogTitle className="text-3xl font-semibold text-[#111111] tracking-[-1px] mb-1.5">Create account</DialogTitle>
-            <DialogDescription className="text-[#6b7280] text-sm">Join the BSPrep community</DialogDescription>
+            <DialogTitle className="text-3xl font-black text-black uppercase tracking-tight mb-1.5">CREATE ACCOUNT</DialogTitle>
+            <DialogDescription className="text-black/70 text-sm font-medium uppercase tracking-widest">Join BSPrep to start learning</DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleSignUp} className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-firstName" className="text-sm font-medium text-[#111111]">First Name</Label>
-                <Input
-                  id="signup-firstName"
-                  placeholder="John"
-                  required
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="h-10 text-sm bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
-                  suppressHydrationWarning
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-lastName" className="text-sm font-medium text-[#111111]">Last Name</Label>
-                <Input
-                  id="signup-lastName"
-                  placeholder="Doe"
-                  required
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="h-10 text-sm bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
-                  suppressHydrationWarning
-                />
-              </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="signup-name" className="text-sm font-bold text-black uppercase tracking-widest">FULL NAME</Label>
+              <Input
+                id="signup-name"
+                placeholder="John Doe"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
+                suppressHydrationWarning
+              />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="signup-email" className="text-sm font-medium text-[#111111]">Email Address</Label>
+              <Label htmlFor="signup-email" className="text-sm font-bold text-black uppercase tracking-widest">EMAIL ADDRESS</Label>
               <Input
                 id="signup-email"
                 type="email"
@@ -175,21 +160,21 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-10 text-sm bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
                 suppressHydrationWarning
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="signup-password" className="text-sm font-medium text-[#111111]">Password</Label>
+              <Label htmlFor="signup-password" className="text-sm font-bold text-black uppercase tracking-widest">PASSWORD</Label>
               <Input
                 id="signup-password"
                 type="password"
-                placeholder="At least 6 characters"
+                placeholder="••••••••"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-10 text-[25px] bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
                 suppressHydrationWarning
               />
             </div>
@@ -203,7 +188,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 required
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
-                className="h-10 text-[25px] bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg"
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm"
                 suppressHydrationWarning
               />
             </div>
@@ -215,7 +200,7 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
                 placeholder="e.g. BSPREP10"
                 value={referralCode}
                 onChange={(e) => setReferralCode(e.target.value)}
-                className="h-10 text-sm bg-white border-[#e5e7eb] focus:border-[#111111] text-[#111111] placeholder:text-[#6b7280] rounded-lg uppercase"
+                className="h-12 text-sm bg-white border border-black/10 focus:border-[#0a192f] focus:ring-1 focus:ring-[#0a192f] text-black placeholder:text-black/40 rounded-xl transition-all shadow-sm uppercase"
                 suppressHydrationWarning
               />
             </div>
@@ -244,26 +229,26 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
 
             <Button
               type="submit"
-              className="w-full h-10 text-sm font-semibold bg-[#111111] hover:bg-[#242424] text-white rounded-lg disabled:opacity-50"
+              className="w-full h-12 text-sm font-bold bg-[#0a192f] hover:bg-[#112a52] text-white rounded-full disabled:opacity-50 tracking-widest uppercase transition-colors shadow-md"
               disabled={isLoading || !agreedToTerms}
               suppressHydrationWarning
             >
-              {isLoading ? "Creating account..." : "Create Account"}
+              {isLoading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
             </Button>
 
             <div className="relative my-3">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-[#e5e7eb]" />
+                <span className="w-full border-t border-black/10" />
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-4 text-[#6b7280] tracking-wider">Or continue with</span>
+              <div className="relative flex justify-center text-xs font-bold uppercase tracking-widest">
+                <span className="bg-white px-4 text-black">OR CONTINUE WITH</span>
               </div>
             </div>
 
             <Button
               type="button"
               onClick={handleGoogleSignUp}
-              className="w-full h-10 text-sm font-semibold bg-white hover:bg-[#f5f5f5] text-[#111111] border border-[#e5e7eb] rounded-lg"
+              className="w-full h-12 text-sm font-bold bg-white hover:bg-black/5 text-black border border-black/10 rounded-full uppercase tracking-widest transition-all shadow-sm"
             >
               <svg className="w-4 h-4 mr-2.5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -275,14 +260,14 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
             </Button>
           </form>
 
-          <div className="text-center mt-6 pt-5 border-t border-[#e5e7eb]">
-            <p className="text-sm text-[#6b7280]">
-              Already have an account?{" "}
+          <div className="text-center mt-6 pt-5 border-t border-black/10">
+            <p className="text-xs font-bold uppercase tracking-widest text-black/60">
+              ALREADY HAVE AN ACCOUNT?{" "}
               <button
                 onClick={onSwitchToLogin}
-                className="text-[#111111] font-semibold hover:text-[#242424] transition-colors"
+                className="text-black font-black hover:text-[#1e3a8a] transition-colors"
               >
-                Login
+                LOGIN
               </button>
             </p>
           </div>

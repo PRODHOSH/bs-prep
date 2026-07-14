@@ -59,7 +59,7 @@ const sections = [
   {
     num: "11",
     title: "Your Rights",
-    body: "You have the right to access, correct, or request deletion of your personal data. To exercise these rights or raise a data concern, contact us at bsprep.team@gmail.com. We will respond within a reasonable timeframe.",
+    body: "You have the right to access, correct, or request deletion of your personal data. To exercise these rights or raise a data concern, contact us at support@bsprep.in. We will respond within a reasonable timeframe.",
   },
   {
     num: "12",
@@ -96,7 +96,7 @@ export default function PrivacyPolicyPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
       <Navbar isAuthenticated={isAuthenticated} />
 
       <main className="flex-1 py-16 px-4 relative z-10">
@@ -130,10 +130,10 @@ export default function PrivacyPolicyPage() {
               <p className="text-white/50 text-xs mt-0.5">BSPrep — Student-led IITM BS Qualifier Prep</p>
             </div>
             <a
-              href="mailto:bsprep.team@gmail.com"
+              href="mailto:support@bsprep.in"
               className="text-white/70 hover:text-white text-xs font-mono transition-colors underline underline-offset-2"
             >
-              bsprep.team@gmail.com
+              support@bsprep.in
             </a>
           </div>
 

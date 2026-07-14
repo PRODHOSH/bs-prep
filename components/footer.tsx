@@ -93,26 +93,26 @@ export function Footer() {
 
   return (
     <>
-      <footer className="bg-[#FAF8F5]/95 backdrop-blur-sm border-t border-[#EDE6DE] mt-20">
+      <footer className="bg-[#FDFBF7] border-t border-black/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8 mb-10">
             {/* Brand */}
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-[68px] h-[68px] rounded-full overflow-hidden">
+                <div className="w-[68px] h-[68px] overflow-hidden rounded-full bg-white border border-black/5">
                   <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.6]" />
                 </div>
-                <span className="text-xl font-bold text-black">BSPrep</span>
+                <span className="text-xl font-bold text-black uppercase tracking-widest">BSPREP</span>
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed">Learn. Grow. Excel. Together.</p>
-              <p className="text-slate-500 text-xs">Community-driven academic support for IIT Madras students.</p>
-              <a href="mailto:support@bsprep.in" className="text-slate-500 text-xs hover:text-black transition-colors inline-block mt-1">support@bsprep.in</a>
+              <p className="text-black/70 text-xs font-bold leading-relaxed uppercase">Learn. Grow. Excel. Together.</p>
+              <p className="text-black/50 text-[10px] font-bold uppercase">Community-driven academic support for IIT Madras students.</p>
+              <a href="mailto:support@bsprep.in" className="text-black/50 text-[10px] font-bold hover:text-black transition-colors inline-block mt-1 uppercase">SUPPORT@BSPREP.IN</a>
               <div className="flex gap-3 pt-2">
                 <a
                   href="https://www.linkedin.com/company/bs-prep/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0077b5] hover:text-white transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-[#0077b5] hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -120,7 +120,7 @@ export function Footer() {
                   href="https://www.youtube.com/@DataScienceIITMTamil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
                 >
                   <Youtube className="w-4 h-4" />
                 </a>
@@ -129,25 +129,25 @@ export function Footer() {
                 href="https://rzp.io/rzp/support-bsprep"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-100"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0a192f] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#112a52] shadow-md uppercase"
               >
-                <HeartHandshake className="h-3.5 w-3.5" />
-                Support BSPrep
+                <HeartHandshake className="h-4 w-4" />
+                SUPPORT BSPREP
               </a>
             </div>
 
             {/* Link columns */}
             {columns.map((col) => (
               <div key={col.heading}>
-                <h3 className="font-semibold text-black text-xs uppercase tracking-widest mb-4">{col.heading}</h3>
-                <ul className="space-y-2.5">
+                <h3 className="font-bold text-black text-xs uppercase tracking-widest mb-4">{col.heading}</h3>
+                <ul className="space-y-3">
                   {col.links.map((link) => {
-                    const linkClass = "text-slate-600 hover:text-black transition-colors text-sm inline-flex items-center gap-2 group"
+                    const linkClass = "text-black/70 hover:text-black transition-colors text-xs font-bold inline-flex items-center gap-2 group uppercase"
                     const content = (
                       <>
                         <span className="group-hover:translate-x-0.5 transition-transform inline-block">{link.name}</span>
                         {link.pro && (
-                          <span className="inline-flex items-center rounded-full bg-[#111111] text-white text-[9px] font-bold px-1.5 py-0.5 leading-none tracking-wide">
+                          <span className="inline-flex items-center rounded-full bg-[#0a192f]/10 text-[#0a192f] text-[8px] font-bold px-2 py-0.5 leading-none tracking-wide">
                             PRO
                           </span>
                         )}
@@ -172,22 +172,22 @@ export function Footer() {
             ))}
           </div>
 
-          <div className="border-t border-[#EDE6DE] pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="border-t border-black/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex flex-col items-center md:items-start gap-1">
-              <p className="text-slate-500 text-sm">© 2026 BSPrep. All rights reserved.</p>
-              <p className="text-slate-400 text-xs text-center md:text-left">
-                Not affiliated with IIT Madras. Independent student-led platform.
+              <p className="text-black/70 text-xs font-bold uppercase">© 2026 BSPREP. ALL RIGHTS RESERVED.</p>
+              <p className="text-black/50 text-[10px] font-bold text-center md:text-left uppercase">
+                NOT AFFILIATED WITH IIT MADRAS. INDEPENDENT STUDENT-LED PLATFORM.
               </p>
             </div>
             
             <div className="flex flex-wrap justify-center items-center gap-6">
-              <a href="mailto:security@bsprep.in" className="flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                Report a Vulnerability
+              <a href="mailto:security@bsprep.in" className="flex items-center gap-2 text-[10px] font-bold text-black/50 hover:text-black transition-colors uppercase">
+                <ShieldCheck className="w-4 h-4 text-[#1e3a8a]" />
+                REPORT A VULNERABILITY
               </a>
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
-                <Lock className="w-4 h-4 text-slate-400" />
-                Secure Platform
+              <div className="flex items-center gap-2 text-[10px] font-bold text-black/50 uppercase">
+                <Lock className="w-4 h-4 text-black/50" />
+                SECURE PLATFORM
               </div>
             </div>
           </div>
