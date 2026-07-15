@@ -58,7 +58,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     }
 
     const body = JSON.parse(text)
-    const { first_name, last_name, phone, role } = body
+    const { first_name, last_name, phone, role, mentor_subject } = body
 
     // Validate inputs
     const updates: Record<string, unknown> = {}
@@ -71,6 +71,21 @@ export async function PUT(req: NextRequest, { params }: Params) {
         )
       }
       updates.role = role
+    }
+
+    if (mentor_subject !== undefined) {
+      if (mentor_subject === null || mentor_subject === '') {
+        updates.mentor_subject = null
+      } else {
+        const subjectValidation = validateAndSanitizeInput(mentor_subject, 50)
+        if (!subjectValidation.valid) {
+          return NextResponse.json(
+            { error: `Invalid mentor subject: ${subjectValidation.errors.join(', ')}` },
+            { status: 400 }
+          )
+        }
+        updates.mentor_subject = subjectValidation.sanitized
+      }
     }
 
     if (first_name !== undefined) {
