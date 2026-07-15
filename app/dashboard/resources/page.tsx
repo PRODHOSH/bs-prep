@@ -503,13 +503,13 @@ export default function DashboardResourcesPage() {
 
               <div>
                 <Label className="mb-3 block text-xs font-black uppercase tracking-widest text-black/60">LEVEL</Label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
                     <button
                       key={level}
                       type="button"
                       onClick={() => setSelectedLevel(level)}
-                      className={`border border-black/10 rounded-2xl px-3 py-2.5 text-xs font-black uppercase tracking-widest transition-all ${
+                      className={`border border-black/10 rounded-2xl px-2 sm:px-3 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest transition-all truncate ${
                         selectedLevel === level
                           ? "bg-black text-white shadow-sm "
                           : "bg-white text-black hover:bg-black/5 shadow-md hover:shadow-sm"
@@ -797,13 +797,13 @@ export default function DashboardResourcesPage() {
 
                 <div>
                   <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">LEVEL</Label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
                     {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
                       <button
                         key={level}
                         type="button"
                         onClick={() => setSelectedLevel(level)}
-                        className={`border border-black/10 rounded-2xl px-3 py-2.5 text-xs font-black uppercase tracking-widest transition-all ${
+                        className={`border border-black/10 rounded-2xl px-2 sm:px-3 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest transition-all truncate ${
                           selectedLevel === level
                             ? "bg-[#1e3a8a] text-white shadow-sm "
                             : "bg-white text-black hover:bg-black/5 shadow-md hover:shadow-sm"

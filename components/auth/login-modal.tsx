@@ -30,13 +30,19 @@ export function LoginModal({ open, onOpenChange, onSwitchToSignUp, onSwitchToFor
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    const trimmedEmail = email.trim()
+    if (!trimmedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setError("Please enter a valid email address")
+      return
+    }
+
     setIsLoading(true)
     setError(null)
 
     try {
 
       const supabase = createClient()
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
+      const { error } = await supabase.auth.signInWithPassword({ email: trimmedEmail, password })
       if (error) throw error
       onOpenChange(false)
       setTimeout(() => { window.location.href = "/dashboard" }, 100)

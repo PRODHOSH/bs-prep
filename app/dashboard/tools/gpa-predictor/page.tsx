@@ -243,9 +243,10 @@ export default function DashboardGPAPredictorPage() {
                     </div>
                     
                     {/* Table */}
-                    <div className="overflow-hidden bg-white border border-black/10 shadow-xl">
-                      {/* Table Header */}
-                      <div className="grid grid-cols-4 gap-4 bg-black p-4 border-b-2 border-black">
+                    <div className="overflow-hidden bg-white border border-black/10 shadow-xl overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+                      <div className="min-w-[600px]">
+                        {/* Table Header */}
+                        <div className="grid grid-cols-4 gap-4 bg-black p-4 border-b-2 border-black">
                         <div className="text-center">
                           <p className="text-white font-black text-[10px] uppercase tracking-widest">TARGET GRADE</p>
                         </div>
@@ -315,6 +316,7 @@ export default function DashboardGPAPredictorPage() {
                             </div>
                           </div>
                         ))}
+                      </div>
                       </div>
                     </div>
 
