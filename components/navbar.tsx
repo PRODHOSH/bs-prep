@@ -238,8 +238,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           </Link>
 
           {/* Desktop Navigation */}
-          {!isAuthenticated && (
-            <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8">
               <Link href="/" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
                 HOME
               </Link>
@@ -278,54 +277,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
                 CAREERS
               </a>
-            </div>
-          )}
-
-          {isAuthenticated && (
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/dashboard" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                DASHBOARD
-              </Link>
-              <Link href="/dashboard/courses" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                COURSES
-              </Link>
-              <Link href="/quiz-prep" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                QUIZ PREP
-              </Link>
-              <Link href="/compiler" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                COMPILER
-              </Link>
-              <Link href="/resources" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                RESOURCES
-              </Link>
-              <Link href="/dashboard/doubts" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                DOUBTS
-              </Link>
-              <DropdownMenu open={toolsOpen} onOpenChange={setToolsOpen}>
-                <DropdownMenuTrigger
-                  className="text-xs font-bold text-black/70 hover:text-black transition-all duration-300 flex items-center gap-1"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                  suppressHydrationWarning
-                >
-                  TOOLS
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="bg-white border border-black/5 rounded-2xl shadow-xl min-w-60 p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                >
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA CALCULATOR</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA PREDICTOR</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          )}
+          </div>
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
@@ -465,6 +417,11 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                     <div className="px-3 py-2 text-xs font-bold text-black/70 truncate">{user?.email}</div>
                     <DropdownMenuSeparator className="bg-black/10" />
                     <DropdownMenuItem asChild className="cursor-pointer rounded-xl hover:bg-black/5 focus:bg-black/5">
+                      <Link href="/dashboard" className="flex items-center gap-2 text-xs font-bold text-black">
+                        DASHBOARD
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild className="cursor-pointer rounded-xl hover:bg-black/5 focus:bg-black/5">
                       <Link href="/dashboard/settings" className="flex items-center gap-2 text-xs font-bold text-black">
                         <Settings className="w-4 h-4" />
                         SETTINGS
@@ -507,8 +464,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden pb-4 space-y-2 animate-in slide-in-from-top duration-300">
-            {!isAuthenticated && (
-              <>
                 <Link href="/" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
                   HOME
                 </Link>
@@ -553,48 +508,6 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 >
                   CAREERS
                 </a>
-              </>
-            )}
-
-            {isAuthenticated && (
-              <>
-                <Link href="/dashboard" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  DASHBOARD
-                </Link>
-                <Link href="/dashboard/courses" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  COURSES
-                </Link>
-                <Link href="/quiz-prep" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  QUIZ PREP
-                </Link>
-                <Link href="/compiler" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  COMPILER
-                </Link>
-                <Link href="/resources" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  RESOURCES
-                </Link>
-                <Link href="/dashboard/doubts" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  DOUBTS
-                </Link>
-                <div className="px-4 py-2 text-[10px] font-bold text-black/40">
-                  TOOLS
-                </div>
-                <Link href="/tools/gpa-calculator" className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  GPA CALCULATOR
-                </Link>
-                <Link href="/tools/gpa-predictor" className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  GPA PREDICTOR
-                </Link>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  CAREERS
-                </a>
-              </>
-            )}
           </div>
         )}
       </div>

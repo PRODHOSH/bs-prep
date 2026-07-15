@@ -99,9 +99,9 @@ export default function CoursesPage() {
             {/* Package deals */}
             {(selectedLevel === "all" || selectedLevel === "qualifier") && searchQuery === "" && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <div
-                  onClick={() => setShowLogin(true)}
-                  className="col-span-1 md:col-span-2 relative bg-[#0a192f] text-white p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl overflow-hidden"
+                <Link
+                  href="/courses/qualifier-bundle"
+                  className="block col-span-1 md:col-span-2 relative bg-[#0a192f] text-white p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-all duration-500 pointer-events-none">
                     <Package className="w-40 h-40" />
@@ -133,11 +133,11 @@ export default function CoursesPage() {
                       </span>
                     </div>
                   </div>
-                </div>
+                </Link>
 
-                <div
-                  onClick={() => setShowLogin(true)}
-                  className="col-span-1 relative bg-white ring-1 ring-black/5 p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl"
+                <Link
+                  href="/courses/coding-bundle"
+                  className="block col-span-1 relative bg-white ring-1 ring-black/5 p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl"
                 >
                   <div className="relative z-10 h-full flex flex-col justify-between">
                     <div>
@@ -157,7 +157,7 @@ export default function CoursesPage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             )}
 

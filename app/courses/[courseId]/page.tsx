@@ -108,6 +108,54 @@ const courseSyllabusData: Record<string, any> = {
       { week: 3, title: "Object Oriented Programming", topics: "Classes, Objects, Methods, Constructors" },
       { week: 4, title: "Advanced OOP concepts", topics: "Inheritance, Polymorphism, Encapsulation, Abstraction" }
     ]
+  },
+  "qualifier-bundle": {
+    title: "Qualifier Bundle (All 4 Courses)",
+    level: "qualifier",
+    price: 1799, originalPrice: 1999,
+    description: "Master Math, Statistics, Computational Thinking, and English.",
+    thumbnail: "/courses/math.png",
+    syllabus: [
+      { isCourseHeader: true, title: "Mathematics for Data Science I" },
+      { week: 1, title: "Set Theory - Number system, Sets and their operations", topics: "Relations and functions - Relations and their types, Functions and their types" },
+      { week: 2, title: "Rectangular coordinate system, Straight Lines", topics: "Slope of a line, Parallel and perpendicular lines, Representations of a Line, General equations of a line, Straight-line fit" },
+      { week: 3, title: "Quadratic Functions", topics: "Quadratic functions, Minima, maxima, vertex, and slope, Quadratic Equations" },
+      { week: 4, title: "Algebra of Polynomials", topics: "Addition, subtraction, multiplication, and division, Algorithms, Graphs of Polynomials - X-intercepts, multiplicities, end behavior, and turning points, Graphing & polynomial creation" },
+      { isCourseHeader: true, title: "Statistics for Data Science I" },
+      { week: 1, title: "Introduction and type of data", topics: "Types of data, Descriptive and Inferential statistics, Scales of measurement" },
+      { week: 2, title: "Describing categorical data", topics: "Frequency distribution of categorical data, Best practices for graphing categorical data, Mode and median for categorical variable" },
+      { week: 3, title: "Describing numerical data", topics: "Frequency tables for numerical data, Measures of central tendency - Mean, median and mode, Quartiles and percentiles, Measures of dispersion - Range, variance, standard deviation and IQR, Five number summary" },
+      { week: 4, title: "Association between two variables", topics: "Association between two categorical variables - Using relative frequencies in contingency tables, Association between two numerical variables - Scatterplot, covariance, Pearson correlation coefficient, Point bi-serial correlation coefficient" },
+      { isCourseHeader: true, title: "Computational Thinking" },
+      { week: 1, title: "Variables, Initialization, Iterators, Filtering", topics: "Datatypes, Flowcharts, Sanity of data" },
+      { week: 2, title: "Iteration, Filtering, Selection", topics: "Pseudocode, Finding max and min, AND operator" },
+      { week: 3, title: "Multiple iterations (non-nested)", topics: "Three prizes problem, Procedures, Parameters, Side effects, OR operator" },
+      { week: 4, title: "Nested iterations", topics: "Birthday paradox, Binning" },
+      { isCourseHeader: true, title: "English I" },
+      { week: 1, title: "Sounds and Words", topics: "Vowel and consonant sounds" },
+      { week: 2, title: "Parts of Speech", topics: "Nouns, pronouns, verbs, adjectives, adverbs and usage" },
+      { week: 3, title: "Sentences", topics: "Phrases and idioms" },
+      { week: 4, title: "Speaking Skills", topics: "Spoken English preliminaries" }
+    ]
+  },
+  "coding-bundle": {
+    title: "Coding Bundle (Python + Java)",
+    level: "qualifier",
+    price: 999, originalPrice: 1199,
+    description: "Master both Python and Java programming languages.",
+    thumbnail: "/courses/python.png",
+    syllabus: [
+      { isCourseHeader: true, title: "Programming in Python" },
+      { week: 1, title: "Introduction to Python", topics: "Variables, Data Types, Input/Output, Operators" },
+      { week: 2, title: "Control Flow", topics: "If-Else statements, For loops, While loops" },
+      { week: 3, title: "Data Structures", topics: "Lists, Tuples, Dictionaries, Sets" },
+      { week: 4, title: "Functions and Modules", topics: "Defining functions, scope, importing modules" },
+      { isCourseHeader: true, title: "Programming in Java" },
+      { week: 1, title: "Java Basics", topics: "Syntax, Data types, Variables, Operators" },
+      { week: 2, title: "Control Structures", topics: "Conditional statements, Loops, Switch cases" },
+      { week: 3, title: "Object Oriented Programming", topics: "Classes, Objects, Methods, Constructors" },
+      { week: 4, title: "Advanced OOP concepts", topics: "Inheritance, Polymorphism, Encapsulation, Abstraction" }
+    ]
   }
 }
 
@@ -285,17 +333,26 @@ export default function CoursePage() {
                       <DialogTitle className="text-xl font-semibold text-[#111111] tracking-[-0.3px]">Course Syllabus — 4 Weeks</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-0 mt-4 divide-y divide-[#e5e7eb]">
-                      {course.syllabus.map((week: any) => (
-                        <div key={week.week} className="flex gap-4 py-4">
-                          <span className="shrink-0 inline-flex h-7 items-center rounded-full bg-[#111111] text-white text-xs font-semibold px-3">
-                            Week {week.week}
-                          </span>
-                          <div>
-                            <p className="text-sm font-semibold text-[#111111] mb-1">{week.title}</p>
-                            <p className="text-sm text-[#374151] leading-relaxed">{week.topics}</p>
+                      {course.syllabus.map((item: any, i: number) => {
+                        if (item.isCourseHeader) {
+                          return (
+                            <div key={`header-${i}`} className="bg-[#f9fafb] py-3 px-4 font-bold text-[#111111] text-sm uppercase tracking-wider">
+                              {item.title}
+                            </div>
+                          )
+                        }
+                        return (
+                          <div key={`week-${i}`} className="flex gap-4 py-4 px-4">
+                            <span className="shrink-0 inline-flex h-7 items-center rounded-full bg-[#111111] text-white text-xs font-semibold px-3">
+                              Week {item.week}
+                            </span>
+                            <div>
+                              <p className="text-sm font-semibold text-[#111111] mb-1">{item.title}</p>
+                              <p className="text-sm text-[#374151] leading-relaxed">{item.topics}</p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -374,112 +431,176 @@ export default function CoursePage() {
   // ─── Non-enrolled (public) view ───────────────────────────────────────────────
   return (
     <>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-transparent">
         <Navbar isAuthenticated={isAuthenticated} />
 
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-28 pb-24">
-          <Link
-            href={isAuthenticated ? "/dashboard/courses" : "/courses"}
-            className="inline-flex items-center gap-1.5 text-sm text-[#6b7280] hover:text-[#111111] transition-colors mb-10"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Courses
-          </Link>
+        {/* Hero Section */}
+        <div className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#0a192f]">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[120px]" />
+            <div className="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-teal-500/10 blur-[100px]" />
+          </div>
 
-          {/* Course hero card */}
-          <div className="bg-[#f5f5f5] rounded-2xl p-8 mb-8">
-            <div className="flex flex-col md:flex-row items-start gap-8">
+          <div className="relative z-10 mx-auto max-w-6xl">
+            <Link
+              href={isAuthenticated ? "/dashboard/courses" : "/courses"}
+              className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors mb-12"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              BACK TO CATALOG
+            </Link>
+
+            <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="inline-flex rounded-full bg-white border border-[#e5e7eb] px-3 py-1 text-xs font-semibold text-[#374151]">
-                    {course.level.charAt(0).toUpperCase() + course.level.slice(1)}
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white border border-white/10 shadow-sm">
+                    {course.level}
                   </span>
-                  <span className="inline-flex rounded-full bg-[#fff7ed] border border-[#fb923c]/30 px-3 py-1 text-xs font-semibold text-[#fb923c]">
-                    Tamil
+                  <span className="inline-flex rounded-full bg-[#fb923c]/20 border border-[#fb923c]/30 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-[#fb923c] shadow-sm">
+                    TAMIL MEDIUM
                   </span>
                 </div>
 
-                <h1 className="text-3xl md:text-4xl font-semibold text-[#111111] tracking-[-1px] leading-[1.1] mb-3">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase">
                   {course.title}
                 </h1>
-                <p className="text-[#374151] text-base mb-6">{course.description}</p>
+                <p className="text-white/70 text-lg font-bold uppercase max-w-2xl leading-relaxed mb-10">
+                  {course.description}
+                </p>
 
-                <div className="flex items-center gap-5 text-sm text-[#6b7280] mb-8">
-                  <div className="flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4" />
-                    4 weeks
+                <div className="flex flex-wrap items-center gap-8 mb-12">
+                  <div className="flex items-center gap-3 text-white/80">
+                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                      <BookOpen className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-0.5">Duration</p>
+                      <p className="text-sm font-bold uppercase">{courseId.includes('bundle') ? 'Varies' : '4 WEEKS'}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" />
-                    Self-paced
+                  <div className="flex items-center gap-3 text-white/80">
+                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                      <Calendar className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-0.5">Schedule</p>
+                      <p className="text-sm font-bold uppercase">SELF-PACED + LIVE</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#10b981]" />
-                    Certificate included
+                  <div className="flex items-center gap-3 text-white/80">
+                    <div className="w-10 h-10 rounded-full bg-[#10b981]/10 flex items-center justify-center border border-[#10b981]/20">
+                      <CheckCircle2 className="w-4 h-4 text-[#10b981]" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[#10b981]/70 mb-0.5">Outcome</p>
+                      <p className="text-sm font-bold uppercase text-[#10b981]">CERTIFICATE</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-5">
-                  <div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                  <div className="flex-1">
                     {course.originalPrice && (
-                      <p className="text-sm text-[#6b7280] line-through">₹{course.originalPrice}</p>
+                      <p className="text-sm font-bold text-white/40 line-through mb-1">₹{course.originalPrice}</p>
                     )}
-                    <p className="text-3xl font-semibold text-[#111111] tracking-[-0.5px] leading-none">₹{course.price}</p>
+                    <div className="flex items-end gap-3">
+                      <p className="text-4xl md:text-5xl font-black text-white leading-none">₹{course.price}</p>
+                      {course.originalPrice && (
+                        <span className="text-[10px] font-black text-[#0a192f] bg-white rounded-full px-2 py-0.5 uppercase tracking-wider mb-1.5 shadow-sm">
+                          SAVE ₹{course.originalPrice - course.price}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <Button
                     onClick={handleEnroll}
-                    className="bg-[#111111] hover:bg-[#242424] text-white px-8 h-12 text-sm font-semibold rounded-lg transition-colors"
+                    className="w-full sm:w-auto bg-white hover:bg-gray-100 text-[#0a192f] px-10 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-xl hover:-translate-y-1"
                   >
-                    Enroll Now
+                    ENROLL NOW
                   </Button>
                 </div>
               </div>
 
               {/* Thumbnail */}
-              <div className="hidden md:block shrink-0">
-                <div className="w-72 h-44 bg-white rounded-2xl overflow-hidden border border-[#e5e7eb]">
+              <div className="hidden lg:block w-[400px] shrink-0">
+                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/20 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-transparent to-transparent opacity-60 z-10" />
                   <img
                     src={course.thumbnail}
                     alt={course.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover relative z-0"
                   />
+                  <div className="absolute bottom-6 left-6 right-6 z-20">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/80 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full inline-block mb-3 border border-white/10">
+                      IITM BS PROGRAM
+                    </span>
+                    <h3 className="text-2xl font-black text-white uppercase leading-[1.1]">{course.title}</h3>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Syllabus */}
-          <div className="mb-5">
-            <h2 className="text-2xl font-semibold text-[#111111] tracking-[-0.5px]">Course Syllabus</h2>
-          </div>
+        {/* Content Section (Syllabus) */}
+        <div className="bg-[#f8fafc] py-24">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-black text-[#0a192f] uppercase tracking-tight mb-4">
+                COURSE SYLLABUS
+              </h2>
+              <p className="text-slate-500 font-bold uppercase text-sm">
+                Comprehensive curriculum aligned with IIT Madras BS Degree
+              </p>
+            </div>
 
-          <div className="bg-white rounded-2xl border border-[#e5e7eb] divide-y divide-[#e5e7eb]">
-            {course.syllabus.map((week: any) => (
-              <div key={week.week} className="flex gap-5 p-6">
-                <span className="shrink-0 inline-flex h-7 items-center rounded-full bg-[#111111] text-white text-xs font-semibold px-3 mt-0.5">
-                  Week {week.week}
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[#111111] mb-1">{week.title}</p>
-                  <p className="text-sm text-[#374151] leading-relaxed">{week.topics}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+            <div className="space-y-5">
+              {course.syllabus.map((item: any, i: number) => {
+                if (item.isCourseHeader) {
+                  return (
+                    <div key={`header-${i}`} className={`flex items-center gap-4 ${i !== 0 ? 'mt-14' : ''} mb-8`}>
+                      <div className="h-px flex-1 bg-slate-200"></div>
+                      <h3 className="font-black text-[#0a192f] text-lg uppercase tracking-widest px-4 flex items-center gap-2">
+                        <BookOpen className="w-5 h-5 text-blue-600" />
+                        {item.title}
+                      </h3>
+                      <div className="h-px flex-1 bg-slate-200"></div>
+                    </div>
+                  )
+                }
+                return (
+                  <div key={`week-${i}`} className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/60 hover:shadow-md transition-shadow group flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
+                    <div className="shrink-0 flex items-center justify-center h-10 min-w-[100px] rounded-xl bg-slate-50 text-slate-500 border border-slate-100 text-xs font-black uppercase tracking-widest group-hover:bg-[#0a192f] group-hover:text-white group-hover:border-[#0a192f] transition-colors">
+                      WEEK {item.week}
+                    </div>
+                    <div className="flex-1 mt-1 sm:mt-0">
+                      <p className="text-lg font-black text-[#0a192f] uppercase leading-tight mb-2">{item.title}</p>
+                      <p className="text-sm font-semibold text-slate-500 leading-relaxed">{item.topics}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
 
-          {/* Bottom CTA */}
-          <div className="bg-[#111111] rounded-2xl p-8 text-center mt-8">
-            <h3 className="text-2xl font-semibold text-white tracking-[-0.5px] mb-2">Ready to start learning?</h3>
-            <p className="text-white/60 text-sm mb-6">
-              Join students mastering {course.title}
-            </p>
-            <Button
-              onClick={handleEnroll}
-              className="bg-white hover:bg-[#f5f5f5] text-[#111111] px-10 h-12 text-sm font-semibold rounded-lg transition-colors"
-            >
-              Enroll for ₹{course.price}{" "}
-              <span className="text-xs font-normal opacity-50 line-through ml-1">₹{course.originalPrice}</span>
-            </Button>
+            {/* Bottom CTA */}
+            <div className="mt-24 bg-white rounded-3xl p-10 sm:p-16 text-center shadow-xl shadow-slate-200/50 border border-slate-200/60 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-2 bg-[#0a192f]"></div>
+              <h3 className="text-3xl font-black text-[#0a192f] uppercase tracking-tight mb-4">
+                READY TO START LEARNING?
+              </h3>
+              <p className="text-slate-500 font-bold uppercase text-sm mb-10 max-w-xl mx-auto">
+                Join hundreds of Tamil medium students mastering {course.title} and securing their foundation in Data Science.
+              </p>
+              <Button
+                onClick={handleEnroll}
+                className="bg-[#0a192f] hover:bg-blue-900 text-white px-12 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-md hover:-translate-y-1"
+              >
+                ENROLL FOR ₹{course.price}
+                {course.originalPrice && (
+                  <span className="text-[10px] font-bold text-white/60 line-through ml-2">₹{course.originalPrice}</span>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
 
