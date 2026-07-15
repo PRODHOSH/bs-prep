@@ -89,22 +89,37 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-10">
             {/* Brand */}
-            <div className="space-y-4">
+            <div className="space-y-6 lg:pr-8">
               <div className="flex items-center gap-2">
-                <div className="w-[44px] h-[44px] overflow-hidden rounded-full bg-white border border-black/5 shrink-0">
-                  <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.6]" />
+                <div className="w-[36px] h-[36px] overflow-hidden rounded-full border border-black/10 shrink-0">
+                  <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.3]" />
                 </div>
-                <span className="font-black text-2xl tracking-tighter text-black">BSPREP</span>
+                <span className="font-black text-xl tracking-tight text-black">BSPREP</span>
               </div>
-              <p className="text-black/70 text-xs font-bold leading-relaxed uppercase">Learn. Grow. Excel. Together.</p>
-              <p className="text-black/50 text-[10px] font-bold uppercase">Community-driven academic support for IIT Madras students.</p>
-              <a href="mailto:support@bsprep.in" className="text-black/50 text-[10px] font-bold hover:text-black transition-colors inline-block mt-1 uppercase">SUPPORT@BSPREP.IN</a>
-              <div className="flex gap-2 pt-2">
+              
+              <div className="space-y-4">
+                <p className="text-black/60 text-sm font-medium leading-relaxed">
+                  Community-driven academic support for IIT Madras students. Learn, grow, and excel together.
+                </p>
+                
+                <div className="flex flex-col gap-2 pt-1">
+                  <a href="mailto:support@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
+                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                    support@bsprep.in
+                  </a>
+                  <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-[#0a192f]/70 hover:text-[#0a192f] transition-colors">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Partner with us: partnerships@bsprep.in
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-2">
                 <a
                   href="https://www.linkedin.com/company/bs-prep/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-[#0077b5] hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
+                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-[#0077b5] hover:text-white hover:border-transparent transition-all shadow-sm"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -112,7 +127,7 @@ export function Footer() {
                   href="https://www.youtube.com/@DataScienceIITMTamil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
+                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-red-600 hover:text-white hover:border-transparent transition-all shadow-sm"
                 >
                   <Youtube className="w-4 h-4" />
                 </a>
@@ -120,20 +135,23 @@ export function Footer() {
                   href="https://www.instagram.com/bsprep.in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-black/60 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all duration-300 shadow-sm ring-1 ring-black/5 hover:shadow-md hover:ring-transparent"
+                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white hover:border-transparent transition-all shadow-sm"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
               </div>
-              <a
-                href="https://rzp.io/rzp/support-bsprep"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0a192f] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#112a52] shadow-md uppercase"
-              >
-                <HeartHandshake className="h-4 w-4" />
-                SUPPORT BSPREP
-              </a>
+              
+              <div className="pt-2">
+                <a
+                  href="https://rzp.io/rzp/support-bsprep"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#0a192f] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#112a52] hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg w-fit"
+                >
+                  <HeartHandshake className="h-4 w-4" />
+                  Support BSPrep
+                </a>
+              </div>
             </div>
 
             {/* Link columns */}

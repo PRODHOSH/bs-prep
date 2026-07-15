@@ -11,16 +11,8 @@ const faqs = [
     answer: "BSPrep is a community-driven learning platform designed to help IITM BS students prepare better through structured courses, quizzes, and mentor support."
   },
   {
-    question: "Are the study materials in Tamil?",
-    answer: "Yes! Our core mission is to provide high-quality video lectures, mentorship sessions, and study materials in Tamil to help you grasp complex concepts easily."
-  },
-  {
-    question: "How does the GPA Predictor work?",
-    answer: "The GPA Predictor tool uses your current grades and target CGPA to calculate exactly what marks you need in upcoming exams to achieve your goals."
-  },
-  {
     question: "Are the live mentor sessions recorded?",
-    answer: "Absolutely. All weekly live mentorship sessions and doubt-clearing classes are recorded and available in your dashboard for later viewing."
+    answer: "Yes, all classes are live and they will be available in the dashboard for replay."
   },
   {
     question: "Is BSPrep officially affiliated with IIT Madras?",
