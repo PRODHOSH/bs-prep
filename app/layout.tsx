@@ -148,6 +148,12 @@ export default function RootLayout({
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           strategy="afterInteractive"
         />
+        {/* Better Stack Announcement Widget */}
+        <Script
+          src="https://uptime.betterstack.com/widgets/announcement.js"
+          data-id="255506"
+          strategy="afterInteractive"
+        />
       </head>
       <body className={`font-sans antialiased ${sora.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
