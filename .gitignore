@@ -33,7 +33,5 @@ config.bat
 
 api-routes.md
 
-# API Docs (separate standalone app)
-/pages/docs.tsx
-/public/swagger.json
-/public/swagger-dark.css
+# API Docs (separate standalone Vercel site)
+/api-docs-site/
