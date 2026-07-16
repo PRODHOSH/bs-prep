@@ -46,13 +46,26 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    const trimmedEmail = email.trim()
+    const trimmedFullName = fullName.trim()
+
+    if (!trimmedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setError("Please enter a valid email address")
+      return
+    }
+
+    if (trimmedFullName.length < 2) {
+      setError("Please enter your full name")
+      return
+    }
+
     if (password !== repeatPassword) {
       setError("Passwords do not match")
       return
     }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters")
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters")
       return
     }
 
@@ -68,11 +81,11 @@ export function SignUpModal({ open, onOpenChange, onSwitchToLogin }: SignUpModal
       const supabase = createClient()
       const redirectUrl = `${window.location.origin}/auth/callback`
       const { data, error } = await supabase.auth.signUp({
-        email,
+        email: trimmedEmail,
         password,
         options: {
           emailRedirectTo: redirectUrl,
-          data: { first_name: fullName, last_name: "", role: "student" },
+          data: { first_name: trimmedFullName, last_name: "", role: "student" },
         },
       })
       if (error) throw error

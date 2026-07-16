@@ -326,6 +326,7 @@ export default function DashboardGPACalculatorPage() {
                         </div>
                       </div>
                     </div>
+                    </div>
                   )}
                 </>
               )}
@@ -383,7 +384,9 @@ export default function DashboardGPACalculatorPage() {
               </div>
 
               {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 px-4 pb-4 border-b-2 border-black">
+              <div className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0">
+                <div className="min-w-[600px]">
+                  <div className="grid grid-cols-12 gap-4 px-4 pb-4 border-b-2 border-black">
                 <div className="col-span-4">
                   <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">COURSE NAME</Label>
                 </div>
@@ -415,9 +418,12 @@ export default function DashboardGPACalculatorPage() {
                         type="number"
                         placeholder="4"
                         value={course.credits || ""}
-                        onChange={(e) => setSemesterCourses(semesterCourses.map(c => 
-                          c.id === course.id ? { ...c, credits: Number(e.target.value) } : c
-                        ))}
+                        onChange={(e) => {
+                          const val = Math.max(0, Math.min(Number(e.target.value), 20))
+                          setSemesterCourses(semesterCourses.map(c => 
+                            c.id === course.id ? { ...c, credits: val } : c
+                          ))
+                        }}
                         className="h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30"
                         min="0"
                         max="10"
@@ -482,7 +488,7 @@ export default function DashboardGPACalculatorPage() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-3 gap-8 pt-10 mt-10 border-t-2 border-black">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-10 mt-10 border-t-2 border-black">
                     <div className="text-center bg-white border border-black/10 p-4 shadow-sm">
                       <p className="text-black/50 text-[10px] mb-2 font-black uppercase tracking-widest">COURSES</p>
                       <p className="text-3xl font-black text-black">{semesterResults.totalCredits > 0 ? semesterCourses.filter(c => c.credits > 0).length : 0}</p>

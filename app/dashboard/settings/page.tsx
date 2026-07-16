@@ -84,6 +84,20 @@ export default function SettingsPage() {
     e.preventDefault()
     setProfileError(null)
     setProfileSuccess(false)
+
+    const trimmedFirstName = firstName.trim()
+    const trimmedLastName = lastName.trim()
+
+    if (!trimmedFirstName) {
+      setProfileError("First name is required")
+      return
+    }
+
+    if (trimmedFirstName.length > 50 || trimmedLastName.length > 50) {
+      setProfileError("Names cannot exceed 50 characters")
+      return
+    }
+
     setIsSavingProfile(true)
 
     const res = await fetch("/api/account/profile", {
@@ -92,8 +106,8 @@ export default function SettingsPage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
+        first_name: trimmedFirstName,
+        last_name: trimmedLastName,
       }),
     })
 
@@ -128,8 +142,8 @@ export default function SettingsPage() {
     setPasswordError(null)
     setPasswordSuccess(false)
 
-    if (newPassword.length < 6) {
-      setPasswordError("Password must be at least 6 characters")
+    if (newPassword.length < 8) {
+      setPasswordError("Password must be at least 8 characters")
       return
     }
     if (newPassword !== confirmPassword) {
@@ -171,7 +185,7 @@ export default function SettingsPage() {
           </div>
         ) : (
           <form onSubmit={handleSaveProfile} className="space-y-6">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="first-name" className="text-[10px] font-black uppercase tracking-widest text-black/40">FIRST NAME</Label>
                 <Input
