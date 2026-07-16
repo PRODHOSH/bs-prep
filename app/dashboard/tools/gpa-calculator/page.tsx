@@ -326,7 +326,6 @@ export default function DashboardGPACalculatorPage() {
                         </div>
                       </div>
                     </div>
-                    </div>
                   )}
                 </>
               )}
@@ -460,8 +459,10 @@ export default function DashboardGPACalculatorPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
 
-              <Button onClick={addCourse} variant="outline" className="w-full h-14 border-2 border-dashed border-black bg-white hover:bg-black hover:text-white transition-all text-sm font-black text-black rounded-2xl uppercase tracking-widest mt-6">
+          <Button onClick={addCourse} variant="outline" className="w-full h-14 border-2 border-dashed border-black bg-white hover:bg-black hover:text-white transition-all text-sm font-black text-black rounded-2xl uppercase tracking-widest mt-6">
                 <Plus className="w-5 h-5 mr-3" />
                 ADD ANOTHER COURSE
               </Button>
