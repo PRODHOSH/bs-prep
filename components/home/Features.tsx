@@ -55,16 +55,18 @@ export function Features() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUpVariants}
-            className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-white aspect-[16/10] overflow-hidden ring-1 ring-black/5"
+            className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
             <video
-              src="/videos/dashboard.mp4"
               autoPlay
               loop
-              muted
+              muted={true}
               playsInline
-              className="w-full h-full object-cover"
-            />
+              preload="auto"
+              className="w-full h-auto block"
+            >
+              <source src="https://res.cloudinary.com/ddn6tl045/video/upload/v1784173034/Screen_Recording_2026-07-16_090305_f97ck3.mp4" type="video/mp4" />
+            </video>
           </motion.div>
         </div>
 
@@ -75,16 +77,18 @@ export function Features() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUpVariants}
-            className="lg:col-span-7 rounded-3xl shadow-2xl bg-white aspect-[16/10] overflow-hidden ring-1 ring-black/5"
+            className="lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
             <video
-              src="/videos/compiler.mp4"
               autoPlay
               loop
-              muted
+              muted={true}
               playsInline
-              className="w-full h-full object-cover"
-            />
+              preload="auto"
+              className="w-full h-auto block"
+            >
+              <source src="https://res.cloudinary.com/ddn6tl045/video/upload/v1784173705/Screen_Recording_2026-07-16_091636_epook1.mp4" type="video/mp4" />
+            </video>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -157,16 +161,18 @@ export function Features() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUpVariants}
-            className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-white aspect-[16/10] overflow-hidden ring-1 ring-black/5"
+            className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
             <video
-              src="/videos/classes.mp4"
               autoPlay
               loop
-              muted
+              muted={true}
               playsInline
-              className="w-full h-full object-cover"
-            />
+              preload="auto"
+              className="w-full h-auto block"
+            >
+              <source src="https://res.cloudinary.com/ddn6tl045/video/upload/v1784174567/Screen_Recording_2026-07-16_092118_fk9jpd.mp4" type="video/mp4" />
+            </video>
           </motion.div>
         </div>
 
