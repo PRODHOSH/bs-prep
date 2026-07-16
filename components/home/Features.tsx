@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckSquare, MonitorPlay, Code2, Users } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -11,6 +12,91 @@ const fadeUpVariants = {
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
+
+const VIDEOS = [
+  {
+    cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784173034/Screen_Recording_2026-07-16_090305_f97ck3.mp4",
+    fallback: "/videos/track.mp4",
+  },
+  {
+    cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784173705/Screen_Recording_2026-07-16_091636_epook1.mp4",
+    fallback: "/videos/code.mp4",
+  },
+  {
+    cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784174567/Screen_Recording_2026-07-16_092118_fk9jpd.mp4",
+    fallback: "/videos/mentor.mp4",
+  },
+];
+
+function ForcePlayVideo({ cloudinarySrc, fallbackSrc, className }: { cloudinarySrc: string; fallbackSrc: string; className?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const forcePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play().catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    // Force play immediately
+    v.play().catch(() => {});
+
+    // Resume on visibility change (tab focus/blur)
+    const onVisibilityChange = () => {
+      if (!document.hidden) v.play().catch(() => {});
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    // Resume whenever video enters the viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            v.play().catch(() => {});
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(v);
+
+    // Poll every 2 seconds as a last resort safety net
+    const interval = setInterval(() => {
+      if (v.paused && !document.hidden) v.play().catch(() => {});
+    }, 2000);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay
+      loop
+      muted={true}
+      playsInline
+      preload="auto"
+      onCanPlay={forcePlay}
+      onLoadedData={forcePlay}
+      onPause={forcePlay}
+      onStalled={forcePlay}
+      onWaiting={forcePlay}
+      className={className}
+    >
+      <source src={cloudinarySrc} type="video/mp4" />
+      <source src={fallbackSrc} type="video/mp4" />
+    </video>
+  );
+}
 
 export function Features() {
   return (
@@ -57,18 +143,11 @@ export function Features() {
             variants={fadeUpVariants}
             className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
-            <video
-              autoPlay
-              loop
-              muted={true}
-              playsInline
-              preload="auto"
-              onCanPlay={(e) => e.currentTarget.play().catch(() => {})}
-              onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+            <ForcePlayVideo
+              cloudinarySrc={VIDEOS[0].cloudinary}
+              fallbackSrc={VIDEOS[0].fallback}
               className="w-full h-auto block"
-            >
-              <source src="https://res.cloudinary.com/ddn6tl045/video/upload/v1784173034/Screen_Recording_2026-07-16_090305_f97ck3.mp4" type="video/mp4" />
-            </video>
+            />
           </motion.div>
         </div>
 
@@ -81,18 +160,11 @@ export function Features() {
             variants={fadeUpVariants}
             className="lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
-            <video
-              autoPlay
-              loop
-              muted={true}
-              playsInline
-              preload="auto"
-              onCanPlay={(e) => e.currentTarget.play().catch(() => {})}
-              onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+            <ForcePlayVideo
+              cloudinarySrc={VIDEOS[1].cloudinary}
+              fallbackSrc={VIDEOS[1].fallback}
               className="w-full h-auto block"
-            >
-              <source src="https://res.cloudinary.com/ddn6tl045/video/upload/v1784173705/Screen_Recording_2026-07-16_091636_epook1.mp4" type="video/mp4" />
-            </video>
+            />
           </motion.div>
           <motion.div
             initial="hidden"
@@ -167,18 +239,11 @@ export function Features() {
             variants={fadeUpVariants}
             className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
-            <video
-              autoPlay
-              loop
-              muted={true}
-              playsInline
-              preload="auto"
-              onCanPlay={(e) => e.currentTarget.play().catch(() => {})}
-              onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+            <ForcePlayVideo
+              cloudinarySrc={VIDEOS[2].cloudinary}
+              fallbackSrc={VIDEOS[2].fallback}
               className="w-full h-auto block"
-            >
-              <source src="https://res.cloudinary.com/ddn6tl045/video/upload/v1784174567/Screen_Recording_2026-07-16_092118_fk9jpd.mp4" type="video/mp4" />
-            </video>
+            />
           </motion.div>
         </div>
 
