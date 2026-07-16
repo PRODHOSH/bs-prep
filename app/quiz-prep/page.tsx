@@ -21,10 +21,10 @@ export default function QuizPrepPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar isAuthenticated={isAuthenticated} />
 
-      <main className="flex-1 flex items-center justify-center py-24 px-4 bg-[#FDFBF7]">
+      <main className="flex-1 flex items-center justify-center py-24 px-4 bg-transparent">
         <div className="max-w-lg w-full text-center space-y-6 border border-black/10 bg-white p-12 shadow-xl rounded-3xl">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/5 px-3 py-1 text-xs font-bold text-black uppercase tracking-widest">
             IN PROGRESS

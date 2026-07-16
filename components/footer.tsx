@@ -141,7 +141,7 @@ export function Footer() {
                 </a>
               </div>
               
-              <div className="pt-2">
+              <div className="pt-2 space-y-4">
                 <a
                   href="https://rzp.io/rzp/support-bsprep"
                   target="_blank"
@@ -151,6 +151,10 @@ export function Footer() {
                   <HeartHandshake className="h-4 w-4" />
                   Support BSPrep
                 </a>
+                
+                <div className="pt-2">
+                  <iframe src="https://status.bsprep.in/badge?theme=dark" width="250" height="30" frameBorder="0" scrolling="no" style={{ colorScheme: 'normal' }}></iframe>
+                </div>
               </div>
             </div>
 

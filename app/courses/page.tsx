@@ -48,13 +48,13 @@ export default function CoursesPage() {
         <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-transparent">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
-              <span className="inline-flex items-center gap-1.5 bg-[#0a192f]/10 text-[#0a192f] px-3 py-1 text-xs font-black uppercase tracking-widest mb-4 rounded-full">
-                TAMIL MEDIUM
+              <span className="inline-flex items-center gap-1.5 bg-[#0a192f]/10 text-[#0a192f] px-3 py-1 text-xs font-black tracking-widest mb-4 rounded-full">
+                Tamil Medium
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-[72px] font-black text-black tracking-tight leading-[1.1] mb-4 uppercase">
                 COURSES <span className="text-[#0a192f]">WE OFFER</span>
               </h1>
-              <p className="text-black/60 font-bold uppercase text-lg max-w-2xl">
+              <p className="text-black/60 font-bold text-lg max-w-2xl">
                 Master the IITM BS curriculum with structured video courses, expert mentorship, and comprehensive study materials in Tamil.
               </p>
             </div>
@@ -84,11 +84,10 @@ export default function CoursesPage() {
                   <button
                     key={val}
                     onClick={() => setSelectedLevel(val)}
-                    className={`px-5 py-3 rounded-full text-sm font-black uppercase transition-all hover:-translate-y-1 shadow-sm ring-1 ${
-                      selectedLevel === val
+                    className={`px-5 py-3 rounded-full text-sm font-black uppercase transition-all hover:-translate-y-1 shadow-sm ring-1 ${selectedLevel === val
                         ? "bg-[#0a192f] text-white ring-transparent shadow-md"
                         : "bg-white text-black/70 hover:bg-gray-50 ring-black/5"
-                    }`}
+                      }`}
                   >
                     {label}
                   </button>
@@ -106,7 +105,7 @@ export default function CoursesPage() {
                   <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-all duration-500 pointer-events-none">
                     <Package className="w-40 h-40" />
                   </div>
-                  
+
                   <div className="relative z-10 h-full flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-4">
@@ -192,11 +191,10 @@ export default function CoursesPage() {
                             className="w-full h-full object-cover"
                           />
                           {/* Level badge over image */}
-                          <span className={`absolute top-4 left-4 inline-flex px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm ${
-                            course.level === "qualifier"
+                          <span className={`absolute top-4 left-4 inline-flex px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm ${course.level === "qualifier"
                               ? "bg-[#0a192f] text-white"
                               : "bg-white text-black"
-                          }`}>
+                            }`}>
                             {course.level}
                           </span>
                         </div>
