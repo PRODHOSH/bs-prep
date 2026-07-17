@@ -102,7 +102,7 @@ export const courses: Course[] = [
     weeks: 12,
     description: "Advanced mathematical concepts",
     thumbnail: "https://res.cloudinary.com/ddn6tl045/image/upload/v1784110490/math_imrnh0.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: false,
     withCertificate: true
   },
@@ -115,7 +115,7 @@ export const courses: Course[] = [
     weeks: 12,
     description: "Advanced statistical methods",
     thumbnail: "https://res.cloudinary.com/ddn6tl045/image/upload/v1784110490/stats_pvtla1.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: false,
     withCertificate: true
   },
@@ -128,7 +128,7 @@ export const courses: Course[] = [
     weeks: 12,
     description: "Python for data analysis",
     thumbnail: "https://res.cloudinary.com/ddn6tl045/image/upload/v1784110491/python_pjus5t.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: false,
     withCertificate: true
   },
@@ -141,7 +141,7 @@ export const courses: Course[] = [
     weeks: 12,
     description: "Advanced communication skills",
     thumbnail: "https://res.cloudinary.com/ddn6tl045/image/upload/v1784110490/english_h8y3dw.png",
-    price: 129, originalPrice: 149,
+    price: 499, originalPrice: 599,
     available: false,
     withCertificate: true
   },
@@ -154,7 +154,7 @@ export const courses: Course[] = [
     weeks: 4,
     description: "Enroll in all 4 available qualifier courses at once",
     thumbnail: "/courses/math.png",
-    price: 1499, originalPrice: 1999,
+    price: 1799, originalPrice: 1999,
     available: true,
     withCertificate: true
   },

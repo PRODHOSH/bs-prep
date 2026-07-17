@@ -36,7 +36,7 @@ export default function CoursesPage() {
     const levelMatch = selectedLevel === "all" || course.level === selectedLevel.toLowerCase()
     const searchMatch = searchQuery === "" ||
       course.title.toLowerCase().includes(searchQuery.toLowerCase())
-    return levelMatch && searchMatch
+    return levelMatch && searchMatch && course.id !== "qualifier-bundle" && course.id !== "coding-bundle"
   })
 
   return (

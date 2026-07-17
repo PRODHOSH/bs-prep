@@ -54,7 +54,7 @@ export default function DashboardCoursesPage() {
     const searchMatch = searchQuery === "" || 
       course.title.toLowerCase().includes(searchQuery.toLowerCase())
     const tabMatch = activeTab === "explore" || enrolledCourseIds.includes(course.id)
-    return levelMatch && searchMatch && tabMatch
+    return levelMatch && searchMatch && tabMatch && course.id !== "qualifier-bundle" && course.id !== "coding-bundle"
   })
 
   return (
