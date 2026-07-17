@@ -1,6 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
+import { Loader2 } from "lucide-react"
 
 export function Loading() {
   const pathname = usePathname()
@@ -11,27 +12,13 @@ export function Loading() {
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center ${
-        isDarkRoute ? "bg-black/20 backdrop-blur-sm" : "bg-white"
+        isDarkRoute ? "bg-[#0a192f]" : "bg-white"
       }`}
     >
-      <div className="flex flex-col items-center justify-center space-y-4">
-        <div
-          className={`w-8 h-8 border-2 rounded-full animate-spin ${
-            isDarkRoute
-              ? "border-slate-500/40 border-t-slate-200"
-              : "border-slate-200 dark:border-slate-800 border-t-slate-900 dark:border-t-white"
-          }`}
-        ></div>
-        <h3 className="text-xl font-bold">
-          <span
-            className={
-              isDarkRoute
-                ? "text-slate-300"
-                : "text-slate-800 dark:text-slate-200"
-            }
-          >
-            Loading...
-          </span>
+      <div className="flex flex-col items-center justify-center gap-4">
+        <Loader2 className={`w-8 h-8 animate-spin ${isDarkRoute ? "text-white" : "text-black"}`} />
+        <h3 className={`text-sm font-black uppercase tracking-widest ${isDarkRoute ? "text-white/60" : "text-black/60"}`}>
+          LOADING...
         </h3>
       </div>
     </div>

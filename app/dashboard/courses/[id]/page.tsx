@@ -7,7 +7,7 @@ import { courses } from "@/lib/course-catalog"
 import { createClient } from "@/lib/supabase/client"
 import {
   BookOpen, CheckCircle2, Lock, ArrowLeft, ArrowUpRight,
-  Video, Youtube, ExternalLink, Calendar, Clock, Radio
+  Video, Youtube, ExternalLink, Calendar, Clock, Radio, Loader2
 } from "lucide-react"
 
 // Map course catalog ID → live-class course codes (one course may match multiple codes)
@@ -144,8 +144,9 @@ export default function CourseDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex-1 p-10 flex items-center justify-center min-h-[60vh]">
-        <div className="w-8 h-8 border-2 border-black/10 border-t-black rounded-full animate-spin"></div>
+      <div className="flex-1 p-10 flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-8 h-8 text-black animate-spin" />
+        <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING COURSE...</p>
       </div>
     )
   }
@@ -413,8 +414,9 @@ function LockedContent({ courseId }: { courseId: string }) {
 
 function LoadingSpinner() {
   return (
-    <div className="flex items-center justify-center py-16">
-      <div className="w-8 h-8 border-2 border-black/10 border-t-black rounded-full animate-spin" />
+    <div className="flex flex-col items-center justify-center py-16 gap-4">
+      <Loader2 className="w-8 h-8 text-black animate-spin" />
+      <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING CONTENT...</p>
     </div>
   )
 }

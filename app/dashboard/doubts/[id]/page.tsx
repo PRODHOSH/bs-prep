@@ -166,7 +166,7 @@ export default function DoubtDetailPage() {
   }
 
   return (
-    <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-4xl mx-auto flex flex-col min-h-[90vh]">
+    <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-6xl mx-auto flex flex-col min-h-[90vh]">
       
       <div className="mb-8">
         <button 
@@ -219,10 +219,14 @@ export default function DoubtDetailPage() {
         </div>
 
         {doubt.image_urls && doubt.image_urls.length > 0 && (
-          <div className="flex flex-wrap gap-4 mt-6">
+          <div className="flex flex-col gap-6 mt-8">
             {doubt.image_urls.map((url, i) => (
-              <a href={url} target="_blank" rel="noreferrer" key={i}>
-                <img src={url} alt={`attachment-${i}`} className="h-32 rounded-xl border border-black/10 hover:border-black/30 transition-all cursor-pointer" />
+              <a href={url} target="_blank" rel="noreferrer" key={i} className="group block">
+                <img 
+                  src={url} 
+                  alt={`attachment-${i}`} 
+                  className="max-h-[500px] w-auto max-w-full rounded-2xl border border-black/10 shadow-sm group-hover:shadow-xl group-hover:border-black/30 transition-all cursor-zoom-in" 
+                />
               </a>
             ))}
           </div>

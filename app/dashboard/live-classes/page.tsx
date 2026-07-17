@@ -110,6 +110,29 @@ export default function LiveClassesPage() {
     // Course filter
     if (selectedCourses.length > 0 && !selectedCourses.includes(cls.course.toLowerCase())) return false;
     return true;
+  }).sort((a, b) => {
+    const statusA = getStatus(a.date, a.time);
+    const statusB = getStatus(b.date, b.time);
+    
+    // Ensure we parse correctly (date + time)
+    const dtA = new Date(`${a.date}T${a.time}`).getTime();
+    const dtB = new Date(`${b.date}T${b.time}`).getTime();
+
+    // Group by status (live first, then upcoming, then completed)
+    const rank: Record<string, number> = { live: 0, upcoming: 1, completed: 2 };
+    
+    if (rank[statusA] !== rank[statusB]) {
+      return rank[statusA] - rank[statusB];
+    }
+
+    // Sort within the same group
+    if (statusA === "completed") {
+      // most recent completed first
+      return dtB - dtA;
+    } else {
+      // soonest upcoming/live first
+      return dtA - dtB;
+    }
   });
 
   const tabs: { key: Filter; label: string }[] = [

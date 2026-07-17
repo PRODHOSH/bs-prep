@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { Loader2 } from "lucide-react"
 import { CertificateDocument } from "@/components/certificate-document"
 
 export default function CertificatePage() {
@@ -50,8 +51,9 @@ export default function CertificatePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="animate-spin w-8 h-8 border-2 border-gray-200 border-t-black rounded-full" />
+      <div className="flex-1 flex flex-col items-center justify-center p-8 gap-4">
+        <Loader2 className="w-8 h-8 text-black animate-spin" />
+        <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING CERTIFICATE...</p>
       </div>
     )
   }

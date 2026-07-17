@@ -97,7 +97,7 @@ export default function NewDoubtPage() {
   }
 
   return (
-    <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-4xl mx-auto flex flex-col min-h-[90vh]">
+    <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-6xl mx-auto flex flex-col min-h-[90vh]">
       
       <div className="mb-8">
         <button 

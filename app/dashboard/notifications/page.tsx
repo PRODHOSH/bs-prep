@@ -7,6 +7,7 @@ import { Bell, Loader2, CalendarClock, MessageCircle, AlertCircle } from "lucide
 export default function DashboardNotificationsPage() {
   const [loading, setLoading] = useState(true)
   const [upcomingClasses, setUpcomingClasses] = useState<any[]>([])
+  const [recentClasses, setRecentClasses] = useState<any[]>([])
   const [announcements, setAnnouncements] = useState<any[]>([])
   const [doubtNotifications, setDoubtNotifications] = useState<any[]>([])
   const supabase = createClient()
@@ -18,19 +19,35 @@ export default function DashboardNotificationsPage() {
         if (!user) return
 
         // 1. Fetch upcoming classes
-        const { data: liveClasses } = await supabase
+        const { data: upcomingData } = await supabase
           .from("live_classes")
           .select("*")
           .gte("date", new Date().toISOString().split("T")[0])
           .order("date", { ascending: true })
 
-        if (liveClasses) {
+        if (upcomingData) {
           const now = new Date()
-          const upcoming = liveClasses.filter((cls) => {
+          const upcoming = upcomingData.filter((cls) => {
             const classDateTime = new Date(`${cls.date}T${cls.time}`)
             return classDateTime > now
           })
           setUpcomingClasses(upcoming)
+        }
+
+        // 1b. Fetch recently added classes (last 7 days)
+        const sevenDaysAgo = new Date()
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+        const { data: recentData } = await supabase
+          .from("live_classes")
+          .select("*")
+          .gte("created_at", sevenDaysAgo.toISOString())
+          .order("created_at", { ascending: false })
+
+        if (recentData) {
+          // Filter out ones that are already in upcoming to avoid duplicates
+          const upcomingIds = upcomingData ? upcomingData.map(c => c.id) : []
+          const recent = recentData.filter(c => !upcomingIds.includes(c.id))
+          setRecentClasses(recent)
         }
 
         // 2. Fetch announcements
@@ -76,10 +93,10 @@ export default function DashboardNotificationsPage() {
     )
   }
 
-  const hasNoNotifications = upcomingClasses.length === 0 && announcements.length === 0 && doubtNotifications.length === 0
+  const hasNoNotifications = upcomingClasses.length === 0 && recentClasses.length === 0 && announcements.length === 0 && doubtNotifications.length === 0
 
   return (
-    <div id="tour-notifications" className="flex-1 p-6 md:p-10 lg:p-12 max-w-4xl mx-auto w-full">
+    <div id="tour-notifications" className="flex-1 p-6 md:p-10 lg:p-12 max-w-6xl mx-auto w-full">
       <div className="flex items-center gap-4 mb-8 pb-6 border-b-2 border-black/10">
         <div className="w-12 h-12 bg-black text-white flex items-center justify-center rounded-2xl shadow-md">
           <Bell className="w-6 h-6" />
@@ -127,7 +144,7 @@ export default function DashboardNotificationsPage() {
                 UPCOMING LIVE CLASSES
               </h2>
               {upcomingClasses.map((cls, idx) => (
-                <div key={idx} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
+                <div key={`upcoming-${idx}`} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
                   <div className="w-2 h-2 bg-[#1e3a8a] rounded-full mt-2 shrink-0" />
                   <div>
                     <span className="text-[10px] font-black text-white bg-[#1e3a8a] px-2 py-0.5 rounded-full uppercase tracking-widest">
@@ -136,6 +153,32 @@ export default function DashboardNotificationsPage() {
                     <h4 className="text-base font-black text-black uppercase mt-2">{cls.topic}</h4>
                     <p className="text-xs font-bold text-black/60 mt-1">
                       {new Date(cls.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })} at {cls.time}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {recentClasses.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="text-sm font-black text-black/50 uppercase tracking-widest flex items-center gap-2 mt-8">
+                <Bell className="w-4 h-4" />
+                RECENTLY ADDED CLASSES
+              </h2>
+              {recentClasses.map((cls, idx) => (
+                <div key={`recent-${idx}`} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 shrink-0" />
+                  <div>
+                    <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full uppercase tracking-widest">
+                      {cls.course}
+                    </span>
+                    <h4 className="text-base font-black text-black uppercase mt-2">New Class: {cls.topic}</h4>
+                    <p className="text-xs font-bold text-black/60 mt-1">
+                      Scheduled for {new Date(cls.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })} at {cls.time}
+                    </p>
+                    <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mt-3">
+                      Added {new Date(cls.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
