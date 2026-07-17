@@ -25,13 +25,15 @@ const siteName = "BSPrep"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "BSPrep | IITM BS Prep, GPA Tools, Notes and Community",
+    default: "BSPrep | IITM BS Tamil Courses, GPA Tools, Notes & Community",
     template: "%s | BSPrep",
   },
-  description: "BSPrep helps IITM BS students with GPA calculator tools, curated notes, quizzes, and community support for better academic outcomes.",
+  description: "Master the IITM BS Degree with BSPrep. Get structured Tamil medium video courses, GPA calculators, curated notes, quizzes, and expert community support.",
   keywords: [
     "IITM BS",
     "BS Data Science",
+    "Tamil Medium Courses IITM BS",
+    "IITM BS Video Lectures",
     "GPA calculator",
     "IITM BS notes",
     "IITM BS community",
@@ -50,8 +52,8 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName,
-    title: "BSPrep | IITM BS Prep, GPA Tools, Notes and Community",
-    description: "Prepare smarter for IITM BS with GPA tools, notes, quiz prep, and community support.",
+    title: "BSPrep | IITM BS Tamil Courses, GPA Tools, Notes & Community",
+    description: "Master the IITM BS Degree with BSPrep. Get structured Tamil medium video courses, GPA calculators, curated notes, and community support.",
     images: [
       {
         url: "/og-image.png",
@@ -63,8 +65,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BSPrep | IITM BS Prep, GPA Tools, Notes and Community",
-    description: "Prepare smarter for IITM BS with GPA tools, notes, quiz prep, and community support.",
+    title: "BSPrep | IITM BS Tamil Courses, GPA Tools, Notes & Community",
+    description: "Master the IITM BS Degree with BSPrep. Get structured Tamil medium video courses, GPA calculators, curated notes, and community support.",
     images: ["/og-image.png"],
   },
   robots: {
