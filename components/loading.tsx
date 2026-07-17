@@ -24,11 +24,11 @@ export function Loading() {
         ></div>
         <h3 className="text-xl font-bold">
           <span
-            className={`bg-clip-text text-transparent ${
+            className={
               isDarkRoute
-                ? "bg-gradient-to-r from-slate-200 to-slate-400"
-                : "bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400"
-            }`}
+                ? "text-slate-300"
+                : "text-slate-800 dark:text-slate-200"
+            }
           >
             Loading...
           </span>

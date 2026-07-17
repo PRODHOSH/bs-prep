@@ -2,7 +2,7 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { hasMentorRole } from "@/lib/security/mentor-role"
-import { LogOut, LayoutDashboard, Video, Menu, X } from "lucide-react"
+import { LogOut, LayoutDashboard, Video, Menu, X, MessageSquare } from "lucide-react"
 
 type MentorConsoleLayoutProps = {
   children: React.ReactNode
@@ -41,6 +41,11 @@ export default async function MentorConsoleLayout({ children }: MentorConsoleLay
       label: "Live Classes",
       href: "/mentor/live-classes",
       icon: Video,
+    },
+    {
+      label: "Doubts",
+      href: "/mentor/doubts",
+      icon: MessageSquare,
     },
   ]
 

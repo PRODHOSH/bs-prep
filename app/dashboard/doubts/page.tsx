@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { createClient } from "@/lib/supabase/client"
 import {
   MessageCircleQuestion,
   Search,
@@ -11,41 +12,84 @@ import {
   Clock,
   CheckCircle2,
   MessageSquare,
+  Plus
 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
-// Static mock data for the Doubts workflow
-const mockDoubts = [
-  {
-    id: "1",
-    title: "Understanding Bayesian Probability vs Frequentist",
-    course: "Statistics for Data Science I",
-    status: "resolved",
-    replies: 4,
-    lastUpdate: "2 hours ago",
-    author: "Student 1",
-  },
-  {
-    id: "2",
-    title: "Can someone explain the recursive function in Week 4 assignment?",
-    course: "Computational Thinking",
-    status: "open",
-    replies: 1,
-    lastUpdate: "5 hours ago",
-    author: "Student 2",
-  },
-  {
-    id: "3",
-    title: "Is it possible to use L'Hopital's rule for limits at infinity here?",
-    course: "Mathematics for Data Science I",
-    status: "in_progress",
-    replies: 2,
-    lastUpdate: "1 day ago",
-    author: "Student 3",
-  },
-]
+type Doubt = {
+  id: string
+  title: string
+  subject: string
+  status: string
+  created_at: string
+  author: { full_name: string }
+  replies_count: number
+}
 
 export default function DashboardDoubtsPage() {
   const [activeTab, setActiveTab] = useState("all")
+  const [doubts, setDoubts] = useState<Doubt[]>([])
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchDoubts()
+  }, [])
+
+  const fetchDoubts = async () => {
+    setLoading(true)
+    
+    // Fetch doubts with author profile and course
+    const { data: doubtsData, error } = await supabase
+      .from('doubts')
+      .select(`
+        id, 
+        title, 
+        status, 
+        created_at, 
+        subject,
+        profiles:user_id ( first_name, last_name )
+      `)
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error("SUPABASE ERROR:", JSON.stringify(error, null, 2))
+      setLoading(false)
+      return
+    }
+
+    // Fetch reply counts manually if needed, or just assume 0 for now to keep simple
+    const formattedDoubts = doubtsData.map((d: any) => {
+      const p = d.profiles
+      return {
+        id: d.id,
+        title: d.title,
+        subject: d.subject,
+        status: d.status,
+        created_at: d.created_at,
+        author: { full_name: p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : 'Unknown' },
+        replies_count: 0 // In a real app we'd do a count query or a view
+      }
+    })
+    
+    setDoubts(formattedDoubts)
+    setLoading(false)
+  }
+
+  const handleAskDoubt = () => {
+    router.push("/dashboard/doubts/new")
+  }
+
+  const timeAgo = (dateStr: string) => {
+    const date = new Date(dateStr)
+    const now = new Date()
+    const diff = Math.floor((now.getTime() - date.getTime()) / 1000)
+    if (diff < 60) return `${diff} seconds ago`
+    if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`
+    if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`
+    return `${Math.floor(diff / 86400)} days ago`
+  }
 
   return (
     <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-7xl mx-auto flex flex-col min-h-[90vh]">
@@ -65,15 +109,15 @@ export default function DashboardDoubtsPage() {
           </p>
         </div>
         
-        <Button className="bg-black hover:bg-black/90 text-white rounded-2xl h-14 px-8 text-xs font-black uppercase tracking-widest shadow-md hover:shadow-lg transition-all shrink-0">
-          ASK A DOUBT
+        <Button onClick={handleAskDoubt} className="bg-black hover:bg-black/90 text-white rounded-2xl h-14 px-8 text-xs font-black uppercase tracking-widest shadow-md hover:shadow-lg transition-all shrink-0">
+          <Plus className="w-4 h-4 mr-2" /> ASK A DOUBT
         </Button>
       </div>
 
       {/* Filters & Search */}
       <div className="bg-white rounded-3xl border border-black/10 p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
         <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
-          {["all", "open", "in_progress", "resolved"].map((tab) => (
+          {["all", "open", "resolved"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -105,65 +149,65 @@ export default function DashboardDoubtsPage() {
 
       {/* List of doubts */}
       <div className="space-y-4 flex-1">
-        {mockDoubts
-          .filter(d => activeTab === "all" || d.status === activeTab)
-          .map((doubt) => (
-          <div 
-            key={doubt.id}
-            className="group bg-white border border-black/10 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-black/30 hover:shadow-xl transition-all duration-300 cursor-pointer"
-          >
-            <div className="space-y-4 flex-1">
-              <div className="flex items-center gap-3">
-                <span className="bg-black text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
-                  {doubt.course}
-                </span>
-                
-                {doubt.status === "resolved" ? (
-                  <span className="flex items-center gap-1 text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> Resolved
-                  </span>
-                ) : doubt.status === "in_progress" ? (
-                  <span className="flex items-center gap-1 text-[#1e3a8a] bg-blue-50 border border-blue-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    <Clock className="w-3.5 h-3.5" /> In Progress
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1 text-amber-600 bg-amber-50 border border-amber-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    <MessageSquare className="w-3.5 h-3.5" /> Open
-                  </span>
-                )}
-              </div>
-              
-              <h3 className="text-xl md:text-2xl font-black text-black tracking-tight group-hover:text-[#1e3a8a] transition-colors line-clamp-2">
-                {doubt.title}
-              </h3>
-              
-              <div className="flex items-center gap-4 text-xs font-bold text-black/50 uppercase tracking-widest">
-                <span>By {doubt.author}</span>
-                <span className="w-1 h-1 rounded-full bg-black/20"></span>
-                <span>{doubt.lastUpdate}</span>
-                <span className="w-1 h-1 rounded-full bg-black/20"></span>
-                <span className="flex items-center gap-1.5">
-                  <MessageCircleQuestion className="w-4 h-4" />
-                  {doubt.replies} Replies
-                </span>
-              </div>
-            </div>
+        {loading ? (
+          <div className="text-center py-20 bg-white rounded-3xl border border-black/10 animate-pulse">
+            <p className="text-sm font-black text-black/40 uppercase tracking-widest">LOADING DOUBTS...</p>
+          </div>
+        ) : (
+          <>
+            {doubts
+              .filter(d => activeTab === "all" || d.status === activeTab)
+              .map((doubt) => (
+              <div 
+                key={doubt.id}
+                onClick={() => router.push(`/dashboard/doubts/${doubt.id}`)}
+                className="group bg-white border border-black/10 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-black/30 hover:shadow-xl transition-all duration-300 cursor-pointer"
+              >
+                <div className="space-y-4 flex-1">
+                  <div className="flex items-center gap-3">
+                    <span className="bg-black text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
+                      {doubt.subject}
+                    </span>
+                    
+                    {doubt.status === "resolved" ? (
+                      <span className="flex items-center gap-1 text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Resolved
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 text-amber-600 bg-amber-50 border border-amber-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        <MessageSquare className="w-3.5 h-3.5" /> Open
+                      </span>
+                    )}
+                  </div>
+                  
+                  <h3 className="text-xl md:text-2xl font-black text-black tracking-tight group-hover:text-[#1e3a8a] transition-colors line-clamp-2">
+                    {doubt.title}
+                  </h3>
+                  
+                  <div className="flex items-center gap-4 text-xs font-bold text-black/50 uppercase tracking-widest">
+                    <span>By {doubt.author.full_name}</span>
+                    <span className="w-1 h-1 rounded-full bg-black/20"></span>
+                    <span>{timeAgo(doubt.created_at)}</span>
+                  </div>
+                </div>
 
-            <div className="shrink-0 flex items-center justify-end">
-              <div className="w-12 h-12 rounded-full bg-black/5 group-hover:bg-black group-hover:text-white flex items-center justify-center text-black transition-all">
-                <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                <div className="shrink-0 flex items-center justify-end">
+                  <div className="w-12 h-12 rounded-full bg-black/5 group-hover:bg-black group-hover:text-white flex items-center justify-center text-black transition-all">
+                    <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-        
-        {mockDoubts.filter(d => activeTab === "all" || d.status === activeTab).length === 0 && (
-          <div className="text-center py-20 bg-white rounded-3xl border border-black/10">
-            <MessageCircleQuestion className="w-12 h-12 text-black/20 mx-auto mb-4" />
-            <p className="text-sm font-black text-black/40 uppercase tracking-widest">
-              NO DOUBTS FOUND FOR THIS FILTER.
-            </p>
-          </div>
+            ))}
+            
+            {doubts.filter(d => activeTab === "all" || d.status === activeTab).length === 0 && (
+              <div className="text-center py-20 bg-white rounded-3xl border border-black/10">
+                <MessageCircleQuestion className="w-12 h-12 text-black/20 mx-auto mb-4" />
+                <p className="text-sm font-black text-black/40 uppercase tracking-widest">
+                  NO DOUBTS FOUND FOR THIS FILTER.
+                </p>
+              </div>
+            )}
+          </>
         )}
       </div>
 
