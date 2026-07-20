@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { apiRateLimiter } from "@/lib/rate-limit";
+import { canAccessLiveClass } from "@/lib/live-classes/access";
 
 export async function GET(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
@@ -11,25 +12,17 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    
-    let enrolledCourseIds: string[] = [];
-    if (user) {
-      const { data: enrollments } = await supabase
-        .from('enrollments')
-        .select('course_id')
-        .eq('user_id', user.id);
-      
-      if (enrollments) {
-        enrolledCourseIds = enrollments.map(e => e.course_id);
-      }
-    }
 
-    // Fetch classes from Supabase instead of Google Sheets
-    const { data: dbClasses, error } = await supabase
-      .from('live_classes')
-      .select('*')
-      .order('date', { ascending: true });
+    const [enrollmentsResult, classesResult] = await Promise.all([
+      user
+        ? supabase.from('enrollments').select('course_id').eq('user_id', user.id)
+        : Promise.resolve({ data: null }),
+      supabase.from('live_classes').select('*').order('date', { ascending: true }),
+    ]);
 
+    const enrolledCourseIds = (enrollmentsResult.data || []).map((e: { course_id: string }) => e.course_id);
+
+    const { data: dbClasses, error } = classesResult;
     if (error) {
       throw error;
     }
@@ -45,24 +38,7 @@ export async function GET(request: NextRequest) {
       time: row.time,
       date: row.date,
       youtubeLink: row.youtube_link || "",
-    })).filter((cls) => {
-      // Keep Python and Doubts classes visible for everyone in dashboard.
-      const code = cls.course.toLowerCase();
-      if (code === 'python' || code === 'doubts') {
-        return true;
-      }
-
-      // Match course code -> course ID for enrollment filtering.
-      const courseIdMap: { [key: string]: string } = {
-        'ct': 'qualifier-computational-thinking',
-        'stats-1': 'qualifier-stats-1',
-        'math-1': 'qualifier-math-1',
-        'qualifier-python': 'qualifier-python',
-        'qualifier-java': 'qualifier-java'
-      };
-      const courseId = courseIdMap[code];
-      return courseId ? enrolledCourseIds.includes(courseId) : false;
-    });
+    })).filter((cls) => canAccessLiveClass(cls.course, enrolledCourseIds));
 
     return NextResponse.json({ classes });
   } catch (error) {

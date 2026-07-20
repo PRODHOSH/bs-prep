@@ -65,10 +65,10 @@ export default function LiveClassesPage() {
       if (user) setUserId(user.id);
     };
     fetchUser();
-    
-    const fetchClasses = async () => {
+
+    const fetchClasses = async (isInitial: boolean) => {
       try {
-        setLoading(true);
+        if (isInitial) setLoading(true);
         const response = await fetch("/api/live-classes");
         if (!response.ok) throw new Error("Failed to fetch live classes");
         const data = await response.json();
@@ -77,12 +77,36 @@ export default function LiveClassesPage() {
         console.error("Error fetching classes:", err);
         setError("Unable to load live classes. Please try again later.");
       } finally {
-        setLoading(false);
+        if (isInitial) setLoading(false);
       }
     };
-    fetchClasses();
-    const interval = setInterval(fetchClasses, 30000);
-    return () => clearInterval(interval);
+
+    fetchClasses(true);
+
+    let interval: ReturnType<typeof setInterval> | null = null;
+    const startPolling = () => {
+      if (interval) return;
+      interval = setInterval(() => fetchClasses(false), 30000);
+    };
+    const stopPolling = () => {
+      if (interval) clearInterval(interval);
+      interval = null;
+    };
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopPolling();
+      } else {
+        fetchClasses(false);
+        startPolling();
+      }
+    };
+
+    startPolling();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      stopPolling();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
 

@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Loader2, Trash2, Video } from "lucide-react";
+import { Plus, Loader2, Trash2, Video, Share2, Copy, Check, Mail, MessageCircle, Send } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type LiveClass = {
   id: string;
@@ -13,11 +19,22 @@ type LiveClass = {
   youtube_link?: string;
 };
 
+function buildShareMessage(cls: LiveClass): string {
+  const lectureUrl = `${window.location.origin}/dashboard/live-classes/${cls.id}`;
+  return [
+    `Course: ${cls.course.toUpperCase()}`,
+    `Topic: ${cls.topic}`,
+    `Date & Time: ${cls.date} at ${cls.time}`,
+    `Join here: ${lectureUrl}`,
+  ].join("\n");
+}
+
 export default function MentorLiveClassesPage() {
   const [classes, setClasses] = useState<LiveClass[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mentorSubject, setMentorSubject] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Form state
   const [showForm, setShowForm] = useState(false);
@@ -79,6 +96,38 @@ export default function MentorLiveClassesPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleCopyLink = async (cls: LiveClass) => {
+    try {
+      await navigator.clipboard.writeText(buildShareMessage(cls));
+      setCopiedId(cls.id);
+      setTimeout(() => setCopiedId((current) => (current === cls.id ? null : current)), 2000);
+    } catch {
+      alert("Failed to copy to clipboard");
+    }
+  };
+
+  const handleShareWhatsApp = (cls: LiveClass) => {
+    const url = `https://wa.me/?text=${encodeURIComponent(buildShareMessage(cls))}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleShareTelegram = (cls: LiveClass) => {
+    const lectureUrl = `${window.location.origin}/dashboard/live-classes/${cls.id}`;
+    const text = [
+      `Course: ${cls.course.toUpperCase()}`,
+      `Topic: ${cls.topic}`,
+      `Date & Time: ${cls.date} at ${cls.time}`,
+    ].join("\n");
+    const url = `https://t.me/share/url?url=${encodeURIComponent(lectureUrl)}&text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleShareEmail = (cls: LiveClass) => {
+    const subject = `Live Class: ${cls.course.toUpperCase()} - ${cls.topic}`;
+    const url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildShareMessage(cls))}`;
+    window.location.href = url;
   };
 
   const handleDelete = async (id: string) => {
@@ -251,13 +300,47 @@ export default function MentorLiveClassesPage() {
                     )}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button
-                      onClick={() => handleDelete(cls.id)}
-                      className="text-rose-400 hover:text-rose-300 transition-colors p-2"
-                      title="Delete class"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center justify-end gap-1">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            className="text-emerald-400 hover:text-emerald-300 transition-colors p-2"
+                            title="Share class"
+                          >
+                            <Share2 className="w-4 h-4" />
+                          </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="bg-[#15303b] border-white/10 text-emerald-100">
+                          <DropdownMenuItem onClick={() => handleCopyLink(cls)} className="gap-2 cursor-pointer">
+                            {copiedId === cls.id ? (
+                              <>
+                                <Check className="w-4 h-4" /> Copied!
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-4 h-4" /> Copy Link
+                              </>
+                            )}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleShareWhatsApp(cls)} className="gap-2 cursor-pointer">
+                            <MessageCircle className="w-4 h-4" /> WhatsApp
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleShareTelegram(cls)} className="gap-2 cursor-pointer">
+                            <Send className="w-4 h-4" /> Telegram
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleShareEmail(cls)} className="gap-2 cursor-pointer">
+                            <Mail className="w-4 h-4" /> Email
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                      <button
+                        onClick={() => handleDelete(cls.id)}
+                        className="text-rose-400 hover:text-rose-300 transition-colors p-2"
+                        title="Delete class"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
