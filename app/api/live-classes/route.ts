@@ -15,10 +15,14 @@ export async function GET(request: NextRequest) {
 
     const [enrollmentsResult, classesResult] = await Promise.all([
       user
-        ? supabase.from('enrollments').select('course_id').eq('user_id', user.id)
-        : Promise.resolve({ data: null }),
-      supabase.from('live_classes').select('*').order('date', { ascending: true }),
+        ? supabase.from("enrollments").select("course_id").eq("user_id", user.id)
+        : Promise.resolve({ data: [], error: null }),
+      supabase.from("live_classes").select("*").order("date", { ascending: true }),
     ]);
+
+    if (enrollmentsResult.error) {
+      throw enrollmentsResult.error;
+    }
 
     const enrolledCourseIds = (enrollmentsResult.data || []).map((e: { course_id: string }) => e.course_id);
 
