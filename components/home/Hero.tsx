@@ -63,7 +63,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative h-[250px] md:h-[400px] w-full mt-8 md:mt-0 hidden sm:flex items-center justify-center lg:justify-end lg:-mr-4"
+            className="relative h-[250px] md:h-[400px] w-full mt-8 md:mt-0 flex items-center justify-center lg:justify-end lg:-mr-4"
           >
             <HeroGraphic />
           </motion.div>

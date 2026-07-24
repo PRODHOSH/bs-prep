@@ -420,25 +420,34 @@ export function DashboardHeader({ isAuthenticated = false, userRole = "student" 
             <Link href="/dashboard/courses" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               COURSES
             </Link>
-            <Link href="/quiz-prep" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+            <Link href="/dashboard/quiz-prep" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               QUIZ PREP
             </Link>
             <Link href="/compiler" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               COMPILER
             </Link>
-            <Link href="/resources" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+            <Link href="/dashboard/resources" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               RESOURCES
+            </Link>
+            <Link href="/dashboard/docs" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              OFFICIAL DOCS
+            </Link>
+            <Link href="/dashboard/calendar" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              CALENDAR
             </Link>
             <Link href="/dashboard/doubts" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               DOUBTS
             </Link>
-            <div className="px-4 py-2 text-[10px] font-bold text-black/40">
+            <Link href="/dashboard/live-classes" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+              LIVE CLASSES
+            </Link>
+            <div className="px-4 py-2 text-[10px] font-bold text-black/40 uppercase tracking-widest">
               TOOLS
             </div>
-            <Link href="/tools/gpa-calculator" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+            <Link href="/dashboard/tools/gpa-calculator" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               GPA CALCULATOR
             </Link>
-            <Link href="/tools/gpa-predictor" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
+            <Link href="/dashboard/tools/gpa-predictor" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
               GPA PREDICTOR
             </Link>
           </div>

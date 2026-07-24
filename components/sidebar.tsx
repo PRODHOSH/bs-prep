@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { createClient } from "@/lib/supabase/client"
-import { Bell, User, Menu, X, ChevronDown, Settings, LogOut, LayoutDashboard, BookOpen, PenTool, Code, Library, MessageCircleQuestion, Calculator, LineChart, Video } from "lucide-react"
+import { Bell, User, Menu, X, ChevronDown, Settings, LogOut, LayoutDashboard, BookOpen, PenTool, Code, Library, MessageCircleQuestion, Calculator, LineChart, Video, FileText, Calendar as CalendarIcon } from "lucide-react"
 
 const LoginModal = dynamic(
   () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
@@ -34,6 +34,8 @@ const SIDEBAR_LINKS = [
   { name: "QUIZ PREP", href: "/dashboard/quiz-prep", icon: PenTool },
   { name: "COMPILER", href: "/compiler", icon: Code },
   { name: "RESOURCES", href: "/dashboard/resources", icon: Library },
+  { name: "OFFICIAL DOCS", href: "/dashboard/docs", icon: FileText },
+  { name: "CALENDAR", href: "/dashboard/calendar", icon: CalendarIcon },
   { name: "DOUBTS", href: "/dashboard/doubts", icon: MessageCircleQuestion },
   { name: "LIVE CLASSES", href: "/dashboard/live-classes", icon: Video },
 ]
