@@ -70,6 +70,7 @@ export function Footer() {
         { name: "Ambassador Portal", href: "https://ambassador.bsprep.in/", external: true },
         { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
         { name: "Contact", href: "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog", external: true },
+        { name: "Donate", href: "https://rzp.io/rzp/support-bsprep", external: true },
       ],
     },
     {
@@ -119,7 +120,7 @@ export function Footer() {
                   href="https://www.linkedin.com/company/bs-prep/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-[#0077b5] hover:text-white hover:border-transparent transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-[#0077b5] bg-[#0077b5]/10 hover:bg-[#0077b5] hover:text-white transition-all shadow-sm"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -127,7 +128,7 @@ export function Footer() {
                   href="https://www.youtube.com/@DataScienceIITMTamil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-red-600 hover:text-white hover:border-transparent transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-[#ff0000] bg-[#ff0000]/10 hover:bg-[#ff0000] hover:text-white transition-all shadow-sm"
                 >
                   <Youtube className="w-4 h-4" />
                 </a>
@@ -135,7 +136,7 @@ export function Footer() {
                   href="https://www.instagram.com/bsprep.in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white hover:border-transparent transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-[#E1306C] bg-[#E1306C]/10 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all shadow-sm"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
@@ -149,14 +150,9 @@ export function Footer() {
                   className="inline-flex items-center gap-2 rounded-xl bg-[#0a192f] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#112a52] hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg w-fit"
                 >
                   <HeartHandshake className="h-4 w-4" />
-                  Support BSPrep
+                  Donate
                 </a>
                 
-                <div className="pt-2">
-                  <a href="https://status.bsprep.in" target="_blank" rel="noopener noreferrer">
-                    <img src="https://status.bsprep.in/badge?theme=dark" alt="Platform Status" className="h-[30px]" />
-                  </a>
-                </div>
               </div>
             </div>
 
