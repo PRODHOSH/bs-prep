@@ -357,8 +357,8 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <p className="text-xs font-bold uppercase tracking-widest text-black/50 mb-6 leading-relaxed relative z-10 max-w-xl">
-                PERMANENTLY DELETES YOUR ACCOUNT AND ALL ASSOCIATED DATA — PROFILE, ENROLLMENTS, AND EVERYTHING ELSE. THIS CANNOT BE UNDONE.
+              <p className="text-sm font-medium text-black/60 mb-6 leading-relaxed relative z-10 max-w-xl">
+                Permanently deletes your account and all associated data — profile, enrollments, and everything else. This cannot be undone.
               </p>
 
               {!showDeleteConfirm ? (

@@ -25,6 +25,13 @@ const DOCS_LINKS = [
     color: "bg-amber-500/10 text-amber-600",
   },
   {
+    title: "Diploma Announcement",
+    description: "Important announcements and updates for diploma level courses.",
+    url: "https://docs.google.com/document/u/8/d/e/2PACX-1vT1FCWEatNR-gSBHmI2I17tqGHCmUkeFVTzl7VTbR4MZVqm2q54OOFbf7nDMsfe68ONXTB29BwPsIr7/pub",
+    icon: Bell,
+    color: "bg-orange-500/10 text-orange-600",
+  },
+  {
     title: "Course Planner",
     description: "IITM BS official app to plan your courses and terms effectively.",
     url: "https://course-planner-140256174016.asia-south1.run.app/login",
