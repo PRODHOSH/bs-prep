@@ -36,7 +36,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 499, originalPrice: 599,
     description: "Fundamental mathematics concepts for data science",
-    thumbnail: "/courses/math.png",
+    thumbnail: "/courses/mathematics_for_datascience_1.jpeg",
     syllabus: [
       { week: 1, title: "Set Theory - Number system, Sets and their operations", topics: "Relations and functions - Relations and their types, Functions and their types" },
       { week: 2, title: "Rectangular coordinate system, Straight Lines", topics: "Slope of a line, Parallel and perpendicular lines, Representations of a Line, General equations of a line, Straight-line fit" },
@@ -49,7 +49,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 499, originalPrice: 599,
     description: "Introduction to statistical thinking and analysis",
-    thumbnail: "/courses/stats.png",
+    thumbnail: "/courses/statistics_for_datascience_1.jpeg",
     syllabus: [
       { week: 1, title: "Introduction and type of data", topics: "Types of data, Descriptive and Inferential statistics, Scales of measurement" },
       { week: 2, title: "Describing categorical data", topics: "Frequency distribution of categorical data, Best practices for graphing categorical data, Mode and median for categorical variable" },
@@ -62,7 +62,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 499, originalPrice: 599,
     description: "Problem-solving and algorithmic thinking fundamentals",
-    thumbnail: "/courses/ct.png",
+    thumbnail: "/courses/ct.jpeg",
     syllabus: [
       { week: 1, title: "Variables, Initialization, Iterators, Filtering", topics: "Datatypes, Flowcharts, Sanity of data" },
       { week: 2, title: "Iteration, Filtering, Selection", topics: "Pseudocode, Finding max and min, AND operator" },
@@ -75,7 +75,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 499, originalPrice: 599,
     description: "Build core spoken and written English skills for IITM BS.",
-    thumbnail: "/courses/english.png",
+    thumbnail: "/courses/english_for_datascience_1.jpeg",
     syllabus: [
       { week: 1, title: "Sounds and Words", topics: "Vowel and consonant sounds" },
       { week: 2, title: "Parts of Speech", topics: "Nouns, pronouns, verbs, adjectives, adverbs and usage" },
@@ -88,7 +88,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 499, originalPrice: 599,
     description: "Learn Python from scratch and build real-world applications.",
-    thumbnail: "/courses/python.png",
+    thumbnail: "/courses/programming_in_python.jpeg",
     syllabus: [
       { week: 1, title: "Introduction to Python", topics: "Variables, Data Types, Input/Output, Operators" },
       { week: 2, title: "Control Flow", topics: "If-Else statements, For loops, While loops" },
@@ -101,7 +101,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 499, originalPrice: 599,
     description: "Master Object Oriented Programming principles with Java.",
-    thumbnail: "/courses/java.png",
+    thumbnail: "/courses/programming_in_java.jpeg",
     syllabus: [
       { week: 1, title: "Java Basics", topics: "Syntax, Data types, Variables, Operators" },
       { week: 2, title: "Control Structures", topics: "Conditional statements, Loops, Switch cases" },
@@ -114,7 +114,7 @@ const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 1799, originalPrice: 1999,
     description: "Master Math, Statistics, Computational Thinking, and English.",
-    thumbnail: "/courses/math.png",
+    thumbnail: "/courses/qualifier_bundle_4_courses.jpeg",
     syllabus: [
       { isCourseHeader: true, title: "Mathematics for Data Science I" },
       { week: 1, title: "Set Theory - Number system, Sets and their operations", topics: "Relations and functions - Relations and their types, Functions and their types" },
