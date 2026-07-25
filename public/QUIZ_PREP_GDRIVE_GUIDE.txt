@@ -1,0 +1,120 @@
+================================================================================
+BSPREP - QUIZ PREP SECTION GOOGLE DRIVE FOLDER STRUCTURE & API SETUP GUIDE
+================================================================================
+
+AUTHOR: rishsv (rishwanthsv17@gmail.com)
+PLATFORM: BSPrep (IIT Madras BS Academic Support)
+
+--------------------------------------------------------------------------------
+1. GOOGLE DRIVE FOLDER HIERARCHY STRUCTURE
+--------------------------------------------------------------------------------
+To power the Quiz Prep engine from Google Drive, your drive root folder must follow
+this exact folder structure and naming convention:
+
+[Root Folder]  <-- This folder ID goes into GOOGLE_DRIVE_ROOT_FOLDER_ID
+ ├── Foundation
+ │    ├── Mathematics I
+ │    │    ├── Quiz 1
+ │    │    │    ├── 2024-May-Shift1
+ │    │    │    │    ├── Q1
+ │    │    │    │    │    ├── question.png (or question.txt)
+ │    │    │    │    │    ├── option1.png  (or option1.txt)
+ │    │    │    │    │    ├── option2.png  (or option2.txt)  <-- ALWAYS THE CORRECT ANSWER!
+ │    │    │    │    │    ├── option3.png  (or option3.txt)
+ │    │    │    │    │    └── option4.png  (or option4.txt)
+ │    │    │    │    ├── Q2
+ │    │    │    │    └── Q3
+ │    │    │    └── 2024-May-Shift2
+ │    │    ├── Quiz 2
+ │    │    └── End Term
+ │    └── Statistics I
+ ├── Diploma
+ └── Degree
+
+--------------------------------------------------------------------------------
+2. EXACT FOLDER & FILE NAMING RULES
+--------------------------------------------------------------------------------
+
+A. LEVEL FOLDERS (Exact Names Required):
+   - Foundation
+   - Diploma
+   - Degree
+
+B. COURSE FOLDERS:
+   - Name must match the course title (e.g., "Mathematics I", "Statistics I", "English I", "Computational Thinking").
+
+C. EXAM TYPE FOLDERS (Exact Names Required):
+   - Quiz 1
+   - Quiz 2
+   - End Term
+
+D. DATE / SHIFT FOLDERS:
+   - Name format: YYYY-Month-ShiftX (e.g., "2024-May-Shift1", "2024-Sept-Shift2").
+
+E. QUESTION FOLDERS:
+   - Folders named Q1, Q2, Q3, Q4, etc.
+
+F. FILES INSIDE EACH QUESTION FOLDER:
+   - question.png OR question.txt : The question prompt image or text file.
+   - option1.png  OR option1.txt  : Distractor / Wrong Answer 1
+   - option2.png  OR option2.txt  : *** CRITICAL SECURITY CONTRACT ***
+                                    Option 2 MUST ALWAYS be the CORRECT answer in Drive!
+                                    The BSPrep server automatically anonymizes and shuffles 
+                                    all options with Fisher-Yates before sending them to the user.
+   - option3.png  OR option3.txt  : Distractor / Wrong Answer 3
+   - option4.png  OR option4.txt  : Distractor / Wrong Answer 4
+
+--------------------------------------------------------------------------------
+3. GOOGLE CLOUD & API KEYS SETUP PROCESS
+--------------------------------------------------------------------------------
+
+STEP 1: Create a Google Cloud Project & Enable Google Drive API
+--------------------------------------------------------------
+1. Go to Google Cloud Console: https://console.cloud.google.com/
+2. Click "Select a project" -> "New Project" -> Name it "BSPrep Quiz Engine".
+3. Search for "Google Drive API" in the search bar and click "ENABLE".
+
+STEP 2: Create Service Account & Generate JSON Key
+--------------------------------------------------
+1. Go to "APIs & Services" -> "Credentials".
+2. Click "Create Credentials" -> "Service Account".
+3. Enter Service Account Name: "bsprep-drive-reader", then click "CREATE AND CONTINUE".
+4. Role: Select "Basic" -> "Viewer". Click "DONE".
+5. Click on the created Service Account email (e.g., bsprep-drive-reader@bsprep-quiz.iam.gserviceaccount.com).
+6. Go to the "KEYS" tab -> Click "Add Key" -> "Create new key" -> Select "JSON" -> Click "CREATE".
+7. A JSON file will download to your computer.
+
+STEP 3: Share your Google Drive Root Folder
+-------------------------------------------
+1. Open your Google Drive root folder.
+2. Click "Share".
+3. Paste the Service Account Email address (from Step 2).
+4. Give it "Viewer" access and click "Send" / "Share".
+5. Copy the Root Folder ID from the URL bar:
+   https://drive.google.com/drive/folders/YOUR_ROOT_FOLDER_ID_IS_HERE
+
+STEP 4: Add Environment Variables to .env.local
+-----------------------------------------------
+In your project root `.env.local` file, add the following variables:
+
+# Google Drive Root Folder ID
+GOOGLE_DRIVE_ROOT_FOLDER_ID="YOUR_ROOT_FOLDER_ID_HERE"
+
+# Google Service Account Credentials (JSON stringified into a single line)
+GOOGLE_SERVICE_ACCOUNT_KEY='{"type":"service_account","project_id":"...","private_key":"...","client_email":"..."}'
+
+# Optional Fallback API Key
+GOOGLE_DRIVE_API_KEY="YOUR_GOOGLE_DRIVE_API_KEY"
+
+# HMAC Signing Secret Key for Secure Quiz Answer Verification
+TOKEN_SECRET_KEY="bsprep-quiz-secret-key-super-secure-32-bytes"
+
+--------------------------------------------------------------------------------
+4. VERIFICATION & TESTING
+--------------------------------------------------------------------------------
+1. Run `npm run dev`.
+2. Navigate to `http://localhost:3000/quiz-prep` or `/dashboard/quiz-prep`.
+3. Select your Level, Course, Exam Type, and Date/Shift.
+4. The system will pull questions live from your Google Drive folder, shuffle options,
+   and serve a secure, anti-cheat exam session!
+================================================================================
