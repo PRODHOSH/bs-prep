@@ -53,7 +53,12 @@ export default function AdminDoubtDetailPage() {
   const checkUser = async () => {
     const { data } = await supabase.auth.getSession()
     if (data.session) {
-      setCurrentUserId(data.session.user.id)
+      const user = data.session.user
+      setCurrentUserId(user.id)
+      const googlePic = user.user_metadata?.avatar_url || user.user_metadata?.picture
+      if (googlePic) {
+        await supabase.from('profiles').update({ avatar_url: googlePic, profile_picture_url: googlePic }).eq('id', user.id)
+      }
     }
   }
 
@@ -65,7 +70,7 @@ export default function AdminDoubtDetailPage() {
       .from('doubts')
       .select(`
         id, title, description, status, image_urls, created_at, user_id, subject,
-        profiles:user_id ( first_name, last_name, profile_picture_url, email )
+        profiles:user_id ( first_name, last_name, profile_picture_url, avatar_url, email )
       `)
       .eq('id', doubtId)
       .single()
@@ -84,7 +89,7 @@ export default function AdminDoubtDetailPage() {
         subject: dData.subject,
         author: { 
           full_name: name, 
-          photo_url: p?.profile_picture_url || null 
+          photo_url: p?.avatar_url || p?.profile_picture_url || null 
         }
       })
     }
@@ -94,7 +99,7 @@ export default function AdminDoubtDetailPage() {
       .from('doubt_replies')
       .select(`
         id, content, created_at, is_official_answer, is_accepted_answer, user_id,
-        profiles:user_id ( first_name, last_name, profile_picture_url, email )
+        profiles:user_id ( first_name, last_name, profile_picture_url, avatar_url, email )
       `)
       .eq('doubt_id', doubtId)
       .order('created_at', { ascending: true })
@@ -115,7 +120,7 @@ export default function AdminDoubtDetailPage() {
           user_id: r.user_id,
           author: {
             full_name: fullName,
-            photo_url: isBot ? '/bsprep_chatbot.png' : (rp?.profile_picture_url || null)
+            photo_url: isBot ? '/bsprep_chatbot.png' : (rp?.avatar_url || rp?.profile_picture_url || null)
           }
         }
       })
