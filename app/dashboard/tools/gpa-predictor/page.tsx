@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic"
-import { TrendingUp } from "lucide-react"
+import { TrendingUp, Loader2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -98,8 +98,9 @@ export default function DashboardGPAPredictorPage() {
     return (
       <div className="min-h-screen bg-white relative">
         <BeamsBackground />
-                <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
-          <div className="animate-spin w-12 h-12 border-4 border-black border-t-transparent rounded-full"></div>
+        <div className="container mx-auto px-4 py-20 flex flex-col items-center justify-center relative z-10 gap-4">
+          <Loader2 className="w-8 h-8 text-black animate-spin" />
+          <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING PREDICTOR...</p>
         </div>
       </div>
     )
@@ -243,21 +244,22 @@ export default function DashboardGPAPredictorPage() {
                     </div>
                     
                     {/* Table */}
-                    <div className="overflow-hidden bg-white border border-black/10 shadow-xl overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+                    {/* Table */}
+                    <div className="overflow-hidden bg-white border border-black/10 shadow-sm rounded-2xl overflow-x-auto mx-0 px-0">
                       <div className="min-w-[600px]">
                         {/* Table Header */}
-                        <div className="grid grid-cols-4 gap-4 bg-black p-4 border-b-2 border-black">
+                        <div className="grid grid-cols-4 gap-4 bg-[#FDFBF7] p-4 border-b border-black/10">
                         <div className="text-center">
-                          <p className="text-white font-black text-[10px] uppercase tracking-widest">TARGET GRADE</p>
+                          <p className="text-black/60 font-bold text-[10px] uppercase tracking-widest">TARGET GRADE</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-white font-black text-[10px] uppercase tracking-widest">GRADE POINTS</p>
+                          <p className="text-black/60 font-bold text-[10px] uppercase tracking-widest">GRADE POINTS</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-white font-black text-[10px] uppercase tracking-widest">REQUIRED SCORE</p>
+                          <p className="text-black/60 font-bold text-[10px] uppercase tracking-widest">REQUIRED SCORE</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-white font-black text-[10px] uppercase tracking-widest">STATUS</p>
+                          <p className="text-black/60 font-bold text-[10px] uppercase tracking-widest">STATUS</p>
                         </div>
                       </div>
                       
@@ -266,50 +268,50 @@ export default function DashboardGPAPredictorPage() {
                         {predictions.map((pred, index) => (
                           <div
                             key={pred.grade}
-                            className={`grid grid-cols-4 gap-4 p-4 border-b-2 border-black bg-white hover:bg-[#FDFBF7] transition-colors ${
+                            className={`grid grid-cols-4 gap-4 p-4 border-b border-black/5 bg-white hover:bg-black/[0.02] transition-colors ${
                               index === predictions.length - 1 ? 'border-b-0' : ''
                             }`}
                           >
-                            <div className="text-center flex items-center justify-center border-r-2 border-black/10">
-                              <span className="text-4xl font-black text-black">{pred.grade}</span>
+                            <div className="text-center flex items-center justify-center">
+                              <span className="text-3xl font-bold text-black">{pred.grade}</span>
                             </div>
-                            <div className="text-center flex items-center justify-center border-r-2 border-black/10">
+                            <div className="text-center flex items-center justify-center">
                               <div>
-                                <p className="text-2xl font-black text-black leading-none mb-1">{pred.gradePoints}</p>
-                                <p className="text-[10px] font-bold text-black/50 uppercase tracking-widest">POINTS</p>
+                                <p className="text-xl font-bold text-black leading-none mb-1">{pred.gradePoints}</p>
+                                <p className="text-[10px] font-semibold text-black/40 uppercase tracking-widest">POINTS</p>
                               </div>
                             </div>
-                            <div className="text-center flex items-center justify-center border-r-2 border-black/10">
+                            <div className="text-center flex items-center justify-center">
                               {pred.possible ? (
                                 <div>
-                                  <p className="text-3xl font-black text-black leading-none mb-1">{pred.requiredScore.toFixed(1)}%</p>
-                                  <p className="text-[10px] font-bold text-black/50 uppercase tracking-widest">OUT OF 100</p>
+                                  <p className="text-2xl font-bold text-black leading-none mb-1">{pred.requiredScore.toFixed(1)}%</p>
+                                  <p className="text-[10px] font-semibold text-black/40 uppercase tracking-widest">OUT OF 100</p>
                                 </div>
                               ) : (
-                                <p className="text-3xl font-black text-black/20">---</p>
+                                <p className="text-2xl font-bold text-black/20">---</p>
                               )}
                             </div>
                             <div className="text-center flex items-center justify-center">
                               {pred.possible ? (
                                 pred.requiredScore <= 40 ? (
-                                  <span className="px-3 py-1 bg-white border border-black/10 text-black text-xs font-black uppercase tracking-widest shadow-sm">
-                                    EASY
+                                  <span className="px-3 py-1 bg-green-50 text-green-700 border border-green-200 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                                    HIGHLY ACHIEVABLE
                                   </span>
                                 ) : pred.requiredScore <= 70 ? (
-                                  <span className="px-3 py-1 bg-[#1e3a8a] border border-black/10 text-white text-xs font-black uppercase tracking-widest shadow-sm">
-                                    MODERATE
+                                  <span className="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                                    ACHIEVABLE
                                   </span>
                                 ) : pred.requiredScore <= 90 ? (
-                                  <span className="px-3 py-1 bg-[#f59e0b] border border-black/10 text-black text-xs font-black uppercase tracking-widest shadow-sm">
-                                    CHALLENGING
+                                  <span className="px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                                    NEEDS FOCUS
                                   </span>
                                 ) : (
-                                  <span className="px-3 py-1 bg-red-600 border border-black/10 text-white text-xs font-black uppercase tracking-widest shadow-sm">
-                                    VERY HARD
+                                  <span className="px-3 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                                    OUTSTANDING
                                   </span>
                                 )
                               ) : (
-                                <span className="px-3 py-1 bg-black border border-black/10 text-white text-xs font-black uppercase tracking-widest shadow-sm">
+                                <span className="px-3 py-1 bg-black/5 text-black/40 border border-black/10 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
                                   NOT POSSIBLE
                                 </span>
                               )}
@@ -321,26 +323,26 @@ export default function DashboardGPAPredictorPage() {
                     </div>
 
                     {/* Legend */}
-                    <div className="bg-white border border-black/10 shadow-md p-6 mt-8">
-                      <p className="text-xs font-black text-black mb-4 uppercase tracking-widest">
+                    <div className="bg-white border border-black/10 shadow-sm rounded-2xl p-6 mt-8">
+                      <p className="text-xs font-bold text-black/60 mb-4 uppercase tracking-widest">
                         SCORE DIFFICULTY LEGEND
                       </p>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-[10px] font-black uppercase tracking-widest">
-                        <div className="flex items-center gap-3 bg-white border border-black/10 p-3">
-                          <span className="w-4 h-4 border border-black/10 bg-white"></span>
-                          <span className="text-black">0-40%: EASY</span>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-[10px] font-bold uppercase tracking-widest">
+                        <div className="flex items-center gap-3">
+                          <span className="w-3 h-3 rounded-full bg-green-500 shadow-sm"></span>
+                          <span className="text-black/70">0-40%: HIGHLY ACHIEVABLE</span>
                         </div>
-                        <div className="flex items-center gap-3 bg-white border border-black/10 p-3">
-                          <span className="w-4 h-4 border border-black/10 bg-[#1e3a8a]"></span>
-                          <span className="text-black">41-70%: MODERATE</span>
+                        <div className="flex items-center gap-3">
+                          <span className="w-3 h-3 rounded-full bg-blue-500 shadow-sm"></span>
+                          <span className="text-black/70">41-70%: ACHIEVABLE</span>
                         </div>
-                        <div className="flex items-center gap-3 bg-white border border-black/10 p-3">
-                          <span className="w-4 h-4 border border-black/10 bg-[#f59e0b]"></span>
-                          <span className="text-black">71-90%: CHALLENGING</span>
+                        <div className="flex items-center gap-3">
+                          <span className="w-3 h-3 rounded-full bg-amber-500 shadow-sm"></span>
+                          <span className="text-black/70">71-90%: NEEDS FOCUS</span>
                         </div>
-                        <div className="flex items-center gap-3 bg-white border border-black/10 p-3">
-                          <span className="w-4 h-4 border border-black/10 bg-red-600"></span>
-                          <span className="text-black">91-100%: VERY HARD</span>
+                        <div className="flex items-center gap-3">
+                          <span className="w-3 h-3 rounded-full bg-purple-500 shadow-sm"></span>
+                          <span className="text-black/70">91-100%: OUTSTANDING</span>
                         </div>
                       </div>
                     </div>
