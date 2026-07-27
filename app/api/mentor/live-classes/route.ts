@@ -225,3 +225,35 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: error.message || "Failed to delete class" }, { status: 500 });
   }
 }
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { id, youtube_link } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Missing class ID" }, { status: 400 });
+    }
+
+    const adminSupabase = createAdminClient();
+    const { error } = await adminSupabase
+      .from("live_classes")
+      .update({ youtube_link: youtube_link ? youtube_link.trim() : null })
+      .eq("id", id);
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("Error updating live class:", error);
+    return NextResponse.json({ error: error.message || "Failed to update class" }, { status: 500 });
+  }
+}
+
