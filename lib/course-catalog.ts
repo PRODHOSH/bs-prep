@@ -116,7 +116,7 @@ export const courses: Course[] = [
     description: "Advanced statistical methods",
     thumbnail: "/courses/statistics_for_datascience_2.jpeg",
     price: 499, originalPrice: 599,
-    available: false,
+    available: true,
     withCertificate: true
   },
   {

@@ -4,10 +4,12 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { courses } from "@/lib/course-catalog"
+import { courseSyllabusData } from "@/lib/syllabus-data"
 import { createClient } from "@/lib/supabase/client"
 import {
   BookOpen, CheckCircle2, Lock, ArrowLeft, ArrowUpRight,
-  Video, Youtube, ExternalLink, Calendar, Clock, Radio, Loader2
+  Video, Youtube, ExternalLink, Calendar, Clock, Radio, Loader2,
+  ChevronDown, Search, FileText, FolderOpen
 } from "lucide-react"
 
 // Map course catalog ID → live-class course codes (one course may match multiple codes)
@@ -19,7 +21,7 @@ const COURSE_CODE_MAP: Record<string, string[]> = {
   "qualifier-python":                  ["qualifier-python", "python"],
   "qualifier-java":                    ["qualifier-java"],
   "qualifier-math-2":                  ["math-2"],
-  "qualifier-stats-2":                 ["stats-2"],
+  "foundation-stats-2":                ["stats-2", "foundation-stats-2"],
   "qualifier-english-2":               ["english-2"],
   "qualifier-bundle":                  ["math-1", "stats-1", "ct", "english-1"],
   "coding-bundle":                     ["qualifier-python", "qualifier-java"],
@@ -67,7 +69,8 @@ export default function CourseDetailPage() {
   const [loading, setLoading] = useState(true)
   const [liveClasses, setLiveClasses] = useState<LiveClass[]>([])
   const [classesLoading, setClassesLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<"live" | "recordings">("live")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [activeTab, setActiveTab] = useState<"classes" | "slides" | "batch_details" | "other_content">("classes")
   const supabase = createClient()
 
   useEffect(() => {
@@ -121,14 +124,11 @@ export default function CourseDetailPage() {
     fetchClasses()
   }, [courseId])
 
-  const upcoming = liveClasses.filter((c) => {
+  const displayClasses = liveClasses.filter((c) => {
     const s = getStatus(c.date, c.time)
-    return s === "upcoming" || s === "live"
-  })
-
-  const recordings = liveClasses.filter((c) => {
-    const s = getStatus(c.date, c.time)
-    return s === "completed" && c.youtubeLink
+    const matchesSearch = c.topic.toLowerCase().includes(searchQuery.toLowerCase())
+    const isValidStatus = s === "upcoming" || s === "live" || (s === "completed" && c.youtubeLink)
+    return matchesSearch && isValidStatus
   })
 
   if (!course) {
@@ -158,7 +158,7 @@ export default function CourseDetailPage() {
       backgroundColor: "#FDFBF7"
     }}>
       {/* Blue Hero Header */}
-      <div className="relative w-full bg-[#0a192f] text-white pt-12 pb-28 px-6 md:px-12 lg:px-16 overflow-hidden">
+      <div className="relative w-full bg-[#0a192f] text-white pt-12 pb-12 px-6 md:px-12 lg:px-16 overflow-hidden">
         {/* Subtle dot grid overlay on blue */}
         <div
           className="absolute inset-0 opacity-10"
@@ -197,7 +197,7 @@ export default function CourseDetailPage() {
               </p>
               <div className="flex items-center gap-2 mt-6 text-white/60 font-bold uppercase tracking-widest text-sm">
                 <BookOpen className="w-4 h-4" />
-                <span>{course.weeks} Weeks · {liveClasses.length} Live Sessions · {recordings.length} Recordings</span>
+                <span>{course.weeks} Weeks · {displayClasses.length} Total Sessions</span>
               </div>
             </div>
 
@@ -235,155 +235,216 @@ export default function CourseDetailPage() {
         </div>
       </div>
 
-      {/* Content Area — floats up over the blue */}
-      <div className="flex-1 max-w-6xl mx-auto w-full px-6 md:px-12 lg:px-16 -mt-14 relative z-20 pb-24">
-        <div className="bg-white rounded-3xl shadow-xl border border-black/5 overflow-hidden">
-
-          {/* Tabs */}
-          <div className="border-b border-black/5 flex gap-0 overflow-x-auto">
+      {/* Content Area */}
+      <div className="flex-1 w-full bg-white relative z-20 pb-24 border-t border-black/10">
+        {/* Tabs Container */}
+        <div className="w-full border-b border-black/5 bg-white">
+          <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 flex gap-0 overflow-x-auto">
             {[
-              { key: "live", label: "Live Classes", count: upcoming.length },
-              { key: "recordings", label: "Recordings", count: recordings.length },
-            ].map(({ key, label, count }) => (
+              { key: "classes", label: "Classes" },
+              { key: "slides", label: "Slides" },
+              { key: "batch_details", label: "Batch Details" },
+              { key: "other_content", label: "Other Content" },
+            ].map(({ key, label }) => (
               <button
                 key={key}
-                onClick={() => setActiveTab(key as "live" | "recordings")}
-                className={`px-7 py-5 text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all border-b-2 flex items-center gap-2 ${
+                onClick={() => setActiveTab(key as any)}
+                className={`px-7 py-5 text-sm font-black uppercase tracking-widest whitespace-nowrap transition-all border-b-[3px] flex items-center gap-2 ${
                   activeTab === key
-                    ? "text-black border-black"
-                    : "text-black/40 border-transparent hover:text-black/70"
+                    ? "text-red-600 border-red-600"
+                    : "text-black/40 border-transparent hover:text-black/70 hover:border-black/10"
                 }`}
               >
                 {label}
-                <span className={`text-[9px] px-2 py-0.5 rounded-full font-black ${activeTab === key ? "bg-black text-white" : "bg-black/5 text-black/40"}`}>
-                  {count}
-                </span>
               </button>
             ))}
           </div>
+        </div>
 
-          <div className="p-6 md:p-10">
-            {/* LIVE CLASSES TAB */}
-            {activeTab === "live" && (
-              <>
-                {!isEnrolled ? (
-                  <LockedContent courseId={course.id} />
-                ) : classesLoading ? (
-                  <LoadingSpinner />
-                ) : upcoming.length === 0 ? (
-                  <EmptyState
-                    icon={<Calendar className="w-8 h-8 text-black/30" />}
-                    title="No Upcoming Classes"
-                    description="No live classes scheduled for this course right now. Check back soon!"
-                  />
-                ) : (
-                  <div className="space-y-4">
-                    {upcoming.map((cls, i) => {
-                      const status = getStatus(cls.date, cls.time)
-                      return (
-                        <div
-                          key={i}
-                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl border border-black/8 hover:border-black/20 hover:shadow-md transition-all bg-white group"
-                        >
-                          <div className="flex items-start gap-4">
-                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                              status === "live"
-                                ? "bg-red-500 text-white"
-                                : "bg-[#0a192f]/5 text-[#0a192f]"
-                            }`}>
-                              {status === "live" ? (
-                                <Radio className="w-5 h-5" />
-                              ) : (
-                                <Video className="w-5 h-5" />
-                              )}
-                            </div>
-                            <div>
-                              <div className="flex items-center gap-2 mb-1">
-                                {status === "live" && (
-                                  <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
-                                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
-                                    LIVE NOW
-                                  </span>
-                                )}
-                                {status === "upcoming" && (
-                                  <span className="text-[9px] font-black uppercase tracking-widest text-[#0a192f] bg-[#0a192f]/8 px-2 py-0.5 rounded-full">
-                                    UPCOMING
-                                  </span>
-                                )}
-                              </div>
-                              <p className="font-black text-black uppercase tracking-tight text-base leading-tight">{cls.topic}</p>
-                              <div className="flex items-center gap-3 mt-1.5">
-                                <span className="text-[11px] font-bold text-black/50 flex items-center gap-1">
-                                  <Calendar className="w-3 h-3" />
-                                  {formatDate(cls.date)}
-                                </span>
-                                <span className="text-[11px] font-bold text-black/50 flex items-center gap-1">
-                                  <Clock className="w-3 h-3" />
-                                  {formatTime(cls.time)}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => window.open(cls.meetingLink, "_blank")}
-                            className={`shrink-0 flex items-center gap-2 px-5 h-10 rounded-full font-black uppercase tracking-widest text-[11px] transition-all ${
-                              status === "live"
-                                ? "bg-red-500 hover:bg-red-600 text-white shadow-md"
-                                : "bg-[#0a192f] hover:bg-[#112a52] text-white"
-                            }`}
-                          >
-                            {status === "live" ? "JOIN NOW" : "JOIN WHEN LIVE"}
-                            <ExternalLink className="w-3.5 h-3.5" />
-                          </button>
+        {/* Search Bar Container (Only for Classes) */}
+        {activeTab === "classes" && (
+          <div className="w-full border-b border-black/5 bg-[#FDFBF7]">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-4">
+              <div className="relative max-w-xl">
+                <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-black/30" />
+                <input
+                  type="text"
+                  placeholder="Search by title..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white border border-black/10 rounded-lg py-3 pl-12 pr-4 text-sm font-semibold text-black placeholder:text-black/30 focus:outline-none focus:border-black/30 focus:ring-1 focus:ring-black/10"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Content List Container */}
+        <div className="w-full bg-[#FDFBF7]">
+          <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-10 min-h-[50vh]">
+            {!isEnrolled && <LockedContent courseId={course.id} />}
+            
+            {isEnrolled && activeTab === "classes" && (
+              classesLoading ? (
+              <LoadingSpinner />
+            ) : displayClasses.length === 0 ? (
+              <EmptyState
+                icon={<Calendar className="w-8 h-8 text-black/30" />}
+                title="No Classes Found"
+                description="No classes or recordings match your search right now."
+              />
+            ) : (
+              <div className="space-y-6">
+                {displayClasses.map((cls, i) => {
+                  const status = getStatus(cls.date, cls.time)
+                  const isCompleted = status === "completed"
+                  
+                  return (
+                    <div
+                      key={i}
+                      className="flex flex-col md:flex-row gap-6 p-5 rounded-xl border border-black/10 hover:shadow-lg hover:border-black/20 transition-all bg-white relative group"
+                    >
+                      {/* Left Icon/Image Area with Badge */}
+                      <div className="relative w-full md:w-56 h-40 md:h-auto rounded-lg bg-[#0a192f]/5 flex items-center justify-center shrink-0 border border-black/5 overflow-hidden">
+                        {status === "live" ? (
+                          <Radio className="w-12 h-12 text-red-500" />
+                        ) : isCompleted ? (
+                          <Youtube className="w-12 h-12 text-red-500/80 group-hover:text-red-600 transition-colors" />
+                        ) : (
+                          <Video className="w-12 h-12 text-[#0a192f]/30" />
+                        )}
+                        
+                        {/* Top-left Badge inside image area */}
+                        <div className="absolute top-3 left-3">
+                          {status === "live" && (
+                            <span className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-white bg-red-600 px-2.5 py-1 rounded shadow-sm">
+                              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                              LIVE NOW
+                            </span>
+                          )}
+                          {status === "upcoming" && (
+                            <span className="text-[10px] font-black uppercase tracking-widest text-[#0a192f] bg-white border border-[#0a192f]/10 px-2.5 py-1 rounded shadow-sm">
+                              UPCOMING
+                            </span>
+                          )}
+                          {isCompleted && (
+                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded shadow-sm">
+                              COMPLETED
+                            </span>
+                          )}
                         </div>
-                      )
-                    })}
-                  </div>
-                )}
-              </>
+                      </div>
+
+                      {/* Right Content Area */}
+                      <div className="flex-1 flex flex-col justify-between py-1">
+                        {/* Top Row: Date & Time */}
+                        <div className="flex items-center gap-2 text-xs font-bold text-black/50 uppercase tracking-widest mb-3">
+                          <span>{formatDate(cls.date)}</span>
+                          <span className="w-1 h-1 bg-black/30 rounded-full" />
+                          <span>{formatTime(cls.time)}</span>
+                        </div>
+
+                        {/* Middle Row: Title */}
+                        <div className="mb-6">
+                          <h3 className={`text-2xl font-black text-black leading-tight tracking-tight ${isCompleted ? 'group-hover:text-red-600 transition-colors' : ''}`}>{cls.topic}</h3>
+                          <p className="text-sm font-bold text-black/50 mt-1">{course.title}</p>
+                        </div>
+
+                        {/* Bottom Row: Buttons */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-auto pt-4 border-t border-black/5">
+                          {/* Bottom Left */}
+                          <button className="text-xs font-black uppercase tracking-widest text-black/60 hover:text-black flex items-center gap-1.5 w-fit">
+                            View topics <ChevronDown className="w-4 h-4" />
+                          </button>
+
+                          {/* Bottom Right */}
+                          <div className="flex items-center gap-3">
+                            {isCompleted ? (
+                              <a
+                                href={cls.youtubeLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-6 py-2.5 rounded font-black uppercase tracking-widest text-[11px] transition-all border border-black/10 hover:border-black/20 hover:bg-black/5 text-black flex items-center gap-2"
+                              >
+                                Replay <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                            ) : (
+                              <button
+                                onClick={() => window.open(cls.meetingLink, "_blank")}
+                                className={`px-6 py-2.5 rounded font-black uppercase tracking-widest text-[11px] transition-all flex items-center gap-2 ${
+                                  status === "live"
+                                    ? "bg-red-600 hover:bg-red-700 text-white shadow-md"
+                                    : "bg-[#0a192f] hover:bg-black text-white"
+                                }`}
+                              >
+                                {status === "live" ? "JOIN NOW" : "JOIN LATER"}
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
             )}
 
-            {/* RECORDINGS TAB */}
-            {activeTab === "recordings" && (
-              <>
-                {!isEnrolled ? (
-                  <LockedContent courseId={course.id} />
-                ) : classesLoading ? (
-                  <LoadingSpinner />
-                ) : recordings.length === 0 ? (
-                  <EmptyState
-                    icon={<Youtube className="w-8 h-8 text-black/30" />}
-                    title="No Recordings Yet"
-                    description="Recordings of completed live classes will appear here once they're uploaded."
-                  />
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {recordings.map((cls, i) => (
-                      <a
-                        key={i}
-                        href={cls.youtubeLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-start gap-4 p-5 rounded-2xl border border-black/8 hover:border-red-500/30 hover:shadow-md bg-white transition-all"
-                      >
-                        <div className="w-10 h-10 bg-red-50 border border-red-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:border-transparent transition-colors">
-                          <Youtube className="w-5 h-5 text-red-500 group-hover:text-white transition-colors" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-black text-black uppercase tracking-tight text-sm leading-tight mb-1.5 group-hover:text-red-600 transition-colors">{cls.topic}</p>
-                          <div className="flex items-center gap-3">
-                            <span className="text-[11px] font-bold text-black/40 flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {formatDate(cls.date)}
-                            </span>
-                          </div>
-                        </div>
-                        <ExternalLink className="w-4 h-4 text-black/20 group-hover:text-red-400 transition-colors shrink-0 mt-0.5" />
-                      </a>
-                    ))}
+            {isEnrolled && activeTab === "batch_details" && (
+              <div className="max-w-3xl bg-white border border-black/10 rounded-2xl p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-12">
+                  <div>
+                    <span className="text-xs font-black uppercase tracking-widest text-black/40 mb-1 block">Batch Duration</span>
+                    <span className="text-lg font-bold text-black">{course.weeks} Weeks</span>
                   </div>
-                )}
-              </>
+                  <div>
+                    <span className="text-xs font-black uppercase tracking-widest text-black/40 mb-1 block">Language</span>
+                    <span className="text-lg font-bold text-black">English</span>
+                  </div>
+                  <div className="md:col-span-2 pt-4 border-t border-black/5">
+                    <span className="text-xs font-black uppercase tracking-widest text-black/40 mb-6 block">Curriculum</span>
+                    <div className="space-y-6">
+                      {(courseSyllabusData[course.id]?.syllabus || []).map((item: any, i: number) => (
+                        item.isCourseHeader ? (
+                          <div key={i} className="text-sm font-black text-black/80 uppercase tracking-widest pt-4 pb-2 border-b border-black/5">
+                            {item.title}
+                          </div>
+                        ) : (
+                          <div key={i} className="flex gap-5">
+                            <div className="bg-[#0a192f] text-white font-black text-[11px] px-3 py-1.5 rounded-full h-fit whitespace-nowrap uppercase tracking-widest shadow-sm">
+                              WK {String(item.week).padStart(2, "0")}
+                            </div>
+                            <div>
+                              <h4 className="font-black text-black text-[15px] uppercase tracking-tight">{item.title}</h4>
+                              <p className="text-sm font-bold text-black/50 mt-1.5 leading-relaxed">{item.topics}</p>
+                            </div>
+                          </div>
+                        )
+                      ))}
+                      {(!courseSyllabusData[course.id]?.syllabus || courseSyllabusData[course.id].syllabus.length === 0) && (
+                        <p className="text-sm font-bold text-black/40 uppercase tracking-widest">Syllabus will be updated soon.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {isEnrolled && activeTab === "slides" && (
+              <EmptyState
+                imageUrl="/slides.svg"
+                title="No Slides Yet"
+                description="Slides for this course will appear here once they are shared."
+              />
+            )}
+            
+            {isEnrolled && activeTab === "other_content" && (
+              <EmptyState
+                imageUrl="/knowledge.svg"
+                title="No contents yet"
+                description="Contents shared in this course will appear here."
+              />
             )}
           </div>
         </div>
@@ -421,12 +482,16 @@ function LoadingSpinner() {
   )
 }
 
-function EmptyState({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+function EmptyState({ icon, imageUrl, title, description }: { icon?: React.ReactNode; imageUrl?: string; title: string; description: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
-      <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-5">
-        {icon}
-      </div>
+      {imageUrl ? (
+        <img src={imageUrl} alt={title} className="w-64 h-auto mb-8 opacity-90" />
+      ) : icon ? (
+        <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-5">
+          {icon}
+        </div>
+      ) : null}
       <h3 className="font-black uppercase text-black text-xl mb-2">{title}</h3>
       <p className="text-sm font-bold text-black/40 uppercase max-w-sm leading-relaxed">{description}</p>
     </div>

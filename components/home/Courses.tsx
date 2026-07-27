@@ -19,7 +19,8 @@ const COURSES = [
   { id: "qualifier-computational-thinking", title: "Computational Thinking", description: "Develop problem-solving skills and algorithmic logic.", price: 499, originalPrice: 599 },
   { id: "qualifier-english-1", title: "English I", description: "Improve your technical reading and writing skills.", price: 499, originalPrice: 599 },
   { id: "qualifier-python", title: "Programming in Python", description: "Learn Python from scratch and build real-world applications.", price: 499, originalPrice: 599 },
-  { id: "qualifier-java", title: "Programming in Java", description: "Master Object Oriented Programming principles with Java.", price: 499, originalPrice: 599 }
+  { id: "qualifier-java", title: "Programming in Java", description: "Master Object Oriented Programming principles with Java.", price: 499, originalPrice: 599 },
+  { id: "foundation-stats-2", title: "Statistics for Data Science II", description: "Master advanced probability distributions, estimation, hypothesis testing, and regression.", price: 499, originalPrice: 599 }
 ];
 
 export function Courses() {
