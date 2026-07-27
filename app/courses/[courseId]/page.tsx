@@ -109,6 +109,19 @@ const courseSyllabusData: Record<string, any> = {
       { week: 4, title: "Advanced OOP concepts", topics: "Inheritance, Polymorphism, Encapsulation, Abstraction" }
     ]
   },
+  "foundation-stats-2": {
+    title: "Statistics for Data Science II",
+    level: "foundation",
+    price: 499, originalPrice: 599,
+    description: "Advanced probability distributions, sampling, point estimation, hypothesis testing, and regression analysis.",
+    thumbnail: "/courses/statistics_for_datascience_2.jpeg",
+    syllabus: [
+      { week: 1, title: "Discrete & Continuous Probability Distributions", topics: "Uniform, Normal, Exponential, Binomial, and Poisson distributions, Random variables, Expectation and Variance" },
+      { week: 2, title: "Sampling Distributions & Point Estimation", topics: "Central Limit Theorem (CLT), Chi-Square distribution, Student-t distribution, F-distribution, Properties of estimators" },
+      { week: 3, title: "Confidence Intervals & Hypothesis Testing", topics: "One-sample and Two-sample Z-tests, t-tests, Proportion tests, Type I and Type II errors, p-values and Power of a test" },
+      { week: 4, title: "ANOVA, Chi-Square Tests & Regression", topics: "One-way and Two-way ANOVA, Goodness-of-fit and Independence tests, Simple Linear Regression model and assumptions" }
+    ]
+  },
   "qualifier-bundle": {
     title: "Qualifier Bundle (All 4 Courses)",
     level: "qualifier",
@@ -218,7 +231,11 @@ export default function CoursePage() {
           'qualifier-computational-thinking': 'ct',
           'qualifier-stats-1': 'stats-1',
           'qualifier-math-1': 'math-1',
-          'foundation-programming-python': 'python'
+          'foundation-programming-python': 'python',
+          'qualifier-python': 'python',
+          'qualifier-java': 'java',
+          'qualifier-english-1': 'english-1',
+          'foundation-stats-2': 'stats-2'
         }
         const courseCode = courseMap[courseId]
         const filteredClasses = (data.classes || []).filter(

@@ -20,6 +20,18 @@ const courseData: Record<string, any> = {
   "qualifier-english-1": {
     title: "English I",
     description: "Essential communication skills for IITM BS Qualifier students.",
+  },
+  "foundation-stats-2": {
+    title: "Statistics for Data Science II",
+    description: "Master advanced probability distributions, inference, hypothesis testing and regression for IITM BS Degree.",
+  },
+  "qualifier-python": {
+    title: "Programming in Python",
+    description: "Learn Python from scratch and build real-world data applications.",
+  },
+  "qualifier-java": {
+    title: "Programming in Java",
+    description: "Master Object Oriented Programming principles with Java.",
   }
 }
 

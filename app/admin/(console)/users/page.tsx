@@ -534,7 +534,7 @@ export default function AdminUsersDirectoryPage() {
                     type="text"
                     value={editMentorSubject}
                     onChange={(e) => setEditMentorSubject(e.target.value)}
-                    placeholder="e.g. math-1, python, ct"
+                    placeholder="e.g. math-1, stats-2, python, ct"
                     className="mt-1 w-full rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
                   />
                 </div>

@@ -19,7 +19,7 @@ const COURSE_CODE_MAP: Record<string, string[]> = {
   "qualifier-python":                  ["qualifier-python", "python"],
   "qualifier-java":                    ["qualifier-java"],
   "qualifier-math-2":                  ["math-2"],
-  "qualifier-stats-2":                 ["stats-2"],
+  "foundation-stats-2":                ["stats-2", "foundation-stats-2"],
   "qualifier-english-2":               ["english-2"],
   "qualifier-bundle":                  ["math-1", "stats-1", "ct", "english-1"],
   "coding-bundle":                     ["qualifier-python", "qualifier-java"],
