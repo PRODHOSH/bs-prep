@@ -77,7 +77,7 @@ export function Hero() {
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 lg:mt-6"
         >
           {[
-            { label: "Active Students", value: 3000, suffix: "+", icon: Users },
+            { label: "Active Students", value: 1200, suffix: "+", icon: Users },
             { label: "Expert Mentors", value: 15, suffix: "+", icon: TrendingUp },
             { label: "Study Materials", value: 500, suffix: "+", icon: BookOpen },
           ].map((stat, i) => {
