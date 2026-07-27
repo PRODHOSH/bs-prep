@@ -5,6 +5,8 @@ import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { ArrowLeft, CheckCircle2, MessageCircleQuestion, Send, User, BadgeCheck, Loader2, Trash2 } from "lucide-react"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 type Reply = {
   id: string
@@ -61,13 +63,14 @@ export default function AdminDoubtDetailPage() {
       .from('doubts')
       .select(`
         id, title, description, status, image_urls, created_at, user_id, subject,
-        profiles:user_id ( first_name, last_name, profile_picture_url )
+        profiles:user_id ( first_name, last_name, profile_picture_url, email )
       `)
       .eq('id', doubtId)
       .single()
 
     if (dData) {
       const p = dData.profiles as any
+      const name = (p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : '') || p?.email?.split('@')[0] || 'BSPrep Student'
       setDoubt({
         id: dData.id,
         title: dData.title,
@@ -78,7 +81,7 @@ export default function AdminDoubtDetailPage() {
         user_id: dData.user_id,
         subject: dData.subject,
         author: { 
-          full_name: p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : 'Unknown', 
+          full_name: name, 
           photo_url: p?.profile_picture_url || null 
         }
       })
@@ -89,14 +92,18 @@ export default function AdminDoubtDetailPage() {
       .from('doubt_replies')
       .select(`
         id, content, created_at, is_official_answer, is_accepted_answer, user_id,
-        profiles:user_id ( first_name, last_name, profile_picture_url )
+        profiles:user_id ( first_name, last_name, profile_picture_url, email )
       `)
       .eq('doubt_id', doubtId)
       .order('created_at', { ascending: true })
 
-    if (rData) {
-      setReplies(rData.map((r: any) => {
+    if (rData && rData.length > 0) {
+      const mappedReplies = rData.map((r: any) => {
         const rp = r.profiles
+        const isBot = rp?.email?.toLowerCase() === 'ai@bsprep.io' || (rp && `${rp.first_name || ''} ${rp.last_name || ''}`.toLowerCase().includes('bsprep'))
+        const fullName = isBot 
+          ? 'BSPREP AI' 
+          : ((rp ? `${rp.first_name || ''} ${rp.last_name || ''}`.trim() : '') || rp?.email?.split('@')[0] || 'Unknown')
         return {
           id: r.id,
           content: r.content,
@@ -105,13 +112,35 @@ export default function AdminDoubtDetailPage() {
           is_accepted_answer: r.is_accepted_answer,
           user_id: r.user_id,
           author: {
-            full_name: rp ? `${rp.first_name || ''} ${rp.last_name || ''}`.trim() : 'Unknown',
-            photo_url: rp?.profile_picture_url || null
+            full_name: fullName,
+            photo_url: isBot ? '/bsprep_chatbot.png' : (rp?.profile_picture_url || null)
           }
         }
-      }))
+      })
+      setReplies(mappedReplies)
+
+      const isGenerating = mappedReplies.some((r: any) => r.author.full_name.toLowerCase().includes('bsprep') && r.content.includes('is reading your question'))
+      if (isGenerating) {
+        setTimeout(() => fetchDoubtData(), 3000)
+      }
+    } else if (dData?.status === 'open') {
+      const timer = setTimeout(() => {
+        fetch("/api/doubts/ai-reply", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ doubtId }),
+        })
+          .then((res) => res.json())
+          .then((resData) => {
+            if (resData.status === 'success') {
+              fetchDoubtData();
+            }
+          })
+          .catch((err) => console.error("AI auto-reply check failed:", err));
+      }, 1500)
+      return () => clearTimeout(timer)
     }
-    
+
     setLoading(false)
   }
 
@@ -291,8 +320,28 @@ export default function AdminDoubtDetailPage() {
               </div>
             </div>
             
-            <div className="text-sm text-slate-300 font-medium leading-relaxed whitespace-pre-wrap ml-11">
-              {reply.content}
+            <div className="text-sm text-slate-300 font-medium leading-relaxed ml-11">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  pre: ({ node, ...props }) => <pre className="bg-[#04080e] text-slate-100 p-4 rounded-2xl overflow-x-auto font-mono text-xs my-4 border border-blue-500/20 shadow-lg" {...props} />,
+                  code: ({ node, inline, ...props }: any) => inline
+                    ? <code className="bg-blue-500/20 text-blue-300 font-mono text-xs px-1.5 py-0.5 rounded border border-blue-500/30 font-semibold" {...props} />
+                    : <code className="font-mono text-xs text-blue-200" {...props} />,
+                  table: ({ node, ...props }) => <div className="overflow-x-auto my-4"><table className="min-w-full border-collapse border border-blue-500/20 rounded-xl overflow-hidden text-xs" {...props} /></div>,
+                  th: ({ node, ...props }) => <th className="bg-white/5 p-2 font-bold text-left border border-blue-500/20 text-blue-300" {...props} />,
+                  td: ({ node, ...props }) => <td className="p-2 border border-blue-500/20 text-slate-300" {...props} />,
+                  ul: ({ node, ...props }) => <ul className="list-disc ml-5 space-y-1.5 my-3" {...props} />,
+                  ol: ({ node, ...props }) => <ol className="list-decimal ml-5 space-y-1.5 my-3" {...props} />,
+                  h1: ({ node, ...props }) => <h1 className="text-lg font-bold text-white mt-6 mb-2" {...props} />,
+                  h2: ({ node, ...props }) => <h2 className="text-base font-bold text-white mt-5 mb-2" {...props} />,
+                  h3: ({ node, ...props }) => <h3 className="text-sm font-bold text-white mt-4 mb-2" {...props} />,
+                  p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
+                  strong: ({ node, ...props }) => <strong className="font-bold text-blue-200" {...props} />
+                }}
+              >
+                {reply.content}
+              </ReactMarkdown>
             </div>
           </div>
         ))}
