@@ -7,6 +7,8 @@ import { createClient } from "@/lib/supabase/client"
 import { ArrowLeft, CheckCircle2, MessageCircleQuestion, Send, User, BadgeCheck, Loader2, Trash2 } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 type Reply = {
   id: string
@@ -117,7 +119,7 @@ export default function MentorDoubtDetailPage() {
     if (rData && rData.length > 0) {
       const mappedReplies = rData.map((r: any) => {
         const rp = r.profiles
-        const isBot = rp?.email?.toLowerCase() === 'ai@bsprep.io' || (rp && `${rp.first_name || ''} ${rp.last_name || ''}`.toLowerCase().includes('bsprep'))
+        const isBot = rp?.email?.toLowerCase() === 'ai@bsprep.io' || rp?.email?.toLowerCase() === 'ai@bsprep.in' || (rp && `${rp.first_name || ''} ${rp.last_name || ''}`.toLowerCase().includes('bsprep'))
         const fullName = isBot 
           ? 'BSPREP AI' 
           : ((rp ? `${rp.first_name || ''} ${rp.last_name || ''}`.trim() : '') || rp?.email?.split('@')[0] || 'Unknown')
@@ -342,10 +344,40 @@ export default function MentorDoubtDetailPage() {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  pre: ({ node, ...props }) => <pre className="bg-[#051014] text-emerald-100 p-4 rounded-2xl overflow-x-auto font-mono text-xs my-4 border border-emerald-500/20 shadow-lg" {...props} />,
-                  code: ({ node, inline, ...props }: any) => inline
-                    ? <code className="bg-emerald-500/20 text-emerald-300 font-mono text-xs px-1.5 py-0.5 rounded border border-emerald-500/30 font-semibold" {...props} />
-                    : <code className="font-mono text-xs text-emerald-200" {...props} />,
+                  pre: ({ node, ...props }: any) => <div className="my-4" {...props} />,
+                  code: ({ node, inline, className, children, ...props }: any) => {
+                    const match = /language-(\w+)/.exec(className || "")
+                    const content = String(children).replace(/\n$/, "")
+                    const isBlock = !inline && (Boolean(match) || content.includes("\n"))
+                    return isBlock ? (
+                      <div className="my-4 rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-[#1e1e1e]">
+                        <div className="bg-[#252526] px-4 py-2 border-b border-white/10 text-slate-400 font-mono text-xs flex items-center justify-between">
+                          <span className="font-bold text-blue-400 tracking-wider uppercase">{match ? match[1] : "Code"}</span>
+                          <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded text-slate-400 border border-white/10">VS Code Dark+</span>
+                        </div>
+                        <SyntaxHighlighter
+                          style={vscDarkPlus as any}
+                          language={match ? match[1] : "python"}
+                          PreTag="div"
+                          customStyle={{
+                            margin: 0,
+                            padding: "1.25rem",
+                            background: "#1e1e1e",
+                            fontSize: "0.825rem",
+                            lineHeight: "1.6",
+                            borderRadius: 0
+                          }}
+                          {...props}
+                        >
+                          {content}
+                        </SyntaxHighlighter>
+                      </div>
+                    ) : (
+                      <code className="bg-emerald-500/20 text-emerald-300 font-mono text-xs px-1.5 py-0.5 rounded border border-emerald-500/30 font-bold mx-0.5" {...props}>
+                        {children}
+                      </code>
+                    )
+                  },
                   table: ({ node, ...props }) => <div className="overflow-x-auto my-4"><table className="min-w-full border-collapse border border-emerald-500/20 rounded-xl overflow-hidden text-xs" {...props} /></div>,
                   th: ({ node, ...props }) => <th className="bg-white/5 p-2 font-bold text-left border border-emerald-500/20 text-emerald-300" {...props} />,
                   td: ({ node, ...props }) => <td className="p-2 border border-emerald-500/20 text-emerald-100/80" {...props} />,

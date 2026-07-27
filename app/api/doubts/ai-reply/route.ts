@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 2: Get or create the official AI Bot user ('BSPREP AI') with custom chatbot image
-    const botEmail = 'ai@bsprep.io'
+    const botEmail = 'ai@bsprep.in'
     const botFirstName = 'BSPREP'
     const botLastName = 'AI'
     const botAvatar = '/bsprep_chatbot.png'
