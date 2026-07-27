@@ -31,13 +31,12 @@ export function calculateScore(courseId: string, values: Record<string, number>)
       break
 
     case "python":
-      baseScore = (
+      return (
         0.15 * values.Qz1 +
         0.4 * values.F +
         0.25 * Math.max(values.PE1, values.PE2) +
         0.2 * Math.min(values.PE1, values.PE2)
       )
-      break
 
     // Diploma Level
     case "mlf":
@@ -68,18 +67,23 @@ export function calculateScore(courseId: string, values: Record<string, number>)
 
     // Added missing Diploma Level courses
     case "bdm":
-      return values.GA + values.Qz2 + values.TimedAssignment + values.F
+      return (
+        0.05 * values.GAA +
+        Math.max(
+          0.6 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
+          0.4 * values.F + 0.25 * values.Qz1 + 0.3 * values.Qz2,
+        )
+      )
 
     case "ban":
       return (
-        0.7 * Math.max(values.Qz1, values.Qz2) +
-        0.3 * Math.min(values.Qz1, values.Qz2) +
-        values.A +
-        values.F
+        0.4 * (0.7 * Math.max(values.Qz1, values.Qz2) + 0.3 * Math.min(values.Qz1, values.Qz2)) +
+        0.2 * values.A +
+        0.4 * values.F
       )
 
     case "tds":
-      return 0.1 * values.GAA + 0.2 * values.ROE + 0.2 * values.P1 + 0.2 * values.P2 + 0.3 * values.F
+      return 0.2 * values.GAA + 0.2 * values.ROE + 0.2 * values.P1 + 0.2 * values.P2 + 0.2 * values.F
 
     case "dl-genAI":
       return 0.1 * values.GAA + 0.2 * values.Qz1 + 0.2 * values.Qz2 + 0.25 * values.F + 0.1 * values.NPPE1 + 0.15 * values.NPPE2 
@@ -137,15 +141,10 @@ export function calculateScore(courseId: string, values: Record<string, number>)
 
     // Degree Level
     case "st":
-      baseScore = 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
-      // Add bonus if total >= 40
-      if (baseScore >= 40) {
-        baseScore += (values.NormalBonus || 0)
-      }
-      return baseScore
+      return 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
 
     case "se":
-      baseScore = (
+      return (
         0.05 * values.GAA +
         0.2 * values.Qz2 +
         0.4 * values.F +
@@ -154,37 +153,28 @@ export function calculateScore(courseId: string, values: Record<string, number>)
         0.1 * values.PP +
         0.05 * values.CP
       )
-      // Add bonus if total >= 40
-      if (baseScore >= 40) {
-        baseScore += (values.NormalBonus || 0)
-      }
-      return baseScore
 
     case "dl":
       baseScore = 0.05 * values.GAA + 0.25 * values.Qz1 + 0.25 * values.Qz2 + 0.45 * values.F
-      // Add bonuses if total >= 40
       if (baseScore >= 40) {
-        baseScore += (values.ProgrammingBonus || 0) + (values.NormalBonus || 0)
+        baseScore += Math.min(5, values.ProgrammingBonus || 0)
       }
       return baseScore
 
     case "ai-search":
       baseScore = 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
-      // Add bonuses if total >= 40
       if (baseScore >= 40) {
-        baseScore += (values.ProgrammingBonus || 0) + (values.NormalBonus || 0)
+        baseScore += Math.min(5, values.ProgrammingBonus || 0)
       }
       return baseScore
 
     case "llm":
       baseScore = 0.05 * values.GAA + 0.35 * values.F + 0.3 * values.Qz1 + 0.3 * values.Qz2
-      // Add bonuses if total >= 40
       if (baseScore >= 40) {
-        baseScore += (values.LLMProgrammingBonus || 0) + (values.NormalBonus || 0)
+        baseScore += Math.min(5, values.Bonus || 0)
       }
       return baseScore
 
-    // Added missing Degree Level courses
     case "spg":
       return 0.15 * values.GAA + 0.25 * values.GP + 0.25 * values.Qz2 + 0.35 * values.F
 
@@ -192,35 +182,33 @@ export function calculateScore(courseId: string, values: Record<string, number>)
       return 0.1 * values.GAA + 0.3 * values.F + 0.2 * values.OPPE1 + 0.4 * values.OPPE2
 
     case "dlcv":
-      return (
+      baseScore = (
         0.1 * values.GAA +
-        0.5 * values.F +
-        Math.max(0.2 * values.Qz1 + 0.2 * values.Qz2, 0.3 * Math.max(values.Qz1, values.Qz2))
+        0.4 * values.F +
+        0.25 * values.Qz1 +
+        0.25 * values.Qz2
       )
+      if (baseScore >= 40) {
+        baseScore += Math.min(5, values.Bonus || 0)
+      }
+      return baseScore
 
     case "dv":
-      return (
+      baseScore = (
         0.3 * values.GA +
         Math.max(0.2 * values.Qz1 + 0.2 * values.Qz2, 0.3 * Math.max(values.Qz1, values.Qz2)) +
         0.3 * values.P
       )
-
-    case "me":
-      return (
-        0.15 * values.GAA +
-        Math.max(
-          0.2 * values.Qz1 + 0.2 * values.Qz2 + 0.45 * values.F,
-          0.5 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
-        )
-      )
-
-    case "atb":
-      baseScore = 0.075 * values.GAA + 0.025 * values.GAAP + 0.25 * values.Qz1 + 0.25 * values.Qz2 + 0.4 * values.F
-      // Add bonus if total >= 40
       if (baseScore >= 40) {
-        baseScore += (values.NormalBonus || 0)
+        baseScore += Math.min(5, values.Bonus || 0)
       }
       return baseScore
+
+    case "me":
+      return 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+
+    case "atb":
+      return 0.075 * values.GAA + 0.025 * values.GAAP + 0.25 * values.Qz1 + 0.25 * values.Qz2 + 0.4 * values.F
 
     case "i4":
       return values.A + 0.3 * values.F + 0.15 * (values.Qz1 + values.Qz2) + 0.05 * values.Game + 0.1 * values.Project
@@ -242,19 +230,13 @@ export function calculateScore(courseId: string, values: Record<string, number>)
           0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2,
         )
       )
-      // Add bonus if total >= 40
       if (baseScore >= 40) {
         baseScore += (values.NormalBonus || 0)
       }
       return baseScore
 
     case "cprog":
-      baseScore = 0.1 * values.GAA + 0.2 * values.Qz1 + 0.2 * values.OPPE1 + 0.2 * values.OPPE2 + 0.3 * values.F
-      // Add bonus if total >= 40
-      if (baseScore >= 40) {
-        baseScore += (values.NormalBonus || 0)
-      }
-      return baseScore
+      return 0.1 * values.GAA + 0.2 * values.Qz1 + 0.2 * values.OPPE1 + 0.2 * values.OPPE2 + 0.3 * values.F
 
     case "ff":
       return (
@@ -273,13 +255,12 @@ export function calculateScore(courseId: string, values: Record<string, number>)
 
     case "dlp":
       return (
-        0.2 * values.GA +
+        0.05 * values.GA +
         0.15 * values.Quiz1 +
         0.15 * values.Quiz2 +
         0.15 * values.Quiz3 +
-        0.2 * values.BestNPPE +
-        0.15 * values.SecondBestNPPE +
-        0.1 * values.LowestNPPE
+        0.25 * ((values.NPPE1 + values.NPPE2 + values.NPPE3) / 3) +
+        0.25 * values.Viva
       )
 
     case "os":
@@ -301,6 +282,59 @@ export function calculateScore(courseId: string, values: Record<string, number>)
           0.5 * values.F + 0.25 * Math.max(values.Qz1, values.Qz2),
         )
       )
+
+    // Additional Data Science Degree courses from grading_docs
+    case "dsai-lab":
+      baseScore = 0.05 * values.GAA + 0.25 * values.Quiz + 0.4 * values.P + 0.3 * values.V
+      if (baseScore >= 40 && values.Bonus) {
+        baseScore += Math.min(5, values.Bonus)
+      }
+      return baseScore
+
+    case "appdev-lab":
+      return 0.3 * values.GAA + 0.2 * values.Qz2 + 0.5 * values.V
+
+    case "mr":
+      return 0.1 * values.GAA + 0.2 * values.Qz1 + 0.2 * values.Qz2 + 0.25 * values.P + 0.25 * values.F
+
+    case "mlops":
+      baseScore = 0.2 * values.GAA + 0.3 * values.F + 0.25 * values.OPPE1 + 0.25 * values.OPPE2
+      if (baseScore >= 40 && values.Bonus) {
+        baseScore += Math.min(5, values.Bonus)
+      }
+      return baseScore
+
+    case "mf-genAI":
+      return 0.05 * values.GAA + 0.35 * values.F + 0.2 * values.Qz1 + 0.2 * values.Qz2 + 0.2 * values.NPPE
+
+    case "dt-appdev":
+      return (
+        0.1 * values.GAA +
+        0.1 * values.GP1 +
+        0.1 * values.GP2 +
+        0.2 * values.GP3 +
+        0.2 * values.Qz2 +
+        0.3 * values.F
+      )
+
+    case "ps-osm":
+      return 0.2 * values.GAA + 0.3 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+
+    case "cs-design":
+      return 0.1 * values.GAA + 0.4 * values.F + 0.2 * values.Qz1 + 0.25 * values.Qz2 + 0.05 * values.CVA
+
+    case "gts":
+    case "dm":
+    case "cd":
+    case "toc":
+      return 0.1 * values.GAA + 0.4 * values.F + 0.25 * values.Qz1 + 0.25 * values.Qz2
+
+    case "ads":
+      baseScore = 0.1 * values.GAA + 0.1 * values.PAA + 0.45 * values.F + 0.35 * values.Qz2
+      if (baseScore >= 40 && values.Bonus) {
+        baseScore += Math.min(4, values.Bonus)
+      }
+      return baseScore
 
     // Foundation Level - Electronic Systems
     case "eng1-es":
