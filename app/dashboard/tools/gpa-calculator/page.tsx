@@ -51,7 +51,7 @@ export default function DashboardGPACalculatorPage() {
   const [activeTab, setActiveTab] = useState<"course" | "semester">("course")
   
   // Course Grade Calculator State
-  const [selectedDegree, setSelectedDegree] = useState<"data-science" | "electronic-systems" | "">("")
+  const [selectedDegree, setSelectedDegree] = useState<"data-science" | "electronic-systems" | "aeronautics" | "management" | "">("")
   const [selectedLevel, setSelectedLevel] = useState<"foundation" | "diploma" | "degree" | "">("")
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
   const [formValues, setFormValues] = useState<Record<string, number>>({})
@@ -200,6 +200,8 @@ export default function DashboardGPACalculatorPage() {
                       <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
                         <SelectItem value="data-science" className="text-black font-bold text-xs uppercase">DATA SCIENCE</SelectItem>
                         <SelectItem value="electronic-systems" className="text-black font-bold text-xs uppercase">ELECTRONIC SYSTEMS</SelectItem>
+                        <SelectItem value="aeronautics" className="text-black font-bold text-xs uppercase">AERONAUTICS & SPACE TECH</SelectItem>
+                        <SelectItem value="management" className="text-black font-bold text-xs uppercase">MANAGEMENT & DATA SCIENCE</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

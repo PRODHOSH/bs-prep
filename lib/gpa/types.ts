@@ -8,7 +8,7 @@ export interface FormField {
 export interface Course {
   id: string
   name: string
-  degree: "data-science" | "electronic-systems"
+  degree: "data-science" | "electronic-systems" | "aeronautics" | "management"
   level: "foundation" | "diploma" | "degree"
   formula: string
   formFields: FormField[]
