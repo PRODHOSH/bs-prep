@@ -138,37 +138,37 @@ export default function DashboardGPAPredictorPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-3">
                   <Label className="text-xs font-black text-black uppercase tracking-widest">DEGREE PROGRAM</Label>
-                  <Select value={selectedDegree} onValueChange={(v) => {
+                  <Select value={selectedDegree || undefined} onValueChange={(v) => {
                     setSelectedDegree(v as any)
                     setSelectedLevel("")
                     setSelectedCourse(null)
                     setPredictions([])
                   }}>
-                    <SelectTrigger className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase">
+                    <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all">
                       <SelectValue placeholder="CHOOSE DEGREE" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
-                      <SelectItem value="data-science" className="text-black font-bold text-xs uppercase">DATA SCIENCE</SelectItem>
-                      <SelectItem value="electronic-systems" className="text-black font-bold text-xs uppercase">ELECTRONIC SYSTEMS</SelectItem>
-                      <SelectItem value="aeronautics" className="text-black font-bold text-xs uppercase">AERONAUTICS & SPACE TECH</SelectItem>
-                      <SelectItem value="management" className="text-black font-bold text-xs uppercase">MANAGEMENT & DATA SCIENCE</SelectItem>
+                    <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
+                      <SelectItem value="data-science" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">DATA SCIENCE</SelectItem>
+                      <SelectItem value="electronic-systems" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">ELECTRONIC SYSTEMS</SelectItem>
+                      <SelectItem value="aeronautics" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">AERONAUTICS & SPACE TECH</SelectItem>
+                      <SelectItem value="management" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">MANAGEMENT & DATA SCIENCE</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-3">
                   <Label className="text-xs font-black text-black uppercase tracking-widest">LEVEL</Label>
-                  <Select value={selectedLevel} onValueChange={(v) => {
+                  <Select value={selectedLevel || undefined} onValueChange={(v) => {
                     setSelectedLevel(v as any)
                     setSelectedCourse(null)
                     setPredictions([])
                   }} disabled={!selectedDegree}>
-                    <SelectTrigger className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase disabled:opacity-50">
+                    <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
                       <SelectValue placeholder="CHOOSE LEVEL" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
+                    <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
                       {availableLevels.map((level) => (
-                        <SelectItem key={level} value={level} className="text-black font-bold text-xs uppercase">
+                        <SelectItem key={level} value={level} className="text-black font-bold text-xs uppercase py-3 cursor-pointer">
                           {level}
                         </SelectItem>
                       ))}
@@ -178,18 +178,18 @@ export default function DashboardGPAPredictorPage() {
 
                 <div className="space-y-3">
                   <Label className="text-xs font-black text-black uppercase tracking-widest">COURSE</Label>
-                  <Select value={selectedCourse?.id || ""} onValueChange={(id) => {
+                  <Select value={selectedCourse?.id || undefined} onValueChange={(id) => {
                     const course = availableCourses.find((c) => c.id === id)
                     setSelectedCourse(course || null)
                     setFormValues({})
                     setPredictions([])
                   }} disabled={!selectedLevel}>
-                    <SelectTrigger className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase disabled:opacity-50">
+                    <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
                       <SelectValue placeholder="CHOOSE COURSE" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
+                    <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
                       {availableCourses.map((course) => (
-                        <SelectItem key={course.id} value={course.id} className="text-black font-bold text-xs uppercase">
+                        <SelectItem key={course.id} value={course.id} className="text-black font-bold text-xs uppercase py-3 cursor-pointer">
                           {course.name}
                         </SelectItem>
                       ))}

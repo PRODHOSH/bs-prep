@@ -191,39 +191,39 @@ export default function GPACalculator() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-3">
                     <Label className="text-xs font-black text-black uppercase tracking-widest">DEGREE PROGRAM</Label>
-                    <Select value={selectedDegree} onValueChange={(v) => {
+                    <Select value={selectedDegree || undefined} onValueChange={(v) => {
                       setSelectedDegree(v as any)
                       setSelectedLevel("")
                       setSelectedCourse(null)
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }}>
-                      <SelectTrigger className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase">
+                      <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all">
                         <SelectValue placeholder="CHOOSE DEGREE" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
-                        <SelectItem value="data-science" className="text-black font-bold text-xs uppercase">DATA SCIENCE</SelectItem>
-                        <SelectItem value="electronic-systems" className="text-black font-bold text-xs uppercase">ELECTRONIC SYSTEMS</SelectItem>
-                        <SelectItem value="aeronautics" className="text-black font-bold text-xs uppercase">AERONAUTICS & SPACE TECH</SelectItem>
-                        <SelectItem value="management" className="text-black font-bold text-xs uppercase">MANAGEMENT & DATA SCIENCE</SelectItem>
+                      <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
+                        <SelectItem value="data-science" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">DATA SCIENCE</SelectItem>
+                        <SelectItem value="electronic-systems" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">ELECTRONIC SYSTEMS</SelectItem>
+                        <SelectItem value="aeronautics" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">AERONAUTICS & SPACE TECH</SelectItem>
+                        <SelectItem value="management" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">MANAGEMENT & DATA SCIENCE</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-3">
                     <Label className="text-xs font-black text-black uppercase tracking-widest">LEVEL</Label>
-                    <Select value={selectedLevel} onValueChange={(v) => {
+                    <Select value={selectedLevel || undefined} onValueChange={(v) => {
                       setSelectedLevel(v as any)
                       setSelectedCourse(null)
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }} disabled={!selectedDegree}>
-                      <SelectTrigger className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase disabled:opacity-50">
+                      <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
                         <SelectValue placeholder="CHOOSE LEVEL" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
+                      <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
                         {availableLevels.map((level) => (
-                          <SelectItem key={level} value={level} className="text-black font-bold text-xs uppercase">
+                          <SelectItem key={level} value={level} className="text-black font-bold text-xs uppercase py-3 cursor-pointer">
                             {level}
                           </SelectItem>
                         ))}
@@ -233,19 +233,19 @@ export default function GPACalculator() {
 
                   <div className="space-y-3">
                     <Label className="text-xs font-black text-black uppercase tracking-widest">COURSE</Label>
-                    <Select value={selectedCourse?.id || ""} onValueChange={(id) => {
+                    <Select value={selectedCourse?.id || undefined} onValueChange={(id) => {
                       const course = availableCourses.find((c) => c.id === id)
                       setSelectedCourse(course || null)
                       setFormValues({})
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }} disabled={!selectedLevel}>
-                      <SelectTrigger className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase disabled:opacity-50">
+                      <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
                         <SelectValue placeholder="CHOOSE COURSE" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
+                      <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
                         {availableCourses.map((course) => (
-                          <SelectItem key={course.id} value={course.id} className="text-black font-bold text-xs uppercase">
+                          <SelectItem key={course.id} value={course.id} className="text-black font-bold text-xs uppercase py-3 cursor-pointer">
                             {course.name}
                           </SelectItem>
                         ))}
@@ -392,64 +392,64 @@ export default function GPACalculator() {
               <div className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0">
                 <div className="min-w-[600px]">
                   <div className="grid grid-cols-12 gap-4 px-4 pb-4 border-b-2 border-black">
-                <div className="col-span-4">
-                  <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">COURSE NAME</Label>
-                </div>
-                <div className="col-span-3">
-                  <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">CREDITS</Label>
-                </div>
-                <div className="col-span-4">
-                  <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">GRADE</Label>
-                </div>
-                <div className="col-span-1"></div>
-              </div>
-
-              {/* Course Rows */}
-              <div className="space-y-4 pt-2">
-                {semesterCourses.map((course, index) => (
-                  <div key={course.id} className="grid grid-cols-12 gap-4 p-4 bg-white border border-black/10 shadow-md items-center">
-                    <div className="col-span-4">
-                      <Input
-                        placeholder="E.G., MATHEMATICS I"
-                        value={course.name}
-                        onChange={(e) => setSemesterCourses(semesterCourses.map(c => 
-                          c.id === course.id ? { ...c, name: e.target.value } : c
-                        ))}
-                        className="h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30"
-                      />
+                    <div className="col-span-6">
+                      <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">COURSE NAME</Label>
+                    </div>
+                    <div className="col-span-2">
+                      <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">CREDITS</Label>
                     </div>
                     <div className="col-span-3">
-                      <Input
-                        type="number"
-                        placeholder="4"
-                        value={course.credits || ""}
-                        onChange={(e) => {
-                          const val = Math.max(0, Math.min(Number(e.target.value), 20))
-                          setSemesterCourses(semesterCourses.map(c => 
-                            c.id === course.id ? { ...c, credits: val } : c
-                          ))
-                        }}
-                        className="h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30"
-                        min="0"
-                        max="10"
-                      />
+                      <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">GRADE</Label>
                     </div>
-                    <div className="col-span-4">
-                      <Select value={course.gradePoints.toString()} onValueChange={(v) => 
-                        setSemesterCourses(semesterCourses.map(c => 
-                          c.id === course.id ? { ...c, gradePoints: Number(v) } : c
-                        ))
-                      }>
-                        <SelectTrigger className="h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase">
-                          <SelectValue placeholder="SELECT GRADE" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
-                          {gradePointsOptions.map((opt) => (
-                            <SelectItem key={opt.value} value={opt.value.toString()} className="text-black font-bold text-xs uppercase">{opt.label}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <div className="col-span-1"></div>
+                  </div>
+
+                  {/* Course Rows */}
+                  <div className="space-y-4 pt-2">
+                    {semesterCourses.map((course, index) => (
+                      <div key={course.id} className="grid grid-cols-12 gap-4 p-4 bg-white border border-black/10 shadow-md items-center rounded-2xl">
+                        <div className="col-span-6">
+                          <Input
+                            placeholder="E.G., MATHEMATICS I"
+                            value={course.name}
+                            onChange={(e) => setSemesterCourses(semesterCourses.map(c => 
+                              c.id === course.id ? { ...c, name: e.target.value } : c
+                            ))}
+                            className="w-full h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30"
+                          />
+                        </div>
+                        <div className="col-span-2">
+                          <Input
+                            type="number"
+                            placeholder="4"
+                            value={course.credits || ""}
+                            onChange={(e) => {
+                              const val = Math.max(0, Math.min(Number(e.target.value), 20))
+                              setSemesterCourses(semesterCourses.map(c => 
+                                c.id === course.id ? { ...c, credits: val } : c
+                              ))
+                            }}
+                            className="w-full h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30 text-center"
+                            min="0"
+                            max="10"
+                          />
+                        </div>
+                        <div className="col-span-3">
+                          <Select value={course.gradePoints.toString()} onValueChange={(v) => 
+                            setSemesterCourses(semesterCourses.map(c => 
+                              c.id === course.id ? { ...c, gradePoints: Number(v) } : c
+                            ))
+                          }>
+                            <SelectTrigger className="w-full h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase">
+                              <SelectValue placeholder="SELECT GRADE" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
+                              {gradePointsOptions.map((opt) => (
+                                <SelectItem key={opt.value} value={opt.value.toString()} className="text-black font-bold text-xs uppercase">{opt.label}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
                     <div className="col-span-1 flex items-center justify-center">
                       {semesterCourses.length > 1 && (
                         <Button 
