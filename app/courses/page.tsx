@@ -154,7 +154,7 @@ export default function CoursesPage() {
                     <div className="mt-12">
                       <p className="text-sm font-bold text-black/40 line-through mb-1">₹1199</p>
                       <div className="flex items-end justify-between">
-                        <p className="text-3xl md:text-4xl font-black tracking-tight leading-none text-[#0a192f]">₹999</p>
+                        <p className="text-3xl md:text-4xl font-black tracking-tight leading-none text-[#0a192f]">₹899</p>
                         <span className="inline-flex items-center justify-center h-10 bg-[#0a192f] text-white text-xs font-black uppercase px-5 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-1.5">
                           VIEW BUNDLE
                           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

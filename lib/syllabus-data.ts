@@ -122,7 +122,7 @@ export const courseSyllabusData: Record<string, any> = {
   "coding-bundle": {
     title: "Coding Bundle (Python + Java)",
     level: "qualifier",
-    price: 999, originalPrice: 1199,
+    price: 899, originalPrice: 1199,
     description: "Master both Python and Java programming languages.",
     thumbnail: "/courses/coding-bundle.jpg",
     syllabus: [
