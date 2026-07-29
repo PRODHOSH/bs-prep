@@ -55,6 +55,12 @@ export default function DashboardCoursesPage() {
       course.title.toLowerCase().includes(searchQuery.toLowerCase())
     const tabMatch = activeTab === "explore" || enrolledCourseIds.includes(course.id)
     return levelMatch && searchMatch && tabMatch && course.id !== "qualifier-bundle" && course.id !== "coding-bundle"
+  }).sort((a, b) => {
+    const aAvail = a.available !== false;
+    const bAvail = b.available !== false;
+    if (aAvail && !bAvail) return -1;
+    if (!aAvail && bAvail) return 1;
+    return 0;
   })
 
   return (
@@ -122,7 +128,7 @@ export default function DashboardCoursesPage() {
             {activeTab === "explore" && (selectedLevel === "all" || selectedLevel === "qualifier") && searchQuery === "" && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 <Link
-                  href="/dashboard/payment/qualifier-bundle" className="block col-span-1 md:col-span-2 relative bg-[#0a192f] text-white p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl overflow-hidden"
+                  href="/dashboard/courses/qualifier-bundle" className="block col-span-1 md:col-span-2 relative bg-[#0a192f] text-white p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-all duration-500 pointer-events-none">
                     <Package className="w-40 h-40" />
@@ -149,7 +155,7 @@ export default function DashboardCoursesPage() {
                         </div>
                       </div>
                       <span className="inline-flex items-center justify-center h-12 bg-white text-[#0a192f] text-sm font-black uppercase px-6 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-2">
-                        GET PACKAGE DEAL
+                        VIEW BUNDLE
                         <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </span>
                     </div>
@@ -157,7 +163,7 @@ export default function DashboardCoursesPage() {
                 </Link>
 
                 <Link
-                  href="/dashboard/payment/coding-bundle" className="block col-span-1 relative bg-white ring-1 ring-black/5 p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl"
+                  href="/dashboard/courses/coding-bundle" className="block col-span-1 relative bg-white ring-1 ring-black/5 p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl"
                 >
                   <div className="relative z-10 h-full flex flex-col justify-between">
                     <div>
@@ -171,7 +177,7 @@ export default function DashboardCoursesPage() {
                       <div className="flex items-end justify-between">
                         <p className="text-3xl md:text-4xl font-black tracking-tight leading-none text-[#0a192f]">₹999</p>
                         <span className="inline-flex items-center justify-center h-10 bg-[#0a192f] text-white text-xs font-black uppercase px-5 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-1.5">
-                          GET DEAL
+                          VIEW BUNDLE
                           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </span>
                       </div>

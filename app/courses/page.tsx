@@ -37,6 +37,12 @@ export default function CoursesPage() {
     const searchMatch = searchQuery === "" ||
       course.title.toLowerCase().includes(searchQuery.toLowerCase())
     return levelMatch && searchMatch && course.id !== "qualifier-bundle" && course.id !== "coding-bundle"
+  }).sort((a, b) => {
+    const aAvail = a.available !== false;
+    const bAvail = b.available !== false;
+    if (aAvail && !bAvail) return -1;
+    if (!aAvail && bAvail) return 1;
+    return 0;
   })
 
   return (
@@ -127,7 +133,7 @@ export default function CoursesPage() {
                         </div>
                       </div>
                       <span className="inline-flex items-center justify-center h-12 bg-white text-[#0a192f] text-sm font-black uppercase px-6 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-2">
-                        GET PACKAGE DEAL
+                        VIEW BUNDLE
                         <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </span>
                     </div>
@@ -150,7 +156,7 @@ export default function CoursesPage() {
                       <div className="flex items-end justify-between">
                         <p className="text-3xl md:text-4xl font-black tracking-tight leading-none text-[#0a192f]">₹999</p>
                         <span className="inline-flex items-center justify-center h-10 bg-[#0a192f] text-white text-xs font-black uppercase px-5 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-1.5">
-                          GET DEAL
+                          VIEW BUNDLE
                           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </span>
                       </div>

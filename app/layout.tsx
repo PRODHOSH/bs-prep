@@ -25,25 +25,33 @@ const siteName = "BSPrep"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "BSPrep | IITM BS Tamil Courses, GPA Tools, Notes & Community",
+    default: "BSPrep | Premium IITM BS Tamil Courses, GPA Tools & Notes",
     template: "%s | BSPrep",
   },
-  description: "Master the IITM BS Degree with BSPrep. Get structured Tamil medium video courses, GPA calculators, curated notes, quizzes, and expert community support.",
+  description: "Accelerate your IIT Madras BS Degree journey with BSPrep. Master concepts through premium Tamil medium video courses, live doubt solving, advanced GPA calculators, curated notes, interactive quizzes, and a thriving student community.",
   keywords: [
     "IITM BS",
+    "IITM BS Degree",
+    "IIT Madras BS Degree",
     "BS Data Science",
     "Tamil Medium Courses IITM BS",
     "IITM BS Video Lectures",
+    "IITM BS Qualifier Prep",
+    "IITM BS Foundation Courses",
     "GPA calculator",
+    "GPA Predictor IITM",
     "IITM BS notes",
     "IITM BS community",
     "online degree prep",
     "BSPrep",
-    "IIT Madras BS Degree",
     "IITM BS Quiz Prep",
     "IITM BS Study Material",
-    "GPA Predictor IITM",
+    "IITM BS Assignments",
+    "Learn Programming Tamil"
   ],
+  authors: [{ name: "BSPrep Team", url: siteUrl }],
+  creator: "BSPrep",
+  publisher: "BSPrep",
   applicationName: siteName,
   alternates: {
     canonical: "/",
@@ -52,22 +60,23 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName,
-    title: "BSPrep | IITM BS Tamil Courses, GPA Tools, Notes & Community",
-    description: "Master the IITM BS Degree with BSPrep. Get structured Tamil medium video courses, GPA calculators, curated notes, and community support.",
+    title: "BSPrep | Premium IITM BS Tamil Courses & Tools",
+    description: "Accelerate your IIT Madras BS Degree journey with BSPrep. Master concepts through premium Tamil medium video courses, advanced GPA calculators, curated notes, and interactive quizzes.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "BSPrep - IITM BS Student Portal",
+        alt: "BSPrep - The Ultimate IITM BS Student Portal",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BSPrep | IITM BS Tamil Courses, GPA Tools, Notes & Community",
-    description: "Master the IITM BS Degree with BSPrep. Get structured Tamil medium video courses, GPA calculators, curated notes, and community support.",
+    title: "BSPrep | Premium IITM BS Tamil Courses & Tools",
+    description: "Accelerate your IIT Madras BS Degree journey with BSPrep. Master concepts through premium Tamil medium video courses, advanced GPA calculators, and notes.",
     images: ["/og-image.png"],
+    creator: "@bsprep",
   },
   robots: {
     index: true,
@@ -87,6 +96,7 @@ export const metadata: Metadata = {
     icon: "/new-logo-favicon.png",
     apple: "/new-logo-favicon.png",
   },
+  category: "education",
 }
 
 export const viewport: Viewport = {

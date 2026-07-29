@@ -166,7 +166,7 @@ export const courses: Course[] = [
     courseType: "course",
     weeks: 4,
     description: "Master both Python and Java programming languages",
-    thumbnail: "/courses/python.png",
+    thumbnail: "/courses/coding-bundle.jpg",
     price: 999, originalPrice: 1199,
     available: true,
     withCertificate: true

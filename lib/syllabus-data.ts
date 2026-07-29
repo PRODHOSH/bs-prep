@@ -124,7 +124,7 @@ export const courseSyllabusData: Record<string, any> = {
     level: "qualifier",
     price: 999, originalPrice: 1199,
     description: "Master both Python and Java programming languages.",
-    thumbnail: "/courses/python.png",
+    thumbnail: "/courses/coding-bundle.jpg",
     syllabus: [
       { isCourseHeader: true, title: "Programming in Python" },
       { week: 1, title: "Introduction to Python", topics: "Variables, Data Types, Input/Output, Operators" },

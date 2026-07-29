@@ -282,7 +282,7 @@ export default function CourseDetailPage() {
         {/* Content List Container */}
         <div className="w-full bg-[#FDFBF7]">
           <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-10 min-h-[50vh]">
-            {!isEnrolled && <LockedContent courseId={course.id} />}
+            {!isEnrolled && activeTab !== "batch_details" && <LockedContent courseId={course.id} />}
             
             {isEnrolled && activeTab === "classes" && (
               classesLoading ? (
@@ -391,7 +391,7 @@ export default function CourseDetailPage() {
             )
             )}
 
-            {isEnrolled && activeTab === "batch_details" && (
+            {activeTab === "batch_details" && (
               <div className="max-w-3xl bg-white border border-black/10 rounded-2xl p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-12">
                   <div>
