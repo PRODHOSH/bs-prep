@@ -71,7 +71,7 @@ export default function DashboardCoursesPage() {
           <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight leading-[1.1] mb-4 uppercase">
             COURSES <span className="text-[#0a192f]">WE OFFER</span>
           </h1>
-          <p className="text-black/60 font-bold uppercase text-base max-w-2xl">
+          <p className="text-black/60 font-bold text-base max-w-2xl">
             Master the IITM BS curriculum with structured video courses, expert mentorship, and comprehensive study materials in Tamil.
           </p>
         </div>
