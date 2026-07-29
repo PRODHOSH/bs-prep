@@ -1,6 +1,7 @@
 "use client"
 
 import { createClient } from "@/lib/supabase/client"
+import { courses as catalogCourses } from "@/lib/course-catalog"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -177,7 +178,10 @@ export default function MentorCoursesPage() {
         </Card>
       ) : (
         <div className="grid gap-6 md:grid-cols-2">
-          {courses.map((course) => (
+          {courses.map((course) => {
+            const catalogMatch = catalogCourses.find(c => c.id === course.id || c.title === course.title)
+            
+            return (
             <Card key={course.id}>
               <CardHeader>
                 <div className="flex items-start justify-between">
@@ -193,12 +197,28 @@ export default function MentorCoursesPage() {
                   <span className="text-muted-foreground">Students Enrolled:</span>
                   <span className="font-semibold text-primary">{course.student_count}</span>
                 </div>
-                <Button variant="outline" className="w-full bg-transparent">
+
+                {catalogMatch?.driveFolderId && (
+                  <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-4 mt-4">
+                    <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-2">Upload Slides</h4>
+                    <p className="text-xs text-emerald-800 mb-3 leading-relaxed">Upload class slides to this folder so students can access them instantly on their dashboard. Files <strong className="font-black underline">MUST</strong> be named in <strong className="font-black">DD-MM-YYYY.pdf</strong> format (e.g. 19-02-2026.pdf) to perfectly sync with the correct class date.</p>
+                    <a 
+                      href={`https://drive.google.com/drive/folders/${catalogMatch.driveFolderId}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-black uppercase tracking-widest bg-emerald-600 text-white px-4 py-2 rounded shadow-sm hover:bg-emerald-700 transition-colors inline-block"
+                    >
+                      Open Google Drive
+                    </a>
+                  </div>
+                )}
+
+                <Button variant="outline" className="w-full bg-transparent mt-2">
                   Manage Course
                 </Button>
               </CardContent>
             </Card>
-          ))}
+          )})}
         </div>
       )}
     </div>

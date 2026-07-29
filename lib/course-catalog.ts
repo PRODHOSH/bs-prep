@@ -12,6 +12,7 @@ export interface Course {
   price?: number
   originalPrice?: number
   available?: boolean
+  driveFolderId?: string
 }
 
 export const courses: Course[] = [
@@ -26,7 +27,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/mathematics_for_datascience_1.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "1dHttTSOh7ogme6HBqy48egXI1DU8l5oa"
   },
   {
     id: "qualifier-stats-1",
@@ -39,7 +41,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/statistics_for_datascience_1.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "1xZyqHjFBNiAuDFR0RW3SW-eSp0fk5R_e"
   },
   {
     id: "qualifier-computational-thinking",
@@ -52,7 +55,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/ct.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "1DVdUOIoI13MmeyTxDbeOzLA82QHCVrO4"
   },
   {
     id: "qualifier-english-1",
@@ -65,7 +69,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/english_for_datascience_1.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "10X04lqT2ST6exnRkhskoR9HDT7U6DJbS"
   },
   {
     id: "qualifier-python",
@@ -78,7 +83,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/programming_in_python.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "1mqygh__1amTN6nYPIB0Xv84A9ExrEpKv"
   },
   {
     id: "qualifier-java",
@@ -91,7 +97,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/programming_in_java.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "1e3crARdTPTTs7mu3jYY97mv8edBp2zig"
   },
   {
     id: "foundation-math-2",
@@ -117,7 +124,8 @@ export const courses: Course[] = [
     thumbnail: "/courses/statistics_for_datascience_2.jpeg",
     price: 499, originalPrice: 599,
     available: true,
-    withCertificate: true
+    withCertificate: true,
+    driveFolderId: "1fPru5QSu7vpy79OvDLbbTHQ2Ifu6IcTq"
   },
   {
     id: "foundation-programming-python",
@@ -166,8 +174,8 @@ export const courses: Course[] = [
     courseType: "course",
     weeks: 4,
     description: "Master both Python and Java programming languages",
-    thumbnail: "/courses/python.png",
-    price: 999, originalPrice: 1199,
+    thumbnail: "/courses/coding-bundle.jpg",
+    price: 899, originalPrice: 1199,
     available: true,
     withCertificate: true
   }

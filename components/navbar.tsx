@@ -135,22 +135,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
     return () => clearInterval(interval)
   }, [isAuthenticated])
 
-  useEffect(() => {
-    if (!isAuthenticated || userRole === 'admin') return
-
-    const loadDoubtNotifications = async () => {
-      try {
-        const res = await fetch('/api/doubts/notifications')
-        if (!res.ok) return
-        const data = await res.json()
-        setDoubtNotifications(Array.isArray(data.notifications) ? data.notifications : [])
-      } catch { }
-    }
-
-    loadDoubtNotifications()
-    const interval = setInterval(loadDoubtNotifications, 60_000)
-    return () => clearInterval(interval)
-  }, [isAuthenticated, userRole])
+  // Doubt notifications logic removed temporarily since /api/doubts/notifications API is not implemented
 
   // Fetch announcements for notification dropdown
   useEffect(() => {

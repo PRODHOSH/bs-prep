@@ -58,6 +58,7 @@
     "driver.js": "^1.7.0",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "^12.42.2",
+    "googleapis": "^173.0.0",
     "gsap": "^3.14.2",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",

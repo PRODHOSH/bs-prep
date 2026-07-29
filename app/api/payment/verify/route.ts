@@ -21,8 +21,9 @@ const courseBasePricing: Record<string, number> = {
   "qualifier-java": 49900,
   "foundation-stats-2": 49900,
   "bundle": 179900,
+  "qualifier-bundle": 179900,
   "core-3-bundle": 119900,
-  "coding-bundle": 99900,
+  "coding-bundle": 89900,
 };
 
 const payableCoursePricing: Record<string, number> = Object.fromEntries(
@@ -269,7 +270,7 @@ export async function POST(request: NextRequest) {
 
       if (!existingPayment.welcome_email_sent_at) {
         let enrollmentIds: string[] = [expectedCourseId];
-        if (expectedCourseId === "bundle") {
+        if (expectedCourseId === "bundle" || expectedCourseId === "qualifier-bundle") {
           enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking", "qualifier-english-1"];
         } else if (expectedCourseId === "core-3-bundle") {
           enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking"];
@@ -322,7 +323,7 @@ export async function POST(request: NextRequest) {
     }
 
     let enrollmentIds: string[] = [expectedCourseId];
-    if (expectedCourseId === "bundle") {
+    if (expectedCourseId === "bundle" || expectedCourseId === "qualifier-bundle") {
       enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking", "qualifier-english-1"];
     } else if (expectedCourseId === "core-3-bundle") {
       enrollmentIds = ["qualifier-math-1", "qualifier-stats-1", "qualifier-computational-thinking"];
@@ -337,7 +338,7 @@ export async function POST(request: NextRequest) {
         user_id: userId,
         razorpay_order_id,
         razorpay_payment_id,
-        is_bundle: expectedCourseId === "bundle" || expectedCourseId === "core-3-bundle" || expectedCourseId === "coding-bundle",
+        is_bundle: expectedCourseId === "bundle" || expectedCourseId === "qualifier-bundle" || expectedCourseId === "core-3-bundle" || expectedCourseId === "coding-bundle",
         status: "completed",
         created_at: new Date().toISOString(),
       });

@@ -35,7 +35,7 @@ const courseBasePricing: Record<string, number> = {
   "foundation-stats-2": 49900,
   "bundle": 179900,
   "core-3-bundle": 119900,
-  "coding-bundle": 99900,
+  "coding-bundle": 89900,
 };
 
 function buildReceipt(userId: string): string {
