@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe, Mail } from "lucide-react"
 
 const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
 /* DEVELOPERS_DISABLED
@@ -46,6 +46,19 @@ DEVELOPERS_DISABLED */
 
 export function Footer() {
   const [activeDev, setActiveDev] = useState<string | null>(null)
+  
+  useEffect(() => {
+    if (!document.getElementById("razorpay-embed-btn-js")) {
+      const s = document.createElement("script")
+      s.defer = true
+      s.id = "razorpay-embed-btn-js"
+      s.src = "https://cdn.razorpay.com/static/embed_btn/bundle.js"
+      document.body.appendChild(s)
+    } else {
+      const rzp = (window as any)["__rzp__"]
+      if (rzp && rzp.init) rzp.init()
+    }
+  }, [])
   const selectedDev = developers.find((d) => d.name === activeDev) ?? null
 
   const columns = [
@@ -88,7 +101,7 @@ export function Footer() {
     <>
       <footer className="bg-[#FDFBF7] border-t border-black/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr] gap-8 mb-10">
             {/* Brand */}
             <div className="space-y-6 lg:pr-8">
               <div className="flex items-center gap-2">
@@ -105,11 +118,11 @@ export function Footer() {
                 
                 <div className="flex flex-col gap-2 pt-1">
                   <a href="mailto:support@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
-                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                    <Mail className="w-4 h-4 opacity-50" />
                     support@bsprep.in
                   </a>
-                  <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-[#0a192f]/70 hover:text-[#0a192f] transition-colors">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
+                    <HeartHandshake className="w-4 h-4 opacity-50" />
                     Partner with us: partnerships@bsprep.in
                   </a>
                 </div>
@@ -120,7 +133,7 @@ export function Footer() {
                   href="https://www.linkedin.com/company/bs-prep/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-[#0077b5] bg-[#0077b5]/10 hover:bg-[#0077b5] hover:text-white transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -128,7 +141,7 @@ export function Footer() {
                   href="https://www.youtube.com/@DataScienceIITMTamil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-[#ff0000] bg-[#ff0000]/10 hover:bg-[#ff0000] hover:text-white transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
                 >
                   <Youtube className="w-4 h-4" />
                 </a>
@@ -136,23 +149,10 @@ export function Footer() {
                   href="https://www.instagram.com/bsprep.in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-[#E1306C] bg-[#E1306C]/10 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
-              </div>
-              
-              <div className="pt-2 space-y-4">
-                <a
-                  href="https://rzp.io/rzp/support-bsprep"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#0a192f] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#112a52] hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg w-fit"
-                >
-                  <HeartHandshake className="h-4 w-4" />
-                  Donate
-                </a>
-                
               </div>
             </div>
 
@@ -190,6 +190,20 @@ export function Footer() {
                 </ul>
               </div>
             ))}
+
+            {/* Donate & Support Column */}
+            <div>
+              <h3 className="font-bold text-black text-xs uppercase tracking-widest mb-4">Donate & Support</h3>
+              <div className="flex flex-col gap-4">
+                <div className="border border-black/10 p-2 rounded-xl bg-white shadow-sm w-fit group relative overflow-hidden">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pages.razorpay.com/pl_T7LY917rtczWQU/view" alt="Donate QR" className="w-[100px] h-[100px] object-contain mix-blend-multiply transition-transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/90 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">Scan<br/>To Donate</span>
+                  </div>
+                </div>
+                <div className="razorpay-embed-btn h-[40px]" data-url="https://pages.razorpay.com/pl_T7LY917rtczWQU/view" data-text="Donate" data-color="#0a192f" data-size="small"></div>
+              </div>
+            </div>
           </div>
 
           <div className="border-t border-black/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
