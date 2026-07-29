@@ -27,6 +27,13 @@ const COURSE_CODE_MAP: Record<string, string[]> = {
   "coding-bundle":                     ["qualifier-python", "qualifier-java"],
 }
 
+interface Slide {
+  id: string
+  name: string
+  webViewLink: string
+  webContentLink?: string
+}
+
 interface LiveClass {
   course: string
   topic: string
@@ -71,6 +78,9 @@ export default function CourseDetailPage() {
   const [classesLoading, setClassesLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [activeTab, setActiveTab] = useState<"classes" | "slides" | "batch_details" | "other_content">("classes")
+  const [expandedClass, setExpandedClass] = useState<number | null>(null)
+  const [slides, setSlides] = useState<Slide[]>([])
+  const [slidesLoading, setSlidesLoading] = useState(true)
   const supabase = createClient()
 
   useEffect(() => {
@@ -124,11 +134,33 @@ export default function CourseDetailPage() {
     fetchClasses()
   }, [courseId])
 
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const res = await fetch(`/api/courses/${courseId}/slides`)
+        if (res.ok) {
+          const data = await res.json()
+          setSlides(data.files || [])
+        }
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setSlidesLoading(false)
+      }
+    }
+    fetchSlides()
+  }, [courseId])
+
   const displayClasses = liveClasses.filter((c) => {
     const s = getStatus(c.date, c.time)
     const matchesSearch = c.topic.toLowerCase().includes(searchQuery.toLowerCase())
     const isValidStatus = s === "upcoming" || s === "live" || (s === "completed" && c.youtubeLink)
     return matchesSearch && isValidStatus
+  }).sort((a, b) => {
+    if (a.date !== b.date) {
+      return b.date.localeCompare(a.date)
+    }
+    return b.time.localeCompare(a.time)
   })
 
   if (!course) {
@@ -353,12 +385,36 @@ export default function CourseDetailPage() {
                         {/* Bottom Row: Buttons */}
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-auto pt-4 border-t border-black/5">
                           {/* Bottom Left */}
-                          <button className="text-xs font-black uppercase tracking-widest text-black/60 hover:text-black flex items-center gap-1.5 w-fit">
-                            View topics <ChevronDown className="w-4 h-4" />
-                          </button>
+                          <div className="flex items-center gap-3">
+                            <button 
+                              onClick={() => setExpandedClass(expandedClass === i ? null : i)}
+                              className="text-xs font-black uppercase tracking-widest text-black/60 hover:text-black flex items-center gap-1.5 w-fit"
+                            >
+                              View topics <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expandedClass === i ? 'rotate-180' : ''}`} />
+                            </button>
+                          </div>
 
                           {/* Bottom Right */}
                           <div className="flex items-center gap-3">
+                            {(() => {
+                              const [year, month, day] = cls.date.split("-")
+                              const matchStr = `${day}-${month}-${year}`
+                              const matchingSlide = slides.find(s => s.name.startsWith(matchStr))
+                              if (matchingSlide) {
+                                return (
+                                  <a
+                                    href={matchingSlide.webViewLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-4 py-2.5 rounded font-black uppercase tracking-widest text-[11px] transition-all bg-emerald-50 text-emerald-600 hover:bg-emerald-100 flex items-center gap-2 border border-emerald-200"
+                                  >
+                                    <FileText className="w-3.5 h-3.5" /> Slides
+                                  </a>
+                                )
+                              }
+                              return null
+                            })()}
+
                             {isCompleted ? (
                               <a
                                 href={cls.youtubeLink}
@@ -384,6 +440,17 @@ export default function CourseDetailPage() {
                           </div>
                         </div>
                       </div>
+                      
+                      {/* Expanded Topics Section */}
+                      {expandedClass === i && (
+                        <div className="mt-4 pt-4 border-t border-black/5 animate-in slide-in-from-top-2 fade-in-0 duration-200">
+                           <div className="bg-[#0a192f]/5 p-4 rounded-lg border border-black/5">
+                             <h4 className="text-[10px] font-black uppercase tracking-widest text-black/50 mb-2">Class Details</h4>
+                             <p className="text-sm font-bold text-black"><span className="text-black/50">Class:</span> {cls.course}</p>
+                             <p className="text-sm font-bold text-black mt-1"><span className="text-black/50">Topic:</span> {cls.topic}</p>
+                           </div>
+                        </div>
+                      )}
                     </div>
                   )
                 })}
@@ -432,11 +499,70 @@ export default function CourseDetailPage() {
             )}
             
             {isEnrolled && activeTab === "slides" && (
-              <EmptyState
-                imageUrl="/slides.svg"
-                title="No Slides Yet"
-                description="Slides for this course will appear here once they are shared."
-              />
+              slidesLoading ? (
+                <LoadingSpinner />
+              ) : slides.length === 0 ? (
+                <EmptyState
+                  imageUrl="/slides.svg"
+                  title="No Slides Yet"
+                  description="Slides for this course will appear here once they are shared."
+                />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {slides.map((slide) => {
+                    const match = slide.name.match(/^(\d{2}-\d{2}-\d{4})/)
+                    const matchStr = match ? match[1] : null
+                    let matchingClass = null
+                    
+                    if (matchStr) {
+                      const [day, month, year] = matchStr.split("-")
+                      matchingClass = liveClasses.find(c => c.date === `${year}-${month}-${day}`)
+                    }
+
+                    const title = matchingClass ? matchingClass.topic : slide.name
+                    const subtitle = matchingClass 
+                      ? `${formatDate(matchingClass.date)} • ${formatTime(matchingClass.time)}`
+                      : "PDF Document"
+
+                    return (
+                      <div key={slide.id} className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg hover:border-black/20 transition-all flex flex-col group">
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100">
+                            <FileText className="w-6 h-6 text-emerald-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-black text-black leading-tight line-clamp-2" title={title}>
+                              {title}
+                            </h3>
+                            <p className="text-xs font-bold text-black/50 uppercase tracking-widest mt-2">{subtitle}</p>
+                          </div>
+                        </div>
+                        <div className="mt-auto flex gap-3 pt-4 border-t border-black/5">
+                          <a
+                            href={slide.webViewLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-black hover:bg-black/90 text-white h-11 rounded-lg flex items-center justify-center font-black uppercase tracking-widest text-[11px] transition-all shadow-sm"
+                          >
+                            View Slide
+                          </a>
+                          {slide.webContentLink && (
+                            <a
+                              href={slide.webContentLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-11 h-11 bg-black/5 hover:bg-black/10 text-black rounded-lg flex items-center justify-center transition-all"
+                              title="Download"
+                            >
+                              <ChevronDown className="w-5 h-5" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )
             )}
             
             {isEnrolled && activeTab === "other_content" && (
