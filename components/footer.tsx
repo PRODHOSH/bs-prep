@@ -88,9 +88,9 @@ export function Footer() {
     <>
       <footer className="bg-[#FDFBF7] border-t border-black/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr] gap-8 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr] gap-8 mb-10">
             {/* Brand */}
-            <div className="space-y-6 lg:pr-8">
+            <div className="space-y-6 lg:pr-8 md:col-span-4 lg:col-span-1">
               <div className="flex items-center gap-2">
                 <div className="w-[36px] h-[36px] overflow-hidden rounded-full border border-black/10 shrink-0">
                   <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.3]" />
@@ -428,7 +428,7 @@ function RazorpayButton() {
   return (
     <div 
       ref={containerRef}
-      className="razorpay-embed-btn h-[40px] flex items-center justify-start" 
+      className="razorpay-embed-btn min-h-[40px] flex items-center justify-start w-full" 
       data-url="https://pages.razorpay.com/pl_T7LY917rtczWQU/view" 
       data-text="Donate" 
       data-color="#528FF0" 

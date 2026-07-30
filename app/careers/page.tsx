@@ -31,11 +31,14 @@ const JOBS = [
 
 export default function CareersPage() {
   const [search, setSearch] = useState("");
+  const [filterType, setFilterType] = useState("All");
 
-  const filteredJobs = JOBS.filter(job => 
-    job.title.toLowerCase().includes(search.toLowerCase()) || 
-    job.description.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredJobs = JOBS.filter(job => {
+    const matchesSearch = job.title.toLowerCase().includes(search.toLowerCase()) || 
+                          job.description.toLowerCase().includes(search.toLowerCase());
+    const matchesType = filterType === "All" || job.type === filterType;
+    return matchesSearch && matchesType;
+  });
 
   return (
     <div className="min-h-screen bg-white text-black font-[family-name:var(--font-sora)] flex flex-col relative">
@@ -53,19 +56,36 @@ export default function CareersPage() {
           </p>
         </div>
 
-        <div className="w-full flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+        <div className="w-full mb-12 flex flex-col gap-6">
           <h2 className="text-2xl font-black text-black tracking-tight uppercase">
             OPEN ROLES
           </h2>
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/50" />
+          
+          <div className="relative w-full max-w-3xl">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-black/40" />
             <input 
               type="text" 
-              placeholder="Search opportunities..." 
+              placeholder="SEARCH OPPORTUNITIES..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-12 h-14 bg-white border border-black/10 rounded-2xl text-black font-black uppercase placeholder:text-black/30 text-sm shadow-sm focus:ring-2 focus:ring-[#0a192f]/20 focus:border-[#0a192f] transition-all"
+              className="w-full pl-14 h-16 bg-white border border-black/10 rounded-2xl text-black font-black uppercase placeholder:text-black/30 text-base md:text-lg shadow-sm focus:ring-2 focus:ring-[#0a192f]/20 focus:border-[#0a192f] transition-all"
             />
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            {["All", "Internship", "Part-Time", "Full-Time"].map((type) => (
+              <button
+                key={type}
+                onClick={() => setFilterType(type)}
+                className={`px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all hover:-translate-y-1 shadow-sm ring-1 ${
+                  filterType === type
+                    ? "bg-[#0a192f] text-white ring-transparent shadow-md"
+                    : "bg-white text-black/60 hover:bg-black/5 ring-black/10"
+                }`}
+              >
+                {type}
+              </button>
+            ))}
           </div>
         </div>
 
