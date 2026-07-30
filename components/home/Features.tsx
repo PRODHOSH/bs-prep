@@ -17,18 +17,21 @@ const VIDEOS = [
   {
     cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784173034/Screen_Recording_2026-07-16_090305_f97ck3.mp4",
     fallback: "/videos/track.mp4",
+    poster: "/videos/track.png",
   },
   {
     cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784173705/Screen_Recording_2026-07-16_091636_epook1.mp4",
     fallback: "/videos/code.mp4",
+    poster: "/videos/code.png",
   },
   {
     cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784174567/Screen_Recording_2026-07-16_092118_fk9jpd.mp4",
     fallback: "/videos/mentor.mp4",
+    poster: "/videos/mentor.png",
   },
 ];
 
-function ForcePlayVideo({ cloudinarySrc, fallbackSrc, className }: { cloudinarySrc: string; fallbackSrc: string; className?: string }) {
+function ForcePlayVideo({ cloudinarySrc, fallbackSrc, poster, className }: { cloudinarySrc: string; fallbackSrc: string; poster?: string; className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const forcePlay = () => {
@@ -85,6 +88,7 @@ function ForcePlayVideo({ cloudinarySrc, fallbackSrc, className }: { cloudinaryS
       muted={true}
       playsInline
       preload="auto"
+      poster={poster}
       onCanPlay={forcePlay}
       onLoadedData={forcePlay}
       onPause={forcePlay}
@@ -146,6 +150,7 @@ export function Features() {
             <ForcePlayVideo
               cloudinarySrc={VIDEOS[0].cloudinary}
               fallbackSrc={VIDEOS[0].fallback}
+              poster={VIDEOS[0].poster}
               className="w-full h-auto block"
             />
           </motion.div>
@@ -163,6 +168,7 @@ export function Features() {
             <ForcePlayVideo
               cloudinarySrc={VIDEOS[1].cloudinary}
               fallbackSrc={VIDEOS[1].fallback}
+              poster={VIDEOS[1].poster}
               className="w-full h-auto block"
             />
           </motion.div>
@@ -242,6 +248,7 @@ export function Features() {
             <ForcePlayVideo
               cloudinarySrc={VIDEOS[2].cloudinary}
               fallbackSrc={VIDEOS[2].fallback}
+              poster={VIDEOS[2].poster}
               className="w-full h-auto block"
             />
           </motion.div>

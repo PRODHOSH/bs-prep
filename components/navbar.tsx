@@ -259,9 +259,9 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
+              <Link href="/careers" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
                 CAREERS
-              </a>
+              </Link>
           </div>
 
           {/* Right Side */}
@@ -485,14 +485,12 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 >
                   GPA PREDICTOR
                 </Link>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/careers"
                   className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
                 >
                   CAREERS
-                </a>
+                </Link>
           </div>
         )}
       </div>

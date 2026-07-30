@@ -158,7 +158,7 @@ export default function StudentDashboard() {
     : liveClasses
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
+    <div id="tour-dashboard-full" className="space-y-8 max-w-6xl mx-auto">
       {/* Welcome Section */}
       <div id="tour-dashboard-welcome" className="bg-[#0a192f] rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-start justify-between gap-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 to-transparent opacity-50"></div>

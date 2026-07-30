@@ -66,7 +66,7 @@ export function Footer() {
       links: [
         { name: "Dashboard", href: "/dashboard" },
         { name: "Doubts", href: "/dashboard/doubts" },
-        { name: "Careers", href: "https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform", external: true },
+        { name: "Careers", href: "/careers", external: false },
         { name: "Ambassador Portal", href: "https://ambassador.bsprep.in/", external: true },
         { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
         { name: "Contact", href: "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog", external: true },

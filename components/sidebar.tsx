@@ -156,7 +156,7 @@ export function Sidebar({ isAuthenticated = false, userRole = "student" }: { isA
   }
 
   return (
-    <aside className="hidden md:flex flex-col w-64 bg-[#FDFBF7] border-r border-black/10 min-h-screen sticky top-0 z-50">
+    <aside id="tour-sidebar-full" className="hidden md:flex flex-col w-64 bg-[#FDFBF7] border-r border-black/10 min-h-screen sticky top-0 z-50">
       <div className="p-6">
         <Link href="/dashboard" className="flex items-center gap-1 shrink-0 group">
           <div className="w-[48px] h-[48px] rounded-full overflow-hidden">
@@ -180,7 +180,7 @@ export function Sidebar({ isAuthenticated = false, userRole = "student" }: { isA
             return (
               <Link
                 key={link.name}
-                id={link.name === "COURSES" ? "tour-sidebar-courses" : link.name === "QUIZ PREP" ? "tour-sidebar-quizprep" : link.name === "DOUBTS" ? "tour-sidebar-doubts" : undefined}
+                id={`tour-sidebar-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
                 href={link.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors ${
                   isActive
@@ -206,7 +206,7 @@ export function Sidebar({ isAuthenticated = false, userRole = "student" }: { isA
               return (
                 <Link
                   key={link.name}
-                  id={link.name === "COURSES" ? "tour-sidebar-courses" : undefined}
+                  id={`tour-sidebar-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
                   href={link.href}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors ${
                     isActive
@@ -229,6 +229,7 @@ export function Sidebar({ isAuthenticated = false, userRole = "student" }: { isA
           </p>
           <div className="space-y-1">
             <Link
+              id="tour-sidebar-notifications"
               href="/dashboard/notifications"
               className="flex items-center w-full gap-3 px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors text-black/60 hover:text-black hover:bg-black/5"
             >
