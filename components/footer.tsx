@@ -188,7 +188,6 @@ export function Footer() {
                     <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">Scan<br/>To Donate</span>
                   </div>
                 </div>
-                <RazorpayButton />
               </div>
             </div>
           </div>
@@ -405,35 +404,6 @@ export function Footer() {
         </div>
       )}
     </>
-  )
-}
-
-function RazorpayButton() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (containerRef.current && !containerRef.current.hasChildNodes()) {
-      const script = document.createElement("script")
-      script.src = "https://cdn.razorpay.com/static/embed_btn/bundle.js"
-      script.defer = true
-      containerRef.current.appendChild(script)
-      
-      script.onload = () => {
-        const rzp = (window as any)["__rzp__"]
-        if (rzp && rzp.init) rzp.init()
-      }
-    }
-  }, [])
-
-  return (
-    <div 
-      ref={containerRef}
-      className="razorpay-embed-btn min-h-[40px] flex items-center justify-start w-full" 
-      data-url="https://pages.razorpay.com/pl_T7LY917rtczWQU/view" 
-      data-text="Donate" 
-      data-color="#528FF0" 
-      data-size="small"
-    ></div>
   )
 }
 
