@@ -78,7 +78,7 @@ export default function CareersPage() {
             {filteredJobs.map((job) => (
               <a 
                 key={job.id} 
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform"
+                href="https://forms.gle/VnwzpeuJ1G6VLTuZ9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group block col-span-1 relative bg-white ring-1 ring-black/5 p-8 rounded-3xl cursor-pointer hover:-translate-y-2 transition-all duration-300 shadow-xl overflow-hidden min-h-[320px] flex flex-col"
