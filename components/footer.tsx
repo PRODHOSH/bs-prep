@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe, Mail } from "lucide-react"
 
 const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
@@ -46,19 +46,6 @@ DEVELOPERS_DISABLED */
 
 export function Footer() {
   const [activeDev, setActiveDev] = useState<string | null>(null)
-  
-  useEffect(() => {
-    if (!document.getElementById("razorpay-embed-btn-js")) {
-      const s = document.createElement("script")
-      s.defer = true
-      s.id = "razorpay-embed-btn-js"
-      s.src = "https://cdn.razorpay.com/static/embed_btn/bundle.js"
-      document.body.appendChild(s)
-    } else {
-      const rzp = (window as any)["__rzp__"]
-      if (rzp && rzp.init) rzp.init()
-    }
-  }, [])
   const selectedDev = developers.find((d) => d.name === activeDev) ?? null
 
   const columns = [
@@ -201,7 +188,7 @@ export function Footer() {
                     <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">Scan<br/>To Donate</span>
                   </div>
                 </div>
-                <div className="razorpay-embed-btn h-[40px]" data-url="https://pages.razorpay.com/pl_T7LY917rtczWQU/view" data-text="Donate" data-color="#0a192f" data-size="small"></div>
+                <RazorpayButton />
               </div>
             </div>
           </div>
@@ -418,6 +405,35 @@ export function Footer() {
         </div>
       )}
     </>
+  )
+}
+
+function RazorpayButton() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (containerRef.current && !containerRef.current.hasChildNodes()) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.razorpay.com/static/embed_btn/bundle.js"
+      script.defer = true
+      containerRef.current.appendChild(script)
+      
+      script.onload = () => {
+        const rzp = (window as any)["__rzp__"]
+        if (rzp && rzp.init) rzp.init()
+      }
+    }
+  }, [])
+
+  return (
+    <div 
+      ref={containerRef}
+      className="razorpay-embed-btn h-[40px] flex items-center justify-start" 
+      data-url="https://pages.razorpay.com/pl_T7LY917rtczWQU/view" 
+      data-text="Donate" 
+      data-color="#528FF0" 
+      data-size="small"
+    ></div>
   )
 }
 

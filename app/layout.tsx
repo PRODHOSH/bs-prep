@@ -97,6 +97,10 @@ export const metadata: Metadata = {
     apple: "/new-logo-favicon.png",
   },
   category: "education",
+  other: {
+    thumbnail: `${siteUrl}/og-image.png`,
+    image: `${siteUrl}/og-image.png`
+  }
 }
 
 export const viewport: Viewport = {
@@ -134,7 +138,8 @@ export default function RootLayout({
             "@type": "Organization",
             name: siteName,
             url: siteUrl,
-            logo: `${siteUrl}/og-image.png`,
+            logo: `${siteUrl}/new-logo.jpeg`,
+            image: `${siteUrl}/og-image.png`,
             description: "Student-led platform for IIT Madras BS Degree Qualifier preparation. Not affiliated with IIT Madras.",
             sameAs: [
               "https://www.linkedin.com/company/bs-prep/",
@@ -148,6 +153,7 @@ export default function RootLayout({
             "@type": "WebSite",
             name: siteName,
             url: siteUrl,
+            image: `${siteUrl}/og-image.png`,
             potentialAction: {
               "@type": "SearchAction",
               target: `${siteUrl}/resources?search={search_term_string}`,
