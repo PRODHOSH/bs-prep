@@ -57,11 +57,6 @@ const nextConfig = {
         destination: 'https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog',
         permanent: true,
       },
-      {
-        source: '/careers',
-        destination: 'https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform',
-        permanent: true,
-      },
     ]
   },
   // Environment variable validation
