@@ -37,7 +37,7 @@ export function AboutSection() {
               className="pl-5 border-l-2 border-black/10"
             >
               <p className="max-w-lg text-base md:text-lg font-medium text-black/60 leading-relaxed">
-                We are on a mission to make the IIT Madras BS Degree accessible, engaging, and deeply collaborative. BSPrep is an independent ecosystem built to help you thrive through peer mentorship and structured preparation.
+                We started BSPrep to solve a simple problem: the BS degree is hard, and doing it solo is even harder. We are entirely student-run, independent, and focused on one thing—giving you the notes, tools, and late-night study groups we wish we had when we started.
               </p>
             </motion.div>
 
