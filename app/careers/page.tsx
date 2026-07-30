@@ -27,6 +27,13 @@ const JOBS = [
     duration: "Ongoing",
     description: "Are you a top performer in your courses? Join us as a mentor to host live sessions, clear doubts, and guide the next batch of IITM BS students.",
   },
+  {
+    id: "curriculum-developer",
+    title: "Curriculum Developer",
+    type: "Internship",
+    duration: "Flexible",
+    description: "Design custom practice problems, hidden test cases, and edge-case solutions for our upcoming competitive programming platform tailored for IITM BS students.",
+  }
 ];
 
 export default function CareersPage() {
