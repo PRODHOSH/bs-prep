@@ -247,8 +247,8 @@ export default function DashboardPaymentPage() {
                 required
                 value={formData.name}
                 onChange={e => setFormData({...formData, name: e.target.value})}
-                placeholder="JOHN DOE"
-                className="w-full h-12 bg-black/5 border-transparent focus:border-black focus:bg-white rounded-xl px-4 text-xs font-bold uppercase tracking-widest text-black outline-none transition-all"
+                placeholder="John Doe"
+                className="w-full h-12 bg-black/5 border-transparent focus:border-black focus:bg-white rounded-xl px-4 text-sm font-bold text-black outline-none transition-all"
               />
             </div>
             <div>
@@ -260,8 +260,8 @@ export default function DashboardPaymentPage() {
                 required
                 value={formData.email}
                 onChange={e => setFormData({...formData, email: e.target.value})}
-                placeholder="JOHN@EXAMPLE.COM"
-                className="w-full h-12 bg-black/5 border-transparent focus:border-black focus:bg-white rounded-xl px-4 text-xs font-bold uppercase tracking-widest text-black outline-none transition-all"
+                placeholder="john@example.com"
+                className="w-full h-12 bg-black/5 border-transparent focus:border-black focus:bg-white rounded-xl px-4 text-sm font-bold text-black outline-none transition-all"
               />
             </div>
             <div>
@@ -274,7 +274,7 @@ export default function DashboardPaymentPage() {
                 value={formData.phone}
                 onChange={e => setFormData({...formData, phone: e.target.value})}
                 placeholder="+91 98765 43210"
-                className="w-full h-12 bg-black/5 border-transparent focus:border-black focus:bg-white rounded-xl px-4 text-xs font-bold uppercase tracking-widest text-black outline-none transition-all"
+                className="w-full h-12 bg-black/5 border-transparent focus:border-black focus:bg-white rounded-xl px-4 text-sm font-bold text-black outline-none transition-all"
               />
             </div>
 
