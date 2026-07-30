@@ -91,9 +91,17 @@ export default function DashboardPaymentPage() {
           payer: formData,
         }),
       })
-      const orderData = await orderResponse.json()
+      
+      const responseText = await orderResponse.text()
+      let orderData
+      try {
+        orderData = responseText ? JSON.parse(responseText) : {}
+      } catch (e) {
+        throw new Error(`Server returned ${orderResponse.status}: Empty or invalid response.`)
+      }
+
       if (!orderResponse.ok || !orderData?.orderId) {
-        throw new Error(orderData?.error || 'Failed to create payment order')
+        throw new Error(orderData?.error || `Failed to create payment order (Status ${orderResponse.status})`)
       }
 
       const options = {
