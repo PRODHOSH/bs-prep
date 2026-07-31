@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Your BSPrep Course</title>
+<!--[if mso]>
+<style>
+  body, table, td, h1, p, a {font-family: Arial, sans-serif !important;}
+</style>
+<![endif]-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #F6F4EE;
+    color: #1C364A;
+    font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrapper {
+    width: 100%;
+    table-layout: fixed;
+    background-color: #F6F4EE;
+    padding: 40px 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border: 2px solid #1C364A;
+  }
+  .header {
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 2px solid #1C364A;
+    background: #FFFFFF;
+  }
+  .content {
+    padding: 50px 40px;
+  }
+  .hero-text {
+    font-size: 52px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0 0 24px 0;
+    letter-spacing: -2px;
+    color: #1C364A;
+  }
+  .highlight {
+    background-color: #1C364A;
+    color: #F6F4EE;
+    padding: 0 10px;
+    display: inline-block;
+    margin-top: 8px;
+  }
+  .p-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #3A4E5E;
+    margin-bottom: 24px;
+  }
+  .strong-text {
+    color: #1C364A;
+    font-weight: 700;
+  }
+  .reply-box {
+    background-color: #F6F4EE;
+    border: 2px solid #1C364A;
+    padding: 40px 30px;
+    margin-top: 50px;
+    text-align: left;
+  }
+  .reply-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1C364A;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+  .reply-subtext {
+    font-size: 15px;
+    color: #556B7D;
+    margin: 0 0 30px 0;
+    line-height: 1.5;
+  }
+  .btn {
+    display: inline-block;
+    background-color: #1C364A;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 18px 36px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: none;
+    transition: background-color 0.2s;
+  }
+  .btn:hover {
+    background-color: #122432;
+  }
+  .footer {
+    padding: 40px;
+    text-align: center;
+    border-top: none;
+    background-color: #1C364A;
+  }
+  .powered-by {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+  }
+  .sponsors {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .content { padding: 30px 20px; }
+    .hero-text { font-size: 40px; }
+    .reply-box { padding: 30px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      
+      <!-- HEADER -->
+      <div class="header">
+        <a href="https://bsprep.in" style="display:inline-block; text-decoration:none;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+            <tr>
+              <td style="padding-right: 12px; vertical-align: middle;">
+                <img src="https://ambassador.bsprep.in/bsprep.png" alt="BSPrep Logo" width="45" style="display:block;">
+              </td>
+              <td style="vertical-align: middle; font-size: 26px; font-weight: 700; color: #1C364A; letter-spacing: -1px; text-transform: uppercase;">
+                BS PREP
+              </td>
+            </tr>
+          </table>
+        </a>
+      </div>
+      
+      <!-- CONTENT -->
+      <div class="content">
+        <h1 class="hero-text">YOUR JOURNEY <br><span class="highlight">STARTS</span> <br>NOW.</h1>
+        
+        <p class="p-text">
+          Payment successful! You are officially enrolled in <span class="strong-text">{{course_name}}</span>.
+        </p>
+        <p class="p-text">
+          We are thrilled to have you on board. Prepare to dive into the curriculum, practice in our highly competitive arenas, and master the concepts you need to crush your exams.
+        </p>
+
+        <!-- CTA BOX -->
+        <div class="reply-box">
+          <p class="reply-text">ACCESS UNLOCKED</p>
+          <p class="reply-subtext">Your course is ready. Log in to your BSPrep dashboard right now to access all the materials and start learning immediately.</p>
+          <a href="{{login_url}}" class="btn">GO TO COURSE</a>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="powered-by">THE ULTIMATE PLATFORM FOR</div>
+        <div class="sponsors" style="margin-bottom: 24px;">IIT MADRAS BS STUDENTS</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
