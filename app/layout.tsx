@@ -11,6 +11,7 @@ import { Loading } from "@/components/loading"
 import { AuthErrorHandler } from "@/components/auth-error-handler"
 import { ReferralTracker } from "@/components/referral-tracker"
 import { TourProvider } from "@/components/tour-provider"
+import { CookieBanner } from "@/components/cookie-banner"
 import "./globals.css"
 
 const sora = Sora({ 
@@ -166,12 +167,14 @@ export default function RootLayout({
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           strategy="afterInteractive"
         />
-        {/* Better Stack Announcement Widget */}
-        <Script
-          src="https://uptime.betterstack.com/widgets/announcement.js"
-          data-id="255506"
-          strategy="afterInteractive"
-        />
+        {/* Better Stack Announcement Widget — production only to avoid localhost 404s */}
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            src="https://uptime.betterstack.com/widgets/announcement.js"
+            data-id="255506"
+            strategy="afterInteractive"
+          />
+        )}
       </head>
       <body className={`font-sans antialiased ${sora.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
@@ -186,6 +189,7 @@ export default function RootLayout({
               </Suspense>
             </LoadingProvider>
           </div>
+          <CookieBanner />
         </ThemeProvider>
         <Analytics />
       </body>
