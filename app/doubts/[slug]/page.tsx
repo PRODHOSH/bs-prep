@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import Script from "next/script"
 import { ArrowLeft, CheckCircle2, MessageCircleQuestion, Clock, User, ShieldCheck } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -93,6 +94,34 @@ export default async function PublicDoubtDetailPage({ params }: { params: Promis
   return (
     <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar isAuthenticated={!!session} />
+      {/* QAPage Schema for rich SERP results */}
+      <Script id={`qa-schema-${doubtData.id}`} type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "QAPage",
+          mainEntity: {
+            "@type": "Question",
+            name: doubtData.title,
+            text: doubtData.description,
+            dateCreated: doubtData.created_at,
+            author: { "@type": "Person", name: authorName },
+            answerCount: replies.length,
+            acceptedAnswer: replies.find((r: any) => r.is_accepted_answer || r.is_official_answer)
+              ? {
+                  "@type": "Answer",
+                  text: replies.find((r: any) => r.is_accepted_answer || r.is_official_answer)?.content || "",
+                  dateCreated: replies.find((r: any) => r.is_accepted_answer || r.is_official_answer)?.created_at,
+                  url: `https://bsprep.in/doubts/${decodedSlug}`,
+                  author: {
+                    "@type": "Organization",
+                    name: "BSPrep",
+                    "@id": "https://bsprep.in/#organization",
+                  },
+                }
+              : undefined,
+          },
+        })}
+      </Script>
 
       <main className="flex-1 py-14 px-4 relative z-10 w-full max-w-4xl mx-auto flex flex-col min-h-[90vh]">
         <Link href="/doubts" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#1A365D] hover:text-[#121212] transition-colors mb-10 pt-10">
