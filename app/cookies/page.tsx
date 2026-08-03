@@ -49,7 +49,7 @@ const sections = [
   {
     num: "09",
     title: "Your Consent",
-    body: "By continuing to use BSPrep, you consent to our use of cookies as described in this policy. You may withdraw consent for analytics cookies at any time by adjusting your browser settings or using your browser's built-in privacy controls.",
+    body: "When you first visit BSPrep, a cookie consent banner is displayed at the bottom of the page. You can accept all cookies or dismiss the banner. Accepting analytics cookies helps us improve the platform. You may withdraw consent for analytics cookies at any time by adjusting your browser settings or using your browser's built-in privacy controls.",
   },
   {
     num: "10",
@@ -79,7 +79,7 @@ export default function CookiePolicyPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
+    <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar isAuthenticated={isAuthenticated} />
 
       <main className="flex-1 py-16 px-4 relative z-10">
@@ -88,7 +88,7 @@ export default function CookiePolicyPage() {
           <div className="mb-10">
             <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BSPrep — Legal</p>
             <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Cookie Policy</h1>
-            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: June 2026</p>
+            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: August 2026</p>
             <p className="text-black/40 text-xs mt-2">BSPrep is an independent student initiative and is not affiliated with IIT Madras.</p>
           </div>
 

@@ -11,6 +11,7 @@ import { Loading } from "@/components/loading"
 import { AuthErrorHandler } from "@/components/auth-error-handler"
 import { ReferralTracker } from "@/components/referral-tracker"
 import { TourProvider } from "@/components/tour-provider"
+import { CookieBanner } from "@/components/cookie-banner"
 import "./globals.css"
 
 const sora = Sora({ 
@@ -136,14 +137,38 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: siteName,
+            "@id": `${siteUrl}/#organization`,
+            name: "BSPrep",
+            alternateName: ["BS Prep", "BSPrep.in", "BSPrep IITM"],
             url: siteUrl,
-            logo: `${siteUrl}/new-logo.jpeg`,
+            logo: {
+              "@type": "ImageObject",
+              url: `${siteUrl}/new-logo-favicon.png`,
+              width: 512,
+              height: 512,
+            },
             image: `${siteUrl}/og-image.png`,
-            description: "Student-led platform for IIT Madras BS Degree Qualifier preparation. Not affiliated with IIT Madras.",
+            description: "BSPrep is a student-led learning platform supporting students pursuing the IIT Madras Online BS Degree in Data Science and Applications. We offer Tamil-medium video courses, live mentorship, AI doubt solving, GPA tools, and community support. BSPrep is independent and not affiliated with IIT Madras.",
+            foundingDate: "2024",
+            knowsAbout: [
+              "IIT Madras BS Degree",
+              "IITM BS Data Science",
+              "Qualifier Exam Preparation",
+              "Foundation Level Courses",
+              "GPA Calculator",
+              "Tamil Medium Online Education",
+            ],
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "customer support",
+              email: "support@bsprep.in",
+              availableLanguage: ["English", "Tamil"],
+            },
             sameAs: [
               "https://www.linkedin.com/company/bs-prep/",
               "https://www.youtube.com/@DataScienceIITMTamil",
+              "https://instagram.com/bsprep.in",
+              "https://bsprep.in",
             ],
           })}
         </Script>
@@ -151,9 +176,12 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
+            "@id": `${siteUrl}/#website`,
             name: siteName,
             url: siteUrl,
+            publisher: { "@id": `${siteUrl}/#organization` },
             image: `${siteUrl}/og-image.png`,
+            inLanguage: ["en-IN", "ta"],
             potentialAction: {
               "@type": "SearchAction",
               target: `${siteUrl}/resources?search={search_term_string}`,
@@ -166,12 +194,14 @@ export default function RootLayout({
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           strategy="afterInteractive"
         />
-        {/* Better Stack Announcement Widget */}
-        <Script
-          src="https://uptime.betterstack.com/widgets/announcement.js"
-          data-id="255506"
-          strategy="afterInteractive"
-        />
+        {/* Better Stack Announcement Widget — production only to avoid localhost 404s */}
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            src="https://uptime.betterstack.com/widgets/announcement.js"
+            data-id="255506"
+            strategy="afterInteractive"
+          />
+        )}
       </head>
       <body className={`font-sans antialiased ${sora.className}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
@@ -186,6 +216,7 @@ export default function RootLayout({
               </Suspense>
             </LoadingProvider>
           </div>
+          <CookieBanner />
         </ThemeProvider>
         <Analytics />
       </body>
