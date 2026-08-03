@@ -11,6 +11,7 @@ BSPrep provides students with high-quality study materials, premium video course
 - `/quiz-prep`: Focused preparation material for graded assignments, Quiz 1, Quiz 2, and End Term exams.
 - `/dashboard`: Personalized student portal to track progress, access enrolled courses, and manage doubts.
 - `/dashboard/mentor/*`: Dedicated console for mentors to manage courses, upload slides, schedule live classes, and respond to doubts.
+- `/doubts`: Public, SEO-optimized directory of high-quality student questions and AI/Mentor verified answers.
 
 ## Technical Architecture & Stack
 - **Framework:** Next.js 14+ (App Router)

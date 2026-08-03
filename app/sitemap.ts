@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { courses } from "@/lib/course-catalog"
+import { createClient } from "@supabase/supabase-js"
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bsprep.in"
 
@@ -54,6 +55,12 @@ const staticRoutes: MetadataRoute.Sitemap = [
     priority: 0.5,
   },
   {
+    url: `${BASE_URL}/doubts`,
+    lastModified: new Date(),
+    changeFrequency: "daily",
+    priority: 0.8,
+  },
+  {
     url: `${BASE_URL}/careers`,
     lastModified: new Date(),
     changeFrequency: "monthly",
@@ -104,7 +111,34 @@ async function getCourseRoutes(): Promise<MetadataRoute.Sitemap> {
   }
 }
 
+async function getPublicDoubtsRoutes(): Promise<MetadataRoute.Sitemap> {
+  try {
+    // We use a direct client so we don't depend on cookies inside the static sitemap generation
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const { data } = await supabase
+      .from('doubts')
+      .select('slug, created_at')
+      .eq('is_public', true)
+      .not('slug', 'is', null)
+
+    if (!data) return []
+
+    return data.map((doubt: any) => ({
+      url: `${BASE_URL}/doubts/${doubt.slug}`,
+      lastModified: new Date(doubt.created_at),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }))
+  } catch {
+    return []
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const courseRoutes = await getCourseRoutes()
-  return [...staticRoutes, ...courseRoutes]
+  const doubtRoutes = await getPublicDoubtsRoutes()
+  return [...staticRoutes, ...courseRoutes, ...doubtRoutes]
 }
