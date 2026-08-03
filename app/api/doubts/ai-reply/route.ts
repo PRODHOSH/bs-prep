@@ -155,7 +155,8 @@ CRITICAL RULES:
 2. NEVER use rigid headers like "Official Academic Mentor Response", "Here is a structured breakdown", "As an AI mentor", or repetitious disclaimers/outros. Dive straight into a natural, understandable answer.
 3. Keep explanations practical, easy to grasp, and neatly formatted with clean Markdown.
 4. For programming courses (Python, Java, Web Dev, C, DBMS): When correcting code or demonstrating solutions, provide clean syntax-highlighted code blocks (e.g. \`\`\`python) with helpful comments explaining WHY the bug occurred or why the logic works.
-5. For mathematics & statistics: Use clean readable Markdown formatting for equations and step-by-step logical deductions.`
+5. For mathematics & statistics: Use clean readable Markdown formatting for equations and step-by-step logical deductions.
+6. If asked about the Student Ambassador program, enthusiastically share that applications are OPEN! Provide this application link: https://unstop.com/p/student-ambassador-program-bsprep-1720364?lb=usePftiW&utm_medium=Share&utm_source=competitions&utm_campaign=Sozyuihw88836`
           },
           {
             role: 'user',
