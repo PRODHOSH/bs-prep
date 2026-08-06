@@ -15,6 +15,8 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Bell, User, Menu, X, ChevronDown, Settings } from "lucide-react"
 
+import { GoogleOneTap } from "@/components/auth/google-one-tap"
+
 const LoginModal = dynamic(
   () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
   { ssr: false }
@@ -430,12 +432,13 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   LOGIN
                 </Button>
                 <Button
-                  className="bg-[#0a192f] hover:bg-[#112a52] text-white text-xs font-bold transition-all rounded-full h-10 px-6 shadow-md"
+                  className="hidden sm:flex bg-[#0a192f] hover:bg-[#112a52] text-white text-xs font-bold transition-all rounded-full h-10 px-6 shadow-md"
                   onClick={() => setSignUpOpen(true)}
                   suppressHydrationWarning
                 >
                   SIGN UP
                 </Button>
+                <div id="google-personalized-button" className="sm:hidden min-w-[200px] flex items-center justify-end"></div>
               </>
             )}
 
@@ -524,6 +527,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           setLoginOpen(true)
         }}
       />
+      {!isAuthenticated && <GoogleOneTap />}
     </nav>
   )
 }

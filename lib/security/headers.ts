@@ -43,15 +43,15 @@ export function getSecurityHeaders(request?: NextRequest) {
   // Content Security Policy
   const csp = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com",
+    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://accounts.google.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https: blob:",
     "media-src 'self' https://res.cloudinary.com",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://checkout.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://res.cloudinary.com",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://checkout.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://res.cloudinary.com https://accounts.google.com",
     "worker-src 'self' blob:",
     "child-src 'self' blob: https://docs.google.com https://forms.gle",
-    "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://www.noupe.com https://noupe.com https://docs.google.com https://forms.gle",
+    "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://www.noupe.com https://noupe.com https://docs.google.com https://forms.gle https://accounts.google.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
