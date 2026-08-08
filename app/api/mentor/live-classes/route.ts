@@ -18,23 +18,28 @@ export async function GET(request: NextRequest) {
       .eq("id", user.id)
       .maybeSingle();
       
-    const mentorSubject = profile?.mentor_subject || (profile?.mentor_subjects && profile.mentor_subjects[0]) || null;
+    let mentorSubjects: string[] = [];
+    if (profile?.mentor_subjects && profile.mentor_subjects.length > 0) {
+      mentorSubjects = profile.mentor_subjects;
+    } else if (profile?.mentor_subject) {
+      mentorSubjects = profile.mentor_subject.split(",").map((s: string) => s.trim()).filter(Boolean);
+    }
 
-    if (!mentorSubject) {
-      return NextResponse.json({ classes: [], mentorSubject: null });
+    if (mentorSubjects.length === 0) {
+      return NextResponse.json({ classes: [], mentorSubjects: [] });
     }
 
     let query = adminSupabase
       .from("live_classes")
       .select("*")
-      .ilike("course", mentorSubject)
+      .in("course", mentorSubjects)
       .order("created_at", { ascending: false });
 
     const { data: classes, error } = await query;
 
     if (error) throw error;
 
-    return NextResponse.json({ classes, mentorSubject });
+    return NextResponse.json({ classes, mentorSubjects });
   } catch (error: any) {
     console.error("Error fetching live classes:", error);
     return NextResponse.json({ error: "Failed to fetch classes" }, { status: 500 });
@@ -63,16 +68,23 @@ export async function POST(request: NextRequest) {
       .eq("id", user.id)
       .maybeSingle();
       
-    const mentorSubject = profile?.mentor_subject || (profile?.mentor_subjects && profile.mentor_subjects[0]) || null;
+    let mentorSubjects: string[] = [];
+    if (profile?.mentor_subjects && profile.mentor_subjects.length > 0) {
+      mentorSubjects = profile.mentor_subjects;
+    } else if (profile?.mentor_subject) {
+      mentorSubjects = profile.mentor_subject.split(",").map((s: string) => s.trim()).filter(Boolean);
+    }
 
-    if (!mentorSubject) {
+    if (mentorSubjects.length === 0) {
       return NextResponse.json({ error: "You are not assigned to a subject" }, { status: 403 });
     }
+
+    const selectedCourse = body.course && mentorSubjects.includes(body.course) ? body.course : mentorSubjects[0];
 
     const { data, error } = await adminSupabase
       .from("live_classes")
       .insert([{
-        course: mentorSubject, // Force mentor's actual subject
+        course: selectedCourse, // Force mentor's actual subject
         topic: body.topic,
         meeting_link: body.meeting_link,
         youtube_link: body.youtube_link || null,
@@ -97,8 +109,8 @@ export async function POST(request: NextRequest) {
         'qualifier-java': 'qualifier-java'
       };
       
-      const normalizedCourse = mentorSubject.toLowerCase();
-      const mappedCourseId = courseIdMap[normalizedCourse] || mentorSubject;
+      const normalizedCourse = selectedCourse.toLowerCase();
+      const mappedCourseId = courseIdMap[normalizedCourse] || selectedCourse;
       
       // 1. Fetch enrolled students
       let enrolledUserIds: string[] = [];

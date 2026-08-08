@@ -16,19 +16,9 @@ import { createClient } from "@/lib/supabase/client"
 import { Bell, User, Menu, X, ChevronDown, Settings } from "lucide-react"
 
 import { GoogleOneTap } from "@/components/auth/google-one-tap"
-
-const LoginModal = dynamic(
-  () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
-  { ssr: false }
-)
-const SignUpModal = dynamic(
-  () => import("@/components/auth/signup-modal").then((m) => ({ default: m.SignUpModal })),
-  { ssr: false }
-)
-const ForgotPasswordModal = dynamic(
-  () => import("@/components/auth/forgot-password-modal").then((m) => ({ default: m.ForgotPasswordModal })),
-  { ssr: false }
-)
+import { LoginModal } from "@/components/auth/login-modal"
+import { SignUpModal } from "@/components/auth/signup-modal"
+import { ForgotPasswordModal } from "@/components/auth/forgot-password-modal"
 
 interface NavbarProps {
   isAuthenticated?: boolean
