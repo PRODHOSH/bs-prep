@@ -40,7 +40,7 @@ export default function MentorLiveClassesPage() {
   const [classes, setClasses] = useState<LiveClass[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [mentorSubject, setMentorSubject] = useState<string | null>(null);
+  const [mentorSubjects, setMentorSubjects] = useState<string[]>([]);
 
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,9 +71,9 @@ export default function MentorLiveClassesPage() {
       const data = await res.json();
       setClasses(data.classes || []);
       
-      if (data.mentorSubject) {
-        setMentorSubject(data.mentorSubject);
-        setFormData(prev => ({ ...prev, course: data.mentorSubject }));
+      if (data.mentorSubjects && data.mentorSubjects.length > 0) {
+        setMentorSubjects(data.mentorSubjects);
+        setFormData(prev => ({ ...prev, course: data.mentorSubjects[0] }));
       }
     } catch (err: any) {
       setError(err.message);
@@ -182,15 +182,35 @@ export default function MentorLiveClassesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-emerald-100/70 mb-1">Course Code</label>
-              <input
-                required
-                type="text"
-                disabled={!!mentorSubject}
-                placeholder="e.g. qualifier-python, ct, stats-1"
-                className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                value={formData.course}
-                onChange={e => setFormData({ ...formData, course: e.target.value })}
-              />
+              {mentorSubjects.length > 1 ? (
+                <div className="relative">
+                  <select
+                    required
+                    className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500 appearance-none pr-10"
+                    value={formData.course}
+                    onChange={e => setFormData({ ...formData, course: e.target.value })}
+                  >
+                    {mentorSubjects.map(subject => (
+                      <option key={subject} value={subject}>{subject}</option>
+                    ))}
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                    <svg className="w-4 h-4 text-emerald-100/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              ) : (
+                <input
+                  required
+                  type="text"
+                  disabled={mentorSubjects.length === 1}
+                  placeholder="e.g. qualifier-python, ct, stats-1"
+                  className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  value={formData.course}
+                  onChange={e => setFormData({ ...formData, course: e.target.value })}
+                />
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-emerald-100/70 mb-1">Topic</label>

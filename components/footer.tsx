@@ -65,7 +65,7 @@ export function Footer() {
       heading: "Community",
       links: [
         { name: "Dashboard", href: "/dashboard" },
-        { name: "Doubts", href: "/dashboard/doubts" },
+        { name: "Doubts", href: "/doubts" },
         { name: "Careers", href: "/careers", external: false },
         { name: "Ambassador Portal", href: "https://ambassador.bsprep.in/", external: true },
         { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
