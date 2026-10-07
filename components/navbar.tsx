@@ -422,13 +422,12 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   LOGIN
                 </Button>
                 <Button
-                  className="hidden sm:flex bg-[#0a192f] hover:bg-[#112a52] text-white text-xs font-bold transition-all rounded-full h-10 px-6 shadow-md"
+                  className="bg-[#0a192f] hover:bg-[#112a52] text-white text-xs font-bold transition-all rounded-full h-10 px-6 shadow-md"
                   onClick={() => setSignUpOpen(true)}
                   suppressHydrationWarning
                 >
                   SIGN UP
                 </Button>
-                <div id="google-personalized-button" className="sm:hidden min-w-[200px] flex items-center justify-end"></div>
               </>
             )}
 

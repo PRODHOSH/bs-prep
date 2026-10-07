@@ -76,18 +76,6 @@ export function GoogleOneTap() {
           console.log("Google One Tap dismissed. Reason:", notification.getDismissedReason())
         }
       })
-
-      // Also render the personalized button if a container exists
-      const btnContainer = document.getElementById("google-personalized-button")
-      if (btnContainer) {
-        window.google.accounts.id.renderButton(btnContainer, {
-          theme: "outline",
-          size: "large",
-          shape: "pill",
-          text: "continue_with",
-          width: "250",
-        })
-      }
     }
   }
 

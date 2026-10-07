@@ -54,6 +54,12 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
       active: true,
     },
     {
+      label: "Analytics",
+      href: "/admin/analytics",
+      icon: BarChart2,
+      active: true,
+    },
+    {
       label: "Users",
       href: "/admin/users",
       icon: Users,
