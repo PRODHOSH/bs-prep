@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from "@/lib/supabase/server"
+import { splitSuppressed } from "@/lib/unsubscribe"
 
 type AnnouncementEmailInput = {
   title: string
@@ -62,7 +63,8 @@ async function getBroadcastRecipients(): Promise<string[]> {
     .map((row) => row.email)
     .filter((email): email is string => typeof email === "string" && email.includes("@"))
 
-  return Array.from(new Set(recipients))
+  const { allowed } = await splitSuppressed(Array.from(new Set(recipients.map((e) => e.toLowerCase()))))
+  return allowed
 }
 
 export async function sendAnnouncementCreatedEmail(input: AnnouncementEmailInput): Promise<void> {

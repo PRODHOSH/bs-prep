@@ -1,6 +1,7 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from "react"
+import { Skeleton } from "@/components/admin/skeleton"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 
@@ -117,10 +118,16 @@ export default function AdminDetailsPage() {
         <p className="mt-1 text-sm text-slate-400">Manage your profile details and admin account settings.</p>
       </header>
 
-      <section className="rounded-2xl border border-white/10 bg-[#0c1016] p-5">
+      <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5">
         <h2 className="text-lg font-semibold text-slate-100">Profile Details</h2>
         {isLoading ? (
-          <p className="mt-4 text-sm text-slate-400">Loading details...</p>
+          <div className="mt-4 flex items-center gap-4">
+            <Skeleton className="h-20 w-20 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-48" />
+              <Skeleton className="h-4 w-64" />
+            </div>
+          </div>
         ) : profile ? (
           <div className="mt-4 grid gap-4 sm:grid-cols-[auto_1fr]">
             <div>
@@ -165,7 +172,7 @@ export default function AdminDetailsPage() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-[#0c1016] p-5">
+      <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5">
         <h2 className="text-lg font-semibold text-slate-100">Change Name</h2>
         <p className="mt-1 text-sm text-slate-400">Only first and last names can be updated here.</p>
 
@@ -174,13 +181,13 @@ export default function AdminDetailsPage() {
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
             placeholder="First name"
-            className="rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+            className="rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
           />
           <input
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
             placeholder="Last name"
-            className="rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+            className="rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
           />
           <div className="md:col-span-2">
             <button
@@ -208,13 +215,13 @@ export default function AdminDetailsPage() {
             Delete My Account
           </button>
         ) : (
-          <div className="mt-4 space-y-3 rounded-xl border border-rose-500/30 bg-[#10151d] p-4">
+          <div className="mt-4 space-y-3 rounded-xl border border-rose-500/30 bg-[#0a101c] p-4">
             <p className="text-sm text-slate-300">Type DELETE to confirm account removal.</p>
             <input
               value={deleteInput}
               onChange={(event) => setDeleteInput(event.target.value)}
               placeholder="Type DELETE"
-              className="w-full rounded-lg border border-rose-500/30 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+              className="w-full rounded-lg border border-rose-500/30 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
             />
             {deleteError ? <p className="text-sm text-rose-300">{deleteError}</p> : null}
             <div className="flex gap-2">

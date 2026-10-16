@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { RowsSkeleton } from "@/components/admin/skeleton"
 import { CheckCircle2, ExternalLink, Loader2, Search, Trash2, XCircle } from "lucide-react"
 
 type ReviewStatus = "pending" | "approved" | "rejected"
@@ -176,10 +177,7 @@ export default function AdminResourcesNotesPage() {
 
         <div className="mt-4 space-y-3">
           {loading ? (
-            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#0a101c] px-3 py-3 text-sm text-slate-300">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Loading submissions...
-            </div>
+            <RowsSkeleton rows={3} />
           ) : filtered.length === 0 ? (
             <p className="rounded-xl border border-white/10 bg-[#0a101c] px-3 py-4 text-sm text-slate-400">No submissions found.</p>
           ) : (
