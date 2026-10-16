@@ -1,6 +1,7 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from "react"
+import { RowsSkeleton } from "@/components/admin/skeleton"
 
 type Announcement = {
   id: string | number
@@ -215,7 +216,7 @@ export default function AdminAnnouncementsPage() {
 
       <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5">
         <h2 className="text-lg font-semibold text-slate-100">Existing Announcements</h2>
-        {loadingList && <p className="mt-4 text-sm text-slate-400">Loading announcements...</p>}
+        {loadingList && <div className="mt-4"><RowsSkeleton rows={3} /></div>}
         {!loadingList && announcements.length === 0 && <p className="mt-4 text-sm text-slate-400">No announcements yet.</p>}
 
         <div className="mt-4 space-y-3">

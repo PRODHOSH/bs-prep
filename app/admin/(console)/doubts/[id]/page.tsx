@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { PageSkeleton } from "@/components/admin/skeleton"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
@@ -197,7 +198,7 @@ export default function AdminDoubtDetailPage() {
   }
 
   if (loading) {
-    return <div className="flex-1 p-10 flex justify-center"><Loader2 className="w-8 h-8 animate-spin" /></div>
+    return <PageSkeleton />
   }
 
   if (!doubt) {
@@ -401,7 +402,7 @@ export default function AdminDoubtDetailPage() {
             <Button 
               type="submit" 
               disabled={isSubmitting}
-              className="bg-white hover:bg-slate-200 text-black rounded-xl h-10 px-6 text-xs font-semibold uppercase tracking-widest shadow-md transition-all"
+              className="bg-blue-600 hover:bg-blue-500 text-white rounded-xl h-10 px-6 text-xs font-semibold uppercase tracking-widest shadow-md transition-all"
             >
               {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Send className="w-3.5 h-3.5 mr-2" /> Post Official Reply</>}
             </Button>
