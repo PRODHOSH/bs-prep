@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react"
+import { ChartSkeleton, StatCardsSkeleton } from "@/components/admin/skeleton"
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { AlertTriangle, ArrowDownRight, ArrowUpRight, CheckCircle2, Lightbulb, Loader2, RefreshCw } from "lucide-react"
 import type { AnalyticsPayload, Highlight, Row, Section } from "@/lib/admin-analytics"
@@ -336,18 +337,18 @@ export default function AdminAnalyticsPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-white">Analytics</h1>
+          <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">Analytics</h1>
           <p className="mt-1 text-sm text-slate-400">
             How people find and use BSPrep.{period && <span className="text-slate-500"> Showing {period}.</span>}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="inline-flex rounded-lg border border-white/15 bg-[#11141a] p-0.5">
+          <div className="inline-flex rounded-lg border border-white/15 bg-[#0b1220] p-0.5">
             {RANGES.map((r) => (
               <button
                 key={r}
                 onClick={() => setRange(r)}
-                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${range === r ? "bg-[#1a2030] text-white" : "text-slate-400 hover:text-slate-200"}`}
+                className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${range === r ? "bg-blue-600 text-white" : "text-slate-400 hover:text-slate-200"}`}
               >
                 Last {r} days
               </button>
@@ -357,7 +358,7 @@ export default function AdminAnalyticsPage() {
             onClick={() => load(range, true)}
             disabled={loading}
             aria-label="Refresh data"
-            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-[#11141a] px-3 py-2 text-sm font-medium text-slate-200 transition hover:bg-[#151a23] disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-[#0b1220] px-3 py-2 text-sm font-medium text-slate-200 transition hover:bg-[#0f1729] disabled:opacity-60"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -380,8 +381,9 @@ export default function AdminAnalyticsPage() {
       {error && <div className="rounded-2xl border border-rose-500/20 bg-rose-500/5 p-4 text-sm text-rose-300">{error}</div>}
 
       {!data && loading && (
-        <div className="flex items-center justify-center gap-2 py-24 text-sm text-slate-400">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading your numbers…
+        <div className="space-y-4">
+          <StatCardsSkeleton count={4} />
+          <ChartSkeleton />
         </div>
       )}
 
