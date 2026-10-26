@@ -19,7 +19,8 @@ const COURSES = [
   { id: "qualifier-computational-thinking", title: "Computational Thinking", description: "Develop problem-solving skills and algorithmic logic.", price: 499, originalPrice: 599 },
   { id: "qualifier-english-1", title: "English I", description: "Improve your technical reading and writing skills.", price: 499, originalPrice: 599 },
   { id: "qualifier-python", title: "Programming in Python", description: "Learn Python from scratch and build real-world applications.", price: 499, originalPrice: 599 },
-  { id: "qualifier-java", title: "Programming in Java", description: "Master Object Oriented Programming principles with Java.", price: 499, originalPrice: 599 }
+  { id: "qualifier-java", title: "Programming in Java", description: "Master Object Oriented Programming principles with Java.", price: 499, originalPrice: 599 },
+  { id: "foundation-stats-2", title: "Statistics for Data Science II", description: "Master advanced probability distributions, estimation, hypothesis testing, and regression.", price: 499, originalPrice: 599 }
 ];
 
 export function Courses() {
@@ -57,7 +58,7 @@ export function Courses() {
                  <div className="text-xs font-bold tracking-widest text-white/60 uppercase">CODING BUNDLE (PYTHON+JAVA)</div>
                  <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
                </div>
-               <div className="text-4xl md:text-5xl font-black tracking-tighter">₹999 <span className="text-lg line-through opacity-50 font-medium">₹1199</span></div>
+               <div className="text-4xl md:text-5xl font-black tracking-tighter">₹899 <span className="text-lg line-through opacity-50 font-medium">₹1199</span></div>
             </Link>
             <Link href="/courses" className="group flex-1 w-full text-center md:text-left relative block">
                <div className="flex items-center justify-center md:justify-start justify-between mb-2">

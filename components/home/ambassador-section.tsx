@@ -17,7 +17,7 @@ export function AmbassadorSection() {
             <div className="space-y-8 z-20 pb-8 lg:pb-0">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a192f]/5 border border-[#0a192f]/10 text-[#0a192f] text-sm font-bold tracking-wide">
                 <Trophy className="w-4 h-4" />
-                <span>Launching Soon</span>
+                <span>Applications Open</span>
               </div>
               
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05]">
@@ -31,11 +31,11 @@ export function AmbassadorSection() {
               
               <div className="flex gap-4 items-center pt-2">
                 <Link 
-                  href="https://ambassador.bsprep.in/"
+                  href="https://unstop.com/p/student-ambassador-program-bsprep-1720364?lb=usePftiW&utm_medium=Share&utm_source=competitions&utm_campaign=Sozyuihw88836"
                   target="_blank"
                   className="group inline-flex items-center gap-2 bg-[#0a192f] text-white px-8 py-4 rounded-full font-bold hover:bg-[#112a52] hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
                 >
-                  Applications Opening Soon
+                  Apply Now on Unstop
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>

@@ -88,7 +88,7 @@ export async function sendCourseWelcomeEmail(input: CourseWelcomeEmailInput): Pr
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bsprep.in"
   const dashboardUrl = input.dashboardUrl || new URL("/dashboard", siteUrl).toString()
-  const logoUrl = new URL("/new-logo.jpeg", siteUrl).toString()
+  const logoUrl = new URL("/new-logo-favicon.png", siteUrl).toString()
   const studentName = escapeHtml(input.studentName || "there")
   const studentEmail = escapeHtml(input.studentEmail)
   const normalizedCourses = normalizeCourses(input)
@@ -102,15 +102,15 @@ export async function sendCourseWelcomeEmail(input: CourseWelcomeEmailInput): Pr
   const courseSummary = joinCourseTitles(courseTitles)
   const courseCardsHtml = safeCourses.length > 0
     ? `
-        <div style="margin: 24px 0;">
-          <p style="font-weight: 700; margin-bottom: 16px; font-size: 15px; color: #0f172a;">Your Enrolled Courses:</p>
+        <div style="margin: 32px 0;">
+          <p style="font-weight: 700; margin-bottom: 16px; font-size: 14px; color: #1C364A; text-transform: uppercase; letter-spacing: 1px;">Your Enrolled Courses:</p>
           ${safeCourses.map((course) => `
-            <div style="margin-bottom: 12px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: 16px; background: #FFFFFF; padding: 16px; border: 2px solid #1C364A;">
               <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
-                  ${course.thumbnailUrl ? `<td width="100" valign="middle"><img src="${course.thumbnailUrl}" alt="${course.title}" width="84" style="border-radius: 6px; display: block;" /></td>` : ""}
-                  <td valign="middle">
-                    <p style="margin: 0; font-weight: 600; font-size: 15px; color: #0f172a;">${course.title}</p>
+                  ${course.thumbnailUrl ? `<td width="100" valign="middle"><img src="${course.thumbnailUrl}" alt="${course.title}" width="84" style="border: 2px solid #1C364A; display: block;" /></td>` : ""}
+                  <td valign="middle" style="padding-left: ${course.thumbnailUrl ? '16px' : '0'};">
+                    <p style="margin: 0; font-weight: 700; font-size: 16px; color: #1C364A; text-transform: uppercase;">${course.title}</p>
                   </td>
                 </tr>
               </table>
@@ -127,65 +127,191 @@ export async function sendCourseWelcomeEmail(input: CourseWelcomeEmailInput): Pr
       ? "Your BSPrep enrollment is confirmed"
       : `Welcome to ${mainCourseTitle} at BSPrep`,
     html: `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-      </head>
-      <body style="margin: 0; padding: 40px 20px; background-color: #f1f5f9; font-family: 'Sora', Arial, sans-serif; color: #1e293b; -webkit-font-smoothing: antialiased;">
-          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-              
-              <!-- Header -->
-              <div style="padding: 24px 32px; border-bottom: 1px solid #e2e8f0;">
-                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td valign="middle">
-                      <img src="${logoUrl}" width="40" height="40" style="border-radius: 50%; display: block; margin-right: 12px; object-fit: cover;" />
-                    </td>
-                    <td valign="middle">
-                      <span style="font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #0f172a;">BSPrep</span>
-                    </td>
-                  </tr>
-                </table>
-              </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Your BSPrep Course</title>
+<!--[if mso]>
+<style>
+  body, table, td, h1, p, a {font-family: Arial, sans-serif !important;}
+</style>
+<![endif]-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #F6F4EE;
+    color: #1C364A;
+    font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrapper {
+    width: 100%;
+    table-layout: fixed;
+    background-color: #F6F4EE;
+    padding: 40px 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    border: 2px solid #1C364A;
+  }
+  .header {
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 2px solid #1C364A;
+    background: #FFFFFF;
+  }
+  .content {
+    padding: 50px 40px;
+  }
+  .hero-text {
+    font-size: 52px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0 0 24px 0;
+    letter-spacing: -2px;
+    color: #1C364A;
+  }
+  .highlight {
+    background-color: #1C364A;
+    color: #F6F4EE;
+    padding: 0 10px;
+    display: inline-block;
+    margin-top: 8px;
+  }
+  .p-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #3A4E5E;
+    margin-bottom: 24px;
+  }
+  .strong-text {
+    color: #1C364A;
+    font-weight: 700;
+  }
+  .reply-box {
+    background-color: #F6F4EE;
+    border: 2px solid #1C364A;
+    padding: 40px 30px;
+    margin-top: 50px;
+    text-align: left;
+  }
+  .reply-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1C364A;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+  .reply-subtext {
+    font-size: 15px;
+    color: #556B7D;
+    margin: 0 0 30px 0;
+    line-height: 1.5;
+  }
+  .btn {
+    display: inline-block;
+    background-color: #1C364A;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 18px 36px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: none;
+    transition: background-color 0.2s;
+  }
+  .btn:hover {
+    background-color: #122432;
+  }
+  .footer {
+    padding: 40px;
+    text-align: center;
+    border-top: none;
+    background-color: #1C364A;
+  }
+  .powered-by {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+  }
+  .sponsors {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .content { padding: 30px 20px; }
+    .hero-text { font-size: 40px; }
+    .reply-box { padding: 30px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      
+      <!-- HEADER -->
+      <div class="header">
+        <a href="${siteUrl}" style="display:inline-block; text-decoration:none;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+            <tr>
+              <td style="padding-right: 12px; vertical-align: middle;">
+                <img src="${logoUrl}" alt="BSPrep Logo" width="45" style="display:block;">
+              </td>
+              <td style="vertical-align: middle; font-size: 26px; font-weight: 700; color: #1C364A; letter-spacing: -1px; text-transform: uppercase;">
+                BS PREP
+              </td>
+            </tr>
+          </table>
+        </a>
+      </div>
+      
+      <!-- CONTENT -->
+      <div class="content">
+        <h1 class="hero-text">YOUR JOURNEY <br><span class="highlight">STARTS</span> <br>NOW.</h1>
+        
+        <p class="p-text">
+          Welcome, <span class="strong-text">${studentName}</span>! Payment successful. You are officially enrolled in <span class="strong-text">${courseSummary}</span>.
+        </p>
+        <p class="p-text">
+          We are thrilled to have you on board. Prepare to dive into the curriculum, practice in our highly competitive arenas, and master the concepts you need to crush your exams.
+        </p>
 
-              <!-- Hero Image -->
-              <img src="${new URL('/og-image.png', siteUrl).toString()}" alt="Enrollment Confirmed" width="600" style="display: block; width: 100%; max-width: 600px; height: auto;" />
+        ${courseCardsHtml}
 
-              <!-- Content -->
-              <div style="padding: 32px;">
-                <h1 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; color: #0f172a;">Welcome, ${studentName}!</h1>
-                <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.6; color: #475569;">
-                    Your payment is complete and you are now officially enrolled in <strong>${courseSummary}</strong>. Get ready to showcase your skills and unlock an exciting chapter!
-                </p>
+        <!-- CTA BOX -->
+        <div class="reply-box">
+          <p class="reply-text">ACCESS UNLOCKED</p>
+          <p class="reply-subtext">Your course is ready. Log in to your BSPrep dashboard right now to access all the materials and start learning immediately.</p>
+          <a href="${dashboardUrl}" class="btn">GO TO COURSE</a>
+        </div>
+      </div>
 
-                <h2 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600; color: #0f172a;">What Happens Next?</h2>
-                <ul style="margin: 0 0 32px 0; padding: 0 0 0 20px; color: #475569; font-size: 15px; line-height: 1.6;">
-                    <li style="margin-bottom: 8px;">Access your personalized dashboard immediately.</li>
-                    <li style="margin-bottom: 8px;">Find your video lectures and course tasks inside.</li>
-                    <li style="margin-bottom: 8px;">Complete the assigned tasks to move forward.</li>
-                </ul>
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="powered-by">THE ULTIMATE PLATFORM FOR</div>
+        <div class="sponsors" style="margin-bottom: 24px;">IIT MADRAS BS STUDENTS</div>
+      </div>
 
-                ${courseCardsHtml}
-
-                <div style="text-align: center; margin-top: 32px;">
-                    <a href="${dashboardUrl}" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 600;">Go to Dashboard</a>
-                </div>
-                
-                <p style="margin: 32px 0 0 0; font-size: 14px; line-height: 1.6; color: #64748b; text-align: center;">
-                    If you have any queries, reach out to us at <a href="mailto:hello@bsprep.in" style="color: #2563eb; text-decoration: none; font-weight: 600;">hello@bsprep.in</a>.
-                </p>
-              </div>
-
-          </div>
-          
-          <div style="text-align: center; margin-top: 24px;">
-              <p style="font-size: 12px; color: #94a3b8;">&copy; 2026 BSPrep. All rights reserved.</p>
-          </div>
-      </body>
-      </html>
+    </div>
+  </div>
+</body>
+</html>
     `,
   })
 }

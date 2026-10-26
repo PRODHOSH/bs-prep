@@ -68,6 +68,11 @@ const sections = [
   },
   {
     num: "13",
+    title: "Student Ambassador Program",
+    body: "Participants in the BSPrep Student Ambassador Program agree to additional terms communicated at the time of enrollment. Ambassador activities must not damage the reputation of BSPrep or its partners. Ambassadors may not make commitments or promises on behalf of BSPrep without prior written approval from the BSPrep team.",
+  },
+  {
+    num: "14",
     title: "Changes to Terms",
     body: "We may update these Terms & Conditions from time to time. Continued use of the platform after changes are posted constitutes your acceptance of the revised terms. We recommend reviewing this page periodically.",
   },
@@ -86,7 +91,7 @@ export default function TermsPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
+    <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar isAuthenticated={isAuthenticated} />
 
       <main className="flex-1 py-16 px-4 relative z-10">
@@ -95,7 +100,7 @@ export default function TermsPage() {
           <div className="mb-10">
             <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BSPrep — Legal</p>
             <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Terms &amp; Conditions</h1>
-            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: June 2026</p>
+            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: August 2026</p>
             <p className="text-black/40 text-xs mt-2">BSPrep is an independent student initiative and is not affiliated with IIT Madras.</p>
           </div>
 

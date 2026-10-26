@@ -17,7 +17,8 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
+.env.local
+.env
 
 # vercel
 .vercel
@@ -38,3 +39,4 @@ api-routes.md
 
 # miscellaneous
 thumbnail_design_guidelines.txt
+scripts/remove-access.ts

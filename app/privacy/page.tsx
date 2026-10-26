@@ -49,7 +49,7 @@ const sections = [
   {
     num: "09",
     title: "Data Sharing",
-    body: "We share your data only with the service providers necessary to operate BSPrep: Razorpay (payments), Supabase (data storage), Resend (transactional emails), and Google Analytics (anonymised usage data). We do not share your data with advertisers, data brokers, or any unrelated third parties.",
+    body: "We share your data only with the service providers necessary to operate BSPrep: Razorpay (payments), Supabase (data storage), Resend (transactional emails), and Google Analytics (anonymised usage data). For Student Ambassador Program participants, shipping addresses and contact details are shared with verified merchandise partners (e.g., Sticker Fever) solely for reward fulfillment. We do not share your data with advertisers, data brokers, or any unrelated third parties.",
   },
   {
     num: "10",
@@ -63,8 +63,8 @@ const sections = [
   },
   {
     num: "12",
-    title: "Community Content",
-    body: "Content posted in community spaces may be visible to other enrolled members. Avoid sharing sensitive personal information publicly. BSPrep reserves the right to moderate or remove content that violates community standards.",
+    title: "Community Content & Public Doubts",
+    body: "Content posted in community spaces may be visible to other enrolled members. Doubts marked as \"Public\" by a Mentor or Admin will be visible on the publicly accessible /doubts section of BSPrep and indexed by search engines. Avoid sharing sensitive personal information publicly. BSPrep reserves the right to moderate or remove content that violates community standards.",
   },
   {
     num: "13",
@@ -96,7 +96,7 @@ export default function PrivacyPolicyPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
+    <div className="min-h-screen flex flex-col bg-transparent">
       <Navbar isAuthenticated={isAuthenticated} />
 
       <main className="flex-1 py-16 px-4 relative z-10">
@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
           <div className="mb-10">
             <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BSPrep — Legal</p>
             <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Privacy Policy</h1>
-            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: June 2026</p>
+            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: August 2026</p>
             <p className="text-black/40 text-xs mt-2">BSPrep is an independent student initiative and is not affiliated with IIT Madras.</p>
           </div>
 

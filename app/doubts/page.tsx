@@ -1,0 +1,164 @@
+import { createClient } from "@/lib/supabase/server"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
+import Link from "next/link"
+import { MessageCircleQuestion, ArrowUpRight, CheckCircle2, MessageSquare, Search, Filter } from "lucide-react"
+
+export const metadata = {
+  title: "Community Doubts | BSPrep",
+  description: "Explore curated, verified doubts and high-quality answers from the BSPrep community and expert mentors.",
+}
+
+type Doubt = {
+  id: string
+  title: string
+  subject: string
+  status: string
+  created_at: string
+  slug: string
+  profiles: { first_name: string, last_name: string, email: string }
+}
+
+export default async function PublicDoubtsPage() {
+  const supabase = await createClient()
+  
+  // Check if user is logged in for the Navbar
+  const { data: { session } } = await supabase.auth.getSession()
+  
+  // Fetch only public doubts
+  const { data: doubtsData, error } = await supabase
+    .from('doubts')
+    .select(`
+      id, 
+      title, 
+      status, 
+      created_at, 
+      subject,
+      slug,
+      profiles:user_id ( first_name, last_name, email )
+    `)
+    .eq('is_public', true)
+    .not('slug', 'is', null)
+    .order('created_at', { ascending: false })
+
+  const doubts = doubtsData || []
+
+  const timeAgo = (dateStr: string) => {
+    const date = new Date(dateStr)
+    const now = new Date()
+    const diff = Math.floor((now.getTime() - date.getTime()) / 1000)
+    if (diff < 60) return `${diff} seconds ago`
+    if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`
+    if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`
+    return `${Math.floor(diff / 86400)} days ago`
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col bg-transparent">
+      <Navbar isAuthenticated={!!session} />
+
+      <main className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-7xl mx-auto flex flex-col min-h-[90vh] mt-10">
+        
+        {/* Header section */}
+        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-black/5 rounded-full text-[10px] font-black uppercase tracking-widest text-black mb-4">
+              <MessageCircleQuestion className="w-3.5 h-3.5" />
+              <span>Public Knowledge Base</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight leading-none mb-4">
+              COMMUNITY DOUBTS
+            </h1>
+            <p className="text-sm font-bold text-black/60 uppercase tracking-widest max-w-2xl">
+              Curated questions and expert-verified answers to help you master the IITM BS curriculum.
+            </p>
+          </div>
+        </div>
+
+        {/* Filters & Search */}
+        <div className="bg-white rounded-3xl border border-black/10 p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+          <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+            <button className="px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all shrink-0 bg-black text-white shadow-md">
+              ALL PUBLIC
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <div className="relative w-full md:w-64">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40" />
+              <input 
+                type="text" 
+                placeholder="SEARCH DOUBTS..." 
+                className="w-full h-12 pl-12 pr-4 bg-black/5 border-transparent focus:border-black/20 focus:bg-white rounded-2xl text-xs font-bold uppercase tracking-widest text-black outline-none transition-all"
+              />
+            </div>
+            <button className="h-12 px-4 bg-black/5 hover:bg-black/10 rounded-2xl text-black flex items-center justify-center transition-colors">
+              <Filter className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* List of doubts */}
+        <div className="space-y-4 flex-1 pb-20">
+          {doubts.length === 0 ? (
+            <div className="text-center py-20 bg-white rounded-3xl border border-black/10">
+              <MessageCircleQuestion className="w-12 h-12 text-black/20 mx-auto mb-4" />
+              <p className="text-sm font-black text-black/40 uppercase tracking-widest">
+                NO PUBLIC DOUBTS YET. Check back soon!
+              </p>
+            </div>
+          ) : (
+            doubts.map((doubt: any) => {
+              const p = doubt.profiles
+              const authorName = (p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : '') || p?.email?.split('@')[0] || 'BSPrep Student'
+              
+              return (
+                <Link 
+                  href={`/doubts/${doubt.slug}`}
+                  key={doubt.id}
+                  className="group bg-white border border-black/10 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-black/30 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                >
+                  <div className="space-y-4 flex-1">
+                    <div className="flex items-center gap-3">
+                      <span className="bg-black text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
+                        {doubt.subject}
+                      </span>
+                      
+                      {doubt.status === "resolved" ? (
+                        <span className="flex items-center gap-1 text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Resolved
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-amber-600 bg-amber-50 border border-amber-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                          <MessageSquare className="w-3.5 h-3.5" /> Open
+                        </span>
+                      )}
+                    </div>
+                    
+                    <h3 className="text-xl md:text-2xl font-black text-black tracking-tight group-hover:text-[#1e3a8a] transition-colors line-clamp-2">
+                      {doubt.title}
+                    </h3>
+                    
+                    <div className="flex items-center gap-4 text-xs font-bold text-black/50 uppercase tracking-widest">
+                      <span>By {authorName}</span>
+                      <span className="w-1 h-1 rounded-full bg-black/20"></span>
+                      <span>{timeAgo(doubt.created_at)}</span>
+                    </div>
+                  </div>
+
+                  <div className="shrink-0 flex items-center justify-end">
+                    <div className="w-12 h-12 rounded-full bg-black/5 group-hover:bg-black group-hover:text-white flex items-center justify-center text-black transition-all">
+                      <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              )
+            })
+          )}
+        </div>
+      </main>
+      
+      <Footer />
+    </div>
+  )
+}

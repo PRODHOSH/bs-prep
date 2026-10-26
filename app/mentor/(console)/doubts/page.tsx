@@ -45,7 +45,7 @@ export default function MentorDoubtsPage() {
         status, 
         created_at, 
         subject,
-        profiles:user_id ( first_name, last_name )
+        profiles:user_id ( first_name, last_name, email )
       `)
       .order('created_at', { ascending: false })
 
@@ -57,13 +57,14 @@ export default function MentorDoubtsPage() {
 
     const formattedDoubts = doubtsData.map((d: any) => {
       const p = d.profiles
+      const name = (p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : '') || p?.email?.split('@')[0] || 'BSPrep Student'
       return {
         id: d.id,
         title: d.title,
         subject: d.subject,
         status: d.status,
         created_at: d.created_at,
-        author: { full_name: p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : 'Unknown' }
+        author: { full_name: name }
       }
     })
     

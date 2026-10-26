@@ -15,18 +15,10 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Bell, User, Menu, X, ChevronDown, Settings } from "lucide-react"
 
-const LoginModal = dynamic(
-  () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
-  { ssr: false }
-)
-const SignUpModal = dynamic(
-  () => import("@/components/auth/signup-modal").then((m) => ({ default: m.SignUpModal })),
-  { ssr: false }
-)
-const ForgotPasswordModal = dynamic(
-  () => import("@/components/auth/forgot-password-modal").then((m) => ({ default: m.ForgotPasswordModal })),
-  { ssr: false }
-)
+import { GoogleOneTap } from "@/components/auth/google-one-tap"
+import { LoginModal } from "@/components/auth/login-modal"
+import { SignUpModal } from "@/components/auth/signup-modal"
+import { ForgotPasswordModal } from "@/components/auth/forgot-password-modal"
 
 interface NavbarProps {
   isAuthenticated?: boolean
@@ -135,22 +127,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
     return () => clearInterval(interval)
   }, [isAuthenticated])
 
-  useEffect(() => {
-    if (!isAuthenticated || userRole === 'admin') return
-
-    const loadDoubtNotifications = async () => {
-      try {
-        const res = await fetch('/api/doubts/notifications')
-        if (!res.ok) return
-        const data = await res.json()
-        setDoubtNotifications(Array.isArray(data.notifications) ? data.notifications : [])
-      } catch { }
-    }
-
-    loadDoubtNotifications()
-    const interval = setInterval(loadDoubtNotifications, 60_000)
-    return () => clearInterval(interval)
-  }, [isAuthenticated, userRole])
+  // Doubt notifications logic removed temporarily since /api/doubts/notifications API is not implemented
 
   // Fetch announcements for notification dropdown
   useEffect(() => {
@@ -274,9 +251,9 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
+              <Link href="/careers" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
                 CAREERS
-              </a>
+              </Link>
           </div>
 
           {/* Right Side */}
@@ -500,14 +477,12 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
                 >
                   GPA PREDICTOR
                 </Link>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/careers"
                   className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
                 >
                   CAREERS
-                </a>
+                </Link>
           </div>
         )}
       </div>
@@ -541,6 +516,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
           setLoginOpen(true)
         }}
       />
+      {!isAuthenticated && <GoogleOneTap />}
     </nav>
   )
 }

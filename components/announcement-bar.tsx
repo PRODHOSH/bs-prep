@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { X } from "lucide-react"
 
-const DISMISS_KEY = "bsprep_announce_compiler_v1"
+const DISMISS_KEY = "bsprep_announce_ambassador_unstop_v1"
 
 export function AnnouncementBar() {
   const [visible, setVisible] = useState(false)
@@ -23,10 +23,17 @@ export function AnnouncementBar() {
   return (
     <div className="relative z-50 bg-black text-white text-xs sm:text-sm px-4 py-2.5 flex items-center justify-center gap-3">
       <span className="flex items-center gap-2">
-        <span className="hidden sm:inline-flex items-center gap-1 bg-orange-500/80 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
-          Coming Soon
+        <span className="hidden sm:inline-flex items-center gap-1 bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm">
+          Live Now
         </span>
-        The BSPrep Student Ambassador Program is launching soon!
+        The BSPrep Student Ambassador Program applications are open!
+        <Link 
+          href="https://unstop.com/p/student-ambassador-program-bsprep-1720364?lb=usePftiW&utm_medium=Share&utm_source=competitions&utm_campaign=Sozyuihw88836"
+          target="_blank"
+          className="ml-1 md:ml-3 underline font-bold text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center"
+        >
+          Apply on Unstop →
+        </Link>
       </span>
       <button
         onClick={dismiss}

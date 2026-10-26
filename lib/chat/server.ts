@@ -62,6 +62,7 @@ export function getMentorSubjectCourseIds(profile: MentorSubjectProfileLike | nu
     'english-1': 'qualifier-english-1',
     'java': 'qualifier-java',
     'python': 'qualifier-python',
+    'stats-2': 'foundation-stats-2',
   };
 
   const mappedIds = rawIds.flatMap(id => {

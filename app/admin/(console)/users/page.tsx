@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { RowsSkeleton } from "@/components/admin/skeleton"
 import { CalendarDays, Mail, Search, ShieldCheck, UserRound, Trash2, Edit3, BookOpen, X, Star } from "lucide-react"
 
 type DirectoryUser = {
@@ -307,7 +308,7 @@ export default function AdminUsersDirectoryPage() {
                     {isPro && (
                       <span
                         title="Enrolled in a course"
-                        className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-[#0c1016] bg-linear-to-br from-amber-400 to-orange-500 shadow"
+                        className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-[#070c15] bg-linear-to-br from-amber-400 to-orange-500 shadow"
                       >
                         <Star className="h-2.5 w-2.5 fill-white text-white" />
                       </span>
@@ -409,7 +410,7 @@ export default function AdminUsersDirectoryPage() {
           <select 
             value={roleFilter} 
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#131821] px-3 text-sm text-slate-200 outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-200 outline-none"
           >
             <option value="all">All Roles</option>
             <option value="admin">Admin</option>
@@ -420,14 +421,14 @@ export default function AdminUsersDirectoryPage() {
           <select 
             value={proFilter} 
             onChange={(e) => setProFilter(e.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#131821] px-3 text-sm text-slate-200 outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-200 outline-none"
           >
             <option value="all">All Status</option>
             <option value="pro">Pro (Paid)</option>
             <option value="non-pro">Non-Pro (Free)</option>
           </select>
 
-          <label className="flex h-11 w-full sm:w-64 items-center gap-2 rounded-xl border border-white/10 bg-[#131821] px-3 text-sm text-slate-400">
+          <label className="flex h-11 w-full sm:w-64 items-center gap-2 rounded-xl border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-400">
             <Search className="h-4 w-4" />
             <input
               value={searchValue}
@@ -441,15 +442,15 @@ export default function AdminUsersDirectoryPage() {
       </header>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-[#0c1016] px-4 py-3">
+        <div className="rounded-xl border border-white/10 bg-[#070c15] px-4 py-3">
           <p className="text-xs uppercase tracking-wider text-slate-500">Admins</p>
           <p className="mt-1 text-2xl font-semibold text-slate-100">{admins.length}</p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-[#0c1016] px-4 py-3">
+        <div className="rounded-xl border border-white/10 bg-[#070c15] px-4 py-3">
           <p className="text-xs uppercase tracking-wider text-slate-500">Mentors</p>
           <p className="mt-1 text-2xl font-semibold text-slate-100">{mentors.length}</p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-[#0c1016] px-4 py-3">
+        <div className="rounded-xl border border-white/10 bg-[#070c15] px-4 py-3">
           <p className="text-xs uppercase tracking-wider text-slate-500">Students</p>
           <p className="mt-1 text-2xl font-semibold text-slate-100">{students.length}</p>
         </div>
@@ -457,7 +458,7 @@ export default function AdminUsersDirectoryPage() {
 
       {statusMessage ? <p className="text-sm text-slate-300">{statusMessage}</p> : null}
 
-      <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#0c1016]">
+      <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#070c15]">
         <div className="grid grid-cols-[2.2fr_1fr_1fr_auto] border-b border-white/10 px-6 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
           <p>Identity</p>
           <p>Access Level</p>
@@ -466,7 +467,7 @@ export default function AdminUsersDirectoryPage() {
         </div>
 
         {isLoading ? (
-          <div className="px-6 py-10 text-sm text-slate-400">Loading users...</div>
+          <div className="p-4"><RowsSkeleton rows={6} /></div>
         ) : (
           renderRows(filteredUsers)
         )}
@@ -476,7 +477,7 @@ export default function AdminUsersDirectoryPage() {
 
       {editingUserId && (
         <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0c1016] p-6 shadow-xl">
+          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#070c15] p-6 shadow-xl">
             <h2 className="text-lg font-semibold text-slate-100">Edit User</h2>
             <p className="mt-1 text-xs text-slate-400">Only name and phone are editable.</p>
 
@@ -488,7 +489,7 @@ export default function AdminUsersDirectoryPage() {
                   value={editFirstName}
                   onChange={(e) => setEditFirstName(e.target.value)}
                   placeholder="First name"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
                 />
               </div>
 
@@ -499,7 +500,7 @@ export default function AdminUsersDirectoryPage() {
                   value={editLastName}
                   onChange={(e) => setEditLastName(e.target.value)}
                   placeholder="Last name"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
                 />
               </div>
 
@@ -510,7 +511,7 @@ export default function AdminUsersDirectoryPage() {
                   value={editPhone}
                   onChange={(e) => setEditPhone(e.target.value)}
                   placeholder="Phone number"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
                 />
               </div>
 
@@ -519,7 +520,7 @@ export default function AdminUsersDirectoryPage() {
                 <select
                   value={editRole}
                   onChange={(e) => setEditRole(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
                 >
                   <option value="student">Student</option>
                   <option value="mentor">Mentor</option>
@@ -534,8 +535,8 @@ export default function AdminUsersDirectoryPage() {
                     type="text"
                     value={editMentorSubject}
                     onChange={(e) => setEditMentorSubject(e.target.value)}
-                    placeholder="e.g. math-1, python, ct"
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-slate-100 outline-none"
+                    placeholder="e.g. math-1, stats-2, python, ct"
+                    className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
                   />
                 </div>
               )}
@@ -565,13 +566,13 @@ export default function AdminUsersDirectoryPage() {
 
       {deletingUserId && (
         <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0c1016] p-6 shadow-xl">
+          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#070c15] p-6 shadow-xl">
             <h2 className="text-lg font-semibold text-slate-100">Delete User</h2>
             <p className="mt-1 text-sm text-slate-400">Target: {deletingUserEmail}</p>
             <p className="mt-2 text-xs text-rose-300">This action permanently deletes the user account and related data.</p>
 
             {deletionStatus ? (
-              <p className="mt-3 whitespace-pre-wrap rounded-lg border border-white/10 bg-[#131821] px-3 py-2 text-xs text-slate-300">
+              <p className="mt-3 whitespace-pre-wrap rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-xs text-slate-300">
                 {deletionStatus}
               </p>
             ) : null}
@@ -599,7 +600,7 @@ export default function AdminUsersDirectoryPage() {
 
       {coursesUser && (
         <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#0c1016] p-6 shadow-xl">
+          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#070c15] p-6 shadow-xl">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h2 className="text-lg font-semibold text-slate-100">Enrolled Courses</h2>
@@ -624,7 +625,7 @@ export default function AdminUsersDirectoryPage() {
                 <p className="text-sm text-slate-400">This user has not enrolled in any courses yet.</p>
               ) : (
                 userEnrollments.map((item) => (
-                  <article key={`${coursesUser.id}-${item.course_id}-${item.enrolled_at}`} className="rounded-xl border border-white/10 bg-[#131821] px-4 py-3">
+                  <article key={`${coursesUser.id}-${item.course_id}-${item.enrolled_at}`} className="rounded-xl border border-white/10 bg-[#0b1220] px-4 py-3">
                     <p className="text-sm font-semibold text-slate-100">{item.title}</p>
                     <p className="mt-1 text-xs text-slate-400">Course ID: {item.course_id}</p>
                     <div className="mt-2 flex items-center justify-between text-xs text-slate-500">

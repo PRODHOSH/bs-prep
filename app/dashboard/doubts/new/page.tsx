@@ -92,6 +92,13 @@ export default function NewDoubtPage() {
     if (error) {
       alert(error.message)
     } else {
+      // Automatically trigger bsprepio ai to generate an initial response via OpenRouter
+      fetch("/api/doubts/ai-reply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ doubtId: data.id }),
+      }).catch((err) => console.error("AI automated reply trigger failed:", err))
+
       router.push(`/dashboard/doubts/${data.id}`)
     }
   }

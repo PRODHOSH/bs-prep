@@ -41,12 +41,10 @@ export function Hero() {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Link 
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform" 
-                target="_blank" 
-                rel="noopener noreferrer"
+                href="/courses" 
                 className="group inline-flex items-center justify-center gap-2 bg-[#0a192f] text-white px-6 py-3 text-sm font-bold tracking-wide hover:bg-[#112a52] transition-all duration-300 rounded-full"
               >
-                Join Community
+                Explore Courses
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link 
@@ -63,7 +61,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative h-[250px] md:h-[400px] w-full mt-8 md:mt-0 hidden sm:flex items-center justify-center lg:justify-end lg:-mr-4"
+            className="relative h-[250px] md:h-[400px] w-full mt-8 md:mt-0 flex items-center justify-center lg:justify-end lg:-mr-4"
           >
             <HeroGraphic />
           </motion.div>
@@ -77,7 +75,7 @@ export function Hero() {
           className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 lg:mt-6"
         >
           {[
-            { label: "Active Students", value: 3000, suffix: "+", icon: Users },
+            { label: "Active Students", value: 1200, suffix: "+", icon: Users },
             { label: "Expert Mentors", value: 15, suffix: "+", icon: TrendingUp },
             { label: "Study Materials", value: 500, suffix: "+", icon: BookOpen },
           ].map((stat, i) => {

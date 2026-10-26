@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe, Mail } from "lucide-react"
 
 const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
 /* DEVELOPERS_DISABLED
@@ -65,11 +65,12 @@ export function Footer() {
       heading: "Community",
       links: [
         { name: "Dashboard", href: "/dashboard" },
-        { name: "Doubts", href: "/dashboard/doubts" },
-        { name: "Careers", href: "https://docs.google.com/forms/d/e/1FAIpQLSfvet6P3yTtm4Ui3VE7M0gDSAsltxZ-Rrtd4fgUY0_iL7lkNg/viewform", external: true },
+        { name: "Doubts", href: "/doubts" },
+        { name: "Careers", href: "/careers", external: false },
         { name: "Ambassador Portal", href: "https://ambassador.bsprep.in/", external: true },
         { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
         { name: "Contact", href: "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog", external: true },
+        { name: "Donate", href: "https://rzp.io/rzp/support-bsprep", external: true },
       ],
     },
     {
@@ -87,9 +88,9 @@ export function Footer() {
     <>
       <footer className="bg-[#FDFBF7] border-t border-black/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr] gap-8 mb-10">
             {/* Brand */}
-            <div className="space-y-6 lg:pr-8">
+            <div className="space-y-6 lg:pr-8 md:col-span-4 lg:col-span-1">
               <div className="flex items-center gap-2">
                 <div className="w-[36px] h-[36px] overflow-hidden rounded-full border border-black/10 shrink-0">
                   <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.3]" />
@@ -104,11 +105,11 @@ export function Footer() {
                 
                 <div className="flex flex-col gap-2 pt-1">
                   <a href="mailto:support@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
-                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                    <Mail className="w-4 h-4 opacity-50" />
                     support@bsprep.in
                   </a>
-                  <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-[#0a192f]/70 hover:text-[#0a192f] transition-colors">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
+                    <HeartHandshake className="w-4 h-4 opacity-50" />
                     Partner with us: partnerships@bsprep.in
                   </a>
                 </div>
@@ -119,7 +120,7 @@ export function Footer() {
                   href="https://www.linkedin.com/company/bs-prep/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-[#0077b5] hover:text-white hover:border-transparent transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -127,7 +128,7 @@ export function Footer() {
                   href="https://www.youtube.com/@DataScienceIITMTamil"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-red-600 hover:text-white hover:border-transparent transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
                 >
                   <Youtube className="w-4 h-4" />
                 </a>
@@ -135,28 +136,10 @@ export function Footer() {
                   href="https://www.instagram.com/bsprep.in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-white border border-black/5 flex items-center justify-center text-black/50 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400 hover:text-white hover:border-transparent transition-all shadow-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
-              </div>
-              
-              <div className="pt-2 space-y-4">
-                <a
-                  href="https://rzp.io/rzp/support-bsprep"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#0a192f] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#112a52] hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg w-fit"
-                >
-                  <HeartHandshake className="h-4 w-4" />
-                  Support BSPrep
-                </a>
-                
-                <div className="pt-2">
-                  <a href="https://status.bsprep.in" target="_blank" rel="noopener noreferrer">
-                    <img src="https://status.bsprep.in/badge?theme=dark" alt="Platform Status" className="h-[30px]" />
-                  </a>
-                </div>
               </div>
             </div>
 
@@ -194,6 +177,19 @@ export function Footer() {
                 </ul>
               </div>
             ))}
+
+            {/* Donate & Support Column */}
+            <div>
+              <h3 className="font-bold text-black text-xs uppercase tracking-widest mb-4">Donate & Support</h3>
+              <div className="flex flex-col gap-4">
+                <div className="border border-black/10 p-2 rounded-xl bg-white shadow-sm w-fit group relative overflow-hidden">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pages.razorpay.com/pl_T7LY917rtczWQU/view" alt="Donate QR" className="w-[100px] h-[100px] object-contain mix-blend-multiply transition-transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/90 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">Scan<br/>To Donate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="border-t border-black/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">

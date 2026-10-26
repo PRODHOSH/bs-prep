@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { RowsSkeleton } from "@/components/admin/skeleton"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import {
@@ -45,7 +46,7 @@ export default function AdminDoubtsPage() {
         status, 
         created_at, 
         subject,
-        profiles:user_id ( first_name, last_name )
+        profiles:user_id ( first_name, last_name, email )
       `)
       .order('created_at', { ascending: false })
 
@@ -57,13 +58,14 @@ export default function AdminDoubtsPage() {
 
     const formattedDoubts = doubtsData.map((d: any) => {
       const p = d.profiles
+      const name = (p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : '') || p?.email?.split('@')[0] || 'BSPrep Student'
       return {
         id: d.id,
         title: d.title,
         subject: d.subject,
         status: d.status,
         created_at: d.created_at,
-        author: { full_name: p ? `${p.first_name || ''} ${p.last_name || ''}`.trim() : 'Unknown' }
+        author: { full_name: name }
       }
     })
     
@@ -86,7 +88,7 @@ export default function AdminDoubtsPage() {
       
       <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white mb-2">
+          <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">
             Manage Doubts
           </h1>
           <p className="mt-1 text-sm text-slate-400">
@@ -103,7 +105,7 @@ export default function AdminDoubtsPage() {
               onClick={() => setActiveTab(tab)}
               className={`px-6 py-3 rounded-xl text-xs font-semibold uppercase tracking-widest transition-all shrink-0 ${
                 activeTab === tab 
-                  ? "bg-white text-black shadow-md" 
+                  ? "bg-blue-600 text-white" 
                   : "bg-transparent text-slate-400 hover:bg-white/5"
               }`}
             >
@@ -126,9 +128,7 @@ export default function AdminDoubtsPage() {
 
       <div className="space-y-4">
         {loading ? (
-          <div className="text-center py-20 rounded-2xl border border-white/10 bg-[#070c15] animate-pulse">
-            <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest">LOADING DOUBTS...</p>
-          </div>
+          <RowsSkeleton rows={5} />
         ) : (
           <>
             {doubts
