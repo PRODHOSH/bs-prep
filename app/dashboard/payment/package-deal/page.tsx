@@ -1,6 +1,8 @@
 "use client"
 
 import Link from "next/link"
+import { ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
+import { EnrollmentsClosedPage } from "@/components/enrollments-closed"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
@@ -89,6 +91,11 @@ const GATEWAY_FEE_PERCENT = 2.5
 const PAYABLE_BUNDLE_PRICE = Number((BUNDLE_PRICE * (1 + GATEWAY_FEE_PERCENT / 100)).toFixed(2))
 
 export default function PackageDealPage() {
+  if (ENROLLMENTS_CLOSED) return <EnrollmentsClosedPage />
+  return <PackageDealPageInner />
+}
+
+function PackageDealPageInner() {
   const router = useRouter()
   const supabase = createClient()
 

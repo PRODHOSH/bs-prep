@@ -7,7 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Search, Package, BookOpen, Clock, Lock, ArrowUpRight, CheckCircle2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { courses } from '@/lib/course-catalog'
+import { courses, ENROLLMENTS_CLOSED } from '@/lib/course-catalog'
+import { ClosedPill } from '@/components/enrollments-closed'
 
 const levelLabels: Record<string, string> = {
   all: "ALL LEVELS",
@@ -247,6 +248,8 @@ export default function DashboardCoursesPage() {
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             ENROLLED
                           </div>
+                        ) : ENROLLMENTS_CLOSED ? (
+                          <ClosedPill />
                         ) : course.price ? (
                           <div className="flex items-center gap-2">
                             {course.originalPrice && (

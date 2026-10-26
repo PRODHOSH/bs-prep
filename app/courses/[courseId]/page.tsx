@@ -12,6 +12,8 @@ import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import { LiveClassCard } from "@/components/live-class-card"
 import { courseSyllabusData } from "@/lib/syllabus-data"
+import { ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
+import { ClosedButton } from "@/components/enrollments-closed"
 
 
 const LoginModal = dynamic(
@@ -113,6 +115,7 @@ export default function CoursePage() {
   }
 
   const handleEnroll = () => {
+    if (ENROLLMENTS_CLOSED) return
     if (!isAuthenticated) {
       setShowLogin(true)
       return
@@ -391,12 +394,16 @@ export default function CoursePage() {
                       )}
                     </div>
                   </div>
-                  <Button
-                    onClick={handleEnroll}
-                    className="w-full sm:w-auto bg-white hover:bg-gray-100 text-[#0a192f] px-10 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-xl hover:-translate-y-1"
-                  >
-                    ENROLL NOW
-                  </Button>
+                  {ENROLLMENTS_CLOSED ? (
+                    <ClosedButton className="h-14 w-full sm:w-auto" />
+                  ) : (
+                    <Button
+                      onClick={handleEnroll}
+                      className="w-full sm:w-auto bg-white hover:bg-gray-100 text-[#0a192f] px-10 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-xl hover:-translate-y-1"
+                    >
+                      ENROLL NOW
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -470,6 +477,11 @@ export default function CoursePage() {
               <p className="text-slate-500 font-bold uppercase text-sm mb-10 max-w-xl mx-auto">
                 Join hundreds of Tamil medium students mastering {course.title} and securing their foundation in Data Science.
               </p>
+              {ENROLLMENTS_CLOSED ? (
+                <p className="inline-flex items-center rounded-xl bg-red-50 px-8 py-4 text-sm font-black uppercase tracking-widest text-red-600 ring-1 ring-red-200">
+                  Enrollments are closed
+                </p>
+              ) : (
               <Button
                 onClick={handleEnroll}
                 className="bg-[#0a192f] hover:bg-blue-900 text-white px-12 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-md hover:-translate-y-1"
@@ -479,6 +491,7 @@ export default function CoursePage() {
                   <span className="text-[10px] font-bold text-white/60 line-through ml-2">₹{course.originalPrice}</span>
                 )}
               </Button>
+              )}
             </div>
           </div>
         </div>

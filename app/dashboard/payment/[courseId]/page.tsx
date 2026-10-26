@@ -1,6 +1,8 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
+import { ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
+import { EnrollmentsClosedPage } from "@/components/enrollments-closed"
 import Link from "next/link"
 import { ArrowLeft, Check, Shield, Zap, AlertCircle, BookOpen } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
@@ -14,6 +16,11 @@ type RazorpaySuccessResponse = {
 }
 
 export default function DashboardPaymentPage() {
+  if (ENROLLMENTS_CLOSED) return <EnrollmentsClosedPage />
+  return <DashboardPaymentPageInner />
+}
+
+function DashboardPaymentPageInner() {
   const params = useParams()
   const router = useRouter()
   const courseId = params.courseId as string

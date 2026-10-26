@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
-import { courses } from "@/lib/course-catalog"
+import { courses, ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
+import { ClosedPill } from "@/components/enrollments-closed"
 import { courseSyllabusData } from "@/lib/syllabus-data"
 import { createClient } from "@/lib/supabase/client"
 import {
@@ -234,7 +235,13 @@ export default function CourseDetailPage() {
             </div>
 
             <div className="shrink-0 flex flex-col items-start md:items-end gap-4">
-              {!isEnrolled && course.price ? (
+              {!isEnrolled && ENROLLMENTS_CLOSED ? (
+                <div className="bg-white text-[#0a192f] p-6 rounded-3xl shadow-lg border border-black/10 flex flex-col min-w-[220px] gap-3">
+                  <span className="text-[10px] font-black text-[#0a192f]/50 uppercase tracking-widest">Enrollment</span>
+                  <ClosedPill className="w-fit text-sm" />
+                  <p className="text-xs font-bold text-black/50 uppercase tracking-wider">Not accepting new students</p>
+                </div>
+              ) : !isEnrolled && course.price ? (
                 <div className="bg-white text-[#0a192f] p-6 rounded-3xl shadow-lg border border-black/10 flex flex-col min-w-[220px]">
                   <span className="text-[10px] font-black text-[#0a192f]/50 uppercase tracking-widest mb-1">Total Price</span>
                   <div className="flex items-end gap-3 mb-5">
@@ -587,14 +594,16 @@ function LockedContent({ courseId }: { courseId: string }) {
       </div>
       <h3 className="text-2xl font-black uppercase tracking-tight text-black mb-3">Content Locked</h3>
       <p className="text-sm font-bold text-black/50 uppercase tracking-widest mb-8 leading-relaxed">
-        Enroll to access live sessions, recordings, and exclusive course resources.
+        {ENROLLMENTS_CLOSED
+          ? "Enrollments are closed. This content is available to enrolled students only."
+          : "Enroll to access live sessions, recordings, and exclusive course resources."}
       </p>
-      <Link
+      {ENROLLMENTS_CLOSED ? <ClosedPill /> : <Link
         href={`/dashboard/payment/${courseId}`}
         className="bg-black hover:bg-black/80 text-white px-8 h-12 rounded-full flex items-center justify-center font-black uppercase tracking-widest text-xs transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
       >
         ENROLL TO UNLOCK
-      </Link>
+      </Link>}
     </div>
   )
 }

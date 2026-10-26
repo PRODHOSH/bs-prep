@@ -7,7 +7,8 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Input } from "@/components/ui/input"
 import { Search, Package, BookOpen, Clock, Lock, ArrowUpRight } from "lucide-react"
-import { courses } from "@/lib/course-catalog"
+import { courses, ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
+import { ClosedPill } from "@/components/enrollments-closed"
 
 const LoginModal = dynamic(
   () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
@@ -219,7 +220,9 @@ export default function CoursesPage() {
                               <BookOpen className="w-4 h-4" />
                               <span>{course.weeks} WEEKS</span>
                             </div>
-                            {course.price ? (
+                            {ENROLLMENTS_CLOSED ? (
+                              <ClosedPill />
+                            ) : course.price ? (
                               <div className="flex items-center gap-2">
                                 {course.originalPrice && (
                                   <span className="text-xs font-bold text-black/40 line-through">₹{course.originalPrice}</span>

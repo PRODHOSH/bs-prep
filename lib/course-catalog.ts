@@ -15,6 +15,9 @@ export interface Course {
   driveFolderId?: string
 }
 
+// Flip to false to reopen enrollments and payments everywhere (UI and API).
+export const ENROLLMENTS_CLOSED = true
+
 export const courses: Course[] = [
   {
     id: "qualifier-math-1",

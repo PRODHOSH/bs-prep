@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { verifyUserFromToken } from "@/lib/supabase/server";
 import { validateCourseId, validateAmount, validatePaymentForm } from "@/lib/validation";
+import { ENROLLMENTS_CLOSED } from "@/lib/course-catalog";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/rate-limit";
 
 const GATEWAY_FEE_PERCENT = 2.5;
@@ -46,6 +47,9 @@ function buildReceipt(userId: string): string {
 }
 
 export async function POST(request: NextRequest) {
+  if (ENROLLMENTS_CLOSED) {
+    return NextResponse.json({ error: "Enrollments are closed" }, { status: 403 });
+  }
   try {
     // Rate limiting: 100 requests per 15 minutes per user
     const authHeader = request.headers.get("authorization");

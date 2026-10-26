@@ -1,9 +1,13 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { validateUUID } from '@/lib/security/validation'
+import { ENROLLMENTS_CLOSED } from '@/lib/course-catalog'
 import { writeRateLimiter } from '@/lib/rate-limit'
 
 export async function POST(request: NextRequest) {
+  if (ENROLLMENTS_CLOSED) {
+    return NextResponse.json({ error: 'Enrollments are closed' }, { status: 403 })
+  }
   try {
     // Validate request body size
     const text = await request.text()
