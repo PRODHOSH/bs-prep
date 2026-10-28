@@ -1,5 +1,5 @@
-import { PageSkeleton } from "@/components/admin/skeleton"
+import { AnalyticsSkeleton } from "@/components/dashboard/skeleton"
 
 export default function Loading() {
-  return <PageSkeleton stats chart />
+  return <AnalyticsSkeleton />
 }

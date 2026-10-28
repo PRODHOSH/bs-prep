@@ -1,8 +1,10 @@
 "use client"
 
 import { createClient } from "@/lib/supabase/client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { SkRows } from "@/components/dashboard/skeleton"
+import { Card, EmptyState, PageHeader, Stat, Tag } from "@/components/dashboard/ui"
+import { PenTool } from "lucide-react"
 import { useEffect, useState } from "react"
 
 interface QuizAttempt {
@@ -25,7 +27,7 @@ export default function QuizzesPage() {
       try {
         const {
           data: { user },
-        } = await supabase.auth.getUser()
+        } = await getUserCached()
         if (!user) return
 
         const { data } = await supabase
@@ -77,76 +79,37 @@ export default function QuizzesPage() {
   }, [])
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Quiz Results</h1>
-        <p className="text-muted-foreground">Track your quiz performance</p>
+    <div className="space-y-6">
+      <PageHeader title="Quiz results" description="Track your quiz performance." />
+
+      <div className="grid gap-5 md:grid-cols-3">
+        <Stat label="Total attempts" value={stats.totalAttempts} />
+        <Stat label="Passed" value={stats.passed} />
+        <Stat label="Average score" value={`${stats.avgScore}%`} />
       </div>
 
-      {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium">Total Attempts</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{stats.totalAttempts}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium">Passed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-primary">{stats.passed}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium">Average Score</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{stats.avgScore}%</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Quiz Attempts */}
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Recent Attempts</h2>
+      <Card title="Recent attempts">
         {isLoading ? (
-          <div className="text-center py-8 text-muted-foreground">Loading quiz results...</div>
+          <SkRows rows={4} />
         ) : attempts.length === 0 ? (
-          <Card>
-            <CardContent className="pt-8 text-center">
-              <p className="text-muted-foreground">No quiz attempts yet. Start taking quizzes!</p>
-            </CardContent>
-          </Card>
+          <EmptyState icon={PenTool} title="No quiz attempts yet" hint="Your results will show up here once you take a quiz." />
         ) : (
-          <div className="space-y-4">
+          <ul className="divide-y">
             {attempts.map((attempt) => (
-              <Card key={attempt.id}>
-                <CardContent className="pt-6 flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold">{attempt.quiz_title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {new Date(attempt.attempted_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-primary">{attempt.score}%</div>
-                      <Badge variant={attempt.passed ? "default" : "destructive"}>
-                        {attempt.passed ? "Passed" : "Failed"}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <li key={attempt.id} className="flex items-center justify-between gap-4 py-3 first:pt-1 last:pb-1">
+                <div className="min-w-0">
+                  <h3 className="truncate text-sm font-bold">{attempt.quiz_title}</h3>
+                  <p className="text-xs text-muted-foreground">{new Date(attempt.attempted_at).toLocaleDateString()}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Tag tone={attempt.passed ? "green" : "red"}>{attempt.passed ? "Passed" : "Failed"}</Tag>
+                  <span className="w-12 text-right text-lg font-extrabold">{attempt.score}%</span>
+                </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
-      </div>
+      </Card>
     </div>
   )
 }

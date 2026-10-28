@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { BeamsBackgroundLazy } from "@/components/beams-background-lazy"
 import { LoadingProvider } from "@/components/loading-provider"
-import { Loading } from "@/components/loading"
+import { RouteFallback } from "@/components/route-fallback"
 import { AuthErrorHandler } from "@/components/auth-error-handler"
 import { ReferralTracker } from "@/components/referral-tracker"
 import { TourProvider } from "@/components/tour-provider"
@@ -211,7 +211,7 @@ export default function RootLayout({
             <AuthErrorHandler />
             <TourProvider />
             <LoadingProvider>
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<RouteFallback />}>
                 {children}
               </Suspense>
             </LoadingProvider>

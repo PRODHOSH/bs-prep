@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { RowsSkeleton } from "@/components/admin/skeleton"
-import { CheckCircle2, ExternalLink, Loader2, Search, Trash2, XCircle } from "lucide-react"
+import { SkRows } from "@/components/dashboard/skeleton"
+import { BookOpen, CheckCircle2, ExternalLink, Trash2, XCircle } from "lucide-react"
+import { SearchBox, Tabs } from "@/components/dashboard/controls"
+import { Avatar, EmptyState, Notice, PageHeader, Tag, btnGhost, btnPrimary } from "@/components/dashboard/ui"
 
 type ReviewStatus = "pending" | "approved" | "rejected"
 
@@ -137,114 +139,81 @@ export default function AdminResourcesNotesPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">Resources Notes Review</h1>
-        <p className="mt-1 text-sm text-slate-400">Approve or reject note submissions before they appear on the Resources page.</p>
-      </header>
+      <PageHeader title="Resources notes" description="Approve or reject note submissions before they appear on the Resources page." />
 
-      {statusMessage ? <p className="rounded-lg border border-white/10 bg-[#0a101c] px-3 py-2 text-sm text-slate-200">{statusMessage}</p> : null}
+      {statusMessage && <Notice>{statusMessage}</Notice>}
 
-      <section className="rounded-2xl border border-white/10 bg-[#070c15] p-4">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-2 rounded-xl bg-[#0b1220] p-1">
-            {(["pending", "approved", "rejected"] as ReviewStatus[]).map((entry) => (
-              <button
-                key={entry}
-                type="button"
-                onClick={() => setStatus(entry)}
-                className={`rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
-                  status === entry
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-300 hover:bg-white/5"
-                }`}
-              >
-                {entry}
-              </button>
-            ))}
-          </div>
-
-          <div className="relative w-full lg:w-80">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search submissions"
-              className="h-10 w-full rounded-lg border border-white/10 bg-[#0b1220] pl-9 pr-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
-              suppressHydrationWarning
-            />
-          </div>
+      <div>
+        <Tabs
+          tabs={[
+            { id: "pending", label: "Pending" },
+            { id: "approved", label: "Approved" },
+            { id: "rejected", label: "Rejected" },
+          ]}
+          value={status}
+          onChange={setStatus}
+        />
+        <div className="mt-5">
+          <SearchBox value={query} onChange={setQuery} placeholder="Search submissions" className="max-w-sm" />
         </div>
+      </div>
 
-        <div className="mt-4 space-y-3">
-          {loading ? (
-            <RowsSkeleton rows={3} />
-          ) : filtered.length === 0 ? (
-            <p className="rounded-xl border border-white/10 bg-[#0a101c] px-3 py-4 text-sm text-slate-400">No submissions found.</p>
-          ) : (
-            filtered.map((note) => (
-              <article key={note.id} className="rounded-xl border border-white/10 bg-[#0a101c] p-4">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-slate-500">{note.degree} / {note.level}</p>
-                    <h2 className="mt-1 text-lg font-semibold text-slate-100">{note.title}</h2>
-                    <p className="mt-1 text-sm text-slate-300">{note.subject}</p>
-                    <p className="mt-1 text-xs text-slate-400">By {note.contributor_name} • Weeks {note.notes_week_from}-{note.notes_week_to}</p>
-                    <p className="mt-1 text-xs text-slate-500">Submitted: {formatDate(note.created_at)}</p>
+      {loading ? (
+        <SkRows rows={3} />
+      ) : filtered.length === 0 ? (
+        <EmptyState icon={BookOpen} title="No submissions" hint={`Nothing is ${status} right now.`} />
+      ) : (
+        <ul className="space-y-3">
+          {filtered.map((note) => (
+            <li key={note.id} className="rounded-2xl border bg-card p-5">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <Tag className="capitalize">{note.degree}</Tag>
+                    <Tag className="capitalize">{note.level}</Tag>
+                    <Tag tone="primary">Weeks {note.notes_week_from}–{note.notes_week_to}</Tag>
                   </div>
-
-                  <div className="flex flex-wrap items-center gap-2">
-                    <a
-                      href={note.drive_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center rounded-lg border border-white/15 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-white/5"
-                    >
-                      <ExternalLink className="mr-1 h-3.5 w-3.5" />
-                      Open Drive Link
-                    </a>
-
-                    {status === "pending" ? (
-                      <>
-                        <button
-                          type="button"
-                          disabled={updatingId === note.id}
-                          onClick={() => void updateStatus(note.id, "approved")}
-                          className="inline-flex items-center rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/20 disabled:opacity-60"
-                        >
-                          {updatingId === note.id ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="mr-1 h-3.5 w-3.5" />}
-                          Approve
-                        </button>
-
-                        <button
-                          type="button"
-                          disabled={updatingId === note.id}
-                          onClick={() => void updateStatus(note.id, "rejected")}
-                          className="inline-flex items-center rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 disabled:opacity-60"
-                        >
-                          {updatingId === note.id ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <XCircle className="mr-1 h-3.5 w-3.5" />}
-                          Reject
-                        </button>
-                      </>
-                    ) : null}
-
-                    <button
-                      type="button"
-                      disabled={updatingId === note.id}
-                      onClick={() => void deleteNote(note.id)}
-                      className="inline-flex items-center rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 disabled:opacity-60"
-                    >
-                      {updatingId === note.id ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <Trash2 className="mr-1 h-3.5 w-3.5" />}
-                      Delete
-                    </button>
-                  </div>
+                  <h2 className="mt-2.5 text-[15px] font-bold leading-snug">{note.title}</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">{note.subject}</p>
+                  <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
+                    <Avatar name={note.contributor_name} size={20} />
+                    <span className="font-medium">{note.contributor_name}</span>
+                    <span>·</span>
+                    <span>{formatDate(note.created_at)}</span>
+                  </p>
+                  {note.notes_content_label && <p className="mt-3 text-sm">{note.notes_content_label}</p>}
                 </div>
 
-                <p className="mt-3 text-sm text-slate-300">{note.notes_content_label}</p>
-              </article>
-            ))
-          )}
-        </div>
-      </section>
+                <div className="flex shrink-0 flex-wrap items-center gap-2">
+                  <a href={note.drive_link} target="_blank" rel="noopener noreferrer" className={`${btnGhost} h-9 px-3 text-xs`}>
+                    <ExternalLink className="size-3.5" /> Open in Drive
+                  </a>
+                  {status === "pending" && (
+                    <>
+                      <button type="button" disabled={updatingId === note.id} onClick={() => void updateStatus(note.id, "approved")} className={`${btnPrimary} h-9 px-3 text-xs`}>
+                        <CheckCircle2 className="size-3.5" /> Approve
+                      </button>
+                      <button type="button" disabled={updatingId === note.id} onClick={() => void updateStatus(note.id, "rejected")} className={`${btnGhost} h-9 px-3 text-xs`}>
+                        <XCircle className="size-3.5" /> Reject
+                      </button>
+                    </>
+                  )}
+                  <button
+                    type="button"
+                    disabled={updatingId === note.id}
+                    onClick={() => void deleteNote(note.id)}
+                    aria-label="Delete"
+                    title="Delete"
+                    className="grid size-9 place-items-center rounded-xl border text-muted-foreground transition-colors hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive disabled:opacity-50"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

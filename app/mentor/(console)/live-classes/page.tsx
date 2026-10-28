@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Loader2, Trash2, Video, Pencil, Youtube, X, Search, Filter } from "lucide-react";
+import { ExternalLink, Pencil, Plus, Trash2, Video, Youtube } from "lucide-react";
+import { SkRows } from "@/components/dashboard/skeleton"
+import { Modal, SearchBox, Tabs } from "@/components/dashboard/controls";
+import { EmptyState, Field, IconTile, Notice, PageHeader, Tag, btnGhost, btnPrimary, field } from "@/components/dashboard/ui";
 
 type LiveClass = {
   id: string;
@@ -99,7 +102,7 @@ export default function MentorLiveClassesPage() {
       await fetchClasses();
       setShowForm(false);
       setFormData({
-        course: mentorSubject || "python",
+        course: mentorSubjects[0] || "python",
         topic: "",
         meeting_link: "",
         time: "19:00",
@@ -161,364 +164,139 @@ export default function MentorLiveClassesPage() {
     return matchesSearch;
   });
 
+  const set = (patch: Partial<LiveClass>) => setFormData((prev) => ({ ...prev, ...patch }));
+  const missingCount = classes.filter((c) => !c.youtube_link).length;
+  const recordedCount = classes.length - missingCount;
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-emerald-50">Live Classes</h1>
-          <p className="text-emerald-100/60 text-sm mt-0.5">Manage student live classes (LMS)</p>
+      <PageHeader
+        title="Live classes"
+        description="Schedule classes and attach recordings for your students."
+        actions={
+          <button onClick={() => setShowForm(true)} className={btnPrimary}>
+            <Plus className="size-4" /> Add class
+          </button>
+        }
+      />
+
+      <div>
+        <Tabs
+          tabs={[
+            { id: "all", label: "All", count: classes.length },
+            { id: "missing", label: "Needs recording", count: missingCount },
+            { id: "recorded", label: "Recorded", count: recordedCount },
+          ]}
+          value={filterType}
+          onChange={setFilterType}
+        />
+        <div className="mt-5">
+          <SearchBox value={searchQuery} onChange={setSearchQuery} placeholder="Search by topic or course" className="max-w-sm" />
         </div>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-        >
-          {showForm ? "Cancel" : <><Plus className="w-4 h-4" /> Add Class</>}
-        </button>
       </div>
 
-      {showForm && (
-        <form onSubmit={handleSubmit} className="bg-[#15303b] border border-white/5 rounded-xl p-5 space-y-4">
-          <h2 className="text-lg font-semibold text-emerald-50">Create New Class</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-emerald-100/70 mb-1">Course Code</label>
-              {mentorSubjects.length > 1 ? (
-                <div className="relative">
-                  <select
-                    required
-                    className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500 appearance-none pr-10"
-                    value={formData.course}
-                    onChange={e => setFormData({ ...formData, course: e.target.value })}
-                  >
-                    {mentorSubjects.map(subject => (
-                      <option key={subject} value={subject}>{subject}</option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-emerald-100/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
+      {loading ? (
+        <SkRows rows={4} />
+      ) : error ? (
+        <Notice tone="error">{error}</Notice>
+      ) : filteredClasses.length === 0 ? (
+        <EmptyState icon={Video} title="No classes found" hint="No live classes match your filter or search." />
+      ) : (
+        <ul className="space-y-3">
+          {filteredClasses.map((cls) => {
+            const { date, time } = formatDateTime(cls.date, cls.time);
+            return (
+              <li key={cls.id} className="rounded-2xl border bg-card p-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                  <IconTile icon={cls.youtube_link ? Youtube : Video} tone={cls.youtube_link ? "amber" : "primary"} className="size-11 rounded-xl" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <Tag>{cls.course}</Tag>
+                      {cls.youtube_link ? <Tag tone="green">Recorded</Tag> : <Tag tone="amber">Needs recording</Tag>}
+                      <span className="font-medium text-muted-foreground">{date} · {time}</span>
+                    </div>
+                    <h3 className="mt-1.5 text-[15px] font-bold leading-snug">{cls.topic}</h3>
+                  </div>
+                  <div className="flex shrink-0 flex-wrap items-center gap-2">
+                    <a href={cls.meeting_link} target="_blank" rel="noreferrer" className={`${btnGhost} h-9 px-3 text-xs`}>
+                      Meeting <ExternalLink className="size-3.5" />
+                    </a>
+                    <button
+                      onClick={() => {
+                        setEditingClass(cls);
+                        setEditYoutubeLink(cls.youtube_link || "");
+                      }}
+                      className={`${btnGhost} h-9 px-3 text-xs`}
+                    >
+                      <Pencil className="size-3.5" /> {cls.youtube_link ? "Edit recording" : "Add recording"}
+                    </button>
+                    <button
+                      onClick={() => handleDelete(cls.id)}
+                      className="grid size-9 place-items-center rounded-xl border text-muted-foreground transition-colors hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive"
+                      title="Delete class"
+                      aria-label="Delete class"
+                    >
+                      <Trash2 className="size-4" />
+                    </button>
                   </div>
                 </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      <Modal open={showForm} onClose={() => setShowForm(false)} title="New live class" width="max-w-xl">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Course">
+              {mentorSubjects.length > 1 ? (
+                <select className={field} value={formData.course} onChange={(e) => set({ course: e.target.value })}>
+                  {mentorSubjects.map((subject) => (
+                    <option key={subject} value={subject}>{subject}</option>
+                  ))}
+                </select>
               ) : (
-                <input
-                  required
-                  type="text"
-                  disabled={mentorSubjects.length === 1}
-                  placeholder="e.g. qualifier-python, ct, stats-1"
-                  className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  value={formData.course}
-                  onChange={e => setFormData({ ...formData, course: e.target.value })}
-                />
+                <input required className={field} value={formData.course} disabled={mentorSubjects.length === 1} onChange={(e) => set({ course: e.target.value })} />
               )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-emerald-100/70 mb-1">Topic</label>
-              <input
-                required
-                type="text"
-                placeholder="e.g. Week 1: Basics"
-                className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500"
-                value={formData.topic}
-                onChange={e => setFormData({ ...formData, topic: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-emerald-100/70 mb-1">Meeting Link (GMeet/Zoom)</label>
-              <input
-                required
-                type="url"
-                placeholder="https://meet.google.com/..."
-                className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500"
-                value={formData.meeting_link}
-                onChange={e => setFormData({ ...formData, meeting_link: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-emerald-100/70 mb-1">Date</label>
-              <input
-                required
-                type="date"
-                className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500"
-                value={formData.date}
-                onChange={e => setFormData({ ...formData, date: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-emerald-100/70 mb-1">Time</label>
-              <input
-                required
-                type="time"
-                className="w-full bg-[#0f1f26] border border-white/10 rounded-lg px-3 py-2 text-emerald-50 focus:outline-none focus:border-emerald-500"
-                value={formData.time}
-                onChange={e => setFormData({ ...formData, time: e.target.value })}
-              />
-            </div>
+            </Field>
+            <Field label="Topic">
+              <input required placeholder="e.g. Week 1: Basics" className={field} value={formData.topic} onChange={(e) => set({ topic: e.target.value })} />
+            </Field>
           </div>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
-          >
-            {isSubmitting ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</> : "Save Class"}
-          </button>
+          <Field label="Meeting link (GMeet or Zoom)">
+            <input required type="url" placeholder="https://meet.google.com/..." className={field} value={formData.meeting_link} onChange={(e) => set({ meeting_link: e.target.value })} />
+          </Field>
+          <Field label="YouTube recording link (optional)">
+            <input type="url" placeholder="https://youtube.com/..." className={field} value={formData.youtube_link} onChange={(e) => set({ youtube_link: e.target.value })} />
+          </Field>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Date"><input required type="date" className={field} value={formData.date} onChange={(e) => set({ date: e.target.value })} /></Field>
+            <Field label="Time"><input required type="time" className={field} value={formData.time} onChange={(e) => set({ time: e.target.value })} /></Field>
+          </div>
+          <div className="flex justify-end gap-2 pt-1">
+            <button type="button" onClick={() => setShowForm(false)} className={btnGhost}>Cancel</button>
+            <button type="submit" disabled={isSubmitting} className={btnPrimary}>{isSubmitting ? "Saving…" : "Save class"}</button>
+          </div>
         </form>
-      )}
+      </Modal>
 
-      {loading ? (
-        <div className="flex justify-center py-10">
-          <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
-        </div>
-      ) : error ? (
-        <div className="bg-rose-500/10 border border-rose-500/20 text-rose-200 p-4 rounded-xl text-sm">
-          {error}
-        </div>
-      ) : classes.length === 0 ? (
-        <div className="bg-[#15303b] border border-white/5 rounded-xl p-10 text-center">
-          <Video className="w-10 h-10 text-emerald-100/30 mx-auto mb-3" />
-          <p className="text-emerald-100/70 font-medium">No live classes scheduled.</p>
-        </div>
-      ) : (
-        <>
-          {/* Search & Filter Controls */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#15303b]/60 border border-white/5 p-3 rounded-xl">
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
-              <button
-                onClick={() => setFilterType("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                  filterType === "all" ? "bg-emerald-500 text-[#061418] shadow" : "text-emerald-100/70 hover:bg-white/5"
-                }`}
-              >
-                All ({classes.length})
-              </button>
-              <button
-                onClick={() => setFilterType("missing")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  filterType === "missing" ? "bg-amber-400 text-[#061418] shadow" : "text-emerald-100/70 hover:bg-white/5"
-                }`}
-              >
-                <span>No Recording</span>
-                <span className="px-1.5 py-0.5 rounded bg-black/20 text-[10px] font-bold">
-                  {classes.filter((c) => !c.youtube_link).length}
-                </span>
-              </button>
-              <button
-                onClick={() => setFilterType("recorded")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                  filterType === "recorded" ? "bg-emerald-500 text-[#061418] shadow" : "text-emerald-100/70 hover:bg-white/5"
-                }`}
-              >
-                Recorded ({classes.filter((c) => !!c.youtube_link).length})
-              </button>
-            </div>
-            <div className="relative w-full sm:w-64">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-emerald-100/40" />
-              <input
-                type="text"
-                placeholder="Search class topics..."
-                className="w-full bg-[#0f1f26] border border-white/10 rounded-lg pl-8 pr-3 py-1.5 text-xs text-emerald-100 placeholder:text-emerald-100/40 focus:outline-none focus:border-emerald-400"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {filteredClasses.length === 0 ? (
-            <div className="bg-[#15303b] border border-white/5 rounded-xl p-8 text-center text-emerald-100/60 text-sm">
-              No live classes match your filter or search query.
-            </div>
-          ) : (
-            <>
-              {/* Mobile Cards Layout (< md screens) */}
-              <div className="grid grid-cols-1 gap-4 md:hidden">
-                {filteredClasses.map((cls) => {
-                  const { date, time } = formatDateTime(cls.date, cls.time);
-                  return (
-                    <div key={cls.id} className="bg-[#15303b] border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-md">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="bg-[#0f1f26] border border-white/10 rounded px-2.5 py-1 uppercase text-xs font-bold text-emerald-300">
-                          {cls.course}
-                        </span>
-                        <span className="text-xs font-medium text-emerald-100/80">
-                          {date} • <span className="text-emerald-300 font-bold">{time}</span>
-                        </span>
-                      </div>
-
-                      <div className="space-y-1">
-                        <h3 className="text-sm font-bold text-emerald-50 leading-snug">{cls.topic}</h3>
-                      </div>
-
-                      <div className="flex items-center gap-4 pt-0.5 text-xs">
-                        <a
-                          href={cls.meeting_link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-emerald-400 hover:underline font-semibold flex items-center gap-1"
-                        >
-                          <span>Meeting Link</span>
-                        </a>
-                        {cls.youtube_link && (
-                          <a
-                            href={cls.youtube_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-red-400 hover:underline font-semibold flex items-center gap-1"
-                          >
-                            <span>YouTube Recording</span>
-                          </a>
-                        )}
-                      </div>
-
-                      <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2.5">
-                        <button
-                          onClick={() => {
-                            setEditingClass(cls);
-                            setEditYoutubeLink(cls.youtube_link || "");
-                          }}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0f1f26] border border-white/10 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/20 hover:border-emerald-500/30 transition-colors flex-1 justify-center shadow-sm"
-                        >
-                          <Pencil className="w-3.5 h-3.5" />
-                          <span>{cls.youtube_link ? "Edit YouTube" : "+ Add YouTube"}</span>
-                        </button>
-                        <button
-                          onClick={() => handleDelete(cls.id)}
-                          className="text-rose-400 hover:text-rose-300 bg-[#0f1f26] hover:bg-rose-500/20 border border-white/10 p-2.5 rounded-xl transition-colors shrink-0 shadow-sm"
-                          title="Delete class"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Desktop Table Layout (>= md screens) */}
-              <div className="hidden md:block bg-[#15303b] border border-white/5 rounded-xl overflow-hidden shadow-sm">
-                <table className="w-full text-left text-sm text-emerald-100">
-                  <thead className="bg-[#1c3c48] text-xs uppercase text-emerald-100/60 font-semibold">
-                    <tr>
-                      <th className="px-6 py-4">Course</th>
-                      <th className="px-6 py-4">Topic</th>
-                      <th className="px-6 py-4">Date & Time</th>
-                      <th className="px-6 py-4">Links</th>
-                      <th className="px-6 py-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {filteredClasses.map((cls) => {
-                      const { date, time } = formatDateTime(cls.date, cls.time);
-                      return (
-                        <tr key={cls.id} className="hover:bg-white/5 transition-colors">
-                          <td className="px-6 py-4 font-medium">
-                            <span className="bg-[#0f1f26] border border-white/10 rounded px-2 py-1 uppercase text-xs font-semibold text-emerald-300">
-                              {cls.course}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 font-medium text-emerald-50">{cls.topic}</td>
-                          <td className="px-6 py-4 font-medium text-emerald-100/90">
-                            {date} <span className="text-emerald-300 font-semibold ml-1">({time})</span>
-                          </td>
-                          <td className="px-6 py-4 space-y-1">
-                            <a href={cls.meeting_link} target="_blank" rel="noopener noreferrer" className="block text-emerald-400 hover:underline">Meeting</a>
-                            {cls.youtube_link ? (
-                              <a href={cls.youtube_link} target="_blank" rel="noopener noreferrer" className="block text-red-400 hover:underline flex items-center gap-1">
-                                <span>YouTube</span>
-                              </a>
-                            ) : null}
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              <button
-                                onClick={() => {
-                                  setEditingClass(cls);
-                                  setEditYoutubeLink(cls.youtube_link || "");
-                                }}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0f1f26] border border-white/10 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/20 hover:border-emerald-500/30 transition-colors"
-                                title="Edit YouTube recording link"
-                              >
-                                <Pencil className="w-3.5 h-3.5" />
-                                <span>{cls.youtube_link ? "Edit YouTube" : "+ YouTube"}</span>
-                              </button>
-                              <button
-                                onClick={() => handleDelete(cls.id)}
-                                className="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition-colors p-2"
-                                title="Delete class"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </>
-          )}
-        </>
-      )}
-
-      {/* Edit YouTube Link Modal */}
-      {editingClass && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md bg-[#102329] border border-emerald-500/30 rounded-2xl p-6 shadow-2xl space-y-4 relative animate-in fade-in duration-150">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold text-emerald-100 flex items-center gap-2">
-                <Youtube className="w-5 h-5 text-red-500" />
-                <span>Edit YouTube Recording</span>
-              </h3>
-              <button
-                onClick={() => setEditingClass(null)}
-                className="text-emerald-100/60 hover:text-emerald-100 p-1 rounded-lg hover:bg-white/5 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <p className="text-xs text-emerald-100/70 leading-relaxed">
-              Set or update the video recording playback link for <span className="font-semibold text-emerald-300">&ldquo;{editingClass.topic}&rdquo;</span>. This will appear directly in student LMS dashboards.
+      <Modal open={!!editingClass} onClose={() => setEditingClass(null)} title="Class recording">
+        {editingClass && (
+          <form onSubmit={handleUpdateYoutubeLink} className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Set the playback link for <span className="font-semibold text-foreground">&ldquo;{editingClass.topic}&rdquo;</span>. It appears on student dashboards.
             </p>
-
-            <form onSubmit={handleUpdateYoutubeLink} className="space-y-4">
-              <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-emerald-100/70 mb-1.5">
-                  YouTube Video URL
-                </label>
-                <input
-                  type="url"
-                  placeholder="https://youtube.com/watch?v=... or https://youtu.be/..."
-                  className="w-full bg-[#0f1f26] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-emerald-50 focus:outline-none focus:border-emerald-400"
-                  value={editYoutubeLink}
-                  onChange={(e) => setEditYoutubeLink(e.target.value)}
-                  autoFocus
-                />
-                <p className="mt-1.5 text-[11px] text-emerald-100/50">
-                  Tip: Leave empty and click save if you wish to remove an existing recording link.
-                </p>
-              </div>
-
-              <div className="flex items-center justify-end gap-3 pt-2 border-t border-white/10">
-                <button
-                  type="button"
-                  onClick={() => setEditingClass(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-emerald-100/70 hover:bg-white/5 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isUpdating}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-[#061418] px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-50 flex items-center gap-1.5 shadow-lg"
-                >
-                  {isUpdating ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Saving...</> : "Save Recording Link"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+            <Field label="YouTube link" hint="Leave empty to remove the recording.">
+              <input type="url" placeholder="https://youtube.com/..." className={field} value={editYoutubeLink} onChange={(e) => setEditYoutubeLink(e.target.value)} />
+            </Field>
+            <div className="flex justify-end gap-2">
+              <button type="button" onClick={() => setEditingClass(null)} className={btnGhost}>Cancel</button>
+              <button type="submit" disabled={isUpdating} className={btnPrimary}>{isUpdating ? "Saving…" : "Save link"}</button>
+            </div>
+          </form>
+        )}
+      </Modal>
     </div>
   );
 }

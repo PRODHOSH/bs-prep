@@ -1,5 +1,5 @@
-import { PageSkeleton } from "@/components/admin/skeleton"
+import { DashboardOverviewSkeleton } from "@/components/dashboard/skeleton"
 
-export default function AdminConsoleLoading() {
-  return <PageSkeleton />
+export default function Loading() {
+  return <DashboardOverviewSkeleton />
 }

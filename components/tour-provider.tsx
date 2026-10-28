@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
 function waitForEl(id: string, cb: () => void, maxMs = 8000) {
@@ -37,6 +36,8 @@ export function TourProvider() {
       if (!user || pathname !== "/dashboard") return;
 
       tourStarted.current = true;
+      // driver.js is only needed for the first dashboard visit, so load it on demand rather than for every page.
+      const { driver } = await import("driver.js");
 
       waitForEl("tour-dashboard-welcome", () => {
         const driverObj = driver({

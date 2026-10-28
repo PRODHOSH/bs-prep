@@ -425,3 +425,129 @@
   border-top-color: #0a192f !important;
 }
 
+
+/* ─────────────────────────────────────────────────────────────
+   Dashboard design system ("lms"): student, mentor and admin only.
+   Tokens, font and card language follow the Quarry LMS template.
+   Everything is scoped to .lms so the marketing site is untouched.
+   ───────────────────────────────────────────────────────────── */
+.lms {
+  --background: #ffffff;
+  --foreground: #12141f;
+  --card: #ffffff;
+  --card-foreground: #12141f;
+  --popover: #ffffff;
+  --popover-foreground: #12141f;
+  --muted: #f3f4f8;
+  --muted-foreground: #6b7080;
+  --border: #e6e8ef;
+  --input: #e6e8ef;
+  --primary: #284057;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f8;
+  --secondary-foreground: #12141f;
+  --accent: #e8eef5;
+  --accent-foreground: #12141f;
+  --ring: #284057;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --chart-1: #284057;
+  --chart-2: #f5a623;
+  --chart-3: #ec4899;
+  --chart-4: #22b573;
+  --chart-5: #2bb8c9;
+  --radius: 0.75rem;
+
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  color: var(--foreground);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Legacy pages inside the dashboards were written in a loud, all-caps style.
+   Normalise type, corners and shadows so they read like the LMS cards. */
+.lms .font-black { font-weight: 800; }
+.lms .uppercase { text-transform: none; }
+.lms .italic { font-style: normal; }
+.lms .tracking-widest,
+.lms .tracking-wider,
+.lms .tracking-tighter { letter-spacing: 0; }
+.lms .tracking-tight { letter-spacing: -0.01em; }
+.lms .rounded-3xl { border-radius: 1rem; }
+.lms .shadow-xl,
+.lms .shadow-lg,
+.lms .shadow-2xl { box-shadow: 0 1px 2px rgb(18 20 31 / 0.04); }
+.lms button,
+.lms a,
+.lms [role="button"] { transition-duration: 0.15s; }
+.lms ::selection { background: #e8eef5; }
+
+/* Slim scrollbars inside dashboards (the default dark ones clash with the light theme). */
+.lms * { scrollbar-width: thin; scrollbar-color: #d4d8e2 transparent; }
+.lms *::-webkit-scrollbar { width: 8px; height: 8px; }
+.lms *::-webkit-scrollbar-track { background: transparent; }
+.lms *::-webkit-scrollbar-thumb { background: #d4d8e2; border-radius: 9999px; }
+.lms *::-webkit-scrollbar-thumb:hover { background: #b9bfce; }
+
+/* shadcn primitives used by the remaining tool pages pick up the same card and control shape. */
+.lms [data-slot="card"] { border-width: 1px; border-radius: 1rem; box-shadow: none; }
+.lms [data-slot="button"] { border-radius: 0.75rem; }
+.lms [data-slot="input"],
+.lms [data-slot="textarea"],
+.lms [data-slot="select-trigger"] { border-radius: 0.75rem; box-shadow: none; }
+.lms [data-slot="dialog-content"],
+.lms [data-slot="select-content"] { border-radius: 1rem; }
+
+/* ── Dashboard dark theme ────────────────────────────────────────────────────
+   Toggled from the dashboard top bar and stored in the dashboard-theme cookie.
+   The class lives on the dashboard shell and on <body> only while a dashboard is open. */
+.lms-dark {
+  color-scheme: dark;
+  --background: #060a10;
+  --foreground: #e8eef7;
+  --card: #0b121b;
+  --card-foreground: #e8eef7;
+  --popover: #0b121b;
+  --popover-foreground: #e8eef7;
+  --muted: #101926;
+  --muted-foreground: #8a99b0;
+  --border: #1a2433;
+  --input: #1a2433;
+  --primary: #7fa8e6;
+  --primary-foreground: #05080d;
+  --secondary: #101926;
+  --secondary-foreground: #e8eef7;
+  --accent: #16233a;
+  --accent-foreground: #e8eef7;
+  --ring: #7fa8e6;
+  --destructive: #f87171;
+  --chart-1: #7fa8e6;
+  --chart-2: #f5b24a;
+  --chart-3: #f472b6;
+  --chart-4: #34d399;
+  --chart-5: #38bdf8;
+}
+.lms-dark ::selection { background: #16233a; }
+.lms-dark * { scrollbar-color: #243247 transparent; }
+.lms-dark *::-webkit-scrollbar-thumb { background: #243247; }
+.lms-dark *::-webkit-scrollbar-thumb:hover { background: #2f4260; }
+
+/* Pages still using fixed light palette classes get dark equivalents. */
+.lms-dark .bg-white { background-color: var(--card); }
+.lms-dark .bg-primary { color: var(--primary-foreground); }
+.lms-dark :is(.bg-emerald-50, .bg-emerald-100, .bg-green-50, .bg-green-100) { background-color: rgb(52 211 153 / 0.12); }
+.lms-dark :is(.bg-red-50, .bg-red-100, .bg-rose-50, .bg-rose-100) { background-color: rgb(248 113 113 / 0.12); }
+.lms-dark :is(.bg-amber-50, .bg-amber-100, .bg-yellow-50, .bg-orange-50) { background-color: rgb(251 191 36 / 0.12); }
+.lms-dark :is(.bg-blue-50, .bg-blue-100, .bg-indigo-50, .bg-cyan-50, .bg-purple-50) { background-color: rgb(127 168 230 / 0.12); }
+.lms-dark :is(.bg-slate-50, .bg-slate-100, .bg-gray-50, .bg-gray-100, .bg-neutral-50) { background-color: var(--muted); }
+.lms-dark :is(.text-emerald-600, .text-emerald-700, .text-emerald-800, .text-green-600, .text-green-700) { color: #34d399; }
+.lms-dark :is(.text-red-600, .text-red-700, .text-rose-600, .text-rose-700) { color: #f87171; }
+.lms-dark :is(.text-amber-600, .text-amber-700, .text-amber-800, .text-yellow-700) { color: #fbbf24; }
+.lms-dark :is(.text-blue-600, .text-blue-700, .text-blue-800, .text-indigo-600, .text-indigo-700) { color: #7fa8e6; }
+.lms-dark :is(.text-slate-500, .text-slate-600, .text-gray-500, .text-gray-600, .text-neutral-500) { color: var(--muted-foreground); }
+.lms-dark :is(.text-slate-800, .text-slate-900, .text-gray-800, .text-gray-900) { color: var(--foreground); }
+.lms-dark :is(.border-emerald-100, .border-emerald-200, .border-green-200) { border-color: rgb(52 211 153 / 0.25); }
+.lms-dark :is(.border-red-100, .border-red-200, .border-rose-200) { border-color: rgb(248 113 113 / 0.25); }
+.lms-dark :is(.border-amber-100, .border-amber-200) { border-color: rgb(251 191 36 / 0.25); }
+.lms-dark :is(.border-blue-100, .border-blue-200, .border-slate-200, .border-gray-200, .border-gray-100) { border-color: var(--border); }
+.lms-dark :is(.shadow-sm, .shadow, .shadow-md) { box-shadow: none; }

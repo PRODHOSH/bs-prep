@@ -2,17 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import dynamic from "next/dynamic";
-import { Loader2, ArrowLeft, Video, ShieldAlert, SearchX } from "lucide-react";
+import { ArrowLeft, SearchX, ShieldAlert } from "lucide-react";
 import Link from "next/link";
-
-const LiveClassCard = dynamic(
-  () => import("@/components/live-class-card").then(mod => ({ default: mod.LiveClassCard })),
-  {
-    ssr: false,
-    loading: () => <div className="h-64 animate-pulse rounded-3xl bg-gray-100" />
-  }
-);
+import { LiveClassTile } from "@/components/dashboard/live-class-tile";
+import { EmptyState, Notice, PageHeader } from "@/components/dashboard/ui";
 
 interface LiveClass {
   id: string;
@@ -58,58 +51,31 @@ export default function SharedLiveClassPage() {
   }, [params.id]);
 
   return (
-    <div className="space-y-6 max-w-2xl mx-auto">
-      <Link
-        href="/dashboard/live-classes"
-        className="inline-flex items-center gap-2 text-black/50 hover:text-black transition-colors text-xs font-black uppercase tracking-widest"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        All Live Classes
+    <div className="mx-auto max-w-2xl space-y-6">
+      <Link href="/dashboard/live-classes" className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground">
+        <ArrowLeft className="size-4" /> All live classes
       </Link>
 
-      <div className="bg-[#0a192f] rounded-3xl px-8 py-10 flex items-center gap-6 shadow-xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-white/10 to-transparent opacity-50 pointer-events-none"></div>
-        <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center shrink-0 border-2 border-white/20 relative z-10">
-          <Video className="w-8 h-8 text-white" />
-        </div>
-        <div className="relative z-10">
-          <h1 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight leading-none mb-2">Shared Class</h1>
-          <p className="text-white/70 text-xs font-bold uppercase tracking-widest">
-            Someone shared this live class with you.
-          </p>
-        </div>
-      </div>
+      <PageHeader title="Shared class" description="Someone shared this live class with you." />
 
-      {status === "loading" && (
-        <div className="flex items-center justify-center py-24">
-          <Loader2 className="h-10 w-10 animate-spin text-black" />
-        </div>
-      )}
+      {status === "loading" && <div className="h-48 animate-pulse rounded-2xl bg-muted" />}
 
       {status === "forbidden" && (
-        <div className="bg-amber-50 border-2 border-amber-200 rounded-3xl p-10 text-center flex flex-col items-center justify-center">
-          <ShieldAlert className="w-10 h-10 text-amber-500 mb-4" />
-          <p className="text-amber-800 font-black uppercase tracking-widest">You don't have access to this class</p>
-          <p className="text-amber-700/80 text-sm mt-2">It requires enrollment in that course. Check with your mentor if you think this is a mistake.</p>
-        </div>
+        <EmptyState
+          icon={ShieldAlert}
+          title="You don't have access to this class"
+          hint="It requires enrollment in that course. Check with your mentor if you think this is a mistake."
+        />
       )}
 
       {status === "not-found" && (
-        <div className="bg-black/5 border-2 border-black/10 rounded-3xl p-10 text-center flex flex-col items-center justify-center">
-          <SearchX className="w-10 h-10 text-black/30 mb-4" />
-          <p className="text-black/60 font-black uppercase tracking-widest">This class link is no longer valid</p>
-          <p className="text-black/40 text-sm mt-2">It may have been deleted by the mentor or admin.</p>
-        </div>
+        <EmptyState icon={SearchX} title="This class link is no longer valid" hint="It may have been deleted by the mentor or admin." />
       )}
 
-      {status === "error" && (
-        <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-red-700 text-sm font-bold uppercase tracking-widest text-center">
-          Unable to load this class. Please try again later.
-        </div>
-      )}
+      {status === "error" && <Notice tone="error">Unable to load this class. Please try again later.</Notice>}
 
       {status === "ok" && liveClass && (
-        <LiveClassCard
+        <LiveClassTile
           course={liveClass.course}
           topic={liveClass.topic}
           meetingLink={liveClass.meetingLink}

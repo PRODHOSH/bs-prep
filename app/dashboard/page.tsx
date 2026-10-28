@@ -1,12 +1,12 @@
 "use client"
 
 import { createClient } from "@/lib/supabase/client"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { HomeSkeleton } from "@/components/dashboard/skeleton"
 import { useEffect, useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { BookOpen, Trophy, Users, TrendingUp, Calendar, Clock, Video, Award, Star, ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, BookOpen, Calendar, Clock, FileText, MessageCircleQuestion, Users, Video } from "lucide-react"
+import { Avatar, Card, CardLink, EmptyState, IconTile, btnPrimary } from "@/components/dashboard/ui"
 
 import { Course, courses as staticCourses } from "@/lib/course-catalog"
 
@@ -84,7 +84,7 @@ export default function StudentDashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser()
+        const { data: { user } } = await getUserCached()
         if (user) {
           setUserName(user.user_metadata?.full_name || user.email?.split("@")[0] || "Student")
           setUserEmail(user.email || "")
@@ -128,26 +128,7 @@ export default function StudentDashboard() {
     fetchUserData()
   }, [])
 
-  const getCourseTypeStyles = (courseType: string) => {
-    switch (courseType) {
-      case "skill-path":
-        return { bg: "bg-gradient-to-r from-cyan-50 to-cyan-100", text: "text-cyan-900", label: "Skill path", border: "border-l-4 border-cyan-500" }
-      case "course":
-        return { bg: "bg-gradient-to-r from-emerald-50 to-emerald-100", text: "text-emerald-900", label: "Course", border: "border-l-4 border-emerald-500" }
-      case "career-path":
-        return { bg: "bg-gradient-to-r from-slate-800 to-slate-900", text: "text-white", label: "Career path", border: "border-l-4 border-amber-500" }
-      case "free-course":
-        return { bg: "bg-gradient-to-r from-lime-100 to-lime-200", text: "text-lime-950", label: "Free course", border: "border-l-4 border-lime-600" }
-      default:
-        return { bg: "bg-gradient-to-r from-slate-50 to-slate-100", text: "text-black", label: "Course", border: "border-l-4 border-slate-400" }
-    }
-  }
-
-  if (loading) {
-    return <div className="flex-1 flex items-center justify-center min-h-[50vh]">
-      <div className="w-8 h-8 border-2 border-slate-200 dark:border-slate-800 border-t-slate-900 dark:border-t-white rounded-full animate-spin"></div>
-    </div>
-  }
+  if (loading) return <HomeSkeleton />
 
   const hasNoEnrollments = enrolledCourses.length === 0
   const dashboardLiveClasses = hasNoEnrollments
@@ -156,212 +137,186 @@ export default function StudentDashboard() {
         return code === "python" || code === "doubts"
       })
     : liveClasses
+  const nextClass = dashboardLiveClasses[0]
+  const firstName = userName.split(" ")[0]
+
+  const quickLinks = [
+    { label: "Courses", href: "/dashboard/courses", icon: BookOpen, tone: "primary" as const },
+    { label: "Live classes", href: "/dashboard/live-classes", icon: Video, tone: "pink" as const },
+    { label: "Ask a doubt", href: "/dashboard/doubts/new", icon: MessageCircleQuestion, tone: "amber" as const },
+    { label: "Resources", href: "/dashboard/resources", icon: FileText, tone: "green" as const },
+  ]
 
   return (
-    <div id="tour-dashboard-full" className="space-y-8 max-w-6xl mx-auto">
-      {/* Welcome Section */}
-      <div id="tour-dashboard-welcome" className="bg-[#0a192f] rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-start justify-between gap-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 to-transparent opacity-50"></div>
-        
-        <div className="flex flex-col md:flex-row items-start gap-6 relative z-10">
-          {/* Avatar */}
-          <div className="relative shrink-0">
-            {userAvatar ? (
-              <img
-                src={userAvatar}
-                alt={userName}
-                className="h-20 w-20 rounded-full border-4 border-white/20 object-cover"
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white/20 bg-white/10 text-3xl font-black text-white">
-                {(userName[0] || "S").toUpperCase()}
-              </div>
-            )}
-            {enrolledCourses.length > 0 && (
-              <span
-                title="Enrolled student"
-                className="absolute -bottom-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#0a192f] bg-white shadow-xl"
-              >
-                <Star className="h-4 w-4 fill-amber-400 text-amber-500" />
-              </span>
-            )}
-          </div>
+    <div id="tour-dashboard-full" className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <div id="tour-dashboard-welcome" className="min-w-0">
+        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Welcome back, {firstName}</h1>
+        <p className="mt-1.5 text-sm text-muted-foreground">Continue your IITM BS learning journey.</p>
 
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight leading-none">
-                WELCOME, {userName}
-              </h1>
-            </div>
-            <p className="text-white/70 font-bold uppercase tracking-widest text-xs max-w-md leading-relaxed">
-              CONTINUE YOUR LEARNING JOURNEY WITH IITM BS COURSES
-            </p>
-          </div>
-        </div>
+        <ul className="mt-7 flex flex-wrap gap-x-7 gap-y-3">
+          {quickLinks.map((q) => (
+            <li key={q.href}>
+              <Link href={q.href} className="group inline-flex items-center gap-2.5 text-sm font-bold">
+                <IconTile icon={q.icon} tone={q.tone} className="size-8 rounded-lg" />
+                {q.label}
+                <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform?usp=sharing&ouid=109000575421815991569"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative z-10 shrink-0 px-8 h-14 flex items-center justify-center bg-white text-[#0a192f] font-black uppercase tracking-widest text-xs rounded-full hover:bg-gray-100 transition-all shadow-[0_4px_14px_0_rgba(255,255,255,0.25)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.23)] hover:-translate-y-1 gap-2"
-        >
-          JOIN US ON WHATSAPP
-          <ArrowUpRight className="w-4 h-4" />
-        </a>
-      </div>
-
-      {/* Upcoming Live Classes */}
-      <div id="tour-dashboard-live">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-black text-black uppercase tracking-tight flex items-center gap-2">
-            <Video className="w-6 h-6" />
-            UPCOMING LIVE CLASSES
-          </h2>
-          <Link 
-            href="/dashboard/live-classes"
-            className="text-xs font-black uppercase tracking-widest text-black/50 hover:text-black underline underline-offset-4 transition-colors"
-          >
-            VIEW ALL
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dashboardLiveClasses.length === 0 ? (
-            <div className="col-span-full bg-black/5 border border-black/10 rounded-3xl p-12 text-center flex flex-col items-center">
-              <Video className="w-12 h-12 text-black/20 mb-4" />
-              <p className="text-black/60 font-bold uppercase tracking-widest text-sm">
-                NO LIVE CLASSES SCHEDULED.
-              </p>
-            </div>
-          ) : (
-            dashboardLiveClasses.slice(0, 3).map((liveClass, index) => (
-            <div key={index} className="bg-white border border-black/10 hover:border-black hover:shadow-xl transition-all duration-300 rounded-3xl overflow-hidden flex flex-col group group/card">
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center justify-between mb-6">
-                  <span className="bg-red-50 text-red-600 border border-red-200 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
-                    LIVE
-                  </span>
-                  <Calendar className="w-4 h-4 text-black/30" />
-                </div>
-                
-                <p className="text-[10px] font-black uppercase tracking-widest text-black/40 mb-2">{getCourseDisplayName(liveClass.course)}</p>
-                <h3 className="font-black text-black uppercase tracking-tight text-xl leading-[1.2] mb-6 flex-1">
-                  {liveClass.topic}
-                </h3>
-                
-                <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-black/60 pt-6 border-t border-black/5">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-black/40" />
-                    <span>{new Date(liveClass.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-black/40" />
-                    <span>{formatTime12hr(liveClass.time)}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="p-4 bg-black/5 group-hover/card:bg-black transition-colors">
-                <button
-                  onClick={() => window.open(liveClass.meetingLink, "_blank")}
-                  className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-black group-hover/card:text-white py-3 transition-colors"
+        <div className="mt-7 grid gap-5 md:grid-cols-2">
+          <Card title="Next live class" aside={nextClass ? new Date(nextClass.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : undefined}>
+            {nextClass ? (
+              <>
+                <p className="text-xs font-semibold text-muted-foreground">{getCourseDisplayName(nextClass.course)}</p>
+                <p className="mt-1.5 line-clamp-2 text-base font-bold">{nextClass.topic}</p>
+                <p className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                  <Clock className="size-3.5" /> {formatTime12hr(nextClass.time)}
+                </p>
+                <a
+                  href={nextClass.meetingLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 flex items-center justify-between border-t pt-3 text-sm font-semibold hover:text-primary"
                 >
-                  <Video className="w-4 h-4" />
-                  JOIN MEETING
-                </button>
-              </div>
-            </div>
-          )))}
+                  <span className="flex items-center gap-2"><Video className="size-4" /> Join meeting</span>
+                  <ArrowUpRight className="size-4" />
+                </a>
+              </>
+            ) : (
+              <p className="py-3 text-sm text-muted-foreground">No live classes scheduled.</p>
+            )}
+          </Card>
+
+          <Card title="My learning" aside="Enrolled">
+            <p className="text-2xl font-extrabold">
+              {enrolledCourses.length}
+              <span className="ml-1.5 text-sm font-medium text-muted-foreground">{enrolledCourses.length === 1 ? "course" : "courses"}</span>
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {enrolledCourses.length ? "Pick up where you left off." : "Enrollments are currently closed."}
+            </p>
+            <CardLink href="/dashboard/courses">
+              <span className="flex items-center gap-2"><BookOpen className="size-4" /> Browse courses</span>
+            </CardLink>
+          </Card>
         </div>
+
+        <section id="tour-dashboard-live" className="mt-8">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-base font-bold">Upcoming live classes</h2>
+            <Link href="/dashboard/live-classes" className="text-sm font-bold text-primary">View all</Link>
+          </div>
+          {dashboardLiveClasses.length === 0 ? (
+            <EmptyState icon={Video} title="No live classes scheduled" hint="New sessions show up here as soon as they are added." />
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+              {dashboardLiveClasses.slice(0, 3).map((liveClass, index) => (
+                <article key={index} className="flex flex-col rounded-2xl border bg-card p-5">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 rounded-md bg-destructive/10 px-2 py-0.5 text-[11px] font-semibold text-destructive">
+                      <span className="size-1.5 animate-pulse rounded-full bg-destructive" /> Live
+                    </span>
+                    <Calendar className="size-4 text-muted-foreground" />
+                  </div>
+                  <p className="mt-4 text-xs font-semibold text-muted-foreground">{getCourseDisplayName(liveClass.course)}</p>
+                  <h3 className="mt-1 flex-1 text-[15px] font-bold leading-snug">{liveClass.topic}</h3>
+                  <p className="mt-4 flex items-center gap-4 text-xs font-medium text-muted-foreground">
+                    <span className="flex items-center gap-1.5"><Calendar className="size-3.5" />{new Date(liveClass.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="size-3.5" />{formatTime12hr(liveClass.time)}</span>
+                  </p>
+                  <button
+                    onClick={() => window.open(liveClass.meetingLink, "_blank")}
+                    className="mt-4 flex h-9 items-center justify-center gap-2 rounded-xl border text-sm font-semibold transition-colors hover:bg-muted"
+                  >
+                    <Video className="size-4" /> Join meeting
+                  </button>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {enrolledCourses.length === 0 ? (
+          <div id="tour-explore-courses" className="mt-8">
+            <EmptyState
+              icon={BookOpen}
+              title="Start your IITM BS journey"
+              hint="You haven't enrolled in any courses yet. Browse the Tamil-medium qualifier courses."
+              action={<Link href="/dashboard/courses" className={btnPrimary}>Explore courses <ArrowUpRight className="size-4" /></Link>}
+            />
+          </div>
+        ) : (
+          <section className="mt-8">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-base font-bold">My courses</h2>
+              <Link href="/dashboard/courses" className="text-sm font-bold text-primary">Explore more</Link>
+            </div>
+            <ul className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+              {enrolledCourses.slice(0, 6).map((course) => (
+                <li key={course.id} className="group relative overflow-hidden rounded-2xl border bg-card p-2.5 transition-shadow hover:shadow-lg">
+                  <div className="relative h-28 overflow-hidden rounded-xl bg-muted">
+                    {course.thumbnail ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={course.thumbnail} alt="" className="size-full object-cover" />
+                    ) : (
+                      <div className="grid size-full place-items-center"><BookOpen className="size-8 text-muted-foreground" /></div>
+                    )}
+                  </div>
+                  <div className="px-1.5 pb-1 pt-3">
+                    <h3 className="line-clamp-2 text-[15px] font-bold leading-snug">{course.title}</h3>
+                    <ul className="mt-3 flex flex-wrap gap-1.5">
+                      <li className="rounded-md bg-muted px-2 py-0.5 text-[11px] font-semibold capitalize text-muted-foreground">{course.level}</li>
+                      <li className="rounded-md bg-chart-4/10 px-2 py-0.5 text-[11px] font-semibold text-chart-4">Enrolled</li>
+                    </ul>
+                  </div>
+                  <Link href={`/dashboard/courses/${course.id}`} aria-label={course.title} className="absolute inset-0 rounded-2xl" />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
 
-      {enrolledCourses.length === 0 ? (
-        /* Not enrolled — show explore prompt */
-        <div id="tour-explore-courses" className="flex flex-col items-center justify-center py-24 px-6 bg-white border border-black/10 rounded-3xl text-center shadow-sm">
-          <div className="w-20 h-20 bg-black/5 rounded-full flex items-center justify-center mb-8">
-            <BookOpen className="w-10 h-10 text-black/40" />
+      <aside className="space-y-5">
+        <section className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6">
+          <div className="flex items-center gap-3">
+            <Avatar name={userName || "Student"} src={userAvatar} size={44} />
+            <div className="min-w-0">
+              <p className="truncate text-sm font-bold">{userName}</p>
+              <p className="truncate text-xs text-muted-foreground">{userEmail}</p>
+            </div>
           </div>
-          <h2 className="text-3xl font-black text-black uppercase tracking-tight mb-4">START YOUR IITM BS JOURNEY</h2>
-          <p className="text-black/50 font-bold uppercase tracking-widest text-sm max-w-lg mb-10 leading-relaxed">
-            You haven&apos;t enrolled in any courses yet. Explore our tamil-medium qualifier courses and get started today.
-          </p>
-          <Link href="/dashboard/courses">
-            <button className="bg-black text-white hover:bg-black/90 shadow-md px-10 h-14 rounded-full font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-transform hover:-translate-y-1">
-              EXPLORE COURSES
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-          </Link>
-        </div>
-      ) : (
-        /* My Courses */
-        <div>
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-black text-black uppercase tracking-tight flex items-center gap-2">
-              <BookOpen className="w-6 h-6" />
-              MY COURSES
-            </h2>
-            <Link 
-              href="/dashboard/courses"
-              className="text-xs font-black uppercase tracking-widest text-black/50 hover:text-black underline underline-offset-4 transition-colors"
-            >
-              EXPLORE MORE
-            </Link>
-          </div>
+          <h2 className="mt-5 text-xl font-extrabold tracking-tight">Join the community</h2>
+          <p className="mt-1.5 text-sm text-muted-foreground">Get class reminders and study help in our WhatsApp group.</p>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform?usp=sharing&ouid=109000575421815991569"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${btnPrimary} mt-5 w-full`}
+          >
+            <Users className="size-4" /> Join on WhatsApp
+          </a>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {enrolledCourses.slice(0, 6).map((course) => {
-              return (
-                <Link key={course.id} href={`/dashboard/courses/${course.id}`} className="group block h-full">
-                  <div className="relative bg-white border border-black/10 hover:border-black transition-all duration-300 hover:shadow-xl rounded-3xl overflow-hidden h-full flex flex-col">
-                    
-                    <div className="relative aspect-[16/9] bg-black/5 overflow-hidden">
-                      {course.thumbnail ? (
-                        <img 
-                          src={course.thumbnail} 
-                          alt={course.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <BookOpen className="w-10 h-10 text-black/20" />
-                        </div>
-                      )}
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <span className="bg-white text-black font-black uppercase tracking-widest text-[10px] px-3 py-1 rounded-full shadow-sm">
-                          IITM BS
-                        </span>
-                        <span className="bg-[#0a192f] text-white font-black uppercase tracking-widest text-[10px] px-3 py-1 rounded-full shadow-sm">
-                          {course.level}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className="text-xl font-black text-black uppercase tracking-tight leading-[1.2] mb-3 line-clamp-2">
-                        {course.title}
-                      </h3>
-                      <p className="text-xs font-bold uppercase tracking-widest text-black/50 mb-6 line-clamp-2 leading-relaxed flex-1">
-                        {course.description}
-                      </p>
-                      
-                      <div className="pt-5 border-t border-black/5 flex items-center justify-between mt-auto">
-                        <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-black/60">
-                          <Award className="w-4 h-4" />
-                          IN PROGRESS
-                        </div>
-                        <ArrowUpRight className="w-5 h-5 text-black/30 group-hover:text-black transition-colors" />
-                      </div>
-                    </div>
-                  </div>
+        <Card title="Shortcuts">
+          <ul className="divide-y">
+            {[
+              { label: "GPA calculator", href: "/dashboard/tools/gpa-calculator" },
+              { label: "Quiz prep", href: "/dashboard/quiz-prep" },
+              { label: "Study calendar", href: "/dashboard/calendar" },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="flex items-center justify-between py-3 text-sm font-semibold first:pt-1 last:pb-1 hover:text-primary">
+                  {l.label}
+                  <ArrowUpRight className="size-4 text-muted-foreground" />
                 </Link>
-              )
-            })}
-          </div>
-        </div>
-      )}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </aside>
     </div>
   )
-
 }

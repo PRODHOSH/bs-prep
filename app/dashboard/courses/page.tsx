@@ -1,21 +1,98 @@
-'use client'
+"use client"
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Search, Package, BookOpen, Clock, Lock, ArrowUpRight, CheckCircle2 } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
-import { courses, ENROLLMENTS_CLOSED } from '@/lib/course-catalog'
-import { ClosedPill } from '@/components/enrollments-closed'
+import { useEffect, useMemo, useState } from "react"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { SkCards } from "@/components/dashboard/skeleton"
+import Link from "next/link"
+import { ArrowUpRight, BookOpen, Clock, LayoutGrid, List, Lock, Package } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
+import { courses, ENROLLMENTS_CLOSED, type Course } from "@/lib/course-catalog"
+import { Segmented, SearchBox, Tabs } from "@/components/dashboard/controls"
+import { EmptyState, IconTile, PageHeader, Tag } from "@/components/dashboard/ui"
+import { cn } from "@/lib/utils"
 
-const levelLabels: Record<string, string> = {
-  all: "ALL LEVELS",
-  qualifier: "QUALIFIER",
-  foundation: "FOUNDATION",
-  diploma: "DIPLOMA",
-  degree: "DEGREE",
+const LEVELS = [
+  { id: "all", label: "All levels" },
+  { id: "qualifier", label: "Qualifier" },
+  { id: "foundation", label: "Foundation" },
+  { id: "diploma", label: "Diploma" },
+  { id: "degree", label: "Degree" },
+] as const
+
+const HIDDEN_IDS = new Set(["qualifier-bundle", "coding-bundle"])
+
+function CourseCard({ course, enrolled, list }: { course: Course; enrolled: boolean; list: boolean }) {
+  const comingSoon = course.available === false
+  const status = enrolled ? (
+    <Tag tone="green">Enrolled</Tag>
+  ) : comingSoon ? (
+    <Tag tone="amber">
+      <Clock className="size-3" /> Coming soon
+    </Tag>
+  ) : ENROLLMENTS_CLOSED ? (
+    <Tag tone="red">
+      <Lock className="size-3" /> Closed
+    </Tag>
+  ) : course.price ? (
+    <span className="text-sm font-extrabold">₹{course.price}</span>
+  ) : (
+    <Tag tone="green">Free</Tag>
+  )
+
+  return (
+    <li
+      className={cn(
+        "group relative overflow-hidden rounded-2xl border bg-card p-2.5 transition-shadow hover:shadow-lg",
+        list && "flex items-center gap-4",
+        comingSoon && "opacity-70",
+      )}
+    >
+      <div className={cn("relative overflow-hidden rounded-xl bg-muted", list ? "h-20 w-44 shrink-0" : "h-32")}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={course.thumbnail} alt="" className="size-full object-cover" />
+      </div>
+      <div className={cn("min-w-0 px-1.5 pb-1 pt-3", list && "flex flex-1 items-center gap-6 py-1")}>
+        <div className="min-w-0 flex-1">
+          <h3 className="line-clamp-2 text-[15px] font-bold leading-snug">{course.title}</h3>
+          <ul className="mt-3 flex flex-wrap gap-1.5">
+            <li><Tag className="capitalize">{course.level}</Tag></li>
+            <li><Tag>{course.weeks} weeks</Tag></li>
+            {course.withCertificate && <li><Tag tone="primary">Certificate</Tag></li>}
+          </ul>
+        </div>
+        <div className={cn("flex items-center justify-between gap-3", list ? "w-40 shrink-0 justify-end" : "mt-4")}>
+          {status}
+          {!comingSoon && <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />}
+        </div>
+      </div>
+      {!comingSoon && <Link href={`/dashboard/courses/${course.id}`} aria-label={course.title} className="absolute inset-0 rounded-2xl" />}
+    </li>
+  )
+}
+
+function BundleCard({ href, eyebrow, title, blurb, price, was, className }: { href: string; eyebrow: string; title: string; blurb: string; price: number; was: number; className?: string }) {
+  return (
+    <Link href={href} className={cn("group relative flex flex-col justify-between overflow-hidden rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6 transition-shadow hover:shadow-lg", className)}>
+      <Package className="pointer-events-none absolute -right-4 -top-4 size-28 text-chart-1/10" />
+      <div className="relative">
+        <Tag tone="primary">{eyebrow}</Tag>
+        <h3 className="mt-3 text-xl font-extrabold tracking-tight">{title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{blurb}</p>
+      </div>
+      <div className="relative mt-6 flex items-end justify-between">
+        {ENROLLMENTS_CLOSED ? (
+          <Tag tone="red"><Lock className="size-3" /> Closed</Tag>
+        ) : (
+          <p className="text-2xl font-extrabold">
+            ₹{price} <span className="text-sm font-medium text-muted-foreground line-through">₹{was}</span>
+          </p>
+        )}
+        <span className="inline-flex items-center gap-1 text-sm font-bold text-primary">
+          View bundle <ArrowUpRight className="size-4" />
+        </span>
+      </div>
+    </Link>
+  )
 }
 
 export default function DashboardCoursesPage() {
@@ -24,259 +101,118 @@ export default function DashboardCoursesPage() {
   const [selectedLevel, setSelectedLevel] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
   const [activeTab, setActiveTab] = useState<"explore" | "my">("my")
+  const [view, setView] = useState<"grid" | "list">("grid")
   const supabase = createClient()
 
   useEffect(() => {
-    fetchEnrollments()
+    const load = async () => {
+      try {
+        const {
+          data: { user },
+        } = await getUserCached()
+        if (user) {
+          const { data, error } = await supabase.from("enrollments").select("course_id").eq("user_id", user.id)
+          if (!error && data) setEnrolledCourseIds(data.map((e) => e.course_id))
+        }
+      } catch (error) {
+        console.error("Error fetching enrollments:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    load()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const fetchEnrollments = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user) {
-        const { data: enrollments, error: enrollError } = await supabase
-          .from('enrollments')
-          .select('course_id')
-          .eq('user_id', user.id)
+  const filtered = useMemo(
+    () =>
+      courses
+        .filter((c) => {
+          const levelMatch = selectedLevel === "all" || c.level === selectedLevel
+          const searchMatch = !searchQuery || c.title.toLowerCase().includes(searchQuery.toLowerCase())
+          const tabMatch = activeTab === "explore" || enrolledCourseIds.includes(c.id)
+          return levelMatch && searchMatch && tabMatch && !HIDDEN_IDS.has(c.id)
+        })
+        .sort((a, b) => Number(b.available !== false) - Number(a.available !== false)),
+    [selectedLevel, searchQuery, activeTab, enrolledCourseIds],
+  )
 
-        if (!enrollError && enrollments) {
-          setEnrolledCourseIds(enrollments.map(e => e.course_id))
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching enrollments:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const filteredCourses = courses.filter(course => {
-    const levelMatch = selectedLevel === "all" || course.level === selectedLevel.toLowerCase()
-    const searchMatch = searchQuery === "" || 
-      course.title.toLowerCase().includes(searchQuery.toLowerCase())
-    const tabMatch = activeTab === "explore" || enrolledCourseIds.includes(course.id)
-    return levelMatch && searchMatch && tabMatch && course.id !== "qualifier-bundle" && course.id !== "coding-bundle"
-  }).sort((a, b) => {
-    const aAvail = a.available !== false;
-    const bAvail = b.available !== false;
-    if (aAvail && !bAvail) return -1;
-    if (!aAvail && bAvail) return 1;
-    return 0;
-  })
+  const myCount = courses.filter((c) => enrolledCourseIds.includes(c.id) && !HIDDEN_IDS.has(c.id)).length
+  const showBundles = activeTab === "explore" && (selectedLevel === "all" || selectedLevel === "qualifier") && !searchQuery
 
   return (
-    <div id="tour-courses-page" className="bg-transparent">
-      {/* Page header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-        <div>
-          <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight leading-[1.1] mb-4 uppercase">
-            COURSES <span className="text-[#0a192f]">WE OFFER</span>
-          </h1>
-          <p className="text-black/60 font-bold text-base max-w-2xl">
-            Master the IITM BS curriculum with structured video courses, expert mentorship, and comprehensive study materials in Tamil.
-          </p>
-        </div>
-      </div>
+    <div id="tour-courses-page" className="space-y-6">
+      <PageHeader
+        title="Courses"
+        description="Structured Tamil-medium video courses for the IITM BS curriculum."
+        actions={<IconTile icon={BookOpen} className="hidden sm:grid" />}
+      />
 
-      {/* Tabs */}
-      <div className="flex gap-4 mb-8 border-b border-black/10 pb-4">
-        <button
-          onClick={() => setActiveTab("explore")}
-          className={`text-sm font-black uppercase tracking-widest transition-colors ${activeTab === "explore" ? "text-black border-b-2 border-black pb-4 -mb-[17px]" : "text-black/40 hover:text-black/70"}`}
-        >
-          EXPLORE COURSES
-        </button>
-        <button
-          onClick={() => setActiveTab("my")}
-          className={`text-sm font-black uppercase tracking-widest transition-colors ${activeTab === "my" ? "text-black border-b-2 border-black pb-4 -mb-[17px]" : "text-black/40 hover:text-black/70"}`}
-        >
-          MY COURSES
-        </button>
-      </div>
+      <div>
+        <Tabs
+          tabs={[
+            { id: "my", label: "My courses", count: myCount },
+            { id: "explore", label: "Explore" },
+          ]}
+          value={activeTab}
+          onChange={setActiveTab}
+        />
 
-      {/* Search + Level filter */}
-      <div className="mb-12 flex flex-col md:flex-row gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/50" />
-          <Input
-            type="text"
-            placeholder="SEARCH IITM BS COURSES..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 h-14 bg-white border border-black/10 rounded-2xl text-black font-black uppercase placeholder:text-black/30 text-sm shadow-sm focus:ring-2 focus:ring-[#0a192f]/20 focus:border-[#0a192f] transition-all"
-            suppressHydrationWarning
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <Segmented options={LEVELS.map((l) => ({ id: l.id, label: l.label }))} value={selectedLevel} onChange={setSelectedLevel} className="max-w-full overflow-x-auto" />
+          <SearchBox value={searchQuery} onChange={setSearchQuery} placeholder="Search courses" className="ml-auto w-full sm:w-64" />
+          <Segmented
+            options={[
+              { id: "grid", label: <LayoutGrid className="size-4" />, title: "Grid" },
+              { id: "list", label: <List className="size-4" />, title: "List" },
+            ]}
+            value={view}
+            onChange={setView}
+            className="[&_button]:px-2"
           />
         </div>
-
-        <div className="flex flex-wrap gap-2 w-full md:w-auto">
-          {Object.entries(levelLabels).map(([val, label]) => (
-            <button
-              key={val}
-              onClick={() => setSelectedLevel(val)}
-              className={`px-5 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all hover:-translate-y-1 shadow-sm ring-1 ${
-                selectedLevel === val
-                  ? "bg-black text-white ring-transparent shadow-md"
-                  : "bg-white text-black/70 hover:bg-black/5 ring-black/5"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
       </div>
 
-      {/* Package deals */}
-            {activeTab === "explore" && (selectedLevel === "all" || selectedLevel === "qualifier") && searchQuery === "" && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <Link
-                  href="/dashboard/courses/qualifier-bundle" className="block col-span-1 md:col-span-2 relative bg-[#0a192f] text-white p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-all duration-500 pointer-events-none">
-                    <Package className="w-40 h-40" />
-                  </div>
-                  
-                  <div className="relative z-10 h-full flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-xs font-black uppercase tracking-widest text-white/80">QUALIFIER BUNDLE</span>
-                        <span className="inline-flex bg-white/20 text-white text-[10px] font-black px-2 py-0.5 rounded-full tracking-wider">
-                          BEST VALUE
-                        </span>
-                      </div>
-                      <h3 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.1] mb-4 uppercase">ALL 4 QUALIFIER COURSES</h3>
-                      <p className="text-sm font-bold uppercase text-white/80">MATH, STATISTICS, COMPUTATIONAL THINKING, AND ENGLISH</p>
-                    </div>
+      {showBundles && (
+        <div className="grid gap-5 md:grid-cols-3">
+          <BundleCard
+            href="/dashboard/courses/qualifier-bundle"
+            eyebrow="Best value"
+            title="All 4 qualifier courses"
+            blurb="Maths, statistics, computational thinking and English."
+            price={1799}
+            was={1999}
+            className="md:col-span-2"
+          />
+          <BundleCard href="/dashboard/courses/coding-bundle" eyebrow="Coding bundle" title="Python + Java" blurb="Learn both languages together." price={899} was={1199} />
+        </div>
+      )}
 
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mt-12">
-                      <div>
-                        <p className="text-sm font-bold text-white/60 line-through mb-1">₹1999</p>
-                        <div className="flex items-end gap-3">
-                          <p className="text-4xl md:text-6xl font-black tracking-tight leading-none text-white">₹1799</p>
-                          <span className="text-xs font-black text-[#0a192f] bg-white rounded-full px-3 py-1 uppercase tracking-wider mb-2">SAVE ₹200</span>
-                        </div>
-                      </div>
-                      <span className="inline-flex items-center justify-center h-12 bg-white text-[#0a192f] text-sm font-black uppercase px-6 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-2">
-                        VIEW BUNDLE
-                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/dashboard/courses/coding-bundle" className="block col-span-1 relative bg-white ring-1 ring-black/5 p-8 md:p-10 rounded-3xl cursor-pointer group hover:-translate-y-2 transition-all duration-300 shadow-xl"
-                >
-                  <div className="relative z-10 h-full flex flex-col justify-between">
-                    <div>
-                      <span className="text-xs font-black uppercase tracking-widest text-black/40 block mb-3">CODING BUNDLE</span>
-                      <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight leading-[1.1] mb-4 text-[#0a192f]">PYTHON + JAVA</h3>
-                      <p className="text-sm font-bold uppercase text-black/60">MASTER BOTH PROGRAMMING LANGUAGES</p>
-                    </div>
-
-                    <div className="mt-12">
-                      <p className="text-sm font-bold text-black/40 line-through mb-1">₹1199</p>
-                      <div className="flex items-end justify-between">
-                        <p className="text-3xl md:text-4xl font-black tracking-tight leading-none text-[#0a192f]">₹899</p>
-                        <span className="inline-flex items-center justify-center h-10 bg-[#0a192f] text-white text-xs font-black uppercase px-5 rounded-full shadow-md group-hover:-translate-y-1 transition-all gap-1.5">
-                          VIEW BUNDLE
-                          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            )}
-
-            {/* Courses Grid */}
       <div>
-        <h2 className="text-2xl font-black text-black tracking-tight uppercase mb-8">
-          {activeTab === "explore" ? "ALL COURSES" : "YOUR COURSES"}
+        <h2 className="mb-3 text-sm font-bold">
+          {activeTab === "explore" ? "All courses" : "Your courses"} <span className="ml-1 font-medium text-muted-foreground">{filtered.length}</span>
         </h2>
-        
-        {filteredCourses.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-black/10">
-            <p className="text-black/60 font-bold uppercase tracking-widest">No courses found.</p>
-          </div>
+        {loading ? (
+          <SkCards count={6} />
+        ) : filtered.length === 0 ? (
+          <EmptyState
+            icon={BookOpen}
+            title={activeTab === "my" ? "You're not enrolled in any course yet" : "No courses match"}
+            hint={activeTab === "my" ? "Browse the catalogue to see what's available." : "Try a different level or search term."}
+            action={
+              activeTab === "my" ? (
+                <button onClick={() => setActiveTab("explore")} className="inline-flex h-10 items-center rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-90">
+                  Explore courses
+                </button>
+              ) : undefined
+            }
+          />
         ) : (
-          <div id="tour-courses-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCourses.map(course => {
-              const isEnrolled = enrolledCourseIds.includes(course.id)
-              
-              return (
-                
-                <div key={course.id} className="h-full">
-                  <Link
-                    href={`/dashboard/courses/${course.id}`}
-                    className="relative bg-white hover:-translate-y-2 transition-all duration-300 h-full flex flex-col shadow-lg hover:shadow-xl rounded-3xl overflow-hidden ring-1 ring-black/5 group group/card"
-                  >
-                    <div className="relative aspect-[16/9] bg-black/5 overflow-hidden">
-                      <img 
-                        src={course.thumbnail} 
-                        alt={course.title}
-                        className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        {course.courseType && (
-                          <span className="bg-white text-black font-black uppercase tracking-widest text-[10px] px-3 py-1 rounded-full shadow-sm">
-                            {course.courseType}
-                          </span>
-                        )}
-                        <span className="bg-[#0a192f] text-white font-black uppercase tracking-widest text-[10px] px-3 py-1 rounded-full shadow-sm">
-                          {levelLabels[course.level] || course.level}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 flex flex-col flex-1">
-                      <span className="text-[10px] font-black text-[#0a192f] uppercase tracking-widest mb-2 bg-[#0a192f]/10 inline-block w-fit px-2 py-0.5 rounded-full">IITM BS</span>
-
-                      <h3 className="text-xl font-black uppercase text-black mb-4 leading-[1.2]">
-                        {course.title}
-                      </h3>
-                      <p className="text-xs font-bold uppercase text-black/60 mb-6 leading-relaxed flex-1">{course.description}</p>
-
-                      <div className="flex items-center justify-between pt-5 border-t border-black/5 mt-auto">
-                        <div className="flex items-center gap-2 text-xs font-black text-black/60 uppercase">
-                          <BookOpen className="w-4 h-4" />
-                          <span>{course.weeks} WEEKS</span>
-                        </div>
-                        
-                        {isEnrolled ? (
-                          <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest border border-emerald-500/20">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                            ENROLLED
-                          </div>
-                        ) : ENROLLMENTS_CLOSED ? (
-                          <ClosedPill />
-                        ) : course.price ? (
-                          <div className="flex items-center gap-2">
-                            {course.originalPrice && (
-                              <span className="text-xs font-bold text-black/40 line-through">₹{course.originalPrice}</span>
-                            )}
-                            <span className="text-xl font-black text-[#0a192f]">₹{course.price}</span>
-                          </div>
-                        ) : (
-                          <span className="text-sm font-black text-[#0a192f] bg-[#0a192f]/10 rounded-full px-3 py-1 uppercase tracking-wider">FREE</span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Coming Soon overlay */}
-                    {course.available === false && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-sm z-10">
-                        <div className="flex items-center gap-2 bg-[#0a192f] text-white rounded-full text-xs font-black px-4 py-2 uppercase shadow-lg">
-                          <Lock className="w-4 h-4" />
-                          COMING SOON
-                        </div>
-                      </div>
-                    )}
-                  </Link>
-                </div>
-              )
-            })}
-          </div>
+          <ul className={cn("grid gap-5", view === "list" ? "grid-cols-1" : "sm:grid-cols-2 xl:grid-cols-3")}>
+            {filtered.map((c) => (
+              <CourseCard key={c.id} course={c} enrolled={enrolledCourseIds.includes(c.id)} list={view === "list"} />
+            ))}
+          </ul>
         )}
       </div>
     </div>

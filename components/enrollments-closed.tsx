@@ -27,20 +27,20 @@ export function ClosedButton({ className = "" }: { className?: string }) {
   )
 }
 
-/** Full-page replacement for the checkout screens. */
+/** Full-page replacement for the checkout screens (dashboard styling). */
 export function EnrollmentsClosedPage() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center p-12 text-center">
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-red-50 ring-1 ring-red-200">
-        <Lock className="h-7 w-7 text-red-600" />
-      </div>
-      <h1 className="mb-3 text-2xl font-black uppercase tracking-tight text-black">Enrollments are closed</h1>
-      <p className="mb-8 max-w-md text-sm font-bold uppercase leading-relaxed tracking-widest text-black/50">
-        We are not accepting new enrollments or payments right now. Existing students keep full access.
+    <div className="mx-auto flex max-w-lg flex-col items-center rounded-2xl border border-dashed bg-card px-6 py-16 text-center">
+      <span className="grid size-12 place-items-center rounded-2xl bg-destructive/10 text-destructive">
+        <Lock className="size-5" />
+      </span>
+      <h1 className="mt-4 text-xl font-extrabold tracking-tight">Enrollments are closed</h1>
+      <p className="mt-1.5 max-w-sm text-sm text-muted-foreground">
+        We aren&apos;t accepting new enrollments or payments right now. Existing students keep full access.
       </p>
       <Link
         href="/dashboard/courses"
-        className="rounded-full bg-black px-8 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:bg-black/80"
+        className="mt-6 inline-flex h-10 items-center rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground hover:opacity-90"
       >
         Back to courses
       </Link>

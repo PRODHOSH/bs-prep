@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { RowsSkeleton } from "@/components/admin/skeleton"
-import { CalendarDays, Mail, Search, ShieldCheck, UserRound, Trash2, Edit3, BookOpen, X, Star } from "lucide-react"
+import { SkRows } from "@/components/dashboard/skeleton"
+import { BookOpen, CalendarDays, Edit3, Mail, ShieldCheck, Star, Trash2, UserRound } from "lucide-react"
+import { Modal, Segmented, SearchBox, Tabs } from "@/components/dashboard/controls"
+import { Avatar, EmptyState, Field, Notice, PageHeader, TableCard, Tag, btnDanger, btnGhost, btnPrimary, field, td, th } from "@/components/dashboard/ui"
 
 type DirectoryUser = {
   id: string
@@ -266,391 +268,166 @@ export default function AdminUsersDirectoryPage() {
     setUserEnrollments([])
   }
 
-  function renderRows(sectionUsers: DirectoryUser[]) {
-    if (sectionUsers.length === 0) {
-      return <div className="px-6 py-8 text-sm text-slate-400">No users found.</div>
-    }
-
-    return (
-      <div className="divide-y divide-white/5">
-        {sectionUsers.map((user) => {
-          const fullName = user.full_name || `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim() || "Unnamed User"
-          const normalizedRole = (user.role || "student").toLowerCase()
-          const isAdmin = normalizedRole === "admin"
-          const isMentor = normalizedRole === "mentor"
-          const roleLabel = isAdmin ? "Admin" : isMentor ? "Mentor" : "Student"
-          const isPro   = enrolledUserIds.has(user.id)
-          const initials = fullName
-            .split(" ")
-            .filter(Boolean)
-            .slice(0, 2)
-            .map((part) => part[0]?.toUpperCase() || "")
-            .join("") || "U"
-
-          return (
-            <article key={user.id} className="grid grid-cols-1 items-center gap-4 px-6 py-4 md:grid-cols-[2.2fr_1fr_1fr_150px]">
-              <div className="min-w-0">
-                <div className="flex items-center gap-3">
-                  {/* Avatar with Pro badge */}
-                  <div className="relative shrink-0">
-                    {user.avatar_url ? (
-                      <img
-                        src={user.avatar_url}
-                        alt={fullName}
-                        className="h-10 w-10 rounded-full border border-white/15 object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#1a1f29] text-xs font-semibold text-slate-300">
-                        {initials || <UserRound className="h-4 w-4" />}
-                      </div>
-                    )}
-                    {isPro && (
-                      <span
-                        title="Enrolled in a course"
-                        className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-[#070c15] bg-linear-to-br from-amber-400 to-orange-500 shadow"
-                      >
-                        <Star className="h-2.5 w-2.5 fill-white text-white" />
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <p className="truncate text-base font-semibold text-slate-100">{fullName}</p>
-                      <span
-                        className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                          isAdmin
-                            ? "bg-emerald-500/20 text-emerald-300"
-                            : isMentor
-                              ? "bg-indigo-500/20 text-indigo-300"
-                              : "bg-slate-700/70 text-slate-300"
-                        }`}
-                      >
-                        {roleLabel}
-                      </span>
-                      {isPro && (
-                        <span className="shrink-0 rounded-full bg-linear-to-r from-amber-400 to-orange-500 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow">
-                          Pro
-                        </span>
-                      )}
-                    </div>
-                    <p className="flex items-center gap-1 truncate text-xs text-slate-400">
-                      <Mail className="h-3 w-3" />
-                      {user.email}
-                    </p>
-                    {user.phone ? <p className="mt-1 text-xs text-slate-500">Phone: {user.phone}</p> : null}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <span
-                  className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider ${
-                    isAdmin
-                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
-                      : isMentor
-                        ? "border-indigo-500/40 bg-indigo-500/10 text-indigo-300"
-                        : "border-white/15 bg-white/5 text-slate-300"
-                  }`}
-                >
-                  {isAdmin ? <ShieldCheck className="h-3.5 w-3.5" /> : null}
-                  {roleLabel}
-                </span>
-              </div>
-
-              <div>
-                <p className="flex items-center gap-1 text-sm text-slate-400">
-                  <CalendarDays className="h-4 w-4" />
-                  {new Date(user.created_at).toLocaleDateString()}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-end gap-2">
-                <button
-                  onClick={() => openCoursesModal(user)}
-                  className="rounded-md border border-blue-500/40 bg-blue-500/10 px-2.5 py-1.5 text-xs font-semibold text-blue-300 hover:bg-blue-500/20"
-                  title="View enrolled courses"
-                >
-                  <BookOpen className="h-3.5 w-3.5" />
-                </button>
-
-                <button
-                  onClick={() => startEditProfile(user)}
-                  className="rounded-md border border-white/20 px-2.5 py-1.5 text-xs font-semibold text-slate-200 hover:bg-white/5"
-                  title="Edit user"
-                >
-                  <Edit3 className="h-3.5 w-3.5" />
-                </button>
-
-                <button
-                  onClick={() => initiateUserDeletion(user)}
-                  className="rounded-md border border-rose-500/40 bg-rose-500/10 px-2.5 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20"
-                  title="Delete user"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </article>
-          )
-        })}
-      </div>
+  const roleTag = (role: string | null) => {
+    const r = (role || "student").toLowerCase()
+    return r === "admin" ? (
+      <Tag tone="primary"><ShieldCheck className="size-3" /> Admin</Tag>
+    ) : r === "mentor" ? (
+      <Tag tone="pink">Mentor</Tag>
+    ) : (
+      <Tag>Student</Tag>
     )
   }
 
+  const iconBtn = "grid size-8 place-items-center rounded-lg border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+
   return (
     <div className="space-y-6">
-      <header className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">Directory</h1>
-          <p className="mt-1 text-sm text-slate-400">Search, edit, and delete users cleanly.</p>
-        </div>
+      <PageHeader title="Users" description="Search, edit and manage everyone on BSPrep." />
 
-        <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
-          <select 
-            value={roleFilter} 
-            onChange={(e) => setRoleFilter(e.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-200 outline-none"
-          >
-            <option value="all">All Roles</option>
-            <option value="admin">Admin</option>
-            <option value="mentor">Mentor</option>
-            <option value="student">Student</option>
-          </select>
-          
-          <select 
-            value={proFilter} 
-            onChange={(e) => setProFilter(e.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-200 outline-none"
-          >
-            <option value="all">All Status</option>
-            <option value="pro">Pro (Paid)</option>
-            <option value="non-pro">Non-Pro (Free)</option>
-          </select>
-
-          <label className="flex h-11 w-full sm:w-64 items-center gap-2 rounded-xl border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-400">
-            <Search className="h-4 w-4" />
-            <input
-              value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
-              placeholder="Search by name or email..."
-              className="h-full w-full bg-transparent text-slate-200 outline-none placeholder:text-slate-500"
-              suppressHydrationWarning
-            />
-          </label>
-        </div>
-      </header>
-
-      <div className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-[#070c15] px-4 py-3">
-          <p className="text-xs uppercase tracking-wider text-slate-500">Admins</p>
-          <p className="mt-1 text-2xl font-semibold text-slate-100">{admins.length}</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-[#070c15] px-4 py-3">
-          <p className="text-xs uppercase tracking-wider text-slate-500">Mentors</p>
-          <p className="mt-1 text-2xl font-semibold text-slate-100">{mentors.length}</p>
-        </div>
-        <div className="rounded-xl border border-white/10 bg-[#070c15] px-4 py-3">
-          <p className="text-xs uppercase tracking-wider text-slate-500">Students</p>
-          <p className="mt-1 text-2xl font-semibold text-slate-100">{students.length}</p>
+      <div>
+        <Tabs
+          tabs={[
+            { id: "all", label: "All", count: filteredUsers.length },
+            { id: "student", label: "Students", count: students.length },
+            { id: "mentor", label: "Mentors", count: mentors.length },
+            { id: "admin", label: "Admins", count: admins.length },
+          ]}
+          value={roleFilter as "all" | "student" | "mentor" | "admin"}
+          onChange={setRoleFilter}
+        />
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <Segmented
+            options={[
+              { id: "all", label: "Everyone" },
+              { id: "pro", label: "Enrolled" },
+              { id: "non-pro", label: "Not enrolled" },
+            ]}
+            value={proFilter as "all" | "pro" | "non-pro"}
+            onChange={setProFilter}
+          />
+          <SearchBox value={searchValue} onChange={setSearchValue} placeholder="Search by name or email" className="ml-auto w-full sm:w-72" />
         </div>
       </div>
 
-      {statusMessage ? <p className="text-sm text-slate-300">{statusMessage}</p> : null}
+      {statusMessage && <Notice tone="success">{statusMessage}</Notice>}
 
-      <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#070c15]">
-        <div className="grid grid-cols-[2.2fr_1fr_1fr_auto] border-b border-white/10 px-6 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          <p>Identity</p>
-          <p>Access Level</p>
-          <p>Joined On</p>
-          <p>Actions</p>
+      {isLoading ? (
+        <SkRows rows={6} />
+      ) : filteredUsers.length === 0 ? (
+        <EmptyState icon={UserRound} title="No users found" hint="Try a different filter or search term." />
+      ) : (
+        <TableCard footer={<span className="text-muted-foreground">{filteredUsers.length} users</span>}>
+          <thead className="bg-muted/50">
+            <tr>
+              <th className={th}>User</th>
+              <th className={th}>Role</th>
+              <th className={th}>Joined</th>
+              <th className={`${th} text-right`}>Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {filteredUsers.map((user) => {
+              const fullName = user.full_name || `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim() || "Unnamed user"
+              const isPro = enrolledUserIds.has(user.id)
+              return (
+                <tr key={user.id} className="transition-colors hover:bg-muted/40">
+                  <td className={td}>
+                    <span className="flex items-center gap-3">
+                      <Avatar name={fullName} src={user.avatar_url} size={38} />
+                      <span className="min-w-0">
+                        <span className="flex items-center gap-2">
+                          <span className="truncate font-bold">{fullName}</span>
+                          {isPro && <Tag tone="amber"><Star className="size-3 fill-current" /> Enrolled</Tag>}
+                        </span>
+                        <span className="flex items-center gap-1 truncate text-xs text-muted-foreground"><Mail className="size-3" />{user.email}</span>
+                        {user.phone && <span className="block text-xs text-muted-foreground">{user.phone}</span>}
+                      </span>
+                    </span>
+                  </td>
+                  <td className={td}>{roleTag(user.role)}</td>
+                  <td className={`${td} text-muted-foreground`}>
+                    <span className="flex items-center gap-1.5"><CalendarDays className="size-3.5" />{new Date(user.created_at).toLocaleDateString()}</span>
+                  </td>
+                  <td className={td}>
+                    <span className="flex items-center justify-end gap-2">
+                      <button onClick={() => openCoursesModal(user)} className={iconBtn} title="Enrolled courses" aria-label="Enrolled courses"><BookOpen className="size-4" /></button>
+                      <button onClick={() => startEditProfile(user)} className={iconBtn} title="Edit user" aria-label="Edit user"><Edit3 className="size-4" /></button>
+                      <button onClick={() => initiateUserDeletion(user)} className={`${iconBtn} hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive`} title="Delete user" aria-label="Delete user"><Trash2 className="size-4" /></button>
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </TableCard>
+      )}
+
+      <Modal open={!!editingUserId} onClose={cancelEditProfile} title="Edit user">
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="First name"><input value={editFirstName} onChange={(e) => setEditFirstName(e.target.value)} placeholder="First name" className={field} /></Field>
+            <Field label="Last name"><input value={editLastName} onChange={(e) => setEditLastName(e.target.value)} placeholder="Last name" className={field} /></Field>
+          </div>
+          <Field label="Phone"><input type="tel" value={editPhone} onChange={(e) => setEditPhone(e.target.value)} placeholder="Phone number" className={field} /></Field>
+          <Field label="Role">
+            <select value={editRole} onChange={(e) => setEditRole(e.target.value)} className={field}>
+              <option value="student">Student</option>
+              <option value="mentor">Mentor</option>
+              <option value="admin">Admin</option>
+            </select>
+          </Field>
+          {editRole === "mentor" && (
+            <Field label="Mentor subject codes" hint="Comma separated, e.g. math-1, stats-2, python, ct">
+              <input value={editMentorSubject} onChange={(e) => setEditMentorSubject(e.target.value)} placeholder="math-1, stats-2" className={field} />
+            </Field>
+          )}
+          {editStatus && <Notice tone="error">{editStatus}</Notice>}
+          <div className="flex justify-end gap-2 pt-1">
+            <button onClick={cancelEditProfile} disabled={isEditProcessing} className={btnGhost}>Cancel</button>
+            <button onClick={saveProfileChanges} disabled={isEditProcessing} className={btnPrimary}>{isEditProcessing ? "Saving…" : "Save changes"}</button>
+          </div>
         </div>
+      </Modal>
 
-        {isLoading ? (
-          <div className="p-4"><RowsSkeleton rows={6} /></div>
-        ) : (
-          renderRows(filteredUsers)
-        )}
-      </section>
+      <Modal open={!!deletingUserId} onClose={closeDeleteModal} title="Delete user">
+        <p className="text-sm text-muted-foreground">
+          This permanently deletes <span className="font-semibold text-foreground">{deletingUserEmail}</span> and all related data. It can&apos;t be undone.
+        </p>
+        {deletionStatus && <Notice tone="error" className="mt-3 whitespace-pre-wrap">{deletionStatus}</Notice>}
+        <div className="mt-5 flex justify-end gap-2">
+          <button onClick={closeDeleteModal} disabled={isDeleteProcessing} className={btnGhost}>Cancel</button>
+          <button onClick={deleteUserNow} disabled={isDeleteProcessing} className={btnDanger}>{isDeleteProcessing ? "Deleting…" : "Delete permanently"}</button>
+        </div>
+      </Modal>
 
-
-
-      {editingUserId && (
-        <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#070c15] p-6 shadow-xl">
-            <h2 className="text-lg font-semibold text-slate-100">Edit User</h2>
-            <p className="mt-1 text-xs text-slate-400">Only name and phone are editable.</p>
-
-            <div className="mt-4 space-y-3">
-              <div>
-                <label className="block text-xs font-semibold uppercase text-slate-400">First Name</label>
-                <input
-                  type="text"
-                  value={editFirstName}
-                  onChange={(e) => setEditFirstName(e.target.value)}
-                  placeholder="First name"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase text-slate-400">Last Name</label>
-                <input
-                  type="text"
-                  value={editLastName}
-                  onChange={(e) => setEditLastName(e.target.value)}
-                  placeholder="Last name"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase text-slate-400">Phone</label>
-                <input
-                  type="tel"
-                  value={editPhone}
-                  onChange={(e) => setEditPhone(e.target.value)}
-                  placeholder="Phone number"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold uppercase text-slate-400">Access Level</label>
-                <select
-                  value={editRole}
-                  onChange={(e) => setEditRole(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-                >
-                  <option value="student">Student</option>
-                  <option value="mentor">Mentor</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-
-              {editRole === "mentor" && (
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-slate-400">Mentor Subject Code</label>
-                  <input
-                    type="text"
-                    value={editMentorSubject}
-                    onChange={(e) => setEditMentorSubject(e.target.value)}
-                    placeholder="e.g. math-1, stats-2, python, ct"
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-                  />
-                </div>
-              )}
-            </div>
-
-            {editStatus ? <p className="mt-3 text-xs text-rose-300">{editStatus}</p> : null}
-
-            <div className="mt-6 flex gap-2">
-              <button
-                onClick={saveProfileChanges}
-                disabled={isEditProcessing}
-                className="flex-1 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-200 hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isEditProcessing ? "Saving..." : "Save"}
-              </button>
-              <button
-                onClick={cancelEditProfile}
-                disabled={isEditProcessing}
-                className="flex-1 rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {deletingUserId && (
-        <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#070c15] p-6 shadow-xl">
-            <h2 className="text-lg font-semibold text-slate-100">Delete User</h2>
-            <p className="mt-1 text-sm text-slate-400">Target: {deletingUserEmail}</p>
-            <p className="mt-2 text-xs text-rose-300">This action permanently deletes the user account and related data.</p>
-
-            {deletionStatus ? (
-              <p className="mt-3 whitespace-pre-wrap rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-xs text-slate-300">
-                {deletionStatus}
-              </p>
-            ) : null}
-
-            <div className="mt-6 flex gap-2">
-              <button
-                onClick={deleteUserNow}
-                disabled={isDeleteProcessing}
-                className="flex-1 rounded-lg border border-rose-500/50 bg-rose-500/20 px-4 py-2 text-sm font-semibold text-rose-200 hover:bg-rose-500/30 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isDeleteProcessing ? "Deleting..." : "Delete Permanently"}
-              </button>
-
-              <button
-                onClick={closeDeleteModal}
-                disabled={isDeleteProcessing}
-                className="flex-1 rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {coursesUser && (
-        <section className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#070c15] p-6 shadow-xl">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-semibold text-slate-100">Enrolled Courses</h2>
-                <p className="mt-1 text-sm text-slate-400">{coursesUser.full_name || coursesUser.email}</p>
-              </div>
-              <button
-                type="button"
-                onClick={closeCoursesModal}
-                className="rounded-md border border-white/15 p-2 text-slate-300 hover:bg-white/5"
-                title="Close"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            <div className="mt-4 max-h-80 space-y-2 overflow-y-auto pr-1">
+      <Modal open={!!coursesUser} onClose={closeCoursesModal} title="Enrolled courses" width="max-w-lg">
+        {coursesUser && (
+          <>
+            <p className="-mt-2 mb-4 text-sm text-muted-foreground">{coursesUser.full_name || coursesUser.email}</p>
+            <div className="max-h-80 space-y-2 overflow-y-auto">
               {coursesLoading ? (
-                <p className="text-sm text-slate-400">Loading enrolled courses...</p>
+                <SkRows rows={2} />
               ) : coursesError ? (
-                <p className="text-sm text-rose-300">{coursesError}</p>
+                <Notice tone="error">{coursesError}</Notice>
               ) : userEnrollments.length === 0 ? (
-                <p className="text-sm text-slate-400">This user has not enrolled in any courses yet.</p>
+                <p className="py-4 text-center text-sm text-muted-foreground">This user hasn&apos;t enrolled in any course yet.</p>
               ) : (
                 userEnrollments.map((item) => (
-                  <article key={`${coursesUser.id}-${item.course_id}-${item.enrolled_at}`} className="rounded-xl border border-white/10 bg-[#0b1220] px-4 py-3">
-                    <p className="text-sm font-semibold text-slate-100">{item.title}</p>
-                    <p className="mt-1 text-xs text-slate-400">Course ID: {item.course_id}</p>
-                    <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
-                      <span>
-                        Enrolled: {item.enrolled_at && !Number.isNaN(new Date(item.enrolled_at).getTime()) ? new Date(item.enrolled_at).toLocaleDateString() : "-"}
-                      </span>
-                      <span className="uppercase tracking-wider">{item.payment_status || "completed"}</span>
+                  <article key={`${coursesUser.id}-${item.course_id}-${item.enrolled_at}`} className="rounded-xl border bg-muted/40 px-4 py-3">
+                    <p className="text-sm font-bold">{item.title}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{item.course_id}</p>
+                    <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                      <span>Enrolled {item.enrolled_at && !Number.isNaN(new Date(item.enrolled_at).getTime()) ? new Date(item.enrolled_at).toLocaleDateString() : "-"}</span>
+                      <Tag tone="green" className="capitalize">{item.payment_status || "completed"}</Tag>
                     </div>
                   </article>
                 ))
               )}
             </div>
-
-            <div className="mt-5 flex justify-end">
-              <button
-                type="button"
-                onClick={closeCoursesModal}
-                className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-slate-200 hover:bg-white/5"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
+          </>
+        )}
+      </Modal>
     </div>
   )
 }

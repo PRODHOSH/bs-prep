@@ -200,13 +200,13 @@ export default function MentorCoursesPage() {
 
                 {catalogMatch?.driveFolderId && (
                   <div className="bg-emerald-50 border border-emerald-100 rounded-lg p-4 mt-4">
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-2">Upload Slides</h4>
-                    <p className="text-xs text-emerald-800 mb-3 leading-relaxed">Upload class slides to this folder so students can access them instantly on their dashboard. Files <strong className="font-black underline">MUST</strong> be named in <strong className="font-black">DD-MM-YYYY.pdf</strong> format (e.g. 19-02-2026.pdf) to perfectly sync with the correct class date.</p>
+                    <h4 className="text-[11px] font-bold text-emerald-600 mb-2">Upload Slides</h4>
+                    <p className="text-xs text-emerald-800 mb-3 leading-relaxed">Upload class slides to this folder so students can access them instantly on their dashboard. Files <strong className="font-bold underline">Must</strong> be named in <strong className="font-bold">DD-MM-YYYY.pdf</strong> format (e.g. 19-02-2026.pdf) to perfectly sync with the correct class date.</p>
                     <a 
                       href={`https://drive.google.com/drive/folders/${catalogMatch.driveFolderId}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-[10px] font-black uppercase tracking-widest bg-emerald-600 text-white px-4 py-2 rounded shadow-sm hover:bg-emerald-700 transition-colors inline-block"
+                      className="text-[11px] font-bold bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 transition-colors inline-block"
                     >
                       Open Google Drive
                     </a>

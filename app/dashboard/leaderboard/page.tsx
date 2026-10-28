@@ -1,8 +1,9 @@
 "use client"
 
 import { createClient } from "@/lib/supabase/client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { SkRows } from "@/components/dashboard/skeleton"
+import { Avatar, Card, PageHeader, Tag } from "@/components/dashboard/ui"
 import { useEffect, useState } from "react"
 
 interface LeaderboardEntry {
@@ -24,7 +25,7 @@ export default function LeaderboardPage() {
       try {
         const {
           data: { user },
-        } = await supabase.auth.getUser()
+        } = await getUserCached()
 
         const { data } = await supabase
           .from("leaderboard")
@@ -68,67 +69,47 @@ export default function LeaderboardPage() {
   }, [])
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Leaderboard</h1>
-        <p className="text-muted-foreground">See how you rank against other students</p>
-      </div>
+    <div className="space-y-6">
+      <PageHeader title="Leaderboard" description="See how you rank against other students." />
 
-      {/* User Rank */}
       {userRank && (
-        <Card className="border-primary/50 bg-primary/5">
-          <CardHeader>
-            <CardTitle className="text-sm">Your Rank</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-lg font-bold">Rank #{userRank.rank}</div>
-                <div className="text-2xl font-bold text-primary">{userRank.total_score} points</div>
-              </div>
-              <div className="text-right">
-                <Badge>{userRank.courses_completed} courses completed</Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6">
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground">Your rank</p>
+            <p className="mt-1 text-3xl font-extrabold tracking-tight">#{userRank.rank}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-2xl font-extrabold text-primary">{userRank.total_score} <span className="text-sm font-medium text-muted-foreground">points</span></p>
+            <Tag className="mt-1">{userRank.courses_completed} courses completed</Tag>
+          </div>
+        </div>
       )}
 
-      {/* Top Students */}
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Top Students</h2>
+      <Card title="Top students" aside="Top 10">
         {isLoading ? (
-          <div className="text-center py-8 text-muted-foreground">Loading leaderboard...</div>
+          <SkRows rows={4} />
         ) : leaderboard.length === 0 ? (
-          <Card>
-            <CardContent className="pt-8 text-center text-muted-foreground">No leaderboard data available</CardContent>
-          </Card>
+          <p className="py-6 text-center text-sm text-muted-foreground">No leaderboard data available.</p>
         ) : (
-          <div className="space-y-2">
+          <ol className="divide-y">
             {leaderboard.slice(0, 10).map((entry, index) => (
-              <Card key={entry.id} className={index < 3 ? "border-primary/50" : ""}>
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold">
-                        {entry.rank}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold">{entry.student_name}</h3>
-                        <p className="text-sm text-muted-foreground">{entry.courses_completed} courses completed</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-primary">{entry.total_score}</div>
-                      <p className="text-xs text-muted-foreground">points</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <li key={entry.id} className="flex items-center gap-3 py-3 first:pt-1 last:pb-1">
+                <span className="w-6 text-xs font-bold text-muted-foreground">#{entry.rank}</span>
+                <Avatar name={entry.student_name} size={38} />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-bold">{entry.student_name}</span>
+                  <span className="block text-xs text-muted-foreground">{entry.courses_completed} courses completed</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-sm font-bold">
+                  <span className={index === 0 ? "size-2.5 rounded-full bg-chart-2" : index === 1 ? "size-2.5 rounded-full bg-muted-foreground/50" : index === 2 ? "size-2.5 rounded-full bg-chart-3" : "hidden"} />
+                  {entry.total_score}
+                  <span className="text-xs font-medium text-muted-foreground">pts</span>
+                </span>
+              </li>
             ))}
-          </div>
+          </ol>
         )}
-      </div>
+      </Card>
     </div>
   )
 }

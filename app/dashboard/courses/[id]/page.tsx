@@ -1,17 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { DetailPageSkeleton } from "@/components/dashboard/skeleton"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { courses, ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
-import { ClosedPill } from "@/components/enrollments-closed"
 import { courseSyllabusData } from "@/lib/syllabus-data"
 import { createClient } from "@/lib/supabase/client"
 import {
-  BookOpen, CheckCircle2, Lock, ArrowLeft, ArrowUpRight,
-  Video, Youtube, ExternalLink, Calendar, Clock, Radio, Loader2,
-  ChevronDown, Search, FileText, FolderOpen
+  ArrowUpRight, BookOpen, Calendar, CheckCircle2, ChevronDown, Download, ExternalLink,
+  FileText, FolderOpen, Lock, Radio, Video, Youtube,
 } from "lucide-react"
+import { Card, EmptyState, IconTile, Stat, Tag, btnGhost, btnPrimary } from "@/components/dashboard/ui"
+import { SearchBox, Tabs } from "@/components/dashboard/controls"
+import { cn } from "@/lib/utils"
 
 // Map course catalog ID → live-class course codes (one course may match multiple codes)
 const COURSE_CODE_MAP: Record<string, string[]> = {
@@ -88,7 +91,7 @@ export default function CourseDetailPage() {
     if (!course) return
     const checkEnrollment = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser()
+        const { data: { user } } = await getUserCached()
         if (user) {
           const { data } = await supabase
             .from("enrollments")
@@ -166,469 +169,263 @@ export default function CourseDetailPage() {
 
   if (!course) {
     return (
-      <div className="flex-1 p-10 flex flex-col items-center justify-center min-h-[60vh]">
-        <h2 className="text-3xl font-black text-black uppercase">Course Not Found</h2>
-        <Link href="/dashboard/courses" className="mt-4 text-black/60 hover:text-black uppercase font-bold text-sm underline">
-          Back to Courses
-        </Link>
-      </div>
+      <EmptyState
+        icon={BookOpen}
+        title="Course not found"
+        hint="This course doesn't exist or has been removed."
+        action={<Link href="/dashboard/courses" className={btnPrimary}>Back to courses</Link>}
+      />
     )
   }
 
-  if (loading) {
-    return (
-      <div className="flex-1 p-10 flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <Loader2 className="w-8 h-8 text-black animate-spin" />
-        <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING COURSE...</p>
-      </div>
-    )
-  }
+  if (loading) return <DetailPageSkeleton />
+
+  const syllabus: any[] = courseSyllabusData[course.id]?.syllabus || []
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen" style={{
-      backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px)",
-      backgroundSize: "22px 22px",
-      backgroundColor: "#FDFBF7"
-    }}>
-      {/* Blue Hero Header */}
-      <div className="relative w-full bg-[#0a192f] text-white pt-12 pb-12 px-6 md:px-12 lg:px-16 overflow-hidden">
-        {/* Subtle dot grid overlay on blue */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-          }}
+    <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <article className="min-w-0">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
+          <Link href="/dashboard/courses" className="hover:text-foreground">Courses</Link> /
+          <span className="truncate text-foreground">{course.title}</span>
+        </nav>
+
+        <div className="mt-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <Tag tone="primary">IITM BS</Tag>
+            <Tag className="capitalize">{course.level}</Tag>
+            {isEnrolled && <Tag tone="green"><CheckCircle2 className="size-3" /> Enrolled</Tag>}
+          </div>
+          <h1 className="mt-3 text-balance text-3xl font-extrabold tracking-tight sm:text-4xl">{course.title}</h1>
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{course.description}</p>
+          <p className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-medium text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5"><BookOpen className="size-4" />{course.weeks} weeks</span>
+            <span className="inline-flex items-center gap-1.5"><Video className="size-4" />{displayClasses.length} sessions</span>
+          </p>
+        </div>
+
+        <Tabs
+          className="mt-8"
+          tabs={[
+            { id: "classes", label: "Classes" },
+            { id: "slides", label: "Slides" },
+            { id: "batch_details", label: "Batch details" },
+            { id: "other_content", label: "Other content" },
+          ]}
+          value={activeTab}
+          onChange={setActiveTab}
         />
-        {/* Gradient glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent pointer-events-none" />
 
-        <div className="relative z-10 max-w-6xl mx-auto flex flex-col">
-          <Link
-            href="/dashboard/courses"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white uppercase font-bold text-xs tracking-widest mb-10 transition-colors w-fit"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Courses
-          </Link>
+        <div className="pt-6">
+          {!isEnrolled && activeTab !== "batch_details" && <LockedContent />}
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <div className="flex-1">
-              <div className="flex gap-3 mb-6">
-                <span className="bg-white text-[#0a192f] font-black uppercase tracking-widest text-[10px] px-3 py-1 rounded-full">
-                  IITM BS
-                </span>
-                <span className="bg-white/10 text-white border border-white/20 font-black uppercase tracking-widest text-[10px] px-3 py-1 rounded-full">
-                  {course.level}
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1.05] mb-6">
-                {course.title}
-              </h1>
-              <p className="text-lg text-white/70 font-medium max-w-2xl leading-relaxed">
-                {course.description}
-              </p>
-              <div className="flex items-center gap-2 mt-6 text-white/60 font-bold uppercase tracking-widest text-sm">
-                <BookOpen className="w-4 h-4" />
-                <span>{course.weeks} Weeks · {displayClasses.length} Total Sessions</span>
-              </div>
-            </div>
-
-            <div className="shrink-0 flex flex-col items-start md:items-end gap-4">
-              {!isEnrolled && ENROLLMENTS_CLOSED ? (
-                <div className="bg-white text-[#0a192f] p-6 rounded-3xl shadow-lg border border-black/10 flex flex-col min-w-[220px] gap-3">
-                  <span className="text-[10px] font-black text-[#0a192f]/50 uppercase tracking-widest">Enrollment</span>
-                  <ClosedPill className="w-fit text-sm" />
-                  <p className="text-xs font-bold text-black/50 uppercase tracking-wider">Not accepting new students</p>
-                </div>
-              ) : !isEnrolled && course.price ? (
-                <div className="bg-white text-[#0a192f] p-6 rounded-3xl shadow-lg border border-black/10 flex flex-col min-w-[220px]">
-                  <span className="text-[10px] font-black text-[#0a192f]/50 uppercase tracking-widest mb-1">Total Price</span>
-                  <div className="flex items-end gap-3 mb-5">
-                    <span className="text-4xl font-black">₹{course.price}</span>
-                    {course.originalPrice && (
-                      <span className="text-sm font-bold text-[#0a192f]/40 line-through mb-1">₹{course.originalPrice}</span>
-                    )}
-                  </div>
-                  <Link
-                    href={`/dashboard/payment/${course.id}`}
-                    className="flex items-center justify-center gap-2 w-full bg-black hover:bg-black/90 text-white h-14 rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-sm hover:shadow-md"
-                  >
-                    ENROLL NOW
-                    <ArrowUpRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              ) : isEnrolled ? (
-                <div className="bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-sm">
-                  <div className="w-10 h-10 bg-emerald-500 text-[#0a192f] flex items-center justify-center rounded-full shrink-0">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-black uppercase tracking-widest text-emerald-300/70">Status</span>
-                    <span className="text-lg font-black uppercase">ENROLLED</span>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Area */}
-      <div className="flex-1 w-full bg-white relative z-20 pb-24 border-t border-black/10">
-        {/* Tabs Container */}
-        <div className="w-full border-b border-black/5 bg-white">
-          <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 flex gap-0 overflow-x-auto">
-            {[
-              { key: "classes", label: "Classes" },
-              { key: "slides", label: "Slides" },
-              { key: "batch_details", label: "Batch Details" },
-              { key: "other_content", label: "Other Content" },
-            ].map(({ key, label }) => (
-              <button
-                key={key}
-                onClick={() => setActiveTab(key as any)}
-                className={`px-7 py-5 text-sm font-black uppercase tracking-widest whitespace-nowrap transition-all border-b-[3px] flex items-center gap-2 ${
-                  activeTab === key
-                    ? "text-red-600 border-red-600"
-                    : "text-black/40 border-transparent hover:text-black/70 hover:border-black/10"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Search Bar Container (Only for Classes) */}
-        {activeTab === "classes" && (
-          <div className="w-full border-b border-black/5 bg-[#FDFBF7]">
-            <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-4">
-              <div className="relative max-w-xl">
-                <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-black/30" />
-                <input
-                  type="text"
-                  placeholder="Search by title..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white border border-black/10 rounded-lg py-3 pl-12 pr-4 text-sm font-semibold text-black placeholder:text-black/30 focus:outline-none focus:border-black/30 focus:ring-1 focus:ring-black/10"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Content List Container */}
-        <div className="w-full bg-[#FDFBF7]">
-          <div className="w-full max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-10 min-h-[50vh]">
-            {!isEnrolled && activeTab !== "batch_details" && <LockedContent courseId={course.id} />}
-            
-            {isEnrolled && activeTab === "classes" && (
-              classesLoading ? (
-              <LoadingSpinner />
-            ) : displayClasses.length === 0 ? (
-              <EmptyState
-                icon={<Calendar className="w-8 h-8 text-black/30" />}
-                title="No Classes Found"
-                description="No classes or recordings match your search right now."
-              />
-            ) : (
-              <div className="space-y-6">
-                {displayClasses.map((cls, i) => {
-                  const status = getStatus(cls.date, cls.time)
-                  const isCompleted = status === "completed"
-                  
-                  return (
-                    <div
-                      key={i}
-                      className="flex flex-col md:flex-row gap-6 p-5 rounded-xl border border-black/10 hover:shadow-lg hover:border-black/20 transition-all bg-white relative group"
-                    >
-                      {/* Left Icon/Image Area with Badge */}
-                      <div className="relative w-full md:w-56 h-40 md:h-auto rounded-lg bg-[#0a192f]/5 flex items-center justify-center shrink-0 border border-black/5 overflow-hidden">
-                        {status === "live" ? (
-                          <Radio className="w-12 h-12 text-red-500" />
-                        ) : isCompleted ? (
-                          <Youtube className="w-12 h-12 text-red-500/80 group-hover:text-red-600 transition-colors" />
-                        ) : (
-                          <Video className="w-12 h-12 text-[#0a192f]/30" />
-                        )}
-                        
-                        {/* Top-left Badge inside image area */}
-                        <div className="absolute top-3 left-3">
-                          {status === "live" && (
-                            <span className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-white bg-red-600 px-2.5 py-1 rounded shadow-sm">
-                              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                              LIVE NOW
-                            </span>
-                          )}
-                          {status === "upcoming" && (
-                            <span className="text-[10px] font-black uppercase tracking-widest text-[#0a192f] bg-white border border-[#0a192f]/10 px-2.5 py-1 rounded shadow-sm">
-                              UPCOMING
-                            </span>
-                          )}
-                          {isCompleted && (
-                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded shadow-sm">
-                              COMPLETED
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Right Content Area */}
-                      <div className="flex-1 flex flex-col justify-between py-1">
-                        {/* Top Row: Date & Time */}
-                        <div className="flex items-center gap-2 text-xs font-bold text-black/50 uppercase tracking-widest mb-3">
-                          <span>{formatDate(cls.date)}</span>
-                          <span className="w-1 h-1 bg-black/30 rounded-full" />
-                          <span>{formatTime(cls.time)}</span>
-                        </div>
-
-                        {/* Middle Row: Title */}
-                        <div className="mb-6">
-                          <h3 className={`text-2xl font-black text-black leading-tight tracking-tight ${isCompleted ? 'group-hover:text-red-600 transition-colors' : ''}`}>{cls.topic}</h3>
-                          <p className="text-sm font-bold text-black/50 mt-1">{course.title}</p>
-                        </div>
-
-                        {/* Bottom Row: Buttons */}
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-auto pt-4 border-t border-black/5">
-                          {/* Bottom Left */}
-                          <div className="flex items-center gap-3">
-                            <button 
-                              onClick={() => setExpandedClass(expandedClass === i ? null : i)}
-                              className="text-xs font-black uppercase tracking-widest text-black/60 hover:text-black flex items-center gap-1.5 w-fit"
-                            >
-                              View topics <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expandedClass === i ? 'rotate-180' : ''}`} />
-                            </button>
+          {isEnrolled && activeTab === "classes" && (
+            <>
+              <SearchBox value={searchQuery} onChange={setSearchQuery} placeholder="Search classes" className="mb-5 max-w-sm" />
+              {classesLoading ? (
+                <RowsLoading />
+              ) : displayClasses.length === 0 ? (
+                <EmptyState icon={Calendar} title="No classes found" hint="No classes or recordings match your search right now." />
+              ) : (
+                <ul className="space-y-3">
+                  {displayClasses.map((cls, i) => {
+                    const status = getStatus(cls.date, cls.time)
+                    const isCompleted = status === "completed"
+                    const [year, month, day] = cls.date.split("-")
+                    const matchingSlide = slides.find((s) => s.name.startsWith(`${day}-${month}-${year}`))
+                    return (
+                      <li key={i} className="rounded-2xl border bg-card p-4">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                          <IconTile
+                            icon={status === "live" ? Radio : isCompleted ? Youtube : Video}
+                            tone={status === "live" ? "pink" : isCompleted ? "amber" : "primary"}
+                            className="size-11 rounded-xl"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                              {status === "live" && <Tag tone="red"><span className="size-1.5 animate-pulse rounded-full bg-current" /> Live now</Tag>}
+                              {status === "upcoming" && <Tag tone="primary">Upcoming</Tag>}
+                              {isCompleted && <Tag>Recording</Tag>}
+                              <span className="font-medium">{formatDate(cls.date)} · {formatTime(cls.time)}</span>
+                            </div>
+                            <h3 className="mt-1.5 text-[15px] font-bold leading-snug">{cls.topic}</h3>
                           </div>
-
-                          {/* Bottom Right */}
-                          <div className="flex items-center gap-3">
-                            {(() => {
-                              const [year, month, day] = cls.date.split("-")
-                              const matchStr = `${day}-${month}-${year}`
-                              const matchingSlide = slides.find(s => s.name.startsWith(matchStr))
-                              if (matchingSlide) {
-                                return (
-                                  <a
-                                    href={matchingSlide.webViewLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2.5 rounded font-black uppercase tracking-widest text-[11px] transition-all bg-emerald-50 text-emerald-600 hover:bg-emerald-100 flex items-center gap-2 border border-emerald-200"
-                                  >
-                                    <FileText className="w-3.5 h-3.5" /> Slides
-                                  </a>
-                                )
-                              }
-                              return null
-                            })()}
-
+                          <div className="flex shrink-0 flex-wrap items-center gap-2">
+                            {matchingSlide && (
+                              <a href={matchingSlide.webViewLink} target="_blank" rel="noopener noreferrer" className={cn(btnGhost, "h-9 px-3 text-xs")}>
+                                <FileText className="size-3.5" /> Slides
+                              </a>
+                            )}
                             {isCompleted ? (
-                              <a
-                                href={cls.youtubeLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-6 py-2.5 rounded font-black uppercase tracking-widest text-[11px] transition-all border border-black/10 hover:border-black/20 hover:bg-black/5 text-black flex items-center gap-2"
-                              >
-                                Replay <ExternalLink className="w-3.5 h-3.5" />
+                              <a href={cls.youtubeLink} target="_blank" rel="noopener noreferrer" className={cn(btnGhost, "h-9 px-3 text-xs")}>
+                                Replay <ExternalLink className="size-3.5" />
                               </a>
                             ) : (
-                              <button
-                                onClick={() => window.open(cls.meetingLink, "_blank")}
-                                className={`px-6 py-2.5 rounded font-black uppercase tracking-widest text-[11px] transition-all flex items-center gap-2 ${
-                                  status === "live"
-                                    ? "bg-red-600 hover:bg-red-700 text-white shadow-md"
-                                    : "bg-[#0a192f] hover:bg-black text-white"
-                                }`}
-                              >
-                                {status === "live" ? "JOIN NOW" : "JOIN LATER"}
-                                <ExternalLink className="w-3.5 h-3.5" />
-                              </button>
+                              <a href={cls.meetingLink} target="_blank" rel="noopener noreferrer" className={cn(btnPrimary, "h-9 px-3 text-xs")}>
+                                {status === "live" ? "Join now" : "Join later"} <ExternalLink className="size-3.5" />
+                              </a>
                             )}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Expanded Topics Section */}
-                      {expandedClass === i && (
-                        <div className="mt-4 pt-4 border-t border-black/5 animate-in slide-in-from-top-2 fade-in-0 duration-200">
-                           <div className="bg-[#0a192f]/5 p-4 rounded-lg border border-black/5">
-                             <h4 className="text-[10px] font-black uppercase tracking-widest text-black/50 mb-2">Class Details</h4>
-                             <p className="text-sm font-bold text-black"><span className="text-black/50">Class:</span> {cls.course}</p>
-                             <p className="text-sm font-bold text-black mt-1"><span className="text-black/50">Topic:</span> {cls.topic}</p>
-                           </div>
-                        </div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            )
-            )}
-
-            {activeTab === "batch_details" && (
-              <div className="max-w-3xl bg-white border border-black/10 rounded-2xl p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-12">
-                  <div>
-                    <span className="text-xs font-black uppercase tracking-widest text-black/40 mb-1 block">Batch Duration</span>
-                    <span className="text-lg font-bold text-black">{course.weeks} Weeks</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-black uppercase tracking-widest text-black/40 mb-1 block">Language</span>
-                    <span className="text-lg font-bold text-black">English</span>
-                  </div>
-                  <div className="md:col-span-2 pt-4 border-t border-black/5">
-                    <span className="text-xs font-black uppercase tracking-widest text-black/40 mb-6 block">Curriculum</span>
-                    <div className="space-y-6">
-                      {(courseSyllabusData[course.id]?.syllabus || []).map((item: any, i: number) => (
-                        item.isCourseHeader ? (
-                          <div key={i} className="text-sm font-black text-black/80 uppercase tracking-widest pt-4 pb-2 border-b border-black/5">
-                            {item.title}
-                          </div>
-                        ) : (
-                          <div key={i} className="flex gap-5">
-                            <div className="bg-[#0a192f] text-white font-black text-[11px] px-3 py-1.5 rounded-full h-fit whitespace-nowrap uppercase tracking-widest shadow-sm">
-                              WK {String(item.week).padStart(2, "0")}
-                            </div>
-                            <div>
-                              <h4 className="font-black text-black text-[15px] uppercase tracking-tight">{item.title}</h4>
-                              <p className="text-sm font-bold text-black/50 mt-1.5 leading-relaxed">{item.topics}</p>
-                            </div>
-                          </div>
-                        )
-                      ))}
-                      {(!courseSyllabusData[course.id]?.syllabus || courseSyllabusData[course.id].syllabus.length === 0) && (
-                        <p className="text-sm font-bold text-black/40 uppercase tracking-widest">Syllabus will be updated soon.</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {isEnrolled && activeTab === "slides" && (
-              slidesLoading ? (
-                <LoadingSpinner />
-              ) : slides.length === 0 ? (
-                <EmptyState
-                  imageUrl="/slides.svg"
-                  title="No Slides Yet"
-                  description="Slides for this course will appear here once they are shared."
-                />
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {slides.map((slide) => {
-                    const match = slide.name.match(/^(\d{2}-\d{2}-\d{4})/)
-                    const matchStr = match ? match[1] : null
-                    let matchingClass = null
-                    
-                    if (matchStr) {
-                      const [day, month, year] = matchStr.split("-")
-                      matchingClass = liveClasses.find(c => c.date === `${year}-${month}-${day}`)
-                    }
-
-                    const title = matchingClass ? matchingClass.topic : slide.name
-                    const subtitle = matchingClass 
-                      ? `${formatDate(matchingClass.date)} • ${formatTime(matchingClass.time)}`
-                      : "PDF Document"
-
-                    return (
-                      <div key={slide.id} className="bg-white border border-black/10 rounded-xl p-6 hover:shadow-lg hover:border-black/20 transition-all flex flex-col group">
-                        <div className="flex items-start gap-4 mb-6">
-                          <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100">
-                            <FileText className="w-6 h-6 text-emerald-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-black text-black leading-tight line-clamp-2" title={title}>
-                              {title}
-                            </h3>
-                            <p className="text-xs font-bold text-black/50 uppercase tracking-widest mt-2">{subtitle}</p>
-                          </div>
-                        </div>
-                        <div className="mt-auto flex gap-3 pt-4 border-t border-black/5">
-                          <a
-                            href={slide.webViewLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 bg-black hover:bg-black/90 text-white h-11 rounded-lg flex items-center justify-center font-black uppercase tracking-widest text-[11px] transition-all shadow-sm"
-                          >
-                            View Slide
-                          </a>
-                          {slide.webContentLink && (
-                            <a
-                              href={slide.webContentLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-11 h-11 bg-black/5 hover:bg-black/10 text-black rounded-lg flex items-center justify-center transition-all"
-                              title="Download"
+                            <button
+                              onClick={() => setExpandedClass(expandedClass === i ? null : i)}
+                              aria-expanded={expandedClass === i}
+                              aria-label="Class details"
+                              className="grid size-9 place-items-center rounded-xl border text-muted-foreground hover:bg-muted"
                             >
-                              <ChevronDown className="w-5 h-5" />
-                            </a>
-                          )}
+                              <ChevronDown className={cn("size-4 transition-transform", expandedClass === i && "rotate-180")} />
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                        {expandedClass === i && (
+                          <dl className="mt-4 grid gap-3 rounded-xl bg-muted/60 p-4 text-sm sm:grid-cols-2">
+                            <div><dt className="text-xs font-semibold text-muted-foreground">Class</dt><dd className="mt-0.5 font-semibold">{cls.course}</dd></div>
+                            <div><dt className="text-xs font-semibold text-muted-foreground">Topic</dt><dd className="mt-0.5 font-semibold">{cls.topic}</dd></div>
+                          </dl>
+                        )}
+                      </li>
                     )
                   })}
-                </div>
-              )
-            )}
-            
-            {isEnrolled && activeTab === "other_content" && (
-              <EmptyState
-                imageUrl="/knowledge.svg"
-                title="No contents yet"
-                description="Contents shared in this course will appear here."
-              />
-            )}
-          </div>
+                </ul>
+              )}
+            </>
+          )}
+
+          {isEnrolled && activeTab === "slides" &&
+            (slidesLoading ? (
+              <RowsLoading />
+            ) : slides.length === 0 ? (
+              <EmptyState icon={FolderOpen} title="No slides yet" hint="Slides for this course appear here once they are shared." />
+            ) : (
+              <ul className="grid gap-4 sm:grid-cols-2">
+                {slides.map((slide) => {
+                  const match = slide.name.match(/^(\d{2}-\d{2}-\d{4})/)
+                  let matchingClass: LiveClass | undefined
+                  if (match) {
+                    const [d, m, y] = match[1].split("-")
+                    matchingClass = liveClasses.find((c) => c.date === `${y}-${m}-${d}`)
+                  }
+                  const title = matchingClass ? matchingClass.topic : slide.name
+                  const subtitle = matchingClass ? `${formatDate(matchingClass.date)} · ${formatTime(matchingClass.time)}` : "PDF document"
+                  return (
+                    <li key={slide.id} className="flex flex-col rounded-2xl border bg-card p-4">
+                      <div className="flex items-start gap-3">
+                        <IconTile icon={FileText} tone="green" className="size-11 rounded-xl" />
+                        <div className="min-w-0">
+                          <h3 className="line-clamp-2 text-[15px] font-bold leading-snug" title={title}>{title}</h3>
+                          <p className="mt-1 text-xs text-muted-foreground">{subtitle}</p>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex gap-2 border-t pt-4">
+                        <a href={slide.webViewLink} target="_blank" rel="noopener noreferrer" className={cn(btnPrimary, "h-9 flex-1 text-xs")}>
+                          View slide
+                        </a>
+                        {slide.webContentLink && (
+                          <a href={slide.webContentLink} target="_blank" rel="noopener noreferrer" title="Download" aria-label="Download" className={cn(btnGhost, "h-9 w-9 px-0")}>
+                            <Download className="size-4" />
+                          </a>
+                        )}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            ))}
+
+          {activeTab === "batch_details" && (
+            <div className="space-y-5">
+              <dl className="grid gap-4 sm:grid-cols-2">
+                <Stat label="Batch duration" value={`${course.weeks} weeks`} />
+                <Stat label="Language" value="English" />
+              </dl>
+              <Card title="Curriculum">
+                {syllabus.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">Syllabus will be updated soon.</p>
+                ) : (
+                  <ul className="space-y-4">
+                    {syllabus.map((item: any, i: number) =>
+                      item.isCourseHeader ? (
+                        <li key={i} className="border-b pb-2 pt-3 text-sm font-bold first:pt-0">{item.title}</li>
+                      ) : (
+                        <li key={i} className="flex gap-4">
+                          <Tag tone="primary" className="h-fit whitespace-nowrap">Week {String(item.week).padStart(2, "0")}</Tag>
+                          <div>
+                            <h4 className="text-[15px] font-bold leading-snug">{item.title}</h4>
+                            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.topics}</p>
+                          </div>
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                )}
+              </Card>
+            </div>
+          )}
+
+          {isEnrolled && activeTab === "other_content" && (
+            <EmptyState icon={FolderOpen} title="No content yet" hint="Anything shared in this course will appear here." />
+          )}
         </div>
-      </div>
+      </article>
+
+      <aside className="space-y-5 self-start xl:sticky xl:top-2">
+        <section className="overflow-hidden rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={course.thumbnail} alt="" className="mb-5 h-36 w-full rounded-xl object-cover" />
+          {isEnrolled ? (
+            <>
+              <Tag tone="green"><CheckCircle2 className="size-3" /> Enrolled</Tag>
+              <p className="mt-3 text-sm text-muted-foreground">You have full access to classes, recordings and slides.</p>
+            </>
+          ) : ENROLLMENTS_CLOSED ? (
+            <>
+              <Tag tone="red"><Lock className="size-3" /> Enrollments closed</Tag>
+              <p className="mt-3 text-sm text-muted-foreground">This course isn&apos;t accepting new students right now.</p>
+            </>
+          ) : course.price ? (
+            <>
+              <p className="text-xs font-semibold text-muted-foreground">Total price</p>
+              <p className="mt-1 text-3xl font-extrabold">
+                ₹{course.price}
+                {course.originalPrice && <span className="ml-2 text-sm font-medium text-muted-foreground line-through">₹{course.originalPrice}</span>}
+              </p>
+              <Link href={`/dashboard/payment/${course.id}`} className={cn(btnPrimary, "mt-4 w-full")}>
+                Enroll now <ArrowUpRight className="size-4" />
+              </Link>
+            </>
+          ) : null}
+        </section>
+        <Card title="This course">
+          <ul className="space-y-3 text-sm">
+            <li className="flex items-center justify-between"><span className="text-muted-foreground">Level</span><span className="font-semibold capitalize">{course.level}</span></li>
+            <li className="flex items-center justify-between"><span className="text-muted-foreground">Duration</span><span className="font-semibold">{course.weeks} weeks</span></li>
+            {course.withCertificate && <li className="flex items-center justify-between"><span className="text-muted-foreground">Certificate</span><span className="font-semibold">Included</span></li>}
+          </ul>
+        </Card>
+      </aside>
     </div>
   )
 }
 
-function LockedContent({ courseId }: { courseId: string }) {
+function LockedContent() {
   return (
-    <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto py-14">
-      <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-6">
-        <Lock className="w-8 h-8 text-black/40" />
-      </div>
-      <h3 className="text-2xl font-black uppercase tracking-tight text-black mb-3">Content Locked</h3>
-      <p className="text-sm font-bold text-black/50 uppercase tracking-widest mb-8 leading-relaxed">
-        {ENROLLMENTS_CLOSED
+    <EmptyState
+      icon={Lock}
+      title="Content locked"
+      hint={
+        ENROLLMENTS_CLOSED
           ? "Enrollments are closed. This content is available to enrolled students only."
-          : "Enroll to access live sessions, recordings, and exclusive course resources."}
-      </p>
-      {ENROLLMENTS_CLOSED ? <ClosedPill /> : <Link
-        href={`/dashboard/payment/${courseId}`}
-        className="bg-black hover:bg-black/80 text-white px-8 h-12 rounded-full flex items-center justify-center font-black uppercase tracking-widest text-xs transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
-      >
-        ENROLL TO UNLOCK
-      </Link>}
-    </div>
+          : "Enroll to access live sessions, recordings and course resources."
+      }
+      action={ENROLLMENTS_CLOSED ? <Tag tone="red"><Lock className="size-3" /> Closed</Tag> : undefined}
+    />
   )
 }
 
-function LoadingSpinner() {
+function RowsLoading() {
   return (
-    <div className="flex flex-col items-center justify-center py-16 gap-4">
-      <Loader2 className="w-8 h-8 text-black animate-spin" />
-      <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING CONTENT...</p>
-    </div>
-  )
-}
-
-function EmptyState({ icon, imageUrl, title, description }: { icon?: React.ReactNode; imageUrl?: string; title: string; description: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-16 text-center">
-      {imageUrl ? (
-        <img src={imageUrl} alt={title} className="w-64 h-auto mb-8 opacity-90" />
-      ) : icon ? (
-        <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-5">
-          {icon}
-        </div>
-      ) : null}
-      <h3 className="font-black uppercase text-black text-xl mb-2">{title}</h3>
-      <p className="text-sm font-bold text-black/40 uppercase max-w-sm leading-relaxed">{description}</p>
+    <div className="space-y-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="h-24 animate-pulse rounded-2xl bg-muted" />
+      ))}
     </div>
   )
 }

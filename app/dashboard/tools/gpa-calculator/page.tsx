@@ -1,23 +1,21 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { getUserCached } from "@/lib/supabase/cached-user"
 import { courseData } from "@/lib/gpa/course-data"
 import { calculateScore } from "@/lib/gpa/calculate-score"
 import { assignGrade } from "@/lib/gpa/grade-utils"
 import type { Course } from "@/lib/gpa/types"
-import dynamic from "next/dynamic"
 import { Calculator, Plus, Trash2 } from "lucide-react"
+import { Tabs } from "@/components/dashboard/controls"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { PageHeader } from "@/components/dashboard/ui"
+import { FormPageSkeleton } from "@/components/dashboard/skeleton"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createClient } from "@/lib/supabase/client"
-
-const BeamsBackground = dynamic(() => import("@/components/beams-background").then(mod => ({ default: mod.BeamsBackground })), {
-  ssr: false,
-  loading: () => <div className="fixed inset-0 bg-white -z-10" />
-})
 
 interface SemesterCourse {
   id: string
@@ -42,7 +40,7 @@ export default function DashboardGPACalculatorPage() {
   const supabase = createClient()
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    getUserCached().then(({ data }) => {
       setIsAuthenticated(!!data.user)
       setLoading(false)
     })
@@ -115,78 +113,41 @@ export default function DashboardGPACalculatorPage() {
     }
   }
 
-  // Show navbar even during loading to prevent blank page flash
   if (loading) {
     return (
-      <div className="min-h-screen bg-white relative">
-        <BeamsBackground />
-                <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
-          <div className="animate-spin w-12 h-12 border-4 border-black border-t-transparent rounded-full"></div>
-        </div>
+      <div className="mx-auto max-w-4xl">
+        <FormPageSkeleton fields={5} />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-white relative">
-      <BeamsBackground />
+    <div>
             
-      <div id="tour-gpa-calc-page" className="container mx-auto px-4 py-8 relative z-10">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl border border-black/10 bg-black mb-6 shadow-md">
-            <Calculator className="w-10 h-10 text-white" />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black mb-4 text-black uppercase tracking-tight leading-none">
-            GPA CALCULATOR
-          </h1>
-          <p className="text-black/70 font-bold text-lg max-w-2xl mx-auto uppercase">
-            Calculate your course scores and semester GPA with precision
-          </p>
-        </div>
+      <div id="tour-gpa-calc-page" className="space-y-6">
+        <PageHeader title="GPA calculator" description="Calculate course scores and your semester GPA." />
 
-        {/* Tabs */}
-        <div className="flex justify-center mb-10">
-          <div id="tour-gpa-calc" className="bg-white rounded-2xl border border-black/10 p-1 inline-flex gap-1 shadow-md">
-            <button
-              onClick={() => setActiveTab("course")}
-              className={`px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                activeTab === "course" 
-                  ? "bg-black text-white" 
-                  : "text-black hover:bg-black/5"
-              }`}
-            >
-              COURSE GRADE
-            </button>
-            <button
-              onClick={() => setActiveTab("semester")}
-              className={`px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                activeTab === "semester" 
-                  ? "bg-black text-white" 
-                  : "text-black hover:bg-black/5"
-              }`}
-            >
-              SEMESTER GPA
-            </button>
-          </div>
+        <div id="tour-gpa-calc">
+          <Tabs tabs={[{ id: "course", label: "Course grade" }, { id: "semester", label: "Semester GPA" }]} value={activeTab} onChange={setActiveTab} />
         </div>
 
         {/* Course Grade Calculator */}
         {activeTab === "course" && (
-          <Card className="bg-white border border-black/10 shadow-xl max-w-5xl mx-auto rounded-2xl">
-            <CardHeader className="border-b-2 border-black pb-6 pt-8">
-              <CardTitle className="text-3xl font-black text-black uppercase tracking-tight">CALCULATE COURSE GRADE</CardTitle>
-              <p className="text-black/70 font-bold text-xs uppercase mt-2">Select your course and enter your scores to get your final grade</p>
+          <Card className="bg-card border border-border max-w-4xl rounded-2xl">
+            <CardHeader className="border-b pb-6 pt-8">
+              <CardTitle className="text-3xl font-bold text-foreground tracking-tight">Calculate course grade</CardTitle>
+              <p className="text-muted-foreground font-bold text-xs mt-2">Select your course and enter your scores to get your final grade</p>
             </CardHeader>
             <CardContent className="space-y-8 pt-8">
               {/* Course Selection */}
               <div className="space-y-6">
-                <h3 className="text-lg font-black text-black flex items-center gap-3 uppercase tracking-wide">
-                  <div className="w-8 h-8 rounded-2xl border border-black/10 bg-[#1e3a8a] text-white flex items-center justify-center text-sm font-black shadow-sm">1</div>
-                  SELECT COURSE
+                <h3 className="text-lg font-bold text-foreground flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">1</div>
+                  Select course
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-black uppercase tracking-widest">DEGREE PROGRAM</Label>
+                    <Label className="text-xs font-bold text-foreground">Degree program</Label>
                     <Select value={selectedDegree || undefined} onValueChange={(v) => {
                       setSelectedDegree(v as any)
                       setSelectedLevel("")
@@ -194,32 +155,32 @@ export default function DashboardGPACalculatorPage() {
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }}>
-                      <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all">
-                        <SelectValue placeholder="CHOOSE DEGREE" />
+                      <SelectTrigger className="w-full h-11 px-5 text-sm font-bold bg-card border border-border hover:border-primary/50 rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground transition-all">
+                        <SelectValue placeholder="Choose degree" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
-                        <SelectItem value="data-science" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">DATA SCIENCE</SelectItem>
-                        <SelectItem value="electronic-systems" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">ELECTRONIC SYSTEMS</SelectItem>
-                        <SelectItem value="aeronautics" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">AERONAUTICS & SPACE TECH</SelectItem>
-                        <SelectItem value="management" className="text-black font-bold text-xs uppercase py-3 cursor-pointer">MANAGEMENT & DATA SCIENCE</SelectItem>
+                      <SelectContent className="bg-card border border-border rounded-2xl max-h-80 overflow-y-auto">
+                        <SelectItem value="data-science" className="text-foreground font-bold text-xs py-3 cursor-pointer">Data science</SelectItem>
+                        <SelectItem value="electronic-systems" className="text-foreground font-bold text-xs py-3 cursor-pointer">Electronic systems</SelectItem>
+                        <SelectItem value="aeronautics" className="text-foreground font-bold text-xs py-3 cursor-pointer">Aeronautics & space tech</SelectItem>
+                        <SelectItem value="management" className="text-foreground font-bold text-xs py-3 cursor-pointer">Management & data science</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-black uppercase tracking-widest">LEVEL</Label>
+                    <Label className="text-xs font-bold text-foreground">Level</Label>
                     <Select value={selectedLevel || undefined} onValueChange={(v) => {
                       setSelectedLevel(v as any)
                       setSelectedCourse(null)
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }} disabled={!selectedDegree}>
-                      <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
-                        <SelectValue placeholder="CHOOSE LEVEL" />
+                      <SelectTrigger className="w-full h-11 px-5 text-sm font-bold bg-card border border-border hover:border-primary/50 rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
+                        <SelectValue placeholder="Choose level" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
+                      <SelectContent className="bg-card border border-border rounded-2xl max-h-80 overflow-y-auto">
                         {availableLevels.map((level) => (
-                          <SelectItem key={level} value={level} className="text-black font-bold text-xs uppercase py-3 cursor-pointer">
+                          <SelectItem key={level} value={level} className="text-foreground font-bold text-xs py-3 cursor-pointer">
                             {level}
                           </SelectItem>
                         ))}
@@ -228,7 +189,7 @@ export default function DashboardGPACalculatorPage() {
                   </div>
 
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-black uppercase tracking-widest">COURSE</Label>
+                    <Label className="text-xs font-bold text-foreground">Course</Label>
                     <Select value={selectedCourse?.id || undefined} onValueChange={(id) => {
                       const course = availableCourses.find((c) => c.id === id)
                       setSelectedCourse(course || null)
@@ -236,12 +197,12 @@ export default function DashboardGPACalculatorPage() {
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
                     }} disabled={!selectedLevel}>
-                      <SelectTrigger className="w-full h-14 px-5 text-sm font-black bg-white border border-black/20 hover:border-black rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
-                        <SelectValue placeholder="CHOOSE COURSE" />
+                      <SelectTrigger className="w-full h-11 px-5 text-sm font-bold bg-card border border-border hover:border-primary/50 rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground transition-all disabled:opacity-40 disabled:bg-neutral-50 disabled:cursor-not-allowed">
+                        <SelectValue placeholder="Choose course" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-black/20 rounded-2xl shadow-xl uppercase max-h-80 overflow-y-auto">
+                      <SelectContent className="bg-card border border-border rounded-2xl max-h-80 overflow-y-auto">
                         {availableCourses.map((course) => (
-                          <SelectItem key={course.id} value={course.id} className="text-black font-bold text-xs uppercase py-3 cursor-pointer">
+                          <SelectItem key={course.id} value={course.id} className="text-foreground font-bold text-xs py-3 cursor-pointer">
                             {course.name}
                           </SelectItem>
                         ))}
@@ -255,17 +216,17 @@ export default function DashboardGPACalculatorPage() {
                 <>
                   {/* Score Entry */}
                   <div className="space-y-6">
-                    <h3 className="text-lg font-black text-black flex items-center gap-3 uppercase tracking-wide">
-                      <div className="w-8 h-8 rounded-2xl border border-black/10 bg-[#1e3a8a] text-white flex items-center justify-center text-sm font-black shadow-sm">2</div>
-                      ENTER YOUR SCORES
+                    <h3 className="text-lg font-bold text-foreground flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">2</div>
+                      Enter your scores
                     </h3>
-                    <div className="bg-white border border-black/10 shadow-md p-6">
+                    <div className="bg-card border border-border p-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {selectedCourse.formFields.map((field) => (
                           <div key={field.id} className="space-y-3">
-                            <Label className="text-xs font-black text-black flex justify-between uppercase tracking-widest">
+                            <Label className="text-xs font-bold text-foreground flex justify-between">
                               <span>{field.label}</span>
-                              <span className="text-black/50">MAX: {field.max}</span>
+                              <span className="text-muted-foreground/70">MAX: {field.max}</span>
                             </Label>
                             <Input
                               type="number"
@@ -275,9 +236,9 @@ export default function DashboardGPACalculatorPage() {
                                 const val = Math.max(0, Math.min(Number(e.target.value), field.max))
                                 setFormValues({ ...formValues, [field.id]: val })
                               }}
-                              className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/40"
+                              className="h-11 text-sm font-bold bg-card border border-border rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground placeholder:text-muted-foreground/70"
                             />
-                            <p className="text-[10px] font-bold text-black/60 uppercase">{field.description}</p>
+                            <p className="text-[11px] font-bold text-muted-foreground">{field.description}</p>
                           </div>
                         ))}
                       </div>
@@ -286,37 +247,37 @@ export default function DashboardGPACalculatorPage() {
 
                   {/* Actions */}
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <Button onClick={handleCalculate} className="flex-1 h-14 border border-black/10 bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white text-sm font-black transition-all rounded-2xl uppercase tracking-widest shadow-md ">
+                    <Button onClick={handleCalculate} className="flex-1 h-11 border border-border bg-primary hover:opacity-90 text-white text-sm font-bold transition-all rounded-2xl">
                       <Calculator className="w-5 h-5 mr-3" />
-                      CALCULATE GRADE
+                      Calculate grade
                     </Button>
                     <Button onClick={() => {
                       setFormValues({})
                       setCalculatedScore(null)
                       setCalculatedGrade(null)
-                    }} variant="outline" className="h-14 px-10 border border-black/10 hover:bg-black hover:text-white transition-all text-sm font-black text-black rounded-2xl uppercase tracking-widest shadow-md bg-white">
-                      RESET
+                    }} variant="outline" className="h-11 px-10 border border-border hover:bg-primary hover:text-white transition-all text-sm font-bold text-foreground rounded-2xl bg-card">
+                      Reset
                     </Button>
                   </div>
 
                   {/* Result */}
                   {calculatedScore !== null && calculatedGrade && (
-                    <div className="bg-[#FDFBF7] border border-black/10 p-10 text-center shadow-md mt-8">
-                      <p className="text-black/60 text-sm uppercase tracking-widest mb-6 font-black">YOUR FINAL SCORE</p>
+                    <div className="bg-muted/40 border border-border p-10 text-center mt-8">
+                      <p className="text-muted-foreground text-sm mb-6 font-bold">Your final score</p>
                       <div className="flex items-center justify-center gap-12 flex-wrap">
                         <div>
-                          <p className="text-7xl font-black text-black mb-1">
+                          <p className="text-6xl font-bold text-foreground mb-1">
                             {calculatedScore.toFixed(2)}
                           </p>
-                          <p className="text-black/60 text-sm font-bold uppercase tracking-widest">OUT OF 100</p>
+                          <p className="text-muted-foreground text-sm font-bold">Out of 100</p>
                         </div>
-                        <div className="h-24 w-1 bg-black/10"></div>
+                        <div className="h-24 w-1 bg-muted"></div>
                         <div>
-                          <p className="text-black/60 text-sm uppercase tracking-widest mb-1 font-black">GRADE</p>
-                          <div className="text-7xl font-black text-black leading-none">
+                          <p className="text-muted-foreground text-sm mb-1 font-bold">Grade</p>
+                          <div className="text-6xl font-bold text-foreground leading-none">
                             {calculatedGrade}
                           </div>
-                          <p className="text-xs font-black text-[#1e3a8a] mt-4 uppercase tracking-widest bg-white border-2 border-[#1e3a8a] px-3 py-1 inline-block">
+                          <p className="text-xs font-bold text-primary mt-4 bg-card border border-primary px-3 py-1 inline-block">
                             {calculatedGrade === 'S' && 'OUTSTANDING'}
                             {calculatedGrade === 'A' && 'EXCELLENT'}
                             {calculatedGrade === 'B' && 'GREAT JOB'}
@@ -337,40 +298,40 @@ export default function DashboardGPACalculatorPage() {
 
         {/* Semester GPA Calculator */}
         {activeTab === "semester" && (
-          <Card className="bg-white border border-black/10 shadow-xl max-w-5xl mx-auto rounded-2xl">
-            <CardHeader className="border-b-2 border-black pb-6 pt-8">
-              <CardTitle className="text-3xl font-black text-black uppercase tracking-tight">CALCULATE SEMESTER GPA</CardTitle>
-              <p className="text-black/70 font-bold text-xs uppercase mt-2">Add your courses and grades to calculate your GPA</p>
+          <Card className="bg-card border border-border max-w-4xl rounded-2xl">
+            <CardHeader className="border-b pb-6 pt-8">
+              <CardTitle className="text-3xl font-bold text-foreground tracking-tight">Calculate semester GPA</CardTitle>
+              <p className="text-muted-foreground font-bold text-xs mt-2">Add your courses and grades to calculate your GPA</p>
             </CardHeader>
             <CardContent className="space-y-8 pt-8">
               {/* Existing History */}
               <div className="space-y-6 mb-10">
-                <h3 className="text-lg font-black text-black flex items-center gap-3 uppercase tracking-wide">
-                  <div className="w-8 h-8 rounded-2xl border border-black/10 bg-[#1e3a8a] text-white flex items-center justify-center text-sm font-black shadow-sm">1</div>
-                  EXISTING ACADEMIC STANDING
+                <h3 className="text-lg font-bold text-foreground flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">1</div>
+                  Existing academic standing
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white border border-black/10 shadow-md p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-card border border-border p-6">
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-black uppercase tracking-widest">CURRENT CGPA</Label>
+                    <Label className="text-xs font-bold text-foreground">Current CGPA</Label>
                     <Input
                       type="number"
                       placeholder="E.G., 8.5"
                       value={existingCGPA}
                       onChange={(e) => setExistingCGPA(e.target.value === "" ? "" : Number(e.target.value))}
-                      className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/40"
+                      className="h-11 text-sm font-bold bg-card border border-border rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground placeholder:text-muted-foreground/70"
                       step="0.01"
                       min="0"
                       max="10"
                     />
                   </div>
                   <div className="space-y-3">
-                    <Label className="text-xs font-black text-black uppercase tracking-widest">TOTAL CREDITS COMPLETED</Label>
+                    <Label className="text-xs font-bold text-foreground">Total credits completed</Label>
                     <Input
                       type="number"
                       placeholder="E.G., 48"
                       value={completedCredits}
                       onChange={(e) => setCompletedCredits(e.target.value === "" ? "" : Number(e.target.value))}
-                      className="h-14 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/40"
+                      className="h-11 text-sm font-bold bg-card border border-border rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground placeholder:text-muted-foreground/70"
                       min="0"
                     />
                   </div>
@@ -378,24 +339,24 @@ export default function DashboardGPACalculatorPage() {
               </div>
 
               <div className="space-y-6">
-                <h3 className="text-lg font-black text-black flex items-center gap-3 uppercase tracking-wide">
-                  <div className="w-8 h-8 rounded-2xl border border-black/10 bg-[#1e3a8a] text-white flex items-center justify-center text-sm font-black shadow-sm">2</div>
-                  CURRENT SEMESTER COURSES
+                <h3 className="text-lg font-bold text-foreground flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">2</div>
+                  Current semester courses
                 </h3>
               </div>
 
               {/* Table Header */}
               <div className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0">
                 <div className="min-w-[600px]">
-                  <div className="grid grid-cols-12 gap-4 px-4 pb-4 border-b-2 border-black">
+                  <div className="grid grid-cols-12 gap-4 px-4 pb-4 border-b">
                     <div className="col-span-6">
-                      <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">COURSE NAME</Label>
+                      <Label className="text-[11px] font-bold text-muted-foreground">Course name</Label>
                     </div>
                     <div className="col-span-2">
-                      <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">CREDITS</Label>
+                      <Label className="text-[11px] font-bold text-muted-foreground">Credits</Label>
                     </div>
                     <div className="col-span-3">
-                      <Label className="text-[10px] font-black uppercase tracking-widest text-black/60">GRADE</Label>
+                      <Label className="text-[11px] font-bold text-muted-foreground">Grade</Label>
                     </div>
                     <div className="col-span-1"></div>
                   </div>
@@ -403,15 +364,15 @@ export default function DashboardGPACalculatorPage() {
                   {/* Course Rows */}
                   <div className="space-y-4 pt-2">
                     {semesterCourses.map((course, index) => (
-                      <div key={course.id} className="grid grid-cols-12 gap-4 p-4 bg-white border border-black/10 shadow-md items-center rounded-2xl">
+                      <div key={course.id} className="grid grid-cols-12 gap-4 p-4 bg-card border border-border items-center rounded-2xl">
                         <div className="col-span-6">
                           <Input
-                            placeholder="E.G., MATHEMATICS I"
+                            placeholder="E.G., mathematics i"
                             value={course.name}
                             onChange={(e) => setSemesterCourses(semesterCourses.map(c => 
                               c.id === course.id ? { ...c, name: e.target.value } : c
                             ))}
-                            className="w-full h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30"
+                            className="w-full h-12 text-sm font-bold bg-card border border-border rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground placeholder:text-muted-foreground/70"
                           />
                         </div>
                         <div className="col-span-2">
@@ -425,7 +386,7 @@ export default function DashboardGPACalculatorPage() {
                                 c.id === course.id ? { ...c, credits: val } : c
                               ))
                             }}
-                            className="w-full h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase placeholder:text-black/30 text-center"
+                            className="w-full h-12 text-sm font-bold bg-card border border-border rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground placeholder:text-muted-foreground/70 text-center"
                             min="0"
                             max="10"
                           />
@@ -436,12 +397,12 @@ export default function DashboardGPACalculatorPage() {
                               c.id === course.id ? { ...c, gradePoints: Number(v) } : c
                             ))
                           }>
-                            <SelectTrigger className="w-full h-12 text-sm font-bold bg-white border border-black/10 rounded-2xl shadow-sm text-black focus:ring-0 focus-visible:ring-0 focus:border-black uppercase">
-                              <SelectValue placeholder="SELECT GRADE" />
+                            <SelectTrigger className="w-full h-12 text-sm font-bold bg-card border border-border rounded-2xl text-foreground focus:ring-0 focus-visible:ring-0 focus:border-foreground">
+                              <SelectValue placeholder="Select grade" />
                             </SelectTrigger>
-                            <SelectContent className="bg-white border border-black/10 rounded-2xl shadow-md uppercase">
+                            <SelectContent className="bg-card border border-border rounded-2xl">
                               {gradePointsOptions.map((opt) => (
-                                <SelectItem key={opt.value} value={opt.value.toString()} className="text-black font-bold text-xs uppercase">{opt.label}</SelectItem>
+                                <SelectItem key={opt.value} value={opt.value.toString()} className="text-foreground font-bold text-xs">{opt.label}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -452,7 +413,7 @@ export default function DashboardGPACalculatorPage() {
                           onClick={() => removeCourse(course.id)} 
                           variant="ghost" 
                           size="icon" 
-                          className="h-12 w-12 rounded-2xl border border-black/10 bg-white text-black hover:bg-black hover:text-white shadow-sm transition-all"
+                          className="h-12 w-12 rounded-2xl border border-border bg-card text-foreground hover:bg-primary hover:text-white transition-all"
                         >
                           <Trash2 className="w-5 h-5" />
                         </Button>
@@ -464,45 +425,45 @@ export default function DashboardGPACalculatorPage() {
             </div>
           </div>
 
-          <Button onClick={addCourse} variant="outline" className="w-full h-14 border-2 border-dashed border-black bg-white hover:bg-black hover:text-white transition-all text-sm font-black text-black rounded-2xl uppercase tracking-widest mt-6">
+          <Button onClick={addCourse} variant="outline" className="w-full h-11 border border-dashed border-foreground bg-card hover:bg-primary hover:text-white transition-all text-sm font-bold text-foreground rounded-2xl mt-6">
                 <Plus className="w-5 h-5 mr-3" />
-                ADD ANOTHER COURSE
+                Add another course
               </Button>
 
               {semesterResults !== null && (
-                <div className="bg-[#FDFBF7] border border-black/10 p-10 shadow-md mt-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 divide-y-2 md:divide-y-0 md:divide-x-2 divide-black/10">
+                <div className="bg-muted/40 border border-border p-10 mt-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 divide-y md:divide-y-0 md:divide-x divide-border">
                     <div className="text-center pb-10 md:pb-0 md:pr-10">
-                      <p className="text-black/60 text-sm uppercase tracking-widest mb-6 font-black">SEMESTER GPA (SGPA)</p>
-                      <p className="text-8xl font-black text-black mb-6 tracking-tight leading-none">{semesterResults.sgpa.toFixed(2)}</p>
-                      <div className="inline-flex items-center px-4 py-2 border border-black/10 bg-white">
-                        <p className="text-sm font-black text-black uppercase tracking-widest">
-                          {semesterResults.sgpa >= 9 ? "EXCELLENT" : semesterResults.sgpa >= 8 ? "VERY GOOD" : semesterResults.sgpa >= 7 ? "GOOD WORK" : "KEEP GOING"}
+                      <p className="text-muted-foreground text-sm mb-6 font-bold">Semester GPA (SGPA)</p>
+                      <p className="text-6xl font-bold text-foreground mb-6 tracking-tight leading-none">{semesterResults.sgpa.toFixed(2)}</p>
+                      <div className="inline-flex items-center px-4 py-2 border border-border bg-card">
+                        <p className="text-sm font-bold text-foreground">
+                          {semesterResults.sgpa >= 9 ? "Excellent" : semesterResults.sgpa >= 8 ? "Very good" : semesterResults.sgpa >= 7 ? "Good work" : "Keep going"}
                         </p>
                       </div>
                     </div>
                     
                     {semesterResults.updatedCGPA !== null && (
                       <div className="text-center pt-10 md:pt-0 md:pl-10">
-                        <p className="text-black/60 text-sm uppercase tracking-widest mb-6 font-black">UPDATED TOTAL CGPA</p>
-                        <p className="text-8xl font-black text-black mb-6 tracking-tight leading-none">{semesterResults.updatedCGPA.toFixed(2)}</p>
-                        <p className="text-xs font-bold text-black/50 uppercase tracking-widest">INCLUDES YOUR CURRENT SEMESTER PERFORMANCE</p>
+                        <p className="text-muted-foreground text-sm mb-6 font-bold">Updated total CGPA</p>
+                        <p className="text-6xl font-bold text-foreground mb-6 tracking-tight leading-none">{semesterResults.updatedCGPA.toFixed(2)}</p>
+                        <p className="text-xs font-bold text-muted-foreground/70">Includes your current semester performance</p>
                       </div>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-10 mt-10 border-t-2 border-black">
-                    <div className="text-center bg-white border border-black/10 p-4 shadow-sm">
-                      <p className="text-black/50 text-[10px] mb-2 font-black uppercase tracking-widest">COURSES</p>
-                      <p className="text-3xl font-black text-black">{semesterResults.totalCredits > 0 ? semesterCourses.filter(c => c.credits > 0).length : 0}</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-10 mt-10 border-t">
+                    <div className="text-center bg-card border border-border p-4">
+                      <p className="text-muted-foreground/70 text-[11px] mb-2 font-bold">Courses</p>
+                      <p className="text-3xl font-bold text-foreground">{semesterResults.totalCredits > 0 ? semesterCourses.filter(c => c.credits > 0).length : 0}</p>
                     </div>
-                    <div className="text-center bg-white border border-black/10 p-4 shadow-sm">
-                      <p className="text-black/50 text-[10px] mb-2 font-black uppercase tracking-widest">CREDITS</p>
-                      <p className="text-3xl font-black text-black">{semesterResults.totalCredits}</p>
+                    <div className="text-center bg-card border border-border p-4">
+                      <p className="text-muted-foreground/70 text-[11px] mb-2 font-bold">Credits</p>
+                      <p className="text-3xl font-bold text-foreground">{semesterResults.totalCredits}</p>
                     </div>
-                    <div className="text-center bg-white border border-black/10 p-4 shadow-sm">
-                      <p className="text-black/50 text-[10px] mb-2 font-black uppercase tracking-widest">POINTS</p>
-                      <p className="text-3xl font-black text-black">{semesterResults.totalGradePoints.toFixed(1)}</p>
+                    <div className="text-center bg-card border border-border p-4">
+                      <p className="text-muted-foreground/70 text-[11px] mb-2 font-bold">Points</p>
+                      <p className="text-3xl font-bold text-foreground">{semesterResults.totalGradePoints.toFixed(1)}</p>
                     </div>
                   </div>
                 </div>

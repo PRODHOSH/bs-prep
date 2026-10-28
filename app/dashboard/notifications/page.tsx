@@ -1,8 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { ListPageSkeleton } from "@/components/dashboard/skeleton"
 import { createClient } from "@/lib/supabase/client"
-import { Bell, Loader2, CalendarClock, MessageCircle, AlertCircle } from "lucide-react"
+import { Bell, CalendarClock, MessageCircle, AlertCircle } from "lucide-react"
+import { EmptyState, IconTile, PageHeader, Tag, type Tone } from "@/components/dashboard/ui"
 
 export default function DashboardNotificationsPage() {
   const [loading, setLoading] = useState(true)
@@ -15,7 +18,7 @@ export default function DashboardNotificationsPage() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser()
+        const { data: { user } } = await getUserCached()
         if (!user) return
 
         // 1. Fetch upcoming classes
@@ -82,131 +85,81 @@ export default function DashboardNotificationsPage() {
     fetchNotifications()
   }, [])
 
-  if (loading) {
-    return (
-      <div className="flex-1 p-6 md:p-12 lg:p-16 flex items-center justify-center min-h-[60vh]">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-8 h-8 text-black animate-spin" />
-          <p className="text-sm font-black text-black/60 uppercase tracking-widest">LOADING NOTIFICATIONS...</p>
-        </div>
-      </div>
-    )
-  }
+  if (loading) return <div className="mx-auto max-w-3xl"><ListPageSkeleton tabs={0} rows={4} icon /></div>
 
-  const hasNoNotifications = upcomingClasses.length === 0 && recentClasses.length === 0 && announcements.length === 0 && doubtNotifications.length === 0
+  const hasNoNotifications =
+    upcomingClasses.length === 0 && recentClasses.length === 0 && announcements.length === 0 && doubtNotifications.length === 0
+
+  const when = (cls: any) => `${new Date(cls.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} at ${cls.time}`
+
+  const Group = ({ icon, title, count, children }: { icon: React.ElementType; title: string; count: number; children: React.ReactNode }) => (
+    <section>
+      <h2 className="mb-3 flex items-center gap-2 text-sm font-bold">
+        {title} <span className="rounded-md bg-muted px-1.5 text-[11px] font-medium text-muted-foreground">{count}</span>
+      </h2>
+      <ul className="space-y-3">{children}</ul>
+    </section>
+  )
+
+  const Item = ({ icon, tone, tag, title, body, meta }: { icon: React.ElementType; tone: Tone; tag?: string; title: string; body?: string; meta?: string }) => (
+    <li className="flex items-start gap-4 rounded-2xl border bg-card p-4">
+      <IconTile icon={icon} tone={tone} className="size-10 rounded-xl" />
+      <div className="min-w-0 flex-1">
+        {tag && <Tag tone={tone} className="mb-1.5">{tag}</Tag>}
+        <h4 className="text-[15px] font-bold leading-snug">{title}</h4>
+        {body && <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{body}</p>}
+        {meta && <p className="mt-2 text-xs font-medium text-muted-foreground/80">{meta}</p>}
+      </div>
+    </li>
+  )
 
   return (
-    <div id="tour-notifications" className="flex-1 p-6 md:p-10 lg:p-12 max-w-6xl mx-auto w-full">
-      <div className="flex items-center gap-4 mb-8 pb-6 border-b-2 border-black/10">
-        <div className="w-12 h-12 bg-black text-white flex items-center justify-center rounded-2xl shadow-md">
-          <Bell className="w-6 h-6" />
-        </div>
-        <div>
-          <h1 className="text-3xl font-black text-black uppercase tracking-tight">NOTIFICATIONS</h1>
-          <p className="text-sm font-bold text-black/60 uppercase tracking-widest mt-1">YOUR LATEST UPDATES & ALERTS</p>
-        </div>
-      </div>
+    <div id="tour-notifications" className="mx-auto max-w-3xl space-y-8">
+      <PageHeader title="Notifications" description="Your latest updates and alerts." />
 
       {hasNoNotifications ? (
-        <div className="text-center py-20 bg-white rounded-3xl border border-black/10 shadow-sm">
-          <Bell className="w-12 h-12 text-black/20 mx-auto mb-4" />
-          <h3 className="text-lg font-black text-black uppercase tracking-widest">ALL CAUGHT UP</h3>
-          <p className="text-sm font-bold text-black/40 uppercase tracking-widest mt-2">YOU HAVE NO NEW NOTIFICATIONS.</p>
-        </div>
+        <EmptyState icon={Bell} title="All caught up" hint="You have no new notifications." />
       ) : (
-        <div className="space-y-6">
-          
+        <div className="space-y-8">
           {doubtNotifications.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-sm font-black text-black/50 uppercase tracking-widest flex items-center gap-2">
-                <MessageCircle className="w-4 h-4" />
-                DOUBTS UPDATES
-              </h2>
+            <Group icon={MessageCircle} title="Doubt updates" count={doubtNotifications.length}>
               {doubtNotifications.map((doubt, idx) => (
-                <div key={idx} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
-                  <div className="w-2 h-2 bg-red-500 rounded-full mt-2 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-black text-black uppercase">{doubt.subject}</h4>
-                    <p className="text-xs font-bold text-black/60 mt-1">New reply from admin team</p>
-                    <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mt-3">
-                      {new Date(doubt.updated_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
+                <Item key={idx} icon={MessageCircle} tone="pink" title={doubt.subject} body="New reply from the admin team." meta={new Date(doubt.updated_at).toLocaleDateString()} />
               ))}
-            </div>
+            </Group>
           )}
 
           {upcomingClasses.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-sm font-black text-black/50 uppercase tracking-widest flex items-center gap-2 mt-8">
-                <CalendarClock className="w-4 h-4" />
-                UPCOMING LIVE CLASSES
-              </h2>
+            <Group icon={CalendarClock} title="Upcoming live classes" count={upcomingClasses.length}>
               {upcomingClasses.map((cls, idx) => (
-                <div key={`upcoming-${idx}`} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
-                  <div className="w-2 h-2 bg-[#1e3a8a] rounded-full mt-2 shrink-0" />
-                  <div>
-                    <span className="text-[10px] font-black text-white bg-[#1e3a8a] px-2 py-0.5 rounded-full uppercase tracking-widest">
-                      {cls.course}
-                    </span>
-                    <h4 className="text-base font-black text-black uppercase mt-2">{cls.topic}</h4>
-                    <p className="text-xs font-bold text-black/60 mt-1">
-                      {new Date(cls.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })} at {cls.time}
-                    </p>
-                  </div>
-                </div>
+                <Item key={`upcoming-${idx}`} icon={CalendarClock} tone="primary" tag={cls.course} title={cls.topic} meta={when(cls)} />
               ))}
-            </div>
+            </Group>
           )}
 
           {recentClasses.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-sm font-black text-black/50 uppercase tracking-widest flex items-center gap-2 mt-8">
-                <Bell className="w-4 h-4" />
-                RECENTLY ADDED CLASSES
-              </h2>
+            <Group icon={Bell} title="Recently added classes" count={recentClasses.length}>
               {recentClasses.map((cls, idx) => (
-                <div key={`recent-${idx}`} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 shrink-0" />
-                  <div>
-                    <span className="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full uppercase tracking-widest">
-                      {cls.course}
-                    </span>
-                    <h4 className="text-base font-black text-black uppercase mt-2">New Class: {cls.topic}</h4>
-                    <p className="text-xs font-bold text-black/60 mt-1">
-                      Scheduled for {new Date(cls.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })} at {cls.time}
-                    </p>
-                    <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mt-3">
-                      Added {new Date(cls.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
+                <Item
+                  key={`recent-${idx}`}
+                  icon={Bell}
+                  tone="green"
+                  tag={cls.course}
+                  title={`New class: ${cls.topic}`}
+                  body={`Scheduled for ${when(cls)}.`}
+                  meta={`Added ${new Date(cls.created_at).toLocaleDateString()}`}
+                />
               ))}
-            </div>
+            </Group>
           )}
 
           {announcements.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-sm font-black text-black/50 uppercase tracking-widest flex items-center gap-2 mt-8">
-                <AlertCircle className="w-4 h-4" />
-                ANNOUNCEMENTS
-              </h2>
+            <Group icon={AlertCircle} title="Announcements" count={announcements.length}>
               {announcements.map((ann, idx) => (
-                <div key={idx} className="bg-white p-5 rounded-2xl border border-black/10 shadow-sm flex items-start gap-4 hover:-translate-y-1 transition-transform">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-black text-black uppercase">{ann.title}</h4>
-                    <p className="text-xs font-medium text-black/70 mt-2">{ann.content}</p>
-                    <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mt-3">
-                      {new Date(ann.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
+                <Item key={idx} icon={AlertCircle} tone="amber" title={ann.title} body={ann.content} meta={new Date(ann.created_at).toLocaleDateString()} />
               ))}
-            </div>
+            </Group>
           )}
-
         </div>
       )}
     </div>

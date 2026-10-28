@@ -26,25 +26,25 @@ const PLACEHOLDERS: Record<EmailFormat, string> = {
 }
 
 const inputCls =
-  "h-10 w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-white/30"
+  "h-10 w-full rounded-lg border border-border bg-background px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground/70 focus:border-primary"
 
 function DomainBadge({ config }: { config: DomainConfig | null }) {
-  if (!config) return <span className="text-xs text-slate-500">Checking domain…</span>
+  if (!config) return <span className="text-xs text-muted-foreground">Checking domain…</span>
   if (!config.configured)
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/30 bg-rose-500/10 px-2.5 py-1 text-xs font-medium text-rose-300">
+      <span className="inline-flex items-center gap-1.5 rounded-md border border-rose-500/30 bg-rose-500/10 px-2.5 py-1 text-xs font-medium text-rose-600">
         <TriangleAlert className="h-3.5 w-3.5" /> RESEND_API_KEY missing
       </span>
     )
   if (config.status === "verified")
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300">
+      <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-700">
         <BadgeCheck className="h-3.5 w-3.5" /> {SENDING_DOMAIN} verified
       </span>
     )
   const label = config.status === "unknown" ? "status unavailable" : config.status.replace(/_/g, " ")
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-300">
+    <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-700">
       <TriangleAlert className="h-3.5 w-3.5" /> {SENDING_DOMAIN}: {label}
     </span>
   )
@@ -115,8 +115,8 @@ export default function AdminInboxPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">Inbox</h1>
-          <p className="mt-1 text-sm text-slate-400">Compose and send email from BSPrep. Each recipient gets their own copy.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Inbox</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Compose and send email from BSPrep. Each recipient gets their own copy.</p>
         </div>
         <DomainBadge config={config} />
       </header>
@@ -125,8 +125,8 @@ export default function AdminInboxPage() {
         <p
           className={`rounded-lg border px-3 py-2 text-sm ${
             notice.tone === "ok"
-              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
-              : "border-rose-500/30 bg-rose-500/10 text-rose-300"
+              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700"
+              : "border-rose-500/30 bg-rose-500/10 text-rose-600"
           }`}
         >
           {notice.text}
@@ -134,20 +134,20 @@ export default function AdminInboxPage() {
       )}
 
       <div className="grid gap-4 xl:grid-cols-2">
-        <section className="space-y-5 rounded-2xl border border-white/10 bg-[#070c15] p-5">
+        <section className="space-y-5 rounded-2xl border border-border bg-card p-5">
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-slate-400">From</label>
+            <label className="mb-1.5 block text-xs font-medium text-muted-foreground">From</label>
             <div className="grid gap-2 sm:grid-cols-[1fr_1.4fr]">
               <input value={fromName} onChange={(e) => setFromName(e.target.value)} placeholder="Display name" className={inputCls} suppressHydrationWarning />
-              <div className="flex h-10 items-center rounded-lg border border-white/10 bg-[#0b1220] focus-within:border-white/30">
+              <div className="flex h-10 items-center rounded-lg border border-border bg-background focus-within:border-primary">
                 <input
                   value={fromLocal}
                   onChange={(e) => setFromLocal(e.target.value.replace(/@.*/, "").replace(/\s/g, ""))}
                   placeholder="hello"
-                  className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                  className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground/70"
                   suppressHydrationWarning
                 />
-                <span className="border-l border-white/10 px-3 text-sm text-slate-400">@{SENDING_DOMAIN}</span>
+                <span className="border-l border-border px-3 text-sm text-muted-foreground">@{SENDING_DOMAIN}</span>
               </div>
             </div>
             <input
@@ -162,11 +162,11 @@ export default function AdminInboxPage() {
 
           <div>
             <div className="mb-1.5 flex items-center justify-between">
-              <label className="text-xs font-medium text-slate-400">To</label>
+              <label className="text-xs font-medium text-muted-foreground">To</label>
               <button
                 type="button"
                 onClick={() => fileRef.current?.click()}
-                className="inline-flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-blue-300"
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary"
               >
                 <Upload className="h-3.5 w-3.5" /> Import CSV
               </button>
@@ -187,31 +187,31 @@ export default function AdminInboxPage() {
               onChange={(e) => setToText(e.target.value)}
               rows={4}
               placeholder="Paste addresses separated by commas, spaces or new lines"
-              className="w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-white/30"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground/70 focus:border-primary"
               suppressHydrationWarning
             />
-            <p className={`mt-1 text-xs ${tooMany ? "text-rose-300" : "text-slate-500"}`}>
+            <p className={`mt-1 text-xs ${tooMany ? "text-rose-600" : "text-muted-foreground"}`}>
               {recipients.length} valid recipient{recipients.length === 1 ? "" : "s"}
               {tooMany ? ` — limit is ${MAX_RECIPIENTS} per send` : ""}. Anything that isn&apos;t an email is ignored.
             </p>
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-slate-400">Subject</label>
+            <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Subject</label>
             <input value={subject} onChange={(e) => setSubject(e.target.value)} className={inputCls} suppressHydrationWarning />
           </div>
 
           <div>
             <div className="mb-1.5 flex items-center justify-between">
-              <label className="text-xs font-medium text-slate-400">Message</label>
-              <div className="flex rounded-lg bg-[#0b1220] p-0.5">
+              <label className="text-xs font-medium text-muted-foreground">Message</label>
+              <div className="flex rounded-lg bg-muted p-0.5">
                 {FORMATS.map((f) => (
                   <button
                     key={f.id}
                     type="button"
                     onClick={() => setFormat(f.id)}
                     className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${
-                      format === f.id ? "bg-blue-600 text-white" : "text-slate-400 hover:text-slate-200"
+                      format === f.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {f.label}
@@ -225,7 +225,7 @@ export default function AdminInboxPage() {
               rows={12}
               placeholder={PLACEHOLDERS[format]}
               spellCheck={format === "text"}
-              className={`w-full rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-600 focus:border-white/30 ${
+              className={`w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground/70 focus:border-primary ${
                 format === "text" ? "" : "font-mono"
               }`}
               suppressHydrationWarning
@@ -239,7 +239,7 @@ export default function AdminInboxPage() {
               onClick={() => {
                 if (window.confirm(`Send to ${recipients.length} recipient${recipients.length === 1 ? "" : "s"}?`)) void send(recipients)
               }}
-              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               Send{recipients.length > 0 ? ` to ${recipients.length}` : ""}
@@ -248,30 +248,30 @@ export default function AdminInboxPage() {
               type="button"
               disabled={!ready || !config?.adminEmail || config?.configured === false}
               onClick={() => void send([config!.adminEmail])}
-              className="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
             >
               Send test to me
             </button>
           </div>
         </section>
 
-        <section className="flex min-h-[28rem] flex-col rounded-2xl border border-white/10 bg-[#070c15] p-5">
+        <section className="flex min-h-[28rem] flex-col rounded-2xl border border-border bg-card p-5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-100">Preview</h2>
+            <h2 className="text-sm font-semibold text-foreground">Preview</h2>
           </div>
-          <div className="mb-3 space-y-0.5 rounded-lg border border-white/10 bg-[#0a101c] px-3 py-2 text-xs text-slate-400">
+          <div className="mb-3 space-y-0.5 rounded-lg border border-border bg-muted/60 px-3 py-2 text-xs text-muted-foreground">
             <p>
-              <span className="text-slate-500">From:</span> {fromName ? `${fromName} ` : ""}&lt;{fromLocal || "…"}@{SENDING_DOMAIN}&gt;
+              <span className="text-muted-foreground">From:</span> {fromName ? `${fromName} ` : ""}&lt;{fromLocal || "…"}@{SENDING_DOMAIN}&gt;
             </p>
             <p className="truncate">
-              <span className="text-slate-500">To:</span> {recipients.length ? recipients.slice(0, 2).join(", ") + (recipients.length > 2 ? ` +${recipients.length - 2} more` : "") : "—"}
+              <span className="text-muted-foreground">To:</span> {recipients.length ? recipients.slice(0, 2).join(", ") + (recipients.length > 2 ? ` +${recipients.length - 2} more` : "") : "—"}
             </p>
             <p className="truncate">
-              <span className="text-slate-500">Subject:</span> <span className="text-slate-200">{subject || "—"}</span>
+              <span className="text-muted-foreground">Subject:</span> <span className="text-foreground">{subject || "—"}</span>
             </p>
           </div>
           {/* sandboxed with no permissions: previewed HTML can't run scripts or reach the admin page */}
-          <iframe title="Email preview" sandbox="" srcDoc={html} className="min-h-[22rem] w-full flex-1 rounded-lg border border-white/10 bg-white" />
+          <iframe title="Email preview" sandbox="" srcDoc={html} className="min-h-[22rem] w-full flex-1 rounded-lg border border-border bg-card" />
         </section>
       </div>
     </div>

@@ -1,12 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { getUserCached } from "@/lib/supabase/cached-user"
+import { SettingsSkeleton } from "@/components/dashboard/skeleton"
 import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card } from "@/components/ui/card"
-import { User, Lock, CheckCircle, Trash2, AlertTriangle, Key, Shield, Image as ImageIcon } from "lucide-react"
+import { KeyRound, Trash2, User } from "lucide-react"
+import { Avatar, Field, Notice, PageHeader, Section, Tag, btnDanger, btnGhost, btnPrimary, field } from "@/components/dashboard/ui"
 
 export default function SettingsPage() {
   const supabase = createClient()
@@ -38,7 +37,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     const load = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { user } } = await getUserCached()
       if (!user) {
         setLoadingProfile(false)
         return
@@ -170,246 +169,117 @@ export default function SettingsPage() {
     }
   }
 
+  const displayName = `${firstName} ${lastName}`.trim() || "No name"
+
+  if (loadingProfile) return <SettingsSkeleton />
+
   return (
-    <div id="tour-settings" className="max-w-6xl mx-auto space-y-8 py-8 px-4">
-      <h1 className="text-3xl md:text-5xl font-black text-black uppercase tracking-tight">SETTINGS</h1>
+    <div id="tour-settings" className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="min-w-0 space-y-5">
+        <PageHeader title="Settings" description="Manage your profile and account." />
 
-      {loadingProfile ? (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-1 h-96 bg-black/5 rounded-[2rem] animate-pulse" />
-          <div className="lg:col-span-2 space-y-6">
-            <div className="h-64 bg-black/5 rounded-[2rem] animate-pulse" />
-            <div className="h-64 bg-black/5 rounded-[2rem] animate-pulse" />
-          </div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          {/* Left Column: Bento Overview */}
-          <div className="lg:col-span-1 flex flex-col gap-6">
-            {/* Identity Card */}
-            <div className="bg-black text-white p-8 rounded-[2rem] shadow-xl flex flex-col items-center text-center relative overflow-hidden">
-              <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/5 rounded-full blur-2xl pointer-events-none" />
-              <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
-              
-              <div className="relative w-32 h-32 rounded-full mb-6 border-4 border-white/20 overflow-hidden shadow-2xl bg-white/10 flex items-center justify-center">
-                {photoUrl ? (
-                  <img src={photoUrl} alt="Profile" className="w-full h-full object-cover" />
-                ) : (
-                  <User className="w-12 h-12 text-white/50" />
-                )}
-              </div>
-              
-              <h2 className="text-2xl font-black tracking-tight uppercase line-clamp-1 w-full">
-                {firstName || 'No Name'} {lastName}
-              </h2>
-              <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-black uppercase tracking-widest text-white/80">
-                {role || 'Student'}
-              </div>
-              <p className="mt-4 text-white/40 text-xs font-medium truncate w-full px-4">
-                {email}
-              </p>
+        <Section icon={User} title="Profile" description="Your name as it appears across BSPrep.">
+          <form onSubmit={handleSaveProfile} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="First name" htmlFor="first-name">
+                <input id="first-name" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" className={field} />
+              </Field>
+              <Field label="Last name" htmlFor="last-name">
+                <input id="last-name" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" className={field} />
+              </Field>
             </div>
-          </div>
+            <Field label="Email" htmlFor="email" hint="Your sign-in email can't be changed here.">
+              <input id="email" value={email} readOnly className={`${field} cursor-not-allowed bg-muted/60 text-muted-foreground`} />
+            </Field>
+            {profileError && <Notice tone="error">{profileError}</Notice>}
+            {profileSuccess && <Notice tone="success">Profile updated.</Notice>}
+            <div className="flex justify-end">
+              <button type="submit" disabled={isSavingProfile} className={btnPrimary}>
+                {isSavingProfile ? "Saving…" : "Save changes"}
+              </button>
+            </div>
+          </form>
+        </Section>
 
-          {/* Right Column: Editable Forms */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            
-            {/* Edit Profile */}
-            <Card className="p-8 md:p-10 bg-white border border-black/10 shadow-lg rounded-[2rem]">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-md">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-black text-black uppercase tracking-tight leading-none">EDIT PROFILE</h2>
-                  <p className="text-xs font-bold text-black/40 uppercase tracking-widest mt-1">Update your personal details</p>
-                </div>
-              </div>
-
-              <form onSubmit={handleSaveProfile} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name" className="text-[10px] font-black uppercase tracking-widest text-black/40">FIRST NAME</Label>
-                    <Input
-                      id="first-name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="Enter first name"
-                      className="h-14 bg-black/5 border-transparent focus:border-black/20 focus:bg-white text-black rounded-xl font-bold transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="last-name" className="text-[10px] font-black uppercase tracking-widest text-black/40">LAST NAME</Label>
-                    <Input
-                      id="last-name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Enter last name"
-                      className="h-14 bg-black/5 border-transparent focus:border-black/20 focus:bg-white text-black rounded-xl font-bold transition-all"
-                    />
-                  </div>
-                </div>
-
-                {profileError && (
-                  <div className="p-4 bg-red-50 border-2 border-red-200 rounded-xl text-xs font-black uppercase tracking-widest text-red-700 flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4" /> {profileError}
-                  </div>
-                )}
-                {profileSuccess && (
-                  <div className="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl text-xs font-black uppercase tracking-widest text-emerald-700 flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4" /> PROFILE UPDATED SUCCESSFULLY.
-                  </div>
-                )}
-
-                <div className="flex justify-end pt-2">
-                  <Button
-                    type="submit"
-                    disabled={isSavingProfile}
-                    className="w-full md:w-auto px-8 h-12 bg-black hover:bg-black/80 text-white font-black uppercase tracking-widest text-xs rounded-full shadow-md transition-all hover:-translate-y-0.5"
-                  >
-                    {isSavingProfile ? "SAVING..." : "SAVE CHANGES"}
-                  </Button>
-                </div>
+        {authProvider === "email" && (
+          <Section icon={KeyRound} tone="amber" title="Password" description="Use at least 8 characters.">
+            {passwordSuccess ? (
+              <Notice tone="success">Password updated.</Notice>
+            ) : (
+              <form onSubmit={handleChangePassword} className="max-w-md space-y-4">
+                <Field label="New password" htmlFor="new-password">
+                  <input id="new-password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required placeholder="At least 8 characters" className={field} />
+                </Field>
+                <Field label="Confirm new password" htmlFor="confirm-password">
+                  <input id="confirm-password" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder="Repeat the new password" className={field} />
+                </Field>
+                {passwordError && <Notice tone="error">{passwordError}</Notice>}
+                <button type="submit" disabled={isChangingPassword} className={btnPrimary}>
+                  {isChangingPassword ? "Updating…" : "Update password"}
+                </button>
               </form>
-            </Card>
-
-            {/* Change Password - Only show if not using OAuth */}
-            {authProvider === 'email' && (
-              <Card className="p-8 md:p-10 bg-white border border-black/10 shadow-lg rounded-[2rem]">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center border border-black/5">
-                    <Key className="w-6 h-6 text-black" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-black text-black uppercase tracking-tight leading-none">SECURITY</h2>
-                    <p className="text-xs font-bold text-black/40 uppercase tracking-widest mt-1">Update your password</p>
-                  </div>
-                </div>
-
-              {passwordSuccess ? (
-                <div className="flex items-center gap-3 p-5 bg-emerald-50 border-2 border-emerald-200 rounded-xl text-emerald-700">
-                  <CheckCircle className="w-6 h-6 flex-shrink-0" />
-                  <span className="text-xs font-black uppercase tracking-widest">PASSWORD UPDATED SUCCESSFULLY!</span>
-                </div>
-              ) : (
-                <form onSubmit={handleChangePassword} className="space-y-6 max-w-md">
-                  <div className="space-y-2">
-                    <Label htmlFor="new-password" className="text-[10px] font-black uppercase tracking-widest text-black/40">
-                      NEW PASSWORD
-                    </Label>
-                    <Input
-                      id="new-password"
-                      type="password"
-                      placeholder="At least 6 characters"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      required
-                      className="h-14 bg-black/5 border-transparent focus:border-black/20 focus:bg-white text-black rounded-xl font-bold transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirm-password" className="text-[10px] font-black uppercase tracking-widest text-black/40">
-                      CONFIRM NEW PASSWORD
-                    </Label>
-                    <Input
-                      id="confirm-password"
-                      type="password"
-                      placeholder="Repeat new password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                      className="h-14 bg-black/5 border-transparent focus:border-black/20 focus:bg-white text-black rounded-xl font-bold transition-all"
-                    />
-                  </div>
-
-                  {passwordError && (
-                    <div className="p-4 bg-red-50 border-2 border-red-200 rounded-xl text-xs font-black uppercase tracking-widest text-red-700 flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4" /> {passwordError}
-                    </div>
-                  )}
-
-                  <div className="pt-2">
-                    <Button
-                      type="submit"
-                      disabled={isChangingPassword}
-                      className="h-12 px-8 bg-black hover:bg-black/80 text-white font-black uppercase tracking-widest text-xs rounded-full shadow-md transition-all hover:-translate-y-0.5"
-                    >
-                      {isChangingPassword ? "UPDATING..." : "UPDATE PASSWORD"}
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </Card>
             )}
+          </Section>
+        )}
 
-            {/* Danger Zone */}
-            <Card className="p-8 md:p-10 bg-white border border-black/10 shadow-lg rounded-[2rem] overflow-hidden relative">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-black/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-              
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center border border-black/10">
-                  <Trash2 className="w-5 h-5 text-black" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-black text-black uppercase tracking-tight leading-none">DANGER ZONE</h2>
-                  <p className="text-xs font-bold text-black/50 uppercase tracking-widest mt-1">Permanent actions</p>
-                </div>
+        <section className="rounded-2xl border border-destructive/30 bg-card p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-destructive/10 text-destructive">
+                <Trash2 className="size-[18px]" />
+              </span>
+              <div>
+                <h2 className="text-base font-bold leading-tight">Delete account</h2>
+                <p className="max-w-lg text-xs text-muted-foreground">
+                  Permanently removes your profile, enrollments and all related data. This can&apos;t be undone.
+                </p>
               </div>
-
-              <p className="text-sm font-medium text-black/60 mb-6 leading-relaxed relative z-10 max-w-xl">
-                Permanently deletes your account and all associated data — profile, enrollments, and everything else. This cannot be undone.
-              </p>
-
-              {!showDeleteConfirm ? (
-                <Button
-                  variant="outline"
-                  className="h-12 px-6 border-2 border-black/10 text-black hover:bg-black/5 hover:border-black/30 rounded-full font-black uppercase tracking-widest text-xs transition-all relative z-10"
-                  onClick={() => setShowDeleteConfirm(true)}
-                >
-                  DELETE MY ACCOUNT
-                </Button>
-              ) : (
-                <div className="space-y-6 p-6 bg-black/5 border border-black/10 rounded-2xl relative z-10 max-w-xl">
-                  <div className="flex items-center gap-2 text-black">
-                    <AlertTriangle className="w-5 h-5 flex-shrink-0" />
-                    <span className="text-xs font-black uppercase tracking-widest">TYPE <strong className="text-black bg-black/10 px-2 py-0.5 rounded">DELETE</strong> TO CONFIRM</span>
-                  </div>
-                  <Input
-                    placeholder="TYPE DELETE HERE"
-                    value={deleteInput}
-                    onChange={(e) => setDeleteInput(e.target.value)}
-                    className="h-12 bg-white border-black/20 focus:border-black text-black font-bold uppercase tracking-widest rounded-xl"
-                  />
-                  {deleteError && (
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-xs font-black uppercase tracking-widest text-red-700">
-                      {deleteError}
-                    </div>
-                  )}
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button
-                      variant="outline"
-                      className="flex-1 h-12 border border-black/20 text-black/60 hover:text-black hover:bg-black/5 rounded-full font-black uppercase tracking-widest text-[10px] transition-all"
-                      onClick={() => { setShowDeleteConfirm(false); setDeleteInput(""); setDeleteError(null) }}
-                      disabled={isDeletingAccount}
-                    >
-                      CANCEL
-                    </Button>
-                    <Button
-                      className="flex-1 h-12 bg-black hover:bg-black/80 text-white font-black uppercase tracking-widest text-[10px] rounded-full shadow-md transition-all disabled:opacity-50"
-                      onClick={handleDeleteAccount}
-                      disabled={deleteInput !== "DELETE" || isDeletingAccount}
-                    >
-                      {isDeletingAccount ? "DELETING..." : "PERMANENTLY DELETE"}
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </Card>
-
+            </div>
+            {!showDeleteConfirm && (
+              <button type="button" className={btnDanger} onClick={() => setShowDeleteConfirm(true)}>
+                Delete account
+              </button>
+            )}
           </div>
-        </div>
-      )}
+
+          {showDeleteConfirm && (
+            <div className="mt-5 space-y-4 rounded-xl bg-muted/60 p-4">
+              <Field label="Type DELETE to confirm" htmlFor="delete-confirm">
+                <input id="delete-confirm" placeholder="DELETE" value={deleteInput} onChange={(e) => setDeleteInput(e.target.value)} className={field} />
+              </Field>
+              {deleteError && <Notice tone="error">{deleteError}</Notice>}
+              <div className="flex flex-wrap justify-end gap-2">
+                <button
+                  type="button"
+                  className={btnGhost}
+                  onClick={() => {
+                    setShowDeleteConfirm(false)
+                    setDeleteInput("")
+                    setDeleteError(null)
+                  }}
+                  disabled={isDeletingAccount}
+                >
+                  Cancel
+                </button>
+                <button type="button" className={btnDanger} onClick={handleDeleteAccount} disabled={deleteInput !== "DELETE" || isDeletingAccount}>
+                  {isDeletingAccount ? "Deleting…" : "Permanently delete"}
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
+      </div>
+
+      <aside className="xl:pt-[4.25rem]">
+        <section className="overflow-hidden rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6 text-center">
+          <Avatar name={displayName} src={photoUrl || null} size={88} className="mx-auto" />
+          <h2 className="mt-4 truncate text-lg font-extrabold tracking-tight">{displayName}</h2>
+          <div className="mt-2">
+            <Tag tone="primary" className="capitalize">{role || "student"}</Tag>
+          </div>
+          <p className="mt-3 truncate text-xs text-muted-foreground">{email}</p>
+        </section>
+      </aside>
     </div>
   )
 }

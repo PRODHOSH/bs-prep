@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
+import { SkCalendarGrid } from "@/components/dashboard/skeleton"
 import { 
   format, 
   addMonths, 
@@ -22,6 +23,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog"
+import { IconTile, PageHeader, btnGhost, btnPrimary } from "@/components/dashboard/ui"
+import { cn } from "@/lib/utils"
 
 // Hardcoded dates as requested
 const HARDCODED_EVENTS = [
@@ -87,147 +90,114 @@ export default function CalendarPage() {
   const goToToday = () => setCurrentDate(new Date())
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto min-h-screen bg-white">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-[#0a192f] uppercase mb-2">Live Class Calendar</h1>
-          <p className="text-gray-500 font-medium text-sm">Schedule for your enrolled courses and upcoming exams.</p>
-        </div>
-        
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={goToToday}
-            className="px-4 py-2 text-sm font-bold bg-gray-100 hover:bg-gray-200 text-[#0a192f] rounded-lg transition-colors uppercase"
-          >
-            Today
-          </button>
-          <div className="flex items-center bg-gray-50 rounded-lg border border-gray-200 p-1">
-            <button onClick={prevMonth} className="p-2 hover:bg-white rounded-md transition-colors text-gray-600">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <span className="w-32 text-center font-bold text-[#0a192f] uppercase tracking-wide">
-              {format(currentDate, "MMM yyyy")}
-            </span>
-            <button onClick={nextMonth} className="p-2 hover:bg-white rounded-md transition-colors text-gray-600">
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="space-y-6">
+      <PageHeader
+        title="Calendar"
+        description="Live classes for your courses and upcoming exams."
+        actions={
+          <>
+            <button onClick={goToToday} className={btnGhost}>Today</button>
+            <div className="flex items-center rounded-xl border bg-card">
+              <button onClick={prevMonth} aria-label="Previous month" className="grid size-10 place-items-center rounded-l-xl text-muted-foreground hover:bg-muted">
+                <ChevronLeft className="size-4" />
+              </button>
+              <span className="w-28 text-center text-sm font-bold">{format(currentDate, "MMM yyyy")}</span>
+              <button onClick={nextMonth} aria-label="Next month" className="grid size-10 place-items-center rounded-r-xl text-muted-foreground hover:bg-muted">
+                <ChevronRight className="size-4" />
+              </button>
+            </div>
+          </>
+        }
+      />
 
       {loading ? (
-        <div className="h-[600px] flex items-center justify-center border border-gray-200 rounded-2xl bg-gray-50">
-          <div className="animate-spin w-8 h-8 border-2 border-[#e5e7eb] border-t-[#0a192f] rounded-full" />
-        </div>
+        <SkCalendarGrid />
       ) : (
-        <div className="border border-gray-200 rounded-2xl shadow-sm bg-white overflow-x-auto">
-          <div className="min-w-[768px]">
-            {/* Day Headers */}
-            <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50/50">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="p-2 md:p-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  {day}
-                </div>
-              ))}
-            </div>
+        <div className="overflow-hidden rounded-2xl border bg-card">
+          <div className="overflow-x-auto">
+            <div className="min-w-[768px]">
+              <div className="grid grid-cols-7 border-b bg-muted/50">
+                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+                  <div key={day} className="p-3 text-center text-xs font-semibold text-muted-foreground">{day}</div>
+                ))}
+              </div>
 
-            {/* Calendar Grid */}
-            <div className="grid grid-cols-7 auto-rows-fr">
-              {calendarDays.map((day, dayIdx) => {
-                const dateString = format(day, "yyyy-MM-dd")
-                const dayEvents = allEvents.filter(e => e.date === dateString)
-                const isCurrentMonth = isSameMonth(day, monthStart)
-                const isToday = isSameDay(day, new Date())
+              <div className="grid auto-rows-fr grid-cols-7">
+                {calendarDays.map((day, dayIdx) => {
+                  const dateString = format(day, "yyyy-MM-dd")
+                  const dayEvents = allEvents.filter((e) => e.date === dateString)
+                  const isCurrentMonth = isSameMonth(day, monthStart)
+                  const isToday = isSameDay(day, new Date())
 
-                return (
-                  <div 
-                    key={day.toString()} 
-                    className={`
-                      min-h-[100px] md:min-h-[120px] p-1.5 md:p-2 border-b border-r border-gray-100 transition-colors
-                      ${!isCurrentMonth ? "bg-gray-50/50 text-gray-400" : "bg-white"}
-                      ${dayIdx % 7 === 6 ? "border-r-0" : ""}
-                    `}
-                  >
-                    <div className="flex justify-between items-start mb-1 md:mb-2">
-                      <span className={`
-                        text-xs md:text-sm font-bold w-6 h-6 md:w-7 md:h-7 flex items-center justify-center rounded-full
-                        ${isToday ? "bg-[#0a192f] text-white" : isCurrentMonth ? "text-gray-900" : "text-gray-400"}
-                      `}>
+                  return (
+                    <div
+                      key={day.toString()}
+                      className={cn(
+                        "min-h-[7rem] border-b border-r p-2",
+                        !isCurrentMonth && "bg-muted/40",
+                        dayIdx % 7 === 6 && "border-r-0",
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "mb-1.5 grid size-7 place-items-center rounded-full text-xs font-bold",
+                          isToday ? "bg-primary text-primary-foreground" : isCurrentMonth ? "text-foreground" : "text-muted-foreground/60",
+                        )}
+                      >
                         {format(day, "d")}
                       </span>
+
+                      <div className="flex max-h-[5.5rem] flex-col gap-1 overflow-y-auto">
+                        {dayEvents.map((evt, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setSelectedEvent(evt)}
+                            className={cn(
+                              "w-full truncate rounded-md px-2 py-1 text-left text-[11px] font-semibold transition-opacity hover:opacity-80",
+                              evt.isExam ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary",
+                            )}
+                          >
+                            <span className="block truncate">{evt.isExam ? evt.topic : evt.course}</span>
+                            {!evt.isExam && <span className="block truncate font-medium opacity-80">{evt.time}</span>}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    
-                    <div className="space-y-1.5 flex flex-col items-start overflow-y-auto max-h-[80px] md:max-h-[100px] no-scrollbar">
-                      {dayEvents.map((evt, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setSelectedEvent(evt)}
-                          className={`
-                            w-full text-left text-[10px] md:text-xs px-1.5 md:px-2 py-1 md:py-1.5 rounded-md font-bold truncate transition-transform hover:scale-[1.02]
-                            ${evt.isExam 
-                              ? "bg-red-50 text-red-700 border border-red-100" 
-                              : "bg-blue-50 text-blue-700 border border-blue-100"}
-                          `}
-                        >
-                          <div className="truncate">{evt.isExam ? evt.topic : evt.course}</div>
-                          {!evt.isExam && <div className="text-[9px] md:text-[10px] font-medium opacity-80 truncate">{evt.time}</div>}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Event Details Modal */}
       <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
-        <DialogContent className="sm:max-w-md bg-white border border-gray-100 shadow-2xl rounded-2xl">
+        <DialogContent className="rounded-2xl border bg-card sm:max-w-md">
           {selectedEvent && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-xl font-black uppercase text-[#0a192f] flex items-center gap-2">
-                  {selectedEvent.isExam ? (
-                    <CalendarIcon className="w-5 h-5 text-red-500" />
-                  ) : (
-                    <Video className="w-5 h-5 text-blue-500" />
-                  )}
+                <DialogTitle className="flex items-center gap-3 text-lg font-bold">
+                  <IconTile icon={selectedEvent.isExam ? CalendarIcon : Video} tone={selectedEvent.isExam ? "pink" : "primary"} />
                   {selectedEvent.course}
                 </DialogTitle>
-                <DialogDescription className="font-medium text-gray-500 pt-2 text-base">
-                  {selectedEvent.topic}
-                </DialogDescription>
+                <DialogDescription className="pt-1 text-sm text-muted-foreground">{selectedEvent.topic}</DialogDescription>
               </DialogHeader>
-              
-              <div className="grid gap-4 py-4">
-                <div className="flex items-center gap-3 text-sm font-bold text-gray-700">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                    <CalendarIcon className="w-4 h-4 text-gray-500" />
-                  </div>
+
+              <ul className="space-y-3 py-2 text-sm font-medium">
+                <li className="flex items-center gap-3">
+                  <CalendarIcon className="size-4 text-muted-foreground" />
                   {format(parseISO(selectedEvent.date), "EEEE, MMMM do, yyyy")}
-                </div>
-                <div className="flex items-center gap-3 text-sm font-bold text-gray-700">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                    <Clock className="w-4 h-4 text-gray-500" />
-                  </div>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Clock className="size-4 text-muted-foreground" />
                   {selectedEvent.time}
-                </div>
-              </div>
+                </li>
+              </ul>
 
               {selectedEvent.meetingLink && (
-                <div className="pt-4 flex flex-col gap-2">
-                  <a
-                    href={selectedEvent.meetingLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full bg-[#0a192f] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-sm hover:bg-[#112a52] transition-colors"
-                  >
-                    Join Live Class
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </div>
+                <a href={selectedEvent.meetingLink} target="_blank" rel="noopener noreferrer" className={cn(btnPrimary, "w-full")}>
+                  Join live class <ExternalLink className="size-4" />
+                </a>
               )}
             </>
           )}

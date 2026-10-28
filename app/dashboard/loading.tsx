@@ -1,5 +1,5 @@
-import { Loading } from "@/components/loading"
+import { HomeSkeleton } from "@/components/dashboard/skeleton"
 
-export default function DashboardLoading() {
-  return <Loading />
+export default function Loading() {
+  return <HomeSkeleton />
 }

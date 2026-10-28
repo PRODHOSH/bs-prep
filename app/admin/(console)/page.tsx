@@ -1,7 +1,8 @@
 import Link from "next/link"
-import { ArrowUpRight, CheckCircle2 } from "lucide-react"
+import { ArrowUpRight, BookOpen, CheckCircle2, MessageSquare, Users, Video } from "lucide-react"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { GrowthChart, type GrowthPoint } from "@/components/admin/growth-chart"
+import { Card, PageHeader, Stat, btnGhost } from "@/components/dashboard/ui"
 
 export const dynamic = "force-dynamic"
 
@@ -79,12 +80,6 @@ export default async function AdminPage() {
   ])
   const name = profile?.first_name || user?.email?.split("@")[0] || "Admin"
 
-  const kpis = [
-    { label: "Total users", value: data.users, sub: `+${data.newUsers} this week`, href: "/admin/users" },
-    { label: "Enrollments", value: data.enrolled, sub: "All courses", href: "/admin/users" },
-    { label: "Live classes", value: data.liveClasses, sub: "Scheduled", href: "/admin/live-classes" },
-  ]
-
   const attention = [
     { label: "open doubts", value: data.openDoubts, href: "/admin/doubts", action: "Answer" },
     { label: "notes pending approval", value: data.pendingNotes, href: "/admin/resources-notes", action: "Review" },
@@ -94,87 +89,72 @@ export default async function AdminPage() {
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">Overview</h1>
-          <p className="mt-1 text-sm text-slate-400">
-            {greeting()}, {name}. Here is what is happening on BSPrep.
-          </p>
-        </div>
-        <Link
-          href="/"
-          target="_blank"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-sm text-slate-300 transition hover:bg-[#0f1729] hover:text-white"
-        >
-          View website <ArrowUpRight className="h-4 w-4" />
-        </Link>
-      </header>
-
-      <div className="grid gap-3 sm:grid-cols-3">
-        {kpis.map((k) => (
-          <Link
-            key={k.label}
-            href={k.href}
-            className="rounded-2xl border border-white/10 bg-[#070c15] p-5 transition hover:border-white/20"
-          >
-            <p className="text-sm text-slate-400">{k.label}</p>
-            <p className="mt-1 text-3xl font-semibold text-white tabular-nums">{k.value.toLocaleString()}</p>
-            <p className="mt-1 text-xs text-slate-500">{k.sub}</p>
+      <PageHeader
+        title="Overview"
+        description={`${greeting()}, ${name}. Here is what is happening on BSPrep.`}
+        actions={
+          <Link href="/" target="_blank" className={btnGhost}>
+            View website <ArrowUpRight className="size-4" />
           </Link>
-        ))}
+        }
+      />
+
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <Stat label="Total users" value={data.users.toLocaleString()} hint={`+${data.newUsers} this week`} icon={Users} tone="primary" href="/admin/users" />
+        <Stat label="Enrollments" value={data.enrolled.toLocaleString()} hint="All courses" icon={BookOpen} tone="green" href="/admin/users" />
+        <Stat label="Live classes" value={data.liveClasses.toLocaleString()} hint="Scheduled" icon={Video} tone="pink" href="/admin/live-classes" />
+        <Stat label="Open doubts" value={data.openDoubts.toLocaleString()} hint="Waiting for an answer" icon={MessageSquare} tone="amber" href="/admin/doubts" />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5 lg:col-span-2">
-          <h2 className="text-sm font-semibold text-slate-100">Growth, last {DAYS} days</h2>
-          <p className="mt-0.5 text-xs text-slate-500">{total.toLocaleString()} new sign-ups in this period</p>
-          <div className="mt-4">
-            <GrowthChart data={data.growth} />
-          </div>
-        </section>
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
+        <Card title={`Growth, last ${DAYS} days`} aside={`${total.toLocaleString()} new sign-ups`}>
+          <GrowthChart data={data.growth} />
+        </Card>
 
-        <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5">
-          <h2 className="text-sm font-semibold text-slate-100">Needs your attention</h2>
-          {attention.length === 0 ? (
-            <p className="mt-4 flex items-center gap-2 text-sm text-slate-400">
-              <CheckCircle2 className="h-4 w-4 text-emerald-400" /> All caught up.
-            </p>
-          ) : (
-            <ul className="mt-3 divide-y divide-white/5">
-              {attention.map((a) => (
-                <li key={a.label}>
-                  <Link href={a.href} className="flex items-center justify-between py-3 text-sm transition hover:text-white">
-                    <span className="text-slate-300">
-                      <span className="font-semibold text-white">{a.value}</span> {a.label}
-                    </span>
-                    <span className="inline-flex items-center gap-1 text-xs text-blue-400">
-                      {a.action} <ArrowUpRight className="h-3.5 w-3.5" />
-                    </span>
+        <div className="space-y-5">
+          <Card title="Needs your attention">
+            {attention.length === 0 ? (
+              <p className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
+                <CheckCircle2 className="size-4 text-chart-4" /> All caught up.
+              </p>
+            ) : (
+              <ul className="divide-y">
+                {attention.map((a) => (
+                  <li key={a.label}>
+                    <Link href={a.href} className="flex items-center justify-between py-3 text-sm first:pt-1 last:pb-1">
+                      <span>
+                        <span className="font-bold">{a.value}</span> <span className="text-muted-foreground">{a.label}</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs font-bold text-primary">
+                        {a.action} <ArrowUpRight className="size-3.5" />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Card>
+
+          <Card title="Quick links">
+            <ul className="divide-y">
+              {[
+                { name: "Send an email", href: "/admin/inbox" },
+                { name: "Post an announcement", href: "/admin/announcements" },
+                { name: "Google Search Console", href: "https://search.google.com/search-console?resource_id=sc-domain:bsprep.in", external: true },
+              ].map((l) => (
+                <li key={l.name}>
+                  <Link
+                    href={l.href}
+                    target={l.external ? "_blank" : undefined}
+                    className="flex items-center justify-between py-3 text-sm font-semibold first:pt-1 last:pb-1 hover:text-primary"
+                  >
+                    {l.name} <ArrowUpRight className="size-4 text-muted-foreground" />
                   </Link>
                 </li>
               ))}
             </ul>
-          )}
-
-          <h2 className="mt-6 text-sm font-semibold text-slate-100">Quick links</h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            {[
-              { name: "Send an email", href: "/admin/inbox" },
-              { name: "Post an announcement", href: "/admin/announcements" },
-              { name: "Google Search Console", href: "https://search.google.com/search-console?resource_id=sc-domain:bsprep.in", external: true },
-            ].map((l) => (
-              <li key={l.name}>
-                <Link
-                  href={l.href}
-                  target={l.external ? "_blank" : undefined}
-                  className="inline-flex items-center gap-1 text-slate-400 transition hover:text-white"
-                >
-                  {l.name} <ArrowUpRight className="h-3.5 w-3.5 text-slate-600" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+          </Card>
+        </div>
       </div>
     </div>
   )

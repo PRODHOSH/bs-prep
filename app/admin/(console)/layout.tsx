@@ -1,6 +1,7 @@
+import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
-import { AdminShell } from "@/components/admin/admin-shell"
+import { AdminShell } from "@/components/dashboard/shells"
 
 type AdminLayoutProps = {
   children: React.ReactNode
@@ -34,8 +35,10 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
     (typeof user.user_metadata?.avatar_url === "string" ? user.user_metadata.avatar_url : null) ||
     (typeof user.user_metadata?.picture === "string" ? user.user_metadata.picture : null)
 
+  const theme = (await cookies()).get("dashboard-theme")?.value === "dark" ? "dark" : "light"
+
   return (
-    <AdminShell email={profile?.email || user.email || "Admin"} avatarUrl={avatarUrl}>
+    <AdminShell initialTheme={theme} user={{ email: profile?.email || user.email || "Admin", avatarUrl }}>
       {children}
     </AdminShell>
   )

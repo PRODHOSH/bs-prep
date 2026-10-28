@@ -4,8 +4,8 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YA
 
 export type GrowthPoint = { day: string; signups: number; enrollments: number }
 
-const SIGNUPS = "#60a5fa"
-const ENROLLMENTS = "#34d399"
+const SIGNUPS = "var(--chart-1)"
+const ENROLLMENTS = "var(--chart-4)"
 
 export function GrowthChart({ data }: { data: GrowthPoint[] }) {
   return (
@@ -23,19 +23,19 @@ export function GrowthChart({ data }: { data: GrowthPoint[] }) {
               </linearGradient>
             ))}
           </defs>
-          <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
-          <XAxis dataKey="day" tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} minTickGap={28} />
-          <YAxis tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
+          <CartesianGrid stroke="var(--border)" vertical={false} />
+          <XAxis dataKey="day" tick={{ fill: "var(--muted-foreground)", fontSize: 11 }} axisLine={false} tickLine={false} minTickGap={28} />
+          <YAxis tick={{ fill: "var(--muted-foreground)", fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
           <Tooltip
-            contentStyle={{ background: "#0b1220", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, fontSize: 12 }}
-            labelStyle={{ color: "#94a3b8" }}
-            itemStyle={{ color: "#e2e8f0" }}
+            contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, fontSize: 12 }}
+            labelStyle={{ color: "var(--muted-foreground)" }}
+            itemStyle={{ color: "var(--foreground)" }}
           />
           <Area type="monotone" dataKey="signups" name="Sign-ups" stroke={SIGNUPS} strokeWidth={2} fill="url(#growth-signups)" />
           <Area type="monotone" dataKey="enrollments" name="Enrollments" stroke={ENROLLMENTS} strokeWidth={2} fill="url(#growth-enrollments)" />
         </AreaChart>
       </ResponsiveContainer>
-      <div className="mt-2 flex gap-4 text-xs text-slate-400">
+      <div className="mt-2 flex gap-4 text-xs text-muted-foreground">
         <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: SIGNUPS }} />Sign-ups</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: ENROLLMENTS }} />Enrollments</span>
       </div>

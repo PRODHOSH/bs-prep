@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { isAppRoute } from "@/lib/app-routes"
 import { Cookie, X } from "lucide-react"
 
 export function CookieBanner() {
   const [visible, setVisible] = useState(false)
+  const inApp = isAppRoute(usePathname())
 
   useEffect(() => {
     // Only show if user hasn't already made a choice
@@ -27,7 +30,7 @@ export function CookieBanner() {
     setVisible(false)
   }
 
-  if (!visible) return null
+  if (!visible || inApp) return null
 
   return (
     <div

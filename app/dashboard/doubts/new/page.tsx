@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, Loader2, ImagePlus, X } from "lucide-react"
+import { ArrowLeft, ImagePlus, X } from "lucide-react"
+import { Field, PageHeader, btnPrimary, field } from "@/components/dashboard/ui"
 
 export default function NewDoubtPage() {
   const router = useRouter()
@@ -104,98 +104,63 @@ export default function NewDoubtPage() {
   }
 
   return (
-    <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-6xl mx-auto flex flex-col min-h-[90vh]">
-      
-      <div className="mb-8">
-        <button 
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-black/60 hover:text-black mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Doubts
-        </button>
-        <h1 className="text-4xl font-black text-black uppercase tracking-tight leading-none">
-          ASK A DOUBT
-        </h1>
-      </div>
+    <div className="mx-auto max-w-2xl space-y-6">
+      <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground">
+        <ArrowLeft className="size-4" /> Back to doubts
+      </button>
+      <PageHeader title="Ask a doubt" description="Explain what you're stuck on and a mentor will help." />
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-black/10 p-6 md:p-10 shadow-sm space-y-6">
-        
-        <div className="space-y-2">
-          <label className="text-xs font-black uppercase tracking-widest text-black/60">Subject / Course</label>
-          <select 
-            value={subject}
-            onChange={e => setSubject(e.target.value)}
-            className="w-full h-12 px-4 bg-black/5 border-transparent focus:border-black/20 focus:bg-white rounded-xl text-sm font-bold text-black outline-none transition-all"
-            required
-          >
-            <option value="" disabled>Select a subject...</option>
-            {subjects.map(s => (
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border bg-card p-5 sm:p-7">
+        <Field label="Subject" htmlFor="subject">
+          <select id="subject" value={subject} onChange={(e) => setSubject(e.target.value)} className={field} required>
+            <option value="" disabled>Select a subject</option>
+            {subjects.map((s) => (
               <option key={s} value={s}>{s}</option>
             ))}
           </select>
-        </div>
+        </Field>
 
-        <div className="space-y-2">
-          <label className="text-xs font-black uppercase tracking-widest text-black/60">Title</label>
-          <input 
-            type="text" 
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="E.g., How does Gradient Descent work in Week 4?"
-            className="w-full h-12 px-4 bg-black/5 border-transparent focus:border-black/20 focus:bg-white rounded-xl text-sm font-bold text-black outline-none transition-all"
-            required
-          />
-        </div>
+        <Field label="Title" htmlFor="title">
+          <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. How does gradient descent work in week 4?" className={field} required />
+        </Field>
 
-        <div className="space-y-2">
-          <label className="text-xs font-black uppercase tracking-widest text-black/60">Description</label>
-          <textarea 
+        <Field label="Description" htmlFor="description">
+          <textarea
+            id="description"
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Explain your doubt in detail. What have you tried so far?"
-            className="w-full h-40 p-4 bg-black/5 border-transparent focus:border-black/20 focus:bg-white rounded-xl text-sm font-medium text-black outline-none transition-all resize-none"
+            className={`${field} h-40 resize-none py-3`}
             required
           />
-        </div>
+        </Field>
 
-        <div className="space-y-3">
-          <label className="text-xs font-black uppercase tracking-widest text-black/60">Attach Images (Max 3)</label>
-          
-          <div className="flex flex-wrap gap-4">
+        <Field label="Attach images" hint="Up to 3 images.">
+          <div className="flex flex-wrap gap-3">
             {images.map((file, i) => (
-              <div key={i} className="relative w-24 h-24 rounded-xl border border-black/10 overflow-hidden group">
-                <img src={URL.createObjectURL(file)} alt="preview" className="w-full h-full object-cover" />
-                <button 
-                  type="button"
-                  onClick={() => removeImage(i)}
-                  className="absolute top-1 right-1 w-6 h-6 bg-black/50 hover:bg-red-500 rounded-full flex items-center justify-center text-white transition-colors"
-                >
-                  <X className="w-3 h-3" />
+              <div key={i} className="relative size-24 overflow-hidden rounded-xl border">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={URL.createObjectURL(file)} alt="Preview" className="size-full object-cover" />
+                <button type="button" onClick={() => removeImage(i)} aria-label="Remove image" className="absolute right-1 top-1 grid size-6 place-items-center rounded-full bg-black/60 text-white hover:bg-destructive">
+                  <X className="size-3" />
                 </button>
               </div>
             ))}
-            
             {images.length < 3 && (
-              <label className="w-24 h-24 rounded-xl border-2 border-dashed border-black/20 hover:border-black/50 hover:bg-black/5 flex flex-col items-center justify-center cursor-pointer transition-colors">
-                <ImagePlus className="w-6 h-6 text-black/40 mb-1" />
-                <span className="text-[10px] font-bold text-black/40 uppercase">Add</span>
+              <label className="flex size-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border border-dashed text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                <ImagePlus className="size-5" />
+                <span className="text-xs font-semibold">Add</span>
                 <input type="file" accept="image/*" multiple className="hidden" onChange={handleImageChange} />
               </label>
             )}
           </div>
-        </div>
+        </Field>
 
-        <div className="pt-6 border-t border-black/5 flex justify-end">
-          <Button 
-            type="submit" 
-            disabled={loading}
-            className="bg-black hover:bg-black/90 text-white rounded-2xl h-14 px-10 text-xs font-black uppercase tracking-widest shadow-md transition-all"
-          >
-            {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
-            POST DOUBT
-          </Button>
+        <div className="flex justify-end border-t pt-5">
+          <button type="submit" disabled={loading} className={btnPrimary}>
+            {loading ? "Posting…" : "Post doubt"}
+          </button>
         </div>
-
       </form>
     </div>
   )

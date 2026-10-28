@@ -1,14 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { ThreadSkeleton } from "@/components/dashboard/skeleton"
 import { useParams, useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, CheckCircle2, MessageCircleQuestion, Send, User, BadgeCheck, Loader2 } from "lucide-react"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { ArrowLeft, BadgeCheck, CheckCircle2, MessageCircleQuestion, Send } from "lucide-react"
+import { ThreadMarkdown } from "@/components/dashboard/markdown"
+import { Avatar, EmptyState, Notice, Tag, btnPrimary } from "@/components/dashboard/ui"
+import { cn } from "@/lib/utils"
 
 type Reply = {
   id: string
@@ -195,223 +194,119 @@ export default function DoubtDetailPage() {
     fetchDoubtData() // Refresh to show checkmark
   }
 
-  if (loading) {
-    return <div className="flex-1 p-10 flex justify-center"><Loader2 className="w-8 h-8 animate-spin" /></div>
-  }
+  if (loading) return <ThreadSkeleton />
 
   if (!doubt) {
-    return <div className="flex-1 p-10 text-center">Doubt not found.</div>
+    return (
+      <EmptyState
+        icon={MessageCircleQuestion}
+        title="Doubt not found"
+        hint="It may have been removed."
+        action={<button onClick={() => router.push("/dashboard/doubts")} className={btnPrimary}>Back to doubts</button>}
+      />
+    )
   }
 
-  return (
-    <div className="flex-1 p-6 md:p-10 lg:p-12 w-full max-w-6xl mx-auto flex flex-col min-h-[90vh]">
-      
-      <div className="mb-8">
-        <button 
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-black/60 hover:text-black mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Doubts
-        </button>
-      </div>
+  const isAuthor = currentUserId === doubt.user_id
 
-      {/* Original Doubt */}
-      <div className="bg-white rounded-3xl border border-black/10 p-6 md:p-10 shadow-sm mb-8">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="bg-black text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-            {doubt.subject}
-          </span>
+  return (
+    <div className="mx-auto max-w-3xl space-y-6">
+      <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground">
+        <ArrowLeft className="size-4" /> Back to doubts
+      </button>
+
+      <article className="rounded-2xl border bg-card p-5 sm:p-7">
+        <div className="flex flex-wrap items-center gap-2">
+          {doubt.subject && <Tag tone="primary">{doubt.subject}</Tag>}
           {doubt.status === "resolved" ? (
-            <span className="flex items-center gap-1 text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-              <CheckCircle2 className="w-3.5 h-3.5" /> Resolved
-            </span>
+            <Tag tone="green"><CheckCircle2 className="size-3" /> Resolved</Tag>
           ) : (
-             <span className="text-amber-600 bg-amber-50 border border-amber-100 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-               Open
-             </span>
+            <Tag tone="amber">Open</Tag>
           )}
         </div>
-        
-        <h1 className="text-2xl md:text-3xl font-black text-black tracking-tight mb-4">
-          {doubt.title}
-        </h1>
-        
-        <div className="flex items-center gap-3 mb-8 pb-8 border-b border-black/10">
-          <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center overflow-hidden">
-            {doubt.author.photo_url ? (
-              <img src={doubt.author.photo_url} alt="author" className="w-full h-full object-cover" />
-            ) : (
-              <User className="w-5 h-5 text-black/40" />
-            )}
-          </div>
+
+        <h1 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl">{doubt.title}</h1>
+
+        <div className="mt-4 flex items-center gap-3 border-b pb-5">
+          <Avatar name={doubt.author.full_name} src={doubt.author.photo_url} size={36} />
           <div>
-            <div className="text-sm font-bold text-black">{doubt.author.full_name}</div>
-            <div className="text-xs font-bold text-black/50 uppercase tracking-widest">
-              {new Date(doubt.created_at).toLocaleDateString()}
-            </div>
+            <p className="text-sm font-bold leading-tight">{doubt.author.full_name}</p>
+            <p className="text-xs text-muted-foreground">{new Date(doubt.created_at).toLocaleDateString()}</p>
           </div>
         </div>
 
-        <div className="prose prose-sm max-w-none text-black/80 font-medium leading-relaxed mb-8 whitespace-pre-wrap">
-          {doubt.description}
-        </div>
+        <p className="mt-5 whitespace-pre-wrap text-[15px] leading-relaxed">{doubt.description}</p>
 
         {doubt.image_urls && doubt.image_urls.length > 0 && (
-          <div className="flex flex-col gap-6 mt-8">
+          <div className="mt-5 flex flex-col gap-4">
             {doubt.image_urls.map((url, i) => (
-              <a href={url} target="_blank" rel="noreferrer" key={i} className="group block">
-                <img 
-                  src={url} 
-                  alt={`attachment-${i}`} 
-                  className="max-h-[500px] w-auto max-w-full rounded-2xl border border-black/10 shadow-sm group-hover:shadow-xl group-hover:border-black/30 transition-all cursor-zoom-in" 
-                />
+              <a href={url} target="_blank" rel="noreferrer" key={i} className="block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt={`Attachment ${i + 1}`} className="max-h-[30rem] w-auto max-w-full cursor-zoom-in rounded-xl border" />
               </a>
             ))}
           </div>
         )}
-        
-        {currentUserId === doubt.user_id && doubt.status !== 'resolved' && (
-          <div className="mt-8 flex justify-end">
-            <Button onClick={markResolved} className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
-              <CheckCircle2 className="w-4 h-4 mr-2" /> Mark as Resolved
-            </Button>
+
+        {isAuthor && doubt.status !== "resolved" && (
+          <div className="mt-6 flex justify-end">
+            <button onClick={markResolved} className={btnPrimary}>
+              <CheckCircle2 className="size-4" /> Mark as resolved
+            </button>
           </div>
         )}
-      </div>
+      </article>
 
-      {/* Replies */}
-      <h3 className="text-sm font-black text-black uppercase tracking-widest mb-6 flex items-center gap-2">
-        <MessageCircleQuestion className="w-4 h-4" /> {replies.length} Replies
-      </h3>
+      <h2 className="flex items-center gap-2 text-sm font-bold">
+        Replies <span className="rounded-md bg-muted px-1.5 text-[11px] font-medium text-muted-foreground">{replies.length}</span>
+      </h2>
 
-      <div className="space-y-6 mb-10">
+      <ul className="space-y-4">
         {replies.map((reply) => (
-          <div key={reply.id} className={`bg-white rounded-3xl border p-6 shadow-sm ${reply.is_accepted_answer ? 'border-emerald-500 bg-emerald-50/30' : 'border-black/10'}`}>
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center overflow-hidden">
-                  {reply.author.photo_url ? (
-                    <img src={reply.author.photo_url} alt="author" className="w-full h-full object-cover" />
-                  ) : (
-                    <User className="w-4 h-4 text-black/40" />
-                  )}
-                </div>
-                <div>
-                  <div className="text-sm font-bold text-black flex items-center gap-2">
-                    {reply.author.full_name}
-                    {reply.is_official_answer && (
-                      <span className="flex items-center gap-1 text-[9px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full uppercase tracking-widest">
-                        <BadgeCheck className="w-3 h-3" /> Mentor
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-[10px] font-bold text-black/50 uppercase tracking-widest">
-                    {new Date(reply.created_at).toLocaleDateString()}
-                  </div>
-                </div>
+          <li key={reply.id} className="flex gap-3">
+            <Avatar name={reply.author.full_name} src={reply.author.photo_url} size={36} />
+            <div className={cn("min-w-0 flex-1 rounded-2xl rounded-tl-sm px-4 py-3", reply.is_accepted_answer ? "border border-chart-4/40 bg-chart-4/5" : "bg-muted/60")}>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="flex flex-wrap items-center gap-2 text-sm font-bold">
+                  {reply.author.full_name}
+                  {reply.is_official_answer && <Tag tone="primary"><BadgeCheck className="size-3" /> Mentor</Tag>}
+                  <span className="font-medium text-muted-foreground">· {new Date(reply.created_at).toLocaleDateString()}</span>
+                </p>
+                {reply.is_accepted_answer && <Tag tone="green"><CheckCircle2 className="size-3" /> Accepted</Tag>}
               </div>
-              
-              {reply.is_accepted_answer && (
-                <div className="flex items-center gap-1 text-emerald-600 text-[10px] font-black uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Accepted Answer
-                </div>
+              <div className="mt-2 text-sm">
+                <ThreadMarkdown>{reply.content}</ThreadMarkdown>
+              </div>
+              {isAuthor && !reply.is_accepted_answer && doubt.status !== "resolved" && (
+                <button onClick={() => markAccepted(reply.id)} className="mt-2 text-xs font-semibold text-muted-foreground hover:text-chart-4">
+                  Mark as accepted
+                </button>
               )}
             </div>
-            
-            <div className="text-sm text-black/85 font-medium leading-relaxed ml-11">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  pre: ({ node, ...props }: any) => <div className="my-4" {...props} />,
-                  code: ({ node, inline, className, children, ...props }: any) => {
-                    const match = /language-(\w+)/.exec(className || "")
-                    const content = String(children).replace(/\n$/, "")
-                    const isBlock = !inline && (Boolean(match) || content.includes("\n"))
-                    return isBlock ? (
-                      <div className="my-4 rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-[#1e1e1e]">
-                        <div className="bg-[#252526] px-4 py-2 border-b border-white/10 text-slate-400 font-mono text-xs flex items-center justify-between">
-                          <span className="font-bold text-blue-400 tracking-wider uppercase">{match ? match[1] : "Code"}</span>
-                          <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded text-slate-400 border border-white/10">VS Code Dark+</span>
-                        </div>
-                        <SyntaxHighlighter
-                          style={vscDarkPlus as any}
-                          language={match ? match[1] : "python"}
-                          PreTag="div"
-                          customStyle={{
-                            margin: 0,
-                            padding: "1.25rem",
-                            background: "#1e1e1e",
-                            fontSize: "0.825rem",
-                            lineHeight: "1.6",
-                            borderRadius: 0
-                          }}
-                          {...props}
-                        >
-                          {content}
-                        </SyntaxHighlighter>
-                      </div>
-                    ) : (
-                      <code className="bg-blue-50 text-blue-800 font-mono text-xs px-1.5 py-0.5 rounded-md font-bold border border-blue-200/80 mx-0.5" {...props}>
-                        {children}
-                      </code>
-                    )
-                  },
-                  table: ({ node, ...props }) => <div className="overflow-x-auto my-4"><table className="min-w-full border-collapse border border-black/10 rounded-xl overflow-hidden text-xs" {...props} /></div>,
-                  th: ({ node, ...props }) => <th className="bg-black/5 p-2 font-black text-left border border-black/10" {...props} />,
-                  td: ({ node, ...props }) => <td className="p-2 border border-black/10" {...props} />,
-                  ul: ({ node, ...props }) => <ul className="list-disc ml-5 space-y-1.5 my-3" {...props} />,
-                  ol: ({ node, ...props }) => <ol className="list-decimal ml-5 space-y-1.5 my-3" {...props} />,
-                  h1: ({ node, ...props }) => <h1 className="text-lg font-black text-black mt-6 mb-2" {...props} />,
-                  h2: ({ node, ...props }) => <h2 className="text-base font-black text-black mt-5 mb-2" {...props} />,
-                  h3: ({ node, ...props }) => <h3 className="text-sm font-black text-black mt-4 mb-2" {...props} />,
-                  p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
-                  strong: ({ node, ...props }) => <strong className="font-black text-black" {...props} />
-                }}
-              >
-                {reply.content}
-              </ReactMarkdown>
-            </div>
-            
-            {currentUserId === doubt.user_id && !reply.is_accepted_answer && doubt.status !== 'resolved' && (
-              <div className="mt-4 ml-11 flex">
-                <button onClick={() => markAccepted(reply.id)} className="text-[10px] font-black uppercase tracking-widest text-black/40 hover:text-emerald-600 transition-colors">
-                  Mark as Helpful / Accepted
-                </button>
-              </div>
-            )}
-          </div>
+          </li>
         ))}
-      </div>
+        {replies.length === 0 && <li className="text-sm text-muted-foreground">No replies yet.</li>}
+      </ul>
 
-      {/* Reply Input */}
-      {doubt.status !== 'resolved' ? (
-        <form onSubmit={handlePostReply} className="bg-white rounded-3xl border border-black/10 p-4 shadow-sm flex flex-col">
-          <textarea 
+      {doubt.status !== "resolved" ? (
+        <form onSubmit={handlePostReply} className="rounded-2xl border bg-card p-3">
+          <textarea
             value={newReply}
-            onChange={e => setNewReply(e.target.value)}
-            placeholder="Type your reply here to help out..."
-            className="w-full h-24 p-4 bg-transparent border-none text-sm font-medium text-black outline-none resize-none"
+            onChange={(e) => setNewReply(e.target.value)}
+            placeholder="Write a reply"
+            className="h-24 w-full resize-none bg-transparent p-2 text-sm outline-none placeholder:text-muted-foreground/70"
             required
           />
-          <div className="flex justify-between items-center border-t border-black/5 pt-4">
-            <div className="text-[10px] font-bold text-black/40 uppercase tracking-widest px-4">
-              Be respectful and helpful.
-            </div>
-            <Button 
-              type="submit" 
-              disabled={isSubmitting}
-              className="bg-black hover:bg-black/90 text-white rounded-xl h-10 px-6 text-xs font-black uppercase tracking-widest shadow-md transition-all"
-            >
-              {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Send className="w-3.5 h-3.5 mr-2" /> Post Reply</>}
-            </Button>
+          <div className="flex items-center justify-between border-t pt-3">
+            <span className="px-2 text-xs text-muted-foreground">Be respectful and helpful.</span>
+            <button type="submit" disabled={isSubmitting} className={btnPrimary}>
+              <Send className="size-4" /> {isSubmitting ? "Posting…" : "Post reply"}
+            </button>
           </div>
         </form>
       ) : (
-        <div className="text-center py-6 bg-black/5 rounded-2xl text-xs font-black uppercase tracking-widest text-black/40">
-          This doubt has been marked as resolved.
-        </div>
+        <Notice>This doubt has been marked as resolved.</Notice>
       )}
-
     </div>
   )
 }

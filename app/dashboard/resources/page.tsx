@@ -1,15 +1,15 @@
 "use client"
 
 import { useMemo, useState, useEffect, useCallback } from "react"
-import { Button } from "@/components/ui/button"
+import { ResourcesSkeleton, SkCards } from "@/components/dashboard/skeleton"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Segmented, SearchBox } from "@/components/dashboard/controls"
+import { Avatar, EmptyState, Field, Notice, PageHeader, Tag, btnGhost, btnPrimary, field } from "@/components/dashboard/ui"
+import { cn } from "@/lib/utils"
 import dynamic from "next/dynamic"
-import { Loading } from "@/components/loading"
 import { courseData } from "@/lib/gpa/course-data"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, ArrowRight, CheckCircle2, CircleHelp, ExternalLink, Loader2, Plus, Star } from "lucide-react"
+import { ArrowLeft, ArrowRight, CheckCircle2, CircleHelp, ExternalLink, Library, Plus, Star } from "lucide-react"
 
 const LoginModal = dynamic(
   () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
@@ -451,299 +451,181 @@ export default function DashboardResourcesPage() {
   }
 
   if (!hasMounted) {
-    return <Loading />
+    return <ResourcesSkeleton />
   }
 
+  const dialogCls = "max-h-[90vh] overflow-y-auto rounded-2xl border bg-card p-0 text-foreground sm:max-w-md"
+  const dialogHead = "border-b bg-muted/40 p-5 text-left"
+
   return (
-    <div className="flex-1 flex flex-col">
-            <main className="flex-1 px-4 py-10">
-        <div className="mx-auto w-full max-w-7xl space-y-6">
-          <div id="tour-resources" className="border border-black/10 bg-white p-6 md:p-10 shadow-xl rounded-2xl">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight leading-none">RESOURCES NOTES</h1>
-                <p className="max-w-2xl text-sm md:text-base font-bold text-black/70 uppercase tracking-wide">
-                  Community-driven notes linked by subject from GPA tools. Browse approved links or submit your own notes for approval.
-                </p>
-              </div>
+    <div className="space-y-6">
+      <div id="tour-resources">
+        <PageHeader
+          title="Resources"
+          description="Community notes organised by subject. Browse approved links or submit your own."
+          actions={
+            <>
+              <SearchBox value={searchQuery} onChange={setSearchQuery} placeholder="Search notes" className="w-full sm:w-64" />
+              <button onClick={handleOpenAddNotes} disabled={isLoading} className={btnPrimary}>
+                <Plus className="size-4" /> Add notes
+              </button>
+            </>
+          }
+        />
+      </div>
 
-              <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
-                <Input
-                  placeholder="SEARCH NOTES..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 focus:ring-0 focus-visible:ring-0 focus:border-black sm:w-72 rounded-2xl font-bold uppercase shadow-sm"
-                />
-                <Button
-                  onClick={handleOpenAddNotes}
-                  className="h-12 bg-black text-white hover:bg-black/90 transition-all rounded-2xl text-sm font-black uppercase tracking-widest shadow-md border border-black/10"
-                  disabled={isLoading}
-                >
-                  <Plus className="mr-3 h-5 w-5" />
-                  ADD NOTES
-                </Button>
-              </div>
-            </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Segmented
+          options={degreeValues.map((d) => ({ id: d, label: degreeLabels[d] }))}
+          value={selectedDegree}
+          onChange={setSelectedDegree}
+        />
+        <Segmented
+          options={(Object.keys(levelLabels) as LevelValue[]).map((l) => ({ id: l, label: levelLabels[l] }))}
+          value={selectedLevel}
+          onChange={setSelectedLevel}
+        />
+      </div>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2 pt-8 border-t-2 border-black">
-              <div>
-                <Label className="mb-3 block text-xs font-black uppercase tracking-widest text-black/60">DEGREE</Label>
-                <select
-                  value={selectedDegree}
-                  onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)}
-                  className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-black font-bold uppercase shadow-sm outline-none focus:ring-0"
-                >
-                  {degreeValues.map((degree) => (
-                    <option key={degree} value={degree} className="bg-white text-black font-bold">
-                      {degreeLabels[degree].toUpperCase()}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <Label className="mb-3 block text-xs font-black uppercase tracking-widest text-black/60">LEVEL</Label>
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
-                    <button
-                      key={level}
-                      type="button"
-                      onClick={() => setSelectedLevel(level)}
-                      className={`border border-black/10 rounded-2xl px-2 sm:px-3 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest transition-all truncate ${
-                        selectedLevel === level
-                          ? "bg-black text-white shadow-sm "
-                          : "bg-white text-black hover:bg-black/5 shadow-md hover:shadow-sm"
-                      }`}
-                    >
-                      {levelLabels[level]}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-[250px_minmax(0,1fr)_300px]">
-            <aside className="border border-black/10 bg-white p-4 shadow-md rounded-2xl h-fit">
-              <h2 className="px-2 py-2 text-sm font-black text-black uppercase tracking-widest border-b-2 border-black mb-4">SUBJECTS</h2>
-              <div className="space-y-2">
-                {subjectsForSelection.length === 0 && (
-                  <p className="px-2 py-3 text-xs font-bold text-black/60 uppercase">No subjects found for this selection.</p>
-                )}
-
-                {subjectsForSelection.map((subject) => (
-                  <button
-                    key={subject}
-                    type="button"
-                    onClick={() => setSelectedSubject(subject)}
-                    className={`flex w-full items-center justify-between border border-black/10 rounded-2xl px-3 py-2.5 text-left text-xs font-black uppercase tracking-wider transition-all ${
-                      selectedSubject === subject
-                        ? "bg-[#1e3a8a] text-white shadow-sm "
-                        : "bg-white text-black shadow-md hover:shadow-sm"
-                    }`}
-                  >
-                    <span className="truncate">{subject}</span>
-                    <ArrowRight className="h-4 w-4 shrink-0" />
-                  </button>
-                ))}
-              </div>
-            </aside>
-
-            <section className="space-y-6">
-              {notesLoading && (
-                <div className="flex h-40 items-center justify-center border border-black/10 bg-white shadow-md">
-                  <Loader2 className="h-8 w-8 animate-spin text-black" />
-                </div>
-              )}
-
-              {!notesLoading && notesError && (
-                <div className="border border-black/10 bg-red-100 px-5 py-4 text-sm font-black text-red-700 uppercase tracking-widest shadow-md">
-                  {notesError}
-                </div>
-              )}
-
-              {!notesLoading && !notesError && filteredNotes.length === 0 && (
-                <div className="border border-black/10 bg-[#FDFBF7] px-5 py-12 text-center text-black shadow-md text-sm font-black uppercase tracking-widest">
-                  NO APPROVED NOTES FOUND FOR THIS SUBJECT YET.
-                </div>
-              )}
-
-              {!notesLoading && !notesError && (
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
-                  {filteredNotes.map((note) => (
-                    <article
-                      key={note.id}
-                      className="border border-black/10 bg-white p-5 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col justify-between"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between gap-3 border-b-2 border-black/10 pb-3">
-                          <p className="truncate text-xs font-black uppercase tracking-widest text-black/60">{note.contributor_name}</p>
-                          <button
-                            type="button"
-                            onClick={() => void handleToggleStar(note.id)}
-                            disabled={starringNoteId === note.id}
-                            className={`inline-flex items-center gap-1.5 border border-black/10 px-2.5 py-1 text-xs font-black transition-all ${
-                              note.user_starred
-                                ? "bg-[#f59e0b] text-black shadow-sm"
-                                : "bg-white text-black hover:bg-black/5 shadow-sm"
-                            } disabled:opacity-50`}
-                          >
-                            <Star className={`h-3.5 w-3.5 ${note.user_starred ? "fill-current" : ""}`} />
-                            {note.stars}
-                          </button>
-                        </div>
-                        <h3 className="line-clamp-2 text-lg font-black text-black uppercase leading-tight">{note.title}</h3>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="inline-flex items-center border border-black/10 bg-[#FDFBF7] px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-black">
-                            {note.notes_content_label}
-                          </p>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-black/60">
-                            WEEKS {note.notes_week_from} - {note.notes_week_to}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-6 pt-4 border-t-2 border-black/10">
-                        <a href={note.drive_link} target="_blank" rel="noreferrer">
-                          <Button variant="outline" className="h-10 w-full border border-black/10 bg-white text-black hover:bg-black hover:text-white rounded-2xl font-black uppercase tracking-widest text-xs transition-colors">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            OPEN IN DRIVE
-                          </Button>
-                        </a>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              )}
-            </section>
-
-            <aside className="border border-black/10 bg-white p-5 shadow-md rounded-2xl h-fit">
-              <div className="mb-6 flex items-center justify-between gap-2 border-b-2 border-black pb-4">
-                <h2 className="text-sm font-black text-black uppercase tracking-widest">TOP CONTRIBUTORS</h2>
+      <div className="grid gap-6 lg:grid-cols-[15rem_minmax(0,1fr)] xl:grid-cols-[15rem_minmax(0,1fr)_21rem]">
+        <aside className="h-fit rounded-2xl border bg-card p-3">
+          <h2 className="px-3 pb-2 pt-1 text-sm font-bold">Subjects</h2>
+          {subjectsForSelection.length === 0 && <p className="px-3 py-3 text-xs text-muted-foreground">No subjects found for this selection.</p>}
+          <ul className="space-y-0.5">
+            {subjectsForSelection.map((subject) => (
+              <li key={subject}>
                 <button
                   type="button"
-                  onClick={() => setShowXpGuide(true)}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-black/70 hover:text-black uppercase tracking-widest transition-colors"
+                  onClick={() => setSelectedSubject(subject)}
+                  className={cn(
+                    "flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors",
+                    selectedSubject === subject ? "bg-accent font-semibold text-foreground" : "font-medium text-muted-foreground hover:bg-muted hover:text-foreground",
+                  )}
                 >
-                  <CircleHelp className="h-3.5 w-3.5" />
-                  HOW TO EARN XP
+                  <span className="truncate">{subject}</span>
+                  <ArrowRight className="size-3.5 shrink-0" />
                 </button>
-              </div>
+              </li>
+            ))}
+          </ul>
+        </aside>
 
-              {contributorsLoading && (
-                <div className="flex items-center gap-3 border border-black/10 bg-[#FDFBF7] px-4 py-3 text-xs font-black text-black uppercase tracking-widest">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  LOADING CONTRIBUTORS...
-                </div>
-              )}
-
-              {!contributorsLoading && contributorsError && (
-                <div className="border border-black/10 bg-red-100 px-4 py-3 text-xs font-black text-red-700 uppercase tracking-widest">
-                  {contributorsError}
-                </div>
-              )}
-
-              {!contributorsLoading && !contributorsError && contributors.length === 0 && (
-                <p className="border border-black/10 bg-[#FDFBF7] px-4 py-4 text-xs font-black text-black/60 uppercase tracking-widest text-center">
-                  NO CONTRIBUTORS YET FOR THIS SECTION.
-                </p>
-              )}
-
-              {!contributorsLoading && !contributorsError && contributors.length > 0 && (
-                <div className="max-h-115 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
-                  {contributors.map((contributor) => (
-                    <div key={`${contributor.userId}-${contributor.rank}`} className="border border-black/10 bg-white p-4 shadow-sm rounded-2xl relative">
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex min-w-0 items-center gap-3">
-                          <div className="absolute -top-3 -left-3 h-8 w-8 flex items-center justify-center border border-black/10 rounded-full bg-[#1e3a8a] text-white text-xs font-black shadow-sm">
-                            #{contributor.rank}
-                          </div>
-
-                          {contributor.avatarUrl ? (
-                            <img
-                              src={contributor.avatarUrl}
-                              alt={contributor.name}
-                              className="h-10 w-10 shrink-0 border border-black/10 rounded-full object-cover bg-[#FDFBF7] ml-2"
-                            />
-                          ) : (
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-black/10 rounded-full bg-[#FDFBF7] text-sm font-black text-black ml-2 uppercase">
-                              {getInitials(contributor.name)}
-                            </div>
-                          )}
-
-                          <div className="min-w-0 ml-1">
-                            <p className="line-clamp-1 text-sm font-black uppercase text-black">{contributor.name}</p>
-                            <p className="mt-1 text-[10px] font-black text-black/60 uppercase tracking-widest">{contributor.notesCount} NOTES</p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end gap-1">
-                          <div className="inline-flex items-center gap-1.5 border border-black/10 rounded-full bg-[#f59e0b] px-3 py-1 text-[10px] font-black text-black shadow-sm">
-                            <Star className="h-3 w-3 fill-current" />
-                            <span>{contributor.stars}</span>
-                          </div>
-                          <span className="text-[10px] font-black text-black uppercase tracking-widest mt-1">{contributor.xp} XP</span>
-                        </div>
-                      </div>
-
-                      {contributor.milestoneLabel && (
-                        <div className="mt-3 pt-3 border-t-2 border-black/10">
-                          <p className="text-[10px] font-black text-[#16a34a] uppercase tracking-widest bg-green-100/50 border border-[#16a34a]/20 rounded-full px-3 py-1 inline-block">
-                            +{contributor.bonus} {contributor.milestoneLabel}
-                          </p>
-                        </div>
-                      )}
+        <section className="min-w-0">
+          {notesLoading && (
+            <SkCards count={4} image={false} cols="md:grid-cols-2" />
+          )}
+          {!notesLoading && notesError && <Notice tone="error">{notesError}</Notice>}
+          {!notesLoading && !notesError && filteredNotes.length === 0 && (
+            <EmptyState icon={Library} title="No approved notes yet" hint="Nothing has been approved for this subject. Be the first to add some." />
+          )}
+          {!notesLoading && !notesError && filteredNotes.length > 0 && (
+            <ul className="grid gap-4 md:grid-cols-2">
+              {filteredNotes.map((note) => (
+                <li key={note.id} className="flex flex-col justify-between rounded-2xl border bg-card p-5 transition-shadow hover:shadow-lg">
+                  <div>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="flex min-w-0 items-center gap-2 text-xs font-medium text-muted-foreground">
+                        <Avatar name={note.contributor_name} size={22} />
+                        <span className="truncate">{note.contributor_name}</span>
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => void handleToggleStar(note.id)}
+                        disabled={starringNoteId === note.id}
+                        aria-pressed={note.user_starred}
+                        className={cn(
+                          "inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-semibold transition-colors disabled:opacity-50",
+                          note.user_starred ? "border-chart-2/30 bg-chart-2/15 text-chart-2" : "hover:bg-muted",
+                        )}
+                      >
+                        <Star className={cn("size-3.5", note.user_starred && "fill-current")} /> {note.stars}
+                      </button>
                     </div>
-                  ))}
-                </div>
-              )}
-            </aside>
-          </div>
-        </div>
-      </main>
+                    <h3 className="mt-3 line-clamp-2 text-[15px] font-bold leading-snug">{note.title}</h3>
+                    <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                      <Tag>{note.notes_content_label}</Tag>
+                      <Tag>Weeks {note.notes_week_from}–{note.notes_week_to}</Tag>
+                    </div>
+                  </div>
+                  <a href={note.drive_link} target="_blank" rel="noreferrer" className={cn(btnGhost, "mt-5 h-9 w-full text-sm")}>
+                    <ExternalLink className="size-4" /> Open in Drive
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
 
-            <Dialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt}>
-        <DialogContent className="max-w-md border border-black/10 bg-white text-black p-0 overflow-hidden shadow-xl rounded-2xl">
-          <DialogHeader className="p-6 border-b-2 border-black bg-[#FDFBF7]">
-            <DialogTitle className="text-xl font-black text-black uppercase tracking-widest">SIGN IN REQUIRED</DialogTitle>
-            <DialogDescription className="text-black/70 font-bold text-sm uppercase mt-2">
-              Please sign in first to add notes. After sign in, you can submit your Google Drive note link for approval.
+        <aside className="h-fit rounded-2xl border bg-card p-5 lg:col-span-2 xl:col-span-1">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h2 className="text-sm font-bold">Top contributors</h2>
+            <button type="button" onClick={() => setShowXpGuide(true)} className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
+              <CircleHelp className="size-3.5" /> How to earn XP
+            </button>
+          </div>
+
+          {contributorsLoading && <div className="h-24 animate-pulse rounded-xl bg-muted" />}
+          {!contributorsLoading && contributorsError && <Notice tone="error">{contributorsError}</Notice>}
+          {!contributorsLoading && !contributorsError && contributors.length === 0 && (
+            <p className="py-4 text-center text-sm text-muted-foreground">No contributors yet for this section.</p>
+          )}
+          {!contributorsLoading && !contributorsError && contributors.length > 0 && (
+            <ol className="max-h-[28rem] divide-y overflow-y-auto">
+              {contributors.map((c) => (
+                <li key={`${c.userId}-${c.rank}`} className="py-3 first:pt-1">
+                  <div className="flex items-center gap-3">
+                    <span className="w-6 text-xs font-bold text-muted-foreground">#{c.rank}</span>
+                    <Avatar name={c.name} src={c.avatarUrl} size={36} />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-bold">{c.name}</span>
+                      <span className="block text-xs text-muted-foreground">{c.notesCount} notes</span>
+                    </span>
+                    <span className="text-right">
+                      <span className="flex items-center justify-end gap-1 text-sm font-bold"><Star className="size-3.5 fill-chart-2 text-chart-2" />{c.stars}</span>
+                      <span className="block text-xs text-muted-foreground">{c.xp} XP</span>
+                    </span>
+                  </div>
+                  {c.milestoneLabel && <Tag tone="green" className="mt-2 ml-9">+{c.bonus} {c.milestoneLabel}</Tag>}
+                </li>
+              ))}
+            </ol>
+          )}
+        </aside>
+      </div>
+
+      <Dialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt}>
+        <DialogContent className={dialogCls}>
+          <DialogHeader className={dialogHead}>
+            <DialogTitle className="text-lg font-bold">Sign in required</DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+              Sign in first to add notes. Afterwards you can submit your Google Drive link for approval.
             </DialogDescription>
           </DialogHeader>
-          <div className="p-6 flex justify-end">
-            <Button onClick={openSignInModal} className="bg-black text-white hover:bg-black/90 transition-all rounded-2xl text-sm font-black uppercase tracking-widest shadow-md border border-black/10 h-12 px-8">
-              SIGN IN
-            </Button>
+          <div className="flex justify-end p-5">
+            <button onClick={openSignInModal} className={btnPrimary}>Sign in</button>
           </div>
         </DialogContent>
       </Dialog>
 
       <Dialog open={showXpGuide} onOpenChange={setShowXpGuide}>
-        <DialogContent className="max-w-md border border-black/10 bg-white text-black p-0 overflow-hidden shadow-xl rounded-2xl">
-          <DialogHeader className="p-6 border-b-2 border-black bg-[#FDFBF7]">
-            <DialogTitle className="text-xl font-black text-black uppercase tracking-widest">HOW TO EARN XP</DialogTitle>
-            <DialogDescription className="text-black/70 font-bold text-sm uppercase mt-2">
-              Contributors are ranked by stars first, then notes count.
-            </DialogDescription>
+        <DialogContent className={dialogCls}>
+          <DialogHeader className={dialogHead}>
+            <DialogTitle className="text-lg font-bold">How to earn XP</DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">Contributors are ranked by stars first, then notes count.</DialogDescription>
           </DialogHeader>
-
-          <div className="p-6 space-y-4 text-sm font-black text-black uppercase tracking-widest">
-            <div className="flex items-start gap-3 border border-black/10 rounded-xl p-3 shadow-sm">
-              <span className="bg-black text-white rounded-full px-2.5 py-0.5">1</span>
-              <p>EVERY APPROVED NOTE GIVES <span className="text-[#1e3a8a]">10 XP</span></p>
-            </div>
-            <div className="flex items-start gap-3 border border-black/10 rounded-xl p-3 shadow-sm">
-              <span className="bg-black text-white rounded-full px-2.5 py-0.5">2</span>
-              <p>EVERY STAR ON YOUR NOTES GIVES <span className="text-[#1e3a8a]">2 XP</span></p>
-            </div>
-            <div className="flex items-start gap-3 border border-black/10 rounded-xl p-3 shadow-sm">
-              <span className="bg-black text-white rounded-full px-2.5 py-0.5">3</span>
-              <p>UPLOAD 50+ APPROVED NOTES TO UNLOCK <span className="text-[#16a34a]">+500 BONUS XP</span></p>
-            </div>
-            <div className="flex items-start gap-3 border border-black/10 rounded-xl p-3 shadow-sm">
-              <span className="bg-black text-white rounded-full px-2.5 py-0.5">4</span>
-              <p>HIGHER STARS MEANS HIGHER CONTRIBUTOR RANK</p>
-            </div>
-          </div>
+          <ol className="space-y-3 p-5 text-sm font-medium">
+            {[
+              <>Every approved note gives <span className="font-bold text-primary">10 XP</span></>,
+              <>Every star on your notes gives <span className="font-bold text-primary">2 XP</span></>,
+              <>Upload 50+ approved notes to unlock <span className="font-bold text-chart-4">+500 bonus XP</span></>,
+              <>More stars means a higher contributor rank</>,
+            ].map((line, i) => (
+              <li key={i} className="flex items-start gap-3 rounded-xl border p-3">
+                <span className="grid size-6 shrink-0 place-items-center rounded-md bg-primary/10 text-xs font-bold text-primary">{i + 1}</span>
+                <p className="pt-0.5">{line}</p>
+              </li>
+            ))}
+          </ol>
         </DialogContent>
       </Dialog>
 
@@ -751,194 +633,104 @@ export default function DashboardResourcesPage() {
         open={showAddNotesDialog}
         onOpenChange={(open) => {
           setShowAddNotesDialog(open)
-          if (!open) {
-            resetAddNotesForm()
-          }
+          if (!open) resetAddNotesForm()
         }}
       >
-        <DialogContent className="max-h-[90vh] overflow-y-auto border border-black/10 bg-white text-black sm:max-w-2xl p-0 shadow-xl rounded-2xl custom-scrollbar">
-          <DialogHeader className="p-6 border-b-2 border-black bg-[#FDFBF7]">
-            <DialogTitle className="text-2xl font-black text-black uppercase tracking-tight">UPLOAD YOUR NOTES</DialogTitle>
-            <DialogDescription className="text-black/70 font-bold text-xs uppercase tracking-widest mt-2">
-              STEP {addStep} OF 3
-            </DialogDescription>
+        <DialogContent className={cn(dialogCls, "sm:max-w-xl")}>
+          <DialogHeader className={dialogHead}>
+            <DialogTitle className="text-lg font-bold">Upload your notes</DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">Step {addStep} of 3</DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={submitNote} className="space-y-8 p-6">
-            <div className="grid grid-cols-3 gap-3">
+          <form onSubmit={submitNote} className="space-y-5 p-5">
+            <div className="flex gap-1.5" aria-hidden>
               {[1, 2, 3].map((step) => (
-                <div
-                  key={step}
-                  className={`border border-black/10 px-3 py-2.5 text-center text-xs font-black uppercase tracking-widest transition-all ${
-                    addStep >= step ? "bg-black text-white shadow-sm" : "bg-white text-black/40 border-black/20"
-                  }`}
-                >
-                  STEP {step}
-                </div>
+                <span key={step} className={cn("h-1.5 flex-1 rounded-full transition-colors", addStep >= step ? "bg-primary" : "bg-muted")} />
               ))}
             </div>
 
             {addStep === 1 && (
-              <div className="space-y-6 border border-black/10 bg-white p-6 shadow-md">
-                <div>
-                  <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">DEGREE</Label>
-                  <select
-                    value={selectedDegree}
-                    onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)}
-                    className="h-12 w-full rounded-2xl border border-black/10 bg-white px-3 text-black font-bold uppercase shadow-sm outline-none focus:ring-0"
-                  >
+              <div className="space-y-4">
+                <Field label="Degree">
+                  <select value={selectedDegree} onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)} className={field}>
                     {degreeValues.map((degree) => (
-                      <option key={degree} value={degree} className="bg-white text-black font-bold uppercase">
-                        {degreeLabels[degree].toUpperCase()}
-                      </option>
+                      <option key={degree} value={degree}>{degreeLabels[degree]}</option>
                     ))}
                   </select>
-                </div>
-
-                <div>
-                  <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">LEVEL</Label>
-                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                    {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
-                      <button
-                        key={level}
-                        type="button"
-                        onClick={() => setSelectedLevel(level)}
-                        className={`border border-black/10 rounded-2xl px-2 sm:px-3 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest transition-all truncate ${
-                          selectedLevel === level
-                            ? "bg-[#1e3a8a] text-white shadow-sm "
-                            : "bg-white text-black hover:bg-black/5 shadow-md hover:shadow-sm"
-                        }`}
-                      >
-                        {levelLabels[level]}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">SUBJECT</Label>
-                  <select
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                    className="h-12 w-full rounded-2xl border border-black/10 bg-white px-3 text-black font-bold uppercase shadow-sm outline-none focus:ring-0"
-                  >
+                </Field>
+                <Field label="Level">
+                  <Segmented
+                    options={(Object.keys(levelLabels) as LevelValue[]).map((l) => ({ id: l, label: levelLabels[l] }))}
+                    value={selectedLevel}
+                    onChange={setSelectedLevel}
+                    className="w-full [&_button]:flex-1"
+                  />
+                </Field>
+                <Field label="Subject">
+                  <select value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)} className={field}>
                     {subjectsForSelection.map((subject) => (
-                      <option key={subject} value={subject} className="bg-white text-black font-bold uppercase">
-                        {subject}
-                      </option>
+                      <option key={subject} value={subject}>{subject}</option>
                     ))}
                   </select>
-                </div>
+                </Field>
               </div>
             )}
 
             {addStep === 2 && (
-              <div className="space-y-6 border border-black/10 bg-white p-6 shadow-md">
-                <div>
-                  <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">NOTES WEEK (FROM → TO)</Label>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Input
-                      type="number"
-                      min={1}
-                      max={52}
-                      value={formData.notesWeekFrom}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekFrom: e.target.value }))}
-                      className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black uppercase"
-                      placeholder="FROM"
-                    />
-                    <Input
-                      type="number"
-                      min={1}
-                      max={52}
-                      value={formData.notesWeekTo}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekTo: e.target.value }))}
-                      className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black uppercase"
-                      placeholder="TO"
-                    />
-                  </div>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <Field label="Notes from week">
+                    <input type="number" min={1} max={52} value={formData.notesWeekFrom} onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekFrom: e.target.value }))} className={field} placeholder="From" />
+                  </Field>
+                  <Field label="To week">
+                    <input type="number" min={1} max={52} value={formData.notesWeekTo} onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekTo: e.target.value }))} className={field} placeholder="To" />
+                  </Field>
                 </div>
-
-                <div>
-                  <Label htmlFor="name" className="mb-3 block text-xs font-black text-black uppercase tracking-widest">YOUR NAME</Label>
-                  <Input
-                    id="name"
-                    value={formData.contributorName}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, contributorName: e.target.value }))}
-                    className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black uppercase"
-                    placeholder="ENTER YOUR NAME"
-                  />
-                </div>
+                <Field label="Your name" htmlFor="name">
+                  <input id="name" value={formData.contributorName} onChange={(e) => setFormData((prev) => ({ ...prev, contributorName: e.target.value }))} className={field} placeholder="Enter your name" />
+                </Field>
               </div>
             )}
 
             {addStep === 3 && (
-              <div className="space-y-6 border border-black/10 bg-white p-6 shadow-md">
-                <div>
-                  <Label htmlFor="driveLink" className="mb-3 block text-xs font-black text-black uppercase tracking-widest">UPLOAD DRIVE LINK ({dynamicWeekLabel})</Label>
-                  <Input
-                    id="driveLink"
-                    value={formData.driveLink}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, driveLink: e.target.value }))}
-                    className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black"
-                    placeholder="https://drive.google.com/..."
-                  />
-                </div>
-
-                <div className="border border-black/10 bg-[#FDFBF7] px-4 py-3 text-xs font-black text-black uppercase tracking-widest shadow-sm">
-                  SUBMIT FOR APPROVAL: ONLY APPROVED NOTES ARE SHOWN IN PUBLIC RESOURCES.
-                </div>
+              <div className="space-y-4">
+                <Field label={`Drive link (${dynamicWeekLabel})`} htmlFor="driveLink">
+                  <input id="driveLink" value={formData.driveLink} onChange={(e) => setFormData((prev) => ({ ...prev, driveLink: e.target.value }))} className={field} placeholder="https://drive.google.com/..." />
+                </Field>
+                <Notice>Only approved notes are shown publicly. Yours will be reviewed first.</Notice>
               </div>
             )}
 
-            {formError && (
-              <div className="border border-black/10 bg-red-100 px-4 py-3 text-xs font-black text-red-700 uppercase tracking-widest shadow-sm">
-                {formError}
-              </div>
-            )}
-
+            {formError && <Notice tone="error">{formError}</Notice>}
             {formSuccess && (
-              <div className="border border-black/10 bg-[#10b981] px-4 py-4 text-xs font-black text-white uppercase tracking-widest shadow-sm flex items-center">
-                <CheckCircle2 className="mr-3 h-5 w-5" />
-                {formSuccess}
-              </div>
+              <Notice tone="success" className="flex items-center gap-2">
+                <CheckCircle2 className="size-4" /> {formSuccess}
+              </Notice>
             )}
 
-            <div className="flex items-center justify-between pt-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleBack}
-                disabled={addStep === 1 || submitting || !!formSuccess}
-                className="border border-black/10 bg-white text-black hover:bg-black hover:text-white rounded-2xl h-12 px-6 text-sm font-black uppercase tracking-widest shadow-md transition-all disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:translate-x-0 disabled:hover:shadow-md disabled:hover:bg-white disabled:hover:text-black"
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                BACK
-              </Button>
-
+            <div className="flex items-center justify-between pt-1">
+              <button type="button" onClick={handleBack} disabled={addStep === 1 || submitting || !!formSuccess} className={btnGhost}>
+                <ArrowLeft className="size-4" /> Back
+              </button>
               {addStep < 3 ? (
-                <Button type="button" onClick={handleNext} className="border border-black/10 bg-[#1e3a8a] text-white hover:bg-[#1e3a8a]/90 rounded-2xl h-12 px-8 text-sm font-black uppercase tracking-widest shadow-md transition-all">
-                  NEXT
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <button type="button" onClick={handleNext} className={btnPrimary}>
+                  Next <ArrowRight className="size-4" />
+                </button>
+              ) : formSuccess ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAddNotesDialog(false)
+                    resetAddNotesForm()
+                  }}
+                  className={btnPrimary}
+                >
+                  Close
+                </button>
               ) : (
-                <div className="flex items-center gap-4">
-                  {formSuccess ? (
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        setShowAddNotesDialog(false)
-                        resetAddNotesForm()
-                      }}
-                      className="border border-black/10 bg-black text-white hover:bg-black/90 rounded-2xl h-12 px-8 text-sm font-black uppercase tracking-widest shadow-md transition-all"
-                    >
-                      CLOSE
-                    </Button>
-                  ) : (
-                    <Button type="submit" disabled={submitting} className="border border-black/10 bg-[#16a34a] text-white hover:bg-[#16a34a]/90 rounded-2xl h-12 px-8 text-sm font-black uppercase tracking-widest shadow-md transition-all disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:translate-x-0 disabled:hover:shadow-md">
-                      {submitting ? "SUBMITTING..." : "SUBMIT"}
-                    </Button>
-                  )}
-                </div>
+                <button type="submit" disabled={submitting} className={btnPrimary}>
+                  {submitting ? "Submitting…" : "Submit"}
+                </button>
               )}
             </div>
           </form>

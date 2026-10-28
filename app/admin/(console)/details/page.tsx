@@ -1,7 +1,9 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from "react"
-import { Skeleton } from "@/components/admin/skeleton"
+import { Sk } from "@/components/dashboard/skeleton"
+import { Trash2, User } from "lucide-react"
+import { Avatar, Field, Notice, PageHeader, Section, Tag, btnDanger, btnGhost, btnPrimary, field } from "@/components/dashboard/ui"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 
@@ -111,144 +113,83 @@ export default function AdminDetailsPage() {
     }
   }
 
+  const displayName = `${profile?.first_name ?? ""} ${profile?.last_name ?? ""}`.trim() || profile?.email || "Admin"
+
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="text-4xl font-semibold uppercase italic tracking-tight text-white">Settings</h1>
-        <p className="mt-1 text-sm text-slate-400">Manage your profile details and admin account settings.</p>
-      </header>
+    <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="min-w-0 space-y-5">
+        <PageHeader title="Settings" description="Manage your admin profile and account." />
 
-      <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5">
-        <h2 className="text-lg font-semibold text-slate-100">Profile Details</h2>
-        {isLoading ? (
-          <div className="mt-4 flex items-center gap-4">
-            <Skeleton className="h-20 w-20 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-5 w-48" />
-              <Skeleton className="h-4 w-64" />
+        <Section icon={User} title="Name" description="Only first and last name can be changed here.">
+          <form onSubmit={saveProfile} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="First name"><input value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" className={field} /></Field>
+              <Field label="Last name"><input value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" className={field} /></Field>
             </div>
+            {statusMessage && <Notice>{statusMessage}</Notice>}
+            <div className="flex justify-end">
+              <button type="submit" disabled={profileSaving} className={btnPrimary}>{profileSaving ? "Saving…" : "Save changes"}</button>
+            </div>
+          </form>
+        </Section>
+
+        <section className="rounded-2xl border border-destructive/30 bg-card p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-destructive/10 text-destructive">
+                <Trash2 className="size-[18px]" />
+              </span>
+              <div>
+                <h2 className="text-base font-bold leading-tight">Delete account</h2>
+                <p className="text-xs text-muted-foreground">Permanently removes your account. This can&apos;t be undone.</p>
+              </div>
+            </div>
+            {!showDeleteConfirm && (
+              <button type="button" onClick={() => setShowDeleteConfirm(true)} className={btnDanger}>Delete account</button>
+            )}
           </div>
-        ) : profile ? (
-          <div className="mt-4 grid gap-4 sm:grid-cols-[auto_1fr]">
-            <div>
-              {profile.avatar_url ? (
-                <img
-                  src={profile.avatar_url}
-                  alt="Admin avatar"
-                  className="h-20 w-20 rounded-full border border-white/15 object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              ) : (
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/15 bg-[#1a1e26] text-xl font-semibold text-slate-200">
-                  {((profile.email || "A").trim()[0] || "A").toUpperCase()}
-                </div>
-              )}
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-            <div>
-              <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Email</p>
-              <p className="text-sm text-slate-200">{profile.email || "Not set"}</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Role</p>
-              <p className="text-sm uppercase tracking-wide text-emerald-300">{profile.role || "admin"}</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.14em] text-slate-500">First Name</p>
-              <p className="text-sm text-slate-200">{profile.first_name || "Not set"}</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Last Name</p>
-              <p className="text-sm text-slate-200">{profile.last_name || "Not set"}</p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.14em] text-slate-500">Joined</p>
-              <p className="text-sm text-slate-200">{new Date(profile.created_at).toLocaleDateString()}</p>
-            </div>
-            </div>
-          </div>
-        ) : (
-          <p className="mt-4 text-sm text-slate-400">Details unavailable.</p>
-        )}
-      </section>
 
-      <section className="rounded-2xl border border-white/10 bg-[#070c15] p-5">
-        <h2 className="text-lg font-semibold text-slate-100">Change Name</h2>
-        <p className="mt-1 text-sm text-slate-400">Only first and last names can be updated here.</p>
-
-        <form onSubmit={saveProfile} className="mt-4 grid gap-3 md:grid-cols-2">
-          <input
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
-            placeholder="First name"
-            className="rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-          />
-          <input
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-            placeholder="Last name"
-            className="rounded-lg border border-white/10 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-          />
-          <div className="md:col-span-2">
-            <button
-              type="submit"
-              disabled={profileSaving}
-              className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {profileSaving ? "Saving..." : "Save Name"}
-            </button>
-          </div>
-        </form>
-
-        {statusMessage ? <p className="mt-3 text-sm text-slate-300">{statusMessage}</p> : null}
-      </section>
-      <section className="rounded-2xl border border-rose-500/20 bg-rose-950/10 p-5">
-        <h2 className="text-lg font-semibold text-rose-300">Delete My Account</h2>
-        <p className="mt-1 text-sm text-slate-300">This permanently removes your account and cannot be undone.</p>
-
-        {!showDeleteConfirm ? (
-          <button
-            type="button"
-            onClick={() => setShowDeleteConfirm(true)}
-            className="mt-4 rounded-md border border-rose-500/40 bg-rose-500/10 px-4 py-2 text-sm font-semibold text-rose-300 hover:bg-rose-500/20"
-          >
-            Delete My Account
-          </button>
-        ) : (
-          <div className="mt-4 space-y-3 rounded-xl border border-rose-500/30 bg-[#0a101c] p-4">
-            <p className="text-sm text-slate-300">Type DELETE to confirm account removal.</p>
-            <input
-              value={deleteInput}
-              onChange={(event) => setDeleteInput(event.target.value)}
-              placeholder="Type DELETE"
-              className="w-full rounded-lg border border-rose-500/30 bg-[#0b1220] px-3 py-2 text-slate-100 outline-none"
-            />
-            {deleteError ? <p className="text-sm text-rose-300">{deleteError}</p> : null}
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowDeleteConfirm(false)
-                  setDeleteInput("")
-                  setDeleteError("")
-                }}
-                className="rounded-md border border-white/20 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-white/5"
-                disabled={isDeletingAccount}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={deleteMyAccount}
-                disabled={deleteInput !== "DELETE" || isDeletingAccount}
-                className="rounded-md border border-rose-500/50 bg-rose-500/20 px-3 py-2 text-sm font-semibold text-rose-200 hover:bg-rose-500/30 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isDeletingAccount ? "Deleting..." : "Confirm Delete"}
-              </button>
+          {showDeleteConfirm && (
+            <div className="mt-5 space-y-4 rounded-xl bg-muted/60 p-4">
+              <Field label="Type DELETE to confirm">
+                <input value={deleteInput} onChange={(e) => setDeleteInput(e.target.value)} placeholder="DELETE" className={field} />
+              </Field>
+              {deleteError && <Notice tone="error">{deleteError}</Notice>}
+              <div className="flex flex-wrap justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowDeleteConfirm(false)
+                    setDeleteInput("")
+                    setDeleteError("")
+                  }}
+                  disabled={isDeletingAccount}
+                  className={btnGhost}
+                >
+                  Cancel
+                </button>
+                <button type="button" onClick={deleteMyAccount} disabled={deleteInput !== "DELETE" || isDeletingAccount} className={btnDanger}>
+                  {isDeletingAccount ? "Deleting…" : "Confirm delete"}
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </section>
+          )}
+        </section>
+      </div>
+
+      <aside className="xl:pt-[4.25rem]">
+        <section className="overflow-hidden rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6 text-center">
+          {isLoading ? (
+            <Sk className="mx-auto size-[88px] rounded-full" />
+          ) : (
+            <Avatar name={displayName} src={profile?.avatar_url} size={88} className="mx-auto" />
+          )}
+          <h2 className="mt-4 truncate text-lg font-extrabold tracking-tight">{isLoading ? "Loading…" : displayName}</h2>
+          <div className="mt-2"><Tag tone="primary" className="capitalize">{profile?.role || "admin"}</Tag></div>
+          <p className="mt-3 truncate text-xs text-muted-foreground">{profile?.email}</p>
+          {profile?.created_at && <p className="mt-1 text-xs text-muted-foreground">Joined {new Date(profile.created_at).toLocaleDateString()}</p>}
+        </section>
+      </aside>
     </div>
   )
 }
