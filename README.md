@@ -175,7 +175,7 @@ cd bs-prep
 npm install
 ```
 
-Create a `.env.local` with the values below, then start the dev server.
+Add a `.env.local` with your keys (ask the team for the values), then start the dev server.
 
 ```bash
 npm run dev
@@ -184,23 +184,6 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 **Database.** Open the Supabase SQL editor and run the numbered files in `scripts/` in order, starting from `001_create_tables.sql`.
-
-**Environment variables**
-
-| Variable | Used for |
-|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Absolute links in emails and metadata |
-| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase client |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-only admin access |
-| `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Checkout and order creation |
-| `RAZORPAY_WEBHOOK_SECRET` | Verifying payment webhooks |
-| `RESEND_API_KEY` | Sending email |
-| `ANNOUNCEMENT_EMAIL_FROM`, `COURSE_EMAIL_FROM`, `DONATION_EMAIL_FROM` | Sender addresses |
-| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | AI doubt replies |
-| `PAIZA_API_KEY` | Running Java, C and C++ |
-| `GOOGLE_SERVICE_ACCOUNT_KEY` | Calendar events for live classes |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google sign in |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Bot protection |
 
 **Scripts**
 

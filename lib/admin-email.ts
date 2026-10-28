@@ -33,9 +33,14 @@ ${inner}
 ${footerHtml(unsub)}
 </body></html>`
 
+/** An HTML template can place this token in its own footer link. */
+export const UNSUBSCRIBE_TOKEN = "{{unsubscribe_url}}"
+
 /** `unsub` is the recipient's unsubscribe link; it is added to the footer of every format. */
 export function renderEmailHtml(format: EmailFormat, body: string, unsub: string): string {
   if (format === "html") {
+    // A template with its own unsubscribe link keeps its design; otherwise we append the standard footer.
+    if (body.includes(UNSUBSCRIBE_TOKEN)) return body.split(UNSUBSCRIBE_TOKEN).join(escapeHtml(unsub))
     const footer = footerHtml(unsub)
     return /<\/body>/i.test(body) ? body.replace(/<\/body>/i, `${footer}</body>`) : `${body}
 ${footer}`
