@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Trophy } from "lucide-react";
+import { Trophy } from "lucide-react";
 import Link from "next/link";
 
 export function AmbassadorSection() {
@@ -17,7 +17,7 @@ export function AmbassadorSection() {
             <div className="space-y-8 z-20 pb-8 lg:pb-0">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a192f]/5 border border-[#0a192f]/10 text-[#0a192f] text-sm font-bold tracking-wide">
                 <Trophy className="w-4 h-4" />
-                <span>Applications Open</span>
+                <span>Applications closed</span>
               </div>
               
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05]">
@@ -29,15 +29,25 @@ export function AmbassadorSection() {
                 Represent BSPrep at your campus. Build leadership skills, get exclusive perks, and help your peers excel in the IITM BS Degree. 
               </p>
               
-              <div className="flex gap-4 items-center pt-2">
-                <Link 
-                  href="https://unstop.com/p/student-ambassador-program-bsprep-1720364?lb=usePftiW&utm_medium=Share&utm_source=competitions&utm_campaign=Sozyuihw88836"
-                  target="_blank"
-                  className="group inline-flex items-center gap-2 bg-[#0a192f] text-white px-8 py-4 rounded-full font-bold hover:bg-[#112a52] hover:-translate-y-1 transition-all shadow-lg hover:shadow-xl"
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:gap-5">
+                <span
+                  aria-disabled="true"
+                  className="inline-flex shrink-0 cursor-not-allowed items-center gap-2 whitespace-nowrap rounded-full bg-black/5 px-8 py-4 font-bold text-black/40"
                 >
-                  Apply Now on Unstop
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                  Applications closed
+                </span>
+                <p className="max-w-xs text-sm leading-relaxed text-black/55">
+                  Thank you to everyone who applied. The next round will be announced on{" "}
+                  <Link
+                    href="https://instagram.com/bsprep.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-[#0a192f] underline underline-offset-2"
+                  >
+                    Instagram
+                  </Link>
+                  .
+                </p>
               </div>
             </div>
 

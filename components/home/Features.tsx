@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckSquare, MonitorPlay, Code2, Users } from "lucide-react";
+import { CheckSquare, MonitorPlay, Code2, Calculator } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const fadeUpVariants = {
@@ -14,24 +14,12 @@ const fadeUpVariants = {
 };
 
 const VIDEOS = [
-  {
-    cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784173034/Screen_Recording_2026-07-16_090305_f97ck3.mp4",
-    fallback: "/videos/track.mp4",
-    poster: "/videos/track.png",
-  },
-  {
-    cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784173705/Screen_Recording_2026-07-16_091636_epook1.mp4",
-    fallback: "/videos/code.mp4",
-    poster: "/videos/code.png",
-  },
-  {
-    cloudinary: "https://res.cloudinary.com/ddn6tl045/video/upload/v1784174567/Screen_Recording_2026-07-16_092118_fk9jpd.mp4",
-    fallback: "/videos/mentor.mp4",
-    poster: "/videos/mentor.png",
-  },
+  { src: "/videos/dashboard-tour.mp4", poster: "/videos/dashboard-tour.jpg" },
+  { src: "/videos/compiler-demo.mp4", poster: "/videos/compiler-demo.jpg" },
+  { src: "/videos/gpa-tools.mp4", poster: "/videos/gpa-tools.jpg" },
 ];
 
-function ForcePlayVideo({ cloudinarySrc, fallbackSrc, poster, className }: { cloudinarySrc: string; fallbackSrc: string; poster?: string; className?: string }) {
+function ForcePlayVideo({ src, poster, className }: { src: string; poster?: string; className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const forcePlay = () => {
@@ -96,15 +84,14 @@ function ForcePlayVideo({ cloudinarySrc, fallbackSrc, poster, className }: { clo
       onWaiting={forcePlay}
       className={className}
     >
-      <source src={cloudinarySrc} type="video/mp4" />
-      <source src={fallbackSrc} type="video/mp4" />
+      <source src={src} type="video/mp4" />
     </video>
   );
 }
 
 export function Features() {
   return (
-    <section className="bg-transparent text-black py-20 sm:py-32 px-5 sm:px-8 md:px-12 font-black uppercase">
+    <section className="bg-transparent text-black py-20 sm:py-32 px-5 sm:px-8 md:px-12">
       <div className="max-w-7xl mx-auto space-y-32">
         
         {/* Dashboard Feature */}
@@ -116,21 +103,21 @@ export function Features() {
             variants={fadeUpVariants}
             className="order-2 lg:order-1 lg:col-span-5"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest mb-8 text-[#0a192f] bg-[#0a192f]/10">
-              <MonitorPlay className="w-4 h-4" /> LEARNING DASHBOARD
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-8 text-[#0a192f] bg-[#0a192f]/10">
+              <MonitorPlay className="w-4 h-4" /> Learning dashboard
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6 leading-[1.1]">
-              TRACK YOUR <br />
-              <span className="text-[#0a192f]">PROGRESS</span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+              Your whole IITM BS journey, <br />
+              <span className="text-[#0a192f]">in one place</span>
             </h2>
             <div className="max-w-xl mb-10">
-              <p className="text-sm sm:text-base font-bold opacity-60 uppercase leading-relaxed text-black">
-                Enrolled courses, GPA predictions, mentor sessions, and leaderboard — all in one clean view. Stay on top of your IITM BS journey.
+              <p className="text-base sm:text-lg font-medium text-black/60 leading-relaxed">
+                Live classes, courses, doubts and tools together in one clean student dashboard.
               </p>
             </div>
             
-            <div className="flex flex-col gap-4 uppercase font-bold text-sm text-black/70">
-              {["GPA calculator & grade predictor", "Enrolled courses & live sessions", "Community leaderboard & profile"].map((item, i) => (
+            <div className="flex flex-col gap-4 font-medium text-base text-black/70">
+              {["Live classes with recordings and slides", "Ask doubts to the BSPrep AI and mentors", "GPA calculator, predictor and exam calendar", "Community notes for every subject"].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-[#0a192f]/10 flex items-center justify-center shrink-0">
                     <CheckSquare className="w-3 h-3 text-[#0a192f]" />
@@ -148,8 +135,7 @@ export function Features() {
             className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
             <ForcePlayVideo
-              cloudinarySrc={VIDEOS[0].cloudinary}
-              fallbackSrc={VIDEOS[0].fallback}
+              src={VIDEOS[0].src}
               poster={VIDEOS[0].poster}
               className="w-full h-auto block"
             />
@@ -166,8 +152,7 @@ export function Features() {
             className="lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
             <ForcePlayVideo
-              cloudinarySrc={VIDEOS[1].cloudinary}
-              fallbackSrc={VIDEOS[1].fallback}
+              src={VIDEOS[1].src}
               poster={VIDEOS[1].poster}
               className="w-full h-auto block"
             />
@@ -179,21 +164,21 @@ export function Features() {
             variants={fadeUpVariants}
             className="lg:col-span-5"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest mb-8 text-[#0a192f] bg-[#0a192f]/10">
-              <Code2 className="w-4 h-4" /> IN-BROWSER COMPILER
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-8 text-[#0a192f] bg-[#0a192f]/10">
+              <Code2 className="w-4 h-4" /> Built-in compiler
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6 leading-[1.1]">
-              PRACTICE <br />
-              <span className="text-[#0a192f]">CODE</span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+              Practice code <br />
+              <span className="text-[#0a192f]">anywhere</span>
             </h2>
             <div className="max-w-xl mb-10">
-              <p className="text-sm sm:text-base font-bold opacity-60 uppercase leading-relaxed text-black">
-                No installs, no setup. Python, Java, C, C++ — write, run, and share with a single link right from your browser.
+              <p className="text-base sm:text-lg font-medium text-black/60 leading-relaxed">
+                No installs, no setup. Write, run and share Python, Java, C and C++ right from your browser.
               </p>
             </div>
             
-            <div className="flex flex-col gap-4 uppercase font-bold text-sm text-black/70">
-              {["Python, Java, C & C++ support", "Share code via shareable link", "Multi-file editor with tabs"].map((item, i) => (
+            <div className="flex flex-col gap-4 font-medium text-base text-black/70">
+              {["Python, Java, C and C++", "Share your code with one link", "Multi-file editor with tabs", "Run with Ctrl + Enter"].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-[#0a192f]/10 flex items-center justify-center shrink-0">
                     <CheckSquare className="w-3 h-3 text-[#0a192f]" />
@@ -205,7 +190,7 @@ export function Features() {
           </motion.div>
         </div>
 
-        {/* Live Classes Feature */}
+        {/* GPA tools Feature */}
         <div className="grid lg:grid-cols-12 gap-10 md:gap-16 items-center">
           <motion.div
             initial="hidden"
@@ -214,21 +199,21 @@ export function Features() {
             variants={fadeUpVariants}
             className="order-2 lg:order-1 lg:col-span-5"
           >
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest mb-8 text-[#0a192f] bg-[#0a192f]/10">
-              <Users className="w-4 h-4" /> LIVE SESSIONS
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-8 text-[#0a192f] bg-[#0a192f]/10">
+              <Calculator className="w-4 h-4" /> GPA tools
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6 leading-[1.1]">
-              LEARN WITH <br />
-              <span className="text-[#0a192f]">EXPERT MENTORS</span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+              Know your grade <br />
+              <span className="text-[#0a192f]">before the exam</span>
             </h2>
             <div className="max-w-xl mb-10">
-              <p className="text-sm sm:text-base font-bold opacity-60 uppercase leading-relaxed text-black">
-                Weekly sessions per subject in Tamil — ask questions, clear doubts, and stay on track for the qualifier.
+              <p className="text-base sm:text-lg font-medium text-black/60 leading-relaxed">
+                Work out your course grade, track your semester GPA and see the score you need in the final exam for the grade you want.
               </p>
             </div>
             
-            <div className="flex flex-col gap-4 uppercase font-bold text-sm text-black/70">
-              {["Weekly sessions per subject", "Live Q&A and doubt clearing", "Recordings available after class"].map((item, i) => (
+            <div className="flex flex-col gap-4 font-medium text-base text-black/70">
+              {["Course grade calculator", "Semester GPA and CGPA in one place", "Predict the exam score you need for a target grade"].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-[#0a192f]/10 flex items-center justify-center shrink-0">
                     <CheckSquare className="w-3 h-3 text-[#0a192f]" />
@@ -246,8 +231,7 @@ export function Features() {
             className="order-1 lg:order-2 lg:col-span-7 rounded-3xl shadow-2xl bg-black overflow-hidden ring-1 ring-black/5"
           >
             <ForcePlayVideo
-              cloudinarySrc={VIDEOS[2].cloudinary}
-              fallbackSrc={VIDEOS[2].fallback}
+              src={VIDEOS[2].src}
               poster={VIDEOS[2].poster}
               className="w-full h-auto block"
             />

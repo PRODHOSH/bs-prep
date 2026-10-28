@@ -151,6 +151,39 @@ function useUnreadNotifications(viewing: boolean) {
   return count
 }
 
+/** The student sidebar. Exported so the landing-page preview shows exactly the same navigation. */
+export function studentSections(unread = 0): NavSection[] {
+  return [
+    {
+      items: [
+        { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, exact: true, id: "tour-sidebar-dashboard" },
+        { label: "Courses", href: "/dashboard/courses", icon: BookOpen, id: "tour-sidebar-courses" },
+        { label: "Quiz prep", href: "/dashboard/quiz-prep", icon: PenTool, id: "tour-sidebar-quiz-prep" },
+        { label: "Compiler", href: "/dashboard/compiler", icon: Code, id: "tour-sidebar-compiler" },
+        { label: "Resources", href: "/dashboard/resources", icon: Library, id: "tour-sidebar-resources" },
+        { label: "Official docs", href: "/dashboard/docs", icon: FileText, id: "tour-sidebar-official-docs" },
+        { label: "Calendar", href: "/dashboard/calendar", icon: Calendar, id: "tour-sidebar-calendar" },
+        { label: "Doubts", href: "/dashboard/doubts", icon: MessageCircleQuestion, id: "tour-sidebar-doubts" },
+        { label: "Live classes", href: "/dashboard/live-classes", icon: Video, id: "tour-sidebar-live-classes" },
+      ],
+    },
+    {
+      title: "Tools",
+      items: [
+        { label: "GPA calculator", href: "/dashboard/tools/gpa-calculator", icon: Calculator, id: "tour-sidebar-gpa-calculator" },
+        { label: "GPA predictor", href: "/dashboard/tools/gpa-predictor", icon: LineChart, id: "tour-sidebar-gpa-predictor" },
+      ],
+    },
+    {
+      title: "Account",
+      items: [
+        { label: "Notifications", href: "/dashboard/notifications", icon: Bell, id: "tour-sidebar-notifications", badge: unread },
+        { label: "Settings", href: "/dashboard/settings", icon: Settings, id: "tour-sidebar-settings" },
+      ],
+    },
+  ]
+}
+
 export function StudentShell({ initialTheme, children }: { initialTheme?: DashboardTheme; children: ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
@@ -195,35 +228,7 @@ export function StudentShell({ initialTheme, children }: { initialTheme?: Dashbo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const sections: NavSection[] = [
-    {
-      items: [
-        { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, exact: true, id: "tour-sidebar-dashboard" },
-        { label: "Courses", href: "/dashboard/courses", icon: BookOpen, id: "tour-sidebar-courses" },
-        { label: "Quiz prep", href: "/dashboard/quiz-prep", icon: PenTool, id: "tour-sidebar-quiz-prep" },
-        { label: "Compiler", href: "/dashboard/compiler", icon: Code, id: "tour-sidebar-compiler" },
-        { label: "Resources", href: "/dashboard/resources", icon: Library, id: "tour-sidebar-resources" },
-        { label: "Official docs", href: "/dashboard/docs", icon: FileText, id: "tour-sidebar-official-docs" },
-        { label: "Calendar", href: "/dashboard/calendar", icon: Calendar, id: "tour-sidebar-calendar" },
-        { label: "Doubts", href: "/dashboard/doubts", icon: MessageCircleQuestion, id: "tour-sidebar-doubts" },
-        { label: "Live classes", href: "/dashboard/live-classes", icon: Video, id: "tour-sidebar-live-classes" },
-      ],
-    },
-    {
-      title: "Tools",
-      items: [
-        { label: "GPA calculator", href: "/dashboard/tools/gpa-calculator", icon: Calculator, id: "tour-sidebar-gpa-calculator" },
-        { label: "GPA predictor", href: "/dashboard/tools/gpa-predictor", icon: LineChart, id: "tour-sidebar-gpa-predictor" },
-      ],
-    },
-    {
-      title: "Account",
-      items: [
-        { label: "Notifications", href: "/dashboard/notifications", icon: Bell, id: "tour-sidebar-notifications", badge: unread },
-        { label: "Settings", href: "/dashboard/settings", icon: Settings, id: "tour-sidebar-settings" },
-      ],
-    },
-  ]
+  const sections = studentSections(unread)
 
   const signOut = async () => {
     await createClient().auth.signOut()

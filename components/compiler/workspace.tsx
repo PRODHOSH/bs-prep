@@ -349,16 +349,19 @@ export function CompilerWorkspace({ variant }: { variant: "public" | "dashboard"
   useEffect(() => { if (mounted && persist) localStorage.setItem(ACTIVE_KEY, activeId) }, [activeId, mounted, persist])
   useEffect(() => { if (mounted && persist) localStorage.setItem(STDIN_KEY, stdin) }, [stdin, mounted, persist])
 
-  // In the dashboard the editor follows the shell's light / dark theme.
+  // In the dashboard the editor follows the shell's light / dark theme (or the preview window's, on the landing page).
+  const rootRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    if (!embedded) return
+    if (!embedded || !mounted) return
     const body = document.body
-    const sync = () => setIsDark(body.classList.contains("lms-dark"))
+    const shell = rootRef.current?.closest(".lms") ?? null
+    const sync = () => setIsDark(body.classList.contains("lms-dark") || Boolean(shell?.classList.contains("lms-dark")))
     sync()
     const mo = new MutationObserver(sync)
     mo.observe(body, { attributes: true, attributeFilter: ["class"] })
+    if (shell) mo.observe(shell, { attributes: true, attributeFilter: ["class"] })
     return () => mo.disconnect()
-  }, [embedded])
+  }, [embedded, mounted])
 
   // Public page: only used to pick between "Sign in" and "Open dashboard".
   useEffect(() => {
@@ -659,6 +662,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
 
   return (
     <div
+      ref={rootRef}
       className={[
         "cw",
         embedded ? "cw-embedded" : "cw-public",
