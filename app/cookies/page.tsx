@@ -1,59 +1,44 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { createClient } from "@/lib/supabase/client"
+import { LegalPage } from "@/components/legal-page"
 
 const sections = [
   {
-    num: "01",
-    title: "What Are Cookies",
+    title: "What are cookies",
     body: "Cookies are small text files stored on your device when you visit a website. They help the site remember your preferences, keep you logged in, and understand how you use the platform. BSPrep uses a minimal set of cookies strictly necessary for functionality and anonymous analytics.",
   },
   {
-    num: "02",
-    title: "Essential Cookies",
+    title: "Essential cookies",
     body: "These cookies are required for the platform to function. They manage your login session via Supabase authentication — without them, you cannot stay signed in. These cookies are always active and cannot be disabled without breaking core platform functionality.",
   },
   {
-    num: "03",
-    title: "Analytics Cookies",
+    title: "Analytics cookies",
     body: "We use Google Analytics 4 (ID: G-06EFDQ4LSM) to understand how visitors interact with BSPrep — which pages are most visited, how long sessions last, and where users come from. This data is aggregated and anonymised. No personally identifiable information is shared with Google through this integration.",
   },
   {
-    num: "04",
-    title: "Performance Cookies",
+    title: "Performance cookies",
     body: "Vercel Analytics collects anonymous page load performance data to help us improve site speed and reliability. This data contains no personally identifiable information and is used solely for technical optimisation.",
   },
   {
-    num: "05",
-    title: "Search & Webmaster Tools",
+    title: "Search & webmaster tools",
     body: "Google Search Console and Bing Webmaster Tools are used to monitor how BSPrep appears in search engine results. These are site-level tools and do not place tracking cookies on your device or collect personal user data.",
   },
   {
-    num: "06",
-    title: "No Advertising Cookies",
+    title: "No advertising cookies",
     body: "BSPrep does not use advertising networks, retargeting pixels, or third-party marketing cookies. We do not track you for ad targeting purposes, and we do not sell or share your browsing data with advertisers.",
   },
   {
-    num: "07",
-    title: "Cookie Duration",
+    title: "Cookie duration",
     body: "Session cookies expire when you close your browser. Persistent cookies (such as authentication tokens) may last up to 7 days or until you sign out. Analytics cookies set by Google Analytics may persist for up to 2 years in accordance with their default configuration.",
   },
   {
-    num: "08",
-    title: "Managing Your Cookies",
+    title: "Managing your cookies",
     body: "You can manage or disable cookies through your browser settings at any time. Most browsers allow you to block or delete cookies. Note that disabling essential cookies will prevent you from staying logged in to BSPrep. Disabling analytics cookies will not affect your ability to use the platform.",
   },
   {
-    num: "09",
-    title: "Your Consent",
+    title: "Your consent",
     body: "When you first visit BSPrep, a cookie consent banner is displayed at the bottom of the page. You can accept all cookies or dismiss the banner. Accepting analytics cookies helps us improve the platform. You may withdraw consent for analytics cookies at any time by adjusting your browser settings or using your browser's built-in privacy controls.",
   },
   {
-    num: "10",
-    title: "Policy Updates",
+    title: "Policy updates",
     body: "We may update this Cookie Policy as our platform or third-party tools evolve. Changes will be posted on this page with a revised date. We recommend reviewing this page periodically to stay informed.",
   },
 ]
@@ -67,46 +52,8 @@ const cookieTable = [
 ]
 
 export default function CookiePolicyPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const supabase = createClient()
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      setIsAuthenticated(!!session)
-    }
-    checkAuth()
-  }, [])
-
   return (
-    <div className="min-h-screen flex flex-col bg-transparent">
-      <Navbar isAuthenticated={isAuthenticated} />
-
-      <main className="flex-1 py-16 px-4 relative z-10">
-        <div className="max-w-3xl mx-auto">
-
-          <div className="mb-10">
-            <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-2">BSPrep — Legal</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">Cookie Policy</h1>
-            <p className="text-black/50 text-sm mt-3">Student-led IITM BS Qualifier Prep Platform &nbsp;·&nbsp; Last Updated: August 2026</p>
-            <p className="text-black/40 text-xs mt-2">BSPrep is an independent student initiative and is not affiliated with IIT Madras.</p>
-          </div>
-
-          <div className="bg-white border border-black/10 rounded-2xl overflow-hidden shadow-sm">
-            {sections.map((s, i) => (
-              <div
-                key={s.num}
-                className={`flex gap-5 px-7 py-6 ${i !== sections.length - 1 ? "border-b border-black/6" : ""}`}
-              >
-                <span className="text-sm font-mono text-black/25 pt-0.5 shrink-0 w-6">{s.num}</span>
-                <div>
-                  <p className="font-semibold text-black text-base mb-1">{s.title}</p>
-                  <p className="text-sm text-black/60 leading-relaxed">{s.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
+    <LegalPage title="Cookie policy" sections={sections} contact={{ heading: "Questions about cookies?", email: "support@bsprep.in" }}>
           {/* Cookie table */}
           <div className="mt-8">
             <p className="text-xs uppercase tracking-widest text-black/40 font-medium mb-3">Cookies in Use</p>
@@ -147,24 +94,6 @@ export default function CookiePolicyPage() {
               </div>
             </div>
           </div>
-
-          <div className="mt-8 px-7 py-5 bg-black rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div>
-              <p className="text-white font-semibold text-sm">Questions about cookies?</p>
-              <p className="text-white/50 text-xs mt-0.5">BSPrep — Student-led IITM BS Qualifier Prep</p>
-            </div>
-            <a
-              href="mailto:support@bsprep.in"
-              className="text-white/70 hover:text-white text-xs font-mono transition-colors underline underline-offset-2"
-            >
-              support@bsprep.in
-            </a>
-          </div>
-
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+    </LegalPage>
   )
 }

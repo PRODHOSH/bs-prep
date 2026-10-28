@@ -1,409 +1,215 @@
-"use client"
-
 import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
-import { Linkedin, Youtube, HeartHandshake, ShieldCheck, Lock, X, Github, Instagram, Twitter, Globe, Mail } from "lucide-react"
+import { HeartHandshake, Instagram, Linkedin, Mail, ShieldCheck, Youtube } from "lucide-react"
+import { GooglePreferredSource } from "@/components/google-preferred-source"
+import { RazorpayBadge } from "@/components/razorpay-badge"
+import { courses, type Course } from "@/lib/course-catalog"
+import { LEGAL_LINKS } from "@/lib/legal"
 
-const developers: {name: string; photo: string; linkedin: string; github: string; instagram: string; twitter: string; portfolio: string; handles: {linkedin: string; github: string; instagram: string; twitter: string; portfolio: string}; about: string}[] = []
-/* DEVELOPERS_DISABLED
-const _developers_data = [
+type FooterLink = { name: string; href: string; external?: boolean; soon?: boolean }
+
+const isBundle = (c: Course) => c.id.endsWith("-bundle")
+const courseLink = (c: Course): FooterLink => ({ name: c.title, href: `/courses/${c.id}`, soon: !c.available })
+
+const qualifier = courses.filter((c) => c.level === "qualifier" && !isBundle(c) && c.available).map(courseLink)
+const foundation = courses.filter((c) => c.level === "foundation" && !isBundle(c)).map(courseLink)
+const bundles = courses.filter((c) => isBundle(c) && c.available).map(courseLink)
+
+const FEEDBACK_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog"
+const CONTACT_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog"
+
+const columns: { heading: string; groups: { label?: string; links: FooterLink[] }[] }[] = [
   {
-    name: "Prodhosh VS",
-    photo: "/developers/prodhosh_photo.jpeg",
-    linkedin: "https://www.linkedin.com/in/prodhoshvs/",
-    github: "https://github.com/PRODHOSH",
-    instagram: "https://www.instagram.com/itzprodhosh/",
-    twitter: "https://x.com/prodhosh3",
-    portfolio: "https://prodhosh.netlify.app/",
-    handles: { linkedin: "prodhoshvs", github: "PRODHOSH", instagram: "itzprodhosh", twitter: "prodhosh3", portfolio: "prodhosh.netlify.app" },
-    about:
-      "Freshman at VIT Chennai and IIT Madras BS Data Science.\nI mainly build SaaS-style web platforms for clubs, communities, and small organizations with focus on usability and scalability.\nCurrently transitioning from full-stack development toward AI engineering by strengthening fundamentals and integrating intelligence into applications.\nGoal: build software that doesn't just run — it learns and adapts.",
+    heading: "Qualifier courses",
+    groups: [
+      { links: qualifier },
+      { label: "Bundles", links: bundles },
+    ],
   },
   {
-    name: "Saran V",
-    photo: "/developers/saran.jpg",
-    linkedin: "https://www.linkedin.com/in/saran-v-7060b1385",
-    github: "https://github.com/saranv007",
-    instagram: "https://www.instagram.com/itz_sano_x",
-    twitter: "",
-    portfolio: "",
-    handles: { linkedin: "saran-v", github: "saranv007", instagram: "itz_sano_x", twitter: "", portfolio: "" },
-    about: "Hi, I'm Saran V, a Data Science student pursuing BS in Data Science at IIT Madras and BSc in Computer Science & Mathematics at Christ University, Bangalore. I'm passionate about Data Science and Machine Learning, aiming to become a Data Scientist/ML Engineer who builds real-world solutions using data. Through this website, I contribute to this sector by building quiz preparation tools, sharing useful resources, and integrating payment gateway systems to create practical and impactful digital solutions.",
+    heading: "Foundation and beyond",
+    groups: [
+      { label: "Foundation", links: foundation },
+      {
+        label: "Higher levels",
+        links: [
+          { name: "Diploma level", href: "/courses", soon: true },
+          { name: "Degree level", href: "/courses", soon: true },
+        ],
+      },
+    ],
   },
   {
-    name: "Rishwanth S V",
-    photo: "/developers/rishwanth.jpg",
-    linkedin: "https://www.linkedin.com/in/RishSV/",
-    github: "https://github.com/rishsv/",
-    instagram: "https://www.instagram.com/rish.offcl",
-    twitter: "",
-    portfolio: "",
-    handles: { linkedin: "RishSV", github: "rishsv", instagram: "rish.offcl", twitter: "", portfolio: "" },
-    about: "Student at Saveetha Engineering College and IIT Madras BS in Data Science. I build practical web platforms for clubs, events, and student communities, focusing on simplicity, reliability, and real-world usability. Alongside academics, I freelance — developing websites, managing deployments, and designing logos and branding assets for organizations and small teams.\n\nMy current journey is moving from full-stack development toward AI Engineering and Data Science, data-driven systems by strengthening programming fundamentals, problem solving, and analytical thinking. I'm especially interested in creating applications that don't just display information but understand users and improve with data.\n\nI enjoy learning new technologies, experimenting with ideas, and turning concepts into working products. Long-term, I aim to build scalable software and intelligent tools that genuinely help people — tools that automate effort, support decisions, and grow smarter over time.",
+    heading: "Learn",
+    groups: [
+      {
+        links: [
+          { name: "Resources and notes", href: "/resources" },
+          { name: "Doubts", href: "/doubts" },
+          { name: "Community", href: "/community" },
+          { name: "Live classes", href: "/dashboard/live-classes" },
+          { name: "Blog", href: "https://blog.bsprep.in", external: true },
+        ],
+      },
+      {
+        label: "Tools",
+        links: [
+          { name: "GPA calculator", href: "/tools/gpa-calculator" },
+          { name: "GPA predictor", href: "/tools/gpa-predictor" },
+          { name: "Online compiler", href: "/compiler" },
+        ],
+      },
+    ],
+  },
+  {
+    heading: "Company",
+    groups: [
+      {
+        links: [
+          { name: "Careers", href: "/careers" },
+          { name: "Ambassador portal", href: "https://ambassador.bsprep.in/", external: true },
+          { name: "Contact", href: CONTACT_FORM, external: true },
+          { name: "Feedback", href: FEEDBACK_FORM, external: true },
+          { name: "Donate", href: "https://rzp.io/rzp/support-bsprep", external: true },
+        ],
+      },
+    ],
   },
 ]
-DEVELOPERS_DISABLED */
 
-export function Footer() {
-  const [activeDev, setActiveDev] = useState<string | null>(null)
-  const selectedDev = developers.find((d) => d.name === activeDev) ?? null
+const linkCls = "inline-flex items-center gap-2 text-[13px] font-semibold leading-snug text-black/65 transition-colors hover:text-black"
 
-  const columns = [
-    {
-      heading: "Platform",
-      links: [
-        { name: "Home", href: "/" },
-        { name: "Courses", href: "/courses" },
-        { name: "Quiz Prep", href: "/quiz-prep" },
-        { name: "Resources", href: "/resources" },
-        { name: "Live Classes", href: "/dashboard/live-classes" },
-        { name: "Tools", href: "/tools" },
-        { name: "Blogs", href: "https://blog.bsprep.in", external: true },
-      ],
-    },
-    {
-      heading: "Community",
-      links: [
-        { name: "Dashboard", href: "/dashboard" },
-        { name: "Doubts", href: "/doubts" },
-        { name: "Careers", href: "/careers", external: false },
-        { name: "Ambassador Portal", href: "https://ambassador.bsprep.in/", external: true },
-        { name: "Feedback", href: "https://docs.google.com/forms/d/e/1FAIpQLSeqAmEuz6NrH6P-sa7jD9-0272a-cwm9eASrbvHor7nJN_TtQ/viewform?usp=dialog", external: true },
-        { name: "Contact", href: "https://docs.google.com/forms/d/e/1FAIpQLSc8lSGsbLay_yvhHWjL2rtCd0YJCgjXmxNZ3ttB4IcFB0Js8g/viewform?usp=dialog", external: true },
-        { name: "Donate", href: "https://rzp.io/rzp/support-bsprep", external: true },
-      ],
-    },
-    {
-      heading: "Legal",
-      links: [
-        { name: "Privacy Policy", href: "/privacy" },
-        { name: "Terms & Conditions", href: "/terms" },
-        { name: "Cookie Policy", href: "/cookies" },
-        { name: "Disclaimer", href: "/disclaimer" },
-      ],
-    },
-  ]
-
-  return (
+function FooterItem({ link }: { link: FooterLink }) {
+  const content = (
     <>
-      <footer className="bg-[#FDFBF7] border-t border-black/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr] gap-8 mb-10">
-            {/* Brand */}
-            <div className="space-y-6 lg:pr-8 md:col-span-4 lg:col-span-1">
-              <div className="flex items-center gap-2">
-                <div className="w-[36px] h-[36px] overflow-hidden rounded-full border border-black/10 shrink-0">
-                  <img src="/new-logo.jpeg" alt="BSPrep Logo" className="w-full h-full object-cover object-center scale-[1.3]" />
-                </div>
-                <span className="font-black text-xl tracking-tight text-black">BSPREP</span>
-              </div>
-              
-              <div className="space-y-4">
-                <p className="text-black/60 text-sm font-medium leading-relaxed">
-                  Community-driven academic support for IIT Madras students. Learn, grow, and excel together.
-                </p>
-                
-                <div className="flex flex-col gap-2 pt-1">
-                  <a href="mailto:support@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
-                    <Mail className="w-4 h-4 opacity-50" />
-                    support@bsprep.in
-                  </a>
-                  <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2 text-sm font-bold text-black/60 hover:text-black transition-colors">
-                    <HeartHandshake className="w-4 h-4 opacity-50" />
-                    Partner with us: partnerships@bsprep.in
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  href="https://www.linkedin.com/company/bs-prep/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://www.youtube.com/@DataScienceIITMTamil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
-                >
-                  <Youtube className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://www.instagram.com/bsprep.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-black/60 bg-black/5 hover:bg-black hover:text-white transition-all shadow-sm"
-                >
-                  <Instagram className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-
-            {/* Link columns */}
-            {columns.map((col) => (
-              <div key={col.heading}>
-                <h3 className="font-bold text-black text-xs uppercase tracking-widest mb-4">{col.heading}</h3>
-                <ul className="space-y-3">
-                  {col.links.map((link) => {
-                    const linkClass = "text-black/70 hover:text-black transition-colors text-xs font-bold inline-flex items-center gap-2 group uppercase"
-                    const content = (
-                      <>
-                        <span className="group-hover:translate-x-0.5 transition-transform inline-block">{link.name}</span>
-                        {link.pro && (
-                          <span className="inline-flex items-center rounded-full bg-[#0a192f]/10 text-[#0a192f] text-[8px] font-bold px-2 py-0.5 leading-none tracking-wide">
-                            PRO
-                          </span>
-                        )}
-                      </>
-                    )
-                    return (
-                      <li key={link.name}>
-                        {link.external ? (
-                          <a href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                            {content}
-                          </a>
-                        ) : (
-                          <Link href={link.href} className={linkClass}>
-                            {content}
-                          </Link>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            ))}
-
-            {/* Donate & Support Column */}
-            <div>
-              <h3 className="font-bold text-black text-xs uppercase tracking-widest mb-4">Donate & Support</h3>
-              <div className="flex flex-col gap-4">
-                <div className="border border-black/10 p-2 rounded-xl bg-white shadow-sm w-fit group relative overflow-hidden">
-                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pages.razorpay.com/pl_T7LY917rtczWQU/view" alt="Donate QR" className="w-[100px] h-[100px] object-contain mix-blend-multiply transition-transform group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/90 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-center leading-tight">Scan<br/>To Donate</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-black/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex flex-col items-center md:items-start gap-1">
-              <p className="text-black/70 text-xs font-bold uppercase">© 2026 BSPREP. ALL RIGHTS RESERVED.</p>
-              <p className="text-black/50 text-[10px] font-bold text-center md:text-left uppercase">
-                NOT AFFILIATED WITH IIT MADRAS. INDEPENDENT STUDENT-LED PLATFORM.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap justify-center items-center gap-6">
-              <a href="mailto:security@bsprep.in" className="flex items-center gap-2 text-[10px] font-bold text-black/50 hover:text-black transition-colors uppercase">
-                <ShieldCheck className="w-4 h-4 text-[#1e3a8a]" />
-                REPORT A VULNERABILITY
-              </a>
-              <div className="flex items-center gap-2 text-[10px] font-bold text-black/50 uppercase">
-                <Lock className="w-4 h-4 text-black/50" />
-                SECURE PLATFORM
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* Individual Developer Modal */}
-      {activeDev && selectedDev && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-          onClick={() => setActiveDev(null)}
-        >
-          {selectedDev.name === "Rishwanth S V" ? (
-            /* ── Rishwanth: photo in header, wide, scrollable ── */
-            <div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh] overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="bg-black px-8 py-7 relative shrink-0 flex items-center justify-between gap-6">
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest font-medium mb-1">Developer</p>
-                  <h2 className="text-3xl font-bold text-white">{selectedDev.name}</h2>
-                </div>
-                <img
-                  src={selectedDev.photo}
-                  alt={selectedDev.name}
-                  className="w-20 h-20 rounded-xl object-cover border-2 border-white/20 shadow-xl bg-gray-700 shrink-0"
-                />
-                <button
-                  onClick={() => setActiveDev(null)}
-                  className="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center transition-colors"
-                >
-                  <X className="w-3.5 h-3.5 text-white" />
-                </button>
-              </div>
-              <div className="px-8 py-6 overflow-y-auto space-y-5">
-                {(selectedDev.linkedin || selectedDev.github || selectedDev.instagram || selectedDev.twitter || selectedDev.portfolio) && (
-                  <div className="grid grid-cols-2 gap-2">
-                    {selectedDev.linkedin && (
-                      <a href={selectedDev.linkedin} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Linkedin className="w-4 h-4 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">LinkedIn</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.linkedin}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.github && (
-                      <a href={selectedDev.github} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Github className="w-4 h-4 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">GitHub</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.github}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.instagram && (
-                      <a href={selectedDev.instagram} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Instagram className="w-4 h-4 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">Instagram</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.instagram}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.twitter && (
-                      <a href={selectedDev.twitter} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Twitter className="w-4 h-4 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">X / Twitter</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.twitter}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.portfolio && (
-                      <a href={selectedDev.portfolio} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group col-span-2">
-                        <Globe className="w-4 h-4 shrink-0" />
-                        <div className="min-w-0">
-                          <p className="text-[10px] text-gray-400 group-hover:text-white/50 leading-none uppercase tracking-wide">Portfolio</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.portfolio}</p>
-                        </div>
-                      </a>
-                    )}
-                  </div>
-                )}
-                {selectedDev.about ? (
-                  <div className="border-t border-gray-100 pt-5 pb-2">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium mb-3">About</p>
-                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{selectedDev.about}</p>
-                  </div>
-                ) : (
-                  <div className="border-t border-gray-100 pt-5 pb-2">
-                    <p className="text-sm text-gray-400 italic">Details coming soon.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            /* ── Prodhosh / Saran: original overlapping-photo design ── */
-            <div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="bg-black px-8 pt-8 pb-16 relative">
-                <button
-                  onClick={() => setActiveDev(null)}
-                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                >
-                  <X className="w-4 h-4 text-white" />
-                </button>
-                <p className="text-white/40 text-xs uppercase tracking-widest font-medium">Developer</p>
-                <h2 className="text-3xl font-bold text-white mt-1">{selectedDev.name}</h2>
-              </div>
-              <div className="relative px-8">
-                <div className="-mt-12 mb-4">
-                  <img
-                    src={selectedDev.photo}
-                    alt={selectedDev.name}
-                    className="w-24 h-24 rounded-2xl object-cover border-4 border-white shadow-xl bg-gray-100"
-                  />
-                </div>
-                {(selectedDev.linkedin || selectedDev.github || selectedDev.instagram || selectedDev.twitter || selectedDev.portfolio) ? (
-                  <div className="grid grid-cols-2 gap-2 mb-5">
-                    {selectedDev.linkedin && (
-                      <a href={selectedDev.linkedin} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Linkedin className="w-4 h-4 shrink-0" />
-                        <div>
-                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">LinkedIn</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.linkedin}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.github && (
-                      <a href={selectedDev.github} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Github className="w-4 h-4 shrink-0" />
-                        <div>
-                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">GitHub</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.github}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.instagram && (
-                      <a href={selectedDev.instagram} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Instagram className="w-4 h-4 shrink-0" />
-                        <div>
-                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">Instagram</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.instagram}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.twitter && (
-                      <a href={selectedDev.twitter} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group">
-                        <Twitter className="w-4 h-4 shrink-0" />
-                        <div>
-                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">X / Twitter</p>
-                          <p className="text-xs font-semibold mt-0.5 truncate">{selectedDev.handles?.twitter}</p>
-                        </div>
-                      </a>
-                    )}
-                    {selectedDev.portfolio && (
-                      <a href={selectedDev.portfolio} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 text-black hover:border-black hover:bg-black hover:text-white transition-all group col-span-2">
-                        <Globe className="w-4 h-4 shrink-0" />
-                        <div>
-                          <p className="text-[11px] text-gray-400 group-hover:text-white/60 leading-none">Portfolio</p>
-                          <p className="text-xs font-semibold mt-0.5">{selectedDev.handles?.portfolio}</p>
-                        </div>
-                      </a>
-                    )}
-                  </div>
-                ) : null}
-                {selectedDev.about ? (
-                  <div className="border-t border-gray-100 pt-5 mb-6">
-                    <p className="text-[11px] text-gray-400 uppercase tracking-widest font-medium mb-2">About</p>
-                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{selectedDev.about}</p>
-                  </div>
-                ) : (
-                  <div className="pb-8">
-                    <p className="text-sm text-gray-400 italic">Details coming soon.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      <span>{link.name}</span>
+      {link.soon && <span className="rounded-full bg-black/[0.06] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black/45">Soon</span>}
     </>
+  )
+  if (link.external)
+    return (
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className={linkCls}>
+        {content}
+      </a>
+    )
+  return (
+    <Link href={link.href} className={linkCls}>
+      {content}
+    </Link>
   )
 }
 
+const social = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/bs-prep/", icon: Linkedin },
+  { label: "YouTube", href: "https://www.youtube.com/@DataScienceIITMTamil", icon: Youtube },
+  { label: "Instagram", href: "https://www.instagram.com/bsprep.in", icon: Instagram },
+]
+
+export function Footer() {
+  return (
+    <footer className="border-t border-black/5 bg-[#FDFBF7] text-black">
+      <div className="mx-auto max-w-7xl px-5 pb-8 pt-14 sm:px-8 lg:px-12">
+        <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-[1.35fr_1.2fr_1.1fr_1fr_0.8fr]">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="inline-flex items-center gap-2.5" aria-label="BSPrep home">
+              <span className="size-10 overflow-hidden rounded-full border border-black/10">
+                <img src="/new-logo.jpeg" alt="" className="h-full w-full scale-[1.3] object-cover object-center" />
+              </span>
+              <span className="text-2xl font-black tracking-tighter">BSPREP</span>
+            </Link>
+            <p className="mt-5 max-w-xs text-sm font-medium leading-relaxed text-black/60">
+              Community-driven academic support for IIT Madras BS students. Learn, grow and excel together.
+            </p>
+            <div className="mt-5 flex flex-col gap-2.5">
+              <a href="mailto:support@bsprep.in" className="inline-flex items-center gap-2.5 text-sm font-semibold text-black/65 transition-colors hover:text-black">
+                <Mail className="size-4 text-black/40" />
+                support@bsprep.in
+              </a>
+              <a href="mailto:partnerships@bsprep.in" className="inline-flex items-center gap-2.5 text-sm font-semibold text-black/65 transition-colors hover:text-black">
+                <HeartHandshake className="size-4 text-black/40" />
+                partnerships@bsprep.in
+              </a>
+            </div>
+            <div className="mt-6 flex items-center gap-2.5">
+              {social.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="grid size-10 place-items-center rounded-full bg-black/5 text-black/60 transition-all hover:bg-black hover:text-white"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {columns.map((col) => (
+            <nav key={col.heading} aria-label={col.heading}>
+              <h3 className="text-[11px] font-bold uppercase tracking-widest text-black/40">{col.heading}</h3>
+              <div className="mt-5 space-y-7">
+                {col.groups.map((g, gi) => (
+                  <div key={gi}>
+                    {g.label && <p className="mb-3 text-xs font-bold text-black">{g.label}</p>}
+                    <ul className="space-y-3">
+                      {g.links.map((l) => (
+                        <li key={l.name}>
+                          <FooterItem link={l} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </nav>
+          ))}
+        </div>
+
+        {/* Trust strip */}
+        <div className="mt-14 flex flex-col gap-4 rounded-3xl border border-black/[0.06] bg-black/[0.02] p-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <GooglePreferredSource />
+            <RazorpayBadge />
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="rounded-xl border border-black/10 bg-white p-1.5 shadow-sm">
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pages.razorpay.com/pl_T7LY917rtczWQU/view"
+                alt="Donate QR code"
+                width={64}
+                height={64}
+                className="size-16 object-contain mix-blend-multiply"
+              />
+            </div>
+            <div>
+              <p className="text-sm font-bold">Support BSPrep</p>
+              <p className="text-xs font-medium text-black/55">Scan to donate</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-8 flex flex-col gap-5 border-t border-black/[0.06] pt-6 lg:flex-row lg:items-start lg:justify-between">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-black/70">&copy; 2026 BSPrep. All rights reserved.</p>
+            <p className="text-xs font-medium text-black/45">Not affiliated with IIT Madras. Independent student-led platform.</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {LEGAL_LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className="text-xs font-semibold text-black/55 transition-colors hover:text-black">
+                {l.name}
+              </Link>
+            ))}
+            <a href="mailto:security@bsprep.in" className="inline-flex items-center gap-1.5 text-xs font-semibold text-black/55 transition-colors hover:text-black">
+              <ShieldCheck className="size-3.5 text-[#1e3a8a]" />
+              Report a vulnerability
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}

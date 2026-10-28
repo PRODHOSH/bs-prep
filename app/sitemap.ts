@@ -96,6 +96,12 @@ const staticRoutes: MetadataRoute.Sitemap = [
     changeFrequency: "yearly",
     priority: 0.1,
   },
+  {
+    url: `${BASE_URL}/refund-policy`,
+    lastModified: new Date(),
+    changeFrequency: "yearly",
+    priority: 0.1,
+  },
 ]
 
 async function getCourseRoutes(): Promise<MetadataRoute.Sitemap> {

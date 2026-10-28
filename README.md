@@ -1,146 +1,224 @@
 <p align="center">
-  <img src="public/image.png" alt="BSPrep Logo" width="80"/>
+  <img src="public/bsprep-mark.png" alt="BSPrep logo" width="88" />
 </p>
 
 <h1 align="center">BSPrep</h1>
 
 <p align="center">
-  Prep platform for IITM BS Degree students. Built by students.
+  Tamil-medium prep for IITM BS students, built by students who have been through it.
 </p>
 
 <p align="center">
-  <a href="https://bsprep.in" target="_blank" rel="noopener noreferrer"><b>bsprep.in</b></a>
+  <a href="https://bsprep.in"><b>bsprep.in</b></a>
+  &nbsp;·&nbsp;
+  <a href="https://bsprep.in/compiler">Online compiler</a>
+  &nbsp;·&nbsp;
+  <a href="https://bsprep.in/careers">We are hiring</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/TypeScript-Ready-3178c6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Supabase-Backend-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
-  <img src="https://img.shields.io/badge/Razorpay-Payments-0c61f7?style=for-the-badge" alt="Razorpay" />
-  <img src="https://img.shields.io/badge/Vercel-Deploy-black?style=for-the-badge&logo=vercel" alt="Vercel" />
+  <img src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-149ECA?style=flat-square&logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Supabase-Postgres-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat-square&logo=vercel" alt="Vercel" />
 </p>
 
----
+<br />
 
-![BSPrep Hero Section](public/readme/hero-section.png)
+<p align="center">
+  <img src="docs/screenshots/hero.png" alt="BSPrep landing page" width="100%" />
+</p>
 
----
+## What is BSPrep
 
-## What is BSPrep?
+Most people who start the IITM BS program have no clear idea how to prepare for the Qualifier, and almost nothing exists for it in Tamil. BSPrep fills that gap.
 
-BSPrep is a learning platform built for students doing the IITM BS Degree. It is focused on the Qualifier level, which is the first real exam students have to clear before continuing in the program.
+You get video courses in Tamil, weekly live classes with mentors who have already cleared the Qualifier, a place to ask doubts, GPA tools, and a compiler that runs in the browser. It is one account and one dashboard instead of five tabs.
 
-Everything on the platform is built around that one goal. The courses cover all 4 Qualifier subjects in Tamil. Mentors who have already cleared the Qualifier take live weekly sessions. There is an in-browser compiler, past quiz practice, GPA tools, and a community space for doubts.
+BSPrep is an independent student project. It is not an official IIT Madras product.
 
-This is not an official IIT Madras product. It is built and maintained by students.
+<br />
 
-## What we are trying to do
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="BSPrep student dashboard" width="100%" />
+</p>
 
-Most students who join the IITM BS program have no idea what the Qualifier actually demands. The syllabus is there, but there is no structured way to prepare for it, especially in Tamil. BSPrep exists to fix that.
+## What you can do
 
-The goal is to make sure no student fails the Qualifier just because they did not know how to prepare. Not because of language, not because they could not afford coaching, and not because they were doing it alone.
-
-## Platform Features
-
-| Feature | What it does |
+| Feature | Details |
 |---|---|
-| Video Courses | Full courses in Tamil for Math, Stats, Computational Thinking, and English |
-| Live Classes | Weekly sessions per subject with mentors who have cleared the Qualifier |
-| In-Browser Compiler | Write and run Python, Java, C, C++ without installing anything |
-| Quiz Prep | Practice questions and past papers organized by topic |
-| GPA Calculator | Calculate SGPA and see what your CGPA could look like |
-| Leaderboard | See where you stand in the community |
-| Mentorship | Connect with mentors for one-on-one guidance |
-| Announcements | Stay updated on class schedules and platform news |
-| Payments | Enroll in courses securely via Razorpay |
-| Auth | Sign in with email or Google |
+| **Courses** | Tamil video lectures for Qualifier and Foundation subjects, plus bundles and completion certificates |
+| **Live classes** | Weekly sessions per subject with recordings, scheduled through Google Calendar |
+| **Doubts** | Ask in public or private. Mentors answer, and an AI assistant gives a first reply |
+| **Compiler** | Python, Java, C and C++ in the browser. Multi-file editor, share links, no sign in needed |
+| **GPA tools** | Course grade calculator, semester GPA and a predictor that tells you the exam score you need |
+| **Resources** | Community notes for every subject, with stars and a contributor leaderboard |
+| **Three dashboards** | Student, mentor and admin, all on one design system with a dark theme |
+| **Admin inbox** | Send announcements and campaigns with one-click unsubscribe |
 
----
+## Architecture
 
-## Tech Stack
+Everything runs on Next.js. Pages and API routes live in one app on Vercel, `proxy.ts` guards the private routes, and Supabase handles auth and data. Anything that needs a secret key stays on the server.
 
-### Core
+```mermaid
+flowchart LR
+  subgraph Browser
+    UI["Next.js UI<br/>React 19 and Tailwind"]
+    PY["Pyodide<br/>Python in WebAssembly"]
+  end
 
-| Layer | Technology |
+  subgraph Vercel
+    PX["proxy.ts<br/>route guards and rate limits"]
+    API["API routes<br/>/api/*"]
+  end
+
+  subgraph Supabase
+    AUTH["Auth"]
+    DB[("PostgreSQL<br/>with RLS")]
+    ST["Storage"]
+  end
+
+  UI --> PX --> API
+  UI --> AUTH
+  UI --> PY
+  UI -. bot check .-> TS["Cloudflare Turnstile"]
+
+  API --> DB
+  API --> ST
+  API --> RZP["Razorpay<br/>payments"]
+  RZP -. webhook .-> API
+  API --> RES["Resend<br/>email"]
+  API --> OR["OpenRouter<br/>AI doubt replies"]
+  API --> PZ["Paiza<br/>Java, C and C++ runs"]
+  API --> GCAL["Google Calendar<br/>live class events"]
+```
+
+### How a payment flows
+
+The server never trusts the browser. The order is created server-side and the payment signature is checked before anyone is enrolled. A webhook covers the case where the user closes the tab after paying.
+
+```mermaid
+sequenceDiagram
+  actor S as Student
+  participant UI as Next.js app
+  participant API as API routes
+  participant RZP as Razorpay
+  participant DB as Supabase
+
+  S->>UI: Click enroll
+  UI->>API: POST /api/payment/create-order
+  API->>RZP: Create order
+  RZP-->>UI: Order id, open checkout
+  S->>RZP: Pay
+  RZP-->>UI: Payment id and signature
+  UI->>API: POST /api/payment/verify
+  API->>API: Check signature
+  API->>DB: Create enrollment
+  API-->>S: Confirmation email via Resend
+  RZP-->>API: POST /api/payment/webhook (backup)
+```
+
+> Enrollments are currently closed. Flip `ENROLLMENTS_CLOSED` in `lib/course-catalog.ts` to reopen checkout everywhere.
+
+### Roles
+
+| Role | Lands on | Can do |
+|---|---|---|
+| Student | `/dashboard` | Courses, live classes, doubts, tools, notes |
+| Mentor | `/mentor` | Run live classes and answer doubts for assigned subjects |
+| Admin | `/admin` | Users, enrollments, announcements, inbox, analytics, subject assignment |
+
+## Tech stack
+
+| Area | Tools |
 |---|---|
-| Framework | Next.js 16 (App Router, Turbopack) |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS v4 |
-| UI Components | shadcn/ui built on Radix UI |
-| Animations | Framer Motion, GSAP |
-| 3D / Canvas | Three.js, @react-three/fiber, @react-three/drei |
-| Icons | Lucide React |
+| **Framework** | <img src="https://thesvg.org/icons/nextdotjs/default.svg" width="18" height="18" align="center" alt="" /> Next.js 16 (App Router) &nbsp; <img src="https://thesvg.org/icons/react/default.svg" width="18" height="18" align="center" alt="" /> React 19 &nbsp; <img src="https://thesvg.org/icons/typescript/default.svg" width="18" height="18" align="center" alt="" /> TypeScript |
+| **Styling and UI** | <img src="https://thesvg.org/icons/tailwindcss/default.svg" width="18" height="18" align="center" alt="" /> Tailwind CSS v4 &nbsp; Radix UI &nbsp; shadcn/ui &nbsp; <img src="https://thesvg.org/icons/framer/default.svg" width="18" height="18" align="center" alt="" /> Framer Motion &nbsp; Recharts |
+| **Auth and data** | <img src="https://thesvg.org/icons/supabase/default.svg" width="18" height="18" align="center" alt="" /> Supabase Auth &nbsp; <img src="https://thesvg.org/icons/postgresql/default.svg" width="18" height="18" align="center" alt="" /> PostgreSQL with row level security &nbsp; <img src="https://thesvg.org/icons/google/default.svg" width="18" height="18" align="center" alt="" /> Google sign in |
+| **Payments** | <img src="https://thesvg.org/icons/razorpay/default.svg" width="18" height="18" align="center" alt="" /> Razorpay (server-side orders, signature checks, webhooks) |
+| **Email** | <img src="https://thesvg.org/icons/resend/default.svg" width="18" height="18" align="center" alt="" /> Resend |
+| **Compiler** | <img src="https://thesvg.org/icons/codemirror/default.svg" width="18" height="18" align="center" alt="" /> CodeMirror 6 &nbsp; <img src="https://thesvg.org/icons/python/default.svg" width="18" height="18" align="center" alt="" /> Pyodide for Python &nbsp; Paiza API for Java, C and C++ |
+| **AI** | OpenRouter for first-pass doubt replies |
+| **Scheduling** | <img src="https://thesvg.org/icons/google-calendar/default.svg" width="18" height="18" align="center" alt="" /> Google Calendar API through a service account |
+| **Security** | <img src="https://thesvg.org/icons/cloudflare/default.svg" width="18" height="18" align="center" alt="" /> Cloudflare Turnstile, rate limiting and security headers in `proxy.ts` |
+| **Forms** | React Hook Form &nbsp; <img src="https://thesvg.org/icons/zod/default.svg" width="18" height="18" align="center" alt="" /> Zod |
+| **Hosting and analytics** | <img src="https://thesvg.org/icons/vercel/default.svg" width="18" height="18" align="center" alt="" /> Vercel &nbsp; Vercel Analytics &nbsp; <img src="https://thesvg.org/icons/google-analytics/default.svg" width="18" height="18" align="center" alt="" /> Google Analytics |
 
-### Backend and Infrastructure
+## Project structure
 
-| Layer | Technology |
-|---|---|
-| API | Next.js API Routes (all keys server-side only) |
-| Database | Supabase (PostgreSQL with Row Level Security) |
-| Auth | Supabase Auth with email and Google OAuth |
-| Payments | Razorpay with server-side order creation and webhook verification |
-| Bot Protection | Cloudflare Turnstile |
-| Deployment | Vercel |
-| Analytics | Vercel Analytics, Google Analytics |
-| Media CDN | Cloudinary for video hosting, Github cdn for Images |
+```text
+app/
+  (public pages)      landing, courses, resources, doubts, tools, compiler, legal pages
+  dashboard/          student dashboard
+  mentor/             mentor console
+  admin/              admin console
+  api/                payments, doubts, compiler, live classes, admin and account routes
+components/
+  dashboard/          shell, shared views, skeletons and UI kit for the three dashboards
+  compiler/           the editor workspace used on /compiler and inside the dashboard
+  home/               landing page sections
+lib/                  Supabase clients, course catalog, rate limiting, email helpers
+scripts/              numbered SQL migrations and a few admin scripts
+emails/               HTML email templates
+docs/screenshots/     images used in this README
+proxy.ts              route guards, rate limits and security headers
+```
 
-### Editor and Compiler
+## Run it locally
 
-| Tool | Purpose |
-|---|---|
-| Monaco Editor | In-browser code editor |
-| CodeMirror 6 | Lightweight editor for embedded code |
-| Pyodide | Python runtime in the browser via WebAssembly |
-| Custom Judge API | Server-side execution for Java, C, C++ |
-
-### Forms and Validation
-
-| Tool | Purpose |
-|---|---|
-| React Hook Form | Form state |
-| Zod | Schema validation |
-| @hookform/resolvers | Connecting forms to Zod |
-
-### UI and Utility Libraries
-
-| Library | Purpose |
-|---|---|
-| Recharts | Charts for GPA and progress |
-| Embla Carousel | Carousels and sliders |
-| Sonner | Toast notifications |
-| date-fns | Date formatting |
-| driver.js | Onboarding tours |
-| react-image-crop | Profile photo cropping |
-| vaul | Drawer component |
-| cmdk | Command palette |
-| clsx and tailwind-merge | Class name utilities |
-| class-variance-authority | Component variant system |
-
----
-
-## Run Locally
+You need Node 20 or newer and a Supabase project.
 
 ```bash
-git clone https://github.com/bsprep/bs-prep
+git clone https://github.com/PRODHOSH/bs-prep.git
 cd bs-prep
 npm install
+```
+
+Create a `.env.local` with the values below, then start the dev server.
+
+```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-You need a `.env.local` file with Supabase and Razorpay keys. Contact the team for dev credentials.
+**Database.** Open the Supabase SQL editor and run the numbered files in `scripts/` in order, starting from `001_create_tables.sql`.
 
----
+**Environment variables**
 
-## Usage Restriction
+| Variable | Used for |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Absolute links in emails and metadata |
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase client |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only admin access |
+| `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Checkout and order creation |
+| `RAZORPAY_WEBHOOK_SECRET` | Verifying payment webhooks |
+| `RESEND_API_KEY` | Sending email |
+| `ANNOUNCEMENT_EMAIL_FROM`, `COURSE_EMAIL_FROM`, `DONATION_EMAIL_FROM` | Sender addresses |
+| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | AI doubt replies |
+| `PAIZA_API_KEY` | Running Java, C and C++ |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | Calendar events for live classes |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google sign in |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Bot protection |
 
-This code is proprietary. All rights reserved.
+**Scripts**
 
-You cannot copy, reuse, fork, redistribute, or deploy this codebase anywhere. You cannot use any part of it in personal, academic, or commercial projects. Any use beyond reading requires explicit written permission from the BSPrep team.
+| Command | What it does |
+|---|---|
+| `npm run dev` | Dev server (webpack) |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Lint the project |
 
----
+## Join us
+
+We are hiring mentors, interns and developers. Details are on [bsprep.in/careers](https://bsprep.in/careers).
+
+## Usage
+
+This code is proprietary and all rights are reserved. You are welcome to read it, but you may not copy, fork, redistribute or deploy it, or use any part of it in personal, academic or commercial projects, without written permission from the BSPrep team.
 
 ## Disclaimer
 
-This is an independent student project. It is not affiliated with or endorsed by IIT Madras in any way.
+BSPrep is an independent student project. It is not affiliated with or endorsed by IIT Madras.
