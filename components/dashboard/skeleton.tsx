@@ -437,3 +437,36 @@ export function PageSkeleton() {
     </Frame>
   )
 }
+
+/** Compiler: toolbar, file tabs and the editor / output split, inside one card. */
+export function CompilerSkeleton() {
+  return (
+    <div className="flex h-full min-h-[28rem] flex-col overflow-hidden rounded-2xl border bg-card" aria-busy="true" aria-label="Loading">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b p-3">
+        <Sk className="h-9 w-36 rounded-xl" />
+        <div className="flex gap-2">
+          <Sk className="size-9 rounded-xl" />
+          <Sk className="size-9 rounded-xl" />
+          <Sk className="size-9 rounded-xl" />
+          <Sk className="h-9 w-24 rounded-xl" />
+        </div>
+      </div>
+      <div className="flex gap-2 border-b bg-muted/40 p-2">
+        <Sk className="h-8 w-24 rounded-lg" />
+      </div>
+      <div className="grid min-h-0 flex-1 gap-px bg-border md:grid-cols-[58fr_42fr]">
+        <div className="space-y-2.5 bg-card p-4">
+          {[60, 35, 70, 50, 28, 64].map((w, i) => (
+            <Sk key={i} className="h-3.5" style={{ width: `${w}%` }} />
+          ))}
+        </div>
+        <div className="hidden space-y-3 bg-card p-4 md:block">
+          <Sk className="h-4 w-20" />
+          <Sk className="h-20 w-full rounded-xl" />
+          <Sk className="h-4 w-24" />
+          <Sk className="h-28 w-full rounded-xl" />
+        </div>
+      </div>
+    </div>
+  )
+}

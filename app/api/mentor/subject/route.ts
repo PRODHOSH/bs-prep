@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { hasMentorRole } from "@/lib/security/mentor-role"
+import { hasAdminRole } from "@/lib/security/admin-role"
 import { SUBJECT_CHAT_COURSES, SUBJECT_CHAT_COURSE_IDS } from "@/lib/chat/constants"
 import { getMentorSubjectCourseIds } from "@/lib/chat/server"
 
@@ -58,9 +59,10 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const isMentor = await hasMentorRole(user.id, user.email)
-    if (!isMentor) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    // Subjects are assigned from the admin console; mentors can only read them.
+    const isAdmin = await hasAdminRole(user.id, user.email)
+    if (!isAdmin) {
+      return NextResponse.json({ error: "Subjects are assigned by an admin" }, { status: 403 })
     }
 
     const body = (await request.json()) as { courseId?: string; courseIds?: string[] }

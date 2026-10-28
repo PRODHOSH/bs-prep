@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
   const service = createServiceRoleClient()
 
   const [{ data: profileRows, error: profileError }, { data: enrollmentRows }] = await Promise.all([
-    service.from('profiles').select('id, first_name, last_name, email, role, created_at, avatar_url, phone, mentor_subject'),
+    service.from('profiles').select('id, first_name, last_name, email, role, created_at, avatar_url, phone, mentor_subject, mentor_subjects'),
     service.from('enrollments').select('user_id'),
   ])
 
@@ -51,6 +51,7 @@ export async function GET(request: NextRequest) {
     created_at: string
     is_enrolled: boolean
     mentor_subject: string | null
+    mentor_subjects: string[]
   }> = []
 
   let page = 1
@@ -106,6 +107,9 @@ export async function GET(request: NextRequest) {
         created_at: profile?.created_at || authUser.created_at,
         is_enrolled: enrolledUserIds.has(authUser.id),
         mentor_subject: profile?.mentor_subject || null,
+        mentor_subjects: Array.from(
+          new Set([...(Array.isArray(profile?.mentor_subjects) ? profile.mentor_subjects : []), ...(profile?.mentor_subject ? [profile.mentor_subject] : [])]),
+        ),
       })
     }
 

@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { hasAdminRole } from '@/lib/security/admin-role'
 import { writeRateLimiter } from '@/lib/rate-limit'
 import { validateAndSanitizeInput } from '@/lib/security/validation'
+import { SUBJECT_CHAT_COURSE_IDS } from '@/lib/chat/constants'
 
 type Params = {
   params: Promise<{ id: string }>
@@ -58,7 +59,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     }
 
     const body = JSON.parse(text)
-    const { first_name, last_name, phone, role, mentor_subject } = body
+    const { first_name, last_name, phone, role, mentor_subject, mentor_subjects } = body
 
     // Validate inputs
     const updates: Record<string, unknown> = {}
@@ -73,7 +74,22 @@ export async function PUT(req: NextRequest, { params }: Params) {
       updates.role = role
     }
 
-    if (mentor_subject !== undefined) {
+    // Preferred: a list of subject ids. The first one stays in mentor_subject for older code paths.
+    let subjectList: string[] | null = null
+    if (mentor_subjects !== undefined) {
+      if (!Array.isArray(mentor_subjects)) {
+        return NextResponse.json({ error: 'mentor_subjects must be a list' }, { status: 400 })
+      }
+      const cleaned = Array.from(new Set(mentor_subjects.map((v: unknown) => String(v).trim()).filter(Boolean)))
+      if (cleaned.some((id) => !SUBJECT_CHAT_COURSE_IDS.has(id))) {
+        return NextResponse.json({ error: 'Unknown subject selected' }, { status: 400 })
+      }
+      subjectList = cleaned
+      updates.mentor_subjects = cleaned
+      updates.mentor_subject = cleaned[0] ?? null
+    }
+
+    if (mentor_subject !== undefined && subjectList === null) {
       if (mentor_subject === null || mentor_subject === '') {
         updates.mentor_subject = null
       } else {
@@ -149,6 +165,17 @@ export async function PUT(req: NextRequest, { params }: Params) {
         { error: 'Failed to update user profile' },
         { status: 500 }
       )
+    }
+
+    if (subjectList !== null) {
+      const { data: target } = await service.auth.admin.getUserById(userId)
+      await service.auth.admin.updateUserById(userId, {
+        user_metadata: {
+          ...(target?.user?.user_metadata ?? {}),
+          mentor_subject: subjectList[0] ?? null,
+          mentor_subjects: subjectList,
+        },
+      })
     }
 
     return NextResponse.json(

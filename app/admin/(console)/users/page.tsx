@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react"
 import { SkRows } from "@/components/dashboard/skeleton"
 import { BookOpen, CalendarDays, Edit3, Mail, ShieldCheck, Star, Trash2, UserRound } from "lucide-react"
 import { Modal, Segmented, SearchBox, Tabs } from "@/components/dashboard/controls"
+import { SubjectPicker, subjectLabels } from "@/components/dashboard/subject-picker"
 import { Avatar, EmptyState, Field, Notice, PageHeader, TableCard, Tag, btnDanger, btnGhost, btnPrimary, field, td, th } from "@/components/dashboard/ui"
 
 type DirectoryUser = {
@@ -18,6 +19,7 @@ type DirectoryUser = {
   created_at: string
   is_enrolled: boolean
   mentor_subject: string | null
+  mentor_subjects?: string[]
 }
 
 type UserEnrollment = {
@@ -43,7 +45,7 @@ export default function AdminUsersDirectoryPage() {
   const [editLastName, setEditLastName] = useState("")
   const [editPhone, setEditPhone] = useState("")
   const [editRole, setEditRole] = useState("")
-  const [editMentorSubject, setEditMentorSubject] = useState("")
+  const [editMentorSubjects, setEditMentorSubjects] = useState<string[]>([])
   const [editStatus, setEditStatus] = useState("")
   const [isEditProcessing, setIsEditProcessing] = useState(false)
 
@@ -132,7 +134,7 @@ export default function AdminUsersDirectoryPage() {
     setEditLastName(user.last_name || "")
     setEditPhone(user.phone || "")
     setEditRole(user.role || "student")
-    setEditMentorSubject(user.mentor_subject || "")
+    setEditMentorSubjects(user.mentor_subjects?.length ? user.mentor_subjects : user.mentor_subject ? [user.mentor_subject] : [])
     setEditStatus("")
   }
 
@@ -160,7 +162,7 @@ export default function AdminUsersDirectoryPage() {
           last_name: editLastName.trim() || null,
           phone: editPhone.trim() || null,
           role: editRole,
-          mentor_subject: editMentorSubject.trim() || null,
+          ...(editRole === "mentor" ? { mentor_subjects: editMentorSubjects } : {}),
         }),
       })
 
@@ -180,7 +182,7 @@ export default function AdminUsersDirectoryPage() {
                 last_name: editLastName.trim() || null,
                 phone: editPhone.trim() || null,
                 role: editRole,
-                mentor_subject: editMentorSubject.trim() || null,
+                ...(editRole === "mentor" ? { mentor_subjects: editMentorSubjects, mentor_subject: editMentorSubjects[0] ?? null } : {}),
               }
             : u,
         ),
@@ -345,7 +347,16 @@ export default function AdminUsersDirectoryPage() {
                       </span>
                     </span>
                   </td>
-                  <td className={td}>{roleTag(user.role)}</td>
+                  <td className={td}>
+                    {roleTag(user.role)}
+                    {(user.role || "").toLowerCase() === "mentor" && (
+                      <span className="mt-1.5 flex flex-wrap gap-1">
+                        {subjectLabels(user.mentor_subjects?.length ? user.mentor_subjects : user.mentor_subject ? [user.mentor_subject] : []).map((l) => (
+                          <Tag key={l}>{l}</Tag>
+                        ))}
+                      </span>
+                    )}
+                  </td>
                   <td className={`${td} text-muted-foreground`}>
                     <span className="flex items-center gap-1.5"><CalendarDays className="size-3.5" />{new Date(user.created_at).toLocaleDateString()}</span>
                   </td>
@@ -378,8 +389,8 @@ export default function AdminUsersDirectoryPage() {
             </select>
           </Field>
           {editRole === "mentor" && (
-            <Field label="Mentor subject codes" hint="Comma separated, e.g. math-1, stats-2, python, ct">
-              <input value={editMentorSubject} onChange={(e) => setEditMentorSubject(e.target.value)} placeholder="math-1, stats-2" className={field} />
+            <Field label="Subjects" hint="The mentor's classes, doubts and student groups follow these.">
+              <SubjectPicker value={editMentorSubjects} onChange={setEditMentorSubjects} />
             </Field>
           )}
           {editStatus && <Notice tone="error">{editStatus}</Notice>}

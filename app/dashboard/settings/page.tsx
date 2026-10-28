@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getUserCached } from "@/lib/supabase/cached-user"
+import { getUserCached, notifyProfileUpdated } from "@/lib/supabase/cached-user"
 import { SettingsSkeleton } from "@/components/dashboard/skeleton"
 import { createClient } from "@/lib/supabase/client"
 import { KeyRound, Trash2, User } from "lucide-react"
@@ -126,6 +126,7 @@ export default function SettingsPage() {
 
     setProfileSuccess(true)
     setIsSavingProfile(false)
+    notifyProfileUpdated()
   }
 
   const handleDeleteAccount = async () => {

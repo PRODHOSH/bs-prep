@@ -17,7 +17,7 @@ export function Tabs<T extends string>({
   className?: string
 }) {
   return (
-    <div role="tablist" className={cn("flex gap-1 overflow-x-auto overflow-y-hidden border-b", className)}>
+    <div role="tablist" className={cn("no-scrollbar flex gap-1 overflow-x-auto overflow-y-hidden border-b", className)}>
       {tabs.map((t) => (
         <button
           key={t.id}

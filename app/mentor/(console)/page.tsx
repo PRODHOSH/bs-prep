@@ -112,7 +112,7 @@ export default async function MentorDashboardPage() {
 
         <div className="grid gap-5 md:grid-cols-3">
           <Stat label="Students" value={communityStudents.length} hint="In your subject groups and direct chats" icon={Users} tone="primary" />
-          <Stat label="Subjects" value={mentorCourseIds.length} hint="Assigned to you" icon={BookOpen} tone="pink" />
+          <Stat label="Subjects" value={mentorCourseIds.length} hint="Assigned to you" icon={BookOpen} tone="pink" href="/mentor/settings" />
           <Stat label="Live classes" value="Manage" hint="Schedule and edit sessions" icon={Video} tone="green" href="/mentor/live-classes" />
         </div>
 

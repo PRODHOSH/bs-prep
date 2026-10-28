@@ -551,3 +551,7 @@
 .lms-dark :is(.border-amber-100, .border-amber-200) { border-color: rgb(251 191 36 / 0.25); }
 .lms-dark :is(.border-blue-100, .border-blue-200, .border-slate-200, .border-gray-200, .border-gray-100) { border-color: var(--border); }
 .lms-dark :is(.shadow-sm, .shadow, .shadow-md) { box-shadow: none; }
+
+/* Horizontally scrolling tab rows swipe on touch screens; the scrollbar is just noise there. */
+.lms .no-scrollbar { scrollbar-width: none; }
+.lms .no-scrollbar::-webkit-scrollbar { display: none; }

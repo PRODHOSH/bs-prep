@@ -84,6 +84,7 @@ export default function AdminDetailsPage() {
 
       setProfile(data.profile)
       setStatusMessage("Profile updated successfully")
+      router.refresh() // re-render the sidebar with the new name
     } catch {
       setStatusMessage("Failed to update profile")
     } finally {

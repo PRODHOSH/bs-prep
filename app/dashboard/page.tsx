@@ -1,7 +1,7 @@
 "use client"
 
 import { createClient } from "@/lib/supabase/client"
-import { getUserCached } from "@/lib/supabase/cached-user"
+import { PROFILE_UPDATED_EVENT, getDisplayProfile, getUserCached } from "@/lib/supabase/cached-user"
 import { HomeSkeleton } from "@/components/dashboard/skeleton"
 import { useEffect, useState } from "react"
 import Link from "next/link"
@@ -86,10 +86,10 @@ export default function StudentDashboard() {
       try {
         const { data: { user } } = await getUserCached()
         if (user) {
-          setUserName(user.user_metadata?.full_name || user.email?.split("@")[0] || "Student")
+          const profile = await getDisplayProfile()
+          setUserName(profile.name || user.email?.split("@")[0] || "Student")
           setUserEmail(user.email || "")
-          const av = user.user_metadata?.avatar_url || user.user_metadata?.picture || null
-          setUserAvatar(av)
+          setUserAvatar(profile.avatarUrl)
           
           // Get enrolled courses with details
           const { data: enrollments } = await supabase
@@ -126,6 +126,12 @@ export default function StudentDashboard() {
     }
 
     fetchUserData()
+    const onProfile = async () => {
+      const profile = await getDisplayProfile()
+      if (profile.name) setUserName(profile.name)
+    }
+    window.addEventListener(PROFILE_UPDATED_EVENT, onProfile)
+    return () => window.removeEventListener(PROFILE_UPDATED_EVENT, onProfile)
   }, [])
 
   if (loading) return <HomeSkeleton />

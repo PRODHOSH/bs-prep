@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const botEmail = 'ai@bsprep.in'
     const botFirstName = 'BSPREP'
     const botLastName = 'AI'
-    const botAvatar = '/bsprep_chatbot.png'
+    const botAvatar = '/bsprep-bot.svg'
 
     let botUserId: string | null = null
 

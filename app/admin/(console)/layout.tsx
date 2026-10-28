@@ -21,7 +21,7 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
   const service = createServiceRoleClient()
   const { data: profile } = await service
     .from("profiles")
-    .select("email, avatar_url, role")
+    .select("email, avatar_url, role, first_name, last_name")
     .eq("id", user.id)
     .maybeSingle()
 
@@ -38,7 +38,7 @@ export default async function AdminConsoleLayout({ children }: AdminLayoutProps)
   const theme = (await cookies()).get("dashboard-theme")?.value === "dark" ? "dark" : "light"
 
   return (
-    <AdminShell initialTheme={theme} user={{ email: profile?.email || user.email || "Admin", avatarUrl }}>
+    <AdminShell initialTheme={theme} user={{ email: profile?.email || user.email || "Admin", name: `${profile?.first_name ?? ""} ${profile?.last_name ?? ""}`.trim() || undefined, avatarUrl }}>
       {children}
     </AdminShell>
   )

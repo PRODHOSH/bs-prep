@@ -135,7 +135,7 @@ export default function MentorDoubtDetailPage() {
           user_id: r.user_id,
           author: {
             full_name: fullName,
-            photo_url: isBot ? '/bsprep_chatbot.png' : (rp?.avatar_url || rp?.profile_picture_url || null)
+            photo_url: isBot ? '/bsprep-bot.svg' : (rp?.avatar_url || rp?.profile_picture_url || null)
           }
         }
       })

@@ -26,7 +26,7 @@ import {
 import { AdminRefreshButton } from "@/components/admin-refresh-button"
 import { DashboardShell, type DashboardTheme, type NavSection } from "@/components/dashboard/shell"
 import { createClient } from "@/lib/supabase/client"
-import { getUserCached, resetUserCache } from "@/lib/supabase/cached-user"
+import { PROFILE_UPDATED_EVENT, getDisplayProfile, getUserCached, resetUserCache } from "@/lib/supabase/cached-user"
 
 type UserInfo = { email: string; name?: string; avatarUrl?: string | null }
 
@@ -68,6 +68,7 @@ const MENTOR_NAV: NavSection[] = [
       { label: "Dashboard", href: "/mentor", icon: LayoutDashboard, exact: true },
       { label: "Live classes", href: "/mentor/live-classes", icon: Video },
       { label: "Doubts", href: "/mentor/doubts", icon: MessageSquare },
+      { label: "Settings", href: "/mentor/settings", icon: Settings },
     ],
   },
 ]
@@ -165,12 +166,9 @@ export function StudentShell({ initialTheme, children }: { initialTheme?: Dashbo
       } = await getUserCached()
       if (!alive || !authUser) return
       const meta = authUser.user_metadata ?? {}
-      setUser({
-        email: authUser.email ?? "",
-        name: typeof meta.full_name === "string" ? meta.full_name : undefined,
-        avatarUrl:
-          (typeof meta.avatar_url === "string" && meta.avatar_url) || (typeof meta.picture === "string" && meta.picture) || null,
-      })
+      const profile = await getDisplayProfile()
+      if (!alive) return
+      setUser({ email: authUser.email ?? "", name: profile.name ?? undefined, avatarUrl: profile.avatarUrl })
 
       try {
         const res = await fetch("/api/account/me", { cache: "no-store" })
@@ -182,8 +180,17 @@ export function StudentShell({ initialTheme, children }: { initialTheme?: Dashbo
         }
       } catch {}
     })()
+    const refresh = async () => {
+      const profile = await getDisplayProfile()
+      const {
+        data: { user: authUser },
+      } = await getUserCached()
+      if (alive && authUser) setUser({ email: authUser.email ?? "", name: profile.name ?? undefined, avatarUrl: profile.avatarUrl })
+    }
+    window.addEventListener(PROFILE_UPDATED_EVENT, refresh)
     return () => {
       alive = false
+      window.removeEventListener(PROFILE_UPDATED_EVENT, refresh)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -194,7 +201,7 @@ export function StudentShell({ initialTheme, children }: { initialTheme?: Dashbo
         { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard, exact: true, id: "tour-sidebar-dashboard" },
         { label: "Courses", href: "/dashboard/courses", icon: BookOpen, id: "tour-sidebar-courses" },
         { label: "Quiz prep", href: "/dashboard/quiz-prep", icon: PenTool, id: "tour-sidebar-quiz-prep" },
-        { label: "Compiler", href: "/compiler", icon: Code, id: "tour-sidebar-compiler" },
+        { label: "Compiler", href: "/dashboard/compiler", icon: Code, id: "tour-sidebar-compiler" },
         { label: "Resources", href: "/dashboard/resources", icon: Library, id: "tour-sidebar-resources" },
         { label: "Official docs", href: "/dashboard/docs", icon: FileText, id: "tour-sidebar-official-docs" },
         { label: "Calendar", href: "/dashboard/calendar", icon: Calendar, id: "tour-sidebar-calendar" },

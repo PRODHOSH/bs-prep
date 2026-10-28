@@ -1,5 +1,3 @@
-import { Loading } from "@/components/loading"
-
 export default function CompilerLoading() {
-  return <Loading />
+  return <div className="h-svh bg-white" />
 }

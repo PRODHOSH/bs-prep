@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="BSPrep assistant">
+  <rect width="200" height="200" fill="#3366ff"/>
+  <g fill="#fff">
+    <circle cx="100" cy="36" r="9"/>
+    <rect x="97" y="42" width="6" height="22" rx="3"/>
+    <rect x="42" y="82" width="12" height="26" rx="6"/>
+    <rect x="146" y="82" width="12" height="26" rx="6"/>
+    <rect x="50" y="62" width="100" height="68" rx="28"/>
+    <path d="M76 138h48c0 15-6 31-24 42-18-11-24-27-24-42z"/>
+    <ellipse cx="62" cy="152" rx="11" ry="3.6" transform="rotate(-8 62 152)"/>
+    <ellipse cx="138" cy="152" rx="11" ry="3.6" transform="rotate(8 138 152)"/>
+  </g>
+  <rect x="60" y="70" width="80" height="52" rx="22" fill="#3366ff"/>
+  <path d="M84 70h32c-2 6-8 9-16 9s-14-3-16-9z" fill="#fff"/>
+  <circle cx="82" cy="98" r="9" fill="#fff"/>
+  <circle cx="118" cy="98" r="9" fill="#fff"/>
+</svg>

@@ -86,7 +86,7 @@ export default async function PublicDoubtDetailPage({ params }: { params: Promis
       ...r,
       author: {
         full_name: fullName,
-        photo_url: isBot ? '/bsprep_chatbot.png' : (rp?.avatar_url || rp?.profile_picture_url || null)
+        photo_url: isBot ? '/bsprep-bot.svg' : (rp?.avatar_url || rp?.profile_picture_url || null)
       }
     }
   })

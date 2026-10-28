@@ -117,6 +117,13 @@ export function DashboardShell({
     document.cookie = `${THEME_COOKIE}=${next}; path=/; max-age=31536000; samesite=lax`
   }
 
+  // Lets focus-mode screens (which cover this top bar) flip the theme.
+  useEffect(() => {
+    const onToggle = () => toggleTheme()
+    window.addEventListener("dashboard-theme-toggle", onToggle)
+    return () => window.removeEventListener("dashboard-theme-toggle", onToggle)
+  })
+
   const isActive = (item: { href: string; exact?: boolean }) =>
     item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`)
 
