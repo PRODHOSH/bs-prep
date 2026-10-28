@@ -6,14 +6,14 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { ArrowLeft, Award, BookOpen, Calendar, FileText, Video, Search, X, CheckCircle2 } from "lucide-react"
+import { ArrowLeft, Award, FileText, Video, Search, X } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import { LiveClassCard } from "@/components/live-class-card"
 import { courseSyllabusData } from "@/lib/syllabus-data"
 import { ENROLLMENTS_CLOSED } from "@/lib/course-catalog"
-import { ClosedButton } from "@/components/enrollments-closed"
+import { CoursePublicView } from "@/components/courses/course-public-view"
 
 
 const LoginModal = dynamic(
@@ -313,191 +313,7 @@ export default function CoursePage() {
   // ─── Non-enrolled (public) view ───────────────────────────────────────────────
   return (
     <>
-      <div className="min-h-screen bg-transparent">
-        <Navbar isAuthenticated={isAuthenticated} />
-
-        {/* Hero Section */}
-        <div className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#0a192f]">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[120px]" />
-            <div className="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-teal-500/10 blur-[100px]" />
-          </div>
-
-          <div className="relative z-10 mx-auto max-w-6xl">
-            <Link
-              href={isAuthenticated ? "/dashboard/courses" : "/courses"}
-              className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-white/60 hover:text-white transition-colors mb-12"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              BACK TO CATALOG
-            </Link>
-
-            <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white border border-white/10 shadow-sm">
-                    {course.level}
-                  </span>
-                  <span className="inline-flex rounded-full bg-[#fb923c]/20 border border-[#fb923c]/30 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-[#fb923c] shadow-sm">
-                    TAMIL MEDIUM
-                  </span>
-                </div>
-
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase">
-                  {course.title}
-                </h1>
-                <p className="text-white/70 text-lg font-bold uppercase max-w-2xl leading-relaxed mb-10">
-                  {course.description}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-8 mb-12">
-                  <div className="flex items-center gap-3 text-white/80">
-                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                      <BookOpen className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-0.5">Duration</p>
-                      <p className="text-sm font-bold uppercase">{courseId.includes('bundle') ? 'Varies' : '4 WEEKS'}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/80">
-                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                      <Calendar className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-0.5">Schedule</p>
-                      <p className="text-sm font-bold uppercase">SELF-PACED + LIVE</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/80">
-                    <div className="w-10 h-10 rounded-full bg-[#10b981]/10 flex items-center justify-center border border-[#10b981]/20">
-                      <CheckCircle2 className="w-4 h-4 text-[#10b981]" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-[#10b981]/70 mb-0.5">Outcome</p>
-                      <p className="text-sm font-bold uppercase text-[#10b981]">CERTIFICATE</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                  <div className="flex-1">
-                    {course.originalPrice && (
-                      <p className="text-sm font-bold text-white/40 line-through mb-1">₹{course.originalPrice}</p>
-                    )}
-                    <div className="flex items-end gap-3">
-                      <p className="text-4xl md:text-5xl font-black text-white leading-none">₹{course.price}</p>
-                      {course.originalPrice && (
-                        <span className="text-[10px] font-black text-[#0a192f] bg-white rounded-full px-2 py-0.5 uppercase tracking-wider mb-1.5 shadow-sm">
-                          SAVE ₹{course.originalPrice - course.price}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  {ENROLLMENTS_CLOSED ? (
-                    <ClosedButton className="h-14 w-full sm:w-auto" />
-                  ) : (
-                    <Button
-                      onClick={handleEnroll}
-                      className="w-full sm:w-auto bg-white hover:bg-gray-100 text-[#0a192f] px-10 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-xl hover:-translate-y-1"
-                    >
-                      ENROLL NOW
-                    </Button>
-                  )}
-                </div>
-              </div>
-
-              {/* Thumbnail */}
-              <div className="hidden lg:block w-[400px] shrink-0">
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/20 transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-transparent to-transparent opacity-60 z-10" />
-                  <img
-                    src={course.thumbnail}
-                    alt={course.title}
-                    className="w-full h-full object-cover relative z-0"
-                  />
-                  <div className="absolute bottom-6 left-6 right-6 z-20">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/80 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full inline-block mb-3 border border-white/10">
-                      IITM BS PROGRAM
-                    </span>
-                    <h3 className="text-2xl font-black text-white uppercase leading-[1.1]">{course.title}</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Content Section (Syllabus) */}
-        <div className="bg-[#f8fafc] py-24">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-black text-[#0a192f] uppercase tracking-tight mb-4">
-                COURSE SYLLABUS
-              </h2>
-              <p className="text-slate-500 font-bold uppercase text-sm">
-                Comprehensive curriculum aligned with IIT Madras BS Degree
-              </p>
-            </div>
-
-            <div className="space-y-5">
-              {course.syllabus.map((item: any, i: number) => {
-                if (item.isCourseHeader) {
-                  return (
-                    <div key={`header-${i}`} className={`flex items-center gap-4 ${i !== 0 ? 'mt-14' : ''} mb-8`}>
-                      <div className="h-px flex-1 bg-slate-200"></div>
-                      <h3 className="font-black text-[#0a192f] text-lg uppercase tracking-widest px-4 flex items-center gap-2">
-                        <BookOpen className="w-5 h-5 text-blue-600" />
-                        {item.title}
-                      </h3>
-                      <div className="h-px flex-1 bg-slate-200"></div>
-                    </div>
-                  )
-                }
-                return (
-                  <div key={`week-${i}`} className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/60 hover:shadow-md transition-shadow group flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
-                    <div className="shrink-0 flex items-center justify-center h-10 min-w-[100px] rounded-xl bg-slate-50 text-slate-500 border border-slate-100 text-xs font-black uppercase tracking-widest group-hover:bg-[#0a192f] group-hover:text-white group-hover:border-[#0a192f] transition-colors">
-                      WEEK {item.week}
-                    </div>
-                    <div className="flex-1 mt-1 sm:mt-0">
-                      <p className="text-lg font-black text-[#0a192f] uppercase leading-tight mb-2">{item.title}</p>
-                      <p className="text-sm font-semibold text-slate-500 leading-relaxed">{item.topics}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-
-            {/* Bottom CTA */}
-            <div className="mt-24 bg-white rounded-3xl p-10 sm:p-16 text-center shadow-xl shadow-slate-200/50 border border-slate-200/60 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-2 bg-[#0a192f]"></div>
-              <h3 className="text-3xl font-black text-[#0a192f] uppercase tracking-tight mb-4">
-                READY TO START LEARNING?
-              </h3>
-              <p className="text-slate-500 font-bold uppercase text-sm mb-10 max-w-xl mx-auto">
-                Join hundreds of Tamil medium students mastering {course.title} and securing their foundation in Data Science.
-              </p>
-              {ENROLLMENTS_CLOSED ? (
-                <p className="inline-flex items-center rounded-xl bg-red-50 px-8 py-4 text-sm font-black uppercase tracking-widest text-red-600 ring-1 ring-red-200">
-                  Enrollments are closed
-                </p>
-              ) : (
-              <Button
-                onClick={handleEnroll}
-                className="bg-[#0a192f] hover:bg-blue-900 text-white px-12 h-14 text-sm font-black uppercase tracking-widest rounded-xl transition-all shadow-md hover:-translate-y-1"
-              >
-                ENROLL FOR ₹{course.price}
-                {course.originalPrice && (
-                  <span className="text-[10px] font-bold text-white/60 line-through ml-2">₹{course.originalPrice}</span>
-                )}
-              </Button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <Footer />
-      </div>
+      <CoursePublicView courseId={courseId} course={course} isAuthenticated={isAuthenticated} onEnroll={handleEnroll} />
 
       <LoginModal
         open={showLogin}

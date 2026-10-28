@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { AnimatePresence, motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { createClient } from "@/lib/supabase/client"
 import { Bell, User, Menu, X, ChevronDown, Settings } from "lucide-react"
+import { MenuPanelContent, MobileMenuGroup, type MenuId } from "@/components/navbar-menus"
 
 import { GoogleOneTap } from "@/components/auth/google-one-tap"
 import { LoginModal } from "@/components/auth/login-modal"
@@ -29,7 +31,9 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   const [isOpen, setIsOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
   const [scrolled, setScrolled] = useState(false)
-  const [toolsOpen, setToolsOpen] = useState(false)
+  const [active, setActive] = useState<MenuId | null>(null)
+  const [mobileGroup, setMobileGroup] = useState<MenuId | null>(null)
+  const pathname = usePathname()
   const [loginOpen, setLoginOpen] = useState(false)
   const [signUpOpen, setSignUpOpen] = useState(false)
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
@@ -177,10 +181,35 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
   }
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 24)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActive(null)
+        setIsOpen(false)
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [])
+
+  useEffect(() => {
+    setActive(null)
+    setIsOpen(false)
+  }, [pathname])
+
+  const openMenu = (menu: MenuId) => setActive(menu)
+
+  const triggerCls = (menu: MenuId) =>
+    `flex items-center gap-1 rounded-full px-3.5 py-2 text-xs font-bold uppercase tracking-widest transition-colors ${
+      active === menu ? "bg-black/5 text-black" : "text-black/70 hover:bg-black/5 hover:text-black"
+    }`
+  const linkCls = "rounded-full px-3.5 py-2 text-xs font-bold text-black/70 transition-colors hover:bg-black/5 hover:text-black"
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -193,71 +222,63 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
     router.push("/")
   }
 
-  return (
-    <nav
-      className={`sticky top-0 z-50 bg-[#FDFBF7] font-semibold uppercase tracking-widest transition-all duration-300 ${scrolled ? "shadow-md" : ""
-        }`}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href={isAuthenticated ? "/dashboard" : "/"} className="flex items-center gap-1 shrink-0 group">
-            <div className="w-[68px] h-[68px] rounded-full overflow-hidden">
-              <img
-                src="/new-logo.jpeg"
-                alt="BSPrep Logo"
-                className="w-full h-full object-cover object-center scale-[1.6] group-hover:opacity-80 transition-opacity"
-              />
-            </div>
-            <span className="font-black text-3xl tracking-tighter hidden sm:inline text-black">
-              BSPREP
-            </span>
-          </Link>
+  const menus: { id: MenuId; label: string }[] = [
+    { id: "courses", label: "Courses" },
+    { id: "resources", label: "Resources" },
+    { id: "tools", label: "Tools" },
+  ]
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-              <Link href="/" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                HOME
+  return (
+    <nav onMouseLeave={() => setActive(null)} className="pointer-events-none sticky top-0 z-50 h-20 font-semibold uppercase tracking-widest">
+      <div className={`flex justify-center transition-[padding] duration-500 ease-out ${scrolled ? "pt-0" : "pt-3"}`}>
+        <div
+          className={`pointer-events-auto relative w-full bg-[#FDFBF7] transition-[max-width,border-radius,box-shadow] duration-500 ease-out ${
+            scrolled
+              ? "max-w-full rounded-none border-b border-black/5 shadow-md"
+              : "max-w-[calc(100%-1.5rem)] rounded-full md:max-w-[80%] border border-black/5 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.2)]"
+          }`}
+        >
+          <div className="mx-auto flex h-[60px] max-w-7xl items-center justify-between gap-4 px-3 sm:px-5">
+            {/* Logo */}
+            <Link href={isAuthenticated ? "/dashboard" : "/"} className="group flex shrink-0 items-center gap-2">
+              <div className="size-11 overflow-hidden rounded-full">
+                <img
+                  src="/new-logo.jpeg"
+                  alt="BSPrep Logo"
+                  className="h-full w-full scale-[1.6] object-cover object-center transition-opacity group-hover:opacity-80"
+                />
+              </div>
+              <span className="hidden text-[22px] font-black tracking-tighter text-black sm:inline">BSPREP</span>
+            </Link>
+
+            {/* Desktop navigation */}
+            <div className="hidden items-center gap-0.5 md:flex">
+              <Link href="/" onMouseEnter={() => setActive(null)} className={linkCls}>
+                Home
               </Link>
-              <Link href="/courses" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                COURSES
-              </Link>
-              <Link href="/quiz-prep" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                Quiz Prep
-              </Link>
-              <Link href="/resources" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                RESOURCES
-              </Link>
-              <DropdownMenu open={toolsOpen} onOpenChange={setToolsOpen}>
-                <DropdownMenuTrigger
-                  className="text-xs font-bold text-black/70 hover:text-black transition-all duration-300 flex items-center gap-1"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
+              {menus.map(({ id, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  aria-expanded={active === id}
+                  aria-haspopup="true"
+                  className={triggerCls(id)}
+                  onMouseEnter={() => openMenu(id)}
+                  onFocus={() => openMenu(id)}
+                  onClick={() => (active === id ? setActive(null) : openMenu(id))}
                   suppressHydrationWarning
                 >
-                  TOOLS
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${toolsOpen ? 'rotate-180' : ''}`} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="bg-white border border-black/5 rounded-2xl shadow-xl min-w-60 p-2 animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-300"
-                  onMouseEnter={() => setToolsOpen(true)}
-                  onMouseLeave={() => setToolsOpen(false)}
-                >
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-calculator" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA CALCULATOR</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="rounded-xl py-3 px-4 hover:bg-black/5 focus:bg-black/5">
-                    <Link href="/tools/gpa-predictor" className="cursor-pointer text-xs font-bold text-black hover:text-black focus:text-black flex items-center gap-2">GPA PREDICTOR</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Link href="/careers" className="text-xs font-bold text-black/70 hover:text-black transition-colors">
-                CAREERS
+                  {label}
+                  <ChevronDown className={`size-3.5 transition-transform duration-300 ${active === id ? "rotate-180" : ""}`} />
+                </button>
+              ))}
+              <Link href="/careers" onMouseEnter={() => setActive(null)} className={linkCls}>
+                Careers
               </Link>
-          </div>
+            </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             {isAuthenticated ? (
               <>
                 <DropdownMenu open={notifOpen} onOpenChange={handleNotifOpen}>
@@ -377,7 +398,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center justify-center w-10 h-10 rounded-full border border-black/10 bg-white hover:bg-black/5 transition-colors overflow-hidden shadow-sm">
+                    <button className="flex items-center justify-center w-9 h-9 rounded-full border border-black/10 bg-white hover:bg-black/5 transition-colors overflow-hidden shadow-sm">
                       {googleAvatarUrl ? (
                         <img
                           src={googleAvatarUrl}
@@ -415,14 +436,14 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               <>
                 <Button
                   variant="outline"
-                  className="hidden sm:flex border border-black/10 bg-white text-black hover:bg-black/5 text-xs font-bold transition-all rounded-full h-10 px-6 shadow-sm"
+                  className="hidden sm:flex border border-black/10 bg-white text-black hover:bg-black/5 text-xs font-bold transition-all rounded-full h-9 px-5 shadow-sm"
                   onClick={() => setLoginOpen(true)}
                   suppressHydrationWarning
                 >
                   LOGIN
                 </Button>
                 <Button
-                  className="bg-[#0a192f] hover:bg-[#112a52] text-white text-xs font-bold transition-all rounded-full h-10 px-6 shadow-md"
+                  className="bg-[#0a192f] hover:bg-[#112a52] text-white text-xs font-bold transition-all rounded-full h-9 px-5 shadow-md"
                   onClick={() => setSignUpOpen(true)}
                   suppressHydrationWarning
                 >
@@ -436,55 +457,77 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2 animate-in slide-in-from-top duration-300">
-                <Link href="/" className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all">
-                  HOME
-                </Link>
-                <Link
-                  href="/courses"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  COURSES
-                </Link>
-                <Link
-                  href="/quiz-prep"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  QUIZ PREP
-                </Link>
-                <Link
-                  href="/resources"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  RESOURCES
-                </Link>
-                <div className="px-4 py-2 text-[10px] font-bold text-black/40">
-                  TOOLS
-                </div>
-                <Link
-                  href="/tools/gpa-calculator"
-                  className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  GPA CALCULATOR
-                </Link>
-                <Link
-                  href="/tools/gpa-predictor"
-                  className="block px-6 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  GPA PREDICTOR
-                </Link>
-                <Link
-                  href="/careers"
-                  className="block px-4 py-2 text-xs font-bold text-black/70 hover:text-black hover:bg-black/5 rounded-none transition-all"
-                >
-                  CAREERS
-                </Link>
           </div>
-        )}
+
+          {/* Mobile menu */}
+          {isOpen && (
+            <div className="absolute inset-x-0 top-full mt-2 max-h-[75vh] overflow-y-auto rounded-3xl border border-black/5 bg-[#FDFBF7] p-3 normal-case tracking-normal shadow-2xl animate-in fade-in-0 slide-in-from-top-2 duration-200 md:hidden">
+              <Link href="/" onClick={() => setIsOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-bold text-black hover:bg-black/5">
+                Home
+              </Link>
+              {menus.map(({ id, label }) => (
+                <div key={id}>
+                  <button
+                    type="button"
+                    onClick={() => setMobileGroup(mobileGroup === id ? null : id)}
+                    aria-expanded={mobileGroup === id}
+                    className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-sm font-bold text-black hover:bg-black/5"
+                  >
+                    {label}
+                    <ChevronDown className={`size-4 transition-transform ${mobileGroup === id ? "rotate-180" : ""}`} />
+                  </button>
+                  {mobileGroup === id && <MobileMenuGroup menu={id} onNavigate={() => setIsOpen(false)} />}
+                </div>
+              ))}
+              <Link href="/careers" onClick={() => setIsOpen(false)} className="block rounded-xl px-3 py-2.5 text-sm font-bold text-black hover:bg-black/5">
+                Careers
+              </Link>
+              {!isAuthenticated && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsOpen(false)
+                    setLoginOpen(true)
+                  }}
+                  className="mt-2 w-full rounded-full border border-black/10 bg-white py-2.5 text-sm font-bold text-black"
+                >
+                  Log in
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Full-width mega menu: floats under the pill, attaches flush once the bar spans the page */}
+      <div
+        className={`absolute inset-x-0 z-10 hidden md:block ${active ? "pointer-events-auto" : "pointer-events-none"}`}
+        style={{ top: scrolled ? 60 : 72 }}
+      >
+        <AnimatePresence>
+          {active && (
+            <motion.div
+              key="panel"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className={`mx-auto w-full normal-case font-medium tracking-normal transition-[max-width] duration-500 ease-out ${scrolled ? "max-w-full" : "max-w-[80%] pt-3"}`}
+            >
+              <div
+                className={`overflow-hidden border border-black/5 bg-[#FDFBF7] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)] ${
+                  scrolled ? "rounded-b-3xl rounded-t-none border-t-0" : "rounded-3xl"
+                }`}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div key={active} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }}>
+                    <MenuPanelContent menu={active} onNavigate={() => setActive(null)} />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Auth Modals */}
