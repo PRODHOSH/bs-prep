@@ -4,7 +4,9 @@ import { useState, useEffect } from "react"
 import { getUserCached, notifyProfileUpdated } from "@/lib/supabase/cached-user"
 import { SettingsSkeleton } from "@/components/dashboard/skeleton"
 import { createClient } from "@/lib/supabase/client"
-import { KeyRound, Trash2, User } from "lucide-react"
+import Link from "next/link"
+import { ArrowUpRight, BookOpen, KeyRound, Mail, Trash2, User } from "lucide-react"
+import { courses } from "@/lib/course-catalog"
 import { Avatar, Field, Notice, PageHeader, Section, Tag, btnDanger, btnGhost, btnPrimary, field } from "@/components/dashboard/ui"
 
 export default function SettingsPage() {
@@ -17,6 +19,7 @@ export default function SettingsPage() {
   const [lastName, setLastName] = useState("")
   const [role, setRole] = useState("")
   const [photoUrl, setPhotoUrl] = useState("")
+  const [enrolledIds, setEnrolledIds] = useState<string[]>([])
   const [loadingProfile, setLoadingProfile] = useState(true)
   const [isSavingProfile, setIsSavingProfile] = useState(false)
   const [profileError, setProfileError] = useState<string | null>(null)
@@ -44,6 +47,9 @@ export default function SettingsPage() {
       }
       setEmail(user.email ?? "")
       setAuthProvider(user.app_metadata?.provider ?? "email")
+
+      const { data: enrollments } = await supabase.from("enrollments").select("course_id").eq("user_id", user.id)
+      setEnrolledIds((enrollments ?? []).map((e) => e.course_id))
 
       const { data: profile } = await supabase
         .from("profiles")
@@ -171,6 +177,7 @@ export default function SettingsPage() {
   }
 
   const displayName = `${firstName} ${lastName}`.trim() || "No name"
+  const enrolledCourses = enrolledIds.map((id) => courses.find((c) => c.id === id) ?? { id, title: id, level: "" })
 
   if (loadingProfile) return <SettingsSkeleton />
 
@@ -200,6 +207,34 @@ export default function SettingsPage() {
               </button>
             </div>
           </form>
+        </Section>
+
+        <Section icon={BookOpen} tone="green" title="Courses enrolled" description="Everything you have access to on BSPrep.">
+          {enrolledCourses.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              You are not enrolled in any course yet.{" "}
+              <Link href="/dashboard/courses" className="font-semibold text-foreground underline underline-offset-2">Browse courses</Link>
+            </p>
+          ) : (
+            <ul className="divide-y rounded-xl border">
+              {enrolledCourses.map((c) => (
+                <li key={c.id}>
+                  <Link href={`/courses/${c.id}`} className="group flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/60">
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold">{c.title}</span>
+                      {c.level && <span className="text-xs capitalize text-muted-foreground">{c.level}</span>}
+                    </span>
+                    <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-muted-foreground">
+            <Mail className="size-3.5 shrink-0" />
+            Any issue with your courses or payments? Email{" "}
+            <a href="mailto:support@bsprep.in" className="font-semibold text-foreground underline underline-offset-2">support@bsprep.in</a>
+          </p>
         </Section>
 
         {authProvider === "email" && (
