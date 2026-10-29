@@ -1,14 +1,11 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Disclaimer",
-  description: "BSPrep is an independent, student-led platform for IITM BS Qualifier prep. We are not affiliated with IIT Madras and do not guarantee exam results.",
-  alternates: { canonical: "/disclaimer" },
-  openGraph: {
-    title: "Disclaimer | BSPrep",
-    description: "BSPrep is an independent student initiative, not affiliated with IIT Madras. No guaranteed exam results.",
-  },
-}
+  description: "BSPrep is an independent student initiative and is not affiliated with IIT Madras. Read what we do and do not guarantee.",
+  path: "/disclaimer",
+})
 
 export default function DisclaimerLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

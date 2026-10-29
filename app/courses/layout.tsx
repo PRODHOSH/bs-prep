@@ -1,27 +1,27 @@
 import type { Metadata } from "next"
+import { PathJsonLd } from "@/components/seo/path-json-ld"
+import { courses } from "@/lib/course-catalog"
+import { breadcrumbLd, courseListLd, pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "IITM BS Courses | Tamil Video Lectures",
-  description: "Master IITM BS subjects with comprehensive video courses in Tamil. Qualified mentors, live sessions, and structured study material for Mathematics, Statistics, and more.",
-  keywords: ["IITM BS courses", "Tamil video lectures", "IITM BS Qualifier prep", "Math for Data Science Tamil", "Statistics for Data Science Tamil"],
-  openGraph: {
-    title: "IITM BS Courses | BSPrep",
-    description: "Master IITM BS subjects with comprehensive video courses in Tamil. Qualified mentors and live sessions.",
-    url: "https://bsprep.in/courses",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "IITM BS Courses | BSPrep",
-    description: "Master IITM BS subjects with comprehensive video courses in Tamil.",
-    images: ["/og-image.png"],
-  },
-}
+export const metadata: Metadata = pageMetadata({
+  title: "IITM BS Tamil Courses: Qualifier & Foundation",
+  description: "Tamil video courses for IITM BS Qualifier and Foundation: Math, Statistics, Computational Thinking, English, Python and Java, with live mentor classes.",
+  path: "/courses",
+  keywords: ["IITM BS courses", "IITM BS Tamil video lectures", "IITM BS Qualifier prep", "Mathematics for Data Science Tamil", "Statistics for Data Science Tamil", "Python Tamil IITM BS"],
+})
 
-export default function CoursesLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return <>{children}</>
+export default function CoursesLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {/* Only the catalog page describes the whole list; each course page has its own data. */}
+      <PathJsonLd
+        path="/courses"
+        data={[
+          breadcrumbLd([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses" }]),
+          courseListLd(courses.filter((c) => c.available)),
+        ]}
+      />
+      {children}
+    </>
+  )
 }

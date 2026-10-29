@@ -82,7 +82,7 @@ function FooterItem({ link }: { link: FooterLink }) {
   const content = (
     <>
       <span>{link.name}</span>
-      {link.soon && <span className="rounded-full bg-black/[0.06] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black/45">Soon</span>}
+      {link.soon && <span className="rounded-full bg-black/[0.07] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black/70">Soon</span>}
     </>
   )
   if (link.external)
@@ -113,7 +113,7 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5" aria-label="BSPrep home">
               <span className="size-10 overflow-hidden rounded-full border border-black/10">
-                <img src="/new-logo.jpeg" alt="" className="h-full w-full scale-[1.3] object-cover object-center" />
+                <img src="/new-logo-192.jpg" alt="" className="h-full w-full scale-[1.3] object-cover object-center" />
               </span>
               <span className="text-2xl font-black tracking-tighter">BSPREP</span>
             </Link>
@@ -149,7 +149,7 @@ export function Footer() {
           {/* Link columns */}
           {columns.map((col) => (
             <nav key={col.heading} aria-label={col.heading}>
-              <h3 className="text-[11px] font-bold uppercase tracking-widest text-black/40">{col.heading}</h3>
+              <h3 className="text-[11px] font-bold uppercase tracking-widest text-black/55">{col.heading}</h3>
               <div className="mt-5 space-y-7">
                 {col.groups.map((g, gi) => (
                   <div key={gi}>
@@ -195,7 +195,7 @@ export function Footer() {
         <div className="mt-8 flex flex-col gap-5 border-t border-black/[0.06] pt-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-1">
             <p className="text-xs font-semibold text-black/70">&copy; 2026 BSPrep. All rights reserved.</p>
-            <p className="text-xs font-medium text-black/45">Not affiliated with IIT Madras. Independent student-led platform.</p>
+            <p className="text-xs font-medium text-black/60">Not affiliated with IIT Madras. Independent student-led platform.</p>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {LEGAL_LINKS.map((l) => (

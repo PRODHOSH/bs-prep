@@ -63,11 +63,13 @@ export function TurnstileWidget({ open, onSuccess, onExpire, onError }: Turnstil
       return true
     }
 
-    // Turnstile script is loaded via layout.tsx afterInteractive.
-    // On first dialog open it may not be ready yet — retry after 600ms.
+    // The Turnstile script is loaded once the page is idle (see layout.tsx), so wait for it.
     if (!doRender()) {
-      const t = setTimeout(doRender, 600)
-      return () => clearTimeout(t)
+      let tries = 0
+      const t = setInterval(() => {
+        if (doRender() || ++tries > 40) clearInterval(t)
+      }, 300)
+      return () => clearInterval(t)
     }
 
     return () => {

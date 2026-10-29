@@ -118,7 +118,7 @@ export function StaggerTestimonials() {
                 </div>
                 <div>
                   <p className="tracking-tight text-xl leading-tight mb-1 uppercase font-black">{testimonial.author}</p>
-                  <p className="text-xs font-bold tracking-widest text-black/50 uppercase">{testimonial.role}</p>
+                  <p className="text-xs font-bold tracking-widest text-black/65 uppercase">{testimonial.role}</p>
                 </div>
               </div>
               <p className="text-black/80 leading-relaxed text-sm font-medium flex-1 min-h-[100px]">"{testimonial.quote}"</p>
@@ -158,7 +158,7 @@ export function StaggerTestimonials() {
                 </div>
                 <div>
                   <p className="tracking-tight text-xl leading-tight mb-1 uppercase font-black">{testimonial.author}</p>
-                  <p className="text-xs font-bold tracking-widest text-black/50 uppercase">{testimonial.role}</p>
+                  <p className="text-xs font-bold tracking-widest text-black/65 uppercase">{testimonial.role}</p>
                 </div>
               </div>
               <p className="text-black/80 leading-relaxed text-sm font-medium flex-1 min-h-[100px]">"{testimonial.quote}"</p>

@@ -85,6 +85,7 @@ function ForcePlayVideo({ src, poster, className }: { src: string; poster?: stri
       className={className}
     >
       <source src={src} type="video/mp4" />
+      <track kind="captions" srcLang="en" label="English" src={src.replace(/\.mp4$/, ".vtt")} />
     </video>
   );
 }

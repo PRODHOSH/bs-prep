@@ -1,27 +1,14 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "IITM BS GPA Tools | Calculator & Predictor",
-  description: "Calculate your IITM BS GPA easily with our tools. Plan your semesters, predict your CGPA, and track your academic progress with BSPrep tools.",
-  keywords: ["IITM BS GPA calculator", "GPA predictor", "CGPA calculator IITM", "IITM BS student tools"],
-  openGraph: {
-    title: "IITM BS GPA Tools | BSPrep",
-    description: "Calculate your IITM BS GPA easily with our tools. Plan your semesters, predict your CGPA, and track your academic progress.",
-    url: "https://bsprep.in/tools",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "IITM BS GPA Tools | BSPrep",
-    description: "Calculate your IITM BS GPA easily with our tools. Plan your semesters, predict your CGPA, and track your academic progress.",
-    images: ["/og-image.png"],
-  },
-}
+// /tools redirects to the GPA calculator (see next.config.mjs). This keeps the tool pages' metadata consistent.
+export const metadata: Metadata = pageMetadata({
+  title: "IITM BS GPA Tools: Calculator & Predictor",
+  description: "Free GPA tools for IITM BS students. Calculate your course grade and semester GPA, then predict the exam score you need for your target grade.",
+  path: "/tools/gpa-calculator",
+  keywords: ["IITM BS GPA calculator", "IITM BS GPA predictor", "CGPA calculator IITM BS", "IITM BS student tools"],
+})
 
-export default function ToolsLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function ToolsLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }

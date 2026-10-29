@@ -1,27 +1,26 @@
 import type { Metadata } from "next"
+import { JsonLd } from "@/components/seo/json-ld"
+import { breadcrumbLd, pageMetadata, webAppLd } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "IITM BS GPA Predictor | Plan Your Target Grades",
-  description: "Predict your required grades to achieve your target CGPA in the IIT Madras BS Degree. Plan your upcoming semesters across Data Science, Electronics, Aeronautics, and Management degrees.",
-  keywords: ["GPA Predictor IITM BS", "Target CGPA calculator", "IITM BS Degree planning", "Grade predictor", "BSPrep tools"],
-  openGraph: {
-    title: "IITM BS GPA Predictor & Grade Planner | BSPrep",
-    description: "Predict your required grades to achieve your target CGPA in the IIT Madras BS Degree. Plan your semesters smartly.",
-    url: "https://bsprep.in/tools/gpa-predictor",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "IITM BS GPA Predictor | BSPrep",
-    description: "Predict your required grades to achieve your target CGPA in the IIT Madras BS Degree.",
-    images: ["/og-image.png"],
-  },
-}
+const path = "/tools/gpa-predictor"
 
-export default function GPAPredictorLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return <>{children}</>
+export const metadata: Metadata = pageMetadata({
+  title: "IITM BS GPA Predictor: The Score You Need",
+  description: "Find the end term score you need for your target grade in an IITM BS course. Enter your quiz and assignment marks and see the answer instantly.",
+  path,
+  keywords: ["IITM BS GPA predictor", "IITM BS grade predictor", "end term score needed IITM BS", "IITM BS target grade"],
+})
+
+export default function GPAPredictorLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <JsonLd
+        data={[
+          webAppLd({ name: "IITM BS GPA Predictor", description: "Predict the exam score needed for a target grade in an IITM BS course.", path, category: "EducationalApplication" }),
+          breadcrumbLd([{ name: "Home", path: "/" }, { name: "Tools", path: "/tools" }, { name: "GPA predictor", path }]),
+        ]}
+      />
+      {children}
+    </>
+  )
 }

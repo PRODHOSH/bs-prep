@@ -2,12 +2,15 @@ import { createClient } from "@/lib/supabase/server"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
+import { pageMetadata } from "@/lib/seo"
 import { MessageCircleQuestion, ArrowUpRight, CheckCircle2, MessageSquare, Search, Filter } from "lucide-react"
 
-export const metadata = {
-  title: "Community Doubts | BSPrep",
-  description: "Explore curated, verified doubts and high-quality answers from the BSPrep community and expert mentors.",
-}
+export const metadata = pageMetadata({
+  title: "IITM BS Doubts and Answers",
+  description: "Browse verified IITM BS doubts with clear answers from mentors and the BSPrep student community. Search before you ask.",
+  path: "/doubts",
+  keywords: ["IITM BS doubts", "IITM BS questions and answers", "IITM BS mentor help"],
+})
 
 type Doubt = {
   id: string

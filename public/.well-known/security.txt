@@ -1,0 +1,4 @@
+Contact: mailto:security@bsprep.in
+Expires: 2027-10-28T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://bsprep.in/.well-known/security.txt

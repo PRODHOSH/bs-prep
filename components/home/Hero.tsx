@@ -14,19 +14,16 @@ export function Hero() {
           
           {/* Left — heading */}
           <div className="space-y-8 lg:pr-4">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+            <h1
               className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] text-black"
             >
               Learn IITM BS <br />
               <span className="text-[#0a192f]">With Mentors</span> <br />
               By Your Side
-            </motion.h1>
+            </h1>
 
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="max-w-md text-sm md:text-base font-medium normal-case tracking-normal text-black/70 leading-relaxed"
@@ -35,7 +32,7 @@ export function Hero() {
             </motion.p>
 
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-4 pt-4"
@@ -58,7 +55,7 @@ export function Hero() {
 
           {/* Right: Graphic */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="relative h-[250px] md:h-[400px] w-full mt-8 md:mt-0 flex items-center justify-center lg:justify-end lg:-mr-4"
@@ -90,7 +87,7 @@ export function Hero() {
                     <AnimatedCounter end={stat.value} duration={2000} />
                     <span>{stat.suffix}</span>
                   </div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-black/50 mt-1">{stat.label}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-black/65 mt-1">{stat.label}</p>
                 </div>
               </div>
             );

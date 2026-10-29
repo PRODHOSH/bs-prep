@@ -6,7 +6,7 @@ export function HeroGraphic() {
       <div className="relative z-10 w-full flex items-center justify-center px-4">
         <img 
           src="/hero.svg" 
-          alt="Student studying with BSPrep" 
+          alt="Student studying with BSPrep" width={800} height={596} fetchPriority="high" decoding="async" 
           className="w-full h-auto object-contain scale-110 md:scale-125" 
         />
       </div>

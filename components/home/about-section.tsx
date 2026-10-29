@@ -23,10 +23,10 @@ export function AboutSection() {
               <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest mb-8 text-[#0a192f] bg-[#0a192f]/10 uppercase">
                 About Us
               </div>
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-black leading-[1.1]">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-black leading-[1.1]">
                 <span className="text-black/70">By Students,</span> <br />
                 For Students.
-              </h3>
+              </h2>
             </motion.div>
 
             <motion.div 

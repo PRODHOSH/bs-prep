@@ -453,7 +453,13 @@ export default function ResourcesPage() {
   }
 
   if (!hasMounted) {
-    return <Loading />
+    return (
+      <>
+        <h1 className="sr-only">IITM BS Notes and Study Resources</h1>
+        <p className="sr-only">Community-driven notes linked by subject. Browse approved links or submit your own notes for approval.</p>
+        <Loading />
+      </>
+    )
   }
 
   return (

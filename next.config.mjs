@@ -13,7 +13,12 @@ const nextConfig = {
     ],
   },
   async headers() {
+    // Files in /public are not content-hashed, so cache them for a month and let them refresh in the background.
+    const assetCache = [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=604800' }]
     return [
+      { source: '/:all*(svg|jpg|jpeg|png|webp|avif|ico|mp4|webm|vtt|woff2)', headers: assetCache },
+      { source: '/llms.txt', headers: [{ key: 'Cache-Control', value: 'public, max-age=3600' }, { key: 'Content-Type', value: 'text/plain; charset=utf-8' }] },
+      { source: '/llms-full.txt', headers: [{ key: 'Cache-Control', value: 'public, max-age=3600' }, { key: 'Content-Type', value: 'text/plain; charset=utf-8' }] },
       {
         source: '/:path*',
         headers: [
@@ -47,6 +52,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/tools',
+        destination: '/tools/gpa-calculator',
+        permanent: true,
+      },
       {
         source: '/donate',
         destination: 'https://rzp.io/rzp/support-bsprep',

@@ -1,14 +1,11 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Cookie Policy",
-  description: "BSPrep uses essential cookies for authentication and Google Analytics for anonymous usage insights. No advertising cookies. No data sold.",
-  alternates: { canonical: "/cookies" },
-  openGraph: {
-    title: "Cookie Policy | BSPrep",
-    description: "BSPrep uses minimal cookies — Supabase auth sessions and anonymous Google Analytics. No advertising or tracking cookies.",
-  },
-}
+  description: "BSPrep uses essential cookies for sign in and Google Analytics for anonymous usage. No advertising cookies and no data sold.",
+  path: "/cookies",
+})
 
 export default function CookiesLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

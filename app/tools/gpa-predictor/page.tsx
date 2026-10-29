@@ -95,19 +95,6 @@ export default function GPAPredictor() {
     setPredictions(newPredictions)
   }
 
-  // Show navbar even during loading to prevent blank page flash
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white relative">
-        <BeamsBackground />
-        <Navbar isAuthenticated={isAuthenticated} />
-        <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
-          <div className="animate-spin w-12 h-12 border-4 border-black border-t-transparent rounded-full"></div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-white relative">
       <BeamsBackground />

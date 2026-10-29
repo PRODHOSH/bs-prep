@@ -243,7 +243,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
             <Link href={isAuthenticated ? "/dashboard" : "/"} className="group flex shrink-0 items-center gap-2">
               <div className="size-11 overflow-hidden rounded-full">
                 <img
-                  src="/new-logo.jpeg"
+                  src="/new-logo-192.jpg"
                   alt="BSPrep Logo"
                   className="h-full w-full scale-[1.6] object-cover object-center transition-opacity group-hover:opacity-80"
                 />
@@ -453,7 +453,7 @@ export function Navbar({ isAuthenticated = false, userRole = "student" }: Navbar
             )}
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-slate-700" onClick={() => setIsOpen(!isOpen)}>
+            <button type="button" className="md:hidden grid size-10 place-items-center rounded-full text-slate-700" aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen} onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>

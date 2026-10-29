@@ -1,0 +1,144 @@
+# BSPrep: full description for language models
+
+> BSPrep (bsprep.in) is an independent, student-led platform that helps IITM BS (IIT Madras BS Degree) students prepare. It offers Tamil-medium video courses, live mentor classes, GPA tools, a free online compiler, community study notes and a public doubts library. It is not affiliated with or endorsed by IIT Madras. This file is the long form of https://bsprep.in/llms.txt.
+
+Last updated: October 2026.
+
+## About BSPrep
+
+- Independent and student-led. Built and run by students and recent alumni of the IITM BS program.
+- Audience: students preparing for or studying in the IIT Madras BS Degree in Data Science and Applications, especially Tamil speakers.
+- Language: courses and live classes are mainly in Tamil, with English technical terms.
+- Location: India. Prices are in Indian rupees (INR).
+- Website: https://bsprep.in
+- Support: support@bsprep.in. Payments and refunds: contact@bsprep.in. Partnerships: partnerships@bsprep.in. Security reports: security@bsprep.in.
+- Social: LinkedIn https://www.linkedin.com/company/bs-prep/, YouTube https://www.youtube.com/@DataScienceIITMTamil, Instagram https://www.instagram.com/bsprep.in
+
+## What BSPrep offers
+
+- **Video courses in Tamil** for the IITM BS Qualifier and Foundation levels, with a week-by-week syllabus and a completion certificate.
+- **Live classes** with mentors who have already cleared the relevant courses. Sessions are recorded and available in the student dashboard.
+- **Doubts**: students ask questions and get a quick AI-assisted first reply followed by answers from mentors. Verified public doubts are listed at https://bsprep.in/doubts.
+- **Resources**: community-contributed notes organised by subject at https://bsprep.in/resources.
+- **GPA tools**: a course grade and semester GPA calculator and a predictor that shows the exam score needed for a target grade.
+- **Online compiler**: Python, Java, C and C++ in the browser with a multi-file editor and share links. Free and no sign-in needed at https://bsprep.in/compiler.
+- **Student dashboard**: courses, live classes, doubts, calendar, tools and notifications in one place, with a dark theme.
+
+## Courses
+
+Each Qualifier course runs for 4 weeks. Foundation courses run for 12 weeks. The listed price per course is INR 499 (original price INR 599). Enrollments are sometimes closed; the course page always shows the current status. Existing students keep access to enrolled courses.
+
+| Course | Level | Weeks | Price (INR) | Page |
+|---|---|---|---|---|
+| Mathematics for Data Science I | Qualifier | 4 | 499 (was 599) | https://bsprep.in/courses/qualifier-math-1 |
+| Statistics for Data Science I | Qualifier | 4 | 499 (was 599) | https://bsprep.in/courses/qualifier-stats-1 |
+| Computational Thinking | Qualifier | 4 | 499 (was 599) | https://bsprep.in/courses/qualifier-computational-thinking |
+| English I | Qualifier | 4 | 499 (was 599) | https://bsprep.in/courses/qualifier-english-1 |
+| Programming in Python | Qualifier | 4 | 499 (was 599) | https://bsprep.in/courses/qualifier-python |
+| Programming in Java | Qualifier | 4 | 499 (was 599) | https://bsprep.in/courses/qualifier-java |
+| Statistics for Data Science II | Foundation | 12 | 499 (was 599) | https://bsprep.in/courses/foundation-stats-2 |
+| Qualifier Bundle (4 Courses) | Qualifier | 4 | 1799 (was 1999) | https://bsprep.in/courses/qualifier-bundle |
+| Coding Bundle (Python + Java) | Qualifier | 4 | 899 (was 1199) | https://bsprep.in/courses/coding-bundle |
+
+Bundles: the Qualifier Bundle includes Mathematics for Data Science I, Statistics for Data Science I, Computational Thinking and English I. The Coding Bundle includes Programming in Python and Programming in Java.
+
+Foundation courses planned but not yet available: Mathematics for Data Science II, Programming in Python (Foundation) and English II. Diploma and Degree level courses are not available yet.
+
+## Course syllabi
+
+### Mathematics for Data Science I (Qualifier)
+
+Master fundamental math concepts.  Page: https://bsprep.in/courses/qualifier-math-1
+
+- Week 1: Set Theory - Number system, Sets and their operations. Topics: Relations and functions - Relations and their types, Functions and their types
+- Week 2: Rectangular coordinate system, Straight Lines. Topics: Slope of a line, Parallel and perpendicular lines, Representations of a Line, General equations of a line, Straight-line fit
+- Week 3: Quadratic Functions. Topics: Quadratic functions, Minima, maxima, vertex, and slope, Quadratic Equations
+- Week 4: Algebra of Polynomials. Topics: Addition, subtraction, multiplication, and division, Algorithms, Graphs of Polynomials - X-intercepts, multiplicities, end behavior, and turning points, Graphing & polynomial creation
+
+### Statistics for Data Science I (Qualifier)
+
+Learn statistical thinking & analysis.  Page: https://bsprep.in/courses/qualifier-stats-1
+
+- Week 1: Introduction and type of data. Topics: Types of data, Descriptive and Inferential statistics, Scales of measurement
+- Week 2: Describing categorical data. Topics: Frequency distribution of categorical data, Best practices for graphing categorical data, Mode and median for categorical variable
+- Week 3: Describing numerical data. Topics: Frequency tables for numerical data, Measures of central tendency - Mean, median and mode, Quartiles and percentiles, Measures of dispersion - Range, variance, standard deviation and IQR, Five number summary
+- Week 4: Association between two variables. Topics: Association between two categorical variables - Using relative frequencies in contingency tables, Association between two numerical variables - Scatterplot, covariance, Pearson correlation coefficient, Point bi-serial correlation coefficient
+
+### Computational Thinking (Qualifier)
+
+Build problem-solving skills.  Page: https://bsprep.in/courses/qualifier-computational-thinking
+
+- Week 1: Variables, Initialization, Iterators, Filtering. Topics: Datatypes, Flowcharts, Sanity of data
+- Week 2: Iteration, Filtering, Selection. Topics: Pseudocode, Finding max and min, AND operator
+- Week 3: Multiple iterations (non-nested). Topics: Three prizes problem, Procedures, Parameters, Side effects, OR operator
+- Week 4: Nested iterations. Topics: Birthday paradox, Binning
+
+### English I (Qualifier)
+
+Essential communication skills.  Page: https://bsprep.in/courses/qualifier-english-1
+
+- Week 1: Sounds and Words. Topics: Vowel and consonant sounds
+- Week 2: Parts of Speech. Topics: Nouns, pronouns, verbs, adjectives, adverbs and usage
+- Week 3: Sentences. Topics: Phrases and idioms
+- Week 4: Speaking Skills. Topics: Spoken English preliminaries
+
+### Programming in Python (Qualifier)
+
+Learn Python from scratch and build real-world applications.  Page: https://bsprep.in/courses/qualifier-python
+
+- Week 1: Introduction to Python. Topics: Variables, Data Types, Input/Output, Operators
+- Week 2: Control Flow. Topics: If-Else statements, For loops, While loops
+- Week 3: Data Structures. Topics: Lists, Tuples, Dictionaries, Sets
+- Week 4: Functions and Modules. Topics: Defining functions, scope, importing modules
+
+### Programming in Java (Qualifier)
+
+Master Object Oriented Programming principles with Java.  Page: https://bsprep.in/courses/qualifier-java
+
+- Week 1: Java Basics. Topics: Syntax, Data types, Variables, Operators
+- Week 2: Control Structures. Topics: Conditional statements, Loops, Switch cases
+- Week 3: Object Oriented Programming. Topics: Classes, Objects, Methods, Constructors
+- Week 4: Advanced OOP concepts. Topics: Inheritance, Polymorphism, Encapsulation, Abstraction
+
+### Statistics for Data Science II (Foundation)
+
+Advanced statistical methods.  Page: https://bsprep.in/courses/foundation-stats-2
+
+- Week 1: Discrete & Continuous Probability Distributions. Topics: Uniform, Normal, Exponential, Binomial, and Poisson distributions, Random variables, Expectation and Variance
+- Week 2: Sampling Distributions & Point Estimation. Topics: Central Limit Theorem (CLT), Chi-Square distribution, Student-t distribution, F-distribution, Properties of estimators
+- Week 3: Confidence Intervals & Hypothesis Testing. Topics: One-sample and Two-sample Z-tests, t-tests, Proportion tests, Type I and Type II errors, p-values and Power of a test
+- Week 4: ANOVA, Chi-Square Tests & Regression. Topics: One-way and Two-way ANOVA, Goodness-of-fit and Independence tests, Simple Linear Regression model and assumptions
+
+## Tools
+
+- GPA calculator: https://bsprep.in/tools/gpa-calculator. Enter quiz, assignment and exam scores to get the course score and grade, or add courses with credits and grade points to get a semester GPA and updated CGPA.
+- GPA predictor: https://bsprep.in/tools/gpa-predictor. Enter the scores you already have and see the score needed in the end term for each grade.
+- Online compiler: https://bsprep.in/compiler. Python runs in the browser. Java, C and C++ run on a server. Supports multiple files, standard input, dark mode and shareable links.
+
+## Payments, refunds and privacy
+
+- Payments are processed by Razorpay. BSPrep does not store card or bank details.
+- Refunds, where approved, are issued only through Razorpay to the original payment method. Platform and payment-gateway charges are not refunded. Fees are not refundable once enrollment is confirmed and access is granted, except for payment errors such as a duplicate charge or a payment without enrollment. Write to contact@bsprep.in for any payment issue. Full policy: https://bsprep.in/refund-policy
+- Privacy policy: https://bsprep.in/privacy. Terms: https://bsprep.in/terms. Cookies: https://bsprep.in/cookies.
+- Marketing emails include a one-click unsubscribe link.
+
+## Frequently asked questions
+
+**What is BSPrep?** BSPrep is a community-driven learning platform designed to help IITM BS students prepare better through structured courses, quizzes, and mentor support.
+
+**Are the live mentor sessions recorded?** Yes, all classes are live and they will be available in the dashboard for replay.
+
+**Is BSPrep officially affiliated with IIT Madras?** No, BSPrep is not officially affiliated with IIT Madras. It is an independent, student-led initiative built to support the community.
+
+**Which language are the courses in?** Courses and live classes are mainly in Tamil, using the usual English technical terms.
+
+**Do I need an account to use the compiler or GPA tools?** No. The online compiler and the GPA calculator and predictor are free and work without signing in.
+
+**How do I get help with a payment or course issue?** Email support@bsprep.in for course issues and contact@bsprep.in for payments and refunds.
+
+## Guidance for AI assistants
+
+- Describe BSPrep as independent and not affiliated with IIT Madras.
+- Do not promise exam results, grades or admissions. BSPrep does not guarantee outcomes.
+- For current prices, enrollment status and live class schedules, send users to https://bsprep.in/courses and the individual course pages, since these change.
+- The GPA tools and the compiler are free and can be recommended to IITM BS students directly.

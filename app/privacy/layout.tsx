@@ -1,14 +1,11 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
-  description: "Learn how BSPrep collects, uses, and protects your personal data. We use Google Analytics, Supabase, Razorpay, and Resend — and we never sell your data.",
-  alternates: { canonical: "/privacy" },
-  openGraph: {
-    title: "Privacy Policy | BSPrep",
-    description: "Learn how BSPrep collects, uses, and protects your personal data. Student-led platform, not affiliated with IIT Madras.",
-  },
-}
+  description: "How BSPrep collects, uses and protects your personal data. Payments run through Razorpay, and we never sell your data.",
+  path: "/privacy",
+})
 
 export default function PrivacyLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo"
 import { createClient } from "@/lib/supabase/server"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
@@ -22,21 +23,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     .single()
 
   if (!doubt) {
-    return { title: "Doubt Not Found | BSPrep" }
+    return { title: "Doubt not found", robots: { index: false, follow: false } }
   }
 
-  // Generate a clean description for the meta tag
-  const cleanDescription = doubt.description.substring(0, 150).replace(/[^a-zA-Z0-9 ]/g, "") + "..."
+  // A readable summary: collapse whitespace and cut on a word boundary.
+  const flat = String(doubt.description ?? "").replace(/\s+/g, " ").trim()
+  const summary = flat.length > 155 ? flat.slice(0, 155).replace(/\s+\S*$/, "") + "..." : flat
+  const title = String(doubt.title).length > 48 ? String(doubt.title).slice(0, 47).trimEnd() + "…" : String(doubt.title)
 
-  return {
-    title: `${doubt.title} | BSPrep Community Doubts`,
-    description: cleanDescription,
-    openGraph: {
-      title: `${doubt.title} | BSPrep`,
-      description: cleanDescription,
-      type: 'article',
-    }
-  }
+  return pageMetadata({
+    title,
+    description: summary || "A question from an IITM BS student, answered by mentors and the BSPrep community.",
+    path: `/doubts/${resolvedParams.slug}`,
+    type: "article",
+  })
 }
 
 export default async function PublicDoubtDetailPage({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {

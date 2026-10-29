@@ -7,20 +7,24 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/doubts/", "/doubts"],
+        allow: "/",
         disallow: [
           "/admin/",
           "/mentor/",
           "/dashboard/",
           "/api/",
           "/auth/",
-          "/compiler/",
           "/signin",
           "/signup",
           "/payment/",
+          "/certificate/",
+          "/unsubscribe",
+          // Week pages belong to enrolled students; the course landing page itself stays crawlable.
+          "/courses/*/*",
         ],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   }
 }

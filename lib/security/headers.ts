@@ -40,18 +40,21 @@ export function getSecurityHeaders(request?: NextRequest) {
   // Permissions Policy
   headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
   
+  // Keep OAuth and payment popups working while isolating the page from other origins
+  headers.set('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
+
   // Content Security Policy
   const csp = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://accounts.google.com",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://accounts.google.com https://challenges.cloudflare.com https://uptime.betterstack.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com https://cdn.jotfor.ms https://incidents.betterstack.com",
+    "font-src 'self' https://fonts.gstatic.com https://cdn.jotfor.ms",
     "img-src 'self' data: https: blob:",
     "media-src 'self' https://res.cloudinary.com",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://checkout.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://res.cloudinary.com https://accounts.google.com",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://checkout.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://cdn.jsdelivr.net https://www.noupe.com https://noupe.com https://res.cloudinary.com https://accounts.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://challenges.cloudflare.com https://uptime.betterstack.com https://incidents.betterstack.com",
     "worker-src 'self' blob:",
     "child-src 'self' blob: https://docs.google.com https://forms.gle",
-    "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://www.noupe.com https://noupe.com https://docs.google.com https://forms.gle https://accounts.google.com",
+    "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://www.noupe.com https://noupe.com https://docs.google.com https://forms.gle https://accounts.google.com https://challenges.cloudflare.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -63,7 +66,7 @@ export function getSecurityHeaders(request?: NextRequest) {
   
   // HSTS (HTTP Strict Transport Security)
   if (enforceHttpsUpgrade) {
-    headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
+    headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains')
   }
   
   return headers

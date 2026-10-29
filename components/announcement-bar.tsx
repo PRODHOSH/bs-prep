@@ -7,10 +7,10 @@ import { X } from "lucide-react"
 const DISMISS_KEY = "bsprep_announce_hiring_v1"
 
 export function AnnouncementBar() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    if (!localStorage.getItem(DISMISS_KEY)) setVisible(true)
+    if (localStorage.getItem(DISMISS_KEY)) setVisible(false)
   }, [])
 
   function dismiss() {
@@ -37,7 +37,7 @@ export function AnnouncementBar() {
       <button
         onClick={dismiss}
         aria-label="Dismiss announcement"
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
+        className="absolute right-1 top-1/2 grid size-10 -translate-y-1/2 place-items-center text-white/70 hover:text-white transition-colors"
       >
         <X className="w-3.5 h-3.5" />
       </button>
