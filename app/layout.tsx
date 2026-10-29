@@ -182,11 +182,6 @@ export default function RootLayout({
             publisher: { "@id": `${siteUrl}/#organization` },
             image: `${siteUrl}/og-image.png`,
             inLanguage: ["en-IN", "ta"],
-            potentialAction: {
-              "@type": "SearchAction",
-              target: `${siteUrl}/resources?search={search_term_string}`,
-              "query-input": "required name=search_term_string",
-            },
           })}
         </Script>
         {/* Cloudflare Turnstile */}
