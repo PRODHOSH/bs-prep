@@ -29,10 +29,18 @@ import { cn } from "@/lib/utils"
 // Hardcoded dates as requested
 const HARDCODED_EVENTS = [
   {
+    id: "quiz-1",
+    course: "EXAM",
+    topic: "Quiz 1",
+    date: "2026-11-15",
+    time: "14:00 - 17:00",
+    isExam: true,
+  },
+  {
     id: "quiz-2",
     course: "EXAM",
     topic: "Quiz 2",
-    date: "2026-08-16",
+    date: "2026-12-05",
     time: "14:00 - 17:00",
     isExam: true,
   },
@@ -40,7 +48,7 @@ const HARDCODED_EVENTS = [
     id: "end-term",
     course: "EXAM",
     topic: "End Term",
-    date: "2026-09-13",
+    date: "2027-01-10",
     time: "09:00 / 14:00 (Check Hall Ticket)",
     isExam: true,
   }
