@@ -11,7 +11,7 @@ export function ForgotPasswordModal({ open, onOpenChange }: { open: boolean; onO
   useEffect(() => {
     if (!open) return
     onOpenChange(false)
-    router.push(`/auth/forgot?next=${encodeURIComponent(pathname || "/dashboard")}`)
+    router.push(`/auth/forgot${pathname && pathname !== "/" ? `?next=${encodeURIComponent(pathname)}` : ""}`)
   }, [open, onOpenChange, pathname, router])
 
   return null

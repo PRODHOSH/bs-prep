@@ -11,7 +11,7 @@ export function SignUpModal({ open, onOpenChange }: { open: boolean; onOpenChang
   useEffect(() => {
     if (!open) return
     onOpenChange(false)
-    router.push(`/auth/register?next=${encodeURIComponent(pathname || "/dashboard")}`)
+    router.push(`/auth/register${pathname && pathname !== "/" ? `?next=${encodeURIComponent(pathname)}` : ""}`)
   }, [open, onOpenChange, pathname, router])
 
   return null

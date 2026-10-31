@@ -5,6 +5,7 @@ import Link from "next/link"
 import { ArrowLeft, Check, Eye, EyeOff, Loader2 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { processReferral } from "@/app/actions/referral"
+import { safeNext } from "@/lib/auth-next"
 
 export type AuthMode = "login" | "register" | "forgot"
 
@@ -18,8 +19,6 @@ const COPY: Record<AuthMode, { title: string; hint: string; art: string; artTitl
 const input = "h-12 w-full rounded-full border border-black/10 bg-white px-5 text-sm font-medium text-black outline-none transition-colors placeholder:text-black/40 focus:border-[#0a192f]"
 const primary = "inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0a192f] text-sm font-bold tracking-wide text-white transition-colors hover:bg-[#112a52] disabled:opacity-60"
 const label = "mb-1.5 block px-2 text-xs font-bold text-black/60"
-
-const safeNext = (n: string | null | undefined) => (n && n.startsWith("/") && !n.startsWith("//") ? n : "/dashboard")
 
 function GoogleButton({ next }: { next: string }) {
   const [busy, setBusy] = useState(false)
