@@ -233,7 +233,7 @@ export function StudentShell({ initialTheme, children }: { initialTheme?: Dashbo
   const signOut = async () => {
     await createClient().auth.signOut()
     resetUserCache()
-    router.push("/?login=true")
+    router.push("/auth/login")
     router.refresh()
   }
 

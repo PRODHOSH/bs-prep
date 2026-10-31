@@ -1,14 +1,6 @@
-"use client"
+import { AuthScreen } from "@/components/auth/auth-screen"
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-
-export default function AuthLoginRedirect() {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.replace("/?login=true")
-  }, [router])
-
-  return null
+export default async function AuthPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
+  const { next } = await searchParams
+  return <AuthScreen initial="login" next={next} />
 }

@@ -748,7 +748,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
 
           <div className="cw-top-left">
             {!embedded && signedIn !== null && (
-              <Link href={signedIn ? "/dashboard/compiler" : "/?login=true"} className="cw-btn cw-hide-sm">
+              <Link href={signedIn ? "/dashboard/compiler" : "/auth/login"} className="cw-btn cw-hide-sm">
                 {signedIn ? "Open dashboard" : "Sign in"}
               </Link>
             )}
