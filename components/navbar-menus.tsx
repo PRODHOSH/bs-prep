@@ -53,6 +53,7 @@ const MENUS: Record<MenuId, Menu> = {
         label: "Learn",
         items: [
           { href: "/resources", title: "Notes and materials", desc: "Curated notes for every IITM BS subject" },
+          { href: "/quiz-prep", title: "Quiz prep", desc: "Mock tests and OPPE practice from past papers" },
           { href: "/doubts", title: "Doubts", desc: "Verified answers from mentors and peers" },
         ],
       },

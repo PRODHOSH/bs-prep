@@ -44,6 +44,7 @@ const columns: { heading: string; groups: { label?: string; links: FooterLink[] 
       {
         links: [
           { name: "Resources and notes", href: "/resources" },
+          { name: "Quiz prep", href: "/quiz-prep" },
           { name: "Doubts", href: "/doubts" },
           { name: "Community", href: "/community" },
           { name: "Live classes", href: "/dashboard/live-classes" },
