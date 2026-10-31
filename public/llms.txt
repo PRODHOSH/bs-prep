@@ -1,6 +1,6 @@
 # BSPrep
 
-> BSPrep is an independent, student-led platform that helps IITM BS (IIT Madras BS Degree) students prepare. It offers Tamil-medium video courses, live mentor classes, GPA calculation tools, a free online compiler, community study notes and a public doubts library. BSPrep is not affiliated with or endorsed by IIT Madras.
+> BSPrep is an independent, student-led platform that helps IITM BS (IIT Madras BS Degree) students prepare. It offers Tamil-medium video courses, live mentor classes, GPA calculation tools, a free online compiler, community study notes, past-paper quiz practice with OPPE mock tests, and a public doubts library. BSPrep is not affiliated with or endorsed by IIT Madras.
 
 BSPrep is built by students for students and is based in India. Courses are taught mainly in Tamil. The Qualifier and Foundation levels are available today. Enrollments may be closed at times, so check the course page for the current status.
 
@@ -23,11 +23,16 @@ BSPrep is built by students for students and is based in India. Courses are taug
 - [GPA predictor](https://bsprep.in/tools/gpa-predictor): Find the exam score you need for a target grade
 - [Online compiler](https://bsprep.in/compiler): Free in-browser compiler for Python, Java, C and C++ with a multi-file editor and share links
 
+## Practice
+
+- [Quiz prep](https://bsprep.in/quiz-prep): Timed mock tests, quick tests and custom tests from past IITM BS quiz and end term papers, plus OPPE coding practice
+
 ## Learn and community
 
-- [Resources and notes](https://bsprep.in/resources): Community-contributed notes organised by subject
+- [Notes](https://bsprep.in/resources): Free community notes for Foundation, Diploma and Degree subjects, with download counts and a contributor leaderboard
 - [Doubts](https://bsprep.in/doubts): Public library of verified doubts with answers from mentors and peers
-- [Community](https://bsprep.in/community): Student community for IITM BS learners
+- [Community](https://bsprep.in/community): Tamil-speaking IITM BS student community, with links to WhatsApp, YouTube, LinkedIn and the blog
+- [Blog](https://blog.bsprep.in): Guides for IITM BS students
 
 ## Company and policies
 

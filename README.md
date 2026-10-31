@@ -53,7 +53,10 @@ BSPrep is an independent student project. It is not an official IIT Madras produ
 | **Doubts** | Ask in public or private. Mentors answer, and an AI assistant gives a first reply |
 | **Compiler** | Python, Java, C and C++ in the browser. Multi-file editor, share links, no sign in needed |
 | **GPA tools** | Course grade calculator, semester GPA and a predictor that tells you the exam score you need |
-| **Resources** | Community notes for every subject, with stars and a contributor leaderboard |
+| **Notes** | Community notes for Foundation, Diploma and Degree subjects, with download counts, stars and a contributor leaderboard |
+| **Quiz prep** | Mock, quick and custom tests from past IITM BS papers, plus timed OPPE mock tests, in an exam-style full-screen player |
+| **Community** | Tamil-speaking student community page with social links and the blog |
+| **Sign in** | One split-screen page for log in, register and forgot password |
 | **Three dashboards** | Student, mentor and admin, all on one design system with a dark theme |
 | **Admin inbox** | Send announcements and campaigns with one-click unsubscribe |
 
@@ -149,7 +152,8 @@ sequenceDiagram
 
 ```text
 app/
-  (public pages)      landing, courses, resources, doubts, tools, compiler, legal pages
+  (public pages)      landing, courses, notes, quiz prep, community, doubts, tools, compiler, legal pages
+  auth/               log in, register and forgot password (one split-screen page)
   dashboard/          student dashboard
   mentor/             mentor console
   admin/              admin console
@@ -157,6 +161,7 @@ app/
 components/
   dashboard/          shell, shared views, skeletons and UI kit for the three dashboards
   compiler/           the editor workspace used on /compiler and inside the dashboard
+  quiz/, oppe/        the quiz hub, test player, results and the OPPE mock test
   home/               landing page sections
 lib/                  Supabase clients, course catalog, rate limiting, email helpers
 scripts/              numbered SQL migrations and a few admin scripts
@@ -184,6 +189,12 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 **Database.** Open the Supabase SQL editor and run the numbered files in `scripts/` in order, starting from `001_create_tables.sql`.
+
+- `025_resources_notes_setup_and_seed.sql` creates the notes tables and adds the notes library (run it before opening Notes).
+- `026_reset_note_downloads.sql` sets every note's download count to zero.
+- `024_create_quiz_prep_tables.sql` holds optional tables for syncing quiz and OPPE history. Quiz prep keeps history in the browser until you run it and connect it.
+
+**Quiz prep data.** The past-paper and OPPE JSON files are not in the repository. Put them in `data/pyqs/raw/` and `data/oppe/` (both git-ignored) before running the app, otherwise quiz prep shows as unavailable.
 
 **Scripts**
 

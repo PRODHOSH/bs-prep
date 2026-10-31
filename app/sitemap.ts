@@ -6,7 +6,7 @@ const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://bsprep.in").repla
 
 // Real dates, not "now". Google ignores lastmod when every URL claims to change on every request.
 // Bump these when the content of a page actually changes.
-const SITE_UPDATED = new Date("2026-10-29")
+const SITE_UPDATED = new Date("2026-10-31")
 const LEGAL_UPDATED = new Date("2026-10-28")
 
 type Entry = MetadataRoute.Sitemap[number]
@@ -25,10 +25,10 @@ const staticRoutes: MetadataRoute.Sitemap = [
   entry("/tools/gpa-predictor", 0.9, "monthly"),
   entry("/compiler", 0.8, "monthly"),
   entry("/resources", 0.8, "daily"),
+  entry("/quiz-prep", 0.7, "weekly"),
   entry("/doubts", 0.8, "daily"),
   entry("/community", 0.6, "monthly"),
   entry("/careers", 0.5, "weekly"),
-  entry("/quiz-prep", 0.3, "monthly"),
   entry("/privacy", 0.2, "yearly", LEGAL_UPDATED),
   entry("/terms", 0.2, "yearly", LEGAL_UPDATED),
   entry("/refund-policy", 0.2, "yearly", LEGAL_UPDATED),

@@ -1,6 +1,6 @@
 # BSPrep: full description for language models
 
-> BSPrep (bsprep.in) is an independent, student-led platform that helps IITM BS (IIT Madras BS Degree) students prepare. It offers Tamil-medium video courses, live mentor classes, GPA tools, a free online compiler, community study notes and a public doubts library. It is not affiliated with or endorsed by IIT Madras. This file is the long form of https://bsprep.in/llms.txt.
+> BSPrep (bsprep.in) is an independent, student-led platform that helps IITM BS (IIT Madras BS Degree) students prepare. It offers Tamil-medium video courses, live mentor classes, GPA tools, a free online compiler, community study notes, past-paper quiz practice with OPPE mock tests, and a public doubts library. It is not affiliated with or endorsed by IIT Madras. This file is the long form of https://bsprep.in/llms.txt.
 
 Last updated: October 2026.
 
@@ -19,7 +19,9 @@ Last updated: October 2026.
 - **Video courses in Tamil** for the IITM BS Qualifier and Foundation levels, with a week-by-week syllabus and a completion certificate.
 - **Live classes** with mentors who have already cleared the relevant courses. Sessions are recorded and available in the student dashboard.
 - **Doubts**: students ask questions and get a quick AI-assisted first reply followed by answers from mentors. Verified public doubts are listed at https://bsprep.in/doubts.
-- **Resources**: community-contributed notes organised by subject at https://bsprep.in/resources.
+- **Notes**: free community notes at https://bsprep.in/resources. Students pick a degree, level (Foundation, Diploma or Degree) and subject from dropdowns, then download notes shared by other students. Each note shows who shared it, what it covers (a week range, a book, a summary or something else) and how many times it was downloaded. Students can star notes, add their own Google Drive link for review, and a contributor leaderboard ranks people by XP.
+- **Quiz prep**: https://bsprep.in/quiz-prep. Practice with real past IITM BS quiz 1, quiz 2 and end term papers across Foundation, Diploma and Degree subjects. See the Quiz prep section below.
+- **Community**: https://bsprep.in/community. A Tamil-speaking student community for the IITM BS degree, with links to the WhatsApp group, YouTube, LinkedIn, Instagram and the blog at https://blog.bsprep.in.
 - **GPA tools**: a course grade and semester GPA calculator and a predictor that shows the exam score needed for a target grade.
 - **Online compiler**: Python, Java, C and C++ in the browser with a multi-file editor and share links. Free and no sign-in needed at https://bsprep.in/compiler.
 - **Student dashboard**: courses, live classes, doubts, calendar, tools and notifications in one place, with a dark theme.
@@ -108,6 +110,18 @@ Advanced statistical methods.  Page: https://bsprep.in/courses/foundation-stats-
 - Week 2: Sampling Distributions & Point Estimation. Topics: Central Limit Theorem (CLT), Chi-Square distribution, Student-t distribution, F-distribution, Properties of estimators
 - Week 3: Confidence Intervals & Hypothesis Testing. Topics: One-sample and Two-sample Z-tests, t-tests, Proportion tests, Type I and Type II errors, p-values and Power of a test
 - Week 4: ANOVA, Chi-Square Tests & Regression. Topics: One-way and Two-way ANOVA, Goodness-of-fit and Independence tests, Simple Linear Regression model and assumptions
+
+## Quiz prep
+
+Quiz prep is a free practice area at https://bsprep.in/quiz-prep. It needs a free account to start a test.
+
+- **Mock tests**: sit a full past paper in its original order. Students choose Quiz 1, Quiz 2 or End term, then the subject and the paper by date, read exam instructions, and start a full-screen timed test.
+- **Quick tests**: 5, 10 or 20 random past questions from one subject.
+- **Custom tests**: choose the subject, the number of questions (10 to 40), which exams they come from and which question types to include (single choice, multiple choice, numeric).
+- **OPPE practice**: choose a course (Python, PDSA, MLP, Java, SQL or System Commands), then OPPE 1 or OPPE 2 for a timed three-problem mock with a problem list, a code editor, sample test cases and your own input. Python problems run in the browser.
+- **Exam-style test screen**: question palette, mark for review, text size controls, a built-in scientific calculator, full screen mode and a clear timer. Before submitting, a review popup shows what is answered, skipped or marked.
+- **Scoring**: marks follow the IITM rules, including partial credit on multiple-select questions. Results list every question with the correct answer, and wrong or skipped questions can be retried.
+- **History**: finished tests are kept on the student's own device.
 
 ## Tools
 
