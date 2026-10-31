@@ -11,7 +11,7 @@ export function LoginModal({ open, onOpenChange }: { open: boolean; onOpenChange
   useEffect(() => {
     if (!open) return
     onOpenChange(false)
-    router.push(`/auth/login?next=${encodeURIComponent(pathname || "/dashboard")}`)
+    router.push(`/auth/login${pathname && pathname !== "/" ? `?next=${encodeURIComponent(pathname)}` : ""}`)
   }, [open, onOpenChange, pathname, router])
 
   return null
