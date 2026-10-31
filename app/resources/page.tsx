@@ -9,9 +9,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import dynamic from "next/dynamic"
 import { Loading } from "@/components/loading"
-import { courseData } from "@/lib/gpa/course-data"
+import { Dropdown } from "@/components/resources/dropdown"
+import { subjectsFor } from "@/lib/resources-subjects"
 import { createClient } from "@/lib/supabase/client"
-import { ArrowLeft, ArrowRight, CheckCircle2, CircleHelp, ExternalLink, Loader2, Plus, Star } from "lucide-react"
+import { ArrowLeft, ArrowRight, CheckCircle2, CircleHelp, Download, Loader2, Plus, Search, Star } from "lucide-react"
 
 const LoginModal = dynamic(
   () => import("@/components/auth/login-modal").then((m) => ({ default: m.LoginModal })),
@@ -40,6 +41,8 @@ type ResourceNote = {
   contributor_name: string
   notes_content_label: string
   drive_link: string
+  downloads?: number
+  contributor_avatar?: string | null
   created_at: string
   stars: number
   user_starred: boolean
@@ -70,9 +73,15 @@ const degreeLabels: Record<DegreeValue, string> = {
 
 const degreeValues = Object.keys(degreeLabels) as DegreeValue[]
 
+type NoteKind = "weeks" | "book" | "summary" | "other"
+const kindLabels: Record<NoteKind, string> = { weeks: "Weeks", book: "Book", summary: "Summary", other: "Other" }
+
 const initialForm = {
+  kind: "weeks" as NoteKind,
   notesWeekFrom: "1",
-  notesWeekTo: "12",
+  notesWeekTo: "",
+  label: "",
+  anonymous: false,
   contributorName: "",
   driveLink: "",
 }
@@ -106,7 +115,7 @@ export default function ResourcesPage() {
   const [showXpGuide, setShowXpGuide] = useState(false)
 
   const [selectedDegree, setSelectedDegree] = useState<DegreeValue>("data-science")
-  const [selectedLevel, setSelectedLevel] = useState<LevelValue>("diploma")
+  const [selectedLevel, setSelectedLevel] = useState<LevelValue>("foundation")
   const [selectedSubject, setSelectedSubject] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -123,17 +132,7 @@ export default function ResourcesPage() {
   const [signUpOpen, setSignUpOpen] = useState(false)
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
 
-  const subjectsForSelection = useMemo(() => {
-    const unique = new Set<string>()
-
-    for (const course of courseData) {
-      if (course.degree === selectedDegree && course.level === selectedLevel) {
-        unique.add(course.name)
-      }
-    }
-
-    return Array.from(unique)
-  }, [selectedDegree, selectedLevel])
+  const subjectsForSelection = useMemo(() => subjectsFor(selectedDegree, selectedLevel), [selectedDegree, selectedLevel])
 
   const filteredNotes = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
@@ -155,6 +154,10 @@ export default function ResourcesPage() {
         )
       })
       .sort((a, b) => {
+        if ((b.downloads ?? 0) !== (a.downloads ?? 0)) {
+          return (b.downloads ?? 0) - (a.downloads ?? 0)
+        }
+
         if (b.stars !== a.stars) {
           return b.stars - a.stars
         }
@@ -165,8 +168,8 @@ export default function ResourcesPage() {
 
   const currentWeekFrom = Number(formData.notesWeekFrom)
   const currentWeekTo = Number(formData.notesWeekTo)
-  const hasValidWeekRange = Number.isInteger(currentWeekFrom) && Number.isInteger(currentWeekTo) && currentWeekFrom > 0 && currentWeekTo >= currentWeekFrom
-  const dynamicWeekLabel = hasValidWeekRange ? `Weeks ${currentWeekFrom}-${currentWeekTo}` : "Selected weeks"
+  const hasValidWeekRange = Number.isInteger(currentWeekFrom) && currentWeekFrom > 0 && (formData.notesWeekTo.trim() === "" || currentWeekTo >= currentWeekFrom)
+  const dynamicWeekLabel = formData.kind !== "weeks" ? (formData.kind === "other" ? formData.label || "These notes" : kindLabels[formData.kind]) : hasValidWeekRange ? `Weeks ${currentWeekFrom}-${currentWeekTo || currentWeekFrom}` : "Selected weeks"
 
   const loadContributors = useCallback(async (showLoader: boolean) => {
     if (showLoader) {
@@ -187,7 +190,11 @@ export default function ResourcesPage() {
         throw new Error(payload.error || "Failed to load contributors")
       }
 
-      setContributors(Array.isArray(payload.contributors) ? payload.contributors : [])
+      setContributors(
+        (Array.isArray(payload.contributors) ? (payload.contributors as Contributor[]) : [])
+          .sort((a, b) => b.xp - a.xp)
+          .map((c, i) => ({ ...c, rank: i + 1 })),
+      )
     } catch (error: unknown) {
       setContributorsError(error instanceof Error ? error.message : "Failed to load contributors")
       setContributors([])
@@ -293,6 +300,16 @@ export default function ResourcesPage() {
     loadContributors(true)
   }, [loadContributors])
 
+  // Start the name field with the signed-in name.
+  useEffect(() => {
+    if (!showAddNotesDialog || formData.contributorName) return
+    supabase.auth.getUser().then(({ data }) => {
+      const meta = (data.user?.user_metadata ?? {}) as Record<string, unknown>
+      const name = typeof meta.full_name === "string" ? meta.full_name : typeof meta.name === "string" ? meta.name : ""
+      if (name) setFormData((prev) => (prev.contributorName ? prev : { ...prev, contributorName: name }))
+    })
+  }, [showAddNotesDialog, formData.contributorName, supabase])
+
   const resetAddNotesForm = () => {
     setFormData(initialForm)
     setAddStep(1)
@@ -325,15 +342,20 @@ export default function ResourcesPage() {
 
     if (addStep === 2) {
       const start = Number(formData.notesWeekFrom)
-      const end = Number(formData.notesWeekTo)
+      const end = formData.notesWeekTo.trim() === "" ? start : Number(formData.notesWeekTo)
 
-      if (!Number.isInteger(start) || !Number.isInteger(end) || start < 1 || end < start || end > 52) {
-        setFormError("Please enter a valid week range.")
+      if (formData.kind === "weeks" && (!Number.isInteger(start) || !Number.isInteger(end) || start < 1 || end < start || end > 52)) {
+        setFormError("Enter a week, or a range where the second week is not before the first.")
         return false
       }
 
-      if (!formData.contributorName.trim()) {
-        setFormError("Please enter your name.")
+      if (formData.kind === "other" && !formData.label.trim()) {
+        setFormError("Tell us what these notes cover.")
+        return false
+      }
+
+      if (!formData.anonymous && !formData.contributorName.trim()) {
+        setFormError("Enter your name, or choose to post anonymously.")
         return false
       }
     }
@@ -360,6 +382,11 @@ export default function ResourcesPage() {
   const handleBack = () => {
     setFormError(null)
     setAddStep((step) => Math.max(step - 1, 1))
+  }
+
+  const handleDownload = (note: ResourceNote) => {
+    setNotes((current) => current.map((n) => (n.id === note.id ? { ...n, downloads: (n.downloads ?? 0) + 1 } : n)))
+    fetch(`/api/resources/notes/${note.id}/download`, { method: "POST", keepalive: true }).catch(() => {})
   }
 
   const handleToggleStar = async (noteId: string) => {
@@ -425,8 +452,10 @@ export default function ResourcesPage() {
           level: selectedLevel,
           subject: selectedSubject,
           notesWeekFrom: Number(formData.notesWeekFrom),
-          notesWeekTo: Number(formData.notesWeekTo),
-          contributorName: formData.contributorName,
+          notesWeekTo: formData.notesWeekTo.trim() === "" ? Number(formData.notesWeekFrom) : Number(formData.notesWeekTo),
+          kind: formData.kind,
+          label: formData.label,
+          contributorName: formData.anonymous ? "Anonymous" : formData.contributorName,
           driveLink: formData.driveLink,
         }),
       })
@@ -462,249 +491,150 @@ export default function ResourcesPage() {
     )
   }
 
+  const selectCls = "h-11 w-full rounded-full border border-black/10 bg-white px-4 text-sm font-bold text-black outline-none focus:border-[#0a192f] disabled:opacity-60"
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar isAuthenticated={isAuthenticated} />
 
-      <main className="flex-1 px-4 py-10">
-        <div className="mx-auto w-full max-w-7xl space-y-6">
-          <div className="border border-black/10 bg-white p-6 md:p-10 shadow-xl rounded-2xl">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight leading-none">RESOURCES NOTES</h1>
-                <p className="max-w-2xl text-sm md:text-base font-bold text-black/70 uppercase tracking-wide">
-                  Community-driven notes linked by subject from GPA tools. Browse approved links or submit your own notes for approval.
-                </p>
-              </div>
+      <main className="flex-1 px-4 pb-16 pt-6">
+        <div className="mx-auto w-full max-w-7xl space-y-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h1 className="text-4xl font-black tracking-tight text-black md:text-5xl">Notes by <span className="text-[#0a192f]">students</span></h1>
+              <p className="mt-2 max-w-xl text-sm font-medium text-black/60 md:text-base">Free IITM BS notes, sorted by level and subject. Pick yours, then download.</p>
+            </div>
+            <button
+              onClick={handleOpenAddNotes}
+              disabled={isLoading}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#0a192f] px-6 text-sm font-bold tracking-wide text-white transition-colors hover:bg-[#112a52] disabled:opacity-60"
+            >
+              <Plus className="h-4 w-4" /> Add notes
+            </button>
+          </div>
 
-              <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
-                <Input
-                  placeholder="SEARCH NOTES..."
+          <div className="grid gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1.4fr_1.2fr]">
+            <label className="block">
+              <span className="mb-1.5 block px-2 text-xs font-bold text-black/50">Degree</span>
+              <Dropdown variant="public" value={selectedDegree} onChange={(v) => setSelectedDegree(v as DegreeValue)} options={degreeValues.map((d) => ({ value: d, label: degreeLabels[d] }))} />
+            </label>
+            <label className="block">
+              <span className="mb-1.5 block px-2 text-xs font-bold text-black/50">Level</span>
+              <Dropdown variant="public" value={selectedLevel} onChange={(v) => setSelectedLevel(v as LevelValue)} options={(Object.keys(levelLabels) as LevelValue[]).map((l) => ({ value: l, label: levelLabels[l] }))} />
+            </label>
+            <label className="block">
+              <span className="mb-1.5 block px-2 text-xs font-bold text-black/50">Subject</span>
+              <Dropdown variant="public" value={selectedSubject} onChange={(v) => setSelectedSubject(v)} options={subjectsForSelection.map((s) => ({ value: s, label: s }))} disabled={subjectsForSelection.length === 0} />
+            </label>
+            <div>
+              <span className="mb-1.5 block px-2 text-xs font-bold text-black/50">Search</span>
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black/40" />
+                <input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 focus:ring-0 focus-visible:ring-0 focus:border-black sm:w-72 rounded-2xl font-bold uppercase shadow-sm"
+                  placeholder="Name or weeks"
+                  className="h-11 w-full rounded-full border border-black/10 bg-white pl-10 pr-4 text-sm font-medium text-black outline-none placeholder:text-black/40 focus:border-[#0a192f]"
                 />
-                <Button
-                  onClick={handleOpenAddNotes}
-                  className="h-12 bg-black text-white hover:bg-black/90 transition-all rounded-2xl text-sm font-black uppercase tracking-widest shadow-md border border-black/10"
-                  disabled={isLoading}
-                >
-                  <Plus className="mr-3 h-5 w-5" />
-                  ADD NOTES
-                </Button>
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-2 pt-8 border-t-2 border-black">
-              <div>
-                <Label className="mb-3 block text-xs font-black uppercase tracking-widest text-black/60">DEGREE</Label>
-                <select
-                  value={selectedDegree}
-                  onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)}
-                  className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 text-black font-bold uppercase shadow-sm outline-none focus:ring-0"
-                >
-                  {degreeValues.map((degree) => (
-                    <option key={degree} value={degree} className="bg-white text-black font-bold">
-                      {degreeLabels[degree].toUpperCase()}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <Label className="mb-3 block text-xs font-black uppercase tracking-widest text-black/60">LEVEL</Label>
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  {(Object.keys(levelLabels) as LevelValue[]).map((level) => (
-                    <button
-                      key={level}
-                      type="button"
-                      onClick={() => setSelectedLevel(level)}
-                      className={`border border-black/10 rounded-2xl px-2 sm:px-3 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest transition-all truncate ${
-                        selectedLevel === level
-                          ? "bg-black text-white shadow-sm "
-                          : "bg-white text-black hover:bg-black/5 shadow-md hover:shadow-sm"
-                      }`}
-                    >
-                      {levelLabels[level]}
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[250px_minmax(0,1fr)_300px]">
-            <aside className="border border-black/10 bg-white p-4 shadow-md rounded-2xl h-fit">
-              <h2 className="px-2 py-2 text-sm font-black text-black uppercase tracking-widest border-b-2 border-black mb-4">SUBJECTS</h2>
-              <div className="space-y-2">
-                {subjectsForSelection.length === 0 && (
-                  <p className="px-2 py-3 text-xs font-bold text-black/60 uppercase">No subjects found for this selection.</p>
-                )}
-
-                {subjectsForSelection.map((subject) => (
-                  <button
-                    key={subject}
-                    type="button"
-                    onClick={() => setSelectedSubject(subject)}
-                    className={`flex w-full items-center justify-between border border-black/10 rounded-2xl px-3 py-2.5 text-left text-xs font-black uppercase tracking-wider transition-all ${
-                      selectedSubject === subject
-                        ? "bg-[#1e3a8a] text-white shadow-sm "
-                        : "bg-white text-black shadow-md hover:shadow-sm"
-                    }`}
-                  >
-                    <span className="truncate">{subject}</span>
-                    <ArrowRight className="h-4 w-4 shrink-0" />
-                  </button>
-                ))}
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <section className="flex min-w-0 flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
+              <div className="flex items-center justify-between border-b border-black/10 px-5 py-3.5">
+                <h2 className="text-sm font-black text-black">{selectedSubject || "Notes"}</h2>
+                <p className="text-xs font-bold text-black/50">{notesLoading ? "Loading" : `${filteredNotes.length} ${filteredNotes.length === 1 ? "note" : "notes"}`}</p>
               </div>
-            </aside>
-
-            <section className="space-y-6">
-              {notesLoading && (
-                <div className="flex h-40 items-center justify-center border border-black/10 bg-white shadow-md">
-                  <Loader2 className="h-8 w-8 animate-spin text-black" />
-                </div>
-              )}
-
-              {!notesLoading && notesError && (
-                <div className="border border-black/10 bg-red-100 px-5 py-4 text-sm font-black text-red-700 uppercase tracking-widest shadow-md">
-                  {notesError}
-                </div>
-              )}
-
-              {!notesLoading && !notesError && filteredNotes.length === 0 && (
-                <div className="border border-black/10 bg-[#FDFBF7] px-5 py-12 text-center text-black shadow-md text-sm font-black uppercase tracking-widest">
-                  NO APPROVED NOTES FOUND FOR THIS SUBJECT YET.
-                </div>
-              )}
-
-              {!notesLoading && !notesError && (
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
-                  {filteredNotes.map((note) => (
-                    <article
-                      key={note.id}
-                      className="border border-black/10 bg-white p-5 shadow-md hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col justify-between"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between gap-3 border-b-2 border-black/10 pb-3">
-                          <p className="truncate text-xs font-black uppercase tracking-widest text-black/60">{note.contributor_name}</p>
+              <div className="h-[calc(100vh-22rem)] min-h-[24rem] overflow-y-auto bg-[#FDFBF7] p-4">
+                {notesLoading && (
+                  <div className="flex h-40 items-center justify-center">
+                    <Loader2 className="h-6 w-6 animate-spin text-black/60" />
+                  </div>
+                )}
+                {!notesLoading && notesError && <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{notesError}</p>}
+                {!notesLoading && !notesError && filteredNotes.length === 0 && (
+                  <p className="px-5 py-16 text-center text-sm font-bold text-black/50">No notes for this subject yet. Add yours and help the next student.</p>
+                )}
+                {!notesLoading && !notesError && filteredNotes.length > 0 && (
+                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    {filteredNotes.map((note) => (
+                      <article key={note.id} className="flex flex-col gap-3 rounded-2xl border border-black/10 bg-white p-4 transition-shadow hover:shadow-md">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="flex min-w-0 items-center gap-2 text-sm font-black text-black">
+                            {note.contributor_avatar ? (
+                              <img src={note.contributor_avatar} alt="" className="h-6 w-6 shrink-0 rounded-full bg-black/5 object-cover" />
+                            ) : (
+                              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#FDFBF7] text-[10px] font-black">{getInitials(note.contributor_name)}</span>
+                            )}
+                            <span className="truncate">{note.contributor_name}</span>
+                          </p>
                           <button
                             type="button"
                             onClick={() => void handleToggleStar(note.id)}
                             disabled={starringNoteId === note.id}
-                            className={`inline-flex items-center gap-1.5 border border-black/10 px-2.5 py-1 text-xs font-black transition-all ${
-                              note.user_starred
-                                ? "bg-[#f59e0b] text-black shadow-sm"
-                                : "bg-white text-black hover:bg-black/5 shadow-sm"
-                            } disabled:opacity-50`}
+                            aria-label="Star these notes"
+                            className={`inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-xs font-bold transition-colors disabled:opacity-50 ${note.user_starred ? "bg-[#f59e0b] text-black" : "bg-black/5 text-black/60 hover:bg-black/10"}`}
                           >
                             <Star className={`h-3.5 w-3.5 ${note.user_starred ? "fill-current" : ""}`} />
                             {note.stars}
                           </button>
                         </div>
-                        <h3 className="line-clamp-2 text-lg font-black text-black uppercase leading-tight">{note.title}</h3>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="inline-flex items-center border border-black/10 bg-[#FDFBF7] px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-black">
-                            {note.notes_content_label}
-                          </p>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-black/60">
-                            WEEKS {note.notes_week_from} - {note.notes_week_to}
-                          </p>
+                        <div className="rounded-xl bg-[#FDFBF7] px-3 py-2.5">
+                          <p className="text-[11px] font-bold text-black/50">Covers</p>
+                          <p className="text-sm font-black text-black">{note.notes_content_label.replace(/(\d+)\s*-\s*\1\b/, "$1").replace(/(\d)\s*-\s*(\d)/, "$1–$2")}</p>
                         </div>
-                      </div>
-
-                      <div className="mt-6 pt-4 border-t-2 border-black/10">
-                        <a href={note.drive_link} target="_blank" rel="noreferrer">
-                          <Button variant="outline" className="h-10 w-full border border-black/10 bg-white text-black hover:bg-black hover:text-white rounded-2xl font-black uppercase tracking-widest text-xs transition-colors">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            OPEN IN DRIVE
-                          </Button>
-                        </a>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              )}
+                        <div className="mt-auto flex items-center justify-between gap-3">
+                          <p className="inline-flex items-center gap-1.5 text-xs font-bold tabular-nums text-black/50">
+                            <Download className="h-3.5 w-3.5" /> {(note.downloads ?? 0).toLocaleString("en-IN")}
+                          </p>
+                          <a
+                            href={note.drive_link}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={() => handleDownload(note)}
+                            className="inline-flex h-9 items-center rounded-full bg-[#0a192f] px-5 text-sm font-bold text-white transition-colors hover:bg-[#112a52]"
+                          >
+                            Download
+                          </a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </div>
             </section>
 
-            <aside className="border border-black/10 bg-white p-5 shadow-md rounded-2xl h-fit">
-              <div className="mb-6 flex items-center justify-between gap-2 border-b-2 border-black pb-4">
-                <h2 className="text-sm font-black text-black uppercase tracking-widest">TOP CONTRIBUTORS</h2>
-                <button
-                  type="button"
-                  onClick={() => setShowXpGuide(true)}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-black/70 hover:text-black uppercase tracking-widest transition-colors"
-                >
-                  <CircleHelp className="h-3.5 w-3.5" />
-                  HOW TO EARN XP
+            <aside className="flex h-fit flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm lg:h-[calc(100vh-18.5rem)] lg:min-h-[28rem]">
+              <div className="flex items-center justify-between gap-2 border-b border-black/10 px-5 py-3.5">
+                <h2 className="text-sm font-black text-black">Top contributors</h2>
+                <button type="button" onClick={() => setShowXpGuide(true)} className="inline-flex items-center gap-1.5 text-xs font-bold text-black/50 hover:text-black">
+                  <CircleHelp className="h-3.5 w-3.5" /> How XP works
                 </button>
               </div>
 
-              {contributorsLoading && (
-                <div className="flex items-center gap-3 border border-black/10 bg-[#FDFBF7] px-4 py-3 text-xs font-black text-black uppercase tracking-widest">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  LOADING CONTRIBUTORS...
-                </div>
-              )}
-
-              {!contributorsLoading && contributorsError && (
-                <div className="border border-black/10 bg-red-100 px-4 py-3 text-xs font-black text-red-700 uppercase tracking-widest">
-                  {contributorsError}
-                </div>
-              )}
-
-              {!contributorsLoading && !contributorsError && contributors.length === 0 && (
-                <p className="border border-black/10 bg-[#FDFBF7] px-4 py-4 text-xs font-black text-black/60 uppercase tracking-widest text-center">
-                  NO CONTRIBUTORS YET FOR THIS SECTION.
-                </p>
-              )}
+              {contributorsLoading && <div className="m-5 h-24 animate-pulse rounded-2xl bg-black/5" />}
+              {!contributorsLoading && contributorsError && <p className="m-5 rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-700">{contributorsError}</p>}
+              {!contributorsLoading && !contributorsError && contributors.length === 0 && <p className="px-5 py-8 text-center text-sm font-bold text-black/50">No contributors here yet.</p>}
 
               {!contributorsLoading && !contributorsError && contributors.length > 0 && (
-                <div className="max-h-115 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
-                  {contributors.map((contributor) => (
-                    <div key={`${contributor.userId}-${contributor.rank}`} className="border border-black/10 bg-white p-4 shadow-sm rounded-2xl relative">
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex min-w-0 items-center gap-3">
-                          <div className="absolute -top-3 -left-3 h-8 w-8 flex items-center justify-center border border-black/10 rounded-full bg-[#1e3a8a] text-white text-xs font-black shadow-sm">
-                            #{contributor.rank}
-                          </div>
-
-                          {contributor.avatarUrl ? (
-                            <img
-                              src={contributor.avatarUrl}
-                              alt={contributor.name}
-                              className="h-10 w-10 shrink-0 border border-black/10 rounded-full object-cover bg-[#FDFBF7] ml-2"
-                            />
-                          ) : (
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-black/10 rounded-full bg-[#FDFBF7] text-sm font-black text-black ml-2 uppercase">
-                              {getInitials(contributor.name)}
-                            </div>
-                          )}
-
-                          <div className="min-w-0 ml-1">
-                            <p className="line-clamp-1 text-sm font-black uppercase text-black">{contributor.name}</p>
-                            <p className="mt-1 text-[10px] font-black text-black/60 uppercase tracking-widest">{contributor.notesCount} NOTES</p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end gap-1">
-                          <div className="inline-flex items-center gap-1.5 border border-black/10 rounded-full bg-[#f59e0b] px-3 py-1 text-[10px] font-black text-black shadow-sm">
-                            <Star className="h-3 w-3 fill-current" />
-                            <span>{contributor.stars}</span>
-                          </div>
-                          <span className="text-[10px] font-black text-black uppercase tracking-widest mt-1">{contributor.xp} XP</span>
-                        </div>
-                      </div>
-
-                      {contributor.milestoneLabel && (
-                        <div className="mt-3 pt-3 border-t-2 border-black/10">
-                          <p className="text-[10px] font-black text-[#16a34a] uppercase tracking-widest bg-green-100/50 border border-[#16a34a]/20 rounded-full px-3 py-1 inline-block">
-                            +{contributor.bonus} {contributor.milestoneLabel}
-                          </p>
-                        </div>
+                <ol className="max-h-[30rem] min-h-0 flex-1 divide-y divide-black/5 overflow-y-auto lg:max-h-none">
+                  {contributors.map((c) => (
+                    <li key={`${c.userId}-${c.rank}`} className="flex items-center gap-3 px-5 py-2.5">
+                      <span className={`w-5 text-sm tabular-nums ${c.rank <= 3 ? "font-black text-[#0a192f]" : "font-bold text-black/40"}`}>{c.rank}</span>
+                      {c.avatarUrl ? (
+                        <img src={c.avatarUrl} alt="" className="h-8 w-8 shrink-0 rounded-full bg-black/5 object-cover" />
+                      ) : (
+                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#FDFBF7] text-xs font-black text-black">{getInitials(c.name)}</span>
                       )}
-                    </div>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-bold text-black">{c.name}</span>
+                        <span className="block text-xs font-medium text-black/50">{c.notesCount} {c.notesCount === 1 ? "note" : "notes"}</span>
+                      </span>
+                      <span className="text-sm font-black tabular-nums text-black">{c.xp.toLocaleString("en-IN")}<span className="ml-0.5 text-xs font-bold text-black/40"> XP</span></span>
+                    </li>
                   ))}
-                </div>
+                </ol>
               )}
             </aside>
           </div>
@@ -794,17 +724,7 @@ export default function ResourcesPage() {
               <div className="space-y-6 border border-black/10 bg-white p-6 shadow-md">
                 <div>
                   <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">DEGREE</Label>
-                  <select
-                    value={selectedDegree}
-                    onChange={(e) => setSelectedDegree(e.target.value as DegreeValue)}
-                    className="h-12 w-full rounded-2xl border border-black/10 bg-white px-3 text-black font-bold uppercase shadow-sm outline-none focus:ring-0"
-                  >
-                    {degreeValues.map((degree) => (
-                      <option key={degree} value={degree} className="bg-white text-black font-bold uppercase">
-                        {degreeLabels[degree].toUpperCase()}
-                      </option>
-                    ))}
-                  </select>
+                  <Dropdown variant="public" value={selectedDegree} onChange={(v) => setSelectedDegree(v as DegreeValue)} options={degreeValues.map((d) => ({ value: d, label: degreeLabels[d] }))} />
                 </div>
 
                 <div>
@@ -829,57 +749,48 @@ export default function ResourcesPage() {
 
                 <div>
                   <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">SUBJECT</Label>
-                  <select
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                    className="h-12 w-full rounded-2xl border border-black/10 bg-white px-3 text-black font-bold uppercase shadow-sm outline-none focus:ring-0"
-                  >
-                    {subjectsForSelection.map((subject) => (
-                      <option key={subject} value={subject} className="bg-white text-black font-bold uppercase">
-                        {subject}
-                      </option>
-                    ))}
-                  </select>
+                  <Dropdown variant="public" value={selectedSubject} onChange={(v) => setSelectedSubject(v)} options={subjectsForSelection.map((s) => ({ value: s, label: s }))} disabled={subjectsForSelection.length === 0} />
                 </div>
               </div>
             )}
 
             {addStep === 2 && (
-              <div className="space-y-6 border border-black/10 bg-white p-6 shadow-md">
+              <div className="space-y-5 rounded-2xl border border-black/10 bg-white p-5">
                 <div>
-                  <Label className="mb-3 block text-xs font-black text-black uppercase tracking-widest">NOTES WEEK (FROM → TO)</Label>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Input
-                      type="number"
-                      min={1}
-                      max={52}
-                      value={formData.notesWeekFrom}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekFrom: e.target.value }))}
-                      className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black uppercase"
-                      placeholder="FROM"
-                    />
-                    <Input
-                      type="number"
-                      min={1}
-                      max={52}
-                      value={formData.notesWeekTo}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekTo: e.target.value }))}
-                      className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black uppercase"
-                      placeholder="TO"
-                    />
+                  <Label className="mb-2 block text-xs font-bold text-black/60">What do these notes cover?</Label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {(Object.keys(kindLabels) as NoteKind[]).map((k) => (
+                      <button key={k} type="button" onClick={() => setFormData((prev) => ({ ...prev, kind: k }))} className={`h-10 rounded-full border text-sm font-bold transition-colors ${formData.kind === k ? "border-[#0a192f] bg-[#0a192f] text-white" : "border-black/10 bg-white text-black hover:border-black/30"}`}>
+                        {kindLabels[k]}
+                      </button>
+                    ))}
                   </div>
                 </div>
-
+                {formData.kind === "weeks" ? (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="mb-2 block text-xs font-bold text-black/60">From week</Label>
+                      <Input type="number" min={1} max={52} value={formData.notesWeekFrom} onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekFrom: e.target.value }))} className="h-11 rounded-full border border-black/10 bg-white font-bold text-black" />
+                    </div>
+                    <div>
+                      <Label className="mb-2 block text-xs font-bold text-black/60">To week (optional)</Label>
+                      <Input type="number" min={1} max={52} value={formData.notesWeekTo} onChange={(e) => setFormData((prev) => ({ ...prev, notesWeekTo: e.target.value }))} placeholder="Same week" className="h-11 rounded-full border border-black/10 bg-white font-bold text-black" />
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <Label className="mb-2 block text-xs font-bold text-black/60">{formData.kind === "other" ? "Name these notes" : formData.kind === "book" ? "Book number (optional)" : "Note (optional)"}</Label>
+                    <Input value={formData.label} maxLength={60} onChange={(e) => setFormData((prev) => ({ ...prev, label: e.target.value }))} placeholder={formData.kind === "other" ? "e.g. Formula sheet" : formData.kind === "book" ? "e.g. 2" : "e.g. Quiz 1 summary"} className="h-11 rounded-full border border-black/10 bg-white font-bold text-black" />
+                  </div>
+                )}
                 <div>
-                  <Label htmlFor="name" className="mb-3 block text-xs font-black text-black uppercase tracking-widest">YOUR NAME</Label>
-                  <Input
-                    id="name"
-                    value={formData.contributorName}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, contributorName: e.target.value }))}
-                    className="h-12 border border-black/10 bg-white text-black placeholder:text-black/40 rounded-2xl font-bold shadow-sm focus:ring-0 focus-visible:ring-0 focus:border-black uppercase"
-                    placeholder="ENTER YOUR NAME"
-                  />
+                  <Label className="mb-2 block text-xs font-bold text-black/60">Your name</Label>
+                  <Input value={formData.anonymous ? "Anonymous" : formData.contributorName} disabled={formData.anonymous} onChange={(e) => setFormData((prev) => ({ ...prev, contributorName: e.target.value }))} placeholder="Enter your name" className="h-11 rounded-full border border-black/10 bg-white font-bold text-black" />
                 </div>
+                <label className="flex cursor-pointer items-center gap-2 text-sm font-bold text-black">
+                  <input type="checkbox" checked={formData.anonymous} onChange={(e) => setFormData((prev) => ({ ...prev, anonymous: e.target.checked }))} className="h-4 w-4 accent-[#0a192f]" />
+                  Post anonymously
+                </label>
               </div>
             )}
 

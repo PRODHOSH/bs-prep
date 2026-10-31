@@ -3,7 +3,8 @@
 import { createClient } from "@/lib/supabase/client"
 import { getUserCached } from "@/lib/supabase/cached-user"
 import { SkRows } from "@/components/dashboard/skeleton"
-import { Avatar, Card, PageHeader, Tag } from "@/components/dashboard/ui"
+import { Avatar, PageHeader } from "@/components/dashboard/ui"
+import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 
 interface LeaderboardEntry {
@@ -42,13 +43,16 @@ export default function LeaderboardPage() {
           .order("rank", { ascending: true })
 
         if (data) {
-          const formattedData = data.map((entry) => ({
+          const formattedData = data.map((entry) => {
+            const profile = (Array.isArray(entry.profiles) ? entry.profiles[0] : entry.profiles) as { first_name?: string; last_name?: string } | null
+            return {
             id: entry.id,
             rank: entry.rank,
-            student_name: `${entry.profiles.first_name} ${entry.profiles.last_name}`.trim(),
+            student_name: `${profile?.first_name ?? ""} ${profile?.last_name ?? ""}`.trim() || "Student",
             total_score: entry.total_score,
             courses_completed: entry.courses_completed,
-          }))
+            }
+          })
           setLeaderboard(formattedData)
 
           if (user) {
@@ -68,48 +72,51 @@ export default function LeaderboardPage() {
     fetchLeaderboard()
   }, [])
 
+  const top = leaderboard.slice(0, 10)
+  const outside = userRank && !top.some((e) => e.id === userRank.id) ? userRank : null
+
+  const row = (entry: LeaderboardEntry, mine: boolean) => (
+    <li key={entry.id} className={cn("grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 px-5 py-3 sm:grid-cols-[2.5rem_minmax(0,1fr)_7rem_6rem]", mine && "bg-muted/60")}>
+      <span className={cn("text-sm tabular-nums", entry.rank <= 3 ? "font-extrabold" : "font-medium text-muted-foreground")}>{entry.rank}</span>
+      <span className="flex min-w-0 items-center gap-3">
+        <Avatar name={entry.student_name} size={32} />
+        <span className="truncate text-sm font-semibold">
+          {entry.student_name}
+          {mine && <span className="ml-2 text-xs font-medium text-muted-foreground">You</span>}
+        </span>
+      </span>
+      <span className="hidden text-right text-sm tabular-nums text-muted-foreground sm:block">{entry.courses_completed} {entry.courses_completed === 1 ? "course" : "courses"}</span>
+      <span className="text-right text-sm font-bold tabular-nums">{entry.total_score.toLocaleString("en-IN")}</span>
+    </li>
+  )
+
   return (
     <div className="space-y-6">
-      <PageHeader title="Leaderboard" description="See how you rank against other students." />
+      <PageHeader title="Leaderboard" description="Top students by points. Complete courses to move up." />
 
-      {userRank && (
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border bg-gradient-to-br from-chart-1/15 via-card to-card p-6">
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground">Your rank</p>
-            <p className="mt-1 text-3xl font-extrabold tracking-tight">#{userRank.rank}</p>
-          </div>
-          <div className="text-right">
-            <p className="text-2xl font-extrabold text-primary">{userRank.total_score} <span className="text-sm font-medium text-muted-foreground">points</span></p>
-            <Tag className="mt-1">{userRank.courses_completed} courses completed</Tag>
-          </div>
+      <section className="overflow-hidden rounded-2xl border bg-card">
+        <div className="grid grid-cols-[2.5rem_minmax(0,1fr)_auto] gap-3 border-b bg-muted/40 px-5 py-2.5 text-xs font-semibold text-muted-foreground sm:grid-cols-[2.5rem_minmax(0,1fr)_7rem_6rem]">
+          <span>#</span>
+          <span>Student</span>
+          <span className="hidden text-right sm:block">Completed</span>
+          <span className="text-right">Points</span>
         </div>
-      )}
-
-      <Card title="Top students" aside="Top 10">
         {isLoading ? (
-          <SkRows rows={4} />
+          <div className="p-5"><SkRows rows={5} /></div>
         ) : leaderboard.length === 0 ? (
-          <p className="py-6 text-center text-sm text-muted-foreground">No leaderboard data available.</p>
+          <p className="px-5 py-12 text-center text-sm text-muted-foreground">Nobody is on the board yet.</p>
         ) : (
           <ol className="divide-y">
-            {leaderboard.slice(0, 10).map((entry, index) => (
-              <li key={entry.id} className="flex items-center gap-3 py-3 first:pt-1 last:pb-1">
-                <span className="w-6 text-xs font-bold text-muted-foreground">#{entry.rank}</span>
-                <Avatar name={entry.student_name} size={38} />
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-bold">{entry.student_name}</span>
-                  <span className="block text-xs text-muted-foreground">{entry.courses_completed} courses completed</span>
-                </span>
-                <span className="flex items-center gap-1.5 text-sm font-bold">
-                  <span className={index === 0 ? "size-2.5 rounded-full bg-chart-2" : index === 1 ? "size-2.5 rounded-full bg-muted-foreground/50" : index === 2 ? "size-2.5 rounded-full bg-chart-3" : "hidden"} />
-                  {entry.total_score}
-                  <span className="text-xs font-medium text-muted-foreground">pts</span>
-                </span>
-              </li>
-            ))}
+            {top.map((entry) => row(entry, entry.id === userRank?.id))}
+            {outside && (
+              <>
+                <li className="px-5 py-1.5 text-center text-xs text-muted-foreground" aria-hidden>···</li>
+                {row(outside, true)}
+              </>
+            )}
           </ol>
         )}
-      </Card>
+      </section>
     </div>
   )
 }

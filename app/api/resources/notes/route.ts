@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient, createServiceRoleClient } from "@/lib/supabase/server"
 import { sanitizeString } from "@/lib/security/validation"
+import { subjectsFor } from "@/lib/resources-subjects"
 
 const DEGREE_VALUES = ["data-science", "electronic-systems"] as const
 const LEVEL_VALUES = ["foundation", "diploma", "degree"] as const
@@ -34,26 +35,26 @@ export async function GET(request: NextRequest) {
       data: { user },
     } = await authClient.auth.getUser()
 
-    let query = service
-      .from("resources_notes")
-      .select("id, degree, level, subject, notes_week_from, notes_week_to, title, contributor_name, notes_content_label, drive_link, created_at")
-      .eq("status", "approved")
-      .order("created_at", { ascending: false })
-      .limit(300)
-
-    if (degree && DEGREE_VALUES.includes(degree as (typeof DEGREE_VALUES)[number])) {
-      query = query.eq("degree", degree)
+    const columns = "id, user_id, degree, level, subject, notes_week_from, notes_week_to, title, contributor_name, notes_content_label, drive_link, created_at"
+    const build = (select: string) => {
+      let q = service
+        .from("resources_notes")
+        .select(select)
+        .eq("status", "approved")
+        .order("created_at", { ascending: false })
+        .limit(300)
+      if (degree && DEGREE_VALUES.includes(degree as (typeof DEGREE_VALUES)[number])) q = q.eq("degree", degree)
+      if (level && LEVEL_VALUES.includes(level as (typeof LEVEL_VALUES)[number])) q = q.eq("level", level)
+      if (subject) q = q.eq("subject", subject)
+      return q
     }
 
-    if (level && LEVEL_VALUES.includes(level as (typeof LEVEL_VALUES)[number])) {
-      query = query.eq("level", level)
+    // Older databases do not have the downloads column until scripts/025 has been run.
+    let { data: rows, error } = await build(`${columns}, downloads`)
+    if (error && (error as { code?: string }).code === "42703") {
+      ;({ data: rows, error } = await build(columns))
     }
-
-    if (subject) {
-      query = query.eq("subject", subject)
-    }
-
-    const { data, error } = await query
+    const data = rows as unknown as { id: string; downloads?: number }[] | null
 
     if (error && (error as { code?: string }).code === "42P01") {
       return NextResponse.json({ notes: [] })
@@ -101,8 +102,21 @@ export async function GET(request: NextRequest) {
       userStarredSet = new Set((userStars ?? []).map((row) => row.note_id as string))
     }
 
+    // Contributors who have a profile photo show it on their notes.
+    const userIds = Array.from(new Set(notes.map((n) => (n as { user_id?: string | null }).user_id).filter((v): v is string => !!v)))
+    const avatarByUser = new Map<string, string>()
+    if (userIds.length > 0) {
+      const { data: profs } = await service.from("profiles").select("id, avatar_url, profile_picture_url").in("id", userIds)
+      for (const row of (profs ?? []) as { id: string; avatar_url?: string | null; profile_picture_url?: string | null }[]) {
+        const url = row.profile_picture_url || row.avatar_url
+        if (url) avatarByUser.set(row.id, url)
+      }
+    }
+
     const enriched = notes.map((note) => ({
       ...note,
+      contributor_avatar: avatarByUser.get((note as { user_id?: string | null }).user_id ?? "") ?? null,
+      user_id: undefined,
       stars: starCountMap.get(note.id) ?? 0,
       user_starred: userStarredSet.has(note.id),
     }))
@@ -139,6 +153,8 @@ export async function POST(request: NextRequest) {
       notesWeekTo?: number
       contributorName?: string
       driveLink?: string
+      kind?: string
+      label?: string
     }
 
     const degree = sanitizeString(body.degree ?? "", 50)
@@ -147,8 +163,9 @@ export async function POST(request: NextRequest) {
     const contributorName = sanitizeString(body.contributorName ?? "", 120)
     const driveLink = sanitizeString(body.driveLink ?? "", 800)
 
-    const notesWeekFrom = Number(body.notesWeekFrom)
-    const notesWeekTo = Number(body.notesWeekTo)
+    const kind = ["weeks", "book", "summary", "other"].includes(body.kind ?? "") ? (body.kind as string) : "weeks"
+    let notesWeekFrom = Number(body.notesWeekFrom)
+    let notesWeekTo = Number(body.notesWeekTo)
 
     if (!DEGREE_VALUES.includes(degree as (typeof DEGREE_VALUES)[number])) {
       return NextResponse.json({ error: "Invalid degree" }, { status: 400 })
@@ -158,20 +175,49 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid level" }, { status: 400 })
     }
 
-    if (!subject || !contributorName || !driveLink) {
+    if (!subjectsFor(degree, level).includes(subject)) {
+      return NextResponse.json({ error: "Pick a subject from the list" }, { status: 400 })
+    }
+
+    if (!contributorName || !driveLink) {
       return NextResponse.json({ error: "Please fill all required fields" }, { status: 400 })
     }
 
-    if (!Number.isInteger(notesWeekFrom) || !Number.isInteger(notesWeekTo) || notesWeekFrom < 1 || notesWeekTo < notesWeekFrom || notesWeekTo > 52) {
-      return NextResponse.json({ error: "Invalid week range" }, { status: 400 })
+    // What the notes cover: a week range, a single week, a book, a summary, or something else with its own name.
+    let contentLabel: string
+    let generatedTitle: string
+    if (kind === "weeks") {
+      if (!Number.isInteger(notesWeekFrom) || notesWeekFrom < 1 || notesWeekFrom > 52) {
+        return NextResponse.json({ error: "Invalid week range" }, { status: 400 })
+      }
+      if (!Number.isInteger(notesWeekTo) || body.notesWeekTo === undefined || body.notesWeekTo === null || (body.notesWeekTo as unknown) === "") notesWeekTo = notesWeekFrom
+      if (notesWeekTo < notesWeekFrom || notesWeekTo > 52) {
+        return NextResponse.json({ error: "Invalid week range" }, { status: 400 })
+      }
+      contentLabel = notesWeekFrom === notesWeekTo ? `Week ${notesWeekFrom}` : `Week ${notesWeekFrom}-${notesWeekTo}`
+      generatedTitle = `${subject} Weeks ${notesWeekFrom}-${notesWeekTo} Notes`
+    } else {
+      notesWeekFrom = 1
+      notesWeekTo = 1
+      const typed = sanitizeString(body.label ?? "", 60)
+      contentLabel = kind === "book" ? (typed ? `Book ${typed}`.slice(0, 60) : "Book") : kind === "summary" ? "Summary" : typed
+      if (!contentLabel) {
+        return NextResponse.json({ error: "Tell us what these notes cover" }, { status: 400 })
+      }
+      generatedTitle = `${subject} ${contentLabel}`
     }
 
     if (!isGoogleDriveLink(driveLink)) {
       return NextResponse.json({ error: "Only Google Drive links are allowed" }, { status: 400 })
     }
 
-    const generatedTitle = sanitizeString(`${subject} Weeks ${notesWeekFrom}-${notesWeekTo} Notes`, 200)
-    const generatedContentLabel = sanitizeString(`Weeks ${notesWeekFrom}-${notesWeekTo}`, 200)
+    const { data: duplicate } = await createServiceRoleClient().from("resources_notes").select("id, status").eq("drive_link", driveLink).limit(1).maybeSingle()
+    if (duplicate) {
+      return NextResponse.json({ error: duplicate.status === "pending" ? "This link is already waiting for approval." : "These notes have already been shared." }, { status: 409 })
+    }
+
+    generatedTitle = sanitizeString(generatedTitle, 200)
+    const generatedContentLabel = sanitizeString(contentLabel, 200)
 
     let insertResult = await supabase
       .from("resources_notes")
