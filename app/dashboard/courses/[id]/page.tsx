@@ -293,7 +293,7 @@ export default function CourseDetailPage() {
             (slidesLoading ? (
               <RowsLoading />
             ) : slides.length === 0 ? (
-              <EmptyState icon={FolderOpen} title="No slides yet" hint="Slides for this course appear here once they are shared." />
+              <EmptyState icon={FolderOpen} art="/slides.svg" title="No slides yet" hint="Slides for this course appear here once they are shared." />
             ) : (
               <ul className="grid gap-4 sm:grid-cols-2">
                 {slides.map((slide) => {
@@ -361,7 +361,7 @@ export default function CourseDetailPage() {
           )}
 
           {isEnrolled && activeTab === "other_content" && (
-            <EmptyState icon={FolderOpen} title="No content yet" hint="Anything shared in this course will appear here." />
+            <EmptyState icon={FolderOpen} art="/knowledge.svg" title="No content yet" hint="Anything shared in this course will appear here." />
           )}
         </div>
       </article>

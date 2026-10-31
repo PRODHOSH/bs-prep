@@ -1,0 +1,21 @@
+[
+  {
+    "id": "mlops1",
+    "title": "Docker Hello",
+    "difficulty": "Easy",
+    "description": "Write a Dockerfile command to use python:3.8-slim as base image.",
+    "starterCode": "# Dockerfile\n# Write your code here",
+    "testCases": [
+      {
+        "input": "",
+        "output": "FROM python:3.8-slim"
+      }
+    ],
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": [],
+    "tags": "",
+    "examType": "OPPE 1"
+  }
+]

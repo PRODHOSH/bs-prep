@@ -1,0 +1,4966 @@
+[
+  {
+    "id": "mlp1-001",
+    "title": "Numpy Array Creation",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Create 1D array of zeros.",
+    "starterCode": "import numpy as np\\ndef create(n):\\n    pass",
+    "testCases": [
+      {
+        "input": "5",
+        "output": "[0,0,0,0,0]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "create",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-002",
+    "title": "Numpy Reshape",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Reshape to 2D.",
+    "starterCode": "def reshape(arr, r, c):\\n    pass",
+    "testCases": [
+      {
+        "input": "[1..6], 2, 3",
+        "output": "[[1,2,3],[4,5,6]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "reshape",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-003",
+    "title": "Pandas Read CSV",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Load dataframe.",
+    "starterCode": "import pandas as pd\\ndef load(file):\\n    pass",
+    "testCases": [
+      {
+        "input": "\"data.csv\"",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "load",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-004",
+    "title": "Pandas Head",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "First n rows.",
+    "starterCode": "def get_head(df, n):\\n    pass",
+    "testCases": [
+      {
+        "input": "df, 5",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "get_head",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-005",
+    "title": "Pandas Filter",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Rows where col > val.",
+    "starterCode": "def filter_rows(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "df",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "filter_rows",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-006",
+    "title": "Pandas GroupBy Mean",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Mean per group.",
+    "starterCode": "def group_mean(df, col):\\n    pass",
+    "testCases": [
+      {
+        "input": "df",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "group_mean",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-007",
+    "title": "Pandas Merge Inner",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Inner join.",
+    "starterCode": "def merge(df1, df2):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "merge",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-008",
+    "title": "Numpy Dot Product",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Matrix mult.",
+    "starterCode": "def dot(a, b):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "dot",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-009",
+    "title": "Numpy Mean Axis",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Col/Row mean.",
+    "starterCode": "def mean_axis(arr, ax):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "mean_axis",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-010",
+    "title": "Numpy Slicing",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Slice array.",
+    "starterCode": "def slice_arr(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "slice_arr",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-011",
+    "title": "Pandas Select Cols",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Select specific columns.",
+    "starterCode": "def select_cols(df, cols):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "select_cols",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-012",
+    "title": "Pandas Drop Na",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Drop missing values.",
+    "starterCode": "def drop_na(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "drop_na",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-013",
+    "title": "Pandas Fill Na",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Fill missing.",
+    "starterCode": "def fill_na(df, val):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "fill_na",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-014",
+    "title": "Pandas Sort Values",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Sort by column.",
+    "starterCode": "def sort_df(df, col):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "sort_df",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-015",
+    "title": "Pandas Rename",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Rename columns.",
+    "starterCode": "def rename_col(df, old, new):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "rename_col",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-016",
+    "title": "Numpy Arange",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Range array.",
+    "starterCode": "def range_arr(start, stop):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "range_arr",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-017",
+    "title": "Numpy Linspace",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Linear space.",
+    "starterCode": "def linspace(s, e, n):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "linspace",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-018",
+    "title": "Numpy Random",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Random float.",
+    "starterCode": "def rand_arr(n):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "rand_arr",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-019",
+    "title": "Pandas Apply",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Apply function.",
+    "starterCode": "def apply_func(df, func):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "apply_func",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-020",
+    "title": "Pandas Pivot",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Pivot table.",
+    "starterCode": "def make_pivot(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "make_pivot",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-021",
+    "title": "Pandas Melt",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Unpivot.",
+    "starterCode": "def melt_df(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "melt_df",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-022",
+    "title": "Numpy Transpose",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "T attribute.",
+    "starterCode": "def transpose(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "transpose",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-023",
+    "title": "Numpy Argmax",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Index of max.",
+    "starterCode": "def find_argmax(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "int"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "find_argmax",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-024",
+    "title": "Numpy Where",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Condition.",
+    "starterCode": "def where_cond(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "where_cond",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-025",
+    "title": "Pandas Concat",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Stack DFs.",
+    "starterCode": "def concat_dfs(df1, df2):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "concat_dfs",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-026",
+    "title": "Pandas Unique",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Unique values.",
+    "starterCode": "def unique_vals(df, col):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "unique_vals",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-027",
+    "title": "Pandas Value Counts",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Frequency.",
+    "starterCode": "def count_vals(df, col):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ser"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "count_vals",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-028",
+    "title": "Pandas Map",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Map values.",
+    "starterCode": "def map_vals(df, map_dict):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "map_vals",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-029",
+    "title": "Numpy Std Dev",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Standard Deviation.",
+    "starterCode": "def std_dev(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "std_dev",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-030",
+    "title": "Numpy Percentile",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Kth percentile.",
+    "starterCode": "def percentile(arr, k):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "percentile",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-031",
+    "title": "Pandas Loc",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Label selection.",
+    "starterCode": "def select_loc(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "select_loc",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-032",
+    "title": "Pandas Iloc",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Index selection.",
+    "starterCode": "def select_iloc(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "select_iloc",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-033",
+    "title": "Pandas Drop Col",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Drop column.",
+    "starterCode": "def drop_col(df, col):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "drop_col",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-034",
+    "title": "Pandas Astype",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Type conversion.",
+    "starterCode": "def convert_type(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "convert_type",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-035",
+    "title": "Pandas To DateTime",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Parse dates.",
+    "starterCode": "def parse_dates(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "parse_dates",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-036",
+    "title": "Numpy Broadcast",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Add scalar.",
+    "starterCode": "def add_scalar(arr, k):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "add_scalar",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-037",
+    "title": "Numpy Flatten",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "To 1D.",
+    "starterCode": "def flatten(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "flatten",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-038",
+    "title": "Numpy Stack",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Stack arrays.",
+    "starterCode": "def stack_arrs(a, b):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "stack_arrs",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-039",
+    "title": "Pandas Describe",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Summary stats.",
+    "starterCode": "def summary(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "summary",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-040",
+    "title": "Pandas Corr",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Correlation matrix.",
+    "starterCode": "def correlation(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "correlation",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-041",
+    "title": "Pandas String Methods",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Str lower.",
+    "starterCode": "def to_lower(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "to_lower",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-042",
+    "title": "Pandas Replace",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Replace val.",
+    "starterCode": "def replace_val(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "replace_val",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-043",
+    "title": "Pandas IsNull",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check nulls.",
+    "starterCode": "def check_nulls(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "check_nulls",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-044",
+    "title": "Pandas Sample",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Random sample.",
+    "starterCode": "def get_sample(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "get_sample",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-045",
+    "title": "Numpy Clip",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Clip values.",
+    "starterCode": "def clip_vals(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "clip_vals",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-046",
+    "title": "Numpy Diag",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Diagonal elements.",
+    "starterCode": "def get_diag(arr):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "get_diag",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-047",
+    "title": "Numpy Eye",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Identity matrix.",
+    "starterCode": "def identity(n):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Numpy",
+    "setupCode": "",
+    "functionName": "identity",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-048",
+    "title": "Pandas Reset Index",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Reset idx.",
+    "starterCode": "def reset_idx(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "reset_idx",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-049",
+    "title": "Pandas Set Index",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Set col as idx.",
+    "starterCode": "def set_idx(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "set_idx",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp1-050",
+    "title": "Pandas Query",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Query string.",
+    "starterCode": "def query_str(df):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "df"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Pandas",
+    "setupCode": "",
+    "functionName": "query_str",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-001",
+    "title": "Train Test Split",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Split data.",
+    "starterCode": "from sklearn.model_selection import train_test_split\\ndef split(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "split"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "split",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-002",
+    "title": "Linear Regression",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fit OLS.",
+    "starterCode": "from sklearn.linear_model import LinearRegression\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-003",
+    "title": "Logistic Regression",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fit LogReg.",
+    "starterCode": "from sklearn.linear_model import LogisticRegression\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-004",
+    "title": "KMeans Clustering",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Cluster data.",
+    "starterCode": "from sklearn.cluster import KMeans\\ndef cluster(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "labels"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "cluster",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-005",
+    "title": "PCA Reduction",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Reduce dims.",
+    "starterCode": "from sklearn.decomposition import PCA\\ndef reduce(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "reduce",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-006",
+    "title": "Accuracy Score",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Calc accuracy.",
+    "starterCode": "from sklearn.metrics import accuracy_score\\ndef score(y_true, y_pred):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "score",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-007",
+    "title": "Standard Scaler",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Scale data.",
+    "starterCode": "from sklearn.preprocessing import StandardScaler\\ndef scale(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "scale",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-008",
+    "title": "Pipeline Create",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Create pipe.",
+    "starterCode": "from sklearn.pipeline import Pipeline\\ndef make_pipe():\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "pipe"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "make_pipe",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-009",
+    "title": "Grid Search CV",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Tune params.",
+    "starterCode": "from sklearn.model_selection import GridSearchCV\\ndef tune(model, params, X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "best"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "tune",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-010",
+    "title": "Cross Validation",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Cross val.",
+    "starterCode": "from sklearn.model_selection import cross_val_score\\ndef eval(model, X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "scores"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "eval",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-011",
+    "title": "Decision Tree",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fit tree.",
+    "starterCode": "from sklearn.tree import DecisionTreeClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-012",
+    "title": "Random Forest",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fit forest.",
+    "starterCode": "from sklearn.ensemble import RandomForestClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-013",
+    "title": "SVM Classifier",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fit SVC.",
+    "starterCode": "from sklearn.svm import SVC\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-014",
+    "title": "KNN Classifier",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fit KNN.",
+    "starterCode": "from sklearn.neighbors import KNeighborsClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-015",
+    "title": "Mean Squared Error",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Calc MSE.",
+    "starterCode": "from sklearn.metrics import mean_squared_error\\ndef calc_mse(y_t, y_p):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "calc_mse",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-016",
+    "title": "R2 Score",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Calc R2.",
+    "starterCode": "from sklearn.metrics import r2_score\\ndef calc_r2(y_t, y_p):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "calc_r2",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-017",
+    "title": "Confusion Matrix",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Get matrix.",
+    "starterCode": "from sklearn.metrics import confusion_matrix\\ndef get_cm(y_t, y_p):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "get_cm",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-018",
+    "title": "Label Encoder",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Encode labels.",
+    "starterCode": "from sklearn.preprocessing import LabelEncoder\\ndef encode(y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "encode",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-019",
+    "title": "One Hot Encoder",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "OHE.",
+    "starterCode": "from sklearn.preprocessing import OneHotEncoder\\ndef ohe(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "ohe",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-020",
+    "title": "Imputer",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Impute missing.",
+    "starterCode": "from sklearn.impute import SimpleImputer\\ndef impute(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "impute",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-021",
+    "title": "MinMax Scaler",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Normalize.",
+    "starterCode": "from sklearn.preprocessing import MinMaxScaler\\ndef norm(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "norm",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-022",
+    "title": "Polynomial Features",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Poly feats.",
+    "starterCode": "from sklearn.preprocessing import PolynomialFeatures\\ndef poly(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "poly",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-023",
+    "title": "Ridge Regression",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "L2 reg.",
+    "starterCode": "from sklearn.linear_model import Ridge\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-024",
+    "title": "Lasso Regression",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "L1 reg.",
+    "starterCode": "from sklearn.linear_model import Lasso\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-025",
+    "title": "SGD Classifier",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "SGD.",
+    "starterCode": "from sklearn.linear_model import SGDClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-026",
+    "title": "Naive Bayes",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Gaussian NB.",
+    "starterCode": "from sklearn.naive_bayes import GaussianNB\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-027",
+    "title": "Silhouette Score",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Cluster quality.",
+    "starterCode": "from sklearn.metrics import silhouette_score\\ndef score(X, labels):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "score",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-028",
+    "title": "DBSCAN",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Density cluster.",
+    "starterCode": "from sklearn.cluster import DBSCAN\\ndef cluster(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "labels"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "cluster",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-029",
+    "title": "Gradient Boosting",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "GBM.",
+    "starterCode": "from sklearn.ensemble import GradientBoostingClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-030",
+    "title": "AdaBoost",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Boosting.",
+    "starterCode": "from sklearn.ensemble import AdaBoostClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-031",
+    "title": "ROC AUC",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "AUC score.",
+    "starterCode": "from sklearn.metrics import roc_auc_score\\ndef score(y, prob):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "score",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-032",
+    "title": "F1 Score",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "F1 score.",
+    "starterCode": "from sklearn.metrics import f1_score\\ndef score(y, pred):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "float"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "score",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-033",
+    "title": "Column Transformer",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Transform cols.",
+    "starterCode": "from sklearn.compose import ColumnTransformer\\ndef transform():\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "trans"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "transform",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-034",
+    "title": "Feature Selection",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Select K Best.",
+    "starterCode": "from sklearn.feature_selection import SelectKBest\\ndef select(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "X_new"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "select",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-035",
+    "title": "Count Vectorizer",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Text to vec.",
+    "starterCode": "from sklearn.feature_extraction.text import CountVectorizer\\ndef vec(text):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "vec",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-036",
+    "title": "Tfidf Vectorizer",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "TF-IDF.",
+    "starterCode": "from sklearn.feature_extraction.text import TfidfVectorizer\\ndef vec(text):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "vec",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-037",
+    "title": "Voting Classifier",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Ensemble.",
+    "starterCode": "from sklearn.ensemble import VotingClassifier\\ndef vote():\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "vote",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-038",
+    "title": "Bagging Classifier",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Bagging.",
+    "starterCode": "from sklearn.ensemble import BaggingClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-039",
+    "title": "Agglomerative Clustering",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Hierarchical.",
+    "starterCode": "from sklearn.cluster import AgglomerativeClustering\\ndef cluster(X):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "labels"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "cluster",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-040",
+    "title": "Dummy Classifier",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Baseline.",
+    "starterCode": "from sklearn.dummy import DummyClassifier\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-041",
+    "title": "Save Model",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Pickle/Joblib.",
+    "starterCode": "import joblib\\ndef save(model):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "file"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "save",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-042",
+    "title": "Load Model",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Load.",
+    "starterCode": "import joblib\\ndef load(file):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "load",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-043",
+    "title": "Stratified KFold",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Stratified splits.",
+    "starterCode": "from sklearn.model_selection import StratifiedKFold\\ndef split(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "splits"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "split",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-044",
+    "title": "Classification Report",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Text report.",
+    "starterCode": "from sklearn.metrics import classification_report\\ndef report(y, p):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "str"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "report",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-045",
+    "title": "Precision Recall",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Metrics.",
+    "starterCode": "from sklearn.metrics import precision_score, recall_score\\ndef scores(y, p):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "tuple"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "scores",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-046",
+    "title": "Learning Curve",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Plot curve.",
+    "starterCode": "from sklearn.model_selection import learning_curve\\ndef curve(model, X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "arr"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "curve",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-047",
+    "title": "Make Classification",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Synthetic data.",
+    "starterCode": "from sklearn.datasets import make_classification\\ndef gen():\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "X,y"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "gen",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-048",
+    "title": "Linear SVC",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Linear kernel.",
+    "starterCode": "from sklearn.svm import LinearSVC\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-049",
+    "title": "Function Transformer",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Custom func.",
+    "starterCode": "from sklearn.preprocessing import FunctionTransformer\\ndef trans(func):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "trans"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "trans",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp2-050",
+    "title": "Perceptron",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Single neuron.",
+    "starterCode": "from sklearn.linear_model import Perceptron\\ndef train(X, y):\\n    pass",
+    "testCases": [
+      {
+        "input": "",
+        "output": "model"
+      }
+    ],
+    "solution": "pass",
+    "subject": "MLP",
+    "language": "python",
+    "tags": "Sklearn",
+    "setupCode": "",
+    "functionName": "train",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "mlp-oppe1-vector-add",
+    "title": "Vector Addition",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a function that adds two vectors (lists) element-wise.",
+    "examples": [
+      {
+        "input": "[1,2], [3,4]",
+        "output": "[4, 6]"
+      }
+    ],
+    "starterCode": "def vector_add(v1, v2):\n    # Write your code here\n    pass",
+    "functionName": "vector_add",
+    "testCases": [
+      {
+        "input": "([1,2], [3,4])",
+        "expected": "[4, 6]"
+      }
+    ],
+    "hint": "Use a list comprehension: [x + y for x, y in zip(v1, v2)]",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-dot-prod",
+    "title": "Dot Product",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Calculate dot product: sum(a[i] * b[i]).",
+    "examples": [
+      {
+        "input": "[1,2], [3,4]",
+        "output": "11"
+      }
+    ],
+    "starterCode": "def dot_product(v1, v2):\n    # Write your code here\n    pass",
+    "functionName": "dot_product",
+    "testCases": [
+      {
+        "input": "([1,2], [3,4])",
+        "expected": "11"
+      }
+    ],
+    "hint": "Sum of products of zip(v1, v2).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-euclidean",
+    "title": "Euclidean Distance",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Calculate Euclidean distance between two points (lists) p1 and p2. Return float rounded to 2 decimals.",
+    "examples": [
+      {
+        "input": "[0,0], [3,4]",
+        "output": "5.0"
+      }
+    ],
+    "starterCode": "import math\n    def euclidean_dist(p1, p2):\n    # Write your code here\n    pass",
+    "functionName": "euclidean_dist",
+    "testCases": [
+      {
+        "input": "([0,0], [3,4])",
+        "expected": "5.0"
+      }
+    ],
+    "hint": "sqrt(sum((x-y)**2)).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-create",
+    "title": "Create Numpy Array",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create a numpy array from a list. (Simulated return list).",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "[1, 2, 3]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def create_array(L):\n    # Write your code here\n    pass",
+    "functionName": "create_array",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "[1, 2, 3]"
+      }
+    ],
+    "hint": "np.array(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-shape",
+    "title": "Array Shape",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return shape of 2D array (list of lists).",
+    "examples": [
+      {
+        "input": "[[1,2],[3,4]]",
+        "output": "(2, 2)"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def get_shape(L):\n    # Write your code here\n    pass",
+    "functionName": "get_shape",
+    "testCases": [
+      {
+        "input": "([[1,2],[3,4]])",
+        "expected": "(2, 2)"
+      }
+    ],
+    "hint": "np.array(L).shape.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-zeros",
+    "title": "Zeros Array",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create array of zeros of size n.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "[0.0, 0.0, 0.0]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def create_zeros(n):\n    # Write your code here\n    pass",
+    "functionName": "create_zeros",
+    "testCases": [
+      {
+        "input": "(3)",
+        "expected": "[0.0, 0.0, 0.0]"
+      }
+    ],
+    "hint": "np.zeros(n).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-ones",
+    "title": "Ones Array",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create array of ones of shape (r, c).",
+    "examples": [
+      {
+        "input": "2, 2",
+        "output": "[[1.0, 1.0], [1.0, 1.0]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def create_ones(r, c):\n    # Write your code here\n    pass",
+    "functionName": "create_ones",
+    "testCases": [
+      {
+        "input": "(2, 2)",
+        "expected": "[[1.0, 1.0], [1.0, 1.0]]"
+      }
+    ],
+    "hint": "np.ones((r, c)).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-reshape",
+    "title": "Reshape Array",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Reshape 1D array to (r, c).",
+    "examples": [
+      {
+        "input": "[1,2,3,4], 2, 2",
+        "output": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def reshape_array(L, r, c):\n    # Write your code here\n    pass",
+    "functionName": "reshape_array",
+    "testCases": [
+      {
+        "input": "([1,2,3,4], 2, 2)",
+        "expected": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "hint": "np.array(L).reshape(r, c).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-mean",
+    "title": "Array Mean",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Calculate mean of array.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "2.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_mean(L):\n    # Write your code here\n    pass",
+    "functionName": "calc_mean",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "2.0"
+      }
+    ],
+    "hint": "np.mean(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-median",
+    "title": "Array Median",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Calculate median of array.",
+    "examples": [
+      {
+        "input": "[1, 3, 2]",
+        "output": "2.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_median(L):\n    # Write your code here\n    pass",
+    "functionName": "calc_median",
+    "testCases": [
+      {
+        "input": "([1, 3, 2])",
+        "expected": "2.0"
+      }
+    ],
+    "hint": "np.median(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-std",
+    "title": "Standard Deviation",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Calculate standard deviation (round to 2 decimals).",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "0.82"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_std(L):\n    # Write your code here\n    pass",
+    "functionName": "calc_std",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "0.82"
+      }
+    ],
+    "hint": "np.std(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-matmul",
+    "title": "Matrix Multiplication",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Multiply two matrices using numpy.",
+    "examples": [
+      {
+        "input": "[[1,2],[3,4]], [[1,0],[0,1]]",
+        "output": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_matmul(A, B):\n    # Write your code here\n    pass",
+    "functionName": "np_matmul",
+    "testCases": [
+      {
+        "input": "([[1,2],[3,4]], [[1,0],[0,1]])",
+        "expected": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "hint": "np.dot(A, B) or A @ B.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-transpose",
+    "title": "Matrix Transpose",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Transpose matrix using numpy.",
+    "examples": [
+      {
+        "input": "[[1,2],[3,4]]",
+        "output": "[[1, 3], [2, 4]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_transpose(A):\n    # Write your code here\n    pass",
+    "functionName": "np_transpose",
+    "testCases": [
+      {
+        "input": "([[1,2],[3,4]])",
+        "expected": "[[1, 3], [2, 4]]"
+      }
+    ],
+    "hint": "np.array(A).T.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-create",
+    "title": "Create DataFrame",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create DataFrame from dict. Return column names list.",
+    "examples": [
+      {
+        "input": "{\"a\": [1], \"b\": [2]}",
+        "output": "[\"a\", \"b\"]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def create_df(data):\n    # Write your code here\n    pass",
+    "functionName": "create_df",
+    "testCases": [
+      {
+        "input": "({\"a\": [1], \"b\": [2]})",
+        "expected": "[\"a\", \"b\"]"
+      }
+    ],
+    "hint": "pd.DataFrame(data).columns.tolist().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-select",
+    "title": "Select Column",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return values of column 'col' as list.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 2]}, \"a\"",
+        "output": "[1, 2]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def select_col(data, col):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "select_col",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 2]}, \"a\")",
+        "expected": "[1, 2]"
+      }
+    ],
+    "hint": "df[col].tolist().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-filter",
+    "title": "Filter Rows",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Return rows where col > val (as list of dicts).",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 5]}, \"a\", 2",
+        "output": "[{\"a\": 5}]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def filter_rows(data, col, val):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "filter_rows",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 5]}, \"a\", 2)",
+        "expected": "[{\"a\": 5}]"
+      }
+    ],
+    "hint": "df[df[col] > val].to_dict(\"records\").",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-head",
+    "title": "DataFrame Head",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return first n rows as list of dicts.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 2, 3]}, 2",
+        "output": "[{\"a\": 1}, {\"a\": 2}]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def get_head(data, n):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "get_head",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 2, 3]}, 2)",
+        "expected": "[{\"a\": 1}, {\"a\": 2}]"
+      }
+    ],
+    "hint": "df.head(n).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-describe",
+    "title": "DataFrame Describe",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Return mean of column 'a'.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 2, 3]}",
+        "output": "2.0"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def get_col_mean(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "get_col_mean",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 2, 3]})",
+        "expected": "2.0"
+      }
+    ],
+    "hint": "df[\"a\"].mean().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-minmax",
+    "title": "MinMax Scaler",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Scale list to [0, 1]. (Simulate logic: (x-min)/(max-min)).",
+    "examples": [
+      {
+        "input": "[0, 5, 10]",
+        "output": "[0.0, 0.5, 1.0]"
+      }
+    ],
+    "starterCode": "def minmax_scale(L):\n    # Write your code here\n    pass",
+    "functionName": "minmax_scale",
+    "testCases": [
+      {
+        "input": "([0, 5, 10])",
+        "expected": "[0.0, 0.5, 1.0]"
+      }
+    ],
+    "hint": "Compute min, max then apply formula.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-standard",
+    "title": "Standard Scaler",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Standardize: (x - mean) / std.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "[-1.22, 0.0, 1.22]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def standard_scale(L):\n    # Write your code here\n    pass",
+    "functionName": "standard_scale",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "[-1.22, 0.0, 1.22]"
+      }
+    ],
+    "hint": "Use np.mean and np.std.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-label-enc",
+    "title": "Label Encoder",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Encode labels to integers 0..n-1 sorted.",
+    "examples": [
+      {
+        "input": "[\"b\", \"a\", \"b\"]",
+        "output": "[1, 0, 1]"
+      }
+    ],
+    "starterCode": "def label_encode(labels):\n    # Write your code here\n    pass",
+    "functionName": "label_encode",
+    "testCases": [
+      {
+        "input": "([\"b\", \"a\", \"b\"])",
+        "expected": "[1, 0, 1]"
+      }
+    ],
+    "hint": "Map sorted unique labels to index.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-onehot",
+    "title": "One Hot Encoder",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "One hot encode list of categories. Return list of lists.",
+    "examples": [
+      {
+        "input": "[\"a\", \"b\"]",
+        "output": "[[1, 0], [0, 1]]"
+      }
+    ],
+    "starterCode": "def one_hot_encode(labels):\n    # Write your code here\n    pass",
+    "functionName": "one_hot_encode",
+    "testCases": [
+      {
+        "input": "([\"a\", \"b\"])",
+        "expected": "[[1, 0], [0, 1]]"
+      }
+    ],
+    "hint": "Create identity matrix based on unique sorted labels.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-tt-split",
+    "title": "Train Test Split",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Split list into train (first k) and test (rest). k = int(len * train_size).",
+    "examples": [
+      {
+        "input": "[1, 2, 3, 4], 0.75",
+        "output": "([1, 2, 3], [4])"
+      }
+    ],
+    "starterCode": "def train_test_split_sim(data, train_size):\n    # Write your code here\n    pass",
+    "functionName": "train_test_split_sim",
+    "testCases": [
+      {
+        "input": "([1, 2, 3, 4], 0.75)",
+        "expected": "([1, 2, 3], [4])"
+      }
+    ],
+    "hint": "Slice list.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-vec-mag",
+    "title": "Vector Magnitude",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Calculate L2 norm of vector.",
+    "examples": [
+      {
+        "input": "[3, 4]",
+        "output": "5.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def vec_magnitude(v):\n    # Write your code here\n    pass",
+    "functionName": "vec_magnitude",
+    "testCases": [
+      {
+        "input": "([3, 4])",
+        "expected": "5.0"
+      }
+    ],
+    "hint": "np.linalg.norm(v).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-cosine",
+    "title": "Cosine Similarity",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Calculate cosine similarity: dot(a,b) / (|a|*|b|).",
+    "examples": [
+      {
+        "input": "[1, 0], [0, 1]",
+        "output": "0.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def cosine_sim(a, b):\n    # Write your code here\n    pass",
+    "functionName": "cosine_sim",
+    "testCases": [
+      {
+        "input": "([1, 0], [0, 1])",
+        "expected": "0.0"
+      },
+      {
+        "input": "([1, 1], [1, 1])",
+        "expected": "1.0"
+      }
+    ],
+    "hint": "Use dot and norm.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-argmax",
+    "title": "Argmax",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return index of max element.",
+    "examples": [
+      {
+        "input": "[1, 3, 2]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_argmax(L):\n    # Write your code here\n    pass",
+    "functionName": "np_argmax",
+    "testCases": [
+      {
+        "input": "([1, 3, 2])",
+        "expected": "1"
+      }
+    ],
+    "hint": "np.argmax(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-argmin",
+    "title": "Argmin",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return index of min element.",
+    "examples": [
+      {
+        "input": "[1, 3, 2]",
+        "output": "0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_argmin(L):\n    # Write your code here\n    pass",
+    "functionName": "np_argmin",
+    "testCases": [
+      {
+        "input": "([1, 3, 2])",
+        "expected": "0"
+      }
+    ],
+    "hint": "np.argmin(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-flatten",
+    "title": "Flatten Array",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Flatten 2D array to 1D.",
+    "examples": [
+      {
+        "input": "[[1, 2], [3, 4]]",
+        "output": "[1, 2, 3, 4]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_flatten(M):\n    # Write your code here\n    pass",
+    "functionName": "np_flatten",
+    "testCases": [
+      {
+        "input": "([[1, 2], [3, 4]])",
+        "expected": "[1, 2, 3, 4]"
+      }
+    ],
+    "hint": "np.array(M).flatten().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-sort",
+    "title": "Sort DataFrame",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Sort by column 'a'. Return 'a' values.",
+    "examples": [
+      {
+        "input": "{\"a\": [2, 1, 3]}",
+        "output": "[1, 2, 3]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def sort_df(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "sort_df",
+    "testCases": [
+      {
+        "input": "({\"a\": [2, 1, 3]})",
+        "expected": "[1, 2, 3]"
+      }
+    ],
+    "hint": "df.sort_values(\"a\")[\"a\"].tolist().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-drop",
+    "title": "Drop Column",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Drop column 'b'. Return columns list.",
+    "examples": [
+      {
+        "input": "{\"a\": [1], \"b\": [2]}",
+        "output": "[\"a\"]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def drop_col(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "drop_col",
+    "testCases": [
+      {
+        "input": "({\"a\": [1], \"b\": [2]})",
+        "expected": "[\"a\"]"
+      }
+    ],
+    "hint": "df.drop(columns=[\"b\"]).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-fillna",
+    "title": "Fill NA",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Fill None with 0. Return 'a' values.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, None, 2]}",
+        "output": "[1.0, 0.0, 2.0]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def fill_na_vals(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "fill_na_vals",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, None, 2]})",
+        "expected": "[1.0, 0.0, 2.0]"
+      }
+    ],
+    "hint": "df.fillna(0).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-rename",
+    "title": "Rename Column",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Rename 'a' to 'A'. Return columns.",
+    "examples": [
+      {
+        "input": "{\"a\": [1]}",
+        "output": "[\"A\"]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def rename_col(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "rename_col",
+    "testCases": [
+      {
+        "input": "({\"a\": [1]})",
+        "expected": "[\"A\"]"
+      }
+    ],
+    "hint": "df.rename(columns={\"a\": \"A\"}).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-linspace",
+    "title": "Linspace",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Generate 5 points between 0 and 1.",
+    "examples": [
+      {
+        "input": "0, 1, 5",
+        "output": "[0.0, 0.25, 0.5, 0.75, 1.0]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def gen_linspace(start, stop, num):\n    # Write your code here\n    pass",
+    "functionName": "gen_linspace",
+    "testCases": [
+      {
+        "input": "(0, 1, 5)",
+        "expected": "[0.0, 0.25, 0.5, 0.75, 1.0]"
+      }
+    ],
+    "hint": "np.linspace(start, stop, num).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-arange",
+    "title": "Arange",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Generate numbers from 0 to n-1.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "[0, 1, 2]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def gen_arange(n):\n    # Write your code here\n    pass",
+    "functionName": "gen_arange",
+    "testCases": [
+      {
+        "input": "(3)",
+        "expected": "[0, 1, 2]"
+      }
+    ],
+    "hint": "np.arange(n).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-concat",
+    "title": "Concatenate Arrays",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Concatenate two 1D arrays.",
+    "examples": [
+      {
+        "input": "[1, 2], [3, 4]",
+        "output": "[1, 2, 3, 4]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_concat(a, b):\n    # Write your code here\n    pass",
+    "functionName": "np_concat",
+    "testCases": [
+      {
+        "input": "([1, 2], [3, 4])",
+        "expected": "[1, 2, 3, 4]"
+      }
+    ],
+    "hint": "np.concatenate([a, b]).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-vstack",
+    "title": "Vertical Stack",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Stack arrays vertically.",
+    "examples": [
+      {
+        "input": "[1, 2], [3, 4]",
+        "output": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_vstack(a, b):\n    # Write your code here\n    pass",
+    "functionName": "np_vstack",
+    "testCases": [
+      {
+        "input": "([1, 2], [3, 4])",
+        "expected": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "hint": "np.vstack([a, b]).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-hstack",
+    "title": "Horizontal Stack",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Stack arrays horizontally.",
+    "examples": [
+      {
+        "input": "[1], [2]",
+        "output": "[1, 2]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_hstack(a, b):\n    # Write your code here\n    pass",
+    "functionName": "np_hstack",
+    "testCases": [
+      {
+        "input": "([1], [2])",
+        "expected": "[1, 2]"
+      }
+    ],
+    "hint": "np.hstack([a, b]).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-sum",
+    "title": "Array Sum",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Sum of all elements.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "6"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_sum(L):\n    # Write your code here\n    pass",
+    "functionName": "np_sum",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "6"
+      }
+    ],
+    "hint": "np.sum(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-max",
+    "title": "Array Max",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Max element.",
+    "examples": [
+      {
+        "input": "[1, 3, 2]",
+        "output": "3"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_max(L):\n    # Write your code here\n    pass",
+    "functionName": "np_max",
+    "testCases": [
+      {
+        "input": "([1, 3, 2])",
+        "expected": "3"
+      }
+    ],
+    "hint": "np.max(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-min",
+    "title": "Array Min",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Min element.",
+    "examples": [
+      {
+        "input": "[1, 3, 2]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_min(L):\n    # Write your code here\n    pass",
+    "functionName": "np_min",
+    "testCases": [
+      {
+        "input": "([1, 3, 2])",
+        "expected": "1"
+      }
+    ],
+    "hint": "np.min(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-unique",
+    "title": "Unique Elements",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return sorted unique elements.",
+    "examples": [
+      {
+        "input": "[2, 1, 2]",
+        "output": "[1, 2]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_unique(L):\n    # Write your code here\n    pass",
+    "functionName": "np_unique",
+    "testCases": [
+      {
+        "input": "([2, 1, 2])",
+        "expected": "[1, 2]"
+      }
+    ],
+    "hint": "np.unique(L).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-value-counts",
+    "title": "Value Counts",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Return dict of value counts for col 'a'.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 1, 2]}",
+        "output": "{1: 2, 2: 1}"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def get_value_counts(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "get_value_counts",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 1, 2]})",
+        "expected": "{1: 2, 2: 1}"
+      }
+    ],
+    "hint": "df[\"a\"].value_counts().to_dict().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-groupby",
+    "title": "GroupBy Mean",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Group by 'g' and calc mean of 'v'. Return dict.",
+    "examples": [
+      {
+        "input": "{\"g\": [\"A\", \"A\", \"B\"], \"v\": [1, 3, 2]}",
+        "output": "{\"A\": 2.0, \"B\": 2.0}"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def groupby_mean(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "groupby_mean",
+    "testCases": [
+      {
+        "input": "({\"g\": [\"A\", \"A\", \"B\"], \"v\": [1, 3, 2]})",
+        "expected": "{\"A\": 2.0, \"B\": 2.0}"
+      }
+    ],
+    "hint": "df.groupby(\"g\")[\"v\"].mean().to_dict().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-imputer",
+    "title": "Simple Imputer",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Impute missing values with mean. (Simulate logic).",
+    "examples": [
+      {
+        "input": "[1, None, 3]",
+        "output": "[1.0, 2.0, 3.0]"
+      }
+    ],
+    "starterCode": "def simple_imputer(L):\n    # Write your code here\n    pass",
+    "functionName": "simple_imputer",
+    "testCases": [
+      {
+        "input": "([1, None, 3])",
+        "expected": "[1.0, 2.0, 3.0]"
+      }
+    ],
+    "hint": "Calc mean of non-None, fill None.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-poly",
+    "title": "Polynomial Features (Deg 2)",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Generate [1, x, x^2] for scalar x.",
+    "examples": [
+      {
+        "input": "2",
+        "output": "[1, 2, 4]"
+      }
+    ],
+    "starterCode": "def poly_features(x):\n    # Write your code here\n    pass",
+    "functionName": "poly_features",
+    "testCases": [
+      {
+        "input": "(2)",
+        "expected": "[1, 2, 4]"
+      }
+    ],
+    "hint": "[1, x, x**2].",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-det",
+    "title": "Matrix Determinant",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Calculate determinant of 2x2 matrix.",
+    "examples": [
+      {
+        "input": "[[1, 2], [3, 4]]",
+        "output": "-2.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_det(M):\n    # Write your code here\n    pass",
+    "functionName": "calc_det",
+    "testCases": [
+      {
+        "input": "([[1, 2], [3, 4]])",
+        "expected": "-2.0"
+      }
+    ],
+    "hint": "np.linalg.det(M) or ad-bc.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-inv",
+    "title": "Matrix Inverse",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Calculate inverse of 2x2 matrix.",
+    "examples": [
+      {
+        "input": "[[4, 7], [2, 6]]",
+        "output": "[[0.6, -0.7], [-0.2, 0.4]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_inv(M):\n    # Write your code here\n    pass",
+    "functionName": "calc_inv",
+    "testCases": [
+      {
+        "input": "([[4, 7], [2, 6]])",
+        "expected": "[[0.6, -0.7], [-0.2, 0.4]]"
+      }
+    ],
+    "hint": "np.linalg.inv(M).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-clip",
+    "title": "Clip Values",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Clip values between min and max.",
+    "examples": [
+      {
+        "input": "[1, 5, 10], 2, 8",
+        "output": "[2, 5, 8]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_clip(L, min_val, max_val):\n    # Write your code here\n    pass",
+    "functionName": "np_clip",
+    "testCases": [
+      {
+        "input": "([1, 5, 10], 2, 8)",
+        "expected": "[2, 5, 8]"
+      }
+    ],
+    "hint": "np.clip(L, min_val, max_val).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-where",
+    "title": "Where Condition",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Return 1 if x > 0 else 0.",
+    "examples": [
+      {
+        "input": "[-1, 1, 0]",
+        "output": "[0, 1, 0]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def np_where_demo(L):\n    # Write your code here\n    pass",
+    "functionName": "np_where_demo",
+    "testCases": [
+      {
+        "input": "([-1, 1, 0])",
+        "expected": "[0, 1, 0]"
+      }
+    ],
+    "hint": "np.where(np.array(L) > 0, 1, 0).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-apply",
+    "title": "Apply Function",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Apply square function to col 'a'.",
+    "examples": [
+      {
+        "input": "{\"a\": [2, 3]}",
+        "output": "[4, 9]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def apply_square(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "apply_square",
+    "testCases": [
+      {
+        "input": "({\"a\": [2, 3]})",
+        "expected": "[4, 9]"
+      }
+    ],
+    "hint": "df[\"a\"].apply(lambda x: x**2).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-pd-merge",
+    "title": "Merge DataFrames",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Merge on 'id'. Return 'val_x' list.",
+    "examples": [
+      {
+        "input": "{\"id\": [1], \"val\": [10]}, {\"id\": [1], \"val\": [20]}",
+        "output": "[10]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def merge_dfs(d1, d2):\n    df1 = pd.DataFrame(d1)\n    df2 = pd.DataFrame(d2)\n    # Write your code here\n    pass",
+    "functionName": "merge_dfs",
+    "testCases": [
+      {
+        "input": "({\"id\": [1], \"val\": [10]}, {\"id\": [1], \"val\": [20]})",
+        "expected": "[10]"
+      }
+    ],
+    "hint": "pd.merge(df1, df2, on=\"id\")[\"val_x\"].tolist().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-np-random",
+    "title": "Random Seed",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Set seed 42 and generate 1 random float.",
+    "examples": [
+      {
+        "input": "",
+        "output": "0.3745"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def gen_random():\n    # Write your code here\n    pass",
+    "functionName": "gen_random",
+    "testCases": [
+      {
+        "input": "()",
+        "expected": "0.3745"
+      }
+    ],
+    "hint": "np.random.seed(42); return round(np.random.rand(), 4).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe1-binarizer",
+    "title": "Binarizer",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Threshold at 0.5 (1 if > 0.5 else 0).",
+    "examples": [
+      {
+        "input": "[0.1, 0.6]",
+        "output": "[0, 1]"
+      }
+    ],
+    "starterCode": "def binarize(L):\n    # Write your code here\n    pass",
+    "functionName": "binarize",
+    "testCases": [
+      {
+        "input": "([0.1, 0.6])",
+        "expected": "[0, 1]"
+      }
+    ],
+    "hint": "1 if x > 0.5 else 0.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-lin-reg",
+    "title": "Linear Regression (Simple)",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Implement simple linear regression: y = mx + c. Given x and y lists, return [m, c] rounded to 2 decimals.",
+    "examples": [
+      {
+        "input": "[1,2,3], [2,4,6]",
+        "output": "[2.0, 0.0]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def simple_lin_reg(x, y):\n    # Write your code here\n    pass",
+    "functionName": "simple_lin_reg",
+    "testCases": [
+      {
+        "input": "([1,2,3], [2,4,6])",
+        "expected": "[2.0, 0.0]"
+      }
+    ],
+    "hint": "Use least squares formula or np.polyfit(x, y, 1).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-mse",
+    "title": "Mean Squared Error",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate MSE between y_true and y_pred.",
+    "examples": [
+      {
+        "input": "[1,2], [1,2]",
+        "output": "0.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_mse(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "calc_mse",
+    "testCases": [
+      {
+        "input": "([1,2], [1,2])",
+        "expected": "0.0"
+      },
+      {
+        "input": "([1,2], [2,3])",
+        "expected": "1.0"
+      }
+    ],
+    "hint": "mean((y_true - y_pred)**2).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-accuracy",
+    "title": "Accuracy Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate accuracy score.",
+    "examples": [
+      {
+        "input": "[1,0,1], [1,0,0]",
+        "output": "0.6667"
+      }
+    ],
+    "starterCode": "def accuracy_score_sim(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "accuracy_score_sim",
+    "testCases": [
+      {
+        "input": "([1,0,1], [1,0,0])",
+        "expected": "0.6667"
+      }
+    ],
+    "hint": "sum(t==p)/len.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-r2-score",
+    "title": "R2 Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate R2 score.",
+    "examples": [
+      {
+        "input": "[1, 2, 3], [1, 2, 3]",
+        "output": "1.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def r2_score_sim(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "r2_score_sim",
+    "testCases": [
+      {
+        "input": "([1, 2, 3], [1, 2, 3])",
+        "expected": "1.0"
+      }
+    ],
+    "hint": "1 - (SS_res / SS_tot).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-precision",
+    "title": "Precision Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate precision (TP / (TP + FP)).",
+    "examples": [
+      {
+        "input": "[1, 0, 1], [1, 1, 0]",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "def precision_sim(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "precision_sim",
+    "testCases": [
+      {
+        "input": "([1, 0, 1], [1, 1, 0])",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "Count TP and FP.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-recall",
+    "title": "Recall Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate recall (TP / (TP + FN)).",
+    "examples": [
+      {
+        "input": "[1, 0, 1], [1, 1, 0]",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "def recall_sim(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "recall_sim",
+    "testCases": [
+      {
+        "input": "([1, 0, 1], [1, 1, 0])",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "Count TP and FN.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-f1",
+    "title": "F1 Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate F1 score (2 * P * R / (P + R)).",
+    "examples": [
+      {
+        "input": "[1, 0, 1], [1, 1, 0]",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "def f1_score_sim(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "f1_score_sim",
+    "testCases": [
+      {
+        "input": "([1, 0, 1], [1, 1, 0])",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "Calculate Precision and Recall first.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-conf-matrix",
+    "title": "Confusion Matrix",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Return [[TN, FP], [FN, TP]].",
+    "examples": [
+      {
+        "input": "[0, 1, 0, 1], [0, 0, 1, 1]",
+        "output": "[[1, 1], [1, 1]]"
+      }
+    ],
+    "starterCode": "def conf_matrix_sim(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "conf_matrix_sim",
+    "testCases": [
+      {
+        "input": "([0, 1, 0, 1], [0, 0, 1, 1])",
+        "expected": "[[1, 1], [1, 1]]"
+      }
+    ],
+    "hint": "Count TN, FP, FN, TP.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-log-loss",
+    "title": "Log Loss",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Calculate binary log loss.",
+    "examples": [
+      {
+        "input": "[1, 0], [0.9, 0.1]",
+        "output": "0.1054"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def log_loss_sim(y_true, y_prob):\n    # Write your code here\n    pass",
+    "functionName": "log_loss_sim",
+    "testCases": [
+      {
+        "input": "([1, 0], [0.9, 0.1])",
+        "expected": "0.1054"
+      }
+    ],
+    "hint": "-mean(y*log(p) + (1-y)*log(1-p)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-mae",
+    "title": "Mean Absolute Error",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate MAE.",
+    "examples": [
+      {
+        "input": "[1, 2], [2, 3]",
+        "output": "1.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_mae(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "calc_mae",
+    "testCases": [
+      {
+        "input": "([1, 2], [2, 3])",
+        "expected": "1.0"
+      }
+    ],
+    "hint": "mean(abs(y_true - y_pred)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-rmse",
+    "title": "Root Mean Squared Error",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate RMSE.",
+    "examples": [
+      {
+        "input": "[1, 2], [2, 3]",
+        "output": "1.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_rmse(y_true, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "calc_rmse",
+    "testCases": [
+      {
+        "input": "([1, 2], [2, 3])",
+        "expected": "1.0"
+      }
+    ],
+    "hint": "sqrt(MSE).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-knn",
+    "title": "KNN Predict",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Predict class for x_query using k=1 NN.",
+    "examples": [
+      {
+        "input": "[[1], [3]], [0, 1], [2]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def knn_predict(X_train, y_train, x_query):\n    # Write your code here\n    pass",
+    "functionName": "knn_predict",
+    "testCases": [
+      {
+        "input": "([[1], [3]], [0, 1], [2])",
+        "expected": "1"
+      }
+    ],
+    "hint": "Find nearest neighbor in X_train.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-kmeans",
+    "title": "K-Means Step",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Assign points to nearest centroid. Return labels.",
+    "examples": [
+      {
+        "input": "[[1], [10]], [[0], [11]]",
+        "output": "[0, 1]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def assign_clusters(X, centroids):\n    # Write your code here\n    pass",
+    "functionName": "assign_clusters",
+    "testCases": [
+      {
+        "input": "([[1], [10]], [[0], [11]])",
+        "expected": "[0, 1]"
+      }
+    ],
+    "hint": "Calc dist to each centroid.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-perceptron",
+    "title": "Perceptron Update",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Update weights w += eta * (y - y_hat) * x.",
+    "examples": [
+      {
+        "input": "[0.1, 0.1], 0.1, 1, 0, [1, 1]",
+        "output": "[0.2, 0.2]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def perceptron_step(w, eta, y, y_hat, x):\n    # Write your code here\n    pass",
+    "functionName": "perceptron_step",
+    "testCases": [
+      {
+        "input": "([0.1, 0.1], 0.1, 1, 0, [1, 1])",
+        "expected": "[0.2, 0.2]"
+      }
+    ],
+    "hint": "w + eta * (y - y_hat) * x.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-sigmoid",
+    "title": "Sigmoid Function",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate sigmoid(z).",
+    "examples": [
+      {
+        "input": "0",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def sigmoid(z):\n    # Write your code here\n    pass",
+    "functionName": "sigmoid",
+    "testCases": [
+      {
+        "input": "(0)",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "1 / (1 + exp(-z)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-softmax",
+    "title": "Softmax Function",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate softmax of list.",
+    "examples": [
+      {
+        "input": "[1, 1]",
+        "output": "[0.5, 0.5]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def softmax(z):\n    # Write your code here\n    pass",
+    "functionName": "softmax",
+    "testCases": [
+      {
+        "input": "([1, 1])",
+        "expected": "[0.5, 0.5]"
+      }
+    ],
+    "hint": "exp(z) / sum(exp(z)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-gd-step",
+    "title": "Gradient Descent Step",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Update m, c for one step.",
+    "examples": [
+      {
+        "input": "1, 0, 0.1, [1], [3]",
+        "output": "(1.4, 0.4)"
+      }
+    ],
+    "starterCode": "def gd_step(m, c, lr, X, y):\n    # Write your code here\n    pass",
+    "functionName": "gd_step",
+    "testCases": [
+      {
+        "input": "(1, 0, 0.1, [1], [3])",
+        "expected": "(1.4, 0.4)"
+      }
+    ],
+    "hint": "Calc gradients dm, dc.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-ridge-cost",
+    "title": "Ridge Cost",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "MSE + lambda * sum(w^2).",
+    "examples": [
+      {
+        "input": "[1], [1], [1], 0.1",
+        "output": "0.1"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def ridge_cost(y_true, y_pred, w, alpha):\n    # Write your code here\n    pass",
+    "functionName": "ridge_cost",
+    "testCases": [
+      {
+        "input": "([1], [1], [1], 0.1)",
+        "expected": "0.1"
+      }
+    ],
+    "hint": "MSE + alpha * sum(w**2).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-lasso-cost",
+    "title": "Lasso Cost",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "MSE + lambda * sum(|w|).",
+    "examples": [
+      {
+        "input": "[1], [1], [1], 0.1",
+        "output": "0.1"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def lasso_cost(y_true, y_pred, w, alpha):\n    # Write your code here\n    pass",
+    "functionName": "lasso_cost",
+    "testCases": [
+      {
+        "input": "([1], [1], [1], 0.1)",
+        "expected": "0.1"
+      }
+    ],
+    "hint": "MSE + alpha * sum(abs(w)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-entropy",
+    "title": "Calculate Entropy",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate entropy of labels.",
+    "examples": [
+      {
+        "input": "[0, 0, 1, 1]",
+        "output": "1.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_entropy(labels):\n    # Write your code here\n    pass",
+    "functionName": "calc_entropy",
+    "testCases": [
+      {
+        "input": "([0, 0, 1, 1])",
+        "expected": "1.0"
+      }
+    ],
+    "hint": "-sum(p * log2(p)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-gini",
+    "title": "Gini Impurity",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate Gini impurity.",
+    "examples": [
+      {
+        "input": "[0, 0, 1, 1]",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "def calc_gini(labels):\n    # Write your code here\n    pass",
+    "functionName": "calc_gini",
+    "testCases": [
+      {
+        "input": "([0, 0, 1, 1])",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "1 - sum(p**2).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-bagging",
+    "title": "Bagging Vote",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Return majority vote from predictions.",
+    "examples": [
+      {
+        "input": "[0, 1, 1]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def majority_vote(preds):\n    # Write your code here\n    pass",
+    "functionName": "majority_vote",
+    "testCases": [
+      {
+        "input": "([0, 1, 1])",
+        "expected": "1"
+      }
+    ],
+    "hint": "Mode of preds.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-adaboost",
+    "title": "Adaboost Weight Update",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Update sample weights.",
+    "examples": [
+      {
+        "input": "[0.5, 0.5], 0.5, [1, -1], [1, 1]",
+        "output": "[0.3033, 0.8244]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def update_weights(w, alpha, y, y_pred):\n    # Write your code here\n    pass",
+    "functionName": "update_weights",
+    "testCases": [
+      {
+        "input": "([0.5, 0.5], 0.5, [1, -1], [1, 1])",
+        "expected": "[0.3033, 0.8244]"
+      }
+    ],
+    "hint": "w * exp(-alpha * y * y_pred) / Z.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-corr",
+    "title": "Correlation Matrix",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Return correlation matrix of DataFrame.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 2], \"b\": [2, 4]}",
+        "output": "[[1.0, 1.0], [1.0, 1.0]]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def calc_corr(data):\n    df = pd.DataFrame(data)\n    # Write your code here\n    pass",
+    "functionName": "calc_corr",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 2], \"b\": [2, 4]})",
+        "expected": "[[1.0, 1.0], [1.0, 1.0]]"
+      }
+    ],
+    "hint": "df.corr().values.tolist().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-cov",
+    "title": "Covariance Matrix",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Return covariance matrix.",
+    "examples": [
+      {
+        "input": "[[1, 2], [3, 4]]",
+        "output": "[[0.5, 0.5], [0.5, 0.5]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_cov(M):\n    # Write your code here\n    pass",
+    "functionName": "calc_cov",
+    "testCases": [
+      {
+        "input": "([[1, 2], [3, 4]])",
+        "expected": "[[0.5, 0.5], [0.5, 0.5]]"
+      }
+    ],
+    "hint": "np.cov(M).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-pca",
+    "title": "PCA Project",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Project X onto components.",
+    "examples": [
+      {
+        "input": "[[1, 2]], [[1, 0]]",
+        "output": "[[1]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def pca_project(X, components):\n    # Write your code here\n    pass",
+    "functionName": "pca_project",
+    "testCases": [
+      {
+        "input": "([[1, 2]], [[1, 0]])",
+        "expected": "[[1]]"
+      }
+    ],
+    "hint": "dot(X, components.T).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-silhouette",
+    "title": "Silhouette Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Calculate (b-a)/max(a,b).",
+    "examples": [
+      {
+        "input": "1, 2",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "def calc_silhouette(a, b):\n    # Write your code here\n    pass",
+    "functionName": "calc_silhouette",
+    "testCases": [
+      {
+        "input": "(1, 2)",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "(b-a)/max(a,b).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-train-val",
+    "title": "Train Val Split",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Split data into train, val.",
+    "examples": [
+      {
+        "input": "[1, 2, 3, 4], 0.5",
+        "output": "([1, 2], [3, 4])"
+      }
+    ],
+    "starterCode": "def train_val_split(data, ratio):\n    # Write your code here\n    pass",
+    "functionName": "train_val_split",
+    "testCases": [
+      {
+        "input": "([1, 2, 3, 4], 0.5)",
+        "expected": "([1, 2], [3, 4])"
+      }
+    ],
+    "hint": "Index slicing.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-kfold",
+    "title": "K-Fold Indices",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Return indices for 2-fold on n=4.",
+    "examples": [
+      {
+        "input": "4, 2",
+        "output": "[[[2, 3], [0, 1]], [[0, 1], [2, 3]]]"
+      }
+    ],
+    "starterCode": "def kfold_indices(n, k):\n    # Write your code here\n    pass",
+    "functionName": "kfold_indices",
+    "testCases": [
+      {
+        "input": "(4, 2)",
+        "expected": "[[[2, 3], [0, 1]], [[0, 1], [2, 3]]]"
+      }
+    ],
+    "hint": "Generate train/test indices.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-stratified",
+    "title": "Stratified Split",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Split preserving class ratios.",
+    "examples": [
+      {
+        "input": "[0, 1, 0, 1], 0.5",
+        "output": "([0, 1], [0, 1])"
+      }
+    ],
+    "starterCode": "def stratified_split(y, ratio):\n    # Write your code here\n    pass",
+    "functionName": "stratified_split",
+    "testCases": [
+      {
+        "input": "([0, 1, 0, 1], 0.5)",
+        "expected": "([0, 1], [0, 1])"
+      }
+    ],
+    "hint": "Split each class separately.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-bootstrap",
+    "title": "Bootstrap Sample",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Sample n items with replacement. (Simulate with fixed seed logic or just return logic).",
+    "examples": [
+      {
+        "input": "[1, 2, 3], 3",
+        "output": "[1, 1, 3]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def bootstrap_sample(data, n):\n    np.random.seed(42)\n    # Write your code here\n    pass",
+    "functionName": "bootstrap_sample",
+    "testCases": [
+      {
+        "input": "([1, 2, 3], 3)",
+        "expected": "[3, 1, 3]"
+      }
+    ],
+    "hint": "np.random.choice(data, n, replace=True).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-feature-scale",
+    "title": "Feature Scaling",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Standardize column.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "[-1.22, 0.0, 1.22]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def scale_feature(col):\n    # Write your code here\n    pass",
+    "functionName": "scale_feature",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "[-1.22, 0.0, 1.22]"
+      }
+    ],
+    "hint": "(col - mean) / std.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-normalize",
+    "title": "Feature Normalization",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Normalize to unit norm.",
+    "examples": [
+      {
+        "input": "[3, 4]",
+        "output": "[0.6, 0.8]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def normalize_feature(col):\n    # Write your code here\n    pass",
+    "functionName": "normalize_feature",
+    "testCases": [
+      {
+        "input": "([3, 4])",
+        "expected": "[0.6, 0.8]"
+      }
+    ],
+    "hint": "col / norm(col).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-ovr",
+    "title": "One-vs-Rest",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Return predicted class with max score.",
+    "examples": [
+      {
+        "input": "[0.1, 0.5, 0.4]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def predict_ovr(scores):\n    # Write your code here\n    pass",
+    "functionName": "predict_ovr",
+    "testCases": [
+      {
+        "input": "([0.1, 0.5, 0.4])",
+        "expected": "1"
+      }
+    ],
+    "hint": "argmax(scores).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-multilabel",
+    "title": "Multi-label Indicator",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Convert list of lists [[0,1], [2]] to indicator matrix (n_samples, n_classes).",
+    "examples": [
+      {
+        "input": "[[0, 1], [2]], 3",
+        "output": "[[1, 1, 0], [0, 0, 1]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def multilabel_indicator(y, n_classes):\n    # Write your code here\n    pass",
+    "functionName": "multilabel_indicator",
+    "testCases": [
+      {
+        "input": "([[0, 1], [2]], 3)",
+        "expected": "[[1, 1, 0], [0, 0, 1]]"
+      }
+    ],
+    "hint": "Fill zeros matrix.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-moving-avg",
+    "title": "Moving Average",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Calculate moving average window k.",
+    "examples": [
+      {
+        "input": "[1, 2, 3, 4], 2",
+        "output": "[1.5, 2.5, 3.5]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def moving_average(data, k):\n    # Write your code here\n    pass",
+    "functionName": "moving_average",
+    "testCases": [
+      {
+        "input": "([1, 2, 3, 4], 2)",
+        "expected": "[1.5, 2.5, 3.5]"
+      }
+    ],
+    "hint": "Convolve or loop.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-lag-features",
+    "title": "Lag Features",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create lag 1 feature.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "[NaN, 1.0, 2.0]"
+      }
+    ],
+    "starterCode": "import pandas as pd\n    def create_lag(data):\n    s = pd.Series(data)\n    # Write your code here\n    pass",
+    "functionName": "create_lag",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "[nan, 1.0, 2.0]"
+      }
+    ],
+    "hint": "s.shift(1).tolist().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-bow",
+    "title": "Bag of Words",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Convert sentence to count vector given vocab.",
+    "examples": [
+      {
+        "input": "\"a b a\", [\"a\", \"b\"]",
+        "output": "[2, 1]"
+      }
+    ],
+    "starterCode": "def bow_vector(text, vocab):\n    # Write your code here\n    pass",
+    "functionName": "bow_vector",
+    "testCases": [
+      {
+        "input": "(\"a b a\", [\"a\", \"b\"])",
+        "expected": "[2, 1]"
+      }
+    ],
+    "hint": "Count occurrences.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-tf",
+    "title": "Term Frequency",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate TF: count / total_words.",
+    "examples": [
+      {
+        "input": "\"a b a\", \"a\"",
+        "output": "0.6667"
+      }
+    ],
+    "starterCode": "def calc_tf(text, term):\n    # Write your code here\n    pass",
+    "functionName": "calc_tf",
+    "testCases": [
+      {
+        "input": "(\"a b a\", \"a\")",
+        "expected": "0.6667"
+      }
+    ],
+    "hint": "count(term) / len(text.split()).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-img-flatten",
+    "title": "Flatten Image",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Flatten (h, w, c) image to 1D.",
+    "examples": [
+      {
+        "input": "[[[1],[2]],[[3],[4]]]",
+        "output": "[1, 2, 3, 4]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def flatten_img(img):\n    # Write your code here\n    pass",
+    "functionName": "flatten_img",
+    "testCases": [
+      {
+        "input": "([[[1],[2]],[[3],[4]]])",
+        "expected": "[1, 2, 3, 4]"
+      }
+    ],
+    "hint": "np.array(img).flatten().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-grayscale",
+    "title": "RGB to Grayscale",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Convert RGB to Gray: 0.299R + 0.587G + 0.114B.",
+    "examples": [
+      {
+        "input": "[100, 100, 100]",
+        "output": "100.0"
+      }
+    ],
+    "starterCode": "def rgb2gray(pixel):\n    # Write your code here\n    pass",
+    "functionName": "rgb2gray",
+    "testCases": [
+      {
+        "input": "([100, 100, 100])",
+        "expected": "100.0"
+      }
+    ],
+    "hint": "Apply formula.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-pipeline",
+    "title": "Simple Pipeline",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Scale x then predict y=x.",
+    "examples": [
+      {
+        "input": "10, 0, 20",
+        "output": "0.5"
+      }
+    ],
+    "starterCode": "def pipeline_predict(x, min_val, max_val):\n    # Write your code here\n    pass",
+    "functionName": "pipeline_predict",
+    "testCases": [
+      {
+        "input": "(10, 0, 20)",
+        "expected": "0.5"
+      }
+    ],
+    "hint": "Scale then return.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-grid-search",
+    "title": "Grid Search",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Generate all combinations of params.",
+    "examples": [
+      {
+        "input": "{\"a\": [1, 2], \"b\": [3]}",
+        "output": "[{\"a\": 1, \"b\": 3}, {\"a\": 2, \"b\": 3}]"
+      }
+    ],
+    "starterCode": "import itertools\n    def grid_search(param_grid):\n    # Write your code here\n    pass",
+    "functionName": "grid_search",
+    "testCases": [
+      {
+        "input": "({\"a\": [1, 2], \"b\": [3]})",
+        "expected": "[{\"a\": 1, \"b\": 3}, {\"a\": 2, \"b\": 3}]"
+      }
+    ],
+    "hint": "itertools.product.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-read-csv",
+    "title": "Read CSV String",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Parse CSV string to list of dicts.",
+    "examples": [
+      {
+        "input": "\"a,b\\n1,2\"",
+        "output": "[{\"a\": \"1\", \"b\": \"2\"}]"
+      }
+    ],
+    "starterCode": "import csv\n    import io\n    def read_csv_str(content):\n    # Write your code here\n    pass",
+    "functionName": "read_csv_str",
+    "testCases": [
+      {
+        "input": "(\"a,b\\n1,2\")",
+        "expected": "[{\"a\": \"1\", \"b\": \"2\"}]"
+      }
+    ],
+    "hint": "csv.DictReader(io.StringIO(content)).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-write-csv",
+    "title": "Write CSV String",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Write list of dicts to CSV string.",
+    "examples": [
+      {
+        "input": "[{\"a\": 1}]",
+        "output": "\"a\\r\\n1\\r\\n\""
+      }
+    ],
+    "starterCode": "import csv\n    import io\n    def write_csv_str(data):\n    # Write your code here\n    pass",
+    "functionName": "write_csv_str",
+    "testCases": [
+      {
+        "input": "([{\"a\": 1}])",
+        "expected": "\"a\\r\\n1\\r\\n\""
+      }
+    ],
+    "hint": "csv.DictWriter.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-json-parse",
+    "title": "Parse JSON",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Parse JSON string.",
+    "examples": [
+      {
+        "input": "\"{\\\"a\\\": 1}\"",
+        "output": "{\"a\": 1}"
+      }
+    ],
+    "starterCode": "import json\n    def parse_json(s):\n    # Write your code here\n    pass",
+    "functionName": "parse_json",
+    "testCases": [
+      {
+        "input": "(\"{\\\"a\\\": 1}\")",
+        "expected": "{\"a\": 1}"
+      }
+    ],
+    "hint": "json.loads(s).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-json-dump",
+    "title": "Dump JSON",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Dump dict to JSON string (no spaces).",
+    "examples": [
+      {
+        "input": "{\"a\": 1}",
+        "output": "\"{\\\"a\\\": 1}\""
+      }
+    ],
+    "starterCode": "import json\n    def dump_json(d):\n    # Write your code here\n    pass",
+    "functionName": "dump_json",
+    "testCases": [
+      {
+        "input": "({\"a\": 1})",
+        "expected": "\"{\\\"a\\\": 1}\""
+      }
+    ],
+    "hint": "json.dumps(d, separators=(\",\", \":\")).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-date-parse",
+    "title": "Parse Date",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Parse \"YYYY-MM-DD\" to year integer.",
+    "examples": [
+      {
+        "input": "\"2023-01-01\"",
+        "output": "2023"
+      }
+    ],
+    "starterCode": "def parse_year(date_str):\n    # Write your code here\n    pass",
+    "functionName": "parse_year",
+    "testCases": [
+      {
+        "input": "(\"2023-01-01\")",
+        "expected": "2023"
+      }
+    ],
+    "hint": "int(date_str.split(\"-\")[0]).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-date-diff",
+    "title": "Date Difference",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Days between two dates \"YYYY-MM-DD\".",
+    "examples": [
+      {
+        "input": "\"2023-01-02\", \"2023-01-01\"",
+        "output": "1"
+      }
+    ],
+    "starterCode": "from datetime import datetime\n    def date_diff(d1, d2):\n    # Write your code here\n    pass",
+    "functionName": "date_diff",
+    "testCases": [
+      {
+        "input": "(\"2023-01-02\", \"2023-01-01\")",
+        "expected": "1"
+      }
+    ],
+    "hint": "(dt1 - dt2).days.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-dist-matrix",
+    "title": "Distance Matrix",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Pairwise euclidean distances.",
+    "examples": [
+      {
+        "input": "[[0], [1]]",
+        "output": "[[0.0, 1.0], [1.0, 0.0]]"
+      }
+    ],
+    "starterCode": "import numpy as np\n    from scipy.spatial.distance import cdist\n    def dist_matrix(X):\n    # Write your code here\n    pass",
+    "functionName": "dist_matrix",
+    "testCases": [
+      {
+        "input": "([[0], [1]])",
+        "expected": "[[0.0, 1.0], [1.0, 0.0]]"
+      }
+    ],
+    "hint": "cdist(X, X).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-zscore",
+    "title": "Z-Score",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate z-score of x given mean, std.",
+    "examples": [
+      {
+        "input": "10, 5, 2",
+        "output": "2.5"
+      }
+    ],
+    "starterCode": "def calc_zscore(x, mean, std):\n    # Write your code here\n    pass",
+    "functionName": "calc_zscore",
+    "testCases": [
+      {
+        "input": "(10, 5, 2)",
+        "expected": "2.5"
+      }
+    ],
+    "hint": "(x - mean) / std.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-variance",
+    "title": "Variance",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate variance.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "0.6667"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_variance(L):\n    # Write your code here\n    pass",
+    "functionName": "calc_variance",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "0.6667"
+      }
+    ],
+    "hint": "np.var(L).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "mlp-oppe2-percentile",
+    "title": "Percentile",
+    "subject": "ML_Practice",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate 50th percentile (median).",
+    "examples": [
+      {
+        "input": "[1, 2, 3], 50",
+        "output": "2.0"
+      }
+    ],
+    "starterCode": "import numpy as np\n    def calc_percentile(L, p):\n    # Write your code here\n    pass",
+    "functionName": "calc_percentile",
+    "testCases": [
+      {
+        "input": "([1, 2, 3], 50)",
+        "expected": "2.0"
+      }
+    ],
+    "hint": "np.percentile(L, p).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  }
+]

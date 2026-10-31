@@ -148,10 +148,15 @@ export function Avatar({ name, src, size = 36, className }: { name: string; src?
   )
 }
 
-export function EmptyState({ icon: Icon, title, hint, action }: { icon: React.ElementType; title: string; hint?: string; action?: ReactNode }) {
+export function EmptyState({ icon: Icon, title, hint, action, art }: { icon: React.ElementType; title: string; hint?: string; action?: ReactNode; art?: string }) {
   return (
     <div className="flex flex-col items-center rounded-2xl border border-dashed bg-card px-6 py-14 text-center">
-      <IconTile icon={Icon} className="size-12 rounded-2xl" />
+      {art ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={art} alt="" aria-hidden className="h-40 w-auto max-w-full" />
+      ) : (
+        <IconTile icon={Icon} className="size-12 rounded-2xl" />
+      )}
       <p className="mt-4 text-base font-bold">{title}</p>
       {hint && <p className="mt-1 max-w-sm text-sm text-muted-foreground">{hint}</p>}
       {action && <div className="mt-5">{action}</div>}

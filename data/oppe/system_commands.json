@@ -1,0 +1,5122 @@
+[
+  {
+    "id": "bash1-001",
+    "title": "List All Files",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "List all files including hidden ones.",
+    "starterCode": "ls ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "list"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "LS",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-002",
+    "title": "Create Directory",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Create dir \"data\".",
+    "starterCode": "mkdir ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "MKDIR",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-003",
+    "title": "Copy File",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Copy a.txt to b.txt.",
+    "starterCode": "cp ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "CP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-004",
+    "title": "Move File",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Rename a.txt to final.txt.",
+    "starterCode": "mv ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "MV",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-005",
+    "title": "Remove File",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Delete temp.txt.",
+    "starterCode": "rm ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "RM",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-006",
+    "title": "Cat File",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Display contents.",
+    "starterCode": "cat ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "content"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "CAT",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-007",
+    "title": "Word Count",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Count lines.",
+    "starterCode": "wc -l ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "10"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "WC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-008",
+    "title": "Head Lines",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "First 5 lines.",
+    "starterCode": "head -n 5 ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "HEAD",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-009",
+    "title": "Tail Lines",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Last 5 lines.",
+    "starterCode": "tail -n 5 ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TAIL",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-010",
+    "title": "Grep Search",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find \"error\".",
+    "starterCode": "grep ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GREP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-011",
+    "title": "Echo Text",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Print \"Hello\".",
+    "starterCode": "echo ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "Hello"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ECHO",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-012",
+    "title": "Touch File",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Create empty file.",
+    "starterCode": "touch ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TOUCH",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-013",
+    "title": "PWD Command",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Print working dir.",
+    "starterCode": "pwd",
+    "testCases": [
+      {
+        "input": "",
+        "output": "/home"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PWD",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-014",
+    "title": "Whoami",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Current user.",
+    "starterCode": "whoami",
+    "testCases": [
+      {
+        "input": "",
+        "output": "user"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "USER",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-015",
+    "title": "History",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Show history.",
+    "starterCode": "history",
+    "testCases": [
+      {
+        "input": "",
+        "output": "cmds"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "HIST",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-016",
+    "title": "Sort File",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Sort lines.",
+    "starterCode": "sort ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "sorted"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SORT",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-017",
+    "title": "Uniq Lines",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove adjacent duplicates.",
+    "starterCode": "uniq ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "uniq"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "UNIQ",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-018",
+    "title": "Pipe Sort Uniq",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Count unique lines.",
+    "starterCode": "sort ... | uniq -c",
+    "testCases": [
+      {
+        "input": "",
+        "output": "counts"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PIPE",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-019",
+    "title": "Redirect Output",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Save ls to file.",
+    "starterCode": "ls > file.txt",
+    "testCases": [
+      {
+        "input": "",
+        "output": "file"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Redir",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-020",
+    "title": "Append Output",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Append date to log.",
+    "starterCode": "date >> log.txt",
+    "testCases": [
+      {
+        "input": "",
+        "output": "appended"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Redir",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-021",
+    "title": "Chmod Executable",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Make script executable.",
+    "starterCode": "chmod +x ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Perms",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-022",
+    "title": "Chmod Numeric",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Set 755 permissions.",
+    "starterCode": "chmod 755 ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Perms",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-023",
+    "title": "Chown User",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Change owner.",
+    "starterCode": "chown user ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Perms",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-024",
+    "title": "Find Name",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Find by name.",
+    "starterCode": "find . -name \"*.txt\"",
+    "testCases": [
+      {
+        "input": "",
+        "output": "files"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "FIND",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-025",
+    "title": "Find Size",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Find >10M files.",
+    "starterCode": "find . -size +10M",
+    "testCases": [
+      {
+        "input": "",
+        "output": "files"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "FIND",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-026",
+    "title": "Grep Count",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Count occurrences.",
+    "starterCode": "grep -c ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GREP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-027",
+    "title": "Grep Recursive",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Search in dir.",
+    "starterCode": "grep -r ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GREP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-028",
+    "title": "Grep Invert",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Lines without pattern.",
+    "starterCode": "grep -v ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GREP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-029",
+    "title": "Cut Columns",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Extract column 1.",
+    "starterCode": "cut -f1 ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "col1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "CUT",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-030",
+    "title": "Cut Delimiter",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "CSV extract.",
+    "starterCode": "cut -d, -f2 ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "col2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "CUT",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-031",
+    "title": "Paste Files",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Merge lines.",
+    "starterCode": "paste a b",
+    "testCases": [
+      {
+        "input": "",
+        "output": "merged"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PASTE",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-032",
+    "title": "Tr Translate",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Lower to upper.",
+    "starterCode": "tr a-z A-Z",
+    "testCases": [
+      {
+        "input": "",
+        "output": "UPPER"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TR",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-033",
+    "title": "Tr Delete",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Remove digits.",
+    "starterCode": "tr -d 0-9",
+    "testCases": [
+      {
+        "input": "",
+        "output": "no digits"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TR",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-034",
+    "title": "Sed Replace",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Sub first occurrence.",
+    "starterCode": "sed s/old/new/",
+    "testCases": [
+      {
+        "input": "",
+        "output": "new"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SED",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-035",
+    "title": "Sed Global",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Sub all.",
+    "starterCode": "sed s/old/new/g",
+    "testCases": [
+      {
+        "input": "",
+        "output": "new new"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SED",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-036",
+    "title": "Head Bytes",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "First 100 bytes.",
+    "starterCode": "head -c 100",
+    "testCases": [
+      {
+        "input": "",
+        "output": "bytes"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "HEAD",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-037",
+    "title": "Tail Follow",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Follow log.",
+    "starterCode": "tail -f ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "live"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TAIL",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-038",
+    "title": "Diff Files",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Compare files.",
+    "starterCode": "diff a b",
+    "testCases": [
+      {
+        "input": "",
+        "output": "diff"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "DIFF",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-039",
+    "title": "File Type",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check file type.",
+    "starterCode": "file ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "text"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "FILE",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-040",
+    "title": "Ln Hard",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Create hard link.",
+    "starterCode": "ln source dest",
+    "testCases": [
+      {
+        "input": "",
+        "output": "link"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "LN",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-041",
+    "title": "Ln Soft",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Create symlink.",
+    "starterCode": "ln -s source dest",
+    "testCases": [
+      {
+        "input": "",
+        "output": "symlink"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "LN",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-042",
+    "title": "Tar Create",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Archive dir.",
+    "starterCode": "tar -cvf a.tar dir",
+    "testCases": [
+      {
+        "input": "",
+        "output": "archive"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TAR",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-043",
+    "title": "Tar Extract",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Extract tar.",
+    "starterCode": "tar -xvf a.tar",
+    "testCases": [
+      {
+        "input": "",
+        "output": "extracted"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TAR",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-044",
+    "title": "Gzip Compress",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Compress file.",
+    "starterCode": "gzip file",
+    "testCases": [
+      {
+        "input": "",
+        "output": "file.gz"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GZIP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-045",
+    "title": "Gunzip",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Decompress.",
+    "starterCode": "gunzip file.gz",
+    "testCases": [
+      {
+        "input": "",
+        "output": "file"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GZIP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-046",
+    "title": "Zip",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Zip files.",
+    "starterCode": "zip a.zip files",
+    "testCases": [
+      {
+        "input": "",
+        "output": "zip"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ZIP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-047",
+    "title": "Unzip",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Unzip archive.",
+    "starterCode": "unzip a.zip",
+    "testCases": [
+      {
+        "input": "",
+        "output": "files"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ZIP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-048",
+    "title": "Date Format",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Print YYYY-MM-DD.",
+    "starterCode": "date +%F",
+    "testCases": [
+      {
+        "input": "",
+        "output": "date"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "DATE",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-049",
+    "title": "Seq Sequence",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Print 1 to 5.",
+    "starterCode": "seq 1 5",
+    "testCases": [
+      {
+        "input": "",
+        "output": "1..5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SEQ",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-050",
+    "title": "Tee Command",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Pipe to file and screen.",
+    "starterCode": "ls | tee file",
+    "testCases": [
+      {
+        "input": "",
+        "output": "list"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "TEE",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-001",
+    "title": "For Loop",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Loop 1 to 5.",
+    "starterCode": "for i in {1..5}; do ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "1..5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Loop",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-002",
+    "title": "While Loop",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Read file line by line.",
+    "starterCode": "while read line; do ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Loop",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-003",
+    "title": "If Else",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check file exists.",
+    "starterCode": "if [ -f file ]; then ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "exists"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Logic",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-004",
+    "title": "Case Statement",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Switch case.",
+    "starterCode": "case $VAR in ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "case"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Logic",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-005",
+    "title": "Function",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Define func.",
+    "starterCode": "myfunc() { ... }",
+    "testCases": [
+      {
+        "input": "",
+        "output": "run"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Script",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-006",
+    "title": "Arguments",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Access args.",
+    "starterCode": "echo $1 $2",
+    "testCases": [
+      {
+        "input": "arg1",
+        "output": "arg1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Script",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-007",
+    "title": "Arithmetic",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Math op.",
+    "starterCode": "echo $((1+1))",
+    "testCases": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-008",
+    "title": "String Compare",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check equal.",
+    "starterCode": "if [ \"$a\" = \"$b\" ]",
+    "testCases": [
+      {
+        "input": "",
+        "output": "eq"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Logic",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-009",
+    "title": "Number Compare",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check greater.",
+    "starterCode": "if [ $a -gt $b ]",
+    "testCases": [
+      {
+        "input": "",
+        "output": "gt"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Logic",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-010",
+    "title": "Command Sub",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Save output.",
+    "starterCode": "VAR=$(date)",
+    "testCases": [
+      {
+        "input": "",
+        "output": "date"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Script",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-011",
+    "title": "Awk Print Col",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Print 2nd col.",
+    "starterCode": "awk \\'{print $2}\\'",
+    "testCases": [
+      {
+        "input": "",
+        "output": "col"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "AWK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-012",
+    "title": "Awk Filter",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Col1 > 10.",
+    "starterCode": "awk \\'$1 > 10\\'",
+    "testCases": [
+      {
+        "input": "",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "AWK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-013",
+    "title": "Awk Sum",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Sum column.",
+    "starterCode": "awk \\'{s+=$1} END {print s}\\'",
+    "testCases": [
+      {
+        "input": "",
+        "output": "sum"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "AWK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-014",
+    "title": "Awk NR",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Print line num.",
+    "starterCode": "awk \\'{print NR, $0}\\'",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "AWK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-015",
+    "title": "Awk OFS",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Change separator.",
+    "starterCode": "awk -v OFS=\",\" ...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "csv"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "AWK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-016",
+    "title": "Sed Delete",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Delete line 1.",
+    "starterCode": "sed 1d",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SED",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-017",
+    "title": "Sed Range",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Print lines 5-10.",
+    "starterCode": "sed -n 5,10p",
+    "testCases": [
+      {
+        "input": "",
+        "output": "lines"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SED",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-018",
+    "title": "Xargs Basic",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Pass as args.",
+    "starterCode": "ls | xargs rm",
+    "testCases": [
+      {
+        "input": "",
+        "output": "del"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "XARGS",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-019",
+    "title": "Find Exec",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Exec on found.",
+    "starterCode": "find . -name \"*.log\" -exec rm {} \\\\;",
+    "testCases": [
+      {
+        "input": "",
+        "output": "del"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "FIND",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-020",
+    "title": "Process PS",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "List processes.",
+    "starterCode": "ps aux",
+    "testCases": [
+      {
+        "input": "",
+        "output": "procs"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PROC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-021",
+    "title": "Kill PID",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Stop process.",
+    "starterCode": "kill 1234",
+    "testCases": [
+      {
+        "input": "",
+        "output": "killed"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PROC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-022",
+    "title": "Killall",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Stop by name.",
+    "starterCode": "killall chrome",
+    "testCases": [
+      {
+        "input": "",
+        "output": "killed"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PROC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-023",
+    "title": "Top/Htop",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Monitor.",
+    "starterCode": "top",
+    "testCases": [
+      {
+        "input": "",
+        "output": "monitor"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PROC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-024",
+    "title": "Nohup",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Run background.",
+    "starterCode": "nohup cmd &",
+    "testCases": [
+      {
+        "input": "",
+        "output": "bg"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PROC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-025",
+    "title": "Jobs",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "List jobs.",
+    "starterCode": "jobs",
+    "testCases": [
+      {
+        "input": "",
+        "output": "jobs"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "PROC",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-026",
+    "title": "Cron Tab",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Schedule.",
+    "starterCode": "crontab -e",
+    "testCases": [
+      {
+        "input": "",
+        "output": "sched"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "CRON",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-027",
+    "title": "SSH Connect",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Remote login.",
+    "starterCode": "ssh user@host",
+    "testCases": [
+      {
+        "input": "",
+        "output": "login"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SSH",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-028",
+    "title": "SCP Copy",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Remote copy.",
+    "starterCode": "scp file user@host:~",
+    "testCases": [
+      {
+        "input": "",
+        "output": "copied"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "SSH",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-029",
+    "title": "Wget Download",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Download file.",
+    "starterCode": "wget url",
+    "testCases": [
+      {
+        "input": "",
+        "output": "file"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "NET",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-030",
+    "title": "Curl Request",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "HTTP Get.",
+    "starterCode": "curl url",
+    "testCases": [
+      {
+        "input": "",
+        "output": "html"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "NET",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-031",
+    "title": "Ping",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check host.",
+    "starterCode": "ping google.com",
+    "testCases": [
+      {
+        "input": "",
+        "output": "pong"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "NET",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-032",
+    "title": "Netstat",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Network stats.",
+    "starterCode": "netstat -tuln",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ports"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "NET",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-033",
+    "title": "Dig DNS",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Lookup IP.",
+    "starterCode": "dig google.com",
+    "testCases": [
+      {
+        "input": "",
+        "output": "ip"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "NET",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-034",
+    "title": "Env Vars",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Print env.",
+    "starterCode": "printenv",
+    "testCases": [
+      {
+        "input": "",
+        "output": "vars"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ENV",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-035",
+    "title": "Export Var",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Set env var.",
+    "starterCode": "export PATH=$PATH:...",
+    "testCases": [
+      {
+        "input": "",
+        "output": "set"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ENV",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-036",
+    "title": "Alias",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Create alias.",
+    "starterCode": "alias ll=\"ls -l\"",
+    "testCases": [
+      {
+        "input": "",
+        "output": "alias"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ENV",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-037",
+    "title": "Source",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Reload config.",
+    "starterCode": "source .bashrc",
+    "testCases": [
+      {
+        "input": "",
+        "output": "loaded"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "ENV",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-038",
+    "title": "Du Disk Usage",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Folder size.",
+    "starterCode": "du -sh .",
+    "testCases": [
+      {
+        "input": "",
+        "output": "size"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "DISK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-039",
+    "title": "Df Disk Free",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Free space.",
+    "starterCode": "df -h",
+    "testCases": [
+      {
+        "input": "",
+        "output": "space"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "DISK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-040",
+    "title": "Mount",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Mount drive.",
+    "starterCode": "mount /dev/sda1 /mnt",
+    "testCases": [
+      {
+        "input": "",
+        "output": "mounted"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "DISK",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-041",
+    "title": "Umask",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Default perms.",
+    "starterCode": "umask 022",
+    "testCases": [
+      {
+        "input": "",
+        "output": "set"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Perms",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-042",
+    "title": "Sudo",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Run as root.",
+    "starterCode": "sudo cmd",
+    "testCases": [
+      {
+        "input": "",
+        "output": "root"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Perms",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-043",
+    "title": "Su Switch",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Switch user.",
+    "starterCode": "su user",
+    "testCases": [
+      {
+        "input": "",
+        "output": "user"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Perms",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-044",
+    "title": "Basename",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Filename only.",
+    "starterCode": "basename /path/file.txt",
+    "testCases": [
+      {
+        "input": "",
+        "output": "file.txt"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Path",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-045",
+    "title": "Dirname",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Dir path.",
+    "starterCode": "dirname /path/file.txt",
+    "testCases": [
+      {
+        "input": "",
+        "output": "/path"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Path",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-046",
+    "title": "Realpath",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Absolute path.",
+    "starterCode": "realpath file",
+    "testCases": [
+      {
+        "input": "",
+        "output": "/abs/path"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Path",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-047",
+    "title": "Diff Patch",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Apply patch.",
+    "starterCode": "patch < file.diff",
+    "testCases": [
+      {
+        "input": "",
+        "output": "patched"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "DIFF",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-048",
+    "title": "Git Status",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check repo.",
+    "starterCode": "git status",
+    "testCases": [
+      {
+        "input": "",
+        "output": "status"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "GIT",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-049",
+    "title": "History Expansion",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Run last cmd.",
+    "starterCode": "!!",
+    "testCases": [
+      {
+        "input": "",
+        "output": "cmd"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "HIST",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash2-050",
+    "title": "Exit Status",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check success.",
+    "starterCode": "echo $?",
+    "testCases": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SYSTEM_COMMANDS",
+    "language": "bash",
+    "tags": "Logic",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "bash1-echo",
+    "title": "Echo Hello",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to read a line from standard input and print it to standard output.",
+    "examples": [
+      {
+        "input": "Hello World",
+        "output": "Hello World"
+      },
+      {
+        "input": "Bash",
+        "output": "Bash"
+      }
+    ],
+    "starterCode": "# Write your command here\ncat\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hello World",
+        "expected": "Hello World"
+      },
+      {
+        "input": "Testing",
+        "expected": "Testing"
+      },
+      {
+        "input": "123",
+        "expected": "123"
+      }
+    ],
+    "hint": "Use cat or echo \"$input\".",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-cat-create",
+    "title": "Create File",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to create a file named 'file.txt' containing the content read from standard input. Then display the file's content.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "Hello"
+      }
+    ],
+    "starterCode": "# Write your command here\ncat > file.txt\ncat file.txt\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "Hello"
+      },
+      {
+        "input": "World",
+        "expected": "World"
+      }
+    ],
+    "hint": "Use cat > file.txt and then cat file.txt.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-wc-lines",
+    "title": "Count Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to count the number of lines from standard input.",
+    "examples": [
+      {
+        "input": "1\n2\n3",
+        "output": "3"
+      }
+    ],
+    "starterCode": "# Write your command here\nwc -l\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2\n3",
+        "expected": "3"
+      },
+      {
+        "input": "A\nB",
+        "expected": "2"
+      },
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "Use wc -l.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-head",
+    "title": "First N Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to display the first 2 lines from standard input.",
+    "examples": [
+      {
+        "input": "1\n2\n3\n4",
+        "output": "1\n2"
+      }
+    ],
+    "starterCode": "# Write your command here\nhead -n 2\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2\n3\n4",
+        "expected": "1\n2"
+      },
+      {
+        "input": "A\nB\nC",
+        "expected": "A\nB"
+      }
+    ],
+    "hint": "Use head -n 2.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-tail",
+    "title": "Last N Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to display the last 2 lines from standard input.",
+    "examples": [
+      {
+        "input": "1\n2\n3\n4",
+        "output": "3\n4"
+      }
+    ],
+    "starterCode": "# Write your command here\ntail -n 2\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2\n3\n4",
+        "expected": "3\n4"
+      },
+      {
+        "input": "A\nB\nC",
+        "expected": "B\nC"
+      }
+    ],
+    "hint": "Use tail -n 2.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-sort",
+    "title": "Sort Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to sort the lines from standard input in ascending order.",
+    "examples": [
+      {
+        "input": "3\n1\n2",
+        "output": "1\n2\n3"
+      }
+    ],
+    "starterCode": "# Write your command here\nsort\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "3\n1\n2",
+        "expected": "1\n2\n3"
+      },
+      {
+        "input": "C\nA\nB",
+        "expected": "A\nB\nC"
+      }
+    ],
+    "hint": "Use sort command.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-sort-reverse",
+    "title": "Sort Reverse",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to sort the lines from standard input in descending order.",
+    "examples": [
+      {
+        "input": "1\n3\n2",
+        "output": "3\n2\n1"
+      }
+    ],
+    "starterCode": "# Write your command here\nsort -r\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n3\n2",
+        "expected": "3\n2\n1"
+      },
+      {
+        "input": "A\nC\nB",
+        "expected": "C\nB\nA"
+      }
+    ],
+    "hint": "Use sort -r.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-uniq",
+    "title": "Remove Duplicates",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a command to remove adjacent duplicate lines from standard input.",
+    "examples": [
+      {
+        "input": "A\nA\nB",
+        "output": "A\nB"
+      }
+    ],
+    "starterCode": "# Write your command here\nuniq\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A\nA\nB",
+        "expected": "A\nB"
+      },
+      {
+        "input": "1\n1\n2\n2",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "Use uniq command.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-grep",
+    "title": "Find String",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to find lines containing \"apple\" from standard input.",
+    "examples": [
+      {
+        "input": "apple pie\nbanana",
+        "output": "apple pie"
+      }
+    ],
+    "starterCode": "# Write your command here\ngrep \"apple\"\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "apple pie\nbanana",
+        "expected": "apple pie"
+      },
+      {
+        "input": "pineapple\ngrape",
+        "expected": "pineapple"
+      }
+    ],
+    "hint": "Use grep \"apple\".",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-grep-case",
+    "title": "Case Insensitive Search",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to find lines containing \"Apple\" from standard input, ignoring case.",
+    "examples": [
+      {
+        "input": "apple\nbanana",
+        "output": "apple"
+      }
+    ],
+    "starterCode": "# Write your command here\ngrep -i \"Apple\"\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "apple\nbanana",
+        "expected": "apple"
+      },
+      {
+        "input": "APPLE\nOrange",
+        "expected": "APPLE"
+      }
+    ],
+    "hint": "Use grep -i.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-cut-bytes",
+    "title": "Cut Bytes",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to extract the first byte from the input.",
+    "examples": [
+      {
+        "input": "ABC",
+        "output": "A"
+      }
+    ],
+    "starterCode": "# Write your command here\ncut -b 1\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "ABC",
+        "expected": "A"
+      },
+      {
+        "input": "123",
+        "expected": "1"
+      }
+    ],
+    "hint": "Use cut -b 1.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-cut-fields",
+    "title": "Cut Fields",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to extract the second field from input delimited by comma.",
+    "examples": [
+      {
+        "input": "A,B,C",
+        "output": "B"
+      }
+    ],
+    "starterCode": "# Write your command here\ncut -d \",\" -f 2\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A,B,C",
+        "expected": "B"
+      },
+      {
+        "input": "1,2,3",
+        "expected": "2"
+      }
+    ],
+    "hint": "Use cut -d \",\" -f 2.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-tr",
+    "title": "Translate Characters",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to replace all 'a's with 'b's from input.",
+    "examples": [
+      {
+        "input": "aba",
+        "output": "bbb"
+      }
+    ],
+    "starterCode": "# Write your command here\ntr \"a\" \"b\"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "aba",
+        "expected": "bbb"
+      },
+      {
+        "input": "apple",
+        "expected": "bpple"
+      }
+    ],
+    "hint": "Use tr \"a\" \"b\".",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-tr-delete",
+    "title": "Delete Characters",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to delete all digits from input.",
+    "examples": [
+      {
+        "input": "a1b2",
+        "output": "ab"
+      }
+    ],
+    "starterCode": "# Write your command here\ntr -d \"0-9\"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "a1b2",
+        "expected": "ab"
+      },
+      {
+        "input": "123",
+        "expected": ""
+      },
+      {
+        "input": "A1B2",
+        "expected": "AB"
+      }
+    ],
+    "hint": "Use tr -d \"0-9\".",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-rev",
+    "title": "Reverse String",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to reverse the characters of each line of input.",
+    "examples": [
+      {
+        "input": "abc",
+        "output": "cba"
+      }
+    ],
+    "starterCode": "# Write your command here\nrev\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "abc",
+        "expected": "cba"
+      },
+      {
+        "input": "123",
+        "expected": "321"
+      }
+    ],
+    "hint": "Use rev command.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-tee",
+    "title": "Tee Command",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to write input to 'f.txt' and also display it to stdout.",
+    "examples": [
+      {
+        "input": "Hi",
+        "output": "Hi"
+      }
+    ],
+    "starterCode": "# Write your command here\ntee f.txt\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hi",
+        "expected": "Hi"
+      },
+      {
+        "input": "Hello",
+        "expected": "Hello"
+      }
+    ],
+    "hint": "Use tee f.txt.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-paste",
+    "title": "Paste Files",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Merge lines of 'f1.txt' (content \"1\") and 'f2.txt' (content \"A\") side by side.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\tA"
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "echo \"1\" > f1.txt\necho \"A\" > f2.txt",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\tA"
+      }
+    ],
+    "hint": "Use paste f1.txt f2.txt.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-join",
+    "title": "Join Files",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Join 'f1.txt' (\"1 A\") and 'f2.txt' (\"1 X\") on the first field.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1 A X"
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "echo \"1 A\" > f1.txt\necho \"1 X\" > f2.txt",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1 A X"
+      }
+    ],
+    "hint": "Use join f1.txt f2.txt.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-sed-replace",
+    "title": "Sed Replace",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Use sed to replace the first occurrence of \"a\" with \"b\" in each line of input.",
+    "examples": [
+      {
+        "input": "aba",
+        "output": "bba"
+      }
+    ],
+    "starterCode": "# Write your command here\nsed \"s/a/b/\"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "aba",
+        "expected": "bba"
+      },
+      {
+        "input": "apple",
+        "expected": "bpple"
+      }
+    ],
+    "hint": "Use sed \"s/a/b/\".",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-sed-global",
+    "title": "Sed Global Replace",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Use sed to replace all occurrences of \"a\" with \"b\" in each line of input.",
+    "examples": [
+      {
+        "input": "aba",
+        "output": "bbb"
+      }
+    ],
+    "starterCode": "# Write your command here\nsed \"s/a/b/g\"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "aba",
+        "expected": "bbb"
+      },
+      {
+        "input": "banana",
+        "expected": "bbnbnb"
+      }
+    ],
+    "hint": "Use sed \"s/a/b/g\".",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-awk-print",
+    "title": "Awk Print Column",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Use awk to print the second column of input.",
+    "examples": [
+      {
+        "input": "A B C",
+        "output": "B"
+      }
+    ],
+    "starterCode": "# Write your command here\nawk '{print $2}'\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B C",
+        "expected": "B"
+      },
+      {
+        "input": "1 2 3",
+        "expected": "2"
+      }
+    ],
+    "hint": "Use awk '{print $2}'.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-awk-sum",
+    "title": "Awk Sum",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Use awk to sum the numbers in the first column of input.",
+    "examples": [
+      {
+        "input": "1\n2\n3",
+        "output": "6"
+      }
+    ],
+    "starterCode": "# Write your command here\nawk '{s+=$1} END {print s}'\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2\n3",
+        "expected": "6"
+      },
+      {
+        "input": "10\n20",
+        "expected": "30"
+      }
+    ],
+    "hint": "awk '{s+=$1} END {print s}'.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-find",
+    "title": "Find Files",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Find all files ending with \".txt\" in the current directory.",
+    "examples": [
+      {
+        "input": "",
+        "output": "./a.txt"
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "touch a.txt b.log",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "./a.txt"
+      }
+    ],
+    "hint": "Use find . -name \"*.txt\".",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-xargs",
+    "title": "Xargs Usage",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Use xargs to pass input as arguments to echo.",
+    "examples": [
+      {
+        "input": "1\n2",
+        "output": "1 2"
+      }
+    ],
+    "starterCode": "# Write your command here\nxargs echo\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2",
+        "expected": "1 2"
+      },
+      {
+        "input": "A\nB",
+        "expected": "A B"
+      }
+    ],
+    "hint": "xargs echo.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-seq",
+    "title": "Sequence",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to print a sequence of numbers from 1 to the input number.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "1\n2\n3"
+      }
+    ],
+    "starterCode": "# Write your command here\nxargs seq 1\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "3",
+        "expected": "1\n2\n3"
+      },
+      {
+        "input": "2",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "Use seq 1 N.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-date",
+    "title": "Date Command",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Print the current date. (Mocked for test).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Fri"
+      }
+    ],
+    "starterCode": "echo \"Fri\" # Mocked\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Fri"
+      }
+    ],
+    "hint": "Use date command.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-uname",
+    "title": "Kernel Name",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Print the kernel name. (Mocked as Linux).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Linux"
+      }
+    ],
+    "starterCode": "echo \"Linux\" # Mocked\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Linux"
+      }
+    ],
+    "hint": "Use uname.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-whoami",
+    "title": "Current User",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Print the current user. (Mocked as runner).",
+    "examples": [
+      {
+        "input": "",
+        "output": "runner"
+      }
+    ],
+    "starterCode": "echo \"runner\" # Mocked\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "runner"
+      }
+    ],
+    "hint": "Use whoami.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-pwd",
+    "title": "Working Directory",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Print the current working directory. (Mocked as /app).",
+    "examples": [
+      {
+        "input": "",
+        "output": "/app"
+      }
+    ],
+    "starterCode": "echo \"/app\" # Mocked\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "/app"
+      }
+    ],
+    "hint": "Use pwd.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-mkdir",
+    "title": "Make Directory",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create a directory named 'd' and list it.",
+    "examples": [
+      {
+        "input": "",
+        "output": "d"
+      }
+    ],
+    "starterCode": "# Write your command here\nls -d d\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "d"
+      }
+    ],
+    "hint": "Use mkdir d.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-rmdir",
+    "title": "Remove Directory",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Remove an empty directory 'd'.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "# Write your command here\nls\n",
+    "setupCode": "mkdir d",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "Use rmdir d.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-touch",
+    "title": "Touch File",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create an empty file named 'f'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "f"
+      }
+    ],
+    "starterCode": "# Write your command here\nls f\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "f"
+      }
+    ],
+    "hint": "Use touch f.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-cp",
+    "title": "Copy File",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Copy 'a' to 'b'. 'a' contains \"Hi\". Print 'b'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Hi"
+      }
+    ],
+    "starterCode": "# Write your command here\ncat b\n",
+    "setupCode": "echo \"Hi\" > a",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Hi"
+      }
+    ],
+    "hint": "Use cp a b.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-mv",
+    "title": "Move File",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Rename 'a' to 'b'. 'a' contains \"Hi\". Print 'b'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Hi"
+      }
+    ],
+    "starterCode": "# Write your command here\ncat b\n",
+    "setupCode": "echo \"Hi\" > a",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Hi"
+      }
+    ],
+    "hint": "Use mv a b.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-rm",
+    "title": "Remove File",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Remove file 'a'.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "# Write your command here\nls\n",
+    "setupCode": "touch a",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "Use rm a.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-chmod",
+    "title": "Change Permissions",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Change permissions of 'a' to 777. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "touch a",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "Use chmod 777 a.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-diff",
+    "title": "Diff Files",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Compare 'a' (\"A\") and 'b' (\"B\").",
+    "examples": [
+      {
+        "input": "",
+        "output": "1c1\n< A\n---\n> B"
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "echo \"A\" > a\necho \"B\" > b",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1c1\n< A\n---\n> B"
+      }
+    ],
+    "hint": "Use diff a b.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-cmp",
+    "title": "Compare Bytes",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Compare 'a' (\"A\") and 'b' (\"A\") byte by byte. No output if identical.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "echo \"A\" > a\necho \"A\" > b",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "Use cmp a b.",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-comm",
+    "title": "Common Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Compare sorted files 'a' (\"1\n2\n3\") and 'b' (\"1\n2\"). Suppress column 1 and 2 (show only unique to b? No, show unique to a? comm -3 suppresses both unique, shows common. Wait. comm -3 suppresses common? No. comm -12 shows common. comm -3 shows unique to both. Let's use -3 to show diff).",
+    "examples": [
+      {
+        "input": "",
+        "output": "\t\t3"
+      }
+    ],
+    "starterCode": "# Write your command here\n",
+    "setupCode": "printf \"1\\n2\\n3\" > a\nprintf \"1\\n2\" > b",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "\t\t3"
+      }
+    ],
+    "hint": "Use comm -3 a b. (Actually comm output depends on flags. -3 suppresses col 3 (common). Wait. -1 suppresses unique to a. -2 suppresses unique to b. -3 suppresses common. So unique to a and unique to b are shown. 3 is unique to a. So it shows in col 1. 1 and 2 are common. So suppressed. Result: 3 in col 1. Tab indentation matters.)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "bash1-basename",
+    "title": "Basename",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to print the filename from the input path.",
+    "examples": [
+      {
+        "input": "/path/to/file.txt",
+        "output": "file.txt"
+      }
+    ],
+    "starterCode": "# Write your command here\nxargs basename\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "/path/to/file.txt",
+        "expected": "file.txt"
+      },
+      {
+        "input": "/a/b/c.txt",
+        "expected": "c.txt"
+      }
+    ],
+    "hint": "Use basename.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-dirname",
+    "title": "Dirname",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to print the directory path from the input path.",
+    "examples": [
+      {
+        "input": "/path/to/file.txt",
+        "output": "/path/to"
+      }
+    ],
+    "starterCode": "# Write your command here\nxargs dirname\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "/path/to/file.txt",
+        "expected": "/path/to"
+      },
+      {
+        "input": "/a/b/c.txt",
+        "expected": "/a/b"
+      }
+    ],
+    "hint": "Use dirname.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-head-bytes",
+    "title": "Head Bytes",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to print the first 2 bytes of input.",
+    "examples": [
+      {
+        "input": "HiThere",
+        "output": "Hi"
+      }
+    ],
+    "starterCode": "# Write your command here\nhead -c 2\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "HiThere",
+        "expected": "Hi"
+      },
+      {
+        "input": "ABCD",
+        "expected": "AB"
+      }
+    ],
+    "hint": "Use head -c 2.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-tail-bytes",
+    "title": "Tail Bytes",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to print the last 2 bytes of input.",
+    "examples": [
+      {
+        "input": "HiThere",
+        "output": "re"
+      }
+    ],
+    "starterCode": "# Write your command here\ntail -c 2\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "HiThere",
+        "expected": "re"
+      },
+      {
+        "input": "ABCD",
+        "expected": "CD"
+      }
+    ],
+    "hint": "Use tail -c 2.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-fold",
+    "title": "Fold Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to wrap input lines to width 2.",
+    "examples": [
+      {
+        "input": "1234",
+        "output": "12\n34"
+      }
+    ],
+    "starterCode": "# Write your command here\nfold -w 2\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1234",
+        "expected": "12\n34"
+      },
+      {
+        "input": "ABCD",
+        "expected": "AB\nCD"
+      }
+    ],
+    "hint": "Use fold -w 2.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-nl",
+    "title": "Number Lines",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to number the lines of input.",
+    "examples": [
+      {
+        "input": "A",
+        "output": "     1\tA"
+      }
+    ],
+    "starterCode": "# Write your command here\nnl\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": "     1\tA"
+      },
+      {
+        "input": "B",
+        "expected": "     1\tB"
+      }
+    ],
+    "hint": "Use nl.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-od",
+    "title": "Octal Dump",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Write a command to dump input in octal.",
+    "examples": [
+      {
+        "input": "AB",
+        "output": "0000000 040501 000012\n0000003"
+      }
+    ],
+    "starterCode": "# Write your command here\nod\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "AB",
+        "expected": "0000000 040501 000012\n0000003"
+      }
+    ],
+    "hint": "Use od.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-strings",
+    "title": "Strings Command",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a command to print printable characters from input.",
+    "examples": [
+      {
+        "input": "Hi",
+        "output": "Hi"
+      }
+    ],
+    "starterCode": "# Write your command here\nstrings\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hi",
+        "expected": "Hi"
+      },
+      {
+        "input": "Test",
+        "expected": "Test"
+      }
+    ],
+    "hint": "Use strings.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-shuf",
+    "title": "Shuffle",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a command to shuffle input lines.",
+    "examples": [
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "starterCode": "# Write your command here\nshuf\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1",
+        "expected": "1"
+      }
+    ],
+    "hint": "Use shuf.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-factor",
+    "title": "Factor Numbers",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a command to print prime factors of the input number.",
+    "examples": [
+      {
+        "input": "10",
+        "output": "10: 2 5"
+      }
+    ],
+    "starterCode": "# Write your command here\nxargs factor\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "10",
+        "expected": "10: 2 5"
+      },
+      {
+        "input": "6",
+        "expected": "6: 2 3"
+      }
+    ],
+    "hint": "Use factor.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash1-yes",
+    "title": "Yes Command",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a command to print the input string twice using yes command.",
+    "examples": [
+      {
+        "input": "y",
+        "output": "y\ny"
+      }
+    ],
+    "starterCode": "# Write your command here\nxargs yes | head -n 2\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "y",
+        "expected": "y\ny"
+      },
+      {
+        "input": "no",
+        "expected": "no\nno"
+      }
+    ],
+    "hint": "Use yes | head -n 2.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-if-else",
+    "title": "If Else",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Write a script that checks if the input string is \"A\". If yes, print \"Yes\", else print \"No\".",
+    "examples": [
+      {
+        "input": "A",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\nif [ \"$s\" = \"A\" ]; then\n    echo \"Yes\"\nelse\n    echo \"No\"\nfi\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": "Yes"
+      },
+      {
+        "input": "B",
+        "expected": "No"
+      }
+    ],
+    "hint": "if [ \"$s\" = \"A\" ]",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-for-loop",
+    "title": "For Loop",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Write a script to print numbers 1 to the input number using a for loop.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "1\n2\n3"
+      }
+    ],
+    "starterCode": "# Write your script here\nread n\nfor ((i=1; i<=n; i++)); do\n    echo $i\ndone\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "3",
+        "expected": "1\n2\n3"
+      },
+      {
+        "input": "2",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "for ((i=1; i<=n; i++))",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-while-loop",
+    "title": "While Loop",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Write a script to print numbers 1 to the input number using a while loop.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "1\n2\n3"
+      }
+    ],
+    "starterCode": "# Write your script here\nread n\ni=1\nwhile [ $i -le $n ]; do\n    echo $i\n    ((i++))\ndone\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "3",
+        "expected": "1\n2\n3"
+      },
+      {
+        "input": "2",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "while [ $i -le $n ]",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-function",
+    "title": "Function",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Define a function 'greet' that prints the argument passed to it. Call it with input.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "Hello"
+      }
+    ],
+    "starterCode": "# Write your script here\ngreet() {\n    echo $1\n}\nread name\ngreet $name\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "Hello"
+      },
+      {
+        "input": "World",
+        "expected": "World"
+      }
+    ],
+    "hint": "func() { echo $1; }",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-args",
+    "title": "Script Arguments",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Write a script that prints the first argument passed to it.",
+    "examples": [
+      {
+        "input": "Arg1",
+        "output": "Arg1"
+      }
+    ],
+    "starterCode": "# Write your script here\necho $1\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Arg1",
+        "expected": "Arg1"
+      },
+      {
+        "input": "Test",
+        "expected": "Test"
+      }
+    ],
+    "hint": "Use $1.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-case",
+    "title": "Case Statement",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Write a script that reads a fruit name. If \"apple\", print \"Red\". If \"banana\", print \"Yellow\".",
+    "examples": [
+      {
+        "input": "apple",
+        "output": "Red"
+      }
+    ],
+    "starterCode": "# Write your script here\nread fruit\ncase $fruit in\n    \"apple\") echo \"Red\" ;;\n    \"banana\") echo \"Yellow\" ;;\nesac\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "apple",
+        "expected": "Red"
+      },
+      {
+        "input": "banana",
+        "expected": "Yellow"
+      }
+    ],
+    "hint": "case $var in ... esac",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-read",
+    "title": "Read Input",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read a line from stdin and print it.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "Hello"
+      }
+    ],
+    "starterCode": "# Write your script here\nread line\necho $line\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "Hello"
+      },
+      {
+        "input": "World",
+        "expected": "World"
+      }
+    ],
+    "hint": "read var",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-arithmetic",
+    "title": "Arithmetic Expansion",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read two numbers and print their sum using arithmetic expansion.",
+    "examples": [
+      {
+        "input": "5 3",
+        "output": "8"
+      }
+    ],
+    "starterCode": "# Write your script here\nread a b\necho $((a + b))\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "5 3",
+        "expected": "8"
+      },
+      {
+        "input": "10 20",
+        "expected": "30"
+      }
+    ],
+    "hint": "$((...))",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-string-len",
+    "title": "String Length",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read a string and print its length.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "5"
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\necho ${#s}\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "5"
+      },
+      {
+        "input": "Hi",
+        "expected": "2"
+      }
+    ],
+    "hint": "${#var}",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-substring",
+    "title": "Substring",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read a string and print substring starting at index 1 with length 3.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "ell"
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\necho ${s:1:3}\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "ell"
+      },
+      {
+        "input": "World",
+        "expected": "orl"
+      }
+    ],
+    "hint": "${var:start:len}",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-array",
+    "title": "Array Basics",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read two words into an array and print the second element.",
+    "examples": [
+      {
+        "input": "A B",
+        "output": "B"
+      }
+    ],
+    "starterCode": "# Write your script here\nread -a arr\necho ${arr[1]}\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B",
+        "expected": "B"
+      },
+      {
+        "input": "X Y",
+        "expected": "Y"
+      }
+    ],
+    "hint": "${arr[index]}",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-array-len",
+    "title": "Array Length",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read words into an array and print the number of elements.",
+    "examples": [
+      {
+        "input": "A B",
+        "output": "2"
+      }
+    ],
+    "starterCode": "# Write your script here\nread -a arr\necho ${#arr[@]}\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B",
+        "expected": "2"
+      },
+      {
+        "input": "A B C",
+        "expected": "3"
+      }
+    ],
+    "hint": "${#arr[@]}",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-loop-array",
+    "title": "Loop Array",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read words into an array and loop through to print each element.",
+    "examples": [
+      {
+        "input": "A B",
+        "output": "A\nB"
+      }
+    ],
+    "starterCode": "# Write your script here\nread -a arr\nfor i in \"${arr[@]}\"; do\n    echo $i\ndone\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B",
+        "expected": "A\nB"
+      },
+      {
+        "input": "1 2",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "for i in \"${arr[@]}\"",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-command-sub",
+    "title": "Command Substitution",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read a string, store it in a variable using command substitution (echo), and print it.",
+    "examples": [
+      {
+        "input": "Hi",
+        "output": "Hi"
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\nv=$(echo $s)\necho $v\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hi",
+        "expected": "Hi"
+      },
+      {
+        "input": "Test",
+        "expected": "Test"
+      }
+    ],
+    "hint": "$(...)",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-exit-status",
+    "title": "Exit Status",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Run 'true' or 'false' based on input (0 or 1) and print exit status. (Input 0 -> true, 1 -> false).",
+    "examples": [
+      {
+        "input": "0",
+        "output": "0"
+      }
+    ],
+    "starterCode": "# Write your script here\nread n\nif [ \"$n\" -eq 0 ]; then true; else false; fi\necho $?\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "0",
+        "expected": "0"
+      },
+      {
+        "input": "1",
+        "expected": "1"
+      }
+    ],
+    "hint": "$?",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-file-test",
+    "title": "File Test",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Check if 'd' is a directory. Print \"Dir\" or \"No\". Assume 'd' exists.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Dir"
+      }
+    ],
+    "starterCode": "# Write your script here\nif [ -d d ]; then echo \"Dir\"; else echo \"No\"; fi\n",
+    "setupCode": "mkdir d",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Dir"
+      }
+    ],
+    "hint": "-d flag",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "bash2-string-compare",
+    "title": "String Compare",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read two strings and check if they are equal. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "a a",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "# Write your script here\nread a b\nif [ \"$a\" = \"$b\" ]; then echo \"Yes\"; else echo \"No\"; fi\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "a a",
+        "expected": "Yes"
+      },
+      {
+        "input": "a b",
+        "expected": "No"
+      }
+    ],
+    "hint": "[ \"$a\" = \"$b\" ]",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-num-compare",
+    "title": "Number Compare",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read two numbers and check if first is greater than second. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "10 5",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "# Write your script here\nread a b\nif [ $a -gt $b ]; then echo \"Yes\"; else echo \"No\"; fi\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "10 5",
+        "expected": "Yes"
+      },
+      {
+        "input": "5 10",
+        "expected": "No"
+      }
+    ],
+    "hint": "-gt",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-logical-and",
+    "title": "Logical AND",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read two numbers. Check if both are positive (>0). Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "1 1",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "# Write your script here\nread a b\nif [ $a -gt 0 ] && [ $b -gt 0 ]; then echo \"Yes\"; else echo \"No\"; fi\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1 1",
+        "expected": "Yes"
+      },
+      {
+        "input": "1 0",
+        "expected": "No"
+      }
+    ],
+    "hint": "&& operator",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-logical-or",
+    "title": "Logical OR",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read two numbers. Check if at least one is positive (>0). Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "1 0",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "# Write your script here\nread a b\nif [ $a -gt 0 ] || [ $b -gt 0 ]; then echo \"Yes\"; else echo \"No\"; fi\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1 0",
+        "expected": "Yes"
+      },
+      {
+        "input": "0 0",
+        "expected": "No"
+      }
+    ],
+    "hint": "|| operator",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-regex",
+    "title": "Regex Match",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Read a string. Check if it starts with \"a\". Print \"Match\" or \"No\".",
+    "examples": [
+      {
+        "input": "abc",
+        "output": "Match"
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\nif [[ \"$s\" =~ ^a.* ]]; then echo \"Match\"; else echo \"No\"; fi\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "abc",
+        "expected": "Match"
+      },
+      {
+        "input": "bca",
+        "expected": "No"
+      }
+    ],
+    "hint": "[[ str =~ regex ]]",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-default-val",
+    "title": "Default Value",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read a value. Print it. If empty, print \"Def\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Def"
+      }
+    ],
+    "starterCode": "# Write your script here\nread v\necho ${v:-Def}\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Def"
+      },
+      {
+        "input": "Val",
+        "expected": "Val"
+      }
+    ],
+    "hint": "${var:-default}",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-heredoc",
+    "title": "Here Document",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read two lines and print them using heredoc.",
+    "examples": [
+      {
+        "input": "L1\nL2",
+        "output": "L1\nL2"
+      }
+    ],
+    "starterCode": "# Write your script here\nread l1\nread l2\ncat <<EOF\n$l1\n$l2\nEOF\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "L1\nL2",
+        "expected": "L1\nL2"
+      },
+      {
+        "input": "A\nB",
+        "expected": "A\nB"
+      }
+    ],
+    "hint": "<<EOF ... EOF",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-redirect-stderr",
+    "title": "Redirect Stderr",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Redirect stderr of 'ls nonexist' to stdout. (Output contains \"No such file\").",
+    "examples": [
+      {
+        "input": "",
+        "output": "ls: cannot access 'nonexist': No such file or directory"
+      }
+    ],
+    "starterCode": "# Write your script here\nls nonexist 2>&1\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "ls: cannot access 'nonexist': No such file or directory"
+      }
+    ],
+    "hint": "2>&1",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-discard-output",
+    "title": "Discard Output",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read input, echo it, but discard output (print nothing).",
+    "examples": [
+      {
+        "input": "Hi",
+        "output": ""
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\necho $s > /dev/null\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Hi",
+        "expected": ""
+      },
+      {
+        "input": "Test",
+        "expected": ""
+      }
+    ],
+    "hint": "> /dev/null",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-brace-expansion",
+    "title": "Brace Expansion",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read a string and print it with suffixes 1 and 2 using brace expansion.",
+    "examples": [
+      {
+        "input": "A",
+        "output": "A1 A2"
+      }
+    ],
+    "starterCode": "# Write your script here\nread s\necho $s{1,2}\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": "A1 A2"
+      },
+      {
+        "input": "B",
+        "expected": "B1 B2"
+      }
+    ],
+    "hint": "A{1,2}",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-process-sub",
+    "title": "Process Substitution",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Read two strings and compare them using diff and process substitution.",
+    "examples": [
+      {
+        "input": "A B",
+        "output": "1c1\n< A\n---\n> B"
+      }
+    ],
+    "starterCode": "# Write your script here\nread a b\ndiff <(echo $a) <(echo $b)\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B",
+        "expected": "1c1\n< A\n---\n> B"
+      },
+      {
+        "input": "X Y",
+        "expected": "1c1\n< X\n---\n> Y"
+      }
+    ],
+    "hint": "<(cmd)",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-readonly",
+    "title": "Readonly Variable",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Declare readonly var r=\"A\". Try to change it to input. Print r. (Should print A, error suppressed).",
+    "examples": [
+      {
+        "input": "B",
+        "output": "A"
+      }
+    ],
+    "starterCode": "# Write your script here\nread val\nr=\"$val\" 2>/dev/null\necho $r\n",
+    "setupCode": "readonly r=\"A\"",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "B",
+        "expected": "A"
+      },
+      {
+        "input": "C",
+        "expected": "A"
+      }
+    ],
+    "hint": "readonly var",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "bash2-unset",
+    "title": "Unset Variable",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read input into 'v', then unset it. Print 'v' (should be empty).",
+    "examples": [
+      {
+        "input": "A",
+        "output": ""
+      }
+    ],
+    "starterCode": "# Write your script here\nread v\nunset v\necho $v\n",
+    "setupCode": "",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": ""
+      },
+      {
+        "input": "B",
+        "expected": ""
+      }
+    ],
+    "hint": "unset var",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "bash2-env-var",
+    "title": "Environment Variable",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read input, export it as variable E, and print it.",
+    "examples": [
+      {
+        "input": "Exp",
+        "output": "Exp"
+      }
+    ],
+    "starterCode": "# Write your script here\nread val\nexport E=\"$val\"\necho $E\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "Exp",
+        "expected": "Exp"
+      },
+      {
+        "input": "Test",
+        "expected": "Test"
+      }
+    ],
+    "hint": "export var",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-basename-suffix",
+    "title": "Basename Suffix",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read a filename and remove the .txt suffix.",
+    "examples": [
+      {
+        "input": "file.txt",
+        "output": "file"
+      }
+    ],
+    "starterCode": "# Write your script here\nread f\nbasename $f .txt\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "file.txt",
+        "expected": "file"
+      },
+      {
+        "input": "data.txt",
+        "expected": "data"
+      }
+    ],
+    "hint": "basename name suffix",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-dirname-path",
+    "title": "Dirname Path",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read a path and print its directory name.",
+    "examples": [
+      {
+        "input": "/a/b/c",
+        "output": "/a/b"
+      }
+    ],
+    "starterCode": "# Write your script here\nread p\ndirname $p\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "/a/b/c",
+        "expected": "/a/b"
+      },
+      {
+        "input": "/x/y/z",
+        "expected": "/x/y"
+      }
+    ],
+    "hint": "dirname",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-tr-squeeze",
+    "title": "Tr Squeeze",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Read input and squeeze repeated spaces to single space.",
+    "examples": [
+      {
+        "input": "A  B",
+        "output": "A B"
+      }
+    ],
+    "starterCode": "# Write your script here\ntr -s \" \"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A  B",
+        "expected": "A B"
+      },
+      {
+        "input": "X   Y",
+        "expected": "X Y"
+      }
+    ],
+    "hint": "tr -s",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-grep-count",
+    "title": "Grep Count",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Count lines containing \"a\" in input.",
+    "examples": [
+      {
+        "input": "a\nb\na",
+        "output": "2"
+      }
+    ],
+    "starterCode": "# Write your script here\ngrep -c \"a\"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "a\nb\na",
+        "expected": "2"
+      },
+      {
+        "input": "a\na\na",
+        "expected": "3"
+      }
+    ],
+    "hint": "grep -c",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-grep-invert",
+    "title": "Grep Invert",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Print lines NOT containing \"a\" in input.",
+    "examples": [
+      {
+        "input": "a\nb",
+        "output": "b"
+      }
+    ],
+    "starterCode": "# Write your script here\ngrep -v \"a\"\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "a\nb",
+        "expected": "b"
+      },
+      {
+        "input": "x\ny\na",
+        "expected": "x\ny"
+      }
+    ],
+    "hint": "grep -v",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-head-tail-pipe",
+    "title": "Head Tail Pipe",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Print the 2nd line of input using head and tail.",
+    "examples": [
+      {
+        "input": "1\n2\n3",
+        "output": "2"
+      }
+    ],
+    "starterCode": "# Write your script here\nhead -n 2 | tail -n 1\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2\n3",
+        "expected": "2"
+      },
+      {
+        "input": "A\nB\nC",
+        "expected": "B"
+      }
+    ],
+    "hint": "head | tail",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-sort-numeric",
+    "title": "Sort Numeric",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Sort input numerically.",
+    "examples": [
+      {
+        "input": "10\n2",
+        "output": "2\n10"
+      }
+    ],
+    "starterCode": "# Write your script here\nsort -n\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "10\n2",
+        "expected": "2\n10"
+      },
+      {
+        "input": "5\n1",
+        "expected": "1\n5"
+      }
+    ],
+    "hint": "sort -n",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-sort-unique",
+    "title": "Sort Unique",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Sort input and remove duplicates.",
+    "examples": [
+      {
+        "input": "A\nA",
+        "output": "A"
+      }
+    ],
+    "starterCode": "# Write your script here\nsort -u\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A\nA",
+        "expected": "A"
+      },
+      {
+        "input": "B\nB\nC",
+        "expected": "B\nC"
+      }
+    ],
+    "hint": "sort -u",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-wc-words",
+    "title": "Count Words",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Count words in input.",
+    "examples": [
+      {
+        "input": "A B",
+        "output": "2"
+      }
+    ],
+    "starterCode": "# Write your script here\nwc -w\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B",
+        "expected": "2"
+      },
+      {
+        "input": "1 2 3",
+        "expected": "3"
+      }
+    ],
+    "hint": "wc -w",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-wc-chars",
+    "title": "Count Chars",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Count chars in input (including newline).",
+    "examples": [
+      {
+        "input": "A",
+        "output": "2"
+      }
+    ],
+    "starterCode": "# Write your script here\nwc -m\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": "2"
+      },
+      {
+        "input": "AB",
+        "expected": "3"
+      }
+    ],
+    "hint": "wc -m",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-tee-append",
+    "title": "Tee Append",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Append input to file 'f' (content \"A\") using tee. Print 'f'.",
+    "examples": [
+      {
+        "input": "B",
+        "output": "A\nB"
+      }
+    ],
+    "starterCode": "# Write your script here\ntee -a f > /dev/null\ncat f\n",
+    "setupCode": "echo \"A\" > f",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "B",
+        "expected": "A\nB"
+      },
+      {
+        "input": "C",
+        "expected": "A\nC"
+      }
+    ],
+    "hint": "tee -a",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "bash2-paste-delim",
+    "title": "Paste Delimiter",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Paste 'f1' (\"A\") and 'f2' (\"B\") with comma delimiter.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A,B"
+      }
+    ],
+    "starterCode": "paste -d \",\" f1 f2\n",
+    "setupCode": "echo \"A\" > f1\necho \"B\" > f2",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A,B"
+      }
+    ],
+    "hint": "paste -d",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "bash2-cut-range",
+    "title": "Cut Range",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Cut bytes 1-2 from input.",
+    "examples": [
+      {
+        "input": "ABC",
+        "output": "AB"
+      }
+    ],
+    "starterCode": "# Write your script here\ncut -b 1-2\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "ABC",
+        "expected": "AB"
+      },
+      {
+        "input": "1234",
+        "expected": "12"
+      }
+    ],
+    "hint": "cut -b 1-2",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-awk-condition",
+    "title": "Awk Condition",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Print line if first column > 1.",
+    "examples": [
+      {
+        "input": "1\n2",
+        "output": "2"
+      }
+    ],
+    "starterCode": "# Write your script here\nawk '$1 > 1'\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "1\n2",
+        "expected": "2"
+      },
+      {
+        "input": "0\n5",
+        "expected": "5"
+      }
+    ],
+    "hint": "awk '$1 > 1'",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-sed-delete",
+    "title": "Sed Delete",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Delete 1st line of input.",
+    "examples": [
+      {
+        "input": "A\nB",
+        "output": "B"
+      }
+    ],
+    "starterCode": "# Write your script here\nsed '1d'\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A\nB",
+        "expected": "B"
+      },
+      {
+        "input": "1\n2\n3",
+        "expected": "2\n3"
+      }
+    ],
+    "hint": "sed '1d'",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-find-exec",
+    "title": "Find Exec",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Find 'f' and cat it. Content \"A\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "find . -name f -exec cat {} \\;\n",
+    "setupCode": "echo \"A\" > f",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "-exec ... {} ;",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "bash2-xargs-n",
+    "title": "Xargs Max Args",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Pass 1 arg at a time to echo from input.",
+    "examples": [
+      {
+        "input": "A B",
+        "output": "A\nB"
+      }
+    ],
+    "starterCode": "# Write your script here\nxargs -n 1 echo\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A B",
+        "expected": "A\nB"
+      },
+      {
+        "input": "1 2",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "xargs -n 1",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-seq-step",
+    "title": "Seq Step",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Print sequence from 1 to input end with step 2.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "1\n3\n5"
+      }
+    ],
+    "starterCode": "# Write your script here\nread n\nseq 1 2 $n\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "1\n3\n5"
+      },
+      {
+        "input": "6",
+        "expected": "1\n3\n5"
+      }
+    ],
+    "hint": "seq start step end",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-shuf-n",
+    "title": "Shuf Count",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Pick 1 random line from input.",
+    "examples": [
+      {
+        "input": "A",
+        "output": "A"
+      }
+    ],
+    "starterCode": "# Write your script here\nshuf -n 1\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": "A"
+      }
+    ],
+    "hint": "shuf -n",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "bash2-rev-line",
+    "title": "Rev Line",
+    "subject": "System_Commands",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Reverse characters of input line.",
+    "examples": [
+      {
+        "input": "AB",
+        "output": "BA"
+      }
+    ],
+    "starterCode": "# Write your script here\nrev\n",
+    "functionName": "bash",
+    "testCases": [
+      {
+        "input": "AB",
+        "expected": "BA"
+      },
+      {
+        "input": "123",
+        "expected": "321"
+      }
+    ],
+    "hint": "rev",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  }
+]

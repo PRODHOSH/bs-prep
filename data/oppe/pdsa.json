@@ -1,0 +1,6132 @@
+[
+  {
+    "id": "pdsa1-lc-206",
+    "title": "Reverse Linked List",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Reverse list.",
+    "starterCode": "def reverseList(head):",
+    "testCases": [
+      {
+        "input": "[1,2]",
+        "output": "[2,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "reverseList",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-21",
+    "title": "Merge Two Sorted Lists",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Merge sorted.",
+    "starterCode": "def mergeTwoLists(l1, l2):",
+    "testCases": [
+      {
+        "input": "[1,2],[1,3]",
+        "output": "[1,1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "mergeTwoLists",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-141",
+    "title": "Linked List Cycle",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Detect cycle.",
+    "starterCode": "def hasCycle(head):",
+    "testCases": [
+      {
+        "input": "[3,2,0,-4]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "hasCycle",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-160",
+    "title": "Intersection of Two Lists",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find intersection.",
+    "starterCode": "def getIntersectionNode(a, b):",
+    "testCases": [
+      {
+        "input": "8",
+        "output": "8"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "getIntersectionNode",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-234",
+    "title": "Palindrome Linked List",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Is palindrome.",
+    "starterCode": "def isPalindrome(head):",
+    "testCases": [
+      {
+        "input": "[1,2,1]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "isPalindrome",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-83",
+    "title": "Remove Duplicates",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Sorted list.",
+    "starterCode": "def deleteDuplicates(head):",
+    "testCases": [
+      {
+        "input": "[1,1,2]",
+        "output": "[1,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "deleteDuplicates",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-203",
+    "title": "Remove Elements",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove value.",
+    "starterCode": "def removeElements(head, val):",
+    "testCases": [
+      {
+        "input": "[1,2,6,3], 6",
+        "output": "[1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "removeElements",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-876",
+    "title": "Middle of Linked List",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find middle.",
+    "starterCode": "def middleNode(head):",
+    "testCases": [
+      {
+        "input": "[1,2,3,4,5]",
+        "output": "[3,4,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "middleNode",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-1290",
+    "title": "Binary to Integer",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Convert LL.",
+    "starterCode": "def getDecimalValue(head):",
+    "testCases": [
+      {
+        "input": "[1,0,1]",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "getDecimalValue",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-704",
+    "title": "Binary Search",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Search sorted array.",
+    "starterCode": "def search(nums, target):",
+    "testCases": [
+      {
+        "input": "[-1,0,3,5], 9",
+        "output": "-1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "search",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-278",
+    "title": "First Bad Version",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Minimize calls.",
+    "starterCode": "def firstBadVersion(n):",
+    "testCases": [
+      {
+        "input": "5",
+        "output": "4"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "firstBadVersion",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-35",
+    "title": "Search Insert Position",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find index.",
+    "starterCode": "def searchInsert(nums, target):",
+    "testCases": [
+      {
+        "input": "[1,3,5], 2",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "searchInsert",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-69",
+    "title": "Sqrt(x)",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Int sqrt.",
+    "starterCode": "def mySqrt(x):",
+    "testCases": [
+      {
+        "input": "8",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "mySqrt",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-367",
+    "title": "Valid Perfect Square",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Is square.",
+    "starterCode": "def isPerfectSquare(num):",
+    "testCases": [
+      {
+        "input": "16",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "isPerfectSquare",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-374",
+    "title": "Guess Number",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "High/Low.",
+    "starterCode": "def guessNumber(n):",
+    "testCases": [
+      {
+        "input": "10",
+        "output": "6"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "guessNumber",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-20",
+    "title": "Valid Parentheses",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check brackets.",
+    "starterCode": "def isValid(s):",
+    "testCases": [
+      {
+        "input": "\"()\"",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "isValid",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-155",
+    "title": "Min Stack",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "O(1) min.",
+    "starterCode": "class MinStack:",
+    "testCases": [
+      {
+        "input": "push,getMin",
+        "output": "-2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-232",
+    "title": "Queue using Stacks",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Implement.",
+    "starterCode": "class MyQueue:",
+    "testCases": [
+      {
+        "input": "push,pop",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-225",
+    "title": "Stack using Queues",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Implement.",
+    "starterCode": "class MyStack:",
+    "testCases": [
+      {
+        "input": "push,pop",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-1047",
+    "title": "Remove Adjacent Dups",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "String stack.",
+    "starterCode": "def removeDuplicates(s):",
+    "testCases": [
+      {
+        "input": "\"abbaca\"",
+        "output": "\"ca\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "removeDuplicates",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-682",
+    "title": "Baseball Game",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Score ops.",
+    "starterCode": "def calPoints(ops):",
+    "testCases": [
+      {
+        "input": "[\"5\",\"2\",\"C\",\"D\",\"+\"]",
+        "output": "30"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "calPoints",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-844",
+    "title": "Backspace String",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Compare strings.",
+    "starterCode": "def backspaceCompare(s, t):",
+    "testCases": [
+      {
+        "input": "\"ab#c\",\"ad#c\"",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "backspaceCompare",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-1544",
+    "title": "Make The String Great",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove bad pairs.",
+    "starterCode": "def makeGood(s):",
+    "testCases": [
+      {
+        "input": "\"leEeetcode\"",
+        "output": "\"leetcode\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "makeGood",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-933",
+    "title": "Number of Recent Calls",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Ping counter.",
+    "starterCode": "class RecentCounter:",
+    "testCases": [
+      {
+        "input": "ping,ping",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Queue",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-88",
+    "title": "Merge Sorted Array",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "In-place merge.",
+    "starterCode": "def merge(nums1, m, nums2, n):",
+    "testCases": [
+      {
+        "input": "[1,2,3,0,0,0], [2,5,6]",
+        "output": "[1,2,2,3,5,6]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "merge",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-217",
+    "title": "Contains Duplicate",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check set.",
+    "starterCode": "def containsDuplicate(nums):",
+    "testCases": [
+      {
+        "input": "[1,2,3,1]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "containsDuplicate",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-53",
+    "title": "Maximum Subarray",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Kadane Algo.",
+    "starterCode": "def maxSubArray(nums):",
+    "testCases": [
+      {
+        "input": "[-2,1,-3,4,-1,2,1,-5,4]",
+        "output": "6"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "maxSubArray",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-1",
+    "title": "Two Sum",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Target sum.",
+    "starterCode": "def twoSum(nums, target):",
+    "testCases": [
+      {
+        "input": "[2,7,11,15], 9",
+        "output": "[0,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "twoSum",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-169",
+    "title": "Majority Element",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Moore Voting.",
+    "starterCode": "def majorityElement(nums):",
+    "testCases": [
+      {
+        "input": "[3,2,3]",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "majorityElement",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-121",
+    "title": "Best Time to Buy Stock",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Max profit.",
+    "starterCode": "def maxProfit(prices):",
+    "testCases": [
+      {
+        "input": "[7,1,5,3,6,4]",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "maxProfit",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-350",
+    "title": "Intersection Arrays II",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "With counts.",
+    "starterCode": "def intersect(nums1, nums2):",
+    "testCases": [
+      {
+        "input": "[1,2,2,1],[2,2]",
+        "output": "[2,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "intersect",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-566",
+    "title": "Reshape the Matrix",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "New dimensions.",
+    "starterCode": "def matrixReshape(mat, r, c):",
+    "testCases": [
+      {
+        "input": "[[1,2],[3,4]], 1, 4",
+        "output": "[[1,2,3,4]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "matrixReshape",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-118",
+    "title": "Pascal Triangle",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Generate.",
+    "starterCode": "def generate(n):",
+    "testCases": [
+      {
+        "input": "5",
+        "output": "[[1]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "generate",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-74",
+    "title": "Search 2D Matrix",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Binary search.",
+    "starterCode": "def searchMatrix(matrix, target):",
+    "testCases": [
+      {
+        "input": "[[1,3]...], 3",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "searchMatrix",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-153",
+    "title": "Find Min Rotated",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Find min.",
+    "starterCode": "def findMin(nums):",
+    "testCases": [
+      {
+        "input": "[3,4,5,1,2]",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "findMin",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-33",
+    "title": "Search Rotated",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Find target.",
+    "starterCode": "def search(nums, target):",
+    "testCases": [
+      {
+        "input": "[4,5,6,7,0,1,2], 0",
+        "output": "4"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "search",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-34",
+    "title": "First and Last Position",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Range.",
+    "starterCode": "def searchRange(nums, target):",
+    "testCases": [
+      {
+        "input": "[5,7,7,8,8,10], 8",
+        "output": "[3,4]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "searchRange",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-162",
+    "title": "Find Peak Element",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "LogN peak.",
+    "starterCode": "def findPeakElement(nums):",
+    "testCases": [
+      {
+        "input": "[1,2,3,1]",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Search",
+    "setupCode": "",
+    "functionName": "findPeakElement",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-75",
+    "title": "Sort Colors",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Dutch Flag.",
+    "starterCode": "def sortColors(nums):",
+    "testCases": [
+      {
+        "input": "[2,0,2,1,1,0]",
+        "output": "[0,0,1,1,2,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "sortColors",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-912",
+    "title": "Sort an Array",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Merge/Quick sort.",
+    "starterCode": "def sortArray(nums):",
+    "testCases": [
+      {
+        "input": "[5,2,3,1]",
+        "output": "[1,2,3,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "sortArray",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-215",
+    "title": "Kth Largest Element",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "QuickSelect.",
+    "starterCode": "def findKthLargest(nums, k):",
+    "testCases": [
+      {
+        "input": "[3,2,1,5,6,4], 2",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "findKthLargest",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-347",
+    "title": "Top K Frequent",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Bucket/Heap.",
+    "starterCode": "def topKFrequent(nums, k):",
+    "testCases": [
+      {
+        "input": "[1,1,1,2,2,3], 2",
+        "output": "[1,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "topKFrequent",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-56",
+    "title": "Merge Intervals",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Merge overlapping.",
+    "starterCode": "def merge(intervals):",
+    "testCases": [
+      {
+        "input": "[[1,3],[2,6]]",
+        "output": "[[1,6]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "merge",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-49",
+    "title": "Group Anagrams",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Hash map.",
+    "starterCode": "def groupAnagrams(strs):",
+    "testCases": [
+      {
+        "input": "[\"eat\",\"tea\"]",
+        "output": "'[[\"eat\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "groupAnagrams",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-242",
+    "title": "Valid Anagram",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Counter.",
+    "starterCode": "def isAnagram(s, t):",
+    "testCases": [
+      {
+        "input": "\"anagram\", \"nagaram\"",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Sort",
+    "setupCode": "",
+    "functionName": "isAnagram",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-2",
+    "title": "Add Two Numbers",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "LL arithmetic.",
+    "starterCode": "def addTwoNumbers(l1, l2):",
+    "testCases": [
+      {
+        "input": "[2,4,3],[5,6,4]",
+        "output": "[7,0,8]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "addTwoNumbers",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-19",
+    "title": "Remove Nth Node End",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Remove.",
+    "starterCode": "def removeNthFromEnd(head, n):",
+    "testCases": [
+      {
+        "input": "[1,2,3,4,5], 2",
+        "output": "[1,2,3,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "removeNthFromEnd",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-142",
+    "title": "Linked List Cycle II",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Start of cycle.",
+    "starterCode": "def detectCycle(head):",
+    "testCases": [
+      {
+        "input": "[3,2,0,-4]",
+        "output": "pos 1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "detectCycle",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-24",
+    "title": "Swap Nodes in Pairs",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Swap adjacent.",
+    "starterCode": "def swapPairs(head):",
+    "testCases": [
+      {
+        "input": "[1,2,3,4]",
+        "output": "[2,1,4,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "swapPairs",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa1-lc-61",
+    "title": "Rotate List",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Rotate right.",
+    "starterCode": "def rotateRight(head, k):",
+    "testCases": [
+      {
+        "input": "[1,2,3,4,5], 2",
+        "output": "[4,5,1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "rotateRight",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-144",
+    "title": "Binary Tree Preorder",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "NLR.",
+    "starterCode": "def preorderTraversal(root):",
+    "testCases": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "preorderTraversal",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-94",
+    "title": "Binary Tree Inorder",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "LNR.",
+    "starterCode": "def inorderTraversal(root):",
+    "testCases": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[1,3,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "inorderTraversal",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-145",
+    "title": "Binary Tree Postorder",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "LRN.",
+    "starterCode": "def postorderTraversal(root):",
+    "testCases": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[3,2,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "postorderTraversal",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-104",
+    "title": "Max Depth of Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Height.",
+    "starterCode": "def maxDepth(root):",
+    "testCases": [
+      {
+        "input": "[3,9,20]",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "maxDepth",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-101",
+    "title": "Symmetric Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Mirror.",
+    "starterCode": "def isSymmetric(root):",
+    "testCases": [
+      {
+        "input": "[1,2,2]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "isSymmetric",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-226",
+    "title": "Invert Binary Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Flip.",
+    "starterCode": "def invertTree(root):",
+    "testCases": [
+      {
+        "input": "[2,1,3]",
+        "output": "[2,3,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "invertTree",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-112",
+    "title": "Path Sum",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Root to leaf.",
+    "starterCode": "def hasPathSum(root, targetSum):",
+    "testCases": [
+      {
+        "input": "[5,4,8...], 22",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "hasPathSum",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-700",
+    "title": "Search in BST",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Find node.",
+    "starterCode": "def searchBST(root, val):",
+    "testCases": [
+      {
+        "input": "[4,2,7,1,3], 2",
+        "output": "[2,1,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "searchBST",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-701",
+    "title": "Insert into BST",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Insert value.",
+    "starterCode": "def insertIntoBST(root, val):",
+    "testCases": [
+      {
+        "input": "[4,2,7,1,3], 5",
+        "output": "[4,2,7,1,3,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "insertIntoBST",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-98",
+    "title": "Validate BST",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check properties.",
+    "starterCode": "def isValidBST(root):",
+    "testCases": [
+      {
+        "input": "[2,1,3]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "isValidBST",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-653",
+    "title": "Two Sum IV",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Target in BST.",
+    "starterCode": "def findTarget(root, k):",
+    "testCases": [
+      {
+        "input": "[5,3,6], 9",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "findTarget",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-235",
+    "title": "LCA of BST",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Lowest Common Ancestor.",
+    "starterCode": "def lowestCommonAncestor(root, p, q):",
+    "testCases": [
+      {
+        "input": "[6,2,8], 2, 8",
+        "output": "6"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "lowestCommonAncestor",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-102",
+    "title": "Level Order Traversal",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "BFS.",
+    "starterCode": "def levelOrder(root):",
+    "testCases": [
+      {
+        "input": "[3,9,20]",
+        "output": "[[3],[9,20]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "levelOrder",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-100",
+    "title": "Same Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Identical.",
+    "starterCode": "def isSameTree(p, q):",
+    "testCases": [
+      {
+        "input": "[1,2,3], [1,2,3]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "isSameTree",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-108",
+    "title": "Sorted Array to BST",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Balanced.",
+    "starterCode": "def sortedArrayToBST(nums):",
+    "testCases": [
+      {
+        "input": "[-10,-3,0,5,9]",
+        "output": "[0,-3,9]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "sortedArrayToBST",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-236",
+    "title": "LCA of Binary Tree",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Lowest Common Ancestor.",
+    "starterCode": "def lowestCommonAncestor(root, p, q):",
+    "testCases": [
+      {
+        "input": "[3,5,1], 5, 1",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "lowestCommonAncestor",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-199",
+    "title": "Right Side View",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Visible nodes.",
+    "starterCode": "def rightSideView(root):",
+    "testCases": [
+      {
+        "input": "[1,2,3,null,5]",
+        "output": "[1,3,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "rightSideView",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-113",
+    "title": "Path Sum II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "All paths.",
+    "starterCode": "def pathSum(root, targetSum):",
+    "testCases": [
+      {
+        "input": "[5,4,8], 22",
+        "output": "[[5,4,11,2]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "pathSum",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-450",
+    "title": "Delete Node in BST",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Remove value.",
+    "starterCode": "def deleteNode(root, key):",
+    "testCases": [
+      {
+        "input": "[5,3,6], 3",
+        "output": "[5,6]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "deleteNode",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-230",
+    "title": "Kth Smallest in BST",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Inorder.",
+    "starterCode": "def kthSmallest(root, k):",
+    "testCases": [
+      {
+        "input": "[3,1,4], 1",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "kthSmallest",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-200",
+    "title": "Number of Islands",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Graph BFS/DFS.",
+    "starterCode": "def numIslands(grid):",
+    "testCases": [
+      {
+        "input": "[[1,1,0],...]",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "numIslands",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-733",
+    "title": "Flood Fill",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Paint bucket.",
+    "starterCode": "def floodFill(image, sr, sc, color):",
+    "testCases": [
+      {
+        "input": "[[1,1,1],[1,1,0]], 1, 1, 2",
+        "output": "[[2,2,2]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "floodFill",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-542",
+    "title": "01 Matrix",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Dist to 0.",
+    "starterCode": "def updateMatrix(mat):",
+    "testCases": [
+      {
+        "input": "[[0,0],[0,1]]",
+        "output": "[[0,0],[0,1]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "updateMatrix",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-994",
+    "title": "Rotting Oranges",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Time to rot.",
+    "starterCode": "def orangesRotting(grid):",
+    "testCases": [
+      {
+        "input": "[[2,1,1],[1,1,0]]",
+        "output": "4"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "orangesRotting",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-207",
+    "title": "Course Schedule",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Cycle detection.",
+    "starterCode": "def canFinish(numCourses, prerequisites):",
+    "testCases": [
+      {
+        "input": "2, [[1,0]]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "canFinish",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-210",
+    "title": "Course Schedule II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Topological Sort.",
+    "starterCode": "def findOrder(numCourses, prerequisites):",
+    "testCases": [
+      {
+        "input": "2, [[1,0]]",
+        "output": "[0,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "findOrder",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-547",
+    "title": "Number of Provinces",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Connected components.",
+    "starterCode": "def findCircleNum(isConnected):",
+    "testCases": [
+      {
+        "input": "[[1,1,0]...]",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "findCircleNum",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-785",
+    "title": "Is Graph Bipartite",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "2-coloring.",
+    "starterCode": "def isBipartite(graph):",
+    "testCases": [
+      {
+        "input": "[[1,3],[0,2]...]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "isBipartite",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-797",
+    "title": "All Paths Source Target",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "DAG paths.",
+    "starterCode": "def allPathsSourceTarget(graph):",
+    "testCases": [
+      {
+        "input": "[[1,2],[3],[3],[]]",
+        "output": "[[0,1,3],[0,2,3]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "allPathsSourceTarget",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-841",
+    "title": "Keys and Rooms",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Visit all.",
+    "starterCode": "def canVisitAllRooms(rooms):",
+    "testCases": [
+      {
+        "input": "[[1],[2],[3],[]]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Graph",
+    "setupCode": "",
+    "functionName": "canVisitAllRooms",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-70",
+    "title": "Climbing Stairs",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Fibonacci.",
+    "starterCode": "def climbStairs(n):",
+    "testCases": [
+      {
+        "input": "3",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "climbStairs",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-746",
+    "title": "Min Cost Climbing Stairs",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Min path.",
+    "starterCode": "def minCostClimbingStairs(cost):",
+    "testCases": [
+      {
+        "input": "[10,15,20]",
+        "output": "15"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "minCostClimbingStairs",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-198",
+    "title": "House Robber",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Non-adjacent.",
+    "starterCode": "def rob(nums):",
+    "testCases": [
+      {
+        "input": "[1,2,3,1]",
+        "output": "4"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "rob",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-213",
+    "title": "House Robber II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Circular.",
+    "starterCode": "def rob(nums):",
+    "testCases": [
+      {
+        "input": "[2,3,2]",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "rob",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-5",
+    "title": "Longest Palindromic Substring",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Center expand.",
+    "starterCode": "def longestPalindrome(s):",
+    "testCases": [
+      {
+        "input": "\"babad\"",
+        "output": "\"bab\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "longestPalindrome",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-647",
+    "title": "Palindromic Substrings",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Count them.",
+    "starterCode": "def countSubstrings(s):",
+    "testCases": [
+      {
+        "input": "\"abc\"",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "countSubstrings",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-322",
+    "title": "Coin Change",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Min coins.",
+    "starterCode": "def coinChange(coins, amount):",
+    "testCases": [
+      {
+        "input": "[1,2,5], 11",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "coinChange",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-139",
+    "title": "Word Break",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Dict match.",
+    "starterCode": "def wordBreak(s, wordDict):",
+    "testCases": [
+      {
+        "input": "\"leetcode\", [\"leet\",\"code\"]",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "wordBreak",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-300",
+    "title": "Longest Increasing Subsequence",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "LIS.",
+    "starterCode": "def lengthOfLIS(nums):",
+    "testCases": [
+      {
+        "input": "[10,9,2,5,3,7,101,18]",
+        "output": "4"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "lengthOfLIS",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-1143",
+    "title": "Longest Common Subsequence",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "LCS.",
+    "starterCode": "def longestCommonSubsequence(text1, text2):",
+    "testCases": [
+      {
+        "input": "\"abcde\", \"ace\"",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "longestCommonSubsequence",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-62",
+    "title": "Unique Paths",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Grid paths.",
+    "starterCode": "def uniquePaths(m, n):",
+    "testCases": [
+      {
+        "input": "3, 7",
+        "output": "28"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "uniquePaths",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-63",
+    "title": "Unique Paths II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Obstacles.",
+    "starterCode": "def uniquePathsWithObstacles(obstacleGrid):",
+    "testCases": [
+      {
+        "input": "[[0,0],[0,1]]",
+        "output": "0"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "uniquePathsWithObstacles",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-64",
+    "title": "Minimum Path Sum",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Min cost grid.",
+    "starterCode": "def minPathSum(grid):",
+    "testCases": [
+      {
+        "input": "[[1,3],[1,5]]",
+        "output": "7"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "minPathSum",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-215",
+    "title": "Kth Largest Element",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Heap.",
+    "starterCode": "def findKthLargest(nums, k):",
+    "testCases": [
+      {
+        "input": "[3,2,1,5,6,4], 2",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Heap",
+    "setupCode": "",
+    "functionName": "findKthLargest",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-347",
+    "title": "Top K Frequent",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Heap/Map.",
+    "starterCode": "def topKFrequent(nums, k):",
+    "testCases": [
+      {
+        "input": "[1,1,1,2,2,3], 2",
+        "output": "[1,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Heap",
+    "setupCode": "",
+    "functionName": "topKFrequent",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-973",
+    "title": "K Closest Points",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Heap.",
+    "starterCode": "def kClosest(points, k):",
+    "testCases": [
+      {
+        "input": "[[1,3],[-2,2]], 1",
+        "output": "[[-2,2]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Heap",
+    "setupCode": "",
+    "functionName": "kClosest",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-1046",
+    "title": "Last Stone Weight",
+    "difficulty": "Easy",
+    "examType": "OPPE 2",
+    "description": "Heap simulation.",
+    "starterCode": "def lastStoneWeight(stones):",
+    "testCases": [
+      {
+        "input": "[2,7,4,1,8,1]",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Heap",
+    "setupCode": "",
+    "functionName": "lastStoneWeight",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-23",
+    "title": "Merge k Sorted Lists",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Min Heap.",
+    "starterCode": "def mergeKLists(lists):",
+    "testCases": [
+      {
+        "input": "[[1,4,5],[1,3,4],[2,6]]",
+        "output": "[1,1,2,3,4,4,5,6]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Heap",
+    "setupCode": "",
+    "functionName": "mergeKLists",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-295",
+    "title": "Find Median Data Stream",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Two Heaps.",
+    "starterCode": "class MedianFinder:",
+    "testCases": [
+      {
+        "input": "add(1),add(2),findMedian()",
+        "output": "1.5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Heap",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa2-lc-208",
+    "title": "Implement Trie",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Prefix Tree.",
+    "starterCode": "class Trie:",
+    "testCases": [
+      {
+        "input": "insert(\"apple\"),search(\"apple\")",
+        "output": "True"
+      }
+    ],
+    "solution": "pass",
+    "subject": "PDSA",
+    "language": "python",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "pdsa-oppe1-binary-search",
+    "title": "Recursive Binary Search",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Implement a recursive binary search function 'binary_search' that takes a sorted list 'L', a target value 'x', and optional 'low' and 'high' indices. Return the index of 'x' in 'L' if found, otherwise return -1.",
+    "examples": [
+      {
+        "input": "L=[1, 3, 5, 7], x=3",
+        "output": "1"
+      },
+      {
+        "input": "L=[1, 3, 5, 7], x=2",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "def binary_search(L, x, low=0, high=None):\n    if high is None: high = len(L) - 1\n    # Write your code here\n    pass",
+    "functionName": "binary_search",
+    "testCases": [
+      {
+        "input": "([1, 3, 5, 7], 3)",
+        "expected": "1"
+      },
+      {
+        "input": "([1, 3, 5, 7], 2)",
+        "expected": "-1"
+      },
+      {
+        "input": "([5], 5)",
+        "expected": "0"
+      },
+      {
+        "input": "([1, 2, 3], 4)",
+        "expected": "-1"
+      }
+    ],
+    "hint": "Base case: if low > high return -1. Else compare mid.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-valid-parens",
+    "title": "Valid Parentheses",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.",
+    "examples": [
+      {
+        "input": "\"()[]{}\"",
+        "output": "True"
+      },
+      {
+        "input": "\"(]\"",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def is_valid(s):\n    # Write your code here\n    pass",
+    "functionName": "is_valid",
+    "testCases": [
+      {
+        "input": "(\"()\")",
+        "expected": "True"
+      },
+      {
+        "input": "(\"([)]\")",
+        "expected": "False"
+      },
+      {
+        "input": "(\"{[]}\")",
+        "expected": "True"
+      },
+      {
+        "input": "(\"]\")",
+        "expected": "False"
+      }
+    ],
+    "hint": "Push opening brackets to stack. For closing brackets, check if stack top matches.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-find-peak",
+    "title": "Find Peak Element",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "A peak element is an element that is strictly greater than its neighbors. Given an integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks. You may imagine that nums[-1] = nums[n] = -∞.",
+    "examples": [
+      {
+        "input": "[1,2,3,1]",
+        "output": "2"
+      },
+      {
+        "input": "[1,2,1,3,5,6,4]",
+        "output": "5"
+      }
+    ],
+    "starterCode": "def find_peak(nums):\n    # Write your code here\n    pass",
+    "functionName": "find_peak",
+    "testCases": [
+      {
+        "input": "([1,2,3,1])",
+        "expected": "2"
+      },
+      {
+        "input": "([1,2,1,3,5,6,4])",
+        "expected": "5"
+      },
+      {
+        "input": "([1])",
+        "expected": "0"
+      }
+    ],
+    "hint": "You can do this in O(log n) using binary search logic.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-merge-sorted",
+    "title": "Merge Sorted Arrays",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a function 'merge_arrays' that takes two sorted lists nums1 and nums2 and returns a single sorted list containing all elements from both lists.",
+    "examples": [
+      {
+        "input": "n1=[1,2,3], n2=[2,5,6]",
+        "output": "[1,2,2,3,5,6]"
+      },
+      {
+        "input": "n1=[], n2=[1]",
+        "output": "[1]"
+      }
+    ],
+    "starterCode": "def merge_arrays(nums1, nums2):\n    # Write your code here\n    pass",
+    "functionName": "merge_arrays",
+    "testCases": [
+      {
+        "input": "([1,2,3], [2,5,6])",
+        "expected": "[1, 2, 2, 3, 5, 6]"
+      },
+      {
+        "input": "([], [1])",
+        "expected": "[1]"
+      },
+      {
+        "input": "([1], [])",
+        "expected": "[1]"
+      },
+      {
+        "input": "([1, 5], [2, 4])",
+        "expected": "[1, 2, 4, 5]"
+      }
+    ],
+    "hint": "Use two pointers starting at 0 for both lists.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-linear-search",
+    "title": "Linear Search",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a function 'linear_search' that takes a list L and a target x. Return the index of x in L if it exists, otherwise return -1.",
+    "examples": [
+      {
+        "input": "[1, 2, 3], 2",
+        "output": "1"
+      },
+      {
+        "input": "[1, 2, 3], 4",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "def linear_search(L, x):\n    # Write your code here\n    pass",
+    "functionName": "linear_search",
+    "testCases": [
+      {
+        "input": "([1, 2, 3], 2)",
+        "expected": "1"
+      },
+      {
+        "input": "([1, 2], 3)",
+        "expected": "-1"
+      },
+      {
+        "input": "([5, 1, 2], 5)",
+        "expected": "0"
+      }
+    ],
+    "hint": "Iterate through the list.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-bin-search-iter",
+    "title": "Iterative Binary Search",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a function 'binary_search_iter' that implements binary search iteratively on a sorted list L to find target x. Return index if found, else -1.",
+    "examples": [
+      {
+        "input": "[1, 3, 5], 3",
+        "output": "1"
+      },
+      {
+        "input": "[1, 3, 5], 2",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "def binary_search_iter(L, x):\n    # Write your code here\n    pass",
+    "functionName": "binary_search_iter",
+    "testCases": [
+      {
+        "input": "([1, 3, 5], 3)",
+        "expected": "1"
+      },
+      {
+        "input": "([1, 3, 5], 2)",
+        "expected": "-1"
+      },
+      {
+        "input": "([10], 10)",
+        "expected": "0"
+      }
+    ],
+    "hint": "While low <= high.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-bubble-sort",
+    "title": "Bubble Sort",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Implement Bubble Sort to sort a list of numbers in ascending order. The function should return the sorted list.",
+    "examples": [
+      {
+        "input": "[3, 2, 1]",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "input": "[1, 2, 3]",
+        "output": "[1, 2, 3]"
+      }
+    ],
+    "starterCode": "def bubble_sort(L):\n    # Write your code here\n    return L",
+    "functionName": "bubble_sort",
+    "testCases": [
+      {
+        "input": "([3, 2, 1])",
+        "expected": "[1, 2, 3]"
+      },
+      {
+        "input": "([5, 1, 4, 2, 8])",
+        "expected": "[1, 2, 4, 5, 8]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Nested loops, swap if L[j] > L[j+1].",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-selection-sort",
+    "title": "Selection Sort",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Implement Selection Sort to sort a list of numbers in ascending order. Return the sorted list.",
+    "examples": [
+      {
+        "input": "[3, 1, 2]",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "input": "[5, 4, 3, 2, 1]",
+        "output": "[1, 2, 3, 4, 5]"
+      }
+    ],
+    "starterCode": "def selection_sort(L):\n    # Write your code here\n    return L",
+    "functionName": "selection_sort",
+    "testCases": [
+      {
+        "input": "([3, 1, 2])",
+        "expected": "[1, 2, 3]"
+      },
+      {
+        "input": "([10, 5, 2])",
+        "expected": "[2, 5, 10]"
+      },
+      {
+        "input": "([1])",
+        "expected": "[1]"
+      }
+    ],
+    "hint": "Find min in unsorted part and swap.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-insertion-sort",
+    "title": "Insertion Sort",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Implement Insertion Sort to sort a list of numbers in ascending order. Return the sorted list.",
+    "examples": [
+      {
+        "input": "[3, 1, 2]",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "input": "[4, 3, 2, 10, 12, 1, 5, 6]",
+        "output": "[1, 2, 3, 4, 5, 6, 10, 12]"
+      }
+    ],
+    "starterCode": "def insertion_sort(L):\n    # Write your code here\n    return L",
+    "functionName": "insertion_sort",
+    "testCases": [
+      {
+        "input": "([3, 1, 2])",
+        "expected": "[1, 2, 3]"
+      },
+      {
+        "input": "([2, 1])",
+        "expected": "[1, 2]"
+      },
+      {
+        "input": "([1, 2, 3])",
+        "expected": "[1, 2, 3]"
+      }
+    ],
+    "hint": "Insert element into sorted sublist.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-is-sorted-rec",
+    "title": "Recursive Check Sorted",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a recursive function 'is_sorted_rec' that takes a list L and returns True if the list is sorted in ascending order, False otherwise.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "True"
+      },
+      {
+        "input": "[1, 3, 2]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def is_sorted_rec(L):\n    # Write your code here\n    pass",
+    "functionName": "is_sorted_rec",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "True"
+      },
+      {
+        "input": "([1, 3, 2])",
+        "expected": "False"
+      },
+      {
+        "input": "([1])",
+        "expected": "True"
+      },
+      {
+        "input": "([])",
+        "expected": "True"
+      }
+    ],
+    "hint": "L[0] <= L[1] and f(L[1:]).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-stack-ops",
+    "title": "Stack Operations",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Simulate a stack using a list. Given a list of operations, perform them and return the final state of the stack.\nOperations:\n- \"push x\": Push x onto the stack.\n- \"pop\": Pop the top element from the stack.",
+    "examples": [
+      {
+        "input": "[\"push 1\", \"push 2\", \"pop\"]",
+        "output": "[1]"
+      },
+      {
+        "input": "[\"push 5\", \"push 10\"]",
+        "output": "[5, 10]"
+      }
+    ],
+    "starterCode": "def stack_ops(ops):\n    stack = []\n    # Write your code here\n    return stack",
+    "functionName": "stack_ops",
+    "testCases": [
+      {
+        "input": "([\"push 1\", \"push 2\", \"pop\"])",
+        "expected": "[1]"
+      },
+      {
+        "input": "([\"push 5\", \"push 10\"])",
+        "expected": "[5, 10]"
+      },
+      {
+        "input": "([\"pop\"])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Use append and pop.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-queue-ops",
+    "title": "Queue Operations",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Simulate a queue using a list. Given a list of operations, perform them and return the final state of the queue.\nOperations:\n- \"enqueue x\": Add x to the end of the queue.\n- \"dequeue\": Remove the element from the front of the queue.",
+    "examples": [
+      {
+        "input": "[\"enqueue 1\", \"enqueue 2\", \"dequeue\"]",
+        "output": "[2]"
+      },
+      {
+        "input": "[\"enqueue 1\", \"dequeue\", \"enqueue 2\"]",
+        "output": "[2]"
+      }
+    ],
+    "starterCode": "def queue_ops(ops):\n    queue = []\n    # Write your code here\n    return queue",
+    "functionName": "queue_ops",
+    "testCases": [
+      {
+        "input": "([\"enqueue 1\", \"enqueue 2\", \"dequeue\"])",
+        "expected": "[2]"
+      },
+      {
+        "input": "([\"enqueue 1\", \"dequeue\", \"enqueue 2\"])",
+        "expected": "[2]"
+      },
+      {
+        "input": "([\"dequeue\"])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Use append and pop(0).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-rev-list-rec",
+    "title": "Recursive List Reverse",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a recursive function 'reverse_list' that takes a list L and returns a new list with the elements in reverse order.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "[3, 2, 1]"
+      },
+      {
+        "input": "[5]",
+        "output": "[5]"
+      }
+    ],
+    "starterCode": "def reverse_list(L):\n    # Write your code here\n    pass",
+    "functionName": "reverse_list",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "[3, 2, 1]"
+      },
+      {
+        "input": "([5])",
+        "expected": "[5]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "f(L[1:]) + [L[0]].",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-fact-rec",
+    "title": "Recursive Factorial",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a recursive function 'factorial' that takes a non-negative integer n and returns its factorial.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "120"
+      },
+      {
+        "input": "0",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def factorial(n):\n    # Write your code here\n    pass",
+    "functionName": "factorial",
+    "testCases": [
+      {
+        "input": "(5)",
+        "expected": "120"
+      },
+      {
+        "input": "(0)",
+        "expected": "1"
+      },
+      {
+        "input": "(3)",
+        "expected": "6"
+      }
+    ],
+    "hint": "n * f(n-1).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-fib-rec",
+    "title": "Recursive Fibonacci",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a recursive function 'fib' that takes an integer n and returns the nth Fibonacci number. Assume fib(0)=0, fib(1)=1.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "6",
+        "output": "8"
+      }
+    ],
+    "starterCode": "def fib(n):\n    # Write your code here\n    pass",
+    "functionName": "fib",
+    "testCases": [
+      {
+        "input": "(5)",
+        "expected": "5"
+      },
+      {
+        "input": "(6)",
+        "expected": "8"
+      },
+      {
+        "input": "(0)",
+        "expected": "0"
+      },
+      {
+        "input": "(1)",
+        "expected": "1"
+      }
+    ],
+    "hint": "f(n-1) + f(n-2).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-gcd-rec",
+    "title": "Recursive GCD",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a recursive function 'gcd' that takes two integers a and b and returns their Greatest Common Divisor.",
+    "examples": [
+      {
+        "input": "12, 18",
+        "output": "6"
+      },
+      {
+        "input": "10, 5",
+        "output": "5"
+      }
+    ],
+    "starterCode": "def gcd(a, b):\n    # Write your code here\n    pass",
+    "functionName": "gcd",
+    "testCases": [
+      {
+        "input": "(12, 18)",
+        "expected": "6"
+      },
+      {
+        "input": "(10, 5)",
+        "expected": "5"
+      },
+      {
+        "input": "(7, 3)",
+        "expected": "1"
+      }
+    ],
+    "hint": "gcd(b, a%b).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-hanoi",
+    "title": "Tower of Hanoi Moves",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Write a function 'hanoi_moves' that takes an integer n (number of disks) and returns the minimum number of moves required to solve the Tower of Hanoi puzzle.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "7"
+      },
+      {
+        "input": "2",
+        "output": "3"
+      }
+    ],
+    "starterCode": "def hanoi_moves(n):\n    # Write your code here\n    pass",
+    "functionName": "hanoi_moves",
+    "testCases": [
+      {
+        "input": "(3)",
+        "expected": "7"
+      },
+      {
+        "input": "(1)",
+        "expected": "1"
+      },
+      {
+        "input": "(4)",
+        "expected": "15"
+      }
+    ],
+    "hint": "2^n - 1 or 2*f(n-1) + 1.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-ll-count",
+    "title": "Linked List Count",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a recursive function 'count_rec' that takes a list L (simulating a linked list) and a value x. Return the number of occurrences of x in L.",
+    "examples": [
+      {
+        "input": "[1, 2, 1], 1",
+        "output": "2"
+      },
+      {
+        "input": "[1, 2, 3], 4",
+        "output": "0"
+      }
+    ],
+    "starterCode": "def count_rec(L, x):\n    # Write your code here\n    pass",
+    "functionName": "count_rec",
+    "testCases": [
+      {
+        "input": "([1, 2, 1], 1)",
+        "expected": "2"
+      },
+      {
+        "input": "([1, 2, 3], 4)",
+        "expected": "0"
+      },
+      {
+        "input": "([], 1)",
+        "expected": "0"
+      }
+    ],
+    "hint": "(1 if L[0]==x else 0) + f(L[1:]).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-search-rotated",
+    "title": "Search Rotated Array",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Write a function 'search_rotated' that searches for a target value in a rotated sorted array. Return the index if found, else -1.",
+    "examples": [
+      {
+        "input": "[4,5,6,7,0,1,2], 0",
+        "output": "4"
+      },
+      {
+        "input": "[4,5,6,7,0,1,2], 3",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "def search_rotated(nums, target):\n    # Write your code here\n    pass",
+    "functionName": "search_rotated",
+    "testCases": [
+      {
+        "input": "([4,5,6,7,0,1,2], 0)",
+        "expected": "4"
+      },
+      {
+        "input": "([4,5,6,7,0,1,2], 3)",
+        "expected": "-1"
+      },
+      {
+        "input": "([1], 0)",
+        "expected": "-1"
+      }
+    ],
+    "hint": "Modified binary search.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-first-bad",
+    "title": "First Bad Version",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.\n        \nGiven a list of booleans versions where versions[i] is True if version i is bad, find the first bad version. Return its index.",
+    "examples": [
+      {
+        "input": "[False, False, True]",
+        "output": "2"
+      },
+      {
+        "input": "[True, True]",
+        "output": "0"
+      }
+    ],
+    "starterCode": "def first_bad_version(versions):\n    # Write your code here\n    pass",
+    "functionName": "first_bad_version",
+    "testCases": [
+      {
+        "input": "([False, False, True])",
+        "expected": "2"
+      },
+      {
+        "input": "([True, True])",
+        "expected": "0"
+      },
+      {
+        "input": "([False, True])",
+        "expected": "1"
+      }
+    ],
+    "hint": "Binary search for first True.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-two-sum-sorted",
+    "title": "Two Sum (Sorted)",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Return the indices of the two numbers (0-indexed for this problem context).",
+    "examples": [
+      {
+        "input": "[2, 7, 11, 15], 9",
+        "output": "[0, 1]"
+      },
+      {
+        "input": "[2, 3, 4], 6",
+        "output": "[0, 2]"
+      }
+    ],
+    "starterCode": "def two_sum_sorted(numbers, target):\n    # Write your code here\n    pass",
+    "functionName": "two_sum_sorted",
+    "testCases": [
+      {
+        "input": "([2, 7, 11, 15], 9)",
+        "expected": "[0, 1]"
+      },
+      {
+        "input": "([2, 3, 4], 6)",
+        "expected": "[0, 2]"
+      },
+      {
+        "input": "([-1, 0], -1)",
+        "expected": "[0, 1]"
+      }
+    ],
+    "hint": "Two pointers.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-remove-elem",
+    "title": "Remove Element",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a function 'remove_element' that takes a list nums and a value val. Remove all occurrences of val in nums in-place. Return the new list.",
+    "examples": [
+      {
+        "input": "[3, 2, 2, 3], 3",
+        "output": "[2, 2]"
+      },
+      {
+        "input": "[1, 2, 3], 4",
+        "output": "[1, 2, 3]"
+      }
+    ],
+    "starterCode": "def remove_element(nums, val):\n    # Write your code here\n    return [x for x in nums if x != val]",
+    "functionName": "remove_element",
+    "testCases": [
+      {
+        "input": "([3, 2, 2, 3], 3)",
+        "expected": "[2, 2]"
+      },
+      {
+        "input": "([1, 2, 3], 4)",
+        "expected": "[1, 2, 3]"
+      },
+      {
+        "input": "([], 1)",
+        "expected": "[]"
+      }
+    ],
+    "hint": "List comprehension.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-search-insert",
+    "title": "Search Insert Position",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.",
+    "examples": [
+      {
+        "input": "[1, 3, 5, 6], 5",
+        "output": "2"
+      },
+      {
+        "input": "[1, 3, 5, 6], 2",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def search_insert(nums, target):\n    # Write your code here\n    pass",
+    "functionName": "search_insert",
+    "testCases": [
+      {
+        "input": "([1, 3, 5, 6], 5)",
+        "expected": "2"
+      },
+      {
+        "input": "([1, 3, 5, 6], 2)",
+        "expected": "1"
+      },
+      {
+        "input": "([1, 3, 5, 6], 7)",
+        "expected": "4"
+      },
+      {
+        "input": "([1, 3, 5, 6], 0)",
+        "expected": "0"
+      }
+    ],
+    "hint": "Binary search.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-max-subarray",
+    "title": "Max Subarray Sum",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.",
+    "examples": [
+      {
+        "input": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]",
+        "output": "6"
+      },
+      {
+        "input": "[1]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def max_sub_array(nums):\n    # Write your code here\n    pass",
+    "functionName": "max_sub_array",
+    "testCases": [
+      {
+        "input": "([-2, 1, -3, 4, -1, 2, 1, -5, 4])",
+        "expected": "6"
+      },
+      {
+        "input": "([1])",
+        "expected": "1"
+      },
+      {
+        "input": "([5, 4, -1, 7, 8])",
+        "expected": "23"
+      }
+    ],
+    "hint": "Kadane's Algorithm.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-merge-intervals",
+    "title": "Merge Intervals",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    "examples": [
+      {
+        "input": "[[1,3],[2,6],[8,10],[15,18]]",
+        "output": "[[1, 6], [8, 10], [15, 18]]"
+      },
+      {
+        "input": "[[1,4],[4,5]]",
+        "output": "[[1, 5]]"
+      }
+    ],
+    "starterCode": "def merge(intervals):\n    # Write your code here\n    pass",
+    "functionName": "merge",
+    "testCases": [
+      {
+        "input": "([[1,3],[2,6],[8,10],[15,18]])",
+        "expected": "[[1, 6], [8, 10], [15, 18]]"
+      },
+      {
+        "input": "([[1,4],[4,5]])",
+        "expected": "[[1, 5]]"
+      }
+    ],
+    "hint": "Sort and merge.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-climbing-stairs",
+    "title": "Climbing Stairs",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+    "examples": [
+      {
+        "input": "2",
+        "output": "2"
+      },
+      {
+        "input": "3",
+        "output": "3"
+      }
+    ],
+    "starterCode": "def climb_stairs(n):\n    # Write your code here\n    pass",
+    "functionName": "climb_stairs",
+    "testCases": [
+      {
+        "input": "(2)",
+        "expected": "2"
+      },
+      {
+        "input": "(3)",
+        "expected": "3"
+      },
+      {
+        "input": "(4)",
+        "expected": "5"
+      }
+    ],
+    "hint": "Fibonacci.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-pascals",
+    "title": "Pascal's Triangle",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Generate first n rows of Pascal's triangle.",
+    "examples": [
+      {
+        "input": "1",
+        "output": "[[1]]"
+      }
+    ],
+    "starterCode": "def generate_pascal(numRows):\n    # Write your code here\n    pass",
+    "functionName": "generate_pascal",
+    "testCases": [
+      {
+        "input": "(1)",
+        "expected": "[[1]]"
+      }
+    ],
+    "hint": "DP.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-stock",
+    "title": "Buy/Sell Stock",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Max profit from one transaction.",
+    "examples": [
+      {
+        "input": "[7, 1, 5, 3, 6, 4]",
+        "output": "5"
+      }
+    ],
+    "starterCode": "def max_profit(prices):\n    # Write your code here\n    pass",
+    "functionName": "max_profit",
+    "testCases": [
+      {
+        "input": "([7, 1, 5, 3, 6, 4])",
+        "expected": "5"
+      }
+    ],
+    "hint": "Track min price and max profit.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-single-number",
+    "title": "Single Number",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Find the element that appears only once (others twice).",
+    "examples": [
+      {
+        "input": "[2, 2, 1]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def single_number(nums):\n    # Write your code here\n    pass",
+    "functionName": "single_number",
+    "testCases": [
+      {
+        "input": "([2, 2, 1])",
+        "expected": "1"
+      }
+    ],
+    "hint": "XOR all elements.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-ll-cycle",
+    "title": "Detect Cycle (Simulated)",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Given a list of indices representing next pointers of a linked list (where index i points to next_ptrs[i]), determine if the linked list has a cycle. Start traversal from index 0. Return True if a cycle exists, False otherwise. Use -1 to indicate null (end of list).",
+    "examples": [
+      {
+        "input": "[1, 2, 0]",
+        "output": "True"
+      },
+      {
+        "input": "[1, -1]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def has_cycle(next_ptrs):\n    # Write your code here\n    pass",
+    "functionName": "has_cycle",
+    "testCases": [
+      {
+        "input": "([1, 2, 0])",
+        "expected": "True"
+      },
+      {
+        "input": "([1, -1])",
+        "expected": "False"
+      },
+      {
+        "input": "([1, 2, 3, 1])",
+        "expected": "True"
+      },
+      {
+        "input": "([-1])",
+        "expected": "False"
+      }
+    ],
+    "hint": "Visited set or Floyd's cycle finding.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-min-stack",
+    "title": "Min Stack",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Simulate a MinStack that supports push, pop, top, and retrieving the minimum element in constant time.\nOperations:\n- \"push x\": Push element x onto stack.\n- \"pop\": Removes the element on top of the stack.\n- \"top\": Get the top element.\n- \"getMin\": Retrieve the minimum element in the stack.\nReturn the result of the last operation (or None if it's a void operation like push/pop, but for testing return the stack state or min value as requested). For this problem, return the result of \"getMin\" calls as a list, or the final return of the function. Let's simplify: Return the result of the *last* \"getMin\" operation in the list of ops.",
+    "examples": [
+      {
+        "input": "[\"push -2\", \"push 0\", \"push -3\", \"getMin\"]",
+        "output": "-3"
+      },
+      {
+        "input": "[\"push 1\", \"push 2\", \"getMin\"]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def min_stack_ops(ops):\n    stack = []\n    # Write your code here\n    pass",
+    "functionName": "min_stack_ops",
+    "testCases": [
+      {
+        "input": "([\"push -2\", \"push 0\", \"push -3\", \"getMin\"])",
+        "expected": "-3"
+      },
+      {
+        "input": "([\"push 1\", \"push 2\", \"getMin\"])",
+        "expected": "1"
+      },
+      {
+        "input": "([\"push 10\", \"pop\", \"push 5\", \"getMin\"])",
+        "expected": "5"
+      }
+    ],
+    "hint": "Use auxiliary stack for mins.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-ll-intersect",
+    "title": "LL Intersection (Simulated)",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Given two lists listA and listB representing linked lists (where elements are nodes, and common suffix implies intersection), find the node at which the two lists intersect. Return the intersecting node value (or list of common suffix starting from intersection). If no intersection, return None/empty.\n        \nSimplified: Given two lists, return the longest common suffix.",
+    "examples": [
+      {
+        "input": "[1, 2, 3], [4, 3]",
+        "output": "[3]"
+      },
+      {
+        "input": "[1, 2], [3, 4]",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def get_intersection_node(listA, listB):\n    # Write your code here\n    pass",
+    "functionName": "get_intersection_node",
+    "testCases": [
+      {
+        "input": "([1, 2, 3], [4, 3])",
+        "expected": "[3]"
+      },
+      {
+        "input": "([1, 2], [3, 4])",
+        "expected": "[]"
+      },
+      {
+        "input": "([1, 2, 3, 4, 5], [9, 4, 5])",
+        "expected": "[4, 5]"
+      }
+    ],
+    "hint": "Align lengths or use set.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-majority",
+    "title": "Majority Element",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given an array nums of size n, return the majority element. The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.",
+    "examples": [
+      {
+        "input": "[3, 2, 3]",
+        "output": "3"
+      },
+      {
+        "input": "[2, 2, 1, 1, 1, 2, 2]",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def majority_element(nums):\n    # Write your code here\n    pass",
+    "functionName": "majority_element",
+    "testCases": [
+      {
+        "input": "([3, 2, 3])",
+        "expected": "3"
+      },
+      {
+        "input": "([2, 2, 1, 1, 1, 2, 2])",
+        "expected": "2"
+      },
+      {
+        "input": "([1])",
+        "expected": "1"
+      }
+    ],
+    "hint": "Boyer-Moore Voting.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-reverse-bits",
+    "title": "Reverse Bits",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Reverse bits of a given 32-bit unsigned integer.",
+    "examples": [
+      {
+        "input": "43261596",
+        "output": "964176192"
+      },
+      {
+        "input": "0",
+        "output": "0"
+      }
+    ],
+    "starterCode": "def reverse_bits(n):\n    # Write your code here\n    pass",
+    "functionName": "reverse_bits",
+    "testCases": [
+      {
+        "input": "(43261596)",
+        "expected": "964176192"
+      },
+      {
+        "input": "(0)",
+        "expected": "0"
+      },
+      {
+        "input": "(1)",
+        "expected": "2147483648"
+      }
+    ],
+    "hint": "Bit manipulation.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-hamming-weight",
+    "title": "Number of 1 Bits",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a function that takes an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).",
+    "examples": [
+      {
+        "input": "11",
+        "output": "3"
+      },
+      {
+        "input": "128",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def hammingWeight(n):\n    # Write your code here\n    pass",
+    "functionName": "hammingWeight",
+    "testCases": [
+      {
+        "input": "(11)",
+        "expected": "3"
+      },
+      {
+        "input": "(128)",
+        "expected": "1"
+      },
+      {
+        "input": "(0)",
+        "expected": "0"
+      }
+    ],
+    "hint": "bin(n).count(\"1\").",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-power-two",
+    "title": "Power of Two",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given an integer n, return True if it is a power of two. Otherwise, return False.",
+    "examples": [
+      {
+        "input": "1",
+        "output": "True"
+      },
+      {
+        "input": "16",
+        "output": "True"
+      },
+      {
+        "input": "3",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def isPowerOfTwo(n):\n    # Write your code here\n    pass",
+    "functionName": "isPowerOfTwo",
+    "testCases": [
+      {
+        "input": "(1)",
+        "expected": "True"
+      },
+      {
+        "input": "(16)",
+        "expected": "True"
+      },
+      {
+        "input": "(3)",
+        "expected": "False"
+      },
+      {
+        "input": "(0)",
+        "expected": "False"
+      }
+    ],
+    "hint": "n > 0 and (n & (n-1)) == 0.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-ll-palindrome",
+    "title": "Palindrome List",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given a list (simulating a linked list), determine if it is a palindrome.",
+    "examples": [
+      {
+        "input": "[1, 2, 2, 1]",
+        "output": "True"
+      },
+      {
+        "input": "[1, 2]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def isPalindrome(head):\n    # Write your code here\n    pass",
+    "functionName": "isPalindrome",
+    "testCases": [
+      {
+        "input": "([1, 2, 2, 1])",
+        "expected": "True"
+      },
+      {
+        "input": "([1, 2])",
+        "expected": "False"
+      },
+      {
+        "input": "([1])",
+        "expected": "True"
+      }
+    ],
+    "hint": "L == L[::-1].",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-move-zeroes",
+    "title": "Move Zeroes",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Move zeroes to end.",
+    "examples": [
+      {
+        "input": "[0, 1, 0, 3, 12]",
+        "output": "[1, 3, 12, 0, 0]"
+      }
+    ],
+    "starterCode": "def moveZeroes(nums):\n    # Write your code here\n    return nums",
+    "functionName": "moveZeroes",
+    "testCases": [
+      {
+        "input": "([0, 1, 0, 3, 12])",
+        "expected": "[1, 3, 12, 0, 0]"
+      }
+    ],
+    "hint": "Two pointers.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-nim-game",
+    "title": "Nim Game",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Can you win Nim game starting with n stones? (1-3 stones per turn).",
+    "examples": [
+      {
+        "input": "4",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def canWinNim(n):\n    # Write your code here\n    pass",
+    "functionName": "canWinNim",
+    "testCases": [
+      {
+        "input": "(4)",
+        "expected": "False"
+      }
+    ],
+    "hint": "n % 4 != 0.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-reverse-string",
+    "title": "Reverse String",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Reverse string in-place (return new string).",
+    "examples": [
+      {
+        "input": "\"hello\"",
+        "output": "\"olleh\""
+      }
+    ],
+    "starterCode": "def reverseString(s):\n    # Write your code here\n    pass",
+    "functionName": "reverseString",
+    "testCases": [
+      {
+        "input": "(\"hello\")",
+        "expected": "\"olleh\""
+      }
+    ],
+    "hint": "s[::-1].",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-intersection",
+    "title": "Intersection of Arrays",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Unique intersection.",
+    "examples": [
+      {
+        "input": "[1, 2, 2, 1], [2, 2]",
+        "output": "[2]"
+      }
+    ],
+    "starterCode": "def intersection(nums1, nums2):\n    # Write your code here\n    pass",
+    "functionName": "intersection",
+    "testCases": [
+      {
+        "input": "([1, 2, 2, 1], [2, 2])",
+        "expected": "[2]"
+      }
+    ],
+    "hint": "list(set(nums1) & set(nums2)).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-perfect-square",
+    "title": "Valid Perfect Square",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Check if num is perfect square without sqrt.",
+    "examples": [
+      {
+        "input": "16",
+        "output": "True"
+      }
+    ],
+    "starterCode": "def isPerfectSquare(num):\n    # Write your code here\n    pass",
+    "functionName": "isPerfectSquare",
+    "testCases": [
+      {
+        "input": "(16)",
+        "expected": "True"
+      }
+    ],
+    "hint": "Binary search.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-fizz-buzz",
+    "title": "Fizz Buzz",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return list of strings 1 to n. Fizz for 3, Buzz for 5, FizzBuzz for 15.",
+    "examples": [
+      {
+        "input": "3",
+        "output": "[\"1\", \"2\", \"Fizz\"]"
+      }
+    ],
+    "starterCode": "def fizzBuzz(n):\n    # Write your code here\n    pass",
+    "functionName": "fizzBuzz",
+    "testCases": [
+      {
+        "input": "(3)",
+        "expected": "[\"1\", \"2\", \"Fizz\"]"
+      }
+    ],
+    "hint": "Modulo operator.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-third-max",
+    "title": "Third Maximum",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Return 3rd max. If not exist, return max.",
+    "examples": [
+      {
+        "input": "[3, 2, 1]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def thirdMax(nums):\n    # Write your code here\n    pass",
+    "functionName": "thirdMax",
+    "testCases": [
+      {
+        "input": "([3, 2, 1])",
+        "expected": "1"
+      },
+      {
+        "input": "([1, 2])",
+        "expected": "2"
+      }
+    ],
+    "hint": "Use set to remove dups.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-add-strings",
+    "title": "Add Strings",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Add two non-negative integers as strings.",
+    "examples": [
+      {
+        "input": "\"11\", \"123\"",
+        "output": "\"134\""
+      }
+    ],
+    "starterCode": "def addStrings(num1, num2):\n    # Write your code here\n    pass",
+    "functionName": "addStrings",
+    "testCases": [
+      {
+        "input": "(\"11\", \"123\")",
+        "expected": "\"134\""
+      }
+    ],
+    "hint": "Convert to int or column addition.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-coins",
+    "title": "Arranging Coins",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "kth row has k coins. How many full rows with n coins?",
+    "examples": [
+      {
+        "input": "5",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def arrangeCoins(n):\n    # Write your code here\n    pass",
+    "functionName": "arrangeCoins",
+    "testCases": [
+      {
+        "input": "(5)",
+        "expected": "2"
+      }
+    ],
+    "hint": "Solve k(k+1)/2 <= n.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-disappeared",
+    "title": "Disappeared Numbers",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Find numbers 1..n missing from array.",
+    "examples": [
+      {
+        "input": "[4,3,2,7,8,2,3,1]",
+        "output": "[5, 6]"
+      }
+    ],
+    "starterCode": "def findDisappearedNumbers(nums):\n    # Write your code here\n    pass",
+    "functionName": "findDisappearedNumbers",
+    "testCases": [
+      {
+        "input": "([4,3,2,7,8,2,3,1])",
+        "expected": "[5, 6]"
+      }
+    ],
+    "hint": "set(range(1, len(nums)+1)) - set(nums).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-hamming-dist",
+    "title": "Hamming Distance",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Number of positions where bits differ.",
+    "examples": [
+      {
+        "input": "1, 4",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def hammingDistance(x, y):\n    # Write your code here\n    pass",
+    "functionName": "hammingDistance",
+    "testCases": [
+      {
+        "input": "(1, 4)",
+        "expected": "2"
+      }
+    ],
+    "hint": "bin(x ^ y).count(\"1\").",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-max-ones",
+    "title": "Max Consecutive Ones",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given a binary array nums, return the maximum number of consecutive 1's in the array.",
+    "examples": [
+      {
+        "input": "[1,1,0,1,1,1]",
+        "output": "3"
+      },
+      {
+        "input": "[1,0,1,1,0,1]",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def findMaxConsecutiveOnes(nums):\n    # Write your code here\n    pass",
+    "functionName": "findMaxConsecutiveOnes",
+    "testCases": [
+      {
+        "input": "([1,1,0,1,1,1])",
+        "expected": "3"
+      },
+      {
+        "input": "([1,0,1,1,0,1])",
+        "expected": "2"
+      },
+      {
+        "input": "([0,0,0])",
+        "expected": "0"
+      }
+    ],
+    "hint": "Iterate and count.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-next-greater",
+    "title": "Next Greater Element",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.\n        \nYou are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.\n\nFor each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.\n\nReturn an array ans of length nums1.length such that ans[i] is the next greater element as described above.",
+    "examples": [
+      {
+        "input": "[4,1,2], [1,3,4,2]",
+        "output": "[-1, 3, -1]"
+      },
+      {
+        "input": "[2,4], [1,2,3,4]",
+        "output": "[3, -1]"
+      }
+    ],
+    "starterCode": "def nextGreaterElement(nums1, nums2):\n    # Write your code here\n    pass",
+    "functionName": "nextGreaterElement",
+    "testCases": [
+      {
+        "input": "([4,1,2], [1,3,4,2])",
+        "expected": "[-1, 3, -1]"
+      },
+      {
+        "input": "([2,4], [1,2,3,4])",
+        "expected": "[3, -1]"
+      },
+      {
+        "input": "([1], [1])",
+        "expected": "[-1]"
+      }
+    ],
+    "hint": "Stack and map.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-keyboard-row",
+    "title": "Keyboard Row",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.\n\nIn the American keyboard:\n- the first row consists of the characters \"qwertyuiop\",\n- the second row consists of the characters \"asdfghjkl\", and\n- the third row consists of the characters \"zxcvbnm\".",
+    "examples": [
+      {
+        "input": "[\"Hello\", \"Alaska\", \"Dad\", \"Peace\"]",
+        "output": "[\"Alaska\", \"Dad\"]"
+      },
+      {
+        "input": "[\"omk\"]",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def findWords(words):\n    # Write your code here\n    pass",
+    "functionName": "findWords",
+    "testCases": [
+      {
+        "input": "([\"Hello\", \"Alaska\", \"Dad\", \"Peace\"])",
+        "expected": "[\"Alaska\", \"Dad\"]"
+      },
+      {
+        "input": "([\"omk\"])",
+        "expected": "[]"
+      },
+      {
+        "input": "([\"adsdf\", \"sfd\"])",
+        "expected": "[\"adsdf\", \"sfd\"]"
+      }
+    ],
+    "hint": "Set intersection with row sets.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-rev-words-iii",
+    "title": "Reverse Words III",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.",
+    "examples": [
+      {
+        "input": "\"Let's take LeetCode contest\"",
+        "output": "\"s'teL ekat edoCteeL tsetnoc\""
+      },
+      {
+        "input": "\"God Ding\"",
+        "output": "\"doG gniD\""
+      }
+    ],
+    "starterCode": "def reverseWords(s):\n    # Write your code here\n    pass",
+    "functionName": "reverseWords",
+    "testCases": [
+      {
+        "input": "(\"Let's take LeetCode contest\")",
+        "expected": "\"s'teL ekat edoCteeL tsetnoc\""
+      },
+      {
+        "input": "(\"God Ding\")",
+        "expected": "\"doG gniD\""
+      },
+      {
+        "input": "(\"a\")",
+        "expected": "\"a\""
+      }
+    ],
+    "hint": "Split, reverse each, join.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-reshape",
+    "title": "Reshape Matrix",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.\n\nYou are given an m x n matrix mat and two integers r and c representing the number of rows and the number of columns of the wanted reshaped matrix.\n\nThe reshaped matrix should be filled with all the elements of the original matrix in the same row-traversing order as they were.\n\nIf the reshape operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the original matrix.",
+    "examples": [
+      {
+        "input": "[[1,2],[3,4]], 1, 4",
+        "output": "[[1, 2, 3, 4]]"
+      },
+      {
+        "input": "[[1,2],[3,4]], 2, 4",
+        "output": "[[1, 2], [3, 4]]"
+      }
+    ],
+    "starterCode": "def matrixReshape(mat, r, c):\n    # Write your code here\n    pass",
+    "functionName": "matrixReshape",
+    "testCases": [
+      {
+        "input": "([[1,2],[3,4]], 1, 4)",
+        "expected": "[[1, 2, 3, 4]]"
+      },
+      {
+        "input": "([[1,2],[3,4]], 2, 4)",
+        "expected": "[[1, 2], [3, 4]]"
+      },
+      {
+        "input": "([[1,2]], 1, 1)",
+        "expected": "[[1, 2]]"
+      }
+    ],
+    "hint": "Flatten and reconstruct.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe1-candies",
+    "title": "Distribute Candies",
+    "subject": "PDSA",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Alice has n candies, where the ith candy is of type candyType[i]. Alice noticed that she started to gain weight, so she visited a doctor.\n\nThe doctor advised Alice to only eat n / 2 of the candies she has (n is always even). Alice likes her candies very much, and she wants to eat the maximum number of different types of candies while still following the doctor's advice.\n\nGiven the integer array candyType of length n, return the maximum number of different types of candies she can eat if she only eats n / 2 of them.",
+    "examples": [
+      {
+        "input": "[1,1,2,2,3,3]",
+        "output": "3"
+      },
+      {
+        "input": "[1,1,2,3]",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def distributeCandies(candyType):\n    # Write your code here\n    pass",
+    "functionName": "distributeCandies",
+    "testCases": [
+      {
+        "input": "([1,1,2,2,3,3])",
+        "expected": "3"
+      },
+      {
+        "input": "([1,1,2,3])",
+        "expected": "2"
+      },
+      {
+        "input": "([6,6,6,6])",
+        "expected": "1"
+      }
+    ],
+    "hint": "min(len(set(candyType)), len(candyType)//2).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-kth-largest",
+    "title": "Kth Largest Element",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an integer array nums and an integer k, return the kth largest element in the array. Note that it is the kth largest element in the sorted order, not the kth distinct element.",
+    "examples": [
+      {
+        "input": "[3,2,1,5,6,4], k=2",
+        "output": "5"
+      },
+      {
+        "input": "[3,2,3,1,2,4,5,5,6], k=4",
+        "output": "4"
+      }
+    ],
+    "starterCode": "def find_kth_largest(nums, k):\n    # Write your code here\n    pass",
+    "functionName": "find_kth_largest",
+    "testCases": [
+      {
+        "input": "([3,2,1,5,6,4], 2)",
+        "expected": "5"
+      },
+      {
+        "input": "([3,2,3,1,2,4,5,5,6], 4)",
+        "expected": "4"
+      },
+      {
+        "input": "([1], 1)",
+        "expected": "1"
+      }
+    ],
+    "hint": "Sort the list and take element at index -k.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-sort-colors",
+    "title": "Sort Colors (Dutch Flag)",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\n        \nWe will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.\nYou must solve this problem without using the library's sort function.",
+    "examples": [
+      {
+        "input": "[2,0,2,1,1,0]",
+        "output": "[0,0,1,1,2,2]"
+      },
+      {
+        "input": "[2,0,1]",
+        "output": "[0,1,2]"
+      }
+    ],
+    "starterCode": "def sort_colors(nums):\n    # Write your code here\n    return nums",
+    "functionName": "sort_colors",
+    "testCases": [
+      {
+        "input": "([2,0,2,1,1,0])",
+        "expected": "[0, 0, 1, 1, 2, 2]"
+      },
+      {
+        "input": "([2,0,1])",
+        "expected": "[0, 1, 2]"
+      },
+      {
+        "input": "([0])",
+        "expected": "[0]"
+      }
+    ],
+    "hint": "Use 3 pointers: low (0s), mid (1s), high (2s).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-bst-val",
+    "title": "Validate BST",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Given a list representing an Inorder Traversal of a Binary Tree, determine if it represents a valid Binary Search Tree (BST).\n    \n    A BST's inorder traversal must be strictly sorted in ascending order.",
+    "examples": [
+      {
+        "input": "[1, 2, 3]",
+        "output": "True"
+      },
+      {
+        "input": "[1, 3, 2]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def is_valid_bst_inorder(arr):\n    # Write your code here\n    pass",
+    "functionName": "is_valid_bst_inorder",
+    "testCases": [
+      {
+        "input": "([1, 2, 3])",
+        "expected": "True"
+      },
+      {
+        "input": "([1, 3, 2])",
+        "expected": "False"
+      },
+      {
+        "input": "([1, 1])",
+        "expected": "False"
+      },
+      {
+        "input": "([10, 20, 30, 40])",
+        "expected": "True"
+      }
+    ],
+    "hint": "Check if the list is strictly increasing.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-bst-insert",
+    "title": "BST Insertion",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Simulate BST insertion. Given a list of values to be inserted into an initially empty BST in order, return the Inorder traversal of the resulting BST.",
+    "examples": [
+      {
+        "input": "[2, 1, 3]",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "input": "[5, 1, 8]",
+        "output": "[1, 5, 8]"
+      }
+    ],
+    "starterCode": "def bst_insert_traversal(values):\n    # Write your code here\n    pass",
+    "functionName": "bst_insert_traversal",
+    "testCases": [
+      {
+        "input": "([2, 1, 3])",
+        "expected": "[1, 2, 3]"
+      },
+      {
+        "input": "([5, 1, 8])",
+        "expected": "[1, 5, 8]"
+      },
+      {
+        "input": "([3, 2, 1])",
+        "expected": "[1, 2, 3]"
+      }
+    ],
+    "hint": "Sort the list (property of BST inorder).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-bst-search",
+    "title": "BST Search",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given a sorted list representing the inorder traversal of a BST (which is just a sorted list), write a function to search for a value val. Return True if val exists, False otherwise.",
+    "examples": [
+      {
+        "input": "[1, 2, 3], 2",
+        "output": "True"
+      },
+      {
+        "input": "[1, 2, 3], 4",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def bst_search(inorder, val):\n    # Write your code here\n    pass",
+    "functionName": "bst_search",
+    "testCases": [
+      {
+        "input": "([1, 2, 3], 2)",
+        "expected": "True"
+      },
+      {
+        "input": "([1, 2, 3], 4)",
+        "expected": "False"
+      },
+      {
+        "input": "([1, 3, 5, 7], 5)",
+        "expected": "True"
+      }
+    ],
+    "hint": "Binary search.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-level-order",
+    "title": "Level Order Traversal",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given the root of a binary tree (represented as a list in level-order with None for missing nodes), return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+    "examples": [
+      {
+        "input": "[3,9,20,null,null,15,7]",
+        "output": "[[3],[9,20],[15,7]]"
+      },
+      {
+        "input": "[1]",
+        "output": "[[1]]"
+      }
+    ],
+    "starterCode": "def levelOrder(root):\n    # Write your code here\n    pass",
+    "functionName": "levelOrder",
+    "testCases": [
+      {
+        "input": "([3,9,20,None,None,15,7])",
+        "expected": "[[3], [9, 20], [15, 7]]"
+      },
+      {
+        "input": "([1])",
+        "expected": "[[1]]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Use queue.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-max-depth",
+    "title": "Max Depth Binary Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree (represented as a list), return its maximum depth.\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+    "examples": [
+      {
+        "input": "[3,9,20,null,null,15,7]",
+        "output": "3"
+      },
+      {
+        "input": "[1,null,2]",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def maxDepth(root):\n    # Write your code here\n    pass",
+    "functionName": "maxDepth",
+    "testCases": [
+      {
+        "input": "([3,9,20,None,None,15,7])",
+        "expected": "3"
+      },
+      {
+        "input": "([1,None,2])",
+        "expected": "2"
+      },
+      {
+        "input": "([])",
+        "expected": "0"
+      }
+    ],
+    "hint": "Recursion.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-symmetric-tree",
+    "title": "Symmetric Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).",
+    "examples": [
+      {
+        "input": "[1,2,2,3,4,4,3]",
+        "output": "True"
+      },
+      {
+        "input": "[1,2,2,null,3,null,3]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def isSymmetric(root):\n    # Write your code here\n    pass",
+    "functionName": "isSymmetric",
+    "testCases": [
+      {
+        "input": "([1,2,2,3,4,4,3])",
+        "expected": "True"
+      },
+      {
+        "input": "([1,2,2,None,3,None,3])",
+        "expected": "False"
+      },
+      {
+        "input": "([1])",
+        "expected": "True"
+      }
+    ],
+    "hint": "Recursive check left.left==right.right.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-invert-tree",
+    "title": "Invert Binary Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, invert the tree, and return its root.",
+    "examples": [
+      {
+        "input": "[4,2,7,1,3,6,9]",
+        "output": "[4,7,2,9,6,3,1]"
+      },
+      {
+        "input": "[2,1,3]",
+        "output": "[2,3,1]"
+      }
+    ],
+    "starterCode": "def invertTree(root):\n    # Write your code here\n    pass",
+    "functionName": "invertTree",
+    "testCases": [
+      {
+        "input": "([4,2,7,1,3,6,9])",
+        "expected": "[4, 7, 2, 9, 6, 3, 1]"
+      },
+      {
+        "input": "([2,1,3])",
+        "expected": "[2, 3, 1]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Swap left and right children recursively.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-path-sum",
+    "title": "Path Sum",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.",
+    "examples": [
+      {
+        "input": "[5,4,8,11,null,13,4,7,2,null,null,null,1], 22",
+        "output": "True"
+      },
+      {
+        "input": "[1,2,3], 5",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def hasPathSum(root, targetSum):\n    # Write your code here\n    pass",
+    "functionName": "hasPathSum",
+    "testCases": [
+      {
+        "input": "([5,4,8,11,None,13,4,7,2,None,None,None,1], 22)",
+        "expected": "True"
+      },
+      {
+        "input": "([1,2,3], 5)",
+        "expected": "False"
+      },
+      {
+        "input": "([], 0)",
+        "expected": "False"
+      }
+    ],
+    "hint": "Subtract val from sum, check leaf.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-lca-bst",
+    "title": "LCA of BST",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.",
+    "examples": [
+      {
+        "input": "[6,2,8,0,4,7,9], 2, 8",
+        "output": "6"
+      },
+      {
+        "input": "[6,2,8,0,4,7,9], 2, 4",
+        "output": "2"
+      }
+    ],
+    "starterCode": "def lowestCommonAncestor(root, p, q):\n    # Write your code here\n    pass",
+    "functionName": "lowestCommonAncestor",
+    "testCases": [
+      {
+        "input": "([6,2,8,0,4,7,9], 2, 8)",
+        "expected": "6"
+      },
+      {
+        "input": "([6,2,8,0,4,7,9], 2, 4)",
+        "expected": "2"
+      },
+      {
+        "input": "([2,1], 2, 1)",
+        "expected": "2"
+      }
+    ],
+    "hint": "If both < root, go left. If both > root, go right.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-kth-smallest",
+    "title": "Kth Smallest in BST",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.",
+    "examples": [
+      {
+        "input": "[3,1,4,null,2], 1",
+        "output": "1"
+      },
+      {
+        "input": "[5,3,6,2,4,null,null,1], 3",
+        "output": "3"
+      }
+    ],
+    "starterCode": "def kthSmallest(root, k):\n    # Write your code here\n    pass",
+    "functionName": "kthSmallest",
+    "testCases": [
+      {
+        "input": "([3,1,4,None,2], 1)",
+        "expected": "1"
+      },
+      {
+        "input": "([5,3,6,2,4,None,None,1], 3)",
+        "expected": "3"
+      },
+      {
+        "input": "([1], 1)",
+        "expected": "1"
+      }
+    ],
+    "hint": "Inorder traversal gives sorted list.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-inorder",
+    "title": "Inorder Traversal",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, return the inorder traversal of its nodes' values.",
+    "examples": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[1, 3, 2]"
+      },
+      {
+        "input": "[]",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def inorderTraversal(root):\n    # Write your code here\n    pass",
+    "functionName": "inorderTraversal",
+    "testCases": [
+      {
+        "input": "([1,None,2,3])",
+        "expected": "[1, 3, 2]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      },
+      {
+        "input": "([1])",
+        "expected": "[1]"
+      }
+    ],
+    "hint": "Left, Root, Right.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-preorder",
+    "title": "Preorder Traversal",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, return the preorder traversal of its nodes' values.",
+    "examples": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "input": "[]",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def preorderTraversal(root):\n    # Write your code here\n    pass",
+    "functionName": "preorderTraversal",
+    "testCases": [
+      {
+        "input": "([1,None,2,3])",
+        "expected": "[1, 2, 3]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      },
+      {
+        "input": "([1])",
+        "expected": "[1]"
+      }
+    ],
+    "hint": "Root, Left, Right.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-postorder",
+    "title": "Postorder Traversal",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, return the postorder traversal of its nodes' values.",
+    "examples": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[3, 2, 1]"
+      },
+      {
+        "input": "[]",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def postorderTraversal(root):\n    # Write your code here\n    pass",
+    "functionName": "postorderTraversal",
+    "testCases": [
+      {
+        "input": "([1,None,2,3])",
+        "expected": "[3, 2, 1]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      },
+      {
+        "input": "([1])",
+        "expected": "[1]"
+      }
+    ],
+    "hint": "Left, Right, Root.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-subtree",
+    "title": "Subtree Check",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.",
+    "examples": [
+      {
+        "input": "[3,4,5,1,2], [4,1,2]",
+        "output": "True"
+      },
+      {
+        "input": "[3,4,5,1,2,null,null,null,null,0], [4,1,2]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def isSubtree(root, subRoot):\n    # Write your code here\n    pass",
+    "functionName": "isSubtree",
+    "testCases": [
+      {
+        "input": "([3,4,5,1,2], [4,1,2])",
+        "expected": "True"
+      },
+      {
+        "input": "([3,4,5,1,2,None,None,None,None,0], [4,1,2])",
+        "expected": "False"
+      },
+      {
+        "input": "([1], [1])",
+        "expected": "True"
+      }
+    ],
+    "hint": "Check identical at each node.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-diameter",
+    "title": "Diameter of Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, return the length of the diameter of the tree.\nThe diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.",
+    "examples": [
+      {
+        "input": "[1,2,3,4,5]",
+        "output": "3"
+      },
+      {
+        "input": "[1,2]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def diameterOfBinaryTree(root):\n    # Write your code here\n    pass",
+    "functionName": "diameterOfBinaryTree",
+    "testCases": [
+      {
+        "input": "([1,2,3,4,5])",
+        "expected": "3"
+      },
+      {
+        "input": "([1,2])",
+        "expected": "1"
+      },
+      {
+        "input": "([1])",
+        "expected": "0"
+      }
+    ],
+    "hint": "Max(left_depth + right_depth).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-balanced",
+    "title": "Balanced Binary Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given a binary tree, determine if it is height-balanced.\nFor this problem, a height-balanced binary tree is defined as:\na binary tree in which the left and right subtrees of every node differ in height by no more than 1.",
+    "examples": [
+      {
+        "input": "[3,9,20,null,null,15,7]",
+        "output": "True"
+      },
+      {
+        "input": "[1,2,2,3,3,null,null,4,4]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def isBalanced(root):\n    # Write your code here\n    pass",
+    "functionName": "isBalanced",
+    "testCases": [
+      {
+        "input": "([3,9,20,None,None,15,7])",
+        "expected": "True"
+      },
+      {
+        "input": "([1,2,2,3,3,None,None,4,4])",
+        "expected": "False"
+      },
+      {
+        "input": "([])",
+        "expected": "True"
+      }
+    ],
+    "hint": "Check height diff at each node.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-merge-trees",
+    "title": "Merge Trees",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "You are given two binary trees root1 and root2.\nImagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.\nReturn the merged tree.",
+    "examples": [
+      {
+        "input": "[1,3,2,5], [2,1,3,null,4,null,7]",
+        "output": "[3,4,5,5,4,null,7]"
+      },
+      {
+        "input": "[1], [1,2]",
+        "output": "[2,2]"
+      }
+    ],
+    "starterCode": "def mergeTrees(root1, root2):\n    # Write your code here\n    pass",
+    "functionName": "mergeTrees",
+    "testCases": [
+      {
+        "input": "([1,3,2,5], [2,1,3,None,4,None,7])",
+        "expected": "[3, 4, 5, 5, 4, None, 7]"
+      },
+      {
+        "input": "([1], [1,2])",
+        "expected": "[2, 2]"
+      },
+      {
+        "input": "([], [])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "New node val = r1.val + r2.val.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-sorted-to-bst",
+    "title": "Sorted Array to BST",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.",
+    "examples": [
+      {
+        "input": "[-10,-3,0,5,9]",
+        "output": "[0,-3,9,-10,null,5]"
+      },
+      {
+        "input": "[1,3]",
+        "output": "[3,1]"
+      }
+    ],
+    "starterCode": "def sortedArrayToBST(nums):\n    # Write your code here\n    pass",
+    "functionName": "sortedArrayToBST",
+    "testCases": [
+      {
+        "input": "([-10,-3,0,5,9])",
+        "expected": "[0, -3, 9, -10, None, 5]"
+      },
+      {
+        "input": "([1,3])",
+        "expected": "[3, 1]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Mid element is root.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-path-sum-ii",
+    "title": "Path Sum II",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.",
+    "examples": [
+      {
+        "input": "[5,4,8,11,null,13,4,7,2,5,1], 22",
+        "output": "[[5,4,11,2],[5,8,4,5]]"
+      },
+      {
+        "input": "[1,2,3], 5",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def pathSum(root, targetSum):\n    # Write your code here\n    pass",
+    "functionName": "pathSum",
+    "testCases": [
+      {
+        "input": "([5,4,8,11,None,13,4,7,2,5,1], 22)",
+        "expected": "[[5, 4, 11, 2], [5, 8, 4, 5]]"
+      },
+      {
+        "input": "([1,2,3], 5)",
+        "expected": "[]"
+      },
+      {
+        "input": "([1,2], 0)",
+        "expected": "[]"
+      }
+    ],
+    "hint": "DFS with path list.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-flatten-tree",
+    "title": "Flatten Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given the root of a binary tree, flatten the tree into a \"linked list\":\n- The \"linked list\" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.\n- The \"linked list\" should be in the same order as a pre-order traversal of the binary tree.",
+    "examples": [
+      {
+        "input": "[1,2,5,3,4,null,6]",
+        "output": "[1,null,2,null,3,null,4,null,5,null,6]"
+      },
+      {
+        "input": "[0]",
+        "output": "[0]"
+      }
+    ],
+    "starterCode": "def flatten(root):\n    # Write your code here\n    pass",
+    "functionName": "flatten",
+    "testCases": [
+      {
+        "input": "([1,2,5,3,4,None,6])",
+        "expected": "[1, None, 2, None, 3, None, 4, None, 5, None, 6]"
+      },
+      {
+        "input": "([0])",
+        "expected": "[0]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Move left subtree to right.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-build-tree",
+    "title": "Build Tree",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.",
+    "examples": [
+      {
+        "input": "[3,9,20,15,7], [9,3,15,20,7]",
+        "output": "[3,9,20,null,null,15,7]"
+      },
+      {
+        "input": "[-1], [-1]",
+        "output": "[-1]"
+      }
+    ],
+    "starterCode": "def buildTree(preorder, inorder):\n    # Write your code here\n    pass",
+    "functionName": "buildTree",
+    "testCases": [
+      {
+        "input": "([3,9,20,15,7], [9,3,15,20,7])",
+        "expected": "[3, 9, 20, None, None, 15, 7]"
+      },
+      {
+        "input": "([-1], [-1])",
+        "expected": "[-1]"
+      },
+      {
+        "input": "([], [])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Preorder[0] is root.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-num-islands",
+    "title": "Number of Islands",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.",
+    "examples": [
+      {
+        "input": "[[\"1\",\"1\",\"0\"],[\"1\",\"0\",\"0\"],[\"0\",\"0\",\"1\"]]",
+        "output": "2"
+      },
+      {
+        "input": "[[\"1\",\"1\",\"1\"],[\"0\",\"1\",\"0\"],[\"1\",\"1\",\"1\"]]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def numIslands(grid):\n    # Write your code here\n    pass",
+    "functionName": "numIslands",
+    "testCases": [
+      {
+        "input": "([[\"1\",\"1\",\"0\"],[\"1\",\"0\",\"0\"],[\"0\",\"0\",\"1\"]])",
+        "expected": "2"
+      },
+      {
+        "input": "([[\"1\",\"1\",\"1\"],[\"0\",\"1\",\"0\"],[\"1\",\"1\",\"1\"]])",
+        "expected": "1"
+      },
+      {
+        "input": "([[\"0\"]])",
+        "expected": "0"
+      }
+    ],
+    "hint": "DFS/BFS to mark visited.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-max-area-island",
+    "title": "Max Area of Island",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical). You may assume all four edges of the grid are surrounded by water.\nThe area of an island is the number of cells with a value 1 in the island.\nReturn the maximum area of an island in grid. If there is no island, return 0.",
+    "examples": [
+      {
+        "input": "[[0,1],[1,1]]",
+        "output": "3"
+      },
+      {
+        "input": "[[0,0],[0,0]]",
+        "output": "0"
+      }
+    ],
+    "starterCode": "def maxAreaOfIsland(grid):\n    # Write your code here\n    pass",
+    "functionName": "maxAreaOfIsland",
+    "testCases": [
+      {
+        "input": "([[0,1],[1,1]])",
+        "expected": "3"
+      },
+      {
+        "input": "([[0,0],[0,0]])",
+        "expected": "0"
+      },
+      {
+        "input": "([[1,1,0],[1,0,1]])",
+        "expected": "3"
+      }
+    ],
+    "hint": "DFS count.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-flood-fill",
+    "title": "Flood Fill",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.\nYou are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc].\nReturn the modified image after performing the flood fill.",
+    "examples": [
+      {
+        "input": "[[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2",
+        "output": "[[2,2,2],[2,2,0],[2,0,1]]"
+      },
+      {
+        "input": "[[0,0,0],[0,0,0]], 0, 0, 0",
+        "output": "[[0,0,0],[0,0,0]]"
+      }
+    ],
+    "starterCode": "def floodFill(image, sr, sc, newColor):\n    # Write your code here\n    pass",
+    "functionName": "floodFill",
+    "testCases": [
+      {
+        "input": "([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2)",
+        "expected": "[[2, 2, 2], [2, 2, 0], [2, 0, 1]]"
+      },
+      {
+        "input": "([[0,0,0],[0,0,0]], 0, 0, 0)",
+        "expected": "[[0, 0, 0], [0, 0, 0]]"
+      },
+      {
+        "input": "([[1]], 0, 0, 2)",
+        "expected": "[[2]]"
+      }
+    ],
+    "hint": "DFS from (sr, sc).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-01-matrix",
+    "title": "01 Matrix",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.\nThe distance between two adjacent cells is 1.",
+    "examples": [
+      {
+        "input": "[[0,0,0],[0,1,0],[0,0,0]]",
+        "output": "[[0,0,0],[0,1,0],[0,0,0]]"
+      },
+      {
+        "input": "[[0,0,0],[0,1,0],[1,1,1]]",
+        "output": "[[0,0,0],[0,1,0],[1,2,1]]"
+      }
+    ],
+    "starterCode": "def updateMatrix(mat):\n    # Write your code here\n    pass",
+    "functionName": "updateMatrix",
+    "testCases": [
+      {
+        "input": "([[0,0,0],[0,1,0],[0,0,0]])",
+        "expected": "[[0, 0, 0], [0, 1, 0], [0, 0, 0]]"
+      },
+      {
+        "input": "([[0,0,0],[0,1,0],[1,1,1]])",
+        "expected": "[[0, 0, 0], [0, 1, 0], [1, 2, 1]]"
+      },
+      {
+        "input": "([[0]])",
+        "expected": "[[0]]"
+      }
+    ],
+    "hint": "BFS from all 0s.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-rotting-oranges",
+    "title": "Rotting Oranges",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "You are given an m x n grid where each cell can have one of three values:\n- 0 representing an empty cell,\n- 1 representing a fresh orange, or\n- 2 representing a rotten orange.\nEvery minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.\nReturn the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.",
+    "examples": [
+      {
+        "input": "[[2,1,1],[1,1,0],[0,1,1]]",
+        "output": "4"
+      },
+      {
+        "input": "[[2,1,1],[0,1,1],[1,0,1]]",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "def orangesRotting(grid):\n    # Write your code here\n    pass",
+    "functionName": "orangesRotting",
+    "testCases": [
+      {
+        "input": "([[2,1,1],[1,1,0],[0,1,1]])",
+        "expected": "4"
+      },
+      {
+        "input": "([[2,1,1],[0,1,1],[1,0,1]])",
+        "expected": "-1"
+      },
+      {
+        "input": "([[0,2]])",
+        "expected": "0"
+      }
+    ],
+    "hint": "BFS level count.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-course-schedule",
+    "title": "Course Schedule",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\nReturn true if you can finish all courses. Otherwise, return false.",
+    "examples": [
+      {
+        "input": "2, [[1,0]]",
+        "output": "True"
+      },
+      {
+        "input": "2, [[1,0],[0,1]]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def canFinish(numCourses, prerequisites):\n    # Write your code here\n    pass",
+    "functionName": "canFinish",
+    "testCases": [
+      {
+        "input": "(2, [[1,0]])",
+        "expected": "True"
+      },
+      {
+        "input": "(2, [[1,0],[0,1]])",
+        "expected": "False"
+      },
+      {
+        "input": "(3, [[1,0],[2,1]])",
+        "expected": "True"
+      }
+    ],
+    "hint": "Topological sort or DFS cycle.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-course-schedule-ii",
+    "title": "Course Schedule II",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\nReturn the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.",
+    "examples": [
+      {
+        "input": "2, [[1,0]]",
+        "output": "[0, 1]"
+      },
+      {
+        "input": "4, [[1,0],[2,0],[3,1],[3,2]]",
+        "output": "[0, 2, 1, 3]"
+      }
+    ],
+    "starterCode": "def findOrder(numCourses, prerequisites):\n    # Write your code here\n    pass",
+    "functionName": "findOrder",
+    "testCases": [
+      {
+        "input": "(2, [[1,0]])",
+        "expected": "[0, 1]"
+      },
+      {
+        "input": "(4, [[1,0],[2,0],[3,1],[3,2]])",
+        "expected": "[0, 2, 1, 3]"
+      },
+      {
+        "input": "(1, [])",
+        "expected": "[0]"
+      }
+    ],
+    "hint": "Topological sort.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-network-delay",
+    "title": "Network Delay Time",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.\nWe will send a signal from a given node k. Return the minimum time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1.",
+    "examples": [
+      {
+        "input": "[[2,1,1],[2,3,1],[3,4,1]], 4, 2",
+        "output": "2"
+      },
+      {
+        "input": "[[1,2,1]], 2, 1",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def networkDelayTime(times, n, k):\n    # Write your code here\n    pass",
+    "functionName": "networkDelayTime",
+    "testCases": [
+      {
+        "input": "([[2,1,1],[2,3,1],[3,4,1]], 4, 2)",
+        "expected": "2"
+      },
+      {
+        "input": "([[1,2,1]], 2, 1)",
+        "expected": "1"
+      },
+      {
+        "input": "([[1,2,1]], 2, 2)",
+        "expected": "-1"
+      }
+    ],
+    "hint": "Dijkstra's algorithm.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-town-judge",
+    "title": "Find Town Judge",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "In a town, there are n people labeled from 1 to n. There is a rumor that one of these people is secretly the town judge.\nIf the town judge exists, then:\n1. The town judge trusts nobody.\n2. Everybody (except for the town judge) trusts the town judge.\n3. There is exactly one person that satisfies properties 1 and 2.\nYou are given an array trust where trust[i] = [ai, bi] representing that the person labeled ai trusts the person labeled bi.\nReturn the label of the town judge if the town judge exists and can be identified, or -1 otherwise.",
+    "examples": [
+      {
+        "input": "2, [[1,2]]",
+        "output": "2"
+      },
+      {
+        "input": "3, [[1,3],[2,3]]",
+        "output": "3"
+      }
+    ],
+    "starterCode": "def findJudge(n, trust):\n    # Write your code here\n    pass",
+    "functionName": "findJudge",
+    "testCases": [
+      {
+        "input": "(2, [[1,2]])",
+        "expected": "2"
+      },
+      {
+        "input": "(3, [[1,3],[2,3]])",
+        "expected": "3"
+      },
+      {
+        "input": "(3, [[1,3],[2,3],[3,1]])",
+        "expected": "-1"
+      }
+    ],
+    "hint": "Indegree - Outdegree = n-1.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-keys-rooms",
+    "title": "Keys and Rooms",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "There are n rooms labeled from 0 to n - 1 and all the rooms are locked except for room 0. Your goal is to visit all the rooms. However, you cannot enter a locked room without having its key.\nWhen you visit a room, you may find a set of distinct keys in it. Each key has a number on it, denoting which room it unlocks, and you can take all of them with you to unlock the other rooms.\nGiven an array rooms where rooms[i] is the set of keys that you can obtain if you visited room i, return true if you can visit all the rooms, or false otherwise.",
+    "examples": [
+      {
+        "input": "[[1],[2],[3],[]]",
+        "output": "True"
+      },
+      {
+        "input": "[[1,3],[3,0,1],[2],[0]]",
+        "output": "False"
+      }
+    ],
+    "starterCode": "def canVisitAllRooms(rooms):\n    # Write your code here\n    pass",
+    "functionName": "canVisitAllRooms",
+    "testCases": [
+      {
+        "input": "([[1],[2],[3],[]])",
+        "expected": "True"
+      },
+      {
+        "input": "([[1,3],[3,0,1],[2],[0]])",
+        "expected": "False"
+      },
+      {
+        "input": "([[1],[]])",
+        "expected": "True"
+      }
+    ],
+    "hint": "BFS/DFS from room 0.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-min-cost-stairs",
+    "title": "Min Cost Climbing Stairs",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.\nYou can either start from the step with index 0, or the step with index 1.\nReturn the minimum cost to reach the top of the floor.",
+    "examples": [
+      {
+        "input": "[10, 15, 20]",
+        "output": "15"
+      },
+      {
+        "input": "[1,100,1,1,1,100,1,1,100,1]",
+        "output": "6"
+      }
+    ],
+    "starterCode": "def minCostClimbingStairs(cost):\n    # Write your code here\n    pass",
+    "functionName": "minCostClimbingStairs",
+    "testCases": [
+      {
+        "input": "([10, 15, 20])",
+        "expected": "15"
+      },
+      {
+        "input": "([1,100,1,1,1,100,1,1,100,1])",
+        "expected": "6"
+      },
+      {
+        "input": "([0,0])",
+        "expected": "0"
+      }
+    ],
+    "hint": "DP: dp[i] = cost[i] + min(dp[i-1], dp[i-2]).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-house-robber",
+    "title": "House Robber",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.\nGiven an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+    "examples": [
+      {
+        "input": "[1,2,3,1]",
+        "output": "4"
+      },
+      {
+        "input": "[2,7,9,3,1]",
+        "output": "12"
+      }
+    ],
+    "starterCode": "def rob(nums):\n    # Write your code here\n    pass",
+    "functionName": "rob",
+    "testCases": [
+      {
+        "input": "([1,2,3,1])",
+        "expected": "4"
+      },
+      {
+        "input": "([2,7,9,3,1])",
+        "expected": "12"
+      },
+      {
+        "input": "([0])",
+        "expected": "0"
+      }
+    ],
+    "hint": "DP: max(dp[i-1], dp[i-2] + nums[i]).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-coin-change",
+    "title": "Coin Change",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.\nYou may assume that you have an infinite number of each kind of coin.",
+    "examples": [
+      {
+        "input": "[1, 2, 5], 11",
+        "output": "3"
+      },
+      {
+        "input": "[2], 3",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "def coinChange(coins, amount):\n    # Write your code here\n    pass",
+    "functionName": "coinChange",
+    "testCases": [
+      {
+        "input": "([1, 2, 5], 11)",
+        "expected": "3"
+      },
+      {
+        "input": "([2], 3)",
+        "expected": "-1"
+      },
+      {
+        "input": "([1], 0)",
+        "expected": "0"
+      }
+    ],
+    "hint": "DP: dp[i] = min(dp[i], dp[i-coin] + 1).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-lis",
+    "title": "Longest Increasing Subsequence",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an integer array nums, return the length of the longest strictly increasing subsequence.",
+    "examples": [
+      {
+        "input": "[10,9,2,5,3,7,101,18]",
+        "output": "4"
+      },
+      {
+        "input": "[0,1,0,3,2,3]",
+        "output": "4"
+      }
+    ],
+    "starterCode": "def lengthOfLIS(nums):\n    # Write your code here\n    pass",
+    "functionName": "lengthOfLIS",
+    "testCases": [
+      {
+        "input": "([10,9,2,5,3,7,101,18])",
+        "expected": "4"
+      },
+      {
+        "input": "([0,1,0,3,2,3])",
+        "expected": "4"
+      },
+      {
+        "input": "([7,7,7,7,7,7,7])",
+        "expected": "1"
+      }
+    ],
+    "hint": "DP O(n^2) or Binary Search O(n log n).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-max-sub-dp",
+    "title": "Max Subarray (DP)",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.",
+    "examples": [
+      {
+        "input": "[-2,1,-3,4,-1,2,1,-5,4]",
+        "output": "6"
+      },
+      {
+        "input": "[1]",
+        "output": "1"
+      }
+    ],
+    "starterCode": "def maxSubArray(nums):\n    # Write your code here\n    pass",
+    "functionName": "maxSubArray",
+    "testCases": [
+      {
+        "input": "([-2,1,-3,4,-1,2,1,-5,4])",
+        "expected": "6"
+      },
+      {
+        "input": "([1])",
+        "expected": "1"
+      },
+      {
+        "input": "([5,4,-1,7,8])",
+        "expected": "23"
+      }
+    ],
+    "hint": "Kadane is DP.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-unique-paths",
+    "title": "Unique Paths",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.\nGiven the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.",
+    "examples": [
+      {
+        "input": "3, 7",
+        "output": "28"
+      },
+      {
+        "input": "3, 2",
+        "output": "3"
+      }
+    ],
+    "starterCode": "def uniquePaths(m, n):\n    # Write your code here\n    pass",
+    "functionName": "uniquePaths",
+    "testCases": [
+      {
+        "input": "(3, 7)",
+        "expected": "28"
+      },
+      {
+        "input": "(3, 2)",
+        "expected": "3"
+      },
+      {
+        "input": "(1, 1)",
+        "expected": "1"
+      }
+    ],
+    "hint": "DP: dp[i][j] = dp[i-1][j] + dp[i][j-1].",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-lcs",
+    "title": "Longest Common Subsequence",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.\nA subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.",
+    "examples": [
+      {
+        "input": "\"abcde\", \"ace\"",
+        "output": "3"
+      },
+      {
+        "input": "\"abc\", \"abc\"",
+        "output": "3"
+      }
+    ],
+    "starterCode": "def longestCommonSubsequence(text1, text2):\n    # Write your code here\n    pass",
+    "functionName": "longestCommonSubsequence",
+    "testCases": [
+      {
+        "input": "(\"abcde\", \"ace\")",
+        "expected": "3"
+      },
+      {
+        "input": "(\"abc\", \"abc\")",
+        "expected": "3"
+      },
+      {
+        "input": "(\"abc\", \"def\")",
+        "expected": "0"
+      }
+    ],
+    "hint": "DP 2D array.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-edit-distance",
+    "title": "Edit Distance",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.\nYou have the following three operations permitted on a word:\n- Insert a character\n- Delete a character\n- Replace a character",
+    "examples": [
+      {
+        "input": "\"horse\", \"ros\"",
+        "output": "3"
+      },
+      {
+        "input": "\"intention\", \"execution\"",
+        "output": "5"
+      }
+    ],
+    "starterCode": "def minDistance(word1, word2):\n    # Write your code here\n    pass",
+    "functionName": "minDistance",
+    "testCases": [
+      {
+        "input": "(\"horse\", \"ros\")",
+        "expected": "3"
+      },
+      {
+        "input": "(\"intention\", \"execution\")",
+        "expected": "5"
+      },
+      {
+        "input": "(\"\", \"\")",
+        "expected": "0"
+      }
+    ],
+    "hint": "DP 2D array.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-kth-stream",
+    "title": "Kth Largest in Stream",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.\n        \n(Simulate function that takes initial nums, k, and a list of adds. Return list of kth largest after each add).",
+    "examples": [
+      {
+        "input": "[4, 5, 8, 2], 3, [3, 5, 10, 9, 4]",
+        "output": "[4, 5, 5, 8, 8]"
+      }
+    ],
+    "starterCode": "def kthLargestStream(nums, k, adds):\n    # Write your code here\n    pass",
+    "functionName": "kthLargestStream",
+    "testCases": [
+      {
+        "input": "([4, 5, 8, 2], 3, [3, 5, 10, 9, 4])",
+        "expected": "[4, 5, 5, 8, 8]"
+      },
+      {
+        "input": "([], 1, [1, 2])",
+        "expected": "[1, 2]"
+      }
+    ],
+    "hint": "Min-heap of size k.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-top-k-freq",
+    "title": "Top K Frequent",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+    "examples": [
+      {
+        "input": "[1,1,1,2,2,3], 2",
+        "output": "[1, 2]"
+      },
+      {
+        "input": "[1], 1",
+        "output": "[1]"
+      }
+    ],
+    "starterCode": "def topKFrequent(nums, k):\n    # Write your code here\n    pass",
+    "functionName": "topKFrequent",
+    "testCases": [
+      {
+        "input": "([1,1,1,2,2,3], 2)",
+        "expected": "[1, 2]"
+      },
+      {
+        "input": "([1], 1)",
+        "expected": "[1]"
+      },
+      {
+        "input": "([1, 2], 2)",
+        "expected": "[1, 2]"
+      }
+    ],
+    "hint": "Heap or Bucket Sort.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-k-smallest-pairs",
+    "title": "K Smallest Pairs",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "You are given two integer arrays nums1 and nums2 sorted in non-decreasing order and an integer k.\nDefine a pair (u, v) which consists of one element from the first array and one element from the second array.\nReturn the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.",
+    "examples": [
+      {
+        "input": "[1,7,11], [2,4,6], 3",
+        "output": "[[1,2],[1,4],[1,6]]"
+      },
+      {
+        "input": "[1,1,2], [1,2,3], 2",
+        "output": "[[1,1],[1,1]]"
+      }
+    ],
+    "starterCode": "def kSmallestPairs(nums1, nums2, k):\n    # Write your code here\n    pass",
+    "functionName": "kSmallestPairs",
+    "testCases": [
+      {
+        "input": "([1,7,11], [2,4,6], 3)",
+        "expected": "[[1, 2], [1, 4], [1, 6]]"
+      },
+      {
+        "input": "([1,1,2], [1,2,3], 2)",
+        "expected": "[[1, 1], [1, 1]]"
+      },
+      {
+        "input": "([1,2], [3], 3)",
+        "expected": "[[1, 3], [2, 3]]"
+      }
+    ],
+    "hint": "Min-heap.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-merge-k-lists",
+    "title": "Merge K Sorted Lists",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.\nMerge all the linked-lists into one sorted linked-list and return it. (Simulated with lists).",
+    "examples": [
+      {
+        "input": "[[1,4,5],[1,3,4],[2,6]]",
+        "output": "[1,1,2,3,4,4,5,6]"
+      },
+      {
+        "input": "[]",
+        "output": "[]"
+      }
+    ],
+    "starterCode": "def mergeKLists(lists):\n    # Write your code here\n    pass",
+    "functionName": "mergeKLists",
+    "testCases": [
+      {
+        "input": "([[1,4,5],[1,3,4],[2,6]])",
+        "expected": "[1, 1, 2, 3, 4, 4, 5, 6]"
+      },
+      {
+        "input": "([])",
+        "expected": "[]"
+      },
+      {
+        "input": "([[]])",
+        "expected": "[]"
+      }
+    ],
+    "hint": "Min-heap.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-sort-char-freq",
+    "title": "Sort Chars Frequency",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.\nReturn the sorted string. If there are multiple answers, return any of them.",
+    "examples": [
+      {
+        "input": "\"tree\"",
+        "output": "\"eert\""
+      },
+      {
+        "input": "\"cccaaa\"",
+        "output": "\"aaaccc\""
+      }
+    ],
+    "starterCode": "def frequencySort(s):\n    # Write your code here\n    pass",
+    "functionName": "frequencySort",
+    "testCases": [
+      {
+        "input": "(\"tree\")",
+        "expected": "\"eert\""
+      },
+      {
+        "input": "(\"cccaaa\")",
+        "expected": "\"aaaccc\""
+      },
+      {
+        "input": "(\"Aabb\")",
+        "expected": "\"bbAa\""
+      }
+    ],
+    "hint": "Counter and sort.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-k-closest",
+    "title": "K Closest Points",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).\nThe distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).",
+    "examples": [
+      {
+        "input": "[[1,3],[-2,2]], 1",
+        "output": "[[-2, 2]]"
+      },
+      {
+        "input": "[[3,3],[5,-1],[-2,4]], 2",
+        "output": "[[3, 3], [-2, 4]]"
+      }
+    ],
+    "starterCode": "def kClosest(points, k):\n    # Write your code here\n    pass",
+    "functionName": "kClosest",
+    "testCases": [
+      {
+        "input": "([[1,3],[-2,2]], 1)",
+        "expected": "[[-2, 2]]"
+      },
+      {
+        "input": "([[3,3],[5,-1],[-2,4]], 2)",
+        "expected": "[[3, 3], [-2, 4]]"
+      },
+      {
+        "input": "([[1,1]], 1)",
+        "expected": "[[1, 1]]"
+      }
+    ],
+    "hint": "Sort by distance or Heap.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-task-scheduler",
+    "title": "Task Scheduler",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given a characters array tasks, representing the tasks a CPU needs to do, where each letter represents a different task. Tasks could be done in any order. Each task is done in one unit of time. For each unit of time, the CPU could complete either one task or just be idle.\nHowever, there is a non-negative integer n that represents the cooldown period between two same tasks (the same letter in the array), that is that there must be at least n units of time between any two same tasks.\nReturn the least number of units of times that the CPU will take to finish all the given tasks.",
+    "examples": [
+      {
+        "input": "[\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], 2",
+        "output": "8"
+      },
+      {
+        "input": "[\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], 0",
+        "output": "6"
+      }
+    ],
+    "starterCode": "def leastInterval(tasks, n):\n    # Write your code here\n    pass",
+    "functionName": "leastInterval",
+    "testCases": [
+      {
+        "input": "([\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], 2)",
+        "expected": "8"
+      },
+      {
+        "input": "([\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], 0)",
+        "expected": "6"
+      },
+      {
+        "input": "([\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"B\",\"C\",\"D\",\"E\",\"F\",\"G\"], 2)",
+        "expected": "16"
+      }
+    ],
+    "hint": "Greedy with frequency.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-reorganize",
+    "title": "Reorganize String",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.\nReturn any possible rearrangement of s or return \"\" if not possible.",
+    "examples": [
+      {
+        "input": "\"aab\"",
+        "output": "\"aba\""
+      },
+      {
+        "input": "\"aaab\"",
+        "output": "\"\""
+      }
+    ],
+    "starterCode": "def reorganizeString(s):\n    # Write your code here\n    pass",
+    "functionName": "reorganizeString",
+    "testCases": [
+      {
+        "input": "(\"aab\")",
+        "expected": "\"aba\""
+      },
+      {
+        "input": "(\"aaab\")",
+        "expected": "\"\""
+      },
+      {
+        "input": "(\"vvvlo\")",
+        "expected": "\"vlvov\""
+      }
+    ],
+    "hint": "Heap with counts.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-mst",
+    "title": "MST Cost",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Calculate the cost of the Minimum Spanning Tree (MST) of a graph.\nInput: n (number of nodes), edges (list of [u, v, w] where u, v are nodes and w is weight).\nReturn the total weight of the MST. If the graph is not connected, return -1.",
+    "examples": [
+      {
+        "input": "3, [[0,1,1],[1,2,2],[0,2,3]]",
+        "output": "3"
+      },
+      {
+        "input": "4, [[0,1,1],[0,2,2],[0,3,3],[1,2,1]]",
+        "output": "4"
+      }
+    ],
+    "starterCode": "def mstCost(n, edges):\n    # Write your code here\n    pass",
+    "functionName": "mstCost",
+    "testCases": [
+      {
+        "input": "(3, [[0,1,1],[1,2,2],[0,2,3]])",
+        "expected": "3"
+      },
+      {
+        "input": "(4, [[0,1,1],[0,2,2],[0,3,3],[1,2,1]])",
+        "expected": "5"
+      },
+      {
+        "input": "(2, [])",
+        "expected": "-1"
+      }
+    ],
+    "hint": "Kruskal's or Prim's.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-shortest-path-matrix",
+    "title": "Shortest Path Matrix",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1.\nA clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to the bottom-right cell (i.e., (n - 1, n - 1)) such that:\n- All the visited cells of the path are 0.\n- All the adjacent cells of the path are 8-directionally connected (i.e., they are different and they share an edge or a corner).\nThe length of a clear path is the number of visited cells of this path.",
+    "examples": [
+      {
+        "input": "[[0,1],[1,0]]",
+        "output": "2"
+      },
+      {
+        "input": "[[0,0,0],[1,1,0],[1,1,0]]",
+        "output": "4"
+      }
+    ],
+    "starterCode": "def shortestPathBinaryMatrix(grid):\n    # Write your code here\n    pass",
+    "functionName": "shortestPathBinaryMatrix",
+    "testCases": [
+      {
+        "input": "([[0,1],[1,0]])",
+        "expected": "2"
+      },
+      {
+        "input": "([[0,0,0],[1,1,0],[1,1,0]])",
+        "expected": "4"
+      },
+      {
+        "input": "([[1,0],[0,0]])",
+        "expected": "-1"
+      }
+    ],
+    "hint": "BFS.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-word-ladder",
+    "title": "Word Ladder",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:\n- Every adjacent pair of words differs by a single letter.\n- Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.\n- sk == endWord\nGiven two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.",
+    "examples": [
+      {
+        "input": "\"hit\", \"cog\", [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+        "output": "5"
+      },
+      {
+        "input": "\"hit\", \"cog\", [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]",
+        "output": "0"
+      }
+    ],
+    "starterCode": "def ladderLength(beginWord, endWord, wordList):\n    # Write your code here\n    pass",
+    "functionName": "ladderLength",
+    "testCases": [
+      {
+        "input": "(\"hit\", \"cog\", [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"])",
+        "expected": "5"
+      },
+      {
+        "input": "(\"hit\", \"cog\", [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"])",
+        "expected": "0"
+      },
+      {
+        "input": "(\"a\", \"c\", [\"a\",\"b\",\"c\"])",
+        "expected": "2"
+      }
+    ],
+    "hint": "BFS.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "pdsa-oppe2-read-graph",
+    "title": "Read Graph from String",
+    "subject": "PDSA",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Parse a string representing a graph edge list into an adjacency list.\nThe string format is \"u v w\\n...\", where each line represents an edge from u to v with weight w.\nReturn a dictionary where keys are nodes and values are lists of tuples (neighbor, weight).",
+    "examples": [
+      {
+        "input": "\"0 1 10\\n1 2 5\"",
+        "output": "{0: [(1, 10)], 1: [(2, 5)]}"
+      },
+      {
+        "input": "\"1 2 3\"",
+        "output": "{1: [(2, 3)]}"
+      }
+    ],
+    "starterCode": "def read_graph(content):\n    # Write your code here\n    pass",
+    "functionName": "read_graph",
+    "testCases": [
+      {
+        "input": "(\"0 1 10\\n1 2 5\")",
+        "expected": "{0: [(1, 10)], 1: [(2, 5)]}"
+      },
+      {
+        "input": "(\"1 2 3\")",
+        "expected": "{1: [(2, 3)]}"
+      },
+      {
+        "input": "(\"\")",
+        "expected": "{}"
+      }
+    ],
+    "hint": "Split lines, parse ints.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  }
+]

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "c1",
+    "title": "Hello World",
+    "difficulty": "Easy",
+    "description": "Write a program that prints 'Hello World!' to the console.",
+    "starterCode": "#include <stdio.h>\n\nint main() {\n    // Write your code here\n    return 0;\n}",
+    "testCases": [
+      {
+        "input": "",
+        "output": "Hello World!"
+      }
+    ],
+    "solution": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello World!\");\n    return 0;\n}",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": [],
+    "tags": "",
+    "examType": "OPPE 1"
+  },
+  {
+    "id": "c2",
+    "title": "Sum of Two Indices",
+    "difficulty": "Easy",
+    "description": "Given two integers, print their sum.",
+    "starterCode": "#include <stdio.h>\n\nint main() {\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    // Complete the code\n    return 0;\n}",
+    "testCases": [
+      {
+        "input": "5 10",
+        "output": "15"
+      }
+    ],
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": [],
+    "tags": "",
+    "examType": "OPPE 1"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "tds1",
+    "title": "Streamlit Header",
+    "difficulty": "Easy",
+    "description": "Write a Streamlit command to display a header 'My App'.",
+    "starterCode": "import streamlit as st\n\n# Write your code here",
+    "testCases": [
+      {
+        "input": "",
+        "output": "st.header('My App')"
+      }
+    ],
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": [],
+    "tags": "",
+    "examType": "OPPE 1"
+  }
+]

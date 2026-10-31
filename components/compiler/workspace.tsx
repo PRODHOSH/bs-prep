@@ -636,7 +636,7 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
   }, [stdout, stderr, flash])
 
   const toggleTheme = useCallback(() => {
-    // In the dashboard the shell owns the theme (this is only reachable from focus mode).
+    // In the dashboard the shell owns the theme, so this asks the shell to switch it.
     if (embedded) window.dispatchEvent(new Event("dashboard-theme-toggle"))
     else setIsDark((d) => !d)
   }, [embedded])
@@ -730,11 +730,9 @@ json.dumps({"stdout": _out.getvalue(), "stderr": _err.getvalue()})
             <button type="button" className="cw-icon" title="Reset to starter code" aria-label="Reset to starter code" onClick={resetCode}>
               <RotateCcw size={16} />
             </button>
-            {(!embedded || focus) && (
-              <button type="button" className="cw-icon" title={isDark ? "Light theme" : "Dark theme"} aria-label="Toggle theme" onClick={toggleTheme}>
-                {isDark ? <Sun size={16} /> : <Moon size={16} />}
-              </button>
-            )}
+            <button type="button" className="cw-icon" title={isDark ? "Light theme" : "Dark theme"} aria-label="Toggle theme" onClick={toggleTheme}>
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
             {embedded && (
               <button
                 type="button"

@@ -1,0 +1,6286 @@
+[
+  {
+    "id": "java1-lc-1",
+    "title": "Two Sum",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find indices adding to target.",
+    "starterCode": "class Solution { public int[] twoSum(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[2,7,11,15], 9",
+        "output": "[0,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-9",
+    "title": "Palindrome Number",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check integer palindrome.",
+    "starterCode": "class Solution { public boolean isPalindrome(int x) {} }",
+    "testCases": [
+      {
+        "input": "121",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-13",
+    "title": "Roman to Integer",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Convert Roman to int.",
+    "starterCode": "class Solution { public int romanToInt(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"III\"",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-14",
+    "title": "Longest Common Prefix",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find common prefix.",
+    "starterCode": "class Solution { public String longestCommonPrefix(String[] strs) {} }",
+    "testCases": [
+      {
+        "input": "[\"flower\",\"flow\"]",
+        "output": "\"fl\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-20",
+    "title": "Valid Parentheses",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check brackets.",
+    "starterCode": "class Solution { public boolean isValid(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"()\"",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-21",
+    "title": "Merge Two Sorted Lists",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Merge sorted lists.",
+    "starterCode": "class Solution { public ListNode mergeTwoLists(ListNode list1, ListNode list2) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,4], [1,3,4]",
+        "output": "[1,1,2,3,4,4]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-26",
+    "title": "Remove Duplicates",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove dups sorted array.",
+    "starterCode": "class Solution { public int removeDuplicates(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,1,2]",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-27",
+    "title": "Remove Element",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove val in-place.",
+    "starterCode": "class Solution { public int removeElement(int[] nums, int val) {} }",
+    "testCases": [
+      {
+        "input": "[3,2,2,3], 3",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-28",
+    "title": "Find Index of Substring",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "StrStr implementation.",
+    "starterCode": "class Solution { public int strStr(String haystack, String needle) {} }",
+    "testCases": [
+      {
+        "input": "\"sadbutsad\", \"sad\"",
+        "output": "0"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-35",
+    "title": "Search Insert Position",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Index to insert.",
+    "starterCode": "class Solution { public int searchInsert(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[1,3,5,6], 5",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Binary Search",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-58",
+    "title": "Length of Last Word",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Last word length.",
+    "starterCode": "class Solution { public int lengthOfLastWord(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"Hello World\"",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-66",
+    "title": "Plus One",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Add one to array.",
+    "starterCode": "class Solution { public int[] plusOne(int[] digits) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3]",
+        "output": "[1,2,4]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-67",
+    "title": "Add Binary",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Add binary strings.",
+    "starterCode": "class Solution { public String addBinary(String a, String b) {} }",
+    "testCases": [
+      {
+        "input": "\"11\", \"1\"",
+        "output": "\"100\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-69",
+    "title": "Sqrt(x)",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Integer sqrt.",
+    "starterCode": "class Solution { public int mySqrt(int x) {} }",
+    "testCases": [
+      {
+        "input": "4",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-70",
+    "title": "Climbing Stairs",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Ways to climb.",
+    "starterCode": "class Solution { public int climbStairs(int n) {} }",
+    "testCases": [
+      {
+        "input": "2",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-83",
+    "title": "Remove Duplicates List",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove from list.",
+    "starterCode": "class Solution { public ListNode deleteDuplicates(ListNode head) {} }",
+    "testCases": [
+      {
+        "input": "[1,1,2]",
+        "output": "[1,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-88",
+    "title": "Merge Sorted Array",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Merge two arrays.",
+    "starterCode": "class Solution { public void merge(int[] nums1, int m, int[] nums2, int n) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,0,0,0], 3",
+        "output": "[1,2,2,3,5,6]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-94",
+    "title": "Binary Tree Inorder",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Inorder traversal.",
+    "starterCode": "class Solution { public List<Integer> inorderTraversal(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[1,3,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-100",
+    "title": "Same Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check if trees identical.",
+    "starterCode": "class Solution { public boolean isSameTree(TreeNode p, TreeNode q) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3], [1,2,3]",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-101",
+    "title": "Symmetric Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check symmetry.",
+    "starterCode": "class Solution { public boolean isSymmetric(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,2,3,4,4,3]",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-104",
+    "title": "Max Depth of Binary Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Tree depth.",
+    "starterCode": "class Solution { public int maxDepth(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[3,9,20]",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-108",
+    "title": "Sorted Array to BST",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Convert array to BST.",
+    "starterCode": "class Solution { public TreeNode sortedArrayToBST(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[-10,-3,0,5,9]",
+        "output": "[0,-3,9,-10,null,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-110",
+    "title": "Balanced Binary Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check height balanced.",
+    "starterCode": "class Solution { public boolean isBalanced(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[3,9,20]",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-111",
+    "title": "Min Depth of Binary Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Min depth.",
+    "starterCode": "class Solution { public int minDepth(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[3,9,20]",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-112",
+    "title": "Path Sum",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Root to leaf sum.",
+    "starterCode": "class Solution { public boolean hasPathSum(TreeNode root, int targetSum) {} }",
+    "testCases": [
+      {
+        "input": "[5,4,8], 22",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-118",
+    "title": "Pascal Triangle",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Generate triangle.",
+    "starterCode": "class Solution { public List<List<Integer>> generate(int numRows) {} }",
+    "testCases": [
+      {
+        "input": "5",
+        "output": "[[1]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-119",
+    "title": "Pascal Triangle II",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Get row.",
+    "starterCode": "class Solution { public List<Integer> getRow(int rowIndex) {} }",
+    "testCases": [
+      {
+        "input": "3",
+        "output": "[1,3,3,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-121",
+    "title": "Best Time to Buy Stock",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Max profit.",
+    "starterCode": "class Solution { public int maxProfit(int[] prices) {} }",
+    "testCases": [
+      {
+        "input": "[7,1,5,3,6,4]",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-125",
+    "title": "Valid Palindrome",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "String palindrome.",
+    "starterCode": "class Solution { public boolean isPalindrome(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"A man...\"",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-136",
+    "title": "Single Number",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find single.",
+    "starterCode": "class Solution { public int singleNumber(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[2,2,1]",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Bitwise",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-141",
+    "title": "Linked List Cycle",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Has cycle?",
+    "starterCode": "class Solution { public boolean hasCycle(ListNode head) {} }",
+    "testCases": [
+      {
+        "input": "[3,2,0,-4]",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-144",
+    "title": "Binary Tree Preorder",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Preorder traversal.",
+    "starterCode": "class Solution { public List<Integer> preorderTraversal(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-145",
+    "title": "Binary Tree Postorder",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Postorder traversal.",
+    "starterCode": "class Solution { public List<Integer> postorderTraversal(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[1,null,2,3]",
+        "output": "[3,2,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-160",
+    "title": "Intersection of Lists",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find intersection.",
+    "starterCode": "class Solution { public ListNode getIntersectionNode(ListNode headA, ListNode headB) {} }",
+    "testCases": [
+      {
+        "input": "8",
+        "output": "8"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-168",
+    "title": "Excel Column Title",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Number to title.",
+    "starterCode": "class Solution { public String convertToTitle(int columnNumber) {} }",
+    "testCases": [
+      {
+        "input": "1",
+        "output": "\"A\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-169",
+    "title": "Majority Element",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find majority.",
+    "starterCode": "class Solution { public int majorityElement(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[3,2,3]",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-171",
+    "title": "Excel Column Number",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Title to number.",
+    "starterCode": "class Solution { public int titleToNumber(String columnTitle) {} }",
+    "testCases": [
+      {
+        "input": "\"A\"",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-190",
+    "title": "Reverse Bits",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Reverse int bits.",
+    "starterCode": "class Solution { public int reverseBits(int n) {} }",
+    "testCases": [
+      {
+        "input": "43261596",
+        "output": "964176192"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Bitwise",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-191",
+    "title": "Number of 1 Bits",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Count set bits.",
+    "starterCode": "class Solution { public int hammingWeight(int n) {} }",
+    "testCases": [
+      {
+        "input": "11",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Bitwise",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-202",
+    "title": "Happy Number",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Is happy?",
+    "starterCode": "class Solution { public boolean isHappy(int n) {} }",
+    "testCases": [
+      {
+        "input": "19",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-203",
+    "title": "Remove Linked List Elements",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Remove val.",
+    "starterCode": "class Solution { public ListNode removeElements(ListNode head, int val) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,6,3], 6",
+        "output": "[1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-205",
+    "title": "Isomorphic Strings",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check mapping.",
+    "starterCode": "class Solution { public boolean isIsomorphic(String s, String t) {} }",
+    "testCases": [
+      {
+        "input": "\"egg\", \"add\"",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-206",
+    "title": "Reverse Linked List",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Reverse list.",
+    "starterCode": "class Solution { public ListNode reverseList(ListNode head) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3]",
+        "output": "[3,2,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-217",
+    "title": "Contains Duplicate",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Check duplicate.",
+    "starterCode": "class Solution { public boolean containsDuplicate(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,1]",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-219",
+    "title": "Contains Duplicate II",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Nearby duplicate.",
+    "starterCode": "class Solution { public boolean containsNearbyDuplicate(int[] nums, int k) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,1], 3",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-225",
+    "title": "Implement Stack using Queues",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Stack via Queues.",
+    "starterCode": "class MyStack {}",
+    "testCases": [
+      {
+        "input": "push, pop",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-226",
+    "title": "Invert Binary Tree",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Invert.",
+    "starterCode": "class Solution { public TreeNode invertTree(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[2,1,3]",
+        "output": "[2,3,1]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-231",
+    "title": "Power of Two",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Is power of 2.",
+    "starterCode": "class Solution { public boolean isPowerOfTwo(int n) {} }",
+    "testCases": [
+      {
+        "input": "16",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-232",
+    "title": "Implement Queue using Stacks",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Queue via Stacks.",
+    "starterCode": "class MyQueue {}",
+    "testCases": [
+      {
+        "input": "push, pop",
+        "output": "1"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-234",
+    "title": "Palindrome Linked List",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Is list palindrome.",
+    "starterCode": "class Solution { public boolean isPalindrome(ListNode head) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,2,1]",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-242",
+    "title": "Valid Anagram",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Is anagram.",
+    "starterCode": "class Solution { public boolean isAnagram(String s, String t) {} }",
+    "testCases": [
+      {
+        "input": "\"anagram\"",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-lc-257",
+    "title": "Binary Tree Paths",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "All root-leaf paths.",
+    "starterCode": "class Solution { public List<String> binaryTreePaths(TreeNode root) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3]",
+        "output": "'[\"1->2\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Tree",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-2",
+    "title": "Add Two Numbers",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Add linked lists.",
+    "starterCode": "class Solution { public ListNode addTwoNumbers(ListNode l1, ListNode l2) {} }",
+    "testCases": [
+      {
+        "input": "[2,4,3]",
+        "output": "[7,0,8]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-3",
+    "title": "Longest Substring",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "No repeat char.",
+    "starterCode": "class Solution { public int lengthOfLongestSubstring(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"abcabcbb\"",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-5",
+    "title": "Longest Palindrome",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Substring.",
+    "starterCode": "class Solution { public String longestPalindrome(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"babad\"",
+        "output": "\"bab\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-6",
+    "title": "Zigzag Conversion",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Zigzag string.",
+    "starterCode": "class Solution { public String convert(String s, int numRows) {} }",
+    "testCases": [
+      {
+        "input": "\"PAYPAL...\", 3",
+        "output": "\"PAHN...\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-7",
+    "title": "Reverse Integer",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Reverse int.",
+    "starterCode": "class Solution { public int reverse(int x) {} }",
+    "testCases": [
+      {
+        "input": "123",
+        "output": "321"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-8",
+    "title": "String to Integer",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Atoi.",
+    "starterCode": "class Solution { public int myAtoi(String s) {} }",
+    "testCases": [
+      {
+        "input": "\"42\"",
+        "output": "42"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-11",
+    "title": "Container With Most Water",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max water.",
+    "starterCode": "class Solution { public int maxArea(int[] height) {} }",
+    "testCases": [
+      {
+        "input": "[1,8,6...]",
+        "output": "49"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-12",
+    "title": "Integer to Roman",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Int to Roman.",
+    "starterCode": "class Solution { public String intToRoman(int num) {} }",
+    "testCases": [
+      {
+        "input": "3",
+        "output": "\"III\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-15",
+    "title": "3Sum",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Sum to zero.",
+    "starterCode": "class Solution { public List<List<Integer>> threeSum(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[-1,0,1,2,-1,-4]",
+        "output": "[[-1,-1,2]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-16",
+    "title": "3Sum Closest",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Sum closest.",
+    "starterCode": "class Solution { public int threeSumClosest(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[-1,2,1,-4], 1",
+        "output": "2"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-17",
+    "title": "Letter Combinations",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Phone pad.",
+    "starterCode": "class Solution { public List<String> letterCombinations(String digits) {} }",
+    "testCases": [
+      {
+        "input": "\"23\"",
+        "output": "[\"ad\"...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-18",
+    "title": "4Sum",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Target sum.",
+    "starterCode": "class Solution { public List<List<Integer>> fourSum(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[1,0,-1,0,-2,2], 0",
+        "output": "[[-2,-1,1,2]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-19",
+    "title": "Remove Nth Node",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Remove from end.",
+    "starterCode": "class Solution { public ListNode removeNthFromEnd(ListNode head, int n) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,4,5], 2",
+        "output": "[1,2,3,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-22",
+    "title": "Generate Parentheses",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Valid combos.",
+    "starterCode": "class Solution { public List<String> generateParenthesis(int n) {} }",
+    "testCases": [
+      {
+        "input": "3",
+        "output": "[\"((()))\"...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-24",
+    "title": "Swap Nodes Pairs",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Swap pairs.",
+    "starterCode": "class Solution { public ListNode swapPairs(ListNode head) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,4]",
+        "output": "[2,1,4,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-29",
+    "title": "Divide Integers",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Divide no operator.",
+    "starterCode": "class Solution { public int divide(int dividend, int divisor) {} }",
+    "testCases": [
+      {
+        "input": "10, 3",
+        "output": "3"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-31",
+    "title": "Next Permutation",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Lexicographical next.",
+    "starterCode": "class Solution { public void nextPermutation(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3]",
+        "output": "[1,3,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-33",
+    "title": "Search Rotated Array",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Search sorted.",
+    "starterCode": "class Solution { public int search(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[4,5,6,7,0,1,2], 0",
+        "output": "4"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-34",
+    "title": "Find First Last",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Range of target.",
+    "starterCode": "class Solution { public int[] searchRange(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[5,7,7,8,8,10], 8",
+        "output": "[3,4]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-36",
+    "title": "Valid Sudoku",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Check board.",
+    "starterCode": "class Solution { public boolean isValidSudoku(char[][] board) {} }",
+    "testCases": [
+      {
+        "input": "board",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Matrix",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-38",
+    "title": "Count and Say",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Sequence.",
+    "starterCode": "class Solution { public String countAndSay(int n) {} }",
+    "testCases": [
+      {
+        "input": "4",
+        "output": "\"1211\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-39",
+    "title": "Combination Sum",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Target sum.",
+    "starterCode": "class Solution { public List<List<Integer>> combinationSum(int[] candidates, int target) {} }",
+    "testCases": [
+      {
+        "input": "[2,3,6,7], 7",
+        "output": "[[2,2,3],[7]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-43",
+    "title": "Multiply Strings",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Multiply big int.",
+    "starterCode": "class Solution { public String multiply(String num1, String num2) {} }",
+    "testCases": [
+      {
+        "input": "\"2\", \"3\"",
+        "output": "\"6\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-46",
+    "title": "Permutations",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "All perms.",
+    "starterCode": "class Solution { public List<List<Integer>> permute(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3]",
+        "output": "[[1,2,3]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-47",
+    "title": "Permutations II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Unique perms.",
+    "starterCode": "class Solution { public List<List<Integer>> permuteUnique(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,1,2]",
+        "output": "[[1,1,2]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-48",
+    "title": "Rotate Image",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Rotate 90.",
+    "starterCode": "class Solution { public void rotate(int[][] matrix) {} }",
+    "testCases": [
+      {
+        "input": "[[1,2],[3,4]]",
+        "output": "[[3,1],[4,2]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Matrix",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-49",
+    "title": "Group Anagrams",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Group them.",
+    "starterCode": "class Solution { public List<List<String>> groupAnagrams(String[] strs) {} }",
+    "testCases": [
+      {
+        "input": "[\"eat\",\"tea\"]",
+        "output": "'[[\"eat\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Hash",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-50",
+    "title": "Pow(x, n)",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Power.",
+    "starterCode": "class Solution { public double myPow(double x, int n) {} }",
+    "testCases": [
+      {
+        "input": "2.0, 10",
+        "output": "1024.0"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Math",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-53",
+    "title": "Maximum Subarray",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max sum.",
+    "starterCode": "class Solution { public int maxSubArray(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[-2,1,-3,4,-1,2,1,-5,4]",
+        "output": "6"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-54",
+    "title": "Spiral Matrix",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Spiral order.",
+    "starterCode": "class Solution { public List<Integer> spiralOrder(int[][] matrix) {} }",
+    "testCases": [
+      {
+        "input": "[[1,2,3]...]",
+        "output": "[1,2,3,6... ]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Matrix",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-56",
+    "title": "Merge Intervals",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Merge overlapping.",
+    "starterCode": "class Solution { public int[][] merge(int[][] intervals) {} }",
+    "testCases": [
+      {
+        "input": "[[1,3],[2,6]]",
+        "output": "[[1,6]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-57",
+    "title": "Insert Interval",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Insert new.",
+    "starterCode": "class Solution { public int[][] insert(int[][] intervals, int[] newInterval) {} }",
+    "testCases": [
+      {
+        "input": "[[1,3]], [2,5]",
+        "output": "[[1,5]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-59",
+    "title": "Spiral Matrix II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Generate spiral.",
+    "starterCode": "class Solution { public int[][] generateMatrix(int n) {} }",
+    "testCases": [
+      {
+        "input": "3",
+        "output": "[[1,2,3]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Matrix",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-61",
+    "title": "Rotate List",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Rotate k.",
+    "starterCode": "class Solution { public ListNode rotateRight(ListNode head, int k) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,4,5], 2",
+        "output": "[4,5,1,2,3]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-62",
+    "title": "Unique Paths",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Count paths.",
+    "starterCode": "class Solution { public int uniquePaths(int m, int n) {} }",
+    "testCases": [
+      {
+        "input": "3, 7",
+        "output": "28"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-63",
+    "title": "Unique Paths II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Paths with obstacles.",
+    "starterCode": "class Solution { public int uniquePathsWithObstacles(int[][] obstacleGrid) {} }",
+    "testCases": [
+      {
+        "input": "[[0,0],[0,1]]",
+        "output": "0"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-64",
+    "title": "Minimum Path Sum",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Min sum path.",
+    "starterCode": "class Solution { public int minPathSum(int[][] grid) {} }",
+    "testCases": [
+      {
+        "input": "[[1,3],[1,5]]",
+        "output": "7"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "DP",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-71",
+    "title": "Simplify Path",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Canonical path.",
+    "starterCode": "class Solution { public String simplifyPath(String path) {} }",
+    "testCases": [
+      {
+        "input": "\"/home/\"",
+        "output": "\"/home\""
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Stack",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-73",
+    "title": "Set Matrix Zeroes",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Zero row/col.",
+    "starterCode": "class Solution { public void setZeroes(int[][] matrix) {} }",
+    "testCases": [
+      {
+        "input": "[[1,1,1],[1,0,1]]",
+        "output": "[[1,0,1],[0,0,0]]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Matrix",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-74",
+    "title": "Search 2D Matrix",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Search target.",
+    "starterCode": "class Solution { public boolean searchMatrix(int[][] matrix, int target) {} }",
+    "testCases": [
+      {
+        "input": "[[1,3]...], 3",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Binary Search",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-75",
+    "title": "Sort Colors",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "0,1,2 sort.",
+    "starterCode": "class Solution { public void sortColors(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[2,0,2,1,1,0]",
+        "output": "[0,0,1,1,2,2]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-77",
+    "title": "Combinations",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "n choose k.",
+    "starterCode": "class Solution { public List<List<Integer>> combine(int n, int k) {} }",
+    "testCases": [
+      {
+        "input": "4, 2",
+        "output": "[[1,2]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-78",
+    "title": "Subsets",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "All subsets.",
+    "starterCode": "class Solution { public List<List<Integer>> subsets(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3]",
+        "output": "[[],[1]...]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-79",
+    "title": "Word Search",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Find word.",
+    "starterCode": "class Solution { public boolean exist(char[][] board, String word) {} }",
+    "testCases": [
+      {
+        "input": "board, \"ABCCED\"",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Backtracking",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-80",
+    "title": "Remove Duplicates II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max 2 dups.",
+    "starterCode": "class Solution { public int removeDuplicates(int[] nums) {} }",
+    "testCases": [
+      {
+        "input": "[1,1,1,2,2,3]",
+        "output": "5"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Array",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-81",
+    "title": "Search Rotated II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Search with dups.",
+    "starterCode": "class Solution { public boolean search(int[] nums, int target) {} }",
+    "testCases": [
+      {
+        "input": "[2,5,6,0,0,1,2], 0",
+        "output": "true"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "Binary Search",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-82",
+    "title": "Remove Duplicates List II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Keep distinct.",
+    "starterCode": "class Solution { public ListNode deleteDuplicates(ListNode head) {} }",
+    "testCases": [
+      {
+        "input": "[1,2,3,3,4]",
+        "output": "[1,2,4]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java2-lc-86",
+    "title": "Partition List",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Partition x.",
+    "starterCode": "class Solution { public ListNode partition(ListNode head, int x) {} }",
+    "testCases": [
+      {
+        "input": "[1,4,3,2,5,2], 3",
+        "output": "[1,2,2,4,3,5]"
+      }
+    ],
+    "solution": "pass",
+    "subject": "JAVA",
+    "language": "java",
+    "tags": "LinkedList",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "java1-hello",
+    "title": "Hello World",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program that prints \"Hello, World!\" to the console.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Hello, World!"
+      },
+      {
+        "input": "ignore",
+        "output": "Hello, World!"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Hello, World!"
+      },
+      {
+        "input": "test",
+        "expected": "Hello, World!"
+      }
+    ],
+    "hint": "Use System.out.println(\"Hello, World!\");",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-sum",
+    "title": "Sum of Two Numbers",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program that reads two integers from standard input and prints their sum.",
+    "examples": [
+      {
+        "input": "5 10",
+        "output": "15"
+      },
+      {
+        "input": "-5 5",
+        "output": "0"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5 10",
+        "expected": "15"
+      },
+      {
+        "input": "-5 5",
+        "expected": "0"
+      },
+      {
+        "input": "100 200",
+        "expected": "300"
+      }
+    ],
+    "hint": "Use sc.nextInt() to read integers.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-even-odd",
+    "title": "Even or Odd",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program that reads an integer and prints \"Even\" if it is even, and \"Odd\" if it is odd.",
+    "examples": [
+      {
+        "input": "4",
+        "output": "Even"
+      },
+      {
+        "input": "7",
+        "output": "Odd"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "4",
+        "expected": "Even"
+      },
+      {
+        "input": "7",
+        "expected": "Odd"
+      },
+      {
+        "input": "0",
+        "expected": "Even"
+      }
+    ],
+    "hint": "Use the modulo operator %.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-max2",
+    "title": "Maximum of Two",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to find the maximum of two integers input by the user.",
+    "examples": [
+      {
+        "input": "10 20",
+        "output": "20"
+      },
+      {
+        "input": "50 30",
+        "output": "50"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "10 20",
+        "expected": "20"
+      },
+      {
+        "input": "50 30",
+        "expected": "50"
+      },
+      {
+        "input": "5 5",
+        "expected": "5"
+      }
+    ],
+    "hint": "Use Math.max() or if-else.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-factorial",
+    "title": "Factorial",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a program to calculate the factorial of a given non-negative integer.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "120"
+      },
+      {
+        "input": "3",
+        "output": "6"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "120"
+      },
+      {
+        "input": "0",
+        "expected": "1"
+      },
+      {
+        "input": "1",
+        "expected": "1"
+      }
+    ],
+    "hint": "Use a loop or recursion.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-fibonacci",
+    "title": "Fibonacci Series",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a program to print the first N terms of the Fibonacci series separated by space. Start with 0 and 1.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "0 1 1 2 3"
+      },
+      {
+        "input": "1",
+        "output": "0"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "0 1 1 2 3"
+      },
+      {
+        "input": "1",
+        "expected": "0"
+      },
+      {
+        "input": "2",
+        "expected": "0 1"
+      }
+    ],
+    "hint": "Update two variables in a loop.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-prime",
+    "title": "Prime Check",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a program to check if a given number is Prime. Print \"Prime\" or \"Not Prime\".",
+    "examples": [
+      {
+        "input": "7",
+        "output": "Prime"
+      },
+      {
+        "input": "10",
+        "output": "Not Prime"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "7",
+        "expected": "Prime"
+      },
+      {
+        "input": "10",
+        "expected": "Not Prime"
+      },
+      {
+        "input": "1",
+        "expected": "Not Prime"
+      }
+    ],
+    "hint": "Check divisibility from 2 to sqrt(N).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-reverse-num",
+    "title": "Reverse Number",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to reverse a given integer.",
+    "examples": [
+      {
+        "input": "123",
+        "output": "321"
+      },
+      {
+        "input": "100",
+        "output": "001"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "123",
+        "expected": "321"
+      },
+      {
+        "input": "100",
+        "expected": "001"
+      },
+      {
+        "input": "0",
+        "expected": "0"
+      }
+    ],
+    "hint": "Extract digits using % 10.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-palindrome-num",
+    "title": "Palindrome Number",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Write a program to check if a number is a palindrome. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "121",
+        "output": "Yes"
+      },
+      {
+        "input": "123",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "121",
+        "expected": "Yes"
+      },
+      {
+        "input": "123",
+        "expected": "No"
+      },
+      {
+        "input": "10",
+        "expected": "No"
+      }
+    ],
+    "hint": "Compare number with its reverse.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-sum-digits",
+    "title": "Sum of Digits",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to find the sum of digits of a number.",
+    "examples": [
+      {
+        "input": "123",
+        "output": "6"
+      },
+      {
+        "input": "99",
+        "output": "18"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "123",
+        "expected": "6"
+      },
+      {
+        "input": "99",
+        "expected": "18"
+      },
+      {
+        "input": "0",
+        "expected": "0"
+      }
+    ],
+    "hint": "Loop with % 10 and / 10.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-leap-year",
+    "title": "Leap Year",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to check if a year is a leap year. Print \"Leap\" or \"Not Leap\".",
+    "examples": [
+      {
+        "input": "2000",
+        "output": "Leap"
+      },
+      {
+        "input": "2001",
+        "output": "Not Leap"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2000",
+        "expected": "Leap"
+      },
+      {
+        "input": "2001",
+        "expected": "Not Leap"
+      },
+      {
+        "input": "1900",
+        "expected": "Not Leap"
+      }
+    ],
+    "hint": "Divisible by 4 but not 100, unless divisible by 400.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-table",
+    "title": "Multiplication Table",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to print the multiplication table of N up to 10, separated by spaces.",
+    "examples": [
+      {
+        "input": "2",
+        "output": "2 4 6 8 10 12 14 16 18 20"
+      },
+      {
+        "input": "3",
+        "output": "3 6 9 12 15 18 21 24 27 30"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2",
+        "expected": "2 4 6 8 10 12 14 16 18 20"
+      },
+      {
+        "input": "3",
+        "expected": "3 6 9 12 15 18 21 24 27 30"
+      },
+      {
+        "input": "5",
+        "expected": "5 10 15 20 25 30 35 40 45 50"
+      }
+    ],
+    "hint": "Loop from 1 to 10.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-array-sum",
+    "title": "Sum of Array",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to read N, then N integers, and print their sum.",
+    "examples": [
+      {
+        "input": "3 1 2 3",
+        "output": "6"
+      },
+      {
+        "input": "2 10 20",
+        "output": "30"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 1 2 3",
+        "expected": "6"
+      },
+      {
+        "input": "2 10 20",
+        "expected": "30"
+      },
+      {
+        "input": "1 5",
+        "expected": "5"
+      }
+    ],
+    "hint": "Use an array or accumulate in loop.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-array-max",
+    "title": "Max in Array",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Write a program to find the maximum element in an array of N integers.",
+    "examples": [
+      {
+        "input": "3 1 5 2",
+        "output": "5"
+      },
+      {
+        "input": "3 -1 -5 -2",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 1 5 2",
+        "expected": "5"
+      },
+      {
+        "input": "3 -1 -5 -2",
+        "expected": "-1"
+      },
+      {
+        "input": "1 100",
+        "expected": "100"
+      }
+    ],
+    "hint": "Initialize max with Integer.MIN_VALUE.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-linear-search",
+    "title": "Linear Search",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read N, then N integers, then a target X. Print the index of X (0-based) or -1 if not found.",
+    "examples": [
+      {
+        "input": "3 10 20 30 20",
+        "output": "1"
+      },
+      {
+        "input": "3 1 2 3 4",
+        "output": "-1"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 10 20 30 20",
+        "expected": "1"
+      },
+      {
+        "input": "3 1 2 3 4",
+        "expected": "-1"
+      },
+      {
+        "input": "1 5 5",
+        "expected": "0"
+      }
+    ],
+    "hint": "Iterate and compare.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-array-reverse",
+    "title": "Reverse Array",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read N, then N integers. Print them in reverse order separated by space.",
+    "examples": [
+      {
+        "input": "3 1 2 3",
+        "output": "3 2 1"
+      },
+      {
+        "input": "2 10 20",
+        "output": "20 10"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 1 2 3",
+        "expected": "3 2 1"
+      },
+      {
+        "input": "2 10 20",
+        "expected": "20 10"
+      },
+      {
+        "input": "1 5",
+        "expected": "5"
+      }
+    ],
+    "hint": "Loop from N-1 down to 0.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-string-len",
+    "title": "String Length",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read a string and print its length.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "5"
+      },
+      {
+        "input": "Hi",
+        "output": "2"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "5"
+      },
+      {
+        "input": "Java",
+        "expected": "4"
+      },
+      {
+        "input": "A",
+        "expected": "1"
+      }
+    ],
+    "hint": "Use .length() method.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-char-at",
+    "title": "Character at Index",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read a string and an integer N. Print the character at index N.",
+    "examples": [
+      {
+        "input": "Hello 1",
+        "output": "e"
+      },
+      {
+        "input": "Java 0",
+        "output": "J"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Hello 1",
+        "expected": "e"
+      },
+      {
+        "input": "Java 0",
+        "expected": "J"
+      },
+      {
+        "input": "Test 3",
+        "expected": "t"
+      }
+    ],
+    "hint": "Use .charAt(N).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-count-vowels",
+    "title": "Count Vowels",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read a string and print the count of vowels (a, e, i, o, u) in it. Case insensitive.",
+    "examples": [
+      {
+        "input": "Hello",
+        "output": "2"
+      },
+      {
+        "input": "Sky",
+        "output": "0"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Hello",
+        "expected": "2"
+      },
+      {
+        "input": "Sky",
+        "expected": "0"
+      },
+      {
+        "input": "AeIoU",
+        "expected": "5"
+      }
+    ],
+    "hint": "Iterate and check against \"aeiouAEIOU\".",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-string-reverse",
+    "title": "Reverse String",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read a string and print it reversed.",
+    "examples": [
+      {
+        "input": "abc",
+        "output": "cba"
+      },
+      {
+        "input": "Java",
+        "output": "avaJ"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "abc",
+        "expected": "cba"
+      },
+      {
+        "input": "Java",
+        "expected": "avaJ"
+      },
+      {
+        "input": "A",
+        "expected": "A"
+      }
+    ],
+    "hint": "Use StringBuilder reverse().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-palindrome-str",
+    "title": "Palindrome String",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Check if a string is a palindrome. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "madam",
+        "output": "Yes"
+      },
+      {
+        "input": "hello",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "madam",
+        "expected": "Yes"
+      },
+      {
+        "input": "hello",
+        "expected": "No"
+      },
+      {
+        "input": "racecar",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "Compare string with its reverse.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-upper-lower",
+    "title": "To Uppercase",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read a string and print it in uppercase.",
+    "examples": [
+      {
+        "input": "hello",
+        "output": "HELLO"
+      },
+      {
+        "input": "Java",
+        "output": "JAVA"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "hello",
+        "expected": "HELLO"
+      },
+      {
+        "input": "Java",
+        "expected": "JAVA"
+      },
+      {
+        "input": "abc",
+        "expected": "ABC"
+      }
+    ],
+    "hint": "Use .toUpperCase().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-gcd",
+    "title": "GCD of Two Numbers",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read two integers and print their Greatest Common Divisor (GCD).",
+    "examples": [
+      {
+        "input": "12 18",
+        "output": "6"
+      },
+      {
+        "input": "7 13",
+        "output": "1"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "12 18",
+        "expected": "6"
+      },
+      {
+        "input": "7 13",
+        "expected": "1"
+      },
+      {
+        "input": "10 5",
+        "expected": "5"
+      }
+    ],
+    "hint": "Use Euclidean algorithm.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-lcm",
+    "title": "LCM of Two Numbers",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read two integers and print their Least Common Multiple (LCM).",
+    "examples": [
+      {
+        "input": "4 6",
+        "output": "12"
+      },
+      {
+        "input": "5 7",
+        "output": "35"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "4 6",
+        "expected": "12"
+      },
+      {
+        "input": "5 7",
+        "expected": "35"
+      },
+      {
+        "input": "2 3",
+        "expected": "6"
+      }
+    ],
+    "hint": "LCM = (a*b)/GCD(a,b).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-armstrong",
+    "title": "Armstrong Number",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Check if a number is an Armstrong number (sum of cubes of digits equals the number). Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "153",
+        "output": "Yes"
+      },
+      {
+        "input": "123",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "153",
+        "expected": "Yes"
+      },
+      {
+        "input": "123",
+        "expected": "No"
+      },
+      {
+        "input": "370",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "Sum of digits cubed.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-sort-array",
+    "title": "Sort Array",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read N, then N integers. Print them sorted in ascending order.",
+    "examples": [
+      {
+        "input": "3 3 1 2",
+        "output": "1 2 3"
+      },
+      {
+        "input": "2 5 4",
+        "output": "4 5"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 3 1 2",
+        "expected": "1 2 3"
+      },
+      {
+        "input": "2 5 4",
+        "expected": "4 5"
+      },
+      {
+        "input": "1 10",
+        "expected": "10"
+      }
+    ],
+    "hint": "Use Arrays.sort().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-second-largest",
+    "title": "Second Largest",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read N, then N integers. Print the second largest element.",
+    "examples": [
+      {
+        "input": "3 10 20 30",
+        "output": "20"
+      },
+      {
+        "input": "3 5 1 2",
+        "output": "2"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 10 20 30",
+        "expected": "20"
+      },
+      {
+        "input": "3 5 1 2",
+        "expected": "2"
+      },
+      {
+        "input": "4 10 20 30 40",
+        "expected": "30"
+      }
+    ],
+    "hint": "Sort and pick N-2 index.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-remove-duplicates",
+    "title": "Remove Duplicates",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Read N, then N sorted integers. Print unique elements separated by space.",
+    "examples": [
+      {
+        "input": "4 1 1 2 3",
+        "output": "1 2 3"
+      },
+      {
+        "input": "3 1 1 1",
+        "output": "1"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "4 1 1 2 3",
+        "expected": "1 2 3"
+      },
+      {
+        "input": "3 1 1 1",
+        "expected": "1"
+      },
+      {
+        "input": "3 1 2 3",
+        "expected": "1 2 3"
+      }
+    ],
+    "hint": "Skip if current == previous.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-matrix-add",
+    "title": "Matrix Addition",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Read N (rows) and M (cols). Then read two NxM matrices. Print their sum matrix.",
+    "examples": [
+      {
+        "input": "2 2 1 2 3 4 1 1 1 1",
+        "output": "2 3 4 5"
+      },
+      {
+        "input": "1 1 1 2",
+        "output": "3"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2 2 1 2 3 4 1 1 1 1",
+        "expected": "2 3 4 5"
+      },
+      {
+        "input": "1 1 1 2",
+        "expected": "3"
+      },
+      {
+        "input": "1 2 1 2 3 4",
+        "expected": "4 6"
+      }
+    ],
+    "hint": "Nested loops.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-pattern",
+    "title": "Print Number Pattern",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read N. Print N lines. Line i has i 1s. Example N=3: 1 then 1 1 then 1 1 1.",
+    "examples": [
+      {
+        "input": "2",
+        "output": "1 1 1"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2",
+        "expected": "1 1 1"
+      },
+      {
+        "input": "1",
+        "expected": "1"
+      },
+      {
+        "input": "3",
+        "expected": "1 1 1 1 1 1"
+      }
+    ],
+    "hint": "Nested loops.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-swap",
+    "title": "Swap Variables",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read two integers A and B. Swap them and print them.",
+    "examples": [
+      {
+        "input": "1 2",
+        "output": "2 1"
+      },
+      {
+        "input": "10 20",
+        "output": "20 10"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1 2",
+        "expected": "2 1"
+      },
+      {
+        "input": "10 20",
+        "expected": "20 10"
+      },
+      {
+        "input": "5 5",
+        "expected": "5 5"
+      }
+    ],
+    "hint": "Use temp variable.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-ascii",
+    "title": "ASCII Value",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read a character and print its ASCII value.",
+    "examples": [
+      {
+        "input": "A",
+        "output": "65"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "A",
+        "expected": "65"
+      },
+      {
+        "input": "a",
+        "expected": "97"
+      },
+      {
+        "input": "0",
+        "expected": "48"
+      }
+    ],
+    "hint": "Cast char to int.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-power",
+    "title": "Power Calculation",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read base and exponent (integers). Print base^exponent.",
+    "examples": [
+      {
+        "input": "2 3",
+        "output": "8"
+      },
+      {
+        "input": "5 2",
+        "output": "25"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2 3",
+        "expected": "8"
+      },
+      {
+        "input": "5 2",
+        "expected": "25"
+      },
+      {
+        "input": "10 0",
+        "expected": "1"
+      }
+    ],
+    "hint": "Use Math.pow() or loop.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-count-digits",
+    "title": "Count Digits",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read an integer and print the number of digits.",
+    "examples": [
+      {
+        "input": "12345",
+        "output": "5"
+      },
+      {
+        "input": "0",
+        "output": "1"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "12345",
+        "expected": "5"
+      },
+      {
+        "input": "0",
+        "expected": "1"
+      },
+      {
+        "input": "100",
+        "expected": "3"
+      }
+    ],
+    "hint": "Convert to string length.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-anagram",
+    "title": "Anagram Check",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Read two strings. Check if they are anagrams. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "listen silent",
+        "output": "Yes"
+      },
+      {
+        "input": "hello world",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "listen silent",
+        "expected": "Yes"
+      },
+      {
+        "input": "abc def",
+        "expected": "No"
+      },
+      {
+        "input": "a a",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "Sort char arrays and compare.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-pangram",
+    "title": "Pangram Check",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Read a string. Check if it contains all letters a-z. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "thequickbrownfoxjumpsoverthelazydog",
+        "output": "Yes"
+      },
+      {
+        "input": "hello world",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "thequickbrownfoxjumpsoverthelazydog",
+        "expected": "Yes"
+      },
+      {
+        "input": "hello world",
+        "expected": "No"
+      },
+      {
+        "input": "abcdefghijklmnopqrstuvwxyz",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "Use a boolean array or Set.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-avg",
+    "title": "Average of Numbers",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read N, then N numbers. Print their average (integer part).",
+    "examples": [
+      {
+        "input": "3 10 20 30",
+        "output": "20"
+      },
+      {
+        "input": "2 5 5",
+        "output": "5"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 10 20 30",
+        "expected": "20"
+      },
+      {
+        "input": "2 5 5",
+        "expected": "5"
+      },
+      {
+        "input": "1 100",
+        "expected": "100"
+      }
+    ],
+    "hint": "Sum / N.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-c-to-f",
+    "title": "Celsius to Fahrenheit",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read Celsius (double). Print Fahrenheit (F = C * 9/5 + 32). Print integer part.",
+    "examples": [
+      {
+        "input": "0",
+        "output": "32"
+      },
+      {
+        "input": "100",
+        "output": "212"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "0",
+        "expected": "32"
+      },
+      {
+        "input": "100",
+        "expected": "212"
+      },
+      {
+        "input": "-40",
+        "expected": "-40"
+      }
+    ],
+    "hint": "Formula.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-simple-interest",
+    "title": "Simple Interest",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read P, R, T. Calculate SI = (P*R*T)/100. Print integer part.",
+    "examples": [
+      {
+        "input": "1000 5 2",
+        "output": "100"
+      },
+      {
+        "input": "500 10 1",
+        "output": "50"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1000 5 2",
+        "expected": "100"
+      },
+      {
+        "input": "500 10 1",
+        "expected": "50"
+      },
+      {
+        "input": "100 10 1",
+        "expected": "10"
+      }
+    ],
+    "hint": "Formula.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-perfect-num",
+    "title": "Perfect Number",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Check if N is a perfect number (sum of divisors = N). Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "6",
+        "output": "Yes"
+      },
+      {
+        "input": "28",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "6",
+        "expected": "Yes"
+      },
+      {
+        "input": "28",
+        "expected": "Yes"
+      },
+      {
+        "input": "10",
+        "expected": "No"
+      }
+    ],
+    "hint": "Sum factors up to N/2.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-harshad",
+    "title": "Harshad Number",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Check if N is divisible by sum of its digits. Print \"Yes\" or \"No\".",
+    "examples": [
+      {
+        "input": "18",
+        "output": "Yes"
+      },
+      {
+        "input": "19",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "18",
+        "expected": "Yes"
+      },
+      {
+        "input": "19",
+        "expected": "No"
+      },
+      {
+        "input": "20",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "Sum digits and check modulo.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-binary-decimal",
+    "title": "Binary to Decimal",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read a binary string. Print its decimal value.",
+    "examples": [
+      {
+        "input": "101",
+        "output": "5"
+      },
+      {
+        "input": "111",
+        "output": "7"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "101",
+        "expected": "5"
+      },
+      {
+        "input": "111",
+        "expected": "7"
+      },
+      {
+        "input": "0",
+        "expected": "0"
+      }
+    ],
+    "hint": "Integer.parseInt(s, 2).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-decimal-binary",
+    "title": "Decimal to Binary",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read a decimal integer. Print its binary string.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "101"
+      },
+      {
+        "input": "7",
+        "output": "111"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "101"
+      },
+      {
+        "input": "7",
+        "expected": "111"
+      },
+      {
+        "input": "0",
+        "expected": "0"
+      }
+    ],
+    "hint": "Integer.toBinaryString().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-ncr",
+    "title": "nCr Calculation",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Read n and r. Calculate nCr = n! / (r! * (n-r)!).",
+    "examples": [
+      {
+        "input": "5 2",
+        "output": "10"
+      },
+      {
+        "input": "4 2",
+        "output": "6"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5 2",
+        "expected": "10"
+      },
+      {
+        "input": "4 2",
+        "expected": "6"
+      },
+      {
+        "input": "5 5",
+        "expected": "1"
+      }
+    ],
+    "hint": "Use factorial function.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-distance",
+    "title": "Distance Between Points",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read x1 y1 x2 y2. Calculate distance. Print integer part.",
+    "examples": [
+      {
+        "input": "0 0 3 4",
+        "output": "5"
+      },
+      {
+        "input": "0 0 6 8",
+        "output": "10"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "0 0 3 4",
+        "expected": "5"
+      },
+      {
+        "input": "0 0 6 8",
+        "expected": "10"
+      },
+      {
+        "input": "1 1 4 5",
+        "expected": "5"
+      }
+    ],
+    "hint": "Sqrt((x2-x1)^2 + (y2-y1)^2).",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-triangle-area",
+    "title": "Area of Triangle",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Read base and height. Print area (integer part).",
+    "examples": [
+      {
+        "input": "10 5",
+        "output": "25"
+      },
+      {
+        "input": "4 3",
+        "output": "6"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "10 5",
+        "expected": "25"
+      },
+      {
+        "input": "4 3",
+        "expected": "6"
+      },
+      {
+        "input": "2 2",
+        "expected": "2"
+      }
+    ],
+    "hint": "0.5 * b * h.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-string-contains",
+    "title": "String Contains",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read S and T. Print \"Yes\" if S contains T, else \"No\".",
+    "examples": [
+      {
+        "input": "Hello ell",
+        "output": "Yes"
+      },
+      {
+        "input": "Hello world",
+        "output": "No"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Hello ell",
+        "expected": "Yes"
+      },
+      {
+        "input": "Hello world",
+        "expected": "No"
+      },
+      {
+        "input": "Java av",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "Use .contains().",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-string-concat",
+    "title": "String Concatenation",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read two strings. Print them concatenated.",
+    "examples": [
+      {
+        "input": "Hi There",
+        "output": "HiThere"
+      },
+      {
+        "input": "A B",
+        "output": "AB"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Hi There",
+        "expected": "HiThere"
+      },
+      {
+        "input": "A B",
+        "expected": "AB"
+      },
+      {
+        "input": "1 2",
+        "expected": "12"
+      }
+    ],
+    "hint": "Use + operator.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-min-array",
+    "title": "Min in Array",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read N, then N integers. Print the minimum element.",
+    "examples": [
+      {
+        "input": "3 1 2 3",
+        "output": "1"
+      },
+      {
+        "input": "2 10 5",
+        "output": "5"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 1 2 3",
+        "expected": "1"
+      },
+      {
+        "input": "2 10 5",
+        "expected": "5"
+      },
+      {
+        "input": "1 100",
+        "expected": "100"
+      }
+    ],
+    "hint": "Track min.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java1-count-even",
+    "title": "Count Even Numbers",
+    "subject": "Java",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Read N, then N integers. Print count of even numbers.",
+    "examples": [
+      {
+        "input": "3 1 2 3",
+        "output": "1"
+      },
+      {
+        "input": "3 2 4 6",
+        "output": "3"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "3 1 2 3",
+        "expected": "1"
+      },
+      {
+        "input": "3 2 4 6",
+        "expected": "3"
+      },
+      {
+        "input": "3 1 3 5",
+        "expected": "0"
+      }
+    ],
+    "hint": "Check % 2 == 0.",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q247",
+    "title": "GUI Event Handling",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Complete the 'actionPerformed' method in a Swing/AWT application. You have two buttons, 'Play' and 'Pause'. You need to identify which button triggered the event using the 'ActionEvent e'. If 'Play' is clicked, set the boolean variable 'play' to true. If 'Pause' is clicked, set it to false.",
+    "examples": [
+      {
+        "input": "Click 'Play'",
+        "output": "play = true"
+      },
+      {
+        "input": "Click 'Pause'",
+        "output": "play = false"
+      }
+    ],
+    "starterCode": "public void actionPerformed(ActionEvent e) {\n    // Write logic to check if e.getSource() is btnPlay or btnPause\n    // Alternatively, check e.getActionCommand()\n}",
+    "functionName": "actionPerformed",
+    "testCases": [
+      {
+        "input": "Click 'Play'",
+        "expected": "play = true"
+      },
+      {
+        "input": "Click 'Pause'",
+        "expected": "play = false"
+      },
+      {
+        "input": "Click 'Stop'",
+        "expected": "play = false"
+      }
+    ],
+    "hint": "Use 'e.getSource() == btnPlay' or 'e.getActionCommand().equals(\"Play\")'.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q230",
+    "title": "Shallow Cloning Trap",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Analyze the cloning behavior of the 'LocoPilot' class. The class contains a primitive array 'int[] trips'. The default 'super.clone()' performs a shallow copy. If the cloned object modifies an index in the 'trips' array, determine if the original object's array is also affected. Predict the output of the code.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "40"
+      },
+      {
+        "input": "Run Code (Modified)",
+        "output": "50"
+      }
+    ],
+    "starterCode": "class LocoPilot implements Cloneable {\n    String name;\n    int[] trips;\n    public LocoPilot(String name, int[] trips) { this.name = name; this.trips = trips; }\n    public Object clone() throws CloneNotSupportedException { return super.clone(); }\n}\n\npublic class Main {\n    public static void main(String[] args) throws CloneNotSupportedException {\n        LocoPilot lp1 = new LocoPilot(\"Arjun\", new int[]{20, 25, 30});\n        LocoPilot lp2 = (LocoPilot) lp1.clone();\n        lp2.trips[1] = 40;\n        System.out.println(lp1.trips[1]);\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "40"
+      },
+      {
+        "input": "Run Code (Modified)",
+        "expected": "50"
+      }
+    ],
+    "hint": "Arrays are mutable objects. 'super.clone()' does not create a new copy of the array found inside the object; it copies the reference.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q231",
+    "title": "Serialization with Transient",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Predict the state of a 'StockPurchase' object after it is serialized and then deserialized. The class implements 'Serializable' but marks certain fields as 'transient'. \n1. 'stPrice' is a normal double.\n2. 'stSymbol' is a 'transient' String.\n3. 'stPin' is a 'transient' int, but the class has a custom 'writeObject' method that manually writes 'stPin'.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Price=500.75, Symbol=null, Pin=123"
+      }
+    ],
+    "starterCode": "class StockPurchase implements Serializable {\n    double stPrice;\n    transient String stSymbol;\n    private transient int stPin;\n    \n    // Custom writeObject method handles stPin manually\n    private void writeObject(ObjectOutputStream out) throws IOException {\n        out.defaultWriteObject();\n        out.writeInt(stPin * 1000); // Obfuscation logic\n    }\n}",
+    "functionName": "writeObject",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Price=500.75, Symbol=null, Pin=123"
+      },
+      {
+        "input": "Run Code (Variant)",
+        "expected": "Price=100.0, Symbol=null, Pin=999"
+      }
+    ],
+    "hint": "Transient fields are skipped by default serialization. However, 'writeObject' can manually save them. Strings that are transient and not manually saved will become null.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q227",
+    "title": "Inheritance & Method Visibility",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Identify the compilation error in a hierarchy of Beverage classes. \n1. 'Beverage' class has methods 'ingredient()' and 'price()'.\n2. 'Coffee' extends 'Beverage'.\n3. 'Latte' extends 'Coffee' and adds a new method 'maker()'.\n\nCode: 'Coffee drink = new Latte(); drink.maker();'",
+    "examples": [
+      {
+        "input": "Compile Code",
+        "output": "Compilation Error"
+      }
+    ],
+    "starterCode": "class Coffee extends Beverage { ... }\nclass Latte extends Coffee {\n    void maker() { System.out.println(\"Making Latte\"); }\n}\n\npublic class Test {\n    public static void main(String[] args) {\n        Coffee drink = new Latte();\n        drink.maker(); // Fix this line\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Compile Code",
+        "expected": "Compilation Error"
+      },
+      {
+        "input": "Fix: ((Latte)drink).maker()",
+        "expected": "Making Latte"
+      }
+    ],
+    "hint": "You cannot call a method that exists only in the child class (Latte) if the reference variable is of the parent type (Coffee), unless you cast it.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q236",
+    "title": "Access Modifiers Logic",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Determine which lines cause a compilation error based on access modifiers. \n- 'speed()' is public.\n- 'fuel()' is protected.\n- 'capacity()' is private.\nCode attempts to access all three from a 'Test' class in a different package (inheriting from Vehicle).",
+    "examples": [
+      {
+        "input": "Compile Code",
+        "output": "Error: capacity() has private access"
+      }
+    ],
+    "starterCode": "class Vehicle {\n    public void speed() {}\n    protected void fuel() {}\n    private void capacity() {}\n}\n\nclass Car extends Vehicle {\n    void testAccess() {\n        // Which calls are valid?\n    }\n}",
+    "functionName": "testAccess",
+    "testCases": [
+      {
+        "input": "Compile Code",
+        "expected": "Error: capacity() has private access"
+      },
+      {
+        "input": "Remove capacity() call",
+        "expected": "Success"
+      }
+    ],
+    "hint": "Private members are never accessible outside their own class file.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q228",
+    "title": "Chained Exceptions Logic",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Analyze a Chained Exception scenario. A 'FileProcessingException' is thrown, but it was caused by an 'InvalidFileFormatException'. The catch block prints the message of the top-level exception and the cause of the exception. Determine the order of messages printed.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "File format not supported\nError processing"
+      }
+    ],
+    "starterCode": "try {\n    processFile();\n} catch (FileProcessingException e) {\n    System.out.println(e.getMessage());\n    System.out.println(e.getCause().getMessage());\n}\n\n// processFile() catches InvalidFileFormatException \n// and throws new FileProcessingException(msg, cause);",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "File format not supported\nError processing"
+      },
+      {
+        "input": "Run Code (Different Msg)",
+        "expected": "New Error\nOriginal Cause"
+      }
+    ],
+    "hint": "The 'getCause()' method retrieves the original exception that triggered the current one. Execution flow goes deep into the stack and bubbles up.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q241",
+    "title": "Infinite Stream Processing",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Predict the output of a Stream pipeline that starts with an infinite iterator. \nPipeline: \n1. Start with 1. Iterate by multiplying by 2 (1, 2, 4, 8...).\n2. Map: Add 1 to each number (2, 3, 5, 9...).\n3. Filter: Keep numbers divisible by 3.\n4. Limit: First 3 numbers.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "3\n9\n33"
+      }
+    ],
+    "starterCode": "Stream.iterate(1, n -> n * 2)\n      .map(n -> n + 1)\n      .filter(n -> n % 3 == 0)\n      .limit(3)\n      .forEach(System.out::println);",
+    "functionName": "streamPipeline",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "3\n9\n33"
+      },
+      {
+        "input": "Limit 1",
+        "expected": "3"
+      }
+    ],
+    "hint": "Trace the math carefully: (1*2)+1 = 3 (Pass). (2*2)+1 = 5 (Fail). (4*2)+1 = 9 (Pass).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q237",
+    "title": "Thread Join & Synchronization",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Determine the output of a multi-threaded program using 'Thread.join()'. \n1. Main thread inserts 'Apple', 'Banana', 'Carrot' into a map.\n2. A new thread 't' starts, sleeps/waits, and inserts 'Egg'.\n3. Main thread calls 't.join()'.\n4. Main thread iterates and prints the map.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Apple, Banana, Carrot, Egg"
+      }
+    ],
+    "starterCode": "Thread t = new Thread(new Example());\nt.start();\nt.join(); // Key line\n// Print Map content",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Apple, Banana, Carrot, Egg"
+      },
+      {
+        "input": "Without join",
+        "expected": "Apple, Banana, Carrot"
+      }
+    ],
+    "hint": "The 'join()' method forces the calling thread (Main) to wait until the referenced thread (t) terminates.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q234",
+    "title": "Generic Wildcards",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Implement a method 'printLargestMammal' that accepts a list of Animal objects. The method needs to iterate through the list and find the largest mammal. Use Upper Bounded Wildcards correctly to ensure the list can contain Animals or any subclass of Animal.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Largest Mammal Found"
+      }
+    ],
+    "starterCode": "\nclass Animal { int size; }\nclass Mammal extends Animal { Mammal(int s) { size = s; } }\n\npublic class Main {\n    // Implement printLargestMammal here using wildcard\n    public static void printLargestMammal(List<? extends Animal> list) {\n        // Logic to find max size\n    }\n\n    public static void main(String[] args) {\n        List<Mammal> mammals = new ArrayList<>();\n        mammals.add(new Mammal(10));\n        printLargestMammal(mammals);\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Largest Mammal Found"
+      }
+    ],
+    "hint": "Use 'List<? extends Animal>' (Upper Bounded Wildcard) to accept a list of Animal OR any of its subclasses like Mammal or Bird.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q229",
+    "title": "Assertion Logic",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Analyze an assertion statement. The program asserts `p * t * r < 100` and `p > 0`. You are given inputs where `t` is negative. Determine which assertion causes the program to terminate with an `AssertionError`.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Time Error"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void calculate(double p, double t, double r) {\n        assert p * t * r < 100 : \"Calculation Error\";\n        assert p > 0 : \"Principal Error\";\n        assert t > 0 : \"Time Error\"; // This fails if t is negative\n    }\n    public static void main(String[] args) {\n        try {\n            calculate(10, -5, 5);\n        } catch (AssertionError e) {\n            System.out.println(e.getMessage());\n        }\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Time Error"
+      }
+    ],
+    "hint": "Assertions are enabled via '-ea'. If the condition is false, the program stops immediately.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q233",
+    "title": "ReentrantLock & Concurrency",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Two threads (Ram and Ravi) attempt to buy items from a shared stock using a `ReentrantLock`. Analyze the race condition. If Ram buys first and depletes the stock, Ravi's condition `stock > quantity` might fail. Determine the output based on locking order.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Ram bought 3\nRavi failed"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    static int stock = 5;\n    static ReentrantLock lock = new ReentrantLock();\n    public static void buy(String name, int qty) {\n        lock.lock();\n        try {\n            if (stock >= qty) { \n                stock -= qty;\n                System.out.println(name + \" bought \" + qty);\n            } else { \n                System.out.println(name + \" failed\");\n            }\n        } finally { lock.unlock(); }\n    }\n    public static void main(String[] args) throws InterruptedException {\n        Thread t1 = new Thread(() -> buy(\"Ram\", 3));\n        Thread t2 = new Thread(() -> buy(\"Ravi\", 4));\n        t1.start(); t1.join();\n        t2.start(); t2.join();\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Ram bought 3\nRavi failed"
+      }
+    ],
+    "hint": "With a Lock, only one thread enters the critical section. If Stock=5, Ram takes 3 (Stock=2). Ravi needs 4. Ravi fails.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q238",
+    "title": "Method Overloading & Erasure",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Identify the compilation error when overloading methods with Generic Lists. You have `display(List<Integer>)` and `display(List<String>)`. Due to Type Erasure, both look like `display(List)` to the JVM.",
+    "examples": [
+      {
+        "input": "Compile Code",
+        "output": "Compilation Error"
+      }
+    ],
+    "starterCode": "\nclass Test {\n    public void display(List<Integer> list) { }\n    public void display(List<String> list) { } // Compilation Error\n}\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compilation Error\");\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Compile Code",
+        "expected": "Compilation Error"
+      }
+    ],
+    "hint": "In Java, generic type parameters are erased at runtime. You cannot overload methods where the only difference is the generic type parameter.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q239",
+    "title": "Copy Constructor & Mutation",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "A 'Director' class has a copy constructor. Object D2 is created as a copy of D1. D2 changes its name. Check if D1's name also changes (Deep vs Shallow copy logic in manual constructors).",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "D1: Alice\nD2: Bob"
+      }
+    ],
+    "starterCode": "class Director {\n    String name;\n    int projectCount;\n    public Director(String name, int count) { this.name = name; this.projectCount = count; }\n    public Director(Director other) {\n        this.name = other.name; // String is immutable, so this is safe\n        this.projectCount = other.projectCount;\n    }\n}\npublic class Main {\n    public static void main(String[] args) {\n        Director d1 = new Director(\"Alice\", 5);\n        Director d2 = new Director(d1);\n        d2.name = \"Bob\";\n        System.out.println(\"D1: \" + d1.name);\n        System.out.println(\"D2: \" + d2.name);\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "D1: Alice\nD2: Bob"
+      }
+    ],
+    "hint": "Strings are immutable. Changing D2.name assigns a new String reference to D2, leaving D1 unaffected.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q243",
+    "title": "Optional Class Handling",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Use `Optional.ofNullable` to handle potential null values in a list of Vehicle objects without throwing a `NullPointerException`. Iterate through a list where some vehicles are null.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Petrol\n\nDiesel"
+      }
+    ],
+    "starterCode": "\nclass Vehicle { String fuelType; Vehicle(String f) { fuelType = f; } }\npublic class Main {\n    public static void main(String[] args) {\n        List<Vehicle> vList = Arrays.asList(new Vehicle(\"Petrol\"), null, new Vehicle(\"Diesel\"));\n        for (Vehicle v : vList) {\n            Optional<String> op = Optional.ofNullable(v).map(val -> val.fuelType);\n            System.out.println(op.orElse(\"\"));\n        }\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Petrol\n\nDiesel"
+      }
+    ],
+    "hint": "If `v` is null, `ofNullable` returns an empty Optional. `map` is skipped. `orElse` prints the default.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q244",
+    "title": "Stream Collectors Statistics",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Use `Collectors.summarizingInt` on a Stream of integers (2, 4, 6... 20). The code prints `getAverage()`, `getSum()`, and `getMax()`. Calculate the correct statistics.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "11.0"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        List<Integer> list = Arrays.asList(2, 4, 6, 8, 10, 12, 14, 16, 18, 20);\n        IntSummaryStatistics stats = list.stream()\n            .collect(Collectors.summarizingInt(x -> x));\n        System.out.println(stats.getAverage());\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "11.0"
+      }
+    ],
+    "hint": "SummarizingInt returns an object containing count, sum, min, average, and max all at once.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q245",
+    "title": "LinkedList & ArrayList Interaction",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "An ArrayList `AL` contains [1, 2]. A LinkedList `LL` is assigned the reference of `AL` (polymorphism via List interface). `AL` removes index 1. What does `LL` print?",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "[1]"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        List<String> AL = new ArrayList<>();\n        AL.add(\"1\"); AL.add(\"2\");\n        List<String> LL = AL; // Reference copy\n        AL.remove(1);\n        System.out.println(LL);\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "[1]"
+      }
+    ],
+    "hint": "Since LL and AL point to the same object in heap memory, changes in AL reflect in LL.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q246",
+    "title": "Final Keyword Errors",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Identify compilation errors involves the `final` keyword. 1) A method is marked final but a subclass tries to override it. 2) A class tries to extend multiple classes (Java doesn't support multiple inheritance of state).",
+    "examples": [
+      {
+        "input": "Compile Code",
+        "output": "Compilation Error"
+      }
+    ],
+    "starterCode": "class Engine {\n    final void start() { }\n}\nclass Car extends Engine {\n    void start() { } // Error: Cannot override final method\n}\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Compilation Error\");\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Compile Code",
+        "expected": "Compilation Error"
+      }
+    ],
+    "hint": "Final methods cannot be overridden. Classes cannot extend more than one parent class.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-endterm-dec2024-q248",
+    "title": "Comparable & Type Erasure",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Analyze generic method signatures after Type Erasure. A method `<T extends Comparable<T>> void sort(T[] a)` converts to `void sort(Comparable[] a)` after compilation, not `void sort(Object[] a)`.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "sort(java.lang.Comparable[])"
+      }
+    ],
+    "starterCode": "\n\nclass Sorter {\n    public <T extends Comparable<T>> void sort(T[] list) {}\n}\npublic class Main {\n    public static void main(String[] args) {\n        for (Method m : Sorter.class.getDeclaredMethods()) {\n            if (m.getName().equals(\"sort\")) {\n                System.out.println(m.toString().split(\"Sorter.\")[1]);\n            }\n        }\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "sort(java.lang.Comparable[])"
+      }
+    ],
+    "hint": "Bounded generics erase to their bound (Comparable), not to Object.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-oppe2-jan2025-q1",
+    "title": "Filter Research Articles",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Write a Java program to filter a list of ResearchArticle objects. You need to define the 'articleProcessor' method that takes an ArrayList of ResearchArticle and returns a Stream of ResearchArticle. The filtering criteria are: 1) The article should be published recently, specifically the gap between 2023 and the publication year should be less than 3 years (2023 - year < 3). 2) The article must have more than 100 citations.",
+    "examples": [
+      {
+        "input": "AI 2021 202\nML 2018 90\nDL 2022 200",
+        "output": "(AI, 2021, 202)\n(DL, 2022, 200)"
+      },
+      {
+        "input": "A 2023 150\nB 2010 500",
+        "output": "(A, 2023, 150)"
+      }
+    ],
+    "starterCode": "\n\n\nclass ResearchArticle {\n    String name;\n    int year;\n    int citations;\n    \n    public ResearchArticle(String name, int year, int citations) {\n        this.name = name;\n        this.year = year;\n        this.citations = citations;\n    }\n    \n    public String toString() {\n        return \"(\" + name + \", \" + year + \", \" + citations + \")\";\n    }\n}\n\npublic class Main {\n    public static Stream<ResearchArticle> articleProcessor(ArrayList<ResearchArticle> articles) {\n        // Write your code here\n        return Stream.empty();\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        ArrayList<ResearchArticle> articles = new ArrayList<>();\n        while (sc.hasNext()) {\n            String line = sc.nextLine();\n            if (line.trim().isEmpty()) continue;\n            String[] parts = line.split(\" \");\n            if (parts.length >= 3) {\n                String name = parts[0];\n                int year = Integer.parseInt(parts[1]);\n                int citations = Integer.parseInt(parts[2]);\n                articles.add(new ResearchArticle(name, year, citations));\n            }\n        }\n        \n        Stream<ResearchArticle> result = articleProcessor(articles);\n        result.forEach(System.out::println);\n    }\n}",
+    "functionName": "articleProcessor",
+    "testCases": [
+      {
+        "input": "AI 2021 202\nML 2018 90\nDL 2022 200",
+        "expected": "(AI, 2021, 202)\n(DL, 2022, 200)"
+      },
+      {
+        "input": "A 2023 150\nB 2010 500\nC 2022 50",
+        "expected": "(A, 2023, 150)"
+      },
+      {
+        "input": "X 2020 200\nY 2021 90",
+        "expected": ""
+      }
+    ],
+    "hint": "Use the .stream() method on the list and apply .filter() with the two conditions.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-oppe2-jan2025-q2",
+    "title": "Deep Clone Movie",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Implement the 'clone' method in the 'Director' and 'Movie' classes to achieve a deep copy. The Movie class contains a Director object. When a Movie is cloned, the Director object inside it must also be cloned so that changes to the cloned Movie's Director do not affect the original Movie's Director.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "Original: Movie('Inception', Director('Christopher Nolan', 20))\nClone: Movie('Inception', Director('Jonathan Nolan', 15))"
+      }
+    ],
+    "starterCode": "\n\nclass Director implements Cloneable {\n    String name;\n    int age;\n    \n    public Director(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    \n    public Object clone() throws CloneNotSupportedException {\n        // Implement deep clone\n        return super.clone();\n    }\n    \n    public String toString() { return name + \" (\" + age + \")\"; }\n}\n\nclass Movie implements Cloneable {\n    String title;\n    Director director;\n    \n    public Movie(String title, Director director) {\n        this.title = title;\n        this.director = director;\n    }\n    \n    public Object clone() throws CloneNotSupportedException {\n        // Implement deep clone\n        return super.clone();\n    }\n    \n    public String toString() { return \"Movie('\" + title + \"', Director('\" + director.name + \"', \" + director.age + \"))\"; }\n}\n\npublic class Main {\n    public static void main(String[] args) throws CloneNotSupportedException {\n        Director d = new Director(\"Christopher Nolan\", 20);\n        Movie m1 = new Movie(\"Inception\", d);\n        Movie m2 = (Movie) m1.clone();\n        \n        // Modify clone\n        m2.director.name = \"Jonathan Nolan\";\n        m2.director.age = 15;\n        \n        System.out.println(\"Original: \" + m1);\n        System.out.println(\"Clone: \" + m2);\n    }\n}",
+    "functionName": "clone",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "Original: Movie('Inception', Director('Christopher Nolan', 20))\nClone: Movie('Inception', Director('Jonathan Nolan', 15))"
+      }
+    ],
+    "hint": "In the Movie.clone() method, after calling super.clone(), manually clone the director object and assign it to the new Movie instance.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-oppe2-jan2025-q3",
+    "title": "Odd Number Exception",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Write a Java program that takes an integer array as input. Iterating through the array, if any element is an odd number, throw a user-defined exception named 'OddNumberException' with the message 'Odd number found'. If all numbers are even, print 'No odd number found'. You must implement the OddNumberException class.",
+    "examples": [
+      {
+        "input": "2 4 5 6 7",
+        "output": "Exception: Odd number found"
+      },
+      {
+        "input": "2 4 6 8",
+        "output": "No odd number found"
+      }
+    ],
+    "starterCode": "\n\nclass OddNumberException extends Exception {\n    public OddNumberException(String message) {\n        super(message);\n    }\n}\n\nclass ArrayChecker {\n    public void checkForOddNumbers(int[] numArr) throws OddNumberException {\n        // Write logic to check for odd numbers\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Read space separated integers\n        if (sc.hasNextLine()) {\n            String line = sc.nextLine();\n            String[] parts = line.split(\" \");\n            int[] nums = new int[parts.length];\n            for (int i = 0; i < parts.length; i++) {\n                nums[i] = Integer.parseInt(parts[i]);\n            }\n            \n            ArrayChecker checker = new ArrayChecker();\n            try {\n                checker.checkForOddNumbers(nums);\n                System.out.println(\"No odd number found\");\n            } catch (OddNumberException e) {\n                System.out.println(\"Exception: \" + e.getMessage());\n            }\n        }\n    }\n}",
+    "functionName": "checkForOddNumbers",
+    "testCases": [
+      {
+        "input": "2 4 5 6 7",
+        "expected": "Exception: Odd number found"
+      },
+      {
+        "input": "2 4 6 8",
+        "expected": "No odd number found"
+      },
+      {
+        "input": "1 2 3",
+        "expected": "Exception: Odd number found"
+      }
+    ],
+    "hint": "Extend the Exception class. In the checker loop, use 'num % 2 != 0' to detect odd numbers and throw the new exception.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java-oppe2-jan2025-q4",
+    "title": "Highest Tax Generic Method",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create a program to find the object with the highest tax from a list of products. 1) Define an interface 'Taxable' with a method 'calculateTax()'. 2) Create classes 'Electronics' and 'Book' that implement 'Taxable'. Tax is 10% of the price (0.1 * price). 3) Implement a generic method 'findMax' that accepts a list of objects extending Taxable and returns the highest tax value found.",
+    "examples": [
+      {
+        "input": "Run Code",
+        "output": "3000.0"
+      }
+    ],
+    "starterCode": "\n\ninterface Taxable {\n    double calculateTax();\n}\n\nclass Electronics implements Taxable {\n    double price;\n    public Electronics(double price) { this.price = price; }\n    public double calculateTax() { return 0.1 * price; }\n}\n\nclass Book implements Taxable {\n    double price;\n    public Book(double price) { this.price = price; }\n    public double calculateTax() { return 0.1 * price; }\n}\n\npublic class Main {\n    public static <T extends Taxable> double findMax(List<T> list) {\n        // Implement generic logic to find max tax\n        return 0.0;\n    }\n\n    public static void main(String[] args) {\n        List<Electronics> eList = new ArrayList<>();\n        eList.add(new Electronics(5000));\n        eList.add(new Electronics(30000));\n        \n        List<Book> bList = new ArrayList<>();\n        bList.add(new Book(1000));\n        \n        // We need to test findMax with these.\n        // But findMax takes a List<T>.\n        // Let's combine or test separately.\n        // For simplicity of this test case, we just print max of eList\n        System.out.println(findMax(eList));\n    }\n}",
+    "functionName": "findMax",
+    "testCases": [
+      {
+        "input": "Run Code",
+        "expected": "3000.0"
+      }
+    ],
+    "hint": "Use a bounded type parameter <T extends Taxable> for the list. Iterate through the list, call calculateTax() on each item, and track the maximum.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-class-person",
+    "title": "Person Class",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create a class 'Person' with a String attribute 'name'. Add a constructor to initialize it and a method 'sayHello' that prints \"Hello [name]\". In main, read a name, create a Person, and call sayHello.",
+    "examples": [
+      {
+        "input": "Alice",
+        "output": "Hello Alice"
+      },
+      {
+        "input": "Bob",
+        "output": "Hello Bob"
+      }
+    ],
+    "starterCode": "\nclass Person {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Alice",
+        "expected": "Hello Alice"
+      },
+      {
+        "input": "Bob",
+        "expected": "Hello Bob"
+      },
+      {
+        "input": "Java",
+        "expected": "Hello Java"
+      }
+    ],
+    "hint": "Define class Person inside or outside Main (but standard practice is separate, here put inside or make static).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-rect-area",
+    "title": "Rectangle Area",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create a class 'Rectangle' with length and width. Method 'area' returns the area. Read l and w, print area.",
+    "examples": [
+      {
+        "input": "5 10",
+        "output": "50"
+      },
+      {
+        "input": "2 3",
+        "output": "6"
+      }
+    ],
+    "starterCode": "\nclass Rectangle {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5 10",
+        "expected": "50"
+      },
+      {
+        "input": "2 3",
+        "expected": "6"
+      },
+      {
+        "input": "0 5",
+        "expected": "0"
+      }
+    ],
+    "hint": "Area = length * width.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-inheritance",
+    "title": "Basic Inheritance",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create class A with method show() printing \"A\". Class B extends A. In main, create B and call show().",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "class A {\n    // Write your code here\n}\nclass B extends A {\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "Use extends keyword.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-overriding",
+    "title": "Method Overriding",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Class A has method say() printing \"A\". Class B extends A and overrides say() to print \"B\". Call say() on an instance of B.",
+    "examples": [
+      {
+        "input": "",
+        "output": "B"
+      }
+    ],
+    "starterCode": "class A {\n    // Write your code here\n}\nclass B extends A {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "B"
+      }
+    ],
+    "hint": "Same method signature in subclass.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-super",
+    "title": "Super Keyword",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Class A construtor prints \"A\". Class B extends A, its constructor calls super() then prints \"B\". Create B.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A\nB"
+      }
+    ],
+    "starterCode": "class A {\n    // Write your code here\n}\nclass B extends A {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A\nB"
+      }
+    ],
+    "hint": "super() must be first statement.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-interface",
+    "title": "Interface Implementation",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Interface I has method m(). Class C implements I and prints \"Impl\". Create C and call m().",
+    "examples": [
+      {
+        "input": "",
+        "output": "Impl"
+      }
+    ],
+    "starterCode": "interface I {\n    void m();\n}\nclass C implements I {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Impl"
+      }
+    ],
+    "hint": "public void m().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-abstract",
+    "title": "Abstract Class",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Abstract class Abs has abstract method run(). Class Impl extends Abs and prints \"Run\". Create Impl and call run().",
+    "examples": [
+      {
+        "input": "",
+        "output": "Run"
+      }
+    ],
+    "starterCode": "abstract class Abs {\n    abstract void run();\n}\nclass Impl extends Abs {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Run"
+      }
+    ],
+    "hint": "Implement abstract method.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-polymorphism",
+    "title": "Polymorphism",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "A ref = new B(). A has method m() printing \"A\", B overrides printing \"B\". Call ref.m().",
+    "examples": [
+      {
+        "input": "",
+        "output": "B"
+      }
+    ],
+    "starterCode": "class A {\n    void m() { System.out.println(\"A\"); }\n}\nclass B extends A {\n    void m() { System.out.println(\"B\"); }\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "B"
+      }
+    ],
+    "hint": "Runtime polymorphism.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-static-method",
+    "title": "Static Method",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create class Util with static method add(a,b). Call it from main without creating instance.",
+    "examples": [
+      {
+        "input": "2 3",
+        "output": "5"
+      },
+      {
+        "input": "10 20",
+        "output": "30"
+      }
+    ],
+    "starterCode": "\nclass Util {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2 3",
+        "expected": "5"
+      },
+      {
+        "input": "10 20",
+        "expected": "30"
+      },
+      {
+        "input": "0 0",
+        "expected": "0"
+      }
+    ],
+    "hint": "Util.add().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-encapsulation",
+    "title": "Encapsulation",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Class Encap has private variable x. Provide setX and getX. Set x to input and print getX.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      }
+    ],
+    "starterCode": "\nclass Encap {\n    private int x;\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "5"
+      },
+      {
+        "input": "10",
+        "expected": "10"
+      },
+      {
+        "input": "-1",
+        "expected": "-1"
+      }
+    ],
+    "hint": "Public getters and setters.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-tostring",
+    "title": "ToString Override",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Override toString() in class P to return its name attribute. Print object directly.",
+    "examples": [
+      {
+        "input": "Alice",
+        "output": "Alice"
+      },
+      {
+        "input": "Bob",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "\nclass P {\n    String name;\n    P(String n) { name = n; }\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.println(new P(sc.next()));\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Alice",
+        "expected": "Alice"
+      },
+      {
+        "input": "Bob",
+        "expected": "Bob"
+      },
+      {
+        "input": "Java",
+        "expected": "Java"
+      }
+    ],
+    "hint": "public String toString().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-equals",
+    "title": "Equals Override",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Override equals() in class Num to compare integer value 'v'. Check if two Nums with same value are equal.",
+    "examples": [
+      {
+        "input": "10 10",
+        "output": "true"
+      },
+      {
+        "input": "10 20",
+        "output": "false"
+      }
+    ],
+    "starterCode": "\nclass Num {\n    int v;\n    Num(int x) { v = x; }\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.println(new Num(sc.nextInt()).equals(new Num(sc.nextInt())));\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "10 10",
+        "expected": "true"
+      },
+      {
+        "input": "10 20",
+        "expected": "false"
+      },
+      {
+        "input": "5 5",
+        "expected": "true"
+      }
+    ],
+    "hint": "Check instance and cast.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-try-catch",
+    "title": "Exception Handling",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Handle ArithmeticException when dividing by zero. Print \"Error\" if exception occurs.",
+    "examples": [
+      {
+        "input": "10 0",
+        "output": "Error"
+      },
+      {
+        "input": "10 2",
+        "output": "5"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        try {\n            // Write your code here\n        } catch (Exception e) {\n            // Write your code here\n        }\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "10 0",
+        "expected": "Error"
+      },
+      {
+        "input": "10 2",
+        "expected": "5"
+      },
+      {
+        "input": "20 4",
+        "expected": "5"
+      }
+    ],
+    "hint": "catch(ArithmeticException e).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-custom-exception",
+    "title": "Custom Exception",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Throw custom exception MyEx if input is negative. Catch and print \"Caught\".",
+    "examples": [
+      {
+        "input": "-1",
+        "output": "Caught"
+      },
+      {
+        "input": "1",
+        "output": ""
+      }
+    ],
+    "starterCode": "\nclass MyEx extends Exception {}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "-1",
+        "expected": "Caught"
+      },
+      {
+        "input": "1",
+        "expected": ""
+      },
+      {
+        "input": "-10",
+        "expected": "Caught"
+      }
+    ],
+    "hint": "throw new MyEx().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-arraylist",
+    "title": "ArrayList Basics",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Add two integers to an ArrayList and print its size.",
+    "examples": [
+      {
+        "input": "1 2",
+        "output": "2"
+      },
+      {
+        "input": "10 20 30",
+        "output": "3"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1 2",
+        "expected": "2"
+      },
+      {
+        "input": "10 20 30",
+        "expected": "3"
+      },
+      {
+        "input": "5",
+        "expected": "1"
+      }
+    ],
+    "hint": "list.add().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-hashmap",
+    "title": "HashMap Basics",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Store a key-value pair (String, String) in HashMap and retrieve the value by key.",
+    "examples": [
+      {
+        "input": "Key Val",
+        "output": "Val"
+      },
+      {
+        "input": "A B",
+        "output": "B"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "Key Val",
+        "expected": "Val"
+      },
+      {
+        "input": "A B",
+        "expected": "B"
+      },
+      {
+        "input": "1 2",
+        "expected": "2"
+      }
+    ],
+    "hint": "map.put(), map.get().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-hashset",
+    "title": "HashSet Basics",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Add two identical integers to a HashSet and print its size (should be 1).",
+    "examples": [
+      {
+        "input": "1 1",
+        "output": "1"
+      },
+      {
+        "input": "2 2",
+        "output": "1"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1 1",
+        "expected": "1"
+      },
+      {
+        "input": "2 2",
+        "expected": "1"
+      },
+      {
+        "input": "1 2",
+        "expected": "2"
+      }
+    ],
+    "hint": "Set stores unique elements.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-iterator",
+    "title": "Iterator Usage",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Use an Iterator to print elements of an ArrayList separated by space.",
+    "examples": [
+      {
+        "input": "1 2",
+        "output": "1 2"
+      },
+      {
+        "input": "3 4",
+        "output": "3 4"
+      }
+    ],
+    "starterCode": "\n\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1 2",
+        "expected": "1 2"
+      },
+      {
+        "input": "3 4",
+        "expected": "3 4"
+      },
+      {
+        "input": "5 6",
+        "expected": "5 6"
+      }
+    ],
+    "hint": "while(it.hasNext())",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-comparable",
+    "title": "Comparable Interface",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Implement Comparable in class N to sort by value 'v'. Sort list of 2 N objects.",
+    "examples": [
+      {
+        "input": "2 1",
+        "output": "1 2"
+      },
+      {
+        "input": "10 5",
+        "output": "5 10"
+      }
+    ],
+    "starterCode": "\n\n\nclass N implements Comparable<N> {\n    int v;\n    N(int x) { v = x; }\n    // Write your code here\n    public String toString() { return String.valueOf(v); }\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2 1",
+        "expected": "1 2"
+      },
+      {
+        "input": "10 5",
+        "expected": "5 10"
+      },
+      {
+        "input": "3 3",
+        "expected": "3 3"
+      }
+    ],
+    "hint": "compareTo method.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-comparator",
+    "title": "Comparator Interface",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Sort an ArrayList of integers in descending order using a Comparator.",
+    "examples": [
+      {
+        "input": "1 2",
+        "output": "2 1"
+      },
+      {
+        "input": "5 10",
+        "output": "10 5"
+      }
+    ],
+    "starterCode": "\n\n\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1 2",
+        "expected": "2 1"
+      },
+      {
+        "input": "5 10",
+        "expected": "10 5"
+      },
+      {
+        "input": "3 3",
+        "expected": "3 3"
+      }
+    ],
+    "hint": "Comparator.reverseOrder().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-generics",
+    "title": "Generic Class",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create a generic class Box<T> that holds a value. Set value and get it.",
+    "examples": [
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "Hello",
+        "output": "Hello"
+      }
+    ],
+    "starterCode": "\nclass Box<T> {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "10",
+        "expected": "10"
+      },
+      {
+        "input": "Hello",
+        "expected": "Hello"
+      },
+      {
+        "input": "World",
+        "expected": "World"
+      }
+    ],
+    "hint": "T value;",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-enum",
+    "title": "Enum Basics",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Define Enum Color {RED, GREEN}. Print Color.RED.",
+    "examples": [
+      {
+        "input": "",
+        "output": "RED"
+      }
+    ],
+    "starterCode": "enum Color {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "RED"
+      }
+    ],
+    "hint": "System.out.println(Color.RED);",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-inner-class",
+    "title": "Inner Class",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create inner class In inside Out. Instantiate In and call a method.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Inner"
+      }
+    ],
+    "starterCode": "class Out {\n    class In {\n        void msg() { System.out.println(\"Inner\"); }\n    }\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Inner"
+      }
+    ],
+    "hint": "new Out().new In().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-anon-class",
+    "title": "Anonymous Class",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create anonymous implementation of interface I with method m() printing \"Anon\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Anon"
+      }
+    ],
+    "starterCode": "interface I {\n    void m();\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Anon"
+      }
+    ],
+    "hint": "new I() { ... }",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-lambda",
+    "title": "Lambda Expression",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Use lambda to implement Runnable that prints \"Run\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Run"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        Runnable r = // Write your code here\n        r.run();\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Run"
+      }
+    ],
+    "hint": "() -> System.out.println(\"Run\")",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-stream-filter",
+    "title": "Stream Filter",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Read 4 integers into list. Use Stream API to print even numbers separated by space.",
+    "examples": [
+      {
+        "input": "1 2 3 4",
+        "output": "2 4"
+      },
+      {
+        "input": "5 6 7 8",
+        "output": "6 8"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1 2 3 4",
+        "expected": "2 4"
+      },
+      {
+        "input": "5 6 7 8",
+        "expected": "6 8"
+      },
+      {
+        "input": "1 3 5 7",
+        "expected": ""
+      }
+    ],
+    "hint": "list.stream().filter().forEach().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-stream-map",
+    "title": "Stream Map",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Read 2 integers. Use Stream API to print their squares separated by space.",
+    "examples": [
+      {
+        "input": "2 3",
+        "output": "4 9"
+      },
+      {
+        "input": "4 5",
+        "output": "16 25"
+      }
+    ],
+    "starterCode": "\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "2 3",
+        "expected": "4 9"
+      },
+      {
+        "input": "4 5",
+        "expected": "16 25"
+      },
+      {
+        "input": "1 1",
+        "expected": "1 1"
+      }
+    ],
+    "hint": "map(x -> x*x).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-thread",
+    "title": "Thread Class",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create class T extending Thread. Run it to print \"Thread\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Thread"
+      }
+    ],
+    "starterCode": "class T extends Thread {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Thread"
+      }
+    ],
+    "hint": "start().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-runnable",
+    "title": "Runnable Interface",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Implement Runnable in class R. Run it to print \"Run\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Run"
+      }
+    ],
+    "starterCode": "class R implements Runnable {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Run"
+      }
+    ],
+    "hint": "new Thread(new R()).start().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-synchronized",
+    "title": "Synchronization",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create a synchronized method 'm' that prints \"Sync\". Call it.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Sync"
+      }
+    ],
+    "starterCode": "class C {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Sync"
+      }
+    ],
+    "hint": "synchronized keyword.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-varargs",
+    "title": "Variable Arguments",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create method sum(int... a) that returns sum. Call with 1, 2.",
+    "examples": [
+      {
+        "input": "",
+        "output": "3"
+      }
+    ],
+    "starterCode": "public class Main {\n    static int sum(int... a) {\n        // Write your code here\n        return 0;\n    }\n    public static void main(String[] args) {\n        System.out.println(sum(1, 2));\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "3"
+      }
+    ],
+    "hint": "Iterate over a.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-recursion",
+    "title": "Recursion Factorial",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Implement recursive factorial function.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "120"
+      },
+      {
+        "input": "3",
+        "output": "6"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    static int fact(int n) {\n        // Write your code here\n        return 1;\n    }\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        System.out.println(fact(sc.nextInt()));\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "120"
+      },
+      {
+        "input": "3",
+        "expected": "6"
+      },
+      {
+        "input": "0",
+        "expected": "1"
+      }
+    ],
+    "hint": "n * fact(n-1).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-instanceof",
+    "title": "Instanceof Operator",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Check if string \"s\" is instance of String. Print \"True\" or \"False\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "True"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "True"
+      }
+    ],
+    "hint": "instanceof.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-casting",
+    "title": "Type Casting",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read a double. Cast it to int and print.",
+    "examples": [
+      {
+        "input": "10.5",
+        "output": "10"
+      },
+      {
+        "input": "5.9",
+        "output": "5"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "10.5",
+        "expected": "10"
+      },
+      {
+        "input": "5.9",
+        "expected": "5"
+      },
+      {
+        "input": "0.0",
+        "expected": "0"
+      }
+    ],
+    "hint": "(int) variable.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-2d-array",
+    "title": "2D Array Access",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create a 1x1 2D array with input value. Print it.",
+    "examples": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "5",
+        "expected": "5"
+      },
+      {
+        "input": "10",
+        "expected": "10"
+      },
+      {
+        "input": "0",
+        "expected": "0"
+      }
+    ],
+    "hint": "arr[0][0].",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-break",
+    "title": "Break Statement",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Loop 1 to 5. Break when i is 3. Print numbers separated by space.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1 2"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1 2"
+      }
+    ],
+    "hint": "if(i==3) break;",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-switch",
+    "title": "Switch Case",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Read int. Case 1: print \"One\". Default: print \"Other\".",
+    "examples": [
+      {
+        "input": "1",
+        "output": "One"
+      },
+      {
+        "input": "2",
+        "output": "Other"
+      }
+    ],
+    "starterCode": "\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "1",
+        "expected": "One"
+      },
+      {
+        "input": "2",
+        "expected": "Other"
+      },
+      {
+        "input": "3",
+        "expected": "Other"
+      }
+    ],
+    "hint": "switch(n) { ... }",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-do-while",
+    "title": "Do While Loop",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Use do-while to print 1 once (condition false).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "do { ... } while(false);",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-math-pow",
+    "title": "Math.pow",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Calculate 2 to power 3 using Math.pow. Print result.",
+    "examples": [
+      {
+        "input": "",
+        "output": "8.0"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "8.0"
+      }
+    ],
+    "hint": "Math.pow(2, 3).",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-stringbuilder-append",
+    "title": "StringBuilder Append",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Append \"B\" to \"A\" using StringBuilder. Print result.",
+    "examples": [
+      {
+        "input": "",
+        "output": "AB"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "AB"
+      }
+    ],
+    "hint": "sb.append().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-wrapper-parse",
+    "title": "Wrapper ParseInt",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Parse \"123\" to int and print.",
+    "examples": [
+      {
+        "input": "",
+        "output": "123"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "123"
+      }
+    ],
+    "hint": "Integer.parseInt().",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-final-var",
+    "title": "Final Variable",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Declare final int x = 10. Print x.",
+    "examples": [
+      {
+        "input": "",
+        "output": "10"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "10"
+      }
+    ],
+    "hint": "final keyword.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-static-block",
+    "title": "Static Block",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Use static block to initialize static variable x to 5. Print x.",
+    "examples": [
+      {
+        "input": "",
+        "output": "5"
+      }
+    ],
+    "starterCode": "public class Main {\n    static int x;\n    static {\n        // Write your code here\n    }\n    public static void main(String[] args) {\n        System.out.println(x);\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "5"
+      }
+    ],
+    "hint": "static { ... }",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-constructor",
+    "title": "Constructor",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create class C with constructor printing \"C\". Instantiate it.",
+    "examples": [
+      {
+        "input": "",
+        "output": "C"
+      }
+    ],
+    "starterCode": "class C {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "C"
+      }
+    ],
+    "hint": "C() { ... }",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-this",
+    "title": "This Keyword",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Use 'this' to distinguish field x from parameter x. Set field to 5 and print.",
+    "examples": [
+      {
+        "input": "",
+        "output": "5"
+      }
+    ],
+    "starterCode": "class C {\n    int x;\n    void set(int x) {\n        // Write your code here\n    }\n}\npublic class Main {\n    public static void main(String[] args) {\n        C c = new C();\n        c.set(5);\n        System.out.println(c.x);\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "5"
+      }
+    ],
+    "hint": "this.x = x.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-method-overload",
+    "title": "Method Overloading",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Overload method m(). m(int) prints \"Int\", m(String) prints \"Str\". Call both.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Int\nStr"
+      }
+    ],
+    "starterCode": "class C {\n    // Write your code here\n}\npublic class Main {\n    public static void main(String[] args) {\n        C c = new C();\n        c.m(1);\n        c.m(\"s\");\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Int\nStr"
+      }
+    ],
+    "hint": "Different parameter types.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-array-objects",
+    "title": "Array of Objects",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create array of 2 Strings. Set them to \"A\" and \"B\". Print them.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A B"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A B"
+      }
+    ],
+    "hint": "String[] arr = new String[2];",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-foreach",
+    "title": "For-Each Loop",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Use for-each loop to print array elements 1, 2.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1 2"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {1, 2};\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1 2"
+      }
+    ],
+    "hint": "for(int x : arr)",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-ternary",
+    "title": "Ternary Operator",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Use ternary operator to print \"Yes\" if 1==1 else \"No\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Yes"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Yes"
+      }
+    ],
+    "hint": "cond ? true : false.",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "java2-null-check",
+    "title": "Null Check",
+    "subject": "Java",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Check if String s = null is null. Print \"Null\".",
+    "examples": [
+      {
+        "input": "",
+        "output": "Null"
+      }
+    ],
+    "starterCode": "public class Main {\n    public static void main(String[] args) {\n        String s = null;\n        // Write your code here\n    }\n}",
+    "functionName": "main",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Null"
+      }
+    ],
+    "hint": "if(s == null)",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  }
+]

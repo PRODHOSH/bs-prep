@@ -1,0 +1,21 @@
+[
+  {
+    "id": "bd1",
+    "title": "MapReduce Count",
+    "difficulty": "Medium",
+    "description": "Write a pseudo-code or Python equivalent for a Mapper that emits (word, 1) for every word in a line.",
+    "starterCode": "def mapper(line):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "hello world",
+        "output": "('hello', 1)\n('world', 1)"
+      }
+    ],
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": [],
+    "tags": "",
+    "examType": "OPPE 1"
+  }
+]

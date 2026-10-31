@@ -1,0 +1,7402 @@
+[
+  {
+    "id": "sql1-lc-1757",
+    "title": "Recyclable Low Fat Products",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Find ids of products.",
+    "starterCode": "SELECT product_id FROM Products WHERE ...",
+    "testCases": [
+      {
+        "input": "Products",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Select",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-584",
+    "title": "Find Customer Referee",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Not referred by 2.",
+    "starterCode": "SELECT name FROM Customer WHERE ...",
+    "testCases": [
+      {
+        "input": "Customer",
+        "output": "names"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Where",
+    "setupCode": "CREATE TABLE Customer (id int, name varchar(25), referee_id int); INSERT INTO Customer (id, name, referee_id) VALUES (1, 'Will', NULL), (2, 'Jane', NULL), (3, 'Alex', 2), (4, 'Bill', NULL), (5, 'Zack', 1), (6, 'Mark', 2);",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-595",
+    "title": "Big Countries",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Area > 3M or Pop > 25M.",
+    "starterCode": "SELECT name, population, area FROM World WHERE ...",
+    "testCases": [
+      {
+        "input": "World",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Select",
+    "setupCode": "CREATE TABLE World (name varchar(255), continent varchar(255), area int, population int, gdp bigint); INSERT INTO World (name, continent, area, population, gdp) VALUES ('Afghanistan', 'Asia', 652230, 25500100, 20343000000), ('Albania', 'Europe', 28748, 2831741, 12960000000), ('Algeria', 'Africa', 2381741, 37100000, 188681000000), ('Andorra', 'Europe', 468, 78115, 3712000000), ('Angola', 'Africa', 1246700, 20609294, 100990000000);",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1148",
+    "title": "Article Views I",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Authors viewing own articles.",
+    "starterCode": "SELECT DISTINCT author_id AS id FROM Views WHERE ...",
+    "testCases": [
+      {
+        "input": "Views",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Distinct",
+    "setupCode": "CREATE TABLE Views (article_id int, author_id int, viewer_id int, view_date date); INSERT INTO Views (article_id, author_id, viewer_id, view_date) VALUES (1, 3, 5, '2019-08-01'), (1, 3, 6, '2019-08-02'), (2, 7, 7, '2019-08-01'), (2, 7, 6, '2019-08-02'), (4, 7, 1, '2019-07-22'), (3, 4, 4, '2019-07-21'), (3, 4, 4, '2019-07-21');",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1683",
+    "title": "Invalid Tweets",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Content > 15 chars.",
+    "starterCode": "SELECT tweet_id FROM Tweets WHERE LENGTH(content) ...",
+    "testCases": [
+      {
+        "input": "Tweets",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "String",
+    "setupCode": "CREATE TABLE Tweets (tweet_id int, content varchar(50)); INSERT INTO Tweets (tweet_id, content) VALUES (1, 'Vote for Biden'), (2, 'Let us make America great again!');",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1378",
+    "title": "Replace ID",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Unique ID join.",
+    "starterCode": "SELECT unique_id, name FROM Employees LEFT JOIN ...",
+    "testCases": [
+      {
+        "input": "Emp",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1068",
+    "title": "Product Sales Analysis I",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Product name, year, price.",
+    "starterCode": "SELECT product_name, year, price FROM Sales JOIN ...",
+    "testCases": [
+      {
+        "input": "Sales",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1581",
+    "title": "Customer No Transaction",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Visits without trans.",
+    "starterCode": "SELECT customer_id, COUNT(*) FROM Visits ...",
+    "testCases": [
+      {
+        "input": "Visits",
+        "output": "count"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-197",
+    "title": "Rising Temperature",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Temp > Prev Day.",
+    "starterCode": "SELECT w1.id FROM Weather w1, Weather w2 ...",
+    "testCases": [
+      {
+        "input": "Weather",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1661",
+    "title": "Average Time",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Process time per machine.",
+    "starterCode": "SELECT machine_id, ROUND(AVG(end-start),3) ...",
+    "testCases": [
+      {
+        "input": "Activity",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-577",
+    "title": "Employee Bonus",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Bonus < 1000.",
+    "starterCode": "SELECT name, bonus FROM Employee LEFT JOIN ...",
+    "testCases": [
+      {
+        "input": "Bonus",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1280",
+    "title": "Students and Exams",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Count exams per student.",
+    "starterCode": "SELECT s.student_id, sub.subject_name ...",
+    "testCases": [
+      {
+        "input": "Exams",
+        "output": "count"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-570",
+    "title": "Managers 5 Reports",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "5 direct reports.",
+    "starterCode": "SELECT name FROM Employee WHERE id IN ...",
+    "testCases": [
+      {
+        "input": "Emp",
+        "output": "names"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Subquery",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1934",
+    "title": "Confirmation Rate",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Rate per user.",
+    "starterCode": "SELECT user_id, ROUND(AVG(...), 2) ...",
+    "testCases": [
+      {
+        "input": "Signups",
+        "output": "rates"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-620",
+    "title": "Boring Movies",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Odd id, not boring.",
+    "starterCode": "SELECT * FROM Cinema WHERE id % 2 = 1 ...",
+    "testCases": [
+      {
+        "input": "Cinema",
+        "output": "movies"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Where",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1251",
+    "title": "Avg Selling Price",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Price per unit.",
+    "starterCode": "SELECT product_id, IFNULL(...) ...",
+    "testCases": [
+      {
+        "input": "Prices",
+        "output": "avg"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1075",
+    "title": "Project Employees I",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Avg experience.",
+    "starterCode": "SELECT project_id, AVG(experience_years) ...",
+    "testCases": [
+      {
+        "input": "Project",
+        "output": "avg"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1633",
+    "title": "Contest Percentage",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "% registered.",
+    "starterCode": "SELECT contest_id, ROUND(...) ...",
+    "testCases": [
+      {
+        "input": "Reg",
+        "output": "pct"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1211",
+    "title": "Queries Quality",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Quality and poor %.",
+    "starterCode": "SELECT query_name, ROUND(AVG(rating/position), 2) ...",
+    "testCases": [
+      {
+        "input": "Queries",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1193",
+    "title": "Monthly Trans I",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Count and sum.",
+    "starterCode": "SELECT DATE_FORMAT(trans_date, \"%Y-%m\") ...",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1174",
+    "title": "Food Delivery I",
+    "difficulty": "Medium",
+    "examType": "OPPE 1",
+    "description": "Immediate orders.",
+    "starterCode": "SELECT ROUND(...) FROM Delivery ...",
+    "testCases": [
+      {
+        "input": "Delivery",
+        "output": "pct"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1141",
+    "title": "User Activity",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "DAU 30 days.",
+    "starterCode": "SELECT activity_date, COUNT(...) ...",
+    "testCases": [
+      {
+        "input": "Activity",
+        "output": "count"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Where",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-2356",
+    "title": "Unique Subjects",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Count unique.",
+    "starterCode": "SELECT teacher_id, COUNT(DISTINCT ...) ...",
+    "testCases": [
+      {
+        "input": "Teacher",
+        "output": "count"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Count",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1729",
+    "title": "Followers Count",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Count followers.",
+    "starterCode": "SELECT user_id, COUNT(follower_id) ...",
+    "testCases": [
+      {
+        "input": "Followers",
+        "output": "count"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-511",
+    "title": "Game Play Analysis I",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "First login.",
+    "starterCode": "SELECT player_id, MIN(event_date) ...",
+    "testCases": [
+      {
+        "input": "Activity",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-586",
+    "title": "Customer Largest Orders",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Most orders.",
+    "starterCode": "SELECT customer_number FROM Orders GROUP BY ...",
+    "testCases": [
+      {
+        "input": "Orders",
+        "output": "id"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-596",
+    "title": "Classes > 5 Students",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Big classes.",
+    "starterCode": "SELECT class FROM Courses GROUP BY ...",
+    "testCases": [
+      {
+        "input": "Courses",
+        "output": "classes"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-607",
+    "title": "Sales Person",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "No orders with RED.",
+    "starterCode": "SELECT name FROM SalesPerson WHERE ...",
+    "testCases": [
+      {
+        "input": "Sales",
+        "output": "names"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Subquery",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-619",
+    "title": "Biggest Single Number",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Max num appearing once.",
+    "starterCode": "SELECT MAX(num) FROM (SELECT num ...) ...",
+    "testCases": [
+      {
+        "input": "Nums",
+        "output": "num"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1050",
+    "title": "Actors Directors",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Cooperated 3 times.",
+    "starterCode": "SELECT actor_id, director_id FROM ...",
+    "testCases": [
+      {
+        "input": "ActorDirector",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1084",
+    "title": "Sales Analysis III",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Sold only in Q1.",
+    "starterCode": "SELECT product_id, product_name FROM ...",
+    "testCases": [
+      {
+        "input": "Sales",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1113",
+    "title": "Reported Posts",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Report counts.",
+    "starterCode": "SELECT extra, COUNT(DISTINCT post_id) ...",
+    "testCases": [
+      {
+        "input": "Actions",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1142",
+    "title": "User Activity II",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Avg sessions.",
+    "starterCode": "SELECT IFNULL(ROUND(AVG(cnt), 2), 0) ...",
+    "testCases": [
+      {
+        "input": "Activity",
+        "output": "val"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1173",
+    "title": "Immediate Delivery",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Immediate %.",
+    "starterCode": "SELECT ROUND(100 * SUM(...) / COUNT(*), 2) ...",
+    "testCases": [
+      {
+        "input": "Delivery",
+        "output": "pct"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1294",
+    "title": "Weather Type",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Cold/Hot/Warm.",
+    "starterCode": "SELECT country_name, CASE ...",
+    "testCases": [
+      {
+        "input": "Weather",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Case",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1303",
+    "title": "Team Size",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Size of team.",
+    "starterCode": "SELECT employee_id, COUNT(*) OVER ...",
+    "testCases": [
+      {
+        "input": "Employee",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1322",
+    "title": "Ads Performance",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "CTR.",
+    "starterCode": "SELECT ad_id, IFNULL(...) ...",
+    "testCases": [
+      {
+        "input": "Ads",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1327",
+    "title": "Products ordered period",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": ">100 units Feb.",
+    "starterCode": "SELECT product_name, sum(unit) ...",
+    "testCases": [
+      {
+        "input": "Orders",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1350",
+    "title": "Students Invalid Dept",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "No department.",
+    "starterCode": "SELECT id, name FROM Students WHERE ...",
+    "testCases": [
+      {
+        "input": "Students",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Subquery",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1407",
+    "title": "Top Travellers",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Total distance.",
+    "starterCode": "SELECT name, IFNULL(SUM(distance), 0) ...",
+    "testCases": [
+      {
+        "input": "Rides",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1484",
+    "title": "Group Sold Products",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Group concat.",
+    "starterCode": "SELECT sell_date, COUNT(...), GROUP_CONCAT(...)",
+    "testCases": [
+      {
+        "input": "Activities",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1517",
+    "title": "Users With Valid E-Mails",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Regex check.",
+    "starterCode": "SELECT * FROM Users WHERE mail REGEXP ...",
+    "testCases": [
+      {
+        "input": "Users",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Regex",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1527",
+    "title": "Patients Condition",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "DIAB1 prefix.",
+    "starterCode": "SELECT * FROM Patients WHERE conditions LIKE ...",
+    "testCases": [
+      {
+        "input": "Patients",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Regex",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1571",
+    "title": "Warehouse Manager",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Volume used.",
+    "starterCode": "SELECT name, SUM(...) ...",
+    "testCases": [
+      {
+        "input": "Warehouse",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1587",
+    "title": "Bank Account Summary",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Balance > 10000.",
+    "starterCode": "SELECT name, SUM(amount) ...",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1607",
+    "title": "Sellers No Sale",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "No sale in 2020.",
+    "starterCode": "SELECT seller_name FROM Seller ...",
+    "testCases": [
+      {
+        "input": "Orders",
+        "output": "names"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Subquery",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1667",
+    "title": "Fix Names",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Capitalize.",
+    "starterCode": "SELECT user_id, CONCAT(...) ...",
+    "testCases": [
+      {
+        "input": "Users",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "String",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1693",
+    "title": "Daily Leads",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Count distinct.",
+    "starterCode": "SELECT date_id, make_name, COUNT(...) ...",
+    "testCases": [
+      {
+        "input": "Sales",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-1741",
+    "title": "Total Time Spent",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Sum time.",
+    "starterCode": "SELECT event_day, emp_id, SUM(...) ...",
+    "testCases": [
+      {
+        "input": "Employees",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql1-lc-175",
+    "title": "Combine Two Tables",
+    "difficulty": "Easy",
+    "examType": "OPPE 1",
+    "description": "Left Join.",
+    "starterCode": "SELECT firstName, lastName, city, state ...",
+    "testCases": [
+      {
+        "input": "Person",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-550",
+    "title": "Game Play Analysis IV",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Fraction consecutive login.",
+    "starterCode": "SELECT ROUND(...) FROM Activity ...",
+    "testCases": [
+      {
+        "input": "Activity",
+        "output": "frac"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1045",
+    "title": "Customers Bought All",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Bought all products.",
+    "starterCode": "SELECT customer_id FROM Customer GROUP BY ...",
+    "testCases": [
+      {
+        "input": "Customer",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-180",
+    "title": "Consecutive Numbers",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Num 3 times row.",
+    "starterCode": "SELECT DISTINCT l1.num FROM Logs l1 ...",
+    "testCases": [
+      {
+        "input": "Logs",
+        "output": "nums"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1164",
+    "title": "Product Price Date",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Price at date.",
+    "starterCode": "SELECT product_id, new_price ...",
+    "testCases": [
+      {
+        "input": "Products",
+        "output": "prices"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1204",
+    "title": "Last Person to Fit",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Running total weight.",
+    "starterCode": "SELECT person_name FROM (SELECT ..., SUM(weight) OVER ...)",
+    "testCases": [
+      {
+        "input": "Queue",
+        "output": "name"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1907",
+    "title": "Count Salary Categories",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Low/Avg/High count.",
+    "starterCode": "SELECT \"Low Salary\" ... UNION ...",
+    "testCases": [
+      {
+        "input": "Accounts",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Union",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1341",
+    "title": "Movie Rating",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Union results.",
+    "starterCode": "UNION ALL ...",
+    "testCases": [
+      {
+        "input": "Ratings",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Union",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1321",
+    "title": "Restaurant Growth",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Moving avg 7 days.",
+    "starterCode": "SELECT visited_on, amount ... OVER ...",
+    "testCases": [
+      {
+        "input": "Customer",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-602",
+    "title": "Friend Requests II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Most friends.",
+    "starterCode": "SELECT id, num FROM ...",
+    "testCases": [
+      {
+        "input": "Request",
+        "output": "id"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Union",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-585",
+    "title": "Investments 2016",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Sum TIV_2016.",
+    "starterCode": "SELECT ROUND(SUM(tiv_2016), 2) ...",
+    "testCases": [
+      {
+        "input": "Ins",
+        "output": "sum"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Subquery",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-185",
+    "title": "Dept Top 3 Salaries",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Dense Rank.",
+    "starterCode": "SELECT d.name, e.name, e.salary ... DENSE_RANK",
+    "testCases": [
+      {
+        "input": "Emp",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-262",
+    "title": "Trips and Users",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Cancellation rate.",
+    "starterCode": "SELECT request_at, ROUND(...) ...",
+    "testCases": [
+      {
+        "input": "Trips",
+        "output": "rates"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-601",
+    "title": "Human Traffic",
+    "difficulty": "Hard",
+    "examType": "OPPE 2",
+    "description": "Consecutive >= 100.",
+    "starterCode": "SELECT id, visit_date, people ...",
+    "testCases": [
+      {
+        "input": "Stadium",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-176",
+    "title": "Second Highest Salary",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Limit Offset.",
+    "starterCode": "SELECT IFNULL(...) ...",
+    "testCases": [
+      {
+        "input": "Employee",
+        "output": "sal"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Limit",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-177",
+    "title": "Nth Highest Salary",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Function.",
+    "starterCode": "CREATE FUNCTION getNthHighestSalary(N INT) ...",
+    "testCases": [
+      {
+        "input": "2",
+        "output": "sal"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Function",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-178",
+    "title": "Rank Scores",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Dense Rank.",
+    "starterCode": "SELECT score, DENSE_RANK() OVER ...",
+    "testCases": [
+      {
+        "input": "Scores",
+        "output": "ranks"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-184",
+    "title": "Dept Highest Salary",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max per group.",
+    "starterCode": "SELECT d.name, e.name, e.salary ...",
+    "testCases": [
+      {
+        "input": "Emp",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-626",
+    "title": "Exchange Seats",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Swap ids.",
+    "starterCode": "SELECT IF(id%2=0, id-1, id+1) ...",
+    "testCases": [
+      {
+        "input": "Seat",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Logic",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1070",
+    "title": "Product Sales III",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "First year sales.",
+    "starterCode": "SELECT product_id, first_year ...",
+    "testCases": [
+      {
+        "input": "Sales",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Subquery",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1158",
+    "title": "Market Analysis I",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Orders in 2019.",
+    "starterCode": "SELECT user_id, join_date, COUNT(...)",
+    "testCases": [
+      {
+        "input": "Users",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1193",
+    "title": "Monthly Trans I",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Approved count/sum.",
+    "starterCode": "SELECT month, country ...",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Group By",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1205",
+    "title": "Monthly Trans II",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Include chargebacks.",
+    "starterCode": "SELECT month, country ... UNION ...",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Union",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1285",
+    "title": "Consecutive Id",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Find ranges.",
+    "starterCode": "SELECT min(log_id), max(log_id) ...",
+    "testCases": [
+      {
+        "input": "Logs",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1393",
+    "title": "Capital Gain/Loss",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Sell - Buy.",
+    "starterCode": "SELECT stock_name, SUM(...) ...",
+    "testCases": [
+      {
+        "input": "Stocks",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Case",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1440",
+    "title": "Evaluate Boolean",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Eval expressions.",
+    "starterCode": "SELECT left_operand, operator ...",
+    "testCases": [
+      {
+        "input": "Expr",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1445",
+    "title": "Apples & Oranges",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Difference.",
+    "starterCode": "SELECT sale_date, SUM(...) ...",
+    "testCases": [
+      {
+        "input": "Sales",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Case",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1459",
+    "title": "Rectangles Area",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Area > 0.",
+    "starterCode": "SELECT p1.id, p2.id ...",
+    "testCases": [
+      {
+        "input": "Points",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1501",
+    "title": "Countries Invest",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Avg > Global Avg.",
+    "starterCode": "SELECT country.name ... HAVING ...",
+    "testCases": [
+      {
+        "input": "Calls",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1532",
+    "title": "Recent Orders",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Top 3.",
+    "starterCode": "SELECT customer_name, customer_id ...",
+    "testCases": [
+      {
+        "input": "Orders",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1549",
+    "title": "Recent Orders Product",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Most recent.",
+    "starterCode": "SELECT product_name, product_id ...",
+    "testCases": [
+      {
+        "input": "Orders",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1555",
+    "title": "Bank Account Summary",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Credit limit.",
+    "starterCode": "SELECT user_id, user_name ...",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1596",
+    "title": "Most Frequent Product",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Mode per customer.",
+    "starterCode": "SELECT customer_id, product_id ...",
+    "testCases": [
+      {
+        "input": "Orders",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1613",
+    "title": "Missing IDs",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Recursive CTE.",
+    "starterCode": "WITH RECURSIVE seq ...",
+    "testCases": [
+      {
+        "input": "Cust",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "CTE",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1709",
+    "title": "Biggest Window",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max gap.",
+    "starterCode": "SELECT user_id, MAX(diff) ...",
+    "testCases": [
+      {
+        "input": "Visits",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1747",
+    "title": "Leetflex Banned",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Simultaneous login.",
+    "starterCode": "SELECT DISTINCT p1.account_id ...",
+    "testCases": [
+      {
+        "input": "LogInfo",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1783",
+    "title": "Grand Slam Titles",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Count championships.",
+    "starterCode": "SELECT player_id, player_name ...",
+    "testCases": [
+      {
+        "input": "Champs",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Unpivot",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1831",
+    "title": "Max Transaction",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max per day.",
+    "starterCode": "SELECT transaction_id ... RANK()",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1841",
+    "title": "League Stats",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Points table.",
+    "starterCode": "SELECT team_name, ...",
+    "testCases": [
+      {
+        "input": "Matches",
+        "output": "table"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1843",
+    "title": "Suspicious Accounts",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Sum > max_income.",
+    "starterCode": "SELECT account_id ...",
+    "testCases": [
+      {
+        "input": "Trans",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1867",
+    "title": "Orders with Max Qty",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Max > All Avg.",
+    "starterCode": "SELECT order_id ...",
+    "testCases": [
+      {
+        "input": "Details",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1875",
+    "title": "Group Employees",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Same salary.",
+    "starterCode": "SELECT * FROM Employees ...",
+    "testCases": [
+      {
+        "input": "Emp",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Window",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1917",
+    "title": "Leetcoders",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Power users.",
+    "starterCode": "SELECT user_id ...",
+    "testCases": [
+      {
+        "input": "Users",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1919",
+    "title": "Similar Interests",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Common interests.",
+    "starterCode": "SELECT p1.user_id ...",
+    "testCases": [
+      {
+        "input": "Interests",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1934",
+    "title": "Confirmation Rate",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Rate calculation.",
+    "starterCode": "SELECT user_id, AVG(...)",
+    "testCases": [
+      {
+        "input": "Signups",
+        "output": "rates"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1949",
+    "title": "Strong Friendship",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": ">= 3 common.",
+    "starterCode": "SELECT u1.user_id ...",
+    "testCases": [
+      {
+        "input": "Friends",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Self Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1951",
+    "title": "Max Common Followers",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Pairs with max.",
+    "starterCode": "SELECT u1.user_id ...",
+    "testCases": [
+      {
+        "input": "Relations",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Agg",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1988",
+    "title": "Cutoff Score",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Min score for school.",
+    "starterCode": "SELECT school_id, IFNULL(...)",
+    "testCases": [
+      {
+        "input": "Schools",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-1990",
+    "title": "Count Experiments",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Cross join all types.",
+    "starterCode": "SELECT platform, experiment ...",
+    "testCases": [
+      {
+        "input": "Exp",
+        "output": "rows"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Cross Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-2020",
+    "title": "Accounts No Stream",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Active but no stream.",
+    "starterCode": "SELECT count(*) ...",
+    "testCases": [
+      {
+        "input": "Subs",
+        "output": "count"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Set",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "sql2-lc-2041",
+    "title": "Accepted Candidates",
+    "difficulty": "Medium",
+    "examType": "OPPE 2",
+    "description": "Score > 15 & Exp >= 2.",
+    "starterCode": "SELECT candidate_id ...",
+    "testCases": [
+      {
+        "input": "Cand",
+        "output": "ids"
+      }
+    ],
+    "solution": "pass",
+    "subject": "SQL",
+    "language": "sql",
+    "tags": "Join",
+    "setupCode": "",
+    "functionName": "",
+    "hint": "",
+    "examples": []
+  },
+  {
+    "id": "dbms1-create-pk",
+    "title": "Create Table with PK",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create a table 'users' with 'id' as PRIMARY KEY and 'name' as TEXT. Insert (1, 'Alice'). Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|Alice"
+      }
+    ],
+    "hint": "id INT PRIMARY KEY",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-create-fk",
+    "title": "Create Table with FK",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Create table 'orders' with 'user_id' referencing 'users(id)'. Insert valid data. Select *. (Assume users table exists with id 1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (id INT PRIMARY KEY); INSERT INTO users VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "FOREIGN KEY (user_id) REFERENCES users(id)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-unique",
+    "title": "Unique Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create table 'emails' with 'email' TEXT UNIQUE. Insert 'a@b.com' twice (ignore error). Select count(*).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "UNIQUE constraint",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-not-null",
+    "title": "Not Null Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create table 'items' with 'name' TEXT NOT NULL. Try inserting NULL (ignore error). Select count(*).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "NOT NULL constraint",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-check",
+    "title": "Check Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create table 'age' with 'val' INT CHECK(val >= 18). Insert 17 (ignore error). Select count(*).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "CHECK(val >= 18)",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-default",
+    "title": "Default Value",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Create table 'status' with 'active' INT DEFAULT 1. Insert default. Select active.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "DEFAULT 1",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-composite-pk",
+    "title": "Composite PK",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Create table 'enroll' with (sid, cid) as PRIMARY KEY. Insert (1, 101). Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|101"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|101"
+      }
+    ],
+    "hint": "PRIMARY KEY (sid, cid)",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-alter-add",
+    "title": "Alter Add Column",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Add column 'age' INT to 'users'. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|Alice|"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (id INT, name TEXT); INSERT INTO users VALUES (1, 'Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|Alice|"
+      }
+    ],
+    "hint": "ALTER TABLE ... ADD COLUMN",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-drop-table",
+    "title": "Drop Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Drop table 'temp'.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS temp; CREATE TABLE temp (id INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "DROP TABLE",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-truncate",
+    "title": "Truncate Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Delete all rows from 'logs'. (SQLite uses DELETE FROM).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "-- Write your query below\nDELETE FROM logs;\nSELECT count(*) FROM logs;\n",
+    "setupCode": "DROP TABLE IF EXISTS logs; CREATE TABLE logs (msg TEXT); INSERT INTO logs VALUES ('Error');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "DELETE FROM logs",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-update-where",
+    "title": "Update with Where",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Update 'users' set name='Bob' where id=1. Select name.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (id INT, name TEXT); INSERT INTO users VALUES (1, 'Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "UPDATE ... SET ... WHERE",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-delete-where",
+    "title": "Delete with Where",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Delete from 'users' where id=1. Select count(*).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (id INT PRIMARY KEY, role TEXT DEFAULT 'user');\nINSERT INTO users (id) VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "DELETE FROM ... WHERE",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-select-distinct",
+    "title": "Select Distinct",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select distinct dept from employees.",
+    "examples": [
+      {
+        "input": "",
+        "output": "HR\nIT"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS employees; CREATE TABLE employees (dept TEXT); INSERT INTO employees VALUES ('HR'), ('HR'), ('IT');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "HR\nIT"
+      }
+    ],
+    "hint": "SELECT DISTINCT",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-order-by",
+    "title": "Order By",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names ordered by age desc.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob\nAlice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (name TEXT, age INT); INSERT INTO users VALUES ('Alice', 20), ('Bob', 30);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob\nAlice"
+      }
+    ],
+    "hint": "ORDER BY age DESC",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-group-by",
+    "title": "Group By Count",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Count users per country.",
+    "examples": [
+      {
+        "input": "",
+        "output": "IN|2\nUS|1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (country TEXT); INSERT INTO users VALUES ('IN'), ('IN'), ('US');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "IN|2\nUS|1"
+      }
+    ],
+    "hint": "GROUP BY country",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-having",
+    "title": "Having Clause",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select country with > 1 users.",
+    "examples": [
+      {
+        "input": "",
+        "output": "IN"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (country TEXT); INSERT INTO users VALUES ('IN'), ('IN'), ('US');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "IN"
+      }
+    ],
+    "hint": "HAVING count(*) > 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-join",
+    "title": "Inner Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Join users and orders on user_id. Select user name and order id.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|101"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; DROP TABLE IF EXISTS orders; CREATE TABLE users (id INT PRIMARY KEY); INSERT INTO users VALUES (1);\nCREATE TABLE orders (id INT PRIMARY KEY, user_id INT, FOREIGN KEY (user_id) REFERENCES users(id));\nINSERT INTO orders VALUES (101, 1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|101"
+      }
+    ],
+    "hint": "JOIN ... ON",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-left-join",
+    "title": "Left Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Left join users and orders. Select user name and order id.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|101\nBob|NULL"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; DROP TABLE IF EXISTS orders; CREATE TABLE users (id INT, name TEXT); CREATE TABLE orders (id INT, user_id INT);\nINSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'); INSERT INTO orders VALUES (101, 1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|101\nBob|NULL"
+      }
+    ],
+    "hint": "LEFT JOIN",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-union",
+    "title": "Union",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Union of two selects.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\n2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS A; DROP TABLE IF EXISTS B; CREATE TABLE A (val INT); CREATE TABLE B (val INT);\nINSERT INTO A VALUES (1); INSERT INTO B VALUES (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "UNION",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-intersect",
+    "title": "Intersect",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Intersect of two selects.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS A; DROP TABLE IF EXISTS B; CREATE TABLE A (val INT); CREATE TABLE B (val INT);\nINSERT INTO A VALUES (1), (2); INSERT INTO B VALUES (1), (3);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "INTERSECT",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-except",
+    "title": "Except",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select A except B.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS A; DROP TABLE IF EXISTS B; CREATE TABLE A (val INT); CREATE TABLE B (val INT);\nINSERT INTO A VALUES (1), (2); INSERT INTO B VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "EXCEPT",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-subquery",
+    "title": "Subquery",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select name where id in (select user_id from orders).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; DROP TABLE IF EXISTS orders; CREATE TABLE users (id INT, name TEXT); CREATE TABLE orders (user_id INT);\nINSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'); INSERT INTO orders VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "WHERE id IN (...)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-exists",
+    "title": "Exists",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select name where exists order for user.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; DROP TABLE IF EXISTS orders; CREATE TABLE users (id INT, name TEXT); CREATE TABLE orders (user_id INT);\nINSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'); INSERT INTO orders VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "WHERE EXISTS (...)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-view",
+    "title": "Create View",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Create view 'v_users' as select name from users. Select * from v_users.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (name TEXT); INSERT INTO users VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "CREATE VIEW",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-index",
+    "title": "Create Index",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Create index 'idx_email' on users(email).",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (email TEXT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "CREATE INDEX",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-transaction",
+    "title": "Transaction Commit",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Begin transaction, insert 1, commit. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "BEGIN; ... COMMIT;",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-rollback",
+    "title": "Transaction Rollback",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Begin, insert 1, rollback. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "ROLLBACK",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-grant",
+    "title": "Grant (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Grant SELECT on T to user. (SQLite doesn't support GRANT, just mock SELECT 'Granted').",
+    "examples": [
+      {
+        "input": "",
+        "output": "Granted"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT 'Granted';\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Granted"
+      }
+    ],
+    "hint": "GRANT SELECT ON T TO user",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-revoke",
+    "title": "Revoke (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Revoke SELECT on T from user. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Revoked"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT 'Revoked';\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Revoked"
+      }
+    ],
+    "hint": "REVOKE SELECT ON T FROM user",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-like",
+    "title": "Like Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names starting with 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (name TEXT); INSERT INTO users VALUES ('Alice'), ('Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "LIKE \"A%\"",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-glob",
+    "title": "Glob Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select names starting with 'A' using GLOB.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (name TEXT); INSERT INTO users VALUES ('Alice'), ('Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "GLOB \"A*\"",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-limit",
+    "title": "Limit",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select first 1 row.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "LIMIT 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-offset",
+    "title": "Offset",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select 1 row skipping first 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2), (3);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "LIMIT 1 OFFSET 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-null",
+    "title": "Is Null",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select where val is null.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT val FROM T WHERE val IS NULL;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (NULL);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "IS NULL",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-not-null-check",
+    "title": "Is Not Null",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select where val is not null.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (NULL);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "IS NOT NULL",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-between",
+    "title": "Between",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select val between 1 and 3.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (0), (2), (4);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "BETWEEN 1 AND 3",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-in",
+    "title": "In Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select val in (1, 2).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\n2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2), (3);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "IN (1, 2)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-case",
+    "title": "Case Statement",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select case when val=1 then 'A' else 'B'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "CASE WHEN",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-coalesce",
+    "title": "Coalesce",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select coalesce(val, 0).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (NULL);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "COALESCE",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms1-cast",
+    "title": "Cast",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Cast '1' to INT.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT CAST('1' AS INT);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CAST",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-round",
+    "title": "Round",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Round 1.5.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2.0"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT ROUND(1.5);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2.0"
+      }
+    ],
+    "hint": "ROUND",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-random",
+    "title": "Random",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select random number (mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "SELECT 0; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "RANDOM",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-abs",
+    "title": "Abs",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select abs(-1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT ABS(-1);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "ABS",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-upper",
+    "title": "Upper",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select upper('a').",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT UPPER('a');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "UPPER",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-lower",
+    "title": "Lower",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select lower('A').",
+    "examples": [
+      {
+        "input": "",
+        "output": "a"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT LOWER('A');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "a"
+      }
+    ],
+    "hint": "LOWER",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-length",
+    "title": "Length",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select length('A').",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT LENGTH('A');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "LENGTH",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-substr",
+    "title": "Substr",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select substr('AB', 1, 1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT SUBSTR('AB', 1, 1);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "SUBSTR",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-replace",
+    "title": "Replace",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Replace 'A' with 'B' in 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "B"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT REPLACE('A', 'A', 'B');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "B"
+      }
+    ],
+    "hint": "REPLACE",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-trim",
+    "title": "Trim",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Trim ' A '.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT TRIM(' A ');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "TRIM",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms1-max",
+    "title": "Max",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select max(val).",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "MAX",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-transaction-commit",
+    "title": "Transaction Commit",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Begin transaction, update balance, commit. Select balance.",
+    "examples": [
+      {
+        "input": "",
+        "output": "100"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS account; CREATE TABLE account (bal INT); INSERT INTO account VALUES (50);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "100"
+      }
+    ],
+    "hint": "BEGIN; UPDATE ... COMMIT;",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-transaction-rollback",
+    "title": "Transaction Rollback",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Begin, update balance, rollback. Select balance.",
+    "examples": [
+      {
+        "input": "",
+        "output": "50"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS account; CREATE TABLE account (bal INT); INSERT INTO account VALUES (50);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "50"
+      }
+    ],
+    "hint": "ROLLBACK",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-savepoint",
+    "title": "Savepoint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Begin, insert 1, savepoint S, insert 2, rollback to S, commit. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "SAVEPOINT",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-trigger-insert",
+    "title": "Insert Trigger",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create trigger to log inserts. Insert 1. Select log.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; DROP TABLE IF EXISTS Log; CREATE TABLE T (val INT); CREATE TABLE Log (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CREATE TRIGGER",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-trigger-update",
+    "title": "Update Trigger",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create trigger to log updates (old val). Update 1 to 2. Select log.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; DROP TABLE IF EXISTS Log; CREATE TABLE T (val INT); INSERT INTO T VALUES (1); CREATE TABLE Log (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "OLD.val",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-trigger-delete",
+    "title": "Delete Trigger",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create trigger to prevent deletion (raise error). Try delete (ignore error). Select count.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "RAISE(ABORT, ...)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-view-update",
+    "title": "Updatable View",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create view V on T. Update V. Select T.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "UPDATE V",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-index-unique",
+    "title": "Unique Index",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create unique index on T(val). Try insert duplicate (ignore error). Select count.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CREATE UNIQUE INDEX",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-grant-role",
+    "title": "Grant Role (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Grant role R to user. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Granted"
+      }
+    ],
+    "starterCode": "SELECT 'Granted'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Granted"
+      }
+    ],
+    "hint": "GRANT",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-revoke-role",
+    "title": "Revoke Role (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Revoke role R from user. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Revoked"
+      }
+    ],
+    "starterCode": "SELECT 'Revoked'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Revoked"
+      }
+    ],
+    "hint": "REVOKE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-cte-recursive",
+    "title": "Recursive CTE",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Generate 1 to 3 using recursive CTE.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\n2\n3"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\n2\n3"
+      }
+    ],
+    "hint": "WITH RECURSIVE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-window-lag",
+    "title": "Window LAG",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select val and previous val (LAG).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|NULL\n2|1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|NULL\n2|1"
+      }
+    ],
+    "hint": "LAG(val)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-window-lead",
+    "title": "Window LEAD",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select val and next val (LEAD).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|2\n2|NULL"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|2\n2|NULL"
+      }
+    ],
+    "hint": "LEAD(val)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-window-sum",
+    "title": "Window SUM",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Calculate running sum.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|1\n2|3"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|1\n2|3"
+      }
+    ],
+    "hint": "SUM(val) OVER (ORDER BY val)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-window-avg",
+    "title": "Window AVG",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Calculate running avg.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1.0|1.0\n2.0|1.5"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val REAL); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1.0|1.0\n2.0|1.5"
+      }
+    ],
+    "hint": "AVG(val) OVER (ORDER BY val)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-explain",
+    "title": "Explain Query",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Explain select * from T. (Mocked output check).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Valid"
+      }
+    ],
+    "starterCode": "-- Write your query below\nEXPLAIN QUERY PLAN SELECT * FROM T;\nSELECT 'Valid';\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Valid"
+      }
+    ],
+    "hint": "EXPLAIN QUERY PLAN",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-analyze",
+    "title": "Analyze",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Analyze table T.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nANALYZE T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "ANALYZE",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-vacuum",
+    "title": "Vacuum",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Vacuum database.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nVACUUM;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "VACUUM",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-attach",
+    "title": "Attach Database",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Attach database 'test.db' as 'db2'. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Attached"
+      }
+    ],
+    "starterCode": "SELECT 'Attached'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Attached"
+      }
+    ],
+    "hint": "ATTACH DATABASE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-detach",
+    "title": "Detach Database",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Detach database 'db2'. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Detached"
+      }
+    ],
+    "starterCode": "SELECT 'Detached'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Detached"
+      }
+    ],
+    "hint": "DETACH DATABASE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-pragma",
+    "title": "Pragma",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get pragma user_version.",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "-- Write your query below\nPRAGMA user_version;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "PRAGMA",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-integrity-check",
+    "title": "Integrity Check",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Check integrity.",
+    "examples": [
+      {
+        "input": "",
+        "output": "ok"
+      }
+    ],
+    "starterCode": "-- Write your query below\nPRAGMA integrity_check;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "ok"
+      }
+    ],
+    "hint": "PRAGMA integrity_check",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-foreign-key-check",
+    "title": "Foreign Key Check",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Check foreign keys.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nPRAGMA foreign_key_check;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "PRAGMA foreign_key_check",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-table-info",
+    "title": "Table Info",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get info for table T.",
+    "examples": [
+      {
+        "input": "",
+        "output": "0|val|INT|0||0"
+      }
+    ],
+    "starterCode": "-- Write your query below\nPRAGMA table_info(T);\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0|val|INT|0||0"
+      }
+    ],
+    "hint": "PRAGMA table_info",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-index-list",
+    "title": "Index List",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "List indexes on T.",
+    "examples": [
+      {
+        "input": "",
+        "output": "0|idx|0|c|0"
+      }
+    ],
+    "starterCode": "-- Write your query below\nPRAGMA index_list(T);\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); CREATE INDEX idx ON T(val);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0|idx|0|c|0"
+      }
+    ],
+    "hint": "PRAGMA index_list",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-index-info",
+    "title": "Index Info",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get info for index idx.",
+    "examples": [
+      {
+        "input": "",
+        "output": "0|0|val"
+      }
+    ],
+    "starterCode": "-- Write your query below\nPRAGMA index_info(idx);\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); CREATE INDEX idx ON T(val);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0|0|val"
+      }
+    ],
+    "hint": "PRAGMA index_info",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-case-insensitive",
+    "title": "Case Insensitive Like",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Select 'a' LIKE 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT 'a' LIKE 'A';\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "LIKE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-json-extract",
+    "title": "JSON Extract",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Extract 'a' from '{\"a\":1}'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT json_extract('{\"a\":1}', '$.a');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "json_extract",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-json-array",
+    "title": "JSON Array",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create JSON array [1, 2].",
+    "examples": [
+      {
+        "input": "",
+        "output": "[1,2]"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT json_array(1, 2);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "[1,2]"
+      }
+    ],
+    "hint": "json_array",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-json-object",
+    "title": "JSON Object",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create JSON object {\"a\":1}.",
+    "examples": [
+      {
+        "input": "",
+        "output": "{\"a\":1}"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT json_object('a', 1);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "{\"a\":1}"
+      }
+    ],
+    "hint": "json_object",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-json-type",
+    "title": "JSON Type",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Get type of '{\"a\":1}'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "object"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT json_type('{\"a\":1}');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "object"
+      }
+    ],
+    "hint": "json_type",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-json-valid",
+    "title": "JSON Valid",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Check if '{\"a\":1}' is valid JSON.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT json_valid('{\"a\":1}');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "json_valid",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-rtree",
+    "title": "RTree (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create RTree index (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Created"
+      }
+    ],
+    "starterCode": "SELECT 'Created'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Created"
+      }
+    ],
+    "hint": "VIRTUAL TABLE ... USING rtree",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-fts",
+    "title": "FTS (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create FTS table (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Created"
+      }
+    ],
+    "starterCode": "SELECT 'Created'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Created"
+      }
+    ],
+    "hint": "VIRTUAL TABLE ... USING fts5",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-geopoly",
+    "title": "Geopoly (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create Geopoly table (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Created"
+      }
+    ],
+    "starterCode": "SELECT 'Created'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Created"
+      }
+    ],
+    "hint": "VIRTUAL TABLE ... USING geopoly",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-upsert",
+    "title": "Upsert",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Insert or replace (upsert).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nINSERT INTO T VALUES (1, 2) ON CONFLICT(id) DO UPDATE SET val=excluded.val;\nSELECT val FROM T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (id INT PRIMARY KEY, val INT); INSERT INTO T VALUES (1, 1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "ON CONFLICT DO UPDATE",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-returning",
+    "title": "Returning Clause",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Insert and return id.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nINSERT INTO T VALUES (1) RETURNING id;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (id INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "RETURNING",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-generated-col",
+    "title": "Generated Column",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table with generated column b = a*2. Insert 1. Select b.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\nINSERT INTO T VALUES (1);\nSELECT b FROM T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (a INT, b INT GENERATED ALWAYS AS (a*2));",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "GENERATED ALWAYS AS",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-filter-clause",
+    "title": "Filter Clause",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Count where val > 1 using FILTER.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT count(*) FILTER (WHERE val > 1) FROM T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "FILTER (WHERE ...)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-nulls-first",
+    "title": "Order Nulls First",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Order by val NULLS FIRST.",
+    "examples": [
+      {
+        "input": "",
+        "output": "NULL\n1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (1), (NULL);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "NULL\n1"
+      }
+    ],
+    "hint": "NULLS FIRST",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-nulls-last",
+    "title": "Order Nulls Last",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Order by val NULLS LAST.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\nNULL"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT); INSERT INTO T VALUES (NULL), (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\nNULL"
+      }
+    ],
+    "hint": "NULLS LAST",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-values",
+    "title": "Values Clause",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Select values (1), (2).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\n2"
+      }
+    ],
+    "starterCode": "-- Write your query below\nVALUES (1), (2);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "VALUES",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-materialized-view",
+    "title": "Materialized View (Mocked)",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create materialized view (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Created"
+      }
+    ],
+    "starterCode": "SELECT 'Created'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Created"
+      }
+    ],
+    "hint": "CREATE MATERIALIZED VIEW",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-drop-view",
+    "title": "Drop View",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Drop view V.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nDROP VIEW V;\n",
+    "setupCode": "DROP VIEW IF EXISTS V; CREATE VIEW V AS SELECT 1;",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "DROP VIEW",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-reindex",
+    "title": "Reindex",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Reindex T.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nREINDEX T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "REINDEX",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-strict",
+    "title": "Strict Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create strict table T. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nINSERT INTO T VALUES (1);\nSELECT * FROM T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT) STRICT;",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "STRICT",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-without-rowid",
+    "title": "Without RowID",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table without rowid. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nINSERT INTO T VALUES (1);\nSELECT * FROM T;\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (val INT PRIMARY KEY) WITHOUT ROWID;",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "WITHOUT ROWID",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "dbms2-temp-table",
+    "title": "Temp Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create temp table T. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nCREATE TEMP TABLE T (val INT);\nINSERT INTO T VALUES (1);\nSELECT * FROM T;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "TEMP TABLE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-temp-view",
+    "title": "Temp View",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Create temp view V. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nCREATE TEMP VIEW V AS SELECT 1;\nSELECT * FROM V;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "TEMP VIEW",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "dbms2-savepoint-release",
+    "title": "Release Savepoint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Begin, savepoint S, release S, commit.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\nBEGIN; SAVEPOINT S; RELEASE S; COMMIT;\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "RELEASE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-select-all",
+    "title": "Select All",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select all columns from the table 'students'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|Alice\n2|Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT, name TEXT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|Alice\n2|Bob"
+      }
+    ],
+    "hint": "SELECT * FROM students;",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-select-col",
+    "title": "Select Column",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select only the 'name' column from 'students'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice\nBob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT, name TEXT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice\nBob"
+      }
+    ],
+    "hint": "SELECT name FROM students;",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-where-eq",
+    "title": "Where Equals",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names of students with id 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT, name TEXT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "WHERE id = 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-where-gt",
+    "title": "Where Greater Than",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names of students with score > 50.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "WHERE score > 50",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-order-asc",
+    "title": "Order By Ascending",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names ordered by score ascending.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice\nBob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Bob', 60), ('Alice', 40);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice\nBob"
+      }
+    ],
+    "hint": "ORDER BY score ASC",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-order-desc",
+    "title": "Order By Descending",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names ordered by score descending.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob\nAlice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob\nAlice"
+      }
+    ],
+    "hint": "ORDER BY score DESC",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-limit",
+    "title": "Limit Results",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select first 1 name ordered by id.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT, name TEXT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "LIMIT 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-distinct",
+    "title": "Distinct Values",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select distinct cities.",
+    "examples": [
+      {
+        "input": "",
+        "output": "NY\nLA"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS users; CREATE TABLE users (city TEXT);\nINSERT INTO users VALUES ('NY'), ('NY'), ('LA');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "NY\nLA"
+      }
+    ],
+    "hint": "SELECT DISTINCT city",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-count",
+    "title": "Count Rows",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Count total number of students.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT);\nINSERT INTO students VALUES (1), (2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "COUNT(*)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-sum",
+    "title": "Sum Values",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Calculate sum of scores.",
+    "examples": [
+      {
+        "input": "",
+        "output": "100"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score INT);\nINSERT INTO students VALUES (40), (60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "100"
+      }
+    ],
+    "hint": "SUM(score)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-avg",
+    "title": "Average Value",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Calculate average score.",
+    "examples": [
+      {
+        "input": "",
+        "output": "50.0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score INT);\nINSERT INTO students VALUES (40), (60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "50.0"
+      }
+    ],
+    "hint": "AVG(score)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-min",
+    "title": "Minimum Value",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Find minimum score.",
+    "examples": [
+      {
+        "input": "",
+        "output": "40"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score INT);\nINSERT INTO students VALUES (40), (60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "40"
+      }
+    ],
+    "hint": "MIN(score)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-max",
+    "title": "Maximum Value",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Find maximum score.",
+    "examples": [
+      {
+        "input": "",
+        "output": "60"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score INT);\nINSERT INTO students VALUES (40), (60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "60"
+      }
+    ],
+    "hint": "MAX(score)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-and",
+    "title": "Logical AND",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where score > 50 AND city = 'NY'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT, city TEXT);\nINSERT INTO students VALUES ('Alice', 60, 'LA'), ('Bob', 60, 'NY');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "AND operator",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-or",
+    "title": "Logical OR",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where city is 'NY' OR 'LA'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice\nBob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, city TEXT);\nINSERT INTO students VALUES ('Alice', 'LA'), ('Bob', 'NY'), ('Charlie', 'TX');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice\nBob"
+      }
+    ],
+    "hint": "OR operator",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-not",
+    "title": "Logical NOT",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where city is NOT 'NY'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, city TEXT);\nINSERT INTO students VALUES ('Alice', 'LA'), ('Bob', 'NY');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "NOT or <> or !=",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-in",
+    "title": "IN Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where id IN (1, 3).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice\nCharlie"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT, name TEXT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice\nCharlie"
+      }
+    ],
+    "hint": "WHERE id IN (1, 3)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-between",
+    "title": "BETWEEN Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where score BETWEEN 40 AND 60.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice\nBob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60), ('Charlie', 70);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice\nBob"
+      }
+    ],
+    "hint": "BETWEEN 40 AND 60",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-like",
+    "title": "LIKE Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names starting with 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice'), ('Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "LIKE 'A%'",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-is-null",
+    "title": "IS NULL",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where email IS NULL.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, email TEXT);\nINSERT INTO students VALUES ('Alice', 'a@b.com'), ('Bob', NULL);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "IS NULL",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-is-not-null",
+    "title": "IS NOT NULL",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select names where email IS NOT NULL.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, email TEXT);\nINSERT INTO students VALUES ('Alice', 'a@b.com'), ('Bob', NULL);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "IS NOT NULL",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-alias",
+    "title": "Column Alias",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select name AS 'Student Name'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "AS keyword",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-concat",
+    "title": "Concatenation",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select first_name || ' ' || last_name.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice Smith"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (first_name TEXT, last_name TEXT);\nINSERT INTO students VALUES ('Alice', 'Smith');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice Smith"
+      }
+    ],
+    "hint": "|| operator",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-upper",
+    "title": "Upper Case",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select name in uppercase.",
+    "examples": [
+      {
+        "input": "",
+        "output": "ALICE"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "ALICE"
+      }
+    ],
+    "hint": "UPPER(name)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-lower",
+    "title": "Lower Case",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select name in lowercase.",
+    "examples": [
+      {
+        "input": "",
+        "output": "alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "alice"
+      }
+    ],
+    "hint": "LOWER(name)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-length",
+    "title": "String Length",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select length of name.",
+    "examples": [
+      {
+        "input": "",
+        "output": "5"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "5"
+      }
+    ],
+    "hint": "LENGTH(name)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-substr",
+    "title": "Substring",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select first 3 chars of name.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Ali"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Ali"
+      }
+    ],
+    "hint": "SUBSTR(name, 1, 3)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-round",
+    "title": "Round Number",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select score rounded to 0 decimals.",
+    "examples": [
+      {
+        "input": "",
+        "output": "10.0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score REAL);\nINSERT INTO students VALUES (10.4);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "10.0"
+      }
+    ],
+    "hint": "ROUND(score)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-arithmetic",
+    "title": "Arithmetic",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select score * 2.",
+    "examples": [
+      {
+        "input": "",
+        "output": "20"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score INT);\nINSERT INTO students VALUES (10);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "20"
+      }
+    ],
+    "hint": "*",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-group-by",
+    "title": "Group By",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Count students per city.",
+    "examples": [
+      {
+        "input": "",
+        "output": "LA|1\nNY|2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (city TEXT);\nINSERT INTO students VALUES ('NY'), ('NY'), ('LA');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "LA|1\nNY|2"
+      }
+    ],
+    "hint": "GROUP BY city",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-having",
+    "title": "Having Clause",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select city with count > 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "NY"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (city TEXT);\nINSERT INTO students VALUES ('NY'), ('NY'), ('LA');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "NY"
+      }
+    ],
+    "hint": "HAVING COUNT(*) > 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-create-table",
+    "title": "Create Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Create table T with col A INT. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CREATE TABLE ... INSERT ... SELECT",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-drop-table",
+    "title": "Drop Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Drop table T. (Setup creates T).",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "DROP TABLE T",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-insert",
+    "title": "Insert Row",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Insert 1 into T (A INT). Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "INSERT INTO T VALUES (1)",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-update",
+    "title": "Update Row",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Update T set A=2 where A=1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);\nINSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "UPDATE T SET A=2",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-delete",
+    "title": "Delete Row",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Delete from T where A=1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);\nINSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "DELETE FROM T",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-alter",
+    "title": "Alter Table",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Add column B INT to T. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);\nINSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|"
+      }
+    ],
+    "hint": "ALTER TABLE T ADD COLUMN B INT",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-select-expr",
+    "title": "Select Expression",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select 1+1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "SELECT 1+1",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-cast",
+    "title": "Cast Type",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Cast '1' to INT.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CAST('1' AS INT)",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-coalesce",
+    "title": "Coalesce",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select first non-null value from (NULL, 1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "COALESCE(NULL, 1)",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-case",
+    "title": "Case Statement",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Hard",
+    "description": "Select CASE when 1=1 then 'A' else 'B'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "CASE WHEN ... END",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-limit-offset",
+    "title": "Limit Offset",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select 1 row skipping first 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);\nINSERT INTO T VALUES (1), (2), (3);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "LIMIT 1 OFFSET 1",
+    "examType": "OPPE 1",
+    "tags": ""
+  },
+  {
+    "id": "sql1-union",
+    "title": "Union",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Union of select 1 and select 2.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\n2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\n2"
+      }
+    ],
+    "hint": "UNION",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-union-all",
+    "title": "Union All",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Union All of select 1 and select 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1\n1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1\n1"
+      }
+    ],
+    "hint": "UNION ALL",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-intersect",
+    "title": "Intersect",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Intersect of select 1 and select 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "INTERSECT",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-except",
+    "title": "Except",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Medium",
+    "description": "Select 1 EXCEPT select 2.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "EXCEPT",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-abs",
+    "title": "Absolute Value",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select ABS(-1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "ABS()",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-random",
+    "title": "Random",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select a random number (mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "0"
+      }
+    ],
+    "starterCode": "SELECT 0; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "0"
+      }
+    ],
+    "hint": "RANDOM()",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-date",
+    "title": "Date",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select current date (mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "2023-01-01"
+      }
+    ],
+    "starterCode": "SELECT '2023-01-01'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2023-01-01"
+      }
+    ],
+    "hint": "DATE()",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql1-time",
+    "title": "Time",
+    "subject": "DBMS",
+    "examLevel": "OPPE 1",
+    "difficulty": "Easy",
+    "description": "Select current time (mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "12:00:00"
+      }
+    ],
+    "starterCode": "SELECT '12:00:00'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "12:00:00"
+      }
+    ],
+    "hint": "TIME()",
+    "examType": "OPPE 1",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-inner-join",
+    "title": "Inner Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select student name and course name using INNER JOIN.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|Math\nBob|Science"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (id INT, name TEXT);\nCREATE TABLE courses (id INT, title TEXT, student_id INT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');\nINSERT INTO courses VALUES (101, 'Math', 1), (102, 'Science', 2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|Math\nBob|Science"
+      }
+    ],
+    "hint": "JOIN ON students.id = courses.student_id",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-left-join",
+    "title": "Left Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select all students and their courses (if any) using LEFT JOIN.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|Math\nBob|NULL"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (id INT, name TEXT);\nCREATE TABLE courses (id INT, title TEXT, student_id INT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');\nINSERT INTO courses VALUES (101, 'Math', 1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|Math\nBob|NULL"
+      }
+    ],
+    "hint": "LEFT JOIN",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-right-join",
+    "title": "Right Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select all courses and their students (if any) using RIGHT JOIN (Simulated with LEFT JOIN swapping tables as SQLite doesn't support RIGHT JOIN directly, but for standard SQL it's RIGHT JOIN. Here use LEFT JOIN courses).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Math|Alice\nScience|NULL"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (id INT, name TEXT);\nCREATE TABLE courses (id INT, title TEXT, student_id INT);\nINSERT INTO students VALUES (1, 'Alice');\nINSERT INTO courses VALUES (101, 'Math', 1), (102, 'Science', 2);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Math|Alice\nScience|NULL"
+      }
+    ],
+    "hint": "FROM courses LEFT JOIN students",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-full-join",
+    "title": "Full Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select all students and courses matching or not. (Simulate FULL JOIN with UNION of LEFT Joins).",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|Math\nBob|NULL\nNULL|Science"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (id INT, name TEXT);\nCREATE TABLE courses (id INT, title TEXT, student_id INT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');\nINSERT INTO courses VALUES (101, 'Math', 1), (103, 'Science', 3);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|Math\nBob|NULL\nNULL|Science"
+      }
+    ],
+    "hint": "LEFT JOIN UNION ... LEFT JOIN",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-cross-join",
+    "title": "Cross Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select Cartesian product of students and courses.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|Math\nAlice|Science\nBob|Math\nBob|Science"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (name TEXT);\nCREATE TABLE courses (title TEXT);\nINSERT INTO students VALUES ('Alice'), ('Bob');\nINSERT INTO courses VALUES ('Math'), ('Science');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|Math\nAlice|Science\nBob|Math\nBob|Science"
+      }
+    ],
+    "hint": "CROSS JOIN",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-self-join",
+    "title": "Self Join",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select pairs of students from same city.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (id INT, name TEXT, city TEXT);\nINSERT INTO students VALUES (1, 'Alice', 'NY'), (2, 'Bob', 'NY'), (3, 'Charlie', 'LA');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|Bob"
+      }
+    ],
+    "hint": "JOIN students s1, students s2",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-subquery-scalar",
+    "title": "Scalar Subquery",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select students with score > average score.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "WHERE score > (SELECT AVG(score)...)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-subquery-in",
+    "title": "Subquery IN",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select students enrolled in 'Math'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (id INT, name TEXT);\nCREATE TABLE courses (student_id INT, title TEXT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');\nINSERT INTO courses VALUES (1, 'Math');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "WHERE id IN (SELECT student_id ...)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-subquery-exists",
+    "title": "Subquery EXISTS",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select students who have at least one course.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; DROP TABLE IF EXISTS courses; CREATE TABLE students (id INT, name TEXT);\nCREATE TABLE courses (student_id INT);\nINSERT INTO students VALUES (1, 'Alice'), (2, 'Bob');\nINSERT INTO courses VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "WHERE EXISTS (SELECT 1 ...)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-subquery-from",
+    "title": "Subquery in FROM",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select max average score per city.",
+    "examples": [
+      {
+        "input": "",
+        "output": "60.0"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (city TEXT, score INT);\nINSERT INTO students VALUES ('NY', 50), ('NY', 70), ('LA', 40);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "60.0"
+      }
+    ],
+    "hint": "FROM (SELECT AVG(score)...)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-correlated-subquery",
+    "title": "Correlated Subquery",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select students with score > average of their city.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, city TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 'NY', 40), ('Bob', 'NY', 60), ('Charlie', 'LA', 30);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "WHERE score > (SELECT AVG(score) FROM students s2 WHERE s1.city = s2.city)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-view",
+    "title": "Create View",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create view V as select name from students. Select * from V.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "CREATE VIEW V AS ...",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-cte",
+    "title": "CTE",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Use CTE to select students with score > 50.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob"
+      }
+    ],
+    "hint": "WITH CTE AS ...",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-window-rank",
+    "title": "Window RANK",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Rank students by score desc.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob|1\nAlice|2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob|1\nAlice|2"
+      }
+    ],
+    "hint": "RANK() OVER (ORDER BY score DESC)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-window-dense-rank",
+    "title": "Window DENSE_RANK",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Dense Rank students by score desc.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob|1\nAlice|1\nCharlie|2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 60), ('Bob', 60), ('Charlie', 40);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob|1\nAlice|1\nCharlie|2"
+      }
+    ],
+    "hint": "DENSE_RANK()",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-window-row-number",
+    "title": "Window ROW_NUMBER",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Row number students by score desc.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob|1\nAlice|2"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 60), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob|1\nAlice|2"
+      }
+    ],
+    "hint": "ROW_NUMBER()",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-partition-by",
+    "title": "Partition By",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Rank students within city by score desc.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Bob|1\nAlice|2\nCharlie|1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, city TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 'NY', 40), ('Bob', 'NY', 60), ('Charlie', 'LA', 50);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Bob|1\nAlice|2\nCharlie|1"
+      }
+    ],
+    "hint": "PARTITION BY city",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-case-when",
+    "title": "Case When in Select",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select name and 'Pass' if score >= 50 else 'Fail'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice|Fail\nBob|Pass"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT, score INT);\nINSERT INTO students VALUES ('Alice', 40), ('Bob', 60);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice|Fail\nBob|Pass"
+      }
+    ],
+    "hint": "CASE WHEN score >= 50 THEN ...",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-nullif",
+    "title": "NULLIF",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select NULLIF(score, 0). (Returns NULL if score is 0).",
+    "examples": [
+      {
+        "input": "",
+        "output": "NULL\n10"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (score INT);\nINSERT INTO students VALUES (0), (10);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "NULL\n10"
+      }
+    ],
+    "hint": "NULLIF(score, 0)",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-transaction",
+    "title": "Transaction",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Begin transaction, insert 1, commit. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "BEGIN TRANSACTION; ... COMMIT;",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-rollback",
+    "title": "Rollback",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Begin transaction, insert 1, rollback. Select *. (Should be empty).",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "ROLLBACK;",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-savepoint",
+    "title": "Savepoint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Begin, insert 1, savepoint S, insert 2, rollback to S, commit. Select *. (Should be 1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "SAVEPOINT S; ROLLBACK TO S;",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-index",
+    "title": "Create Index",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create index idx_name on students(name).",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "CREATE INDEX",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-drop-index",
+    "title": "Drop Index",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Drop index idx_name.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nCREATE INDEX idx_name ON students(name);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "DROP INDEX",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-unique-constraint",
+    "title": "Unique Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table T with unique col A. Try inserting duplicate (ignore error). Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "UNIQUE",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-check-constraint",
+    "title": "Check Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table T with check A > 0. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CHECK",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-default-constraint",
+    "title": "Default Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table T with default A=1. Insert default. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "DEFAULT",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-not-null-constraint",
+    "title": "Not Null Constraint",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table T with A INT NOT NULL. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "NOT NULL",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-primary-key",
+    "title": "Primary Key",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Create table T with id INT PRIMARY KEY. Insert 1. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "PRIMARY KEY",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-foreign-key",
+    "title": "Foreign Key",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create table P (id PK) and C (pid FK). Insert 1 to P, 1 to C. Select *.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1|1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1|1"
+      }
+    ],
+    "hint": "FOREIGN KEY",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-trigger",
+    "title": "Trigger",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Create trigger to log insert on T. Insert 1. Select log.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; DROP TABLE IF EXISTS Log; CREATE TABLE T (A INT);\nCREATE TABLE Log (A INT);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "CREATE TRIGGER",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-drop-trigger",
+    "title": "Drop Trigger",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Drop trigger tr.",
+    "examples": [
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT);\nCREATE TRIGGER tr AFTER INSERT ON T BEGIN INSERT INTO T VALUES (1); END;",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "hint": "DROP TRIGGER",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-glob",
+    "title": "GLOB Operator",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Select names starting with 'A' using GLOB.",
+    "examples": [
+      {
+        "input": "",
+        "output": "Alice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice'), ('Bob');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "Alice"
+      }
+    ],
+    "hint": "GLOB 'A*'",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-replace",
+    "title": "Replace String",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Replace 'l' with 'L' in name.",
+    "examples": [
+      {
+        "input": "",
+        "output": "ALice"
+      }
+    ],
+    "starterCode": "-- Write your query below\n",
+    "setupCode": "DROP TABLE IF EXISTS students; CREATE TABLE students (name TEXT);\nINSERT INTO students VALUES ('Alice');",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "ALice"
+      }
+    ],
+    "hint": "REPLACE(name, 'l', 'L')",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-trim",
+    "title": "Trim String",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Trim spaces from ' A '.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "SELECT ' A '; -- Mocked input\n-- Write your query below\nSELECT TRIM(' A ');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "TRIM()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-ltrim",
+    "title": "LTrim String",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Left trim ' A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT LTRIM(' A');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "LTRIM()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-rtrim",
+    "title": "RTrim String",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Right trim 'A '.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT RTRIM('A ');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "RTRIM()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-instr",
+    "title": "Instr",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Find position of 'l' in 'Alice'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "2"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT INSTR('Alice', 'l');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "2"
+      }
+    ],
+    "hint": "INSTR()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-unicode",
+    "title": "Unicode",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get unicode of 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "65"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT UNICODE('A');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "65"
+      }
+    ],
+    "hint": "UNICODE()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-char",
+    "title": "Char",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get char from 65.",
+    "examples": [
+      {
+        "input": "",
+        "output": "A"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT CHAR(65);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "A"
+      }
+    ],
+    "hint": "CHAR()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-hex",
+    "title": "Hex",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get hex of 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "41"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT HEX('A');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "41"
+      }
+    ],
+    "hint": "HEX()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-quote",
+    "title": "Quote",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Quote string 'A'.",
+    "examples": [
+      {
+        "input": "",
+        "output": "'A'"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT QUOTE('A');\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "'A'"
+      }
+    ],
+    "hint": "QUOTE()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-typeof",
+    "title": "Typeof",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get type of 1.",
+    "examples": [
+      {
+        "input": "",
+        "output": "integer"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT TYPEOF(1);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "integer"
+      }
+    ],
+    "hint": "TYPEOF()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-last-insert-rowid",
+    "title": "Last Insert RowID",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get last insert rowid.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT last_insert_rowid();\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "last_insert_rowid()",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-changes",
+    "title": "Changes",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get number of changes (1 insert).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT changes();\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "changes()",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-total-changes",
+    "title": "Total Changes",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Medium",
+    "description": "Get total changes.",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT total_changes();\n",
+    "setupCode": "DROP TABLE IF EXISTS T; CREATE TABLE T (A INT); INSERT INTO T VALUES (1);",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "total_changes()",
+    "examType": "OPPE 2",
+    "tags": ""
+  },
+  {
+    "id": "sql2-sqlite-version",
+    "title": "SQLite Version",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Get version. (Mocked).",
+    "examples": [
+      {
+        "input": "",
+        "output": "3.0"
+      }
+    ],
+    "starterCode": "SELECT '3.0'; -- Mocked\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "3.0"
+      }
+    ],
+    "hint": "sqlite_version()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-ifnull",
+    "title": "IFNULL",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Select IFNULL(NULL, 1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT IFNULL(NULL, 1);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "IFNULL()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-nullif-2",
+    "title": "NULLIF 2",
+    "subject": "DBMS",
+    "examLevel": "OPPE 2",
+    "difficulty": "Easy",
+    "description": "Select NULLIF(1, 1).",
+    "examples": [
+      {
+        "input": "",
+        "output": "NULL"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT NULLIF(1, 1);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "NULL"
+      }
+    ],
+    "hint": "NULLIF()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  },
+  {
+    "id": "sql2-likelihood",
+    "title": "Likelihood",
+    "subject": "SQL",
+    "examLevel": "OPPE 2",
+    "difficulty": "Hard",
+    "description": "Select likelihood(1, 1.0).",
+    "examples": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starterCode": "-- Write your query below\nSELECT likelihood(1, 1.0);\n",
+    "functionName": "sql",
+    "testCases": [
+      {
+        "input": "",
+        "expected": "1"
+      }
+    ],
+    "hint": "likelihood()",
+    "examType": "OPPE 2",
+    "tags": "",
+    "setupCode": ""
+  }
+]

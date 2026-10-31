@@ -16,6 +16,8 @@ function isPrivateOrLocalHost(hostname: string): boolean {
 
 export function getSecurityHeaders(request?: NextRequest) {
   const headers = new Headers()
+  // The exam calculator under /calculator is shown inside our own test window, so it may be framed by this site only.
+  const embeddable = request?.nextUrl.pathname.startsWith('/calculator/') ?? false
 
   const hostname = request?.nextUrl.hostname ?? ''
   const forwardedProto = request?.headers.get('x-forwarded-proto')
@@ -26,7 +28,7 @@ export function getSecurityHeaders(request?: NextRequest) {
   const enforceHttpsUpgrade = isProduction && isSecureContext && !isLocalHost
   
   // Prevent clickjacking
-  headers.set('X-Frame-Options', 'DENY')
+  headers.set('X-Frame-Options', embeddable ? 'SAMEORIGIN' : 'DENY')
   
   // Prevent MIME type sniffing
   headers.set('X-Content-Type-Options', 'nosniff')
@@ -58,7 +60,7 @@ export function getSecurityHeaders(request?: NextRequest) {
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-    "frame-ancestors 'none'",
+    embeddable ? "frame-ancestors 'self'" : "frame-ancestors 'none'",
     ...(enforceHttpsUpgrade ? ["upgrade-insecure-requests"] : [])
   ].join('; ')
   

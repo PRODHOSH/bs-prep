@@ -1,0 +1,134 @@
+[
+  {
+    "id": "appdev1",
+    "name": "Application Development I",
+    "code": "CS2003",
+    "paper_count": 111
+  },
+  {
+    "id": "appdev2",
+    "name": "Application Development II",
+    "code": "CS2005",
+    "paper_count": 111
+  },
+  {
+    "id": "business_analytics",
+    "name": "Business Analytics",
+    "code": "MS2002",
+    "paper_count": 176
+  },
+  {
+    "id": "bdm",
+    "name": "Business Data Management",
+    "code": "MS2001",
+    "paper_count": 67
+  },
+  {
+    "id": "ct",
+    "name": "Computational Thinking",
+    "code": "CS1001",
+    "paper_count": 174
+  },
+  {
+    "id": "dbms",
+    "name": "Database Management Systems",
+    "code": "CS2001",
+    "paper_count": 136
+  },
+  {
+    "id": "english1",
+    "name": "English I",
+    "code": "EN1001",
+    "paper_count": 103
+  },
+  {
+    "id": "english2",
+    "name": "English II",
+    "code": "EN1002",
+    "paper_count": 91
+  },
+  {
+    "id": "mlf",
+    "name": "Machine Learning Foundations",
+    "code": "CS2007",
+    "paper_count": 138
+  },
+  {
+    "id": "mlp",
+    "name": "Machine Learning Practice",
+    "code": "CS2009",
+    "paper_count": 81
+  },
+  {
+    "id": "mlt",
+    "name": "Machine Learning Techniques",
+    "code": "CS2008",
+    "paper_count": 145
+  },
+  {
+    "id": "maths1",
+    "name": "Mathematics for Data Science I",
+    "code": "MA1001",
+    "paper_count": 147
+  },
+  {
+    "id": "maths2",
+    "name": "Mathematics for Data Science II",
+    "code": "MA1002",
+    "paper_count": 195
+  },
+  {
+    "id": "java",
+    "name": "Programming in Java",
+    "code": "CS2006",
+    "paper_count": 131
+  },
+  {
+    "id": "python",
+    "name": "Programming in Python",
+    "code": "CS1002",
+    "paper_count": 98
+  },
+  {
+    "id": "pdsa",
+    "name": "Programming, Data Structures and Algorithms",
+    "code": "CS2002",
+    "paper_count": 133
+  },
+  {
+    "id": "sw_engg",
+    "name": "Software Engineering",
+    "code": "CS3002",
+    "paper_count": 72
+  },
+  {
+    "id": "sw_testing",
+    "name": "Software Testing",
+    "code": "CS3001",
+    "paper_count": 111
+  },
+  {
+    "id": "stats1",
+    "name": "Statistics for Data Science I",
+    "code": "ST1001",
+    "paper_count": 157
+  },
+  {
+    "id": "stats2",
+    "name": "Statistics for Data Science II",
+    "code": "ST1002",
+    "paper_count": 177
+  },
+  {
+    "id": "system_commands",
+    "name": "System Commands",
+    "code": "CS2004",
+    "paper_count": 99
+  },
+  {
+    "id": "tds",
+    "name": "Tools in Data Science",
+    "code": "CS2010",
+    "paper_count": 46
+  }
+]

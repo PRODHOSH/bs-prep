@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "IITM BS Quiz Prep & Practice Tests",
-  description: "Practice tests and quiz preparation for IITM BS students, with question banks and detailed solutions. Coming soon to BSPrep.",
+  description: "Mock tests, quick tests and custom tests built from real IITM BS past papers, with a timed full-screen exam window and instant scoring.",
   path: "/quiz-prep",
   keywords: ["IITM BS quiz prep", "IITM BS practice tests", "IITM BS exam preparation"],
 })
