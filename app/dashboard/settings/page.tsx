@@ -219,7 +219,7 @@ export default function SettingsPage() {
             <ul className="divide-y rounded-xl border">
               {enrolledCourses.map((c) => (
                 <li key={c.id}>
-                  <Link href={`/courses/${c.id}`} className="group flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/60">
+                  <Link href={`/dashboard/courses/${c.id}`} className="group flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-muted/60">
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-semibold">{c.title}</span>
                       {c.level && <span className="text-xs capitalize text-muted-foreground">{c.level}</span>}
