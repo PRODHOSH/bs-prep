@@ -1,172 +1,160 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { ArrowRight, ArrowUpRight, BookOpen, Handshake, Languages, MessagesSquare } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { createClient } from "@/lib/supabase/client"
-import { Shield, Languages, BookCheck, MessageCircle, Megaphone, FileText, Lock, Video, Flag, AlertTriangle, Heart, RefreshCw } from "lucide-react"
 
-const guidelines = [
+const JOIN_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfyhCw9tPgKmMWYPhjV6Kzixp2RdYEi-x7JPL6JUxoLwbnB_g/viewform?usp=sharing&ouid=109000575421815991569"
+
+const reasons = [
   {
-    num: "01",
-    icon: Shield,
-    title: "Respect & Professional Conduct",
-    body: "Members must treat mentors and students respectfully, maintain polite communication, and avoid harassment, bullying, or offensive behavior.",
+    icon: Handshake,
+    title: "You are not doing it alone",
+    body: "The IITM BS degree is one of the hardest online degrees in India. Quizzes, assignments and OPPEs pile up fast, and having someone to ask makes the difference.",
   },
   {
-    num: "02",
     icon: Languages,
-    title: "Language Policy",
-    body: "Our community supports Tamil and English bilingual learning. Lectures and discussions may be conducted in both languages. Members must respect all language backgrounds.",
+    title: "In Tamil, and in English",
+    body: "Ask a doubt the way you think it. Mentors and seniors explain in Tamil or English, whichever helps you understand.",
   },
   {
-    num: "03",
-    icon: BookCheck,
-    title: "Academic Integrity",
-    body: "Do not share answers during tests, leak paid materials, or plagiarize assignments. Use discussions only for genuine learning.",
+    icon: BookOpen,
+    title: "Notes and past papers shared",
+    body: "Students share notes, practice papers and what worked for them, so the next batch does not start from zero.",
   },
   {
-    num: "04",
-    icon: MessageCircle,
-    title: "Relevant Discussions",
-    body: "Keep conversations focused on IITM BS Qualifier preparation, mentorship, and academic topics. Avoid spam or unrelated debates.",
+    icon: MessagesSquare,
+    title: "Help that comes back around",
+    body: "Everyone starts as a beginner. Answer one doubt for someone a term behind you, and you learn it twice as well.",
   },
+]
+
+const socials = [
+  { name: "WhatsApp community", note: "Class reminders and quick doubts", href: JOIN_URL },
+  { name: "YouTube", note: "Lectures and walkthroughs in Tamil", href: "https://www.youtube.com/@DataScienceIITMTamil" },
+  { name: "LinkedIn", note: "Updates and student stories", href: "https://www.linkedin.com/company/bs-prep/" },
+  { name: "Instagram", note: "Short tips and announcements", href: "https://www.instagram.com/bsprep.in" },
+]
+
+const posts = [
   {
-    num: "05",
-    icon: Megaphone,
-    title: "Promotions & Community Sharing",
-    body: "Members are allowed to promote BS Prep programs, mentorship opportunities, and events. Promotion of other coaching institutes or third-party courses is not allowed.",
-  },
-  {
-    num: "06",
-    icon: FileText,
-    title: "Content Sharing Rules",
-    body: "You may share study notes and resources but must not share pirated content, paid material leaks, or recorded sessions without permission.",
-  },
-  {
-    num: "07",
-    icon: Lock,
-    title: "Privacy & Safety",
-    body: "Do not share personal data, phone numbers, login credentials, or private screenshots without consent.",
-  },
-  {
-    num: "08",
-    icon: Video,
-    title: "Live Session Etiquette",
-    body: "Join sessions on time, mute microphones, respect mentors, and avoid recording without permission.",
-  },
-  {
-    num: "09",
-    icon: Flag,
-    title: "Reporting Violations",
-    body: "Report misconduct to moderators privately with proof if available.",
-  },
-  {
-    num: "10",
-    icon: AlertTriangle,
-    title: "Disciplinary Actions",
-    body: "Violations may result in warnings, suspension, bans, or coaching access termination.",
-  },
-  {
-    num: "11",
-    icon: Heart,
-    title: "Positive Community Culture",
-    body: "Members are encouraged to collaborate, help juniors, share strategies, and motivate peers.",
-  },
-  {
-    num: "12",
-    icon: RefreshCw,
-    title: "Updates to Guidelines",
-    body: "Guidelines may be updated as the community grows. Members will be notified of major changes.",
+    title: "How to Manage the IITM BS Degree Alongside an Offline College Degree",
+    excerpt: "A practical guide to coursework, assignments, exams and student life without burning out.",
+    date: "June 9, 2026",
+    read: "5 min read",
+    tags: ["IITM BS", "Student Guide"],
+    href: "https://blog.bsprep.in/blog/how-to-manage-the-iitm-bs-degree-alongside-an-offline-college-degree",
   },
 ]
 
 export default function CommunityPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const supabase = createClient()
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      setIsAuthenticated(!!session)
-    }
-    checkAuth()
+    createClient()
+      .auth.getSession()
+      .then(({ data: { session } }) => setIsAuthenticated(!!session))
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Navbar isAuthenticated={isAuthenticated} />
 
-      <main className="flex-1 py-14 px-4 relative z-10">
-        <div className="max-w-4xl mx-auto">
-
-          {/* ── Hero header ── */}
-          <div className="mb-10">
-            <p className="text-xs uppercase tracking-[0.2em] text-black/40 font-semibold mb-3">BS Prep · Community</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight tracking-tight">
-              Community Guidelines
+      <main className="flex-1 px-4 pb-20">
+        <section className="mx-auto grid max-w-6xl items-center gap-10 py-10 lg:grid-cols-[1.1fr_1fr] lg:py-16">
+          <div>
+            <p className="text-sm font-bold text-black/50">BSPrep community</p>
+            <h1 className="mt-3 text-4xl font-black leading-[1.05] tracking-tight text-black md:text-6xl">
+              Tamil students, <span className="text-[#0a192f]">doing the IITM BS degree together.</span>
             </h1>
-            <p className="text-black/50 text-base mt-3 max-w-xl">
-              Qualifier Mentorship &amp; Coaching Community · Last updated February 2026
+            <p className="mt-5 max-w-xl text-base font-medium text-black/65 md:text-lg">
+              The degree is hard, and it is easier with people who have been through it. Join a community of Tamil-speaking students who share notes, answer doubts and cheer each other on.
             </p>
-
-            {/* Divider accent */}
-            <div className="mt-6 flex items-center gap-3">
-              <div className="h-px flex-1 bg-black/8" />
-              <span className="text-xs text-black/30 font-mono">12 GUIDELINES</span>
-              <div className="h-px flex-1 bg-black/8" />
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={JOIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#0a192f] px-7 text-sm font-bold tracking-wide text-white transition-colors hover:bg-[#112a52]"
+              >
+                Join the community <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <Link
+                href={isAuthenticated ? "/dashboard/doubts" : "/auth/register"}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-7 text-sm font-bold tracking-wide text-black transition-colors hover:bg-black/5"
+              >
+                {isAuthenticated ? "Ask a doubt" : "Create a free account"} <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
+          <img src="/illustrations/community.svg" alt="Students working together" className="mx-auto h-auto w-full max-w-md" />
+        </section>
 
-          {/* ── Guidelines grid ── */}
-          <div className="rounded-2xl border border-[#E5DBC8] bg-white shadow-sm overflow-hidden">
+        <section className="mx-auto max-w-6xl border-t border-black/10 py-14">
+          <h2 className="text-3xl font-black tracking-tight text-black">Why a community matters here</h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {reasons.map((r) => (
+              <article key={r.title} className="rounded-3xl border border-black/10 bg-white p-6">
+                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#FDFBF7] text-[#0a192f]">
+                  <r.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 text-lg font-black text-black">{r.title}</h3>
+                <p className="mt-1.5 text-sm font-medium leading-relaxed text-black/60">{r.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-            {/* Top accent bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-black via-[#3e3098] to-black opacity-80" />
-
-            {guidelines.map((g, i) => {
-              const Icon = g.icon
-              return (
-                <div
-                  key={g.num}
-                  className={`group flex gap-5 px-7 py-6 transition-colors hover:bg-[#FFFCF8] ${
-                    i !== guidelines.length - 1 ? "border-b border-[#EDE5D4]" : ""
-                  }`}
-                >
-                  {/* Number + icon column */}
-                  <div className="flex flex-col items-center gap-2 shrink-0 w-10">
-                    <span className="text-xs font-mono text-black/25 leading-none">{g.num}</span>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#F7F2E8] group-hover:bg-[#EDE5D4] transition-colors">
-                      <Icon className="h-4 w-4 text-black/50" />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="pt-0.5">
-                    <p className="font-semibold text-black text-[15px] mb-1.5 leading-snug">{g.title}</p>
-                    <p className="text-sm text-black/55 leading-relaxed">{g.body}</p>
-                  </div>
+        <section className="mx-auto max-w-6xl border-t border-black/10 py-14">
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="text-3xl font-black tracking-tight text-black">Find us everywhere</h2>
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {socials.map((s) => (
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col justify-between rounded-3xl border border-black/10 bg-white p-5 transition-colors hover:border-[#0a192f]/40">
+                <div className="flex items-start justify-between gap-3">
+                  <p className="text-base font-black text-black">{s.name}</p>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-black/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-black" />
                 </div>
-              )
-            })}
+                <p className="mt-6 text-sm font-medium text-black/60">{s.note}</p>
+              </a>
+            ))}
           </div>
+        </section>
 
-          {/* ── Contact footer card ── */}
-          <div className="mt-6 rounded-2xl border border-[#E5DBC8] bg-[#FFFCF8] px-7 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <section className="mx-auto max-w-6xl border-t border-black/10 py-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-widest text-black/40 font-semibold mb-1">Need Help?</p>
-              <p className="font-semibold text-black text-base">Contact the BS Prep Team</p>
-              <p className="text-black/50 text-sm mt-0.5">Qualifier Mentorship &amp; Coaching</p>
+              <h2 className="text-3xl font-black tracking-tight text-black">From the blog</h2>
+              <p className="mt-2 text-sm font-medium text-black/60">Guides and thoughts on the degree, written by us.</p>
             </div>
-            <a
-              href="mailto:bsprep.team@gmail.com"
-              className="inline-flex items-center gap-2 rounded-xl border border-[#D8CCB2] bg-white px-5 py-2.5 text-sm font-semibold text-black shadow-sm transition hover:bg-[#F7F2E8] hover:border-black/20"
-            >
-              bsprep.team@gmail.com
+            <a href="https://blog.bsprep.in" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-bold text-black hover:underline">
+              All posts <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {posts.map((p) => (
+              <a key={p.href} href={p.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col rounded-3xl border border-black/10 bg-white p-6 transition-colors hover:border-[#0a192f]/40">
+                <div className="flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span key={t} className="rounded-full bg-[#FDFBF7] px-3 py-1 text-xs font-bold text-[#0a192f]">{t}</span>
+                  ))}
+                </div>
+                <h3 className="mt-4 text-xl font-black leading-snug text-black">{p.title}</h3>
+                <p className="mt-2 text-sm font-medium leading-relaxed text-black/60">{p.excerpt}</p>
+                <p className="mt-6 text-xs font-bold text-black/40">{p.date} · {p.read}</p>
+              </a>
+            ))}
+          </div>
+        </section>
 
-        </div>
+        <p className="mx-auto max-w-6xl border-t border-black/10 pt-6 text-sm font-medium text-black/50">
+          Be kind, keep it honest, and do not share answers during tests. <Link href="/terms" className="font-bold text-black underline underline-offset-2">Read the full rules</Link>.
+        </p>
       </main>
 
       <Footer />
