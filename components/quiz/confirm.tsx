@@ -36,8 +36,10 @@ export function ConfirmDialog({
   if (!open) return null
 
   return (
-    <div className="lms fixed inset-0 z-[70] grid place-items-center bg-black/50 p-4 backdrop-blur-sm" onClick={onClose}>
-      <div role="alertdialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-3xl border bg-card p-6 text-center shadow-2xl">
+    // No "lms" class on the scrim: it paints an opaque page background that would hide the dimmed screen.
+    // The dialog sits inside an lms screen, so it still gets the theme from there.
+    <div className="fixed inset-0 z-[70] grid place-items-center bg-black/60 p-4 backdrop-blur-sm" onClick={onClose}>
+      <div role="alertdialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-2xl border bg-card p-6 text-center text-card-foreground shadow-2xl">
         <h2 className="text-xl font-extrabold tracking-tight">{title}</h2>
         <div className={cn("mt-2 text-sm text-muted-foreground", typeof body !== "string" && "mt-4")}>{body}</div>
         <div className="mt-6 grid gap-2">

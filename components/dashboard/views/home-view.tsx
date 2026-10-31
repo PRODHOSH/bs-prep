@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowUpRight, BookOpen, Calendar, Clock, FileText, MessageCircleQuestion, Users, Video } from "lucide-react"
+import { ArrowUpRight, BookOpen, Calendar, Clock, FileText, MessageCircleQuestion, PenTool, Users, Video } from "lucide-react"
 import { Avatar, Card, CardLink, EmptyState, IconTile, btnPrimary } from "@/components/dashboard/ui"
 
 import type { Course } from "@/lib/course-catalog"
@@ -66,6 +66,7 @@ export function StudentHomeView({ userName, userEmail, userAvatar, enrolledCours
     { label: "Live classes", href: "/dashboard/live-classes", icon: Video, tone: "pink" as const },
     { label: "Ask a doubt", href: "/dashboard/doubts/new", icon: MessageCircleQuestion, tone: "amber" as const },
     { label: "Resources", href: "/dashboard/resources", icon: FileText, tone: "green" as const },
+    { label: "Quiz prep", href: "/dashboard/quiz-prep", icon: PenTool, tone: "cyan" as const },
   ]
 
   return (

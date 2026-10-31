@@ -33,6 +33,7 @@ export function QuestionCard({
   onChange,
   review,
   passageNote,
+  bare,
 }: {
   question: QuizQuestion
   number: number
@@ -40,6 +41,8 @@ export function QuestionCard({
   onChange?: (r: Response) => void
   review?: GradedItem
   passageNote?: string
+  /** Leave out the number and type line; the screen shows it elsewhere. */
+  bare?: boolean
 }) {
   const [zoom, setZoom] = useState<string | null>(null)
   const locked = !!review
@@ -54,6 +57,7 @@ export function QuestionCard({
 
   return (
     <div className="space-y-4">
+      {!bare && (
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-base font-extrabold">Question {number}</span>
         <Tag>{TYPE_LABEL[question.type]}</Tag>
@@ -62,6 +66,7 @@ export function QuestionCard({
         </Tag>
         {question.type === "MSQ" && !locked && <span className="text-xs text-muted-foreground">Select all that apply</span>}
       </div>
+      )}
 
       {question.passage && (
         <div className="rounded-xl border bg-muted/50 p-4">
@@ -96,7 +101,7 @@ export function QuestionCard({
           )}
         </div>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-2.5">
           {question.options.map((o, i) => {
             const picked = chosen.includes(o.id)
             const isRight = correct.has(o.id)
@@ -109,7 +114,7 @@ export function QuestionCard({
                   aria-pressed={picked}
                   disabled={locked}
                   className={cn(
-                    "flex w-full items-start gap-3.5 rounded-xl border-2 p-4 text-left transition-colors disabled:cursor-default",
+                    "flex w-full items-start gap-3 rounded-xl border-2 p-3.5 text-left transition-colors disabled:cursor-default",
                     state === "idle" && "bg-card hover:bg-muted/60",
                     state === "picked" && "border-primary bg-primary/5",
                     state === "right" && "border-chart-4/60 bg-chart-4/10",
