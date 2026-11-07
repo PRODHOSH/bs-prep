@@ -27,7 +27,6 @@ next-env.d.ts
 
 # supabase scripts
 /supabase
-config.bat
 
 
 api-routes.md
@@ -39,4 +38,6 @@ api-routes.md
 thumbnail_design_guidelines.txt
 scripts/remove-access.ts
 
-
+# env files
+.env*
+!.env.example
