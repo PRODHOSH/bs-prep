@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "node init && next build",
-    "dev": "node init && next dev --webpack",
+    "build": "next build",
+    "dev": "next dev --webpack",
     "lint": "eslint .",
-    "start": "node init && next start"
+    "start": "next start"
   },
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.3",
